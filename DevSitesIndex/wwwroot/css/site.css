@@ -33,3 +33,13 @@
         display: none;
     }
 }
+
+/*07/29/2018 11:51 am - SSN */
+
+td{
+    padding: 5px 10px;
+}
+
+a{
+    cursor:pointer;
+}

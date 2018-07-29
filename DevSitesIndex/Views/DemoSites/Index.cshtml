@@ -1,0 +1,29 @@
+﻿@model DemoSitesViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Demo Sites</h2>
+<div style="float:left;width:50%;">
+
+    <table>
+
+        @{
+            int rowno = 0;
+
+            foreach (DemoSite x in Model.demoSites)
+            {
+                rowno++;
+                <tr> <td><a href="@x.SiteUrl" target="window_@rowno">@x.SiteTitle</a> </td><td><a cmd_name="openSolution" solutionName="@x.SolutionName" software="@x.Software">Open project</a></td></tr>
+            }
+        }
+
+    </table>
+
+</div>
+<div style="float:right;width:50%;">
+<textarea id="codeDiv" style="width:100%;"></textarea>
+</div>
+
+
+<script src="~/js/DemoSites.js"></script>
