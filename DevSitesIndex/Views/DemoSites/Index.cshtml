@@ -1,29 +1,59 @@
 ﻿@model DemoSitesViewModel
+@using DevSitesIndex.Entities
 @{
     ViewData["Title"] = "Index";
 }
 
-<h2>Demo Sites</h2>
-<div style="float:left;width:50%;">
+<div>
 
-    <table>
+    <h2>Demo Sites</h2>
+    <div style="float:left;width:50%;height:30px;"> </div>
+    <div style="float:right;width:50%;height:30px;"><p id="feedbackDiv"></p> </div>
 
-        @{
-            int rowno = 0;
+    <div>
 
-            foreach (DemoSite x in Model.demoSites)
-            {
-                rowno++;
-                <tr> <td><a href="@x.SiteUrl" target="window_@rowno">@x.SiteTitle</a> </td><td><a cmd_name="openSolution" solutionName="@x.SolutionName" software="@x.Software">Open project</a></td></tr>
-            }
-        }
+        <div style="float:left;width:50%;">
 
-    </table>
+            <table>
+
+                @{
+                    int rowno = 0;
+
+                    foreach (DevSite x in Model.devSites)
+                    {
+                        rowno++;
+                        <tr>
+                            <td>
+                                <a href="@x.SiteUrl" target="window_@rowno">@x.SiteTitle</a>
+                                @{
+                                    if (!string.IsNullOrEmpty(x.Solution_Details))
+                                    {
+
+                                        <div class="solution_details">
+                                            @x.Solution_Details
+                                        </div>
+
+                                    }
+                                }
+                            </td>
+                            <td><a cmd_name="openSolution" solutionName="@x.SolutionName" softwareCode="@x.SoftwareCode">Open project</a></td>
+                        </tr>
+
+                    }
+                }
+
+            </table>
+
+        </div>
+
+        <div style="float:right;width:50%;">
+<textarea id="codeDiv" style="width:100%;min-height:400px;"></textarea>
+        </div>
+
+    </div>
 
 </div>
-<div style="float:right;width:50%;">
-<textarea id="codeDiv" style="width:100%;"></textarea>
-</div>
 
-
-<script src="~/js/DemoSites.js"></script>
+@section Scripts {
+    <script src="~/js/DemoSites.js"></script>
+}

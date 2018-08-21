@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DevSitesIndex.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,29 +10,8 @@ namespace DevSitesIndex.Models
 {
     public class DemoSitesViewModel
     {
-       public List<DemoSite> demoSites = new List<DemoSite>();
+        // Todo  07/292018 04:05 pm - SSN - Replace DemoSite with DevSite
+       public IEnumerable<DevSite> devSites;
 
-        public void getData()
-        {
-           
-            demoSites.Add(new DemoSite
-            {
-                SiteTitle = "Knockout - Loading and saving data (M03)  -  KnockoutSiteTraining",
-                SiteUrl = "http://knockoutsitetraining/KnockoutSiteTraining/E04_Data.html",
-                SolutionName = @"C:\Sams_Projects\PluralSight\knockout-mvvm\d\M3\Code\before\KnockoutMVVM\PS_KnockoutMVVM_3_before.sln",
-                Software = SoftwareCode.VS
-            });
-
-            demoSites.Add(new DemoSite
-            {
-                SiteTitle = "WebAPI - Data provider for KnockoutSiteTraining",
-                SiteUrl = "http://knockout-mvvm-WebAPI-Test/api/tasks",
-                SolutionName = @"C:\Sams_Projects\PluralSight\knockout-mvvm\WebAPI_Test\WebAPI_Test\WebAPI_Test",
-                Software = SoftwareCode.VS
-            });
-
-
-
-        }
     }
 }

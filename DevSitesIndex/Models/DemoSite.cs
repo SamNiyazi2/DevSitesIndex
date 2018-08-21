@@ -9,16 +9,17 @@ namespace DevSitesIndex.Models
 {
     public enum SoftwareCode
     {
-        VS
+        VS = 1
     }
 
-    public class DemoSite
+    // Todo - 07/29/2018 04:07 pm - SSN - Replacing with DevSite
+    public class DemoSite_Hold4Delete
     {
         public string SiteTitle { get; set; }
         public string SiteUrl { get; set; }
 
         public string SolutionName { get; set; }
 
-        public SoftwareCode Software { get; set; }
+        public SoftwareCode SoftwareCode { get; set; }
     }
 }
