@@ -60,5 +60,13 @@ namespace DevSitesIndex.Services
         {
             return _context.SaveChanges() > 0;
         }
+
+        public void Dispose()
+        {
+            if ( _context != null)
+            {
+                _context.Dispose();
+            }
+        }
     }
 }

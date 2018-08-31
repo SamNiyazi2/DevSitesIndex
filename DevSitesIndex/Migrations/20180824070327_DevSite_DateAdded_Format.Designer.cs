@@ -11,9 +11,10 @@ using System;
 namespace DevSitesIndex.Migrations
 {
     [DbContext(typeof(DevSitesIndexContext))]
-    partial class DevSitesIndexContextModelSnapshot : ModelSnapshot
+    [Migration("20180824070327_DevSite_DateAdded_Format")]
+    partial class DevSite_DateAdded_Format
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,15 +43,13 @@ namespace DevSitesIndex.Migrations
 
                     b.Property<DateTime>("DateAdded");
 
-                    b.Property<string>("SiteTitle")
-                        .IsRequired();
+                    b.Property<string>("SiteTitle");
 
                     b.Property<string>("SiteUrl");
 
-                    b.Property<int>("SoftwareCodeID");
+                    b.Property<int?>("SoftwareCodeID");
 
-                    b.Property<string>("SolutionName")
-                        .IsRequired();
+                    b.Property<string>("SolutionName");
 
                     b.Property<string>("Solution_Details");
 
@@ -127,8 +126,7 @@ namespace DevSitesIndex.Migrations
                 {
                     b.HasOne("DevSitesIndex.Entities.SoftwareCode", "SoftwareCode")
                         .WithMany()
-                        .HasForeignKey("SoftwareCodeID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("SoftwareCodeID");
                 });
 
             modelBuilder.Entity("DevSitesIndex.Entities.Job", b =>

@@ -11,9 +11,10 @@ using System;
 namespace DevSitesIndex.Migrations
 {
     [DbContext(typeof(DevSitesIndexContext))]
-    partial class DevSitesIndexContextModelSnapshot : ModelSnapshot
+    [Migration("20180823023835_Technologies_Add")]
+    partial class Technologies_Add
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,21 +43,17 @@ namespace DevSitesIndex.Migrations
 
                     b.Property<DateTime>("DateAdded");
 
-                    b.Property<string>("SiteTitle")
-                        .IsRequired();
+                    b.Property<string>("SiteTitle");
 
                     b.Property<string>("SiteUrl");
 
-                    b.Property<int>("SoftwareCodeID");
+                    b.Property<int>("SoftwareCode");
 
-                    b.Property<string>("SolutionName")
-                        .IsRequired();
+                    b.Property<string>("SolutionName");
 
                     b.Property<string>("Solution_Details");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("SoftwareCodeID");
 
                     b.ToTable("DevSites");
                 });
@@ -97,18 +94,6 @@ namespace DevSitesIndex.Migrations
                     b.ToTable("Project");
                 });
 
-            modelBuilder.Entity("DevSitesIndex.Entities.SoftwareCode", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("SoftwareTitle");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("SoftwareCode");
-                });
-
             modelBuilder.Entity("DevSitesIndex.Entities.Technology", b =>
                 {
                     b.Property<int>("Id")
@@ -121,14 +106,6 @@ namespace DevSitesIndex.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Technologies");
-                });
-
-            modelBuilder.Entity("DevSitesIndex.Entities.DevSite", b =>
-                {
-                    b.HasOne("DevSitesIndex.Entities.SoftwareCode", "SoftwareCode")
-                        .WithMany()
-                        .HasForeignKey("SoftwareCodeID")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("DevSitesIndex.Entities.Job", b =>

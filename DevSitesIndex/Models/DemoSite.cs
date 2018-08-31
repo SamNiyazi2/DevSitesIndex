@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DevSitesIndex.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace DevSitesIndex.Models
 {
-    public enum SoftwareCode
-    {
-        VS = 1
-    }
+    //public enum SoftwareCode
+    //{
+    //    VS = 1
+    //}
 
     // Todo - 07/29/2018 04:07 pm - SSN - Replacing with DevSite
     public class DemoSite_Hold4Delete

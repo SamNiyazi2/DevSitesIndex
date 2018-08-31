@@ -11,9 +11,10 @@ using System;
 namespace DevSitesIndex.Migrations
 {
     [DbContext(typeof(DevSitesIndexContext))]
-    partial class DevSitesIndexContextModelSnapshot : ModelSnapshot
+    [Migration("20180824084425_DevSItes_Decorate_Required_columns_TakeoutTestCol")]
+    partial class DevSItes_Decorate_Required_columns_TakeoutTestCol
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

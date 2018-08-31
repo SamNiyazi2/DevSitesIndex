@@ -11,9 +11,10 @@ using System;
 namespace DevSitesIndex.Migrations
 {
     [DbContext(typeof(DevSitesIndexContext))]
-    partial class DevSitesIndexContextModelSnapshot : ModelSnapshot
+    [Migration("20180824063521_SoftwareCode_FromEnum")]
+    partial class SoftwareCode_FromEnum
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,15 +43,13 @@ namespace DevSitesIndex.Migrations
 
                     b.Property<DateTime>("DateAdded");
 
-                    b.Property<string>("SiteTitle")
-                        .IsRequired();
+                    b.Property<string>("SiteTitle");
 
                     b.Property<string>("SiteUrl");
 
-                    b.Property<int>("SoftwareCodeID");
+                    b.Property<int?>("SoftwareCodeID");
 
-                    b.Property<string>("SolutionName")
-                        .IsRequired();
+                    b.Property<string>("SolutionName");
 
                     b.Property<string>("Solution_Details");
 
@@ -97,18 +96,6 @@ namespace DevSitesIndex.Migrations
                     b.ToTable("Project");
                 });
 
-            modelBuilder.Entity("DevSitesIndex.Entities.SoftwareCode", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("SoftwareTitle");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("SoftwareCode");
-                });
-
             modelBuilder.Entity("DevSitesIndex.Entities.Technology", b =>
                 {
                     b.Property<int>("Id")
@@ -123,12 +110,23 @@ namespace DevSitesIndex.Migrations
                     b.ToTable("Technologies");
                 });
 
+            modelBuilder.Entity("DevSitesIndex.Models.SoftwareCode", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("SoftwareTitle");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("SoftwareCode");
+                });
+
             modelBuilder.Entity("DevSitesIndex.Entities.DevSite", b =>
                 {
-                    b.HasOne("DevSitesIndex.Entities.SoftwareCode", "SoftwareCode")
+                    b.HasOne("DevSitesIndex.Models.SoftwareCode", "SoftwareCode")
                         .WithMany()
-                        .HasForeignKey("SoftwareCodeID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("SoftwareCodeID");
                 });
 
             modelBuilder.Entity("DevSitesIndex.Entities.Job", b =>

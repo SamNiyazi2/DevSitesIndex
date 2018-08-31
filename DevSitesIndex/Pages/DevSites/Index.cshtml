@@ -1,0 +1,66 @@
+﻿@page
+@model DevSitesIndex.Pages.DevSites.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.DevSite[0].SiteTitle)
+                </th>
+                @*<th>
+                    @Html.DisplayNameFor(model => model.DevSite[0].SiteUrl)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DevSite[0].SolutionName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DevSite[0].Solution_Details)
+                </th>*@
+                <th>
+                    @Html.DisplayNameFor(model => model.DevSite[0].SoftwareCode)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DevSite[0].DateAdded)
+                </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.DevSite) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SiteTitle)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.SiteUrl)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SolutionName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Solution_Details)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.SoftwareCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateAdded)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

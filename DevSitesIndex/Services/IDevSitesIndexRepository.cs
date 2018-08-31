@@ -15,5 +15,6 @@ namespace DevSitesIndex.Services
         DevSite GetDevSite(int DevSiteID);
 
         bool Save();
+        void Dispose();
     }
 }

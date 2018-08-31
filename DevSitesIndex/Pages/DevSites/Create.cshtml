@@ -1,0 +1,66 @@
+﻿@page
+@model DevSitesIndex.Pages.DevSites.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>DevSite</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="DevSite.SiteTitle" class="control-label"></label>
+                <input asp-for="DevSite.SiteTitle" class="form-control" />
+                <span asp-validation-for="DevSite.SiteTitle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DevSite.SiteUrl" class="control-label"></label>
+                <input asp-for="DevSite.SiteUrl" class="form-control" />
+                <span asp-validation-for="DevSite.SiteUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DevSite.SolutionName" class="control-label"></label>
+                <input asp-for="DevSite.SolutionName" class="form-control" />
+                <span asp-validation-for="DevSite.SolutionName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DevSite.Solution_Details" class="control-label"></label>
+                <input asp-for="DevSite.Solution_Details" class="form-control" />
+                <span asp-validation-for="DevSite.Solution_Details" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DevSite.SoftwareCodeID" class="control-label"></label>
+
+
+                <select asp-for="DevSite.SoftwareCodeID" class="form-control"
+                        asp-items="@Model.softwareCodesSL">
+                    <option value="">Select development software...</option>
+                </select>
+
+
+                <span asp-validation-for="DevSite.SoftwareCodeID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DevSite.DateAdded" class="control-label"></label>
+                <input asp-for="DevSite.DateAdded" class="form-control " />
+                <span asp-validation-for="DevSite.DateAdded" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

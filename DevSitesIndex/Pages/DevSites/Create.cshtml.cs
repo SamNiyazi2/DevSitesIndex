@@ -7,35 +7,31 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using DevSitesIndex.Entities;
 
-namespace DevSitesIndex.Pages.Jobs
+
+namespace DevSitesIndex.Pages.DevSites
 {
-    public class CreateModel : PageModel
+    public class CreateModel : DevSite_BasePageModel
     {
+        private readonly  DevSitesIndexContext _context;
 
-        private readonly DevSitesIndex.Entities.DevSitesIndexContext _context;
-
-        // 08/08/2018 04:02 pm - SSN
-        public SelectList projectsSL { get; set; }
-
-
-        public CreateModel(DevSitesIndex.Entities.DevSitesIndexContext context)
+        public CreateModel( DevSitesIndexContext context)
         {
             _context = context;
         }
 
+    
         public IActionResult OnGet()
         {
-            // ViewData["ProjectID"] = new SelectList(_context.Project, "ProjectID", "ProjectID");
-
-            projectsSL = new SelectList(_context.Project, "ProjectID", "ProjectTitle");
-            Job = new Job();
-            Job.DateAdded = DateTime.Now;
+            // 08/24/2018 02:04 am - SSN - Added SelectList and default date.
+            Populate_softwareCodesSL(_context);
+            DevSite = new DevSite();
+            DevSite.DateAdded = DateTime.Now;
 
             return Page();
         }
 
         [BindProperty]
-        public Job Job { get; set; }
+        public DevSite DevSite { get; set; }
 
         public async Task<IActionResult> OnPostAsync()
         {
@@ -44,7 +40,7 @@ namespace DevSitesIndex.Pages.Jobs
                 return Page();
             }
 
-            _context.Job.Add(Job);
+            _context.DevSites.Add(DevSite);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

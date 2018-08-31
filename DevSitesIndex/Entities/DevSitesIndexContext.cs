@@ -22,7 +22,9 @@ namespace DevSitesIndex.Entities
         {
             modelBuilder.HasDefaultSchema("DemoSites");
         }
+        public DbSet<SoftwareCode> SoftwareCode { get; set; }
         public DbSet<DevSite> DevSites { get; set; }
+        public DbSet<Technology> Technologies { get; set; }
         public DbSet<Company> Company { get; set; }
         public DbSet<DevSitesIndex.Entities.Job> Job { get; set; }
         public DbSet<DevSitesIndex.Entities.Project> Project { get; set; }

@@ -4,56 +4,212 @@
     ViewData["Title"] = "Index";
 }
 
-<div>
+<h1>Demo Sites Index</h1>
 
-    <h2>Demo Sites</h2>
-    <div style="float:left;width:50%;height:30px;"> </div>
-    <div style="float:right;width:50%;height:30px;"><p id="feedbackDiv"></p> </div>
-
-    <div>
-
-        <div style="float:left;width:50%;">
-
-            <table>
-
-                @{
-                    int rowno = 0;
-
-                    foreach (DevSite x in Model.devSites)
-                    {
-                        rowno++;
-                        <tr>
-                            <td>
-                                <a href="@x.SiteUrl" target="window_@rowno">@x.SiteTitle</a>
-                                @{
-                                    if (!string.IsNullOrEmpty(x.Solution_Details))
-                                    {
-
-                                        <div class="solution_details">
-                                            @x.Solution_Details
-                                        </div>
-
-                                    }
-                                }
-                            </td>
-                            <td><a cmd_name="openSolution" solutionName="@x.SolutionName" softwareCode="@x.SoftwareCode">Open project</a></td>
-                        </tr>
-
-                    }
-                }
-
-            </table>
-
+<div id="show-job" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <h1>Show job</h1>
         </div>
+    </div>
+</div>
 
-        <div style="float:right;width:50%;">
-<textarea id="codeDiv" style="width:100%;min-height:400px;"></textarea>
+<div id="del-confirm" class="modal" tabindex="-1" role="dialog" aria-labelledby="del-confirm-label" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h2>
+                    <span class="modal-title">Delete Confirmation</span>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X </button>
+                </h2>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this item?</p>
+                <p class="alert alert-danger "><strong>Note:</strong> There is no undo for this action.</p>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal">Close</button>
+                <button class="btn btn-primary" data-bind="click: del">Delete item</button>
+            </div>
         </div>
-
     </div>
 
 </div>
 
+<div id="error-container" class="hide">
+    <div class="alert alert-danger">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <h4>Error!</h4>
+        <p>Something went wrong:</p>
+        <p data-bind="text: errorMessage"></p>
+    </div>
+</div>
+
+@{
+    if (false)
+    {
+
+
+        <div>
+
+            <h2>Demo Sites</h2>
+            <div style="float:left;width:50%;height:30px;"> </div>
+            <div style="float:right;width:50%;height:30px;"><p id="feedbackDiv"></p> </div>
+
+            <div>
+
+                <div class="container-fluid">
+
+                    <table class="table-responsive">
+
+                        @{
+                            int rowno = 0;
+
+                            foreach (DevSite x in Model.devSites)
+                            {
+                                rowno++;
+                                <tr>
+                                    <td>
+                                        <a href="@x.SiteUrl" target="window_@rowno">@x.SiteTitle</a>
+                                        @{
+                                            if (!string.IsNullOrEmpty(x.Solution_Details))
+                                            {
+
+                                                <pre class="solution_details">
+                                                    @x.Solution_Details
+                                                </pre>
+
+                                            }
+                                        }
+                                    </td>
+                                    <td><a cmd_name="openSolution" solutionName="@x.SolutionName" softwareCode="@x.SoftwareCode">Open project</a></td>
+                                </tr>
+
+                            }
+                        }
+
+                    </table>
+
+                </div>
+
+                @*<div style="float:right;width:50%;">*@
+                <div style="width:50%;">
+<textarea id="codeDiv" style="width:100%;min-height:400px;"></textarea>
+                </div>
+
+            </div>
+
+        </div>
+
+
+    }
+}
+
+
+
+
+<div id="list-container">
+    <div data-bind="template: {name: 'list-template', foreach: devSitesJSON }"></div>
+</div>
+
+
+
 @section Scripts {
+
+
+    <script type="text/html" id="list-template">
+
+        <div class="container-fluid">
+            <div class="siteDiv">
+
+
+                <a class="siteTitle" data-bind="attr:{   href:siteUrl ,  target:'window_' + id }"><span data-bind="text: siteTitle"></span></a>
+
+                <!-- ko if: $data.solution_Details -->
+                <div class="solution_details" data-bind="text:solution_Details">
+                </div>
+                <!-- /ko -->
+
+                <br />
+
+                <div class="menuOptions">
+
+                    <a href="#" class=""
+                       data-bind="click: $parent.showJob">Show Job</a>
+
+                    <a href="#" class=""
+                       data-bind="click: $parent.requestDelConfirm">Delete 2</a>
+
+                    <a class=""
+                       data-bind="attr: {href: '/devsites/details?id=' + id , target:'devsiteIndexWindow' + id } ">Detail</a>
+
+                </div>
+                <hr />
+            </div>
+        </div>
+    </script>
+    @*08/21/2018 02:46 am - SSN - Copied - End*@
+
+
+
     <script src="~/js/DemoSites.js"></script>
+
+
+
+
+
+
+
+    @*
+        08/21/2018 02:46 am - SSN - Copied - Begin
+        08/21/2018 02:46 am - SSN - Copied from C:\Sams_Projects\PluralSight\html5-line-of-business-applications\d\demos\CodedHomes.Web\Views\Homes
+    *@
+    <script>
+
+    $(function () {
+
+        var ViewModel = function () {
+
+            this.currentItem = {};
+
+            this.errorMessage = ko.observable();
+
+            this.devSitesJSON = ko.observableArray(@Html.Raw(Model.devSitesJSON));
+
+            this.requestDelConfirm = function (itemToDelete) {
+
+                vm.currentItem = itemToDelete;
+                $('#del-confirm').modal({ backdrop: 'static', keyboard: false });
+
+            };
+
+
+            this.showJob = function () {
+
+                $('#show-job').modal();
+
+            };
+
+
+            this.del = function () {
+                alert('Calling del!!!!');
+                var itemToDelete = ko.toJS(vm.currentItem);
+                $('#del-confirm').modal('hide');
+
+            };
+
+        };
+
+        var vm = new ViewModel();
+        ko.applyBindings(vm);
+    });
+
+    </script>
+
+
+
+
+
 }

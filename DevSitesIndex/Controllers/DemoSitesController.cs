@@ -35,5 +35,15 @@ namespace DevSitesIndex.Controllers
                 return BadRequest(ex);
             }
         }
+
+        // 08/21/2018 03:34 am - SSN - Adding
+        protected override void Dispose(bool disposing)
+        {
+            if ( _devSitesIndexRepository != null )
+            {
+                _devSitesIndexRepository.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }
