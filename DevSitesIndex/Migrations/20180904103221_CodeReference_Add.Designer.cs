@@ -11,9 +11,10 @@ using System;
 namespace DevSitesIndex.Migrations
 {
     [DbContext(typeof(DevSitesIndexContext))]
-    partial class DevSitesIndexContextModelSnapshot : ModelSnapshot
+    [Migration("20180904103221_CodeReference_Add")]
+    partial class CodeReference_Add
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -130,12 +131,11 @@ namespace DevSitesIndex.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SiteTitle")
-                        .IsUnique()
+                    b.HasAlternateKey("SiteTitle")
                         .HasName("ReferenceSites_SiteTitle");
 
-                    b.HasIndex("SiteURL")
-                        .IsUnique()
+
+                    b.HasAlternateKey("SiteURL")
                         .HasName("ReferenceSites_SiteURL");
 
                     b.ToTable("ReferenceSites");

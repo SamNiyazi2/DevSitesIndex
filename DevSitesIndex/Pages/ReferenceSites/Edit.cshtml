@@ -1,0 +1,45 @@
+﻿@page
+@model DevSitesIndex.Pages.ReferenceSites.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>ReferenceSite</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ReferenceSite.Id" />
+            <div class="form-group">
+                <label asp-for="ReferenceSite.SiteTitle" class="control-label"></label>
+                <input asp-for="ReferenceSite.SiteTitle" class="form-control" />
+                <span asp-validation-for="ReferenceSite.SiteTitle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReferenceSite.SiteURL" class="control-label"></label>
+                <input asp-for="ReferenceSite.SiteURL" class="form-control" />
+                <span asp-validation-for="ReferenceSite.SiteURL" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReferenceSite.DateAdded" class="control-label"></label>
+                <input asp-for="ReferenceSite.DateAdded" class="form-control" />
+                <span asp-validation-for="ReferenceSite.DateAdded" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

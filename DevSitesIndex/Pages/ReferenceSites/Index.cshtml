@@ -1,0 +1,53 @@
+﻿@page
+@model DevSitesIndex.Pages.ReferenceSites.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ReferenceSite[0].SiteTitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReferenceSite[0].DateAdded)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+
+            int counter = 0;
+            foreach (var item in Model.ReferenceSite)
+            {
+
+                counter++;
+                string windowName = "RefSiteWindow" + counter;
+
+                <tr>
+                    <td>
+                        <a href="@item.SiteURL" target="@windowName ">@Html.DisplayFor(modelItem => item.SiteTitle)</a>
+                    </td>
+                    <td>
+
+                        @Html.DisplayFor(modelItem => item.DateAdded)
+                    </td>
+                    <td>
+                        <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
+
+    </tbody>
+</table>

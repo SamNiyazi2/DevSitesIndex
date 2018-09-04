@@ -1,0 +1,56 @@
+﻿@page
+@model DevSitesIndex.Pages.CodeReferences.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.CodeReference[0].CodeBlock)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CodeReference[0].SourceAddress)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CodeReference[0].DateAdded)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CodeReference[0].DateModified)
+                </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.CodeReference) {
+        <tr>
+            <td>
+                <pre class="codeblock2">
+                @Html.DisplayFor(modelItem => item.CodeBlock)
+</pre>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SourceAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateAdded)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateModified)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

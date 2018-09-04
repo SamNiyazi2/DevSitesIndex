@@ -1,5 +1,7 @@
 ﻿<!DOCTYPE html>
-<html>
+@*<html data-ng-app="@ViewBag.InitModule">*@
+<html @Html.Raw(ViewBag.InitModule_Full) >
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -18,7 +20,7 @@
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
 
     </environment>
-   
+
 
 </head>
 <body>
@@ -44,16 +46,14 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
 
                     <li class="dropdown-submenu">
-                          
+
                         <a class="dropdown-toggle" data-toggle="dropdown">Jobs  <span class="caret"></span></a>
-                         
+
                         <ul class="dropdown-menu">
-                            <li><a href="/jobs">Jobs</a></li>
-                            <li><a href="/Projects">Projects</a></li>
-                            <li><a href="/Companies">Companies</a></li>
-                            <li><a href="/DevSites">Demo Sites</a></li>
+                             
+                            @await Html.PartialAsync("menuoptions")
                         </ul>
-                         
+
                     </li>
                 </ul>
 
@@ -75,6 +75,8 @@
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
 
+        <script src="~/js/angular.js" asp-append-version="true"></script> 
+
         <script src="~/lib/knockout.js"></script>
 
         <script src="~/js/site.js" asp-append-version="true"></script>
@@ -94,7 +96,11 @@
                 crossorigin="anonymous"
                 integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
         </script>
-        
+
+
+
+        <script src="~/js/angular.js" asp-append-version="true" ></script> 
+
         <script src="~/lib/knockout.js"></script>
 
         <script src="~/js/site.min.js" asp-append-version="true"></script>

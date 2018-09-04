@@ -50,15 +50,46 @@ namespace DevSitesIndex.Services
 
         public DevSite GetDevSite(int devSiteID)
         {
-            var city = _context.DevSites.Where(c => c.Id == devSiteID);
+            var devSite = _context.DevSites.Where(c => c.Id == devSiteID);
 
-            return city.FirstOrDefault();
+            return devSite.FirstOrDefault();
+        }
+
+        public DevSite UpdateDevSite(DevSite devSite)
+        {
+            Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<DevSite> r = null;
+            try
+            {
+                if (devSite.Id == 0)
+                {
+                    r = _context.DevSites.Add(devSite);
+                }
+                else
+                {
+                    r = _context.DevSites.Update(devSite);
+                }
+
+            }
+            catch (Exception ex )
+            {
+                string message = ex.Message;
+            }
+
+            return devSite;
         }
 
 
         public bool Save()
         {
-            return _context.SaveChanges() > 0;
+            try
+            {
+                return _context.SaveChanges() > 0;
+            }
+            catch (Exception ex )
+            {
+                string message = ex.Message;
+                return false;
+            }
         }
 
         public void Dispose()
@@ -68,5 +99,7 @@ namespace DevSitesIndex.Services
                 _context.Dispose();
             }
         }
+
+       
     }
 }

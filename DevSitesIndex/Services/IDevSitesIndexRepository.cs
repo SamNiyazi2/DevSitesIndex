@@ -11,6 +11,7 @@ namespace DevSitesIndex.Services
     {
 
         IEnumerable<DevSite> GetDevSites();
+        DevSite UpdateDevSite(DevSite devSite);
 
         DevSite GetDevSite(int DevSiteID);
 

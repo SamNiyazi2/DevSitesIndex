@@ -1,0 +1,54 @@
+﻿
+<h3>Site detail-20180831-1149</h3>
+
+
+<a class="btn" href="#/">Go to Index page.</a>
+
+
+    <div >
+        <form name="siteDetailForm" novalidate data-ng-submit="save()">
+
+            <fieldset>
+
+                <div>
+                    <label class="control-label" for="siteTitle">Title</label>
+                    <input class="form-control" name="siteTitle" type="text" data-ng-model="devSiteRecord.siteTitle" required data-ng-minlength="5" />
+                    <div class="error" data-ng-show="siteDetailForm.siteTitle.$error.required">Required</div>
+                    <div class="error" data-ng-show="siteDetailForm.siteTitle.$error.minlength">A minimum of 5 characters are required.</div>
+                </div>
+
+
+                <div>
+                    <label class="control-label" for="siteUrl">Site Address </label>
+                    <input class="form-control" name="siteUrl" type="text" data-ng-model="devSiteRecord.siteUrl"  /> 
+                </div>
+
+
+                <div>
+                    <label class="control-label" for="solutionName">Solution Name</label>
+                    <input class="form-control" name="solutionName" type="text" data-ng-model="devSiteRecord.solutionName" required />
+                    <div class="error" data-ng-show="siteDetailForm.solutionName.$error.required">Required</div>
+                </div>
+
+
+
+                <div>
+                    <label class="control-label" for="solution_Details">Detail</label>
+                    <textarea class="form-control" name="solution_Details" data-ng-model="devSiteRecord.solution_Details"   ></textarea>
+                  </div>
+
+
+
+                <div>
+                    <br />
+                    <br />
+                    <input type="submit" class="btn" value="Save" data-ng-disabled="siteDetailForm.$invalid" />
+
+                    <a class="btn" href="#/">Cancel</a>
+                </div>
+            </fieldset>
+
+        </form>
+
+    </div>
+

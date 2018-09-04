@@ -1,66 +1,69 @@
 ﻿@page
-@model DevSitesIndex.Pages.DevSites.EditModel
-
+@model DevSitesIndex.Pages.DevSites.create_partialModel
 @{
-    ViewData["Title"] = "Edit";
+    Layout = "";
 }
 
-<h2>Edit</h2>
+<h3>Create new 20180901-1451</h3>
 
-<h4>DevSite</h4>
+
+<a class="btn" href="#/">Go to Index page.</a>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form method="post">
+
+        <form novalidate data-ng-submit="save('#devSiteForm')" id="devSiteForm" >
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="DevSite.Id" />
             <div class="form-group">
                 <label asp-for="DevSite.SiteTitle" class="control-label"></label>
-                <input asp-for="DevSite.SiteTitle" class="form-control" />
+                <input asp-for="DevSite.SiteTitle" class="form-control" data-ng-model="devSiteRecord.siteTitle"  />
                 <span asp-validation-for="DevSite.SiteTitle" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="DevSite.SiteUrl" class="control-label"></label>
-                <input asp-for="DevSite.SiteUrl" class="form-control" />
+                <input asp-for="DevSite.SiteUrl" class="form-control" data-ng-model="devSiteRecord.SiteUrl" />
                 <span asp-validation-for="DevSite.SiteUrl" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="DevSite.SolutionName" class="control-label"></label>
-                <input asp-for="DevSite.SolutionName" class="form-control" />
+                <input asp-for="DevSite.SolutionName" class="form-control" data-ng-model="devSiteRecord.SolutionName" />
                 <span asp-validation-for="DevSite.SolutionName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="DevSite.Solution_Details" class="control-label"></label>
-                <textarea cols="40" rows="5" asp-for="DevSite.Solution_Details" class="form-control" >
-
-</textarea>
+                <input asp-for="DevSite.Solution_Details" class="form-control" data-ng-model="devSiteRecord.Solution_Details" />
                 <span asp-validation-for="DevSite.Solution_Details" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="DevSite.SoftwareCodeID" class="control-label"></label>
+
+
                 <select asp-for="DevSite.SoftwareCodeID" class="form-control"
-                        asp-items="@Model.softwareCodesSL">
+                        asp-items="@Model.softwareCodesSL" data-ng-model="devSiteRecord.SoftwareCodeID" >
                     <option value="">Select development software...</option>
                 </select>
+
 
                 <span asp-validation-for="DevSite.SoftwareCodeID" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="DevSite.DateAdded" class="control-label"></label>
-                <input asp-for="DevSite.DateAdded" class="form-control" />
+                <input asp-for="DevSite.DateAdded" class="form-control " data-ng-model="devSiteRecord.DateAdded" />
                 <span asp-validation-for="DevSite.DateAdded" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input cmd-name="debug-mvc-angular" type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a  asp-page="./Index">Back to List</a>
+    <a asp-page="Index">Back to List</a> -
+    <a class="btn" href="#/">Cancel</a>
 </div>
 
-@section Scripts {
-    @*@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}*@
-}
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+

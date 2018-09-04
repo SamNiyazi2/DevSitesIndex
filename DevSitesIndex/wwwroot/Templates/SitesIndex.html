@@ -1,0 +1,37 @@
+﻿<h3>Sites Index - 20180831-1207</h3>
+
+<a class="btn" href="#/detail">Go to detail page.</a>
+
+<h2>Site Index 2</h2>
+ 
+
+<p>Templates/SitesIndex.html - Begin  (demoSiteIndexController)</p>
+
+<div data-ng-controller="demoSiteIndexController">
+  
+    <div class="progress progress-striped active" data-ng-show="isBusy2">
+       <div class="progress-bar" style="width: 100%;"></div>
+    </div>
+    
+    <div data-ng-repeat="i in data.devSites">
+
+
+
+        <div class="container-fluid">
+            <div class="siteDiv">
+
+                <a class="siteTitle" href="{{ i.siteUrl}}" target="window2_{{ i.id }}">{{ i.siteTitle }}</a>
+
+
+
+
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<p>Templates/SitesIndex.html - End</p>
+
+<hr />

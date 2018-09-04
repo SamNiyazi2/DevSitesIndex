@@ -11,33 +11,16 @@ using System;
 namespace DevSitesIndex.Migrations
 {
     [DbContext(typeof(DevSitesIndexContext))]
-    partial class DevSitesIndexContextModelSnapshot : ModelSnapshot
+    [Migration("20180902154622_ReferenceSites_Add")]
+    partial class ReferenceSites_Add
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasDefaultSchema("DemoSites")
                 .HasAnnotation("ProductVersion", "2.0.3-rtm-10026")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("DevSitesIndex.Entities.CodeReference", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("CodeBlock");
-
-                    b.Property<DateTime>("DateAdded");
-
-                    b.Property<DateTime>("DateModified");
-
-                    b.Property<string>("SourceAddress");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("CodeReferences");
-                });
 
             modelBuilder.Entity("DevSitesIndex.Entities.Company", b =>
                 {
@@ -122,21 +105,11 @@ namespace DevSitesIndex.Migrations
 
                     b.Property<DateTime>("DateAdded");
 
-                    b.Property<string>("SiteTitle")
-                        .IsRequired();
+                    b.Property<string>("SiteTitle");
 
-                    b.Property<string>("SiteURL")
-                        .IsRequired();
+                    b.Property<string>("SiteURL");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("SiteTitle")
-                        .IsUnique()
-                        .HasName("ReferenceSites_SiteTitle");
-
-                    b.HasIndex("SiteURL")
-                        .IsUnique()
-                        .HasName("ReferenceSites_SiteURL");
 
                     b.ToTable("ReferenceSites");
                 });

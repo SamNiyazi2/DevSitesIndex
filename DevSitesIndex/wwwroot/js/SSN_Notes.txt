@@ -1,0 +1,4 @@
+8:25 AM 8/31/2018
+
+Manually added angular.min.js from C:\Sams_Projects\PluralSight\site-building-bootstrap-angularjs-ef-azure\d\M_7\MessageBoard\Scripts
+

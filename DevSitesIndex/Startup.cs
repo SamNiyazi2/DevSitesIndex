@@ -73,7 +73,7 @@ namespace DevSitesIndex
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=demosites}/{action=Index}/{id?}");
             });
 
 
