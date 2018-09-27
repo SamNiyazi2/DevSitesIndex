@@ -118,8 +118,11 @@
     }
 }
 
-
-<div class="row" data-ng-view=""></div>
+<h1>ng-view test</h1>
+@*<div class="row" data-ng-view=""></div>*@
+<div class="row" >
+    <ng-view></ng-view>
+</div>
 
 
 
@@ -136,23 +139,24 @@
 
         <div class="container-fluid">
             <div class="siteDiv">
+                 
 
-                <a class="siteTitle" href="{{ i.siteUrl}}" target="window2_{{ i.id }}">{{ i.siteTitle }}</a>
+                <a   ng-show="i.siteUrl" class="siteTitle" href="{{ i.siteUrl}}" target="window2_{{ i.id }}">{{ i.siteTitle }}</a>
 
-
+                <span ng-show="!i.siteUrl" class="siteTitle">{{ i.siteTitle }}</span>
 
                 @*<div class="menuOptions">
 
-                        <a href="#" class=""
-                           data-bind="click: $parent.showJob">Show Job</a>
+            <a href="#" class=""
+               data-bind="click: $parent.showJob">Show Job</a>
 
-                        <a href="#" class=""
-                           data-bind="click: $parent.requestDelConfirm">Delete</a>
+            <a href="#" class=""
+               data-bind="click: $parent.requestDelConfirm">Delete</a>
 
-                        <a class=""
-                           data-bind="attr: {href: '/devsites/details?id=' + id , target:'devsiteIndexWindow' + id } ">Detail</a>
+            <a class=""
+               data-bind="attr: {href: '/devsites/details?id=' + id , target:'devsiteIndexWindow' + id } ">Detail</a>
 
-                    </div>*@
+        </div>*@
 
             </div>
         </div>
@@ -183,7 +187,17 @@
         <div class="container-fluid">
             <div class="siteDiv">
 
+              
+
+                <!-- ko if:  $data.siteUrl -->
                 <a class="siteTitle" data-bind="attr:{   href:siteUrl ,  target:'window_' + id }"><span data-bind="text: siteTitle"></span></a>
+                <!-- /ko -->
+                <!-- ko ifnot:  $data.siteUrl -->
+                <span class="siteTitle" data-bind="text: siteTitle"></span>
+                <!-- /ko -->
+
+
+
 
                 <!-- ko if: $data.solution_Details -->
                 <div class="solution_details" data-bind="text:solution_Details">

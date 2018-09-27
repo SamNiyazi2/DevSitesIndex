@@ -19,10 +19,16 @@ namespace DevSitesIndex.Pages.CodeReferences
             _context = context;
         }
 
+        // 09/26/2018 07:39 am - SSN - Added to restore search after save.
+        [BindProperty]
+        public string SearchText { get; set; }
+
+
         [BindProperty]
         public CodeReference CodeReference { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        // 09/26/2018 07:50 am - SSN - Adding SearchText to restore list
+        public async Task<IActionResult> OnGetAsync(int? id, string SearchText)
         {
             if (id == null)
             {
@@ -40,6 +46,9 @@ namespace DevSitesIndex.Pages.CodeReferences
 
         public async Task<IActionResult> OnPostAsync()
         {
+            // 09/05/2018 03:23 pm - SSN
+            CodeReference.DateModified = DateTime.Now;
+
             if (!ModelState.IsValid)
             {
                 return Page();
@@ -63,7 +72,7 @@ namespace DevSitesIndex.Pages.CodeReferences
                 }
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("./Index", new { SearchText = SearchText });
         }
 
         private bool CodeReferenceExists(int id)

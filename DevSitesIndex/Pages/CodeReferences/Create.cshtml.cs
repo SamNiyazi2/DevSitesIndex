@@ -20,6 +20,11 @@ namespace DevSitesIndex.Pages.CodeReferences
 
         public IActionResult OnGet()
         {
+            // 09/05/2018 03:23 pm - SSN
+            CodeReference = new CodeReference();
+            CodeReference.DateAdded = DateTime.Now;
+            CodeReference.DateModified = DateTime.Now;
+
             return Page();
         }
 

@@ -38,23 +38,25 @@
 
         <div class="container-fluid">
             <div class="siteDiv">
+                 
+                <a ng-show="i.siteUrl" class="siteTitle" href="{{ i.siteUrl}}" target="window2_{{ i.id }}">{{ i.siteTitle }}</a>
 
-                <a class="siteTitle" href="{{ i.siteUrl}}" target="window2_{{ i.id }}">{{ i.siteTitle }}</a>
+                <span ng-show="!i.siteUrl" class="siteTitle" >{{ i.siteTitle }}</span>
 
 
 
                 @*<div class="menuOptions">
 
-                        <a href="#" class=""
-                           data-bind="click: $parent.showJob">Show Job</a>
+            <a href="#" class=""
+               data-bind="click: $parent.showJob">Show Job</a>
 
-                        <a href="#" class=""
-                           data-bind="click: $parent.requestDelConfirm">Delete</a>
+            <a href="#" class=""
+               data-bind="click: $parent.requestDelConfirm">Delete</a>
 
-                        <a class=""
-                           data-bind="attr: {href: '/devsites/details?id=' + id , target:'devsiteIndexWindow' + id } ">Detail</a>
+            <a class=""
+               data-bind="attr: {href: '/devsites/details?id=' + id , target:'devsiteIndexWindow' + id } ">Detail</a>
 
-                    </div>*@
+        </div>*@
 
             </div>
         </div>

@@ -48,6 +48,11 @@ namespace DevSitesIndex
             services.AddScoped<IDevSitesIndexRepository, DevSitesIndexRepository>();
 
 
+            // 09/26/2018 01:38 pm - SSN - Adding
+
+            ApprovedRemoteSites approvedRemoteSites = new ApprovedRemoteSites();
+            Configuration.GetSection("ApprovedRemoteSites").Bind(approvedRemoteSites);
+          
 
         }
 
@@ -74,10 +79,15 @@ namespace DevSitesIndex
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=demosites}/{action=Index}/{id?}");
+
             });
 
-
-
         }
+    }
+
+
+    public class ApprovedRemoteSites
+    {
+        public string[] Site { get; set; }
     }
 }

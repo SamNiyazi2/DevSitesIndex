@@ -1,0 +1,36 @@
+﻿@page
+@model DevSitesIndex.Pages.CommandLine.IndexModel
+@{
+}
+
+<br />
+<br />
+<form method="post">
+    <input asp-for="AccessKey" type="password" />
+
+    <br />
+    <br />
+
+    <div>
+        <input type="checkbox" asp-for="WaitForExit" />
+        Wait for process
+    </div>
+<textarea asp-for="CommandText" rows="20" style="width:100%">
+
+</textarea>
+    <br />
+
+
+    <div class="form-group">
+        <input type="submit" value="Submit" class="btn btn-default" />
+    </div>
+</form>
+Errors:
+<pre>
+@Model.Results_Error
+</pre>
+<hr />
+Output:
+<pre>
+@Model.Results_Output
+</pre>

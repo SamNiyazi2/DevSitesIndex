@@ -20,7 +20,6 @@ namespace DevSitesIndex.Controllers
         public DemoSitesAPIController(IDevSitesIndexRepository devSitesIndexRepository)
         {
             _devSitesIndexRepository = devSitesIndexRepository;
-
         }
 
         private readonly IDevSitesIndexRepository _devSitesIndexRepository;

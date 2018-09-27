@@ -2,7 +2,7 @@
 
 <a class="btn" href="#/detail">Go to detail page.</a>
 
-<h2>Site Index 2</h2>
+<h2>Site Index 2b</h2>
  
 
 <p>Templates/SitesIndex.html - Begin  (demoSiteIndexController)</p>
@@ -19,10 +19,11 @@
 
         <div class="container-fluid">
             <div class="siteDiv">
+                 
 
-                <a class="siteTitle" href="{{ i.siteUrl}}" target="window2_{{ i.id }}">{{ i.siteTitle }}</a>
+                <a ng-show="i.siteUrl" class="siteTitle" href="{{ i.siteUrl}}" target="window2_{{ i.id }}">{{ i.siteTitle }}</a>
 
-
+                <span ng-show="!i.siteUrl" class="siteTitle">{{ i.siteTitle }}</span>
 
 
             </div>

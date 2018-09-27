@@ -15,6 +15,7 @@ namespace DevSitesIndex.Controllers
         public DemoSitesController(IDevSitesIndexRepository devSitesIndexRepository)
         {
             _devSitesIndexRepository = devSitesIndexRepository;
+
         }
 
         private readonly IDevSitesIndexRepository _devSitesIndexRepository;
@@ -26,7 +27,7 @@ namespace DevSitesIndex.Controllers
                 DemoSitesViewModel vm = new DemoSitesViewModel();
                 vm.devSites = _devSitesIndexRepository.GetDevSites();
 
-                return View("index_p1",vm);
+                return View("index_p1", vm);
 
             }
             catch (Exception ex)
@@ -35,7 +36,7 @@ namespace DevSitesIndex.Controllers
                 return BadRequest(ex);
             }
         }
-// 09/04/2018 06:38 am - SSN
+        // 09/04/2018 06:38 am - SSN
 
         public IActionResult Index_p2()
         {
@@ -76,7 +77,7 @@ namespace DevSitesIndex.Controllers
         // 08/21/2018 03:34 am - SSN - Adding
         protected override void Dispose(bool disposing)
         {
-            if ( _devSitesIndexRepository != null )
+            if (_devSitesIndexRepository != null)
             {
                 _devSitesIndexRepository.Dispose();
             }
