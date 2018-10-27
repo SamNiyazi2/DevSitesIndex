@@ -40,9 +40,13 @@ namespace DevSitesIndex.Entities
 
       //  [DataType(DataType.DateTime)]
       //  [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        [DisplayName("Date added")]
+        [DisplayName("Date Added")]
 
-        public DateTime DateAdded { get; set; } 
+        public DateTime DateAdded { get; set; }
+
+        // 10/12/2018 03:52 pm - SSN - Added
+        [DisplayName("Date Updated")]
+        public DateTime? DateUpdated { get; set; }
     }
 
 }

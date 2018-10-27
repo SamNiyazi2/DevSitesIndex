@@ -28,6 +28,7 @@ namespace DevSitesIndex.Pages.CommandLine
 
         public void OnGet()
         {
+           
         }
         public async Task<IActionResult> OnPostAsync()
         {

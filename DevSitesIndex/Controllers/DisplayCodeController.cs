@@ -25,26 +25,24 @@ namespace DevSitesIndex.Controllers
         CodeBlocksMaster_v02 codeBlocksMaster;
 
 
-
-        //// 09/26/2018 01:38 pm - SSN - Adding
-
-        ApprovedRemoteSites approvedRemoteSites = new ApprovedRemoteSites();
+        Util.ValidateReferer validateReferer ;
 
 
         public DisplayCodeController(IConfiguration configuration)
         {
-
-            //// 09/26/2018 01:38 pm - SSN - Adding
-
-            configuration.GetSection("ApprovedRemoteSites").Bind(approvedRemoteSites);
+            // 1/23/2018 07:09 am - SSN - refactor
+            validateReferer = new Util.ValidateReferer(configuration);
 
         }
-        // GET: /<controller>/
-        public string Index(string url, bool doDebug)
-        {
-            validateReferer();
 
-            WebClient web = new WebClient();
+
+        // GET: /<controller>/
+        public string Index(string url, bool doDebug, bool useFileSystem = false)
+        {
+            validateReferer.validateReferer(Request, Response);
+
+
+           WebClient web = new WebClient();
 
             StringBuilder sb_final = new StringBuilder();
 
@@ -60,7 +58,18 @@ namespace DevSitesIndex.Controllers
             {
                 codeBlocksMaster.debugRegex = doDebug;
 
-                System.IO.Stream stream = web.OpenRead(url);
+
+                System.IO.Stream stream = null;
+
+                if (!useFileSystem)
+                {
+                    stream = web.OpenRead(url);
+                }
+
+                else
+                {
+                    stream = new System.IO.FileStream(url, System.IO.FileMode.Open, System.IO.FileAccess.Read);
+                }
 
                 bool doInclude = false;
 
@@ -137,37 +146,13 @@ namespace DevSitesIndex.Controllers
 
         }
 
-        private void validateReferer()
-        {
-            string approvedReferer = null;
-
-
-            if (approvedRemoteSites != null && approvedRemoteSites.Site != null)
-            {
-                foreach (string s in approvedRemoteSites.Site)
-                {
-                    if (Request.Headers["Referer"].ToString().ToLower() == s.ToLower())
-                    {
-                        approvedReferer = s;
-                        break;
-                    }
-                }
-            }
-
-            if (!string.IsNullOrEmpty(approvedReferer))
-            {
-                if (approvedReferer.EndsWith("/"))
-                {
-                    approvedReferer = approvedReferer.Substring(0, approvedReferer.Length - 1);
-                }
-                Response.Headers.Add("Access-Control-Allow-Origin", approvedReferer);
-            }
-
-            //     Response.Headers.Add("Access-Control-Allow-Origin", "http://af.nonbs.org");
-        }
     }
 
     #region Utility
+
+    /// <summary>
+    /// Hold contents of file to be displayed.
+    /// </summary>
     class CodeBlocksMaster_v02
     {
         public bool debugRegex { get; set; }
@@ -265,7 +250,11 @@ namespace DevSitesIndex.Controllers
                         {
                             Capture c = cc[j];
                             if (debugRegex) currentCodeBlock.sb.AppendLine("Capture" + j + "='" + encodeOpeningTag(c.Value) + "', Position=" + c.Index);
-                            currentCodeBlock.highlightWords = c.Value.Split(',').ToList();
+
+                            // Remove software return
+                            string c_stripped = c.Value.Replace(char.ConvertFromUtf32(141), "");
+                            currentCodeBlock.highlightWords = c_stripped.Split(',').ToList();
+
                         }
                     }
                     m = m.NextMatch();
@@ -325,12 +314,19 @@ namespace DevSitesIndex.Controllers
 
 
         // 09/27/2018 01:01 am - SSN
+
+        /// <summary>
+        /// Wrap comment lines containing the marker //h// with <n> tag.  
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public static string doReplacement_step02_JavaScriptComment_Highlight(string input)
         {
             //string pattern = @"(//h//)(.*)$";
             //string replacement = "<n>// $2</n>";
             //string result = Regex.Replace(input, pattern, replacement);
             //input = Regex.Replace(input, pattern, replacement);
+
             return doReplacement_Apply(ref input, @"(//h//)(.*)$", "<n>// $2</n>");
         }
 

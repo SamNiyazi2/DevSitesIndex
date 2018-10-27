@@ -18,11 +18,12 @@ namespace DevSitesIndex.Pages.DevSites
             _context = context;
         }
 
-        public IList<DevSite> DevSite { get;set; }
+        public IList<DevSite> DevSite { get; set; }
 
         public async Task OnGetAsync()
         {
-            DevSite = await _context.DevSites.ToListAsync();
+            // 10/12/2018 03:53 pm - SSN - Added OrderByDescending (r=>r.DateUpdated 
+            DevSite = await _context.DevSites.OrderByDescending(r => r.DateUpdated).ThenByDescending(r => r.DateAdded).ToListAsync();
         }
     }
 }

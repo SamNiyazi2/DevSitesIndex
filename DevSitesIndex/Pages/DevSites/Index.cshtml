@@ -13,10 +13,10 @@
 <table class="table">
     <thead>
         <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.DevSite[0].SiteTitle)
-                </th>
-                @*<th>
+            <th>
+                @Html.DisplayNameFor(model => model.DevSite[0].SiteTitle)
+            </th>
+            @*<th>
                     @Html.DisplayNameFor(model => model.DevSite[0].SiteUrl)
                 </th>
                 <th>
@@ -25,42 +25,49 @@
                 <th>
                     @Html.DisplayNameFor(model => model.DevSite[0].Solution_Details)
                 </th>*@
-                <th>
-                    @Html.DisplayNameFor(model => model.DevSite[0].SoftwareCode)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DevSite[0].DateAdded)
-                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DevSite[0].SoftwareCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DevSite[0].DateAdded)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DevSite[0].DateUpdated)
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.DevSite) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.SiteTitle)
-            </td>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.SiteUrl)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SolutionName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Solution_Details)
-            </td>*@
-            <td>
-                @Html.DisplayFor(modelItem => item.SoftwareCode)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateAdded)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.DevSite)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SiteTitle)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.SiteUrl)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SolutionName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Solution_Details)
+                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.SoftwareCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateAdded)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateUpdated)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
