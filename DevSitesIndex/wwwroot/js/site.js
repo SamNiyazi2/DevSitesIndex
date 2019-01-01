@@ -5,18 +5,20 @@
 
 $(function () {
 
-    $("[cmd-name]").on('click', function () {
+    $("[cmd-name]").on('click', function (e) {
 
         var cmdName = $(this).attr('cmd-name');
         var popupName = $(this).attr('popup-name');
 
         alert('clicked me! cmdName [' + cmdName + "] popupName  [" + popupName + "]");
 
-        if (cmdName === "open-popup"  ) {
+        if (cmdName === "open-popup") {
             $(popupName).modal({ backdrop: 'static', keyboard: false });
 
             $("#addSite_PageContent").load("/times/start");
         }
+
+        
+
     });
 });
- 

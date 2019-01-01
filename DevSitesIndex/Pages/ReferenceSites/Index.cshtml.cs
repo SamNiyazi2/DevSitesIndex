@@ -27,44 +27,50 @@ namespace DevSitesIndex.Pages.ReferenceSites
 
         public async Task OnGetAsync()
         {
-            ReferenceSite = await _context.ReferenceSites.ToListAsync();
+            await getDefaultList();
         }
+
+        private async Task getDefaultList()
+        {
+            ReferenceSite = await _context.ReferenceSites
+                                               .OrderByDescending(r => r.DateAdded).ToListAsync();
+        }
+
+        List<string> tempArray2 = null;
+
 
         public async Task<IActionResult> OnPostAsync()
         {
             if (string.IsNullOrEmpty(SearchText))
             {
-                ReferenceSite = await _context.ReferenceSites.ToListAsync();
+                await getDefaultList();
+
                 return Page();
             }
 
+            tempArray2 = SearchText.ToLower().Split().Where(r => r.Trim() != "").Select(r => r.Trim().ToLower()).ToList();
 
-            tempArray = SearchText.ToLower().Split().Where(r => r.Trim() != "").Select(r => r.Trim().ToLower()).ToArray();
-
-            //string temp = SearchText.ToLower();
-            //ReferenceSite = await _context.ReferenceSites.Where(r => r.SiteTitle.ToLower().Contains(SearchText.ToLower())).ToListAsync();
-
-
+            // 11/24/2018 03:41 pm - SSN - Revised
             ReferenceSite = await (from first in _context.ReferenceSites
-                                   where check1(first)
-                                    select first).ToListAsync();
+                                   where check2(first)
+                                   select first)
+                                   .OrderByDescending(r => r.DateAdded).ToListAsync();
 
 
             return Page();
+
+
         }
- 
- 
 
-    // 09/06/2018 05:10 pm - SSN - Copied from CodeReference [20180906-1710]
-    string[] tempArray = null;
 
-        bool check1(ReferenceSite r2)
+        // 11/24/2018 03:42 pm - SSN - Added
+        bool check2(ReferenceSite r2)
         {
-            if (tempArray == null) return false;
-            if (string.IsNullOrEmpty(r2.SiteTitle)) return false;
+            if (tempArray2 == null) return false;
 
-            int counter = r2.SiteTitle.Split().Count(r => tempArray.Any(y => y == r.ToLower()));
-            return counter > 0;
+            bool f1 = tempArray2.Any(r => r2.SiteTitle.ToLower().Contains(r.ToLower()));
+            bool f2 = tempArray2.Any(r => r2.SiteURL.ToLower().Contains(r.ToLower()));
+            return f1 || f2;
 
         }
 

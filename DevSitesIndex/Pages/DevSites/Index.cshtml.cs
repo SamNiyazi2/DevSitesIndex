@@ -23,7 +23,7 @@ namespace DevSitesIndex.Pages.DevSites
         public async Task OnGetAsync()
         {
             // 10/12/2018 03:53 pm - SSN - Added OrderByDescending (r=>r.DateUpdated 
-            DevSite = await _context.DevSites.OrderByDescending(r => r.DateUpdated).ThenByDescending(r => r.DateAdded).ToListAsync();
+            DevSite = await _context.DevSites.OrderByDescending(r => r.DateUpdated ?? r.DateAdded).ToListAsync();
         }
     }
 }

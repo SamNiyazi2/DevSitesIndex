@@ -44,7 +44,9 @@ namespace DevSitesIndex.Services
 
         public IEnumerable<DevSite> GetDevSites()
         {
-            return _context.DevSites.ToList();
+            // 11/03/2018 08:05 am - SSN - order
+            // return _context.DevSites.ToList();
+            return _context.DevSites.OrderByDescending(r => r.DateUpdated ?? r.DateAdded).ToList();
         }
 
 
@@ -70,7 +72,7 @@ namespace DevSitesIndex.Services
                 }
 
             }
-            catch (Exception ex )
+            catch (Exception ex)
             {
                 string message = ex.Message;
             }
@@ -85,7 +87,7 @@ namespace DevSitesIndex.Services
             {
                 return _context.SaveChanges() > 0;
             }
-            catch (Exception ex )
+            catch (Exception ex)
             {
                 string message = ex.Message;
                 return false;
@@ -94,12 +96,12 @@ namespace DevSitesIndex.Services
 
         public void Dispose()
         {
-            if ( _context != null)
+            if (_context != null)
             {
                 _context.Dispose();
             }
         }
 
-       
+
     }
 }

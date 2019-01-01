@@ -33,7 +33,8 @@ namespace DevSitesIndex.Pages.CodeReferences
             // 09/26/2018 08:15 am - SSN - Revised to include search
             if (string.IsNullOrEmpty(searchText))
             {
-                CodeReference = await _context.CodeReferences.Take(50).ToListAsync();
+               // CodeReference = await _context.CodeReferences.Take(50).ToListAsync();
+                CodeReference = await _context.CodeReferences.OrderByDescending( r=> r.DateModified>r.DateAdded?r.DateModified:r.DateAdded).Take(50).ToListAsync();
             }
             else
             {

@@ -36,10 +36,11 @@ namespace DevSitesIndex.Util
             if (approvedRemoteSites != null && approvedRemoteSites.Site != null)
             {
                 foreach (string s in approvedRemoteSites.Site)
-                {
+                    {
                     if (currentReferer == s.ToLower())
                     {
-                        approvedReferer = s;
+                        // 11/09/2018 08:30 am - SSN - ToLower
+                        approvedReferer = s.ToLower();
                         break;
                     }
                 }

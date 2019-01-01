@@ -18,7 +18,10 @@ namespace DevSitesIndex.Controllers
     {
         const string DISPLAY_CODE_BEGIN = "*** displaycode-begin";
         const string DISPLAY_CODE_END = "*** displaycode-end";
-        public const string JAVASCRIPT_COMMENT_HIGHLIGHT_TOKEN = "//h//";
+
+        // 10/27/2018 06:14 am - SSN - Allow for a space (ESLint!!!)
+        public const string JAVASCRIPT_COMMENT_HIGHLIGHT_TOKEN_o1 = "//h//";
+        public const string JAVASCRIPT_COMMENT_HIGHLIGHT_TOKEN_o2 = "// h//";
         public const string JAVASCRIPT_COMMENT_HIGHLIGHT_TOKEN_BEGIN = "//ha//";
         public const string JAVASCRIPT_COMMENT_HIGHLIGHT_TOKEN_END = "//hz//";
 
@@ -180,10 +183,16 @@ namespace DevSitesIndex.Controllers
             text = doReplacements_Step01(text);
 
             // 09/27/2018 12:31 am - SSN - const JAVASCRIPT_COMMENT_HIGHLIGHT_TOKEN
-            if (text.ToLower().Contains(DisplayCodeController.JAVASCRIPT_COMMENT_HIGHLIGHT_TOKEN))
+            if (text.ToLower().Contains(DisplayCodeController.JAVASCRIPT_COMMENT_HIGHLIGHT_TOKEN_o1))
             {
-                text = doReplacement_step02_JavaScriptComment_Highlight(text);
+                text = doReplacement_step02_JavaScriptComment_Highlight(text, DisplayCodeController.JAVASCRIPT_COMMENT_HIGHLIGHT_TOKEN_o1);
             }
+
+            if (text.ToLower().Contains(DisplayCodeController.JAVASCRIPT_COMMENT_HIGHLIGHT_TOKEN_o2))
+            {
+                text = doReplacement_step02_JavaScriptComment_Highlight(text, DisplayCodeController.JAVASCRIPT_COMMENT_HIGHLIGHT_TOKEN_o2);
+            }
+
 
             if (text.ToLower().Contains(DisplayCodeController.JAVASCRIPT_COMMENT_HIGHLIGHT_TOKEN_BEGIN))
             {
@@ -228,11 +237,11 @@ namespace DevSitesIndex.Controllers
 
             bool doInclude;
 
-            if (text.Contains("["))
+            if (text.Contains("highlight ["))
             {
                 if (debugRegex) currentCodeBlock.sb.AppendLine("------------- Regex  begin");
 
-                Regex r = new Regex(@".*\[(?<aaa>.*)\].*", RegexOptions.IgnoreCase);
+                Regex r = new Regex(@".*highlight \[(?<aaa>.*)\].*", RegexOptions.IgnoreCase);
                 Match m = r.Match(text);
                 int matchCount = 0;
 
@@ -253,7 +262,7 @@ namespace DevSitesIndex.Controllers
 
                             // Remove software return
                             string c_stripped = c.Value.Replace(char.ConvertFromUtf32(141), "");
-                            currentCodeBlock.highlightWords = c_stripped.Split(',').ToList();
+                            currentCodeBlock.highlightWords_v02 = c_stripped.Split(',').ToList();
 
                         }
                     }
@@ -262,6 +271,44 @@ namespace DevSitesIndex.Controllers
                 }
                 if (debugRegex) currentCodeBlock.sb.AppendLine("------------- Regex end");
             }
+
+
+// 11/10/2018 11:56 am - SSN - Adding alarm
+            if (text.Contains("alarm ["))
+            {
+                if (debugRegex) currentCodeBlock.sb.AppendLine("------------- Regex  begin (102-alarm)");
+
+                Regex r = new Regex(@".*alarm \[(?<aaa>.*)\].*", RegexOptions.IgnoreCase);
+                Match m = r.Match(text);
+                int matchCount = 0;
+
+                while (m.Success)
+                {
+                    if (debugRegex) currentCodeBlock.sb.AppendLine($"Match {++matchCount}");
+                    for (int i = 1; i <= 2; i++)
+                    {
+                        Group g = m.Groups[i];
+                        if (debugRegex) currentCodeBlock.sb.AppendLine("Group" + i + "='" + encodeOpeningTag(g.Value) + "'");
+
+
+                        CaptureCollection cc = g.Captures;
+                        for (int j = 0; j < cc.Count; j++)
+                        {
+                            Capture c = cc[j];
+                            if (debugRegex) currentCodeBlock.sb.AppendLine("Capture" + j + "='" + encodeOpeningTag(c.Value) + "', Position=" + c.Index);
+
+                            // Remove software return
+                            string c_stripped = c.Value.Replace(char.ConvertFromUtf32(141), "");
+                            currentCodeBlock.alarmWords = c_stripped.Split(',').ToList();
+
+                        }
+                    }
+                    m = m.NextMatch();
+
+                }
+                if (debugRegex) currentCodeBlock.sb.AppendLine("------------- Regex end");
+            }
+
 
             doInclude = true;
             return doInclude;
@@ -285,12 +332,20 @@ namespace DevSitesIndex.Controllers
             //    currentCodeBlock.sb.Insert(0, $"Number of words to highlight [{currentCodeBlock.highlight.Count}]{lf}");
             //}
 
-            foreach (string s in currentCodeBlock.highlightWords.OrderByDescending(r => r.Length))
+            text = doReplacements_Step01_sub(text,"n",currentCodeBlock.highlightWords_v02);
+
+            text = doReplacements_Step01_sub(text,"alarm", currentCodeBlock.alarmWords);
+
+
+            return text;
+
+        }
+
+        private string doReplacements_Step01_sub(string text, string tag, List<string> list)
+        {
+
+            foreach (string s in list.OrderByDescending(r => r.Length))
             {
-                //if (debugRegex)
-                //{
-                //    currentCodeBlock.sb.Insert(0, $"Highlight [{s}]{lf}");
-                //}
 
                 if (string.IsNullOrEmpty(s)) continue;
 
@@ -298,12 +353,11 @@ namespace DevSitesIndex.Controllers
 
                 var s2 = encodeOpeningTag(s);
 
-                text = text.Replace(s2, $"<n>{s2}</n>");
+                text = text.Replace(s2, $"<{tag}>{s2}</{tag}>");
 
             }
 
             return text;
-
         }
 
         private static string encodeOpeningTag(string text)
@@ -320,14 +374,15 @@ namespace DevSitesIndex.Controllers
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public static string doReplacement_step02_JavaScriptComment_Highlight(string input)
+        public static string doReplacement_step02_JavaScriptComment_Highlight(string input, string stringToMatch)
         {
             //string pattern = @"(//h//)(.*)$";
             //string replacement = "<n>// $2</n>";
             //string result = Regex.Replace(input, pattern, replacement);
             //input = Regex.Replace(input, pattern, replacement);
 
-            return doReplacement_Apply(ref input, @"(//h//)(.*)$", "<n>// $2</n>");
+            //return doReplacement_Apply(ref input, @"(//h//)(.*)$", "<n>// $2</n>");
+            return doReplacement_Apply(ref input, $"({stringToMatch})(.*)$", "<n>// $2</n>");
         }
 
         // 09/27/2018 03:41 am - SSN
@@ -381,17 +436,21 @@ namespace DevSitesIndex.Controllers
     class CodeBlock
     {
         public StringBuilder sb { get; set; }
-        public List<string> highlightWords { get; set; }
+
+// 11/10/2018 11:58 am - SSN - v02 for adding alarmWords.  Match process.
+        public List<string> highlightWords_v02 { get; set; }
+        public List<string> alarmWords { get; set; }
 
         public CodeBlock()
         {
             sb = new StringBuilder();
-            highlightWords = new List<string>();
+            highlightWords_v02 = new List<string>();
+            alarmWords = new List<string>();
         }
 
         public bool isDirty_v02()
         {
-            return sb.Length > 0 || highlightWords.Count > 0;
+            return sb.Length > 0 || highlightWords_v02.Count > 0 || alarmWords.Count > 0;
         }
 
 

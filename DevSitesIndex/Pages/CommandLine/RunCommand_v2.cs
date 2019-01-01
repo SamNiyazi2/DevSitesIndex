@@ -18,6 +18,8 @@ namespace DevSitesIndex.Pages.CommandLine
         public string strOutput { get; set; }
         public string strError { get; set; }
 
+        const int waitForExitTimeout = 3000;
+
         public RunCommand_v2(string _LocalDirectory, bool _waitForExit)
         {
             LocalDirectory = _LocalDirectory;
@@ -75,6 +77,9 @@ namespace DevSitesIndex.Pages.CommandLine
                 si.RedirectStandardInput = true;
                 si.RedirectStandardError = true;
 
+                si.StandardErrorEncoding = Encoding.UTF8;
+                si.StandardOutputEncoding = Encoding.UTF8;
+
 
                 //System.Diagnostics.Process p = System.Diagnostics.Process.Start(si);
                 System.Diagnostics.Process p = new System.Diagnostics.Process();
@@ -85,8 +90,11 @@ namespace DevSitesIndex.Pages.CommandLine
 
                 if (waitForExit)
                 {
-                    p.WaitForExit();
+                    // 11/09/2018 04:19 pm - SSN - Added
+                    int? exitCode = null;
 
+                    // 11/09/2018 04:19 pm - SSN - Added 
+                    bool processHasExited = p.WaitForExit(waitForExitTimeout);
 
                     StreamReader sr = p.StandardOutput;
 
@@ -99,10 +107,23 @@ namespace DevSitesIndex.Pages.CommandLine
                     }
 
 
+                    // 11/09/2018 04:19 pm - SSN - Added
+                    if (!processHasExited)
+                    {
+                        exitCode = p.ExitCode;
+
+                        if (exitCode.HasValue)
+                        {
+                            strError += "*".PadLeft(80, '*') + Environment.NewLine + Environment.NewLine;
+                            strError += $"********** waitForExit timed out ({waitForExitTimeout}) - ExitCode [{exitCode}]" + Environment.NewLine + Environment.NewLine;
+                            strError += "*".PadLeft(80, '*') + Environment.NewLine + Environment.NewLine;
+                        }
+                    }
+
 
                     StreamReader sr2 = p.StandardError;
 
-                    strError = sr2.ReadToEnd();
+                    strError += sr2.ReadToEnd();
                     sr2.Close();
                     p.Close();
                     if (emailDebuggingMessages)
@@ -111,6 +132,8 @@ namespace DevSitesIndex.Pages.CommandLine
                     }
 
                     System.IO.File.Delete(fileName);
+
+
                 }
 
 
