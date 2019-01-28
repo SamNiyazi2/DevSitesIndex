@@ -10,7 +10,27 @@
 <p>
     <a asp-page="Create">Create New</a>
 </p>
-<p></p>
+
+@*12/31/2018 09:37 pm - SSN*@
+<p>
+
+    <form method="post">
+
+        <div class="form-group">
+            <label class="control-label">Search</label>
+            <input asp-for="SearchText" class="form-control" />
+            <span asp-validation-for="SearchText" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Search" class="btn btn-default" />
+            <a href="" class="btn btn-default">Clear Search</a>
+        </div>
+
+    </form>
+
+
+</p>
 <table class="table">
     <thead>
         <tr>

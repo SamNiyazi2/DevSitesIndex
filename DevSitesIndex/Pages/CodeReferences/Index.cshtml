@@ -21,7 +21,7 @@
         <input type="submit" value="Search" class="btn btn-default" />
         <a href="" class="btn btn-default ">Clear search</a>
     </div>
-</form> 
+</form>
 
 
 @Model.searchResultsfeedbackMessage()
@@ -31,10 +31,8 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.CodeReference[0].SourceAddress) /
                 @Html.DisplayNameFor(model => model.CodeReference[0].CodeBlock)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CodeReference[0].SourceAddress)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CodeReference[0].DateAdded)
@@ -50,12 +48,12 @@
         {
             <tr>
                 <td>
-                    <pre class="codeblock2">
-   @Html.Raw(item.CodeBlock)
+                    <p>
+                        @Html.DisplayFor(modelItem => item.SourceAddress)
+                    </p>
+<pre class="codeblock2">
+@Html.Raw(System.Net.WebUtility.HtmlEncode(item.CodeBlock))
 </pre>
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SourceAddress)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.DateAdded)
@@ -64,7 +62,7 @@
                     @Html.DisplayFor(modelItem => item.DateModified)
                 </td>
                 <td>
-                    <a asp-page="./Edit" asp-route-id="@item.Id"  asp-route-SearchText="@Model.SearchText" >Edit</a> |
+                    <a asp-page="./Edit" asp-route-id="@item.Id" asp-route-SearchText="@Model.SearchText">Edit</a> |
                     <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
                     <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
                 </td>
