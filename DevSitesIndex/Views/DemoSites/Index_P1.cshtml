@@ -86,27 +86,30 @@
                 <span class="siteTitle" data-bind="text: siteTitle"></span>
                 <!-- /ko -->
                 <!-- ko if: $data.solution_Details -->
-                <div class="solution_details" data-bind="text:solution_Details">
+
+                 @*02/05/2019 02:11 pm - SSN - Testing decoding html*@
+                 @*<div class="solution_details" data-bind="text:solution_Details">*@
+                    <div class="solution_details" data-bind="html:solution_Details">
+                    </div>
+                    <!-- /ko -->
+
+                    <br />
+
+                    <div class="menuOptions">
+
+                        <a href="#" class=""
+                           data-bind="click: $parent.showJob">Show Job</a>
+
+                        <a href="#" class=""
+                           data-bind="click: $parent.requestDelConfirm">Delete</a>
+
+                        <a class=""
+                           data-bind="attr: {href: '/devsites/details?id=' + id , target:'devsiteIndexWindow' + id } ">Detail</a>
+
+                    </div>
+                    <hr />
                 </div>
-                <!-- /ko -->
-
-                <br />
-
-                <div class="menuOptions">
-
-                    <a href="#" class=""
-                       data-bind="click: $parent.showJob">Show Job</a>
-
-                    <a href="#" class=""
-                       data-bind="click: $parent.requestDelConfirm">Delete</a>
-
-                    <a class=""
-                       data-bind="attr: {href: '/devsites/details?id=' + id , target:'devsiteIndexWindow' + id } ">Detail</a>
-
-                </div>
-                <hr />
             </div>
-        </div>
     </script>
 
 
@@ -134,9 +137,9 @@
             this.currentItem = {};
 
             this.errorMessage = ko.observable();
-
+         
             this.devSitesJSON = ko.observableArray(@Html.Raw(Model.devSitesJSON));
-
+     
             this.requestDelConfirm = function (itemToDelete) {
 
                 vm.currentItem = itemToDelete;
