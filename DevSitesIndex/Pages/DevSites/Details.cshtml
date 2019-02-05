@@ -33,9 +33,9 @@
             @Html.DisplayNameFor(model => model.DevSite.Solution_Details)
         </dt>
         <dd>
-            <pre>
-@Html.DisplayFor(model => model.DevSite.Solution_Details)
-</pre>
+
+            @Html.Raw(Model.DevSite.Solution_Details)
+
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.DevSite.SoftwareCode)
