@@ -19,6 +19,21 @@ namespace DevSitesIndex.Pages.CodeReferences
         [BindProperty]
         public string SearchText { get; set; }
 
+        // 02/07/2019 02:41 pm - SSN - Adding doHeightlight_v02  and doDecodeHtml 
+        [BindProperty]
+        public bool doHeightlight_v02 { get; set; }
+
+
+        // 02/07/2019 04:51 pm - SSN - Adding searchOptionCustomClassName and refactoring searchOptionFeedbackMessage
+        public string searchOptionCustomClassName { get; set; }
+
+        public HtmlString searchOptionFeedbackMessage { get; set; }
+
+
+
+        [BindProperty]
+        public bool doDecodeHtml { get; set; }
+
 
         public IndexModel(DevSitesIndex.Entities.DevSitesIndexContext context)
         {
@@ -30,6 +45,7 @@ namespace DevSitesIndex.Pages.CodeReferences
         // 09/26/2018 08:01 am - SSN - Adding passing in SearchText
         public async Task OnGetAsync(string searchText)
         {
+
             // 09/26/2018 08:15 am - SSN - Revised to include search
             if (string.IsNullOrEmpty(searchText))
             {
@@ -38,7 +54,7 @@ namespace DevSitesIndex.Pages.CodeReferences
                 // 01/28/2019 10:42 am - SSN - Performance issue on azure
                 //CodeReference = await _context.CodeReferences.OrderByDescending( r=> r.DateModified>r.DateAdded?r.DateModified:r.DateAdded).Take(50).ToListAsync();
 
-                CodeReference = await _context.CodeReferences.OrderByDescending( r=> r.DateModified).ThenByDescending(r=>r.DateAdded).Take(50).ToListAsync();
+                CodeReference = await _context.CodeReferences.OrderByDescending(r => r.DateModified).ThenByDescending(r => r.DateAdded).Take(50).ToListAsync();
             }
             else
             {
@@ -89,14 +105,21 @@ namespace DevSitesIndex.Pages.CodeReferences
 
             //  var q = from o in _context.CodeReferences where "CONTAINS({0},{1})".SQL<bool>(o.CodeBlock, SearchText) select o;
 
+
+
+            var x = (doDecodeHtml);
+
             var entities = await _context.CodeReferences
-           .FromSql("DemoSites.CodeReferences_FullTextSearch {0}", SearchText).ToListAsync();
+       .FromSql("DemoSites.CodeReferences_FullTextSearch {0}", SearchText).ToListAsync();
 
 
             CodeReference = (from first in entities
                              select new CodeReference
                              {
-                                 CodeBlock = HighlightText(first.CodeBlock),
+                                 // 02/07/2019 02:43 pm - SSN - Adding doHeightlight_v02
+
+                                 // CodeBlock = doHeightlight_v02 ? HighlightText(first.CodeBlock) : first.CodeBlock,
+                                 CodeBlock = first.CodeBlock,
                                  DateAdded = first.DateAdded,
                                  DateModified = first.DateModified,
                                  Id = first.Id,
@@ -121,8 +144,9 @@ namespace DevSitesIndex.Pages.CodeReferences
 
         //}
 
-        string HighlightText(string s)
+        public string HighlightText(string s)
         {
+
             if (tempArray == null) return "";
             if (string.IsNullOrEmpty(s)) return "";
 
@@ -141,7 +165,8 @@ namespace DevSitesIndex.Pages.CodeReferences
         }
 
 
-        public HtmlString searchResultsfeedbackMessage()
+        // 02/07/2019 05:03 pm - SSN - Revise so we can set a custom class name for the containing div. 
+        public void searchResultsfeedbackMessage_prep()
         {
             StringBuilder sb = new StringBuilder();
 
@@ -165,7 +190,14 @@ namespace DevSitesIndex.Pages.CodeReferences
                 }
             }
 
-            return new HtmlString(sb.ToString());
+            if (sb.Length > 0)
+            {
+                searchOptionCustomClassName = "searchOption_tall";
+            }
+
+
+            searchOptionFeedbackMessage = new HtmlString(sb.ToString());
+
         }
     }
 }

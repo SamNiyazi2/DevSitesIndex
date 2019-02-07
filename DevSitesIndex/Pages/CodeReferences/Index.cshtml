@@ -10,21 +10,45 @@
 <p>
     <a asp-page="Create">Create New</a>
 </p>
+@{
 
-<form method="post">
-    <div class="form-group">
-        <label class="control-label">Search</label>
-        <input asp-for="SearchText" class="form-control" />
-        <span asp-validation-for="SearchText" class="text-danger"></span>
+    Model.searchResultsfeedbackMessage_prep();
+    var test101 = @Model.searchOptionCustomClassName;
+}
+<div class="searchOption_Container">
+
+    <div class="searchOption @Model.searchOptionCustomClassName">
+
+        <form method="post">
+
+            @*02/07/2019 03:00 pm - SSN - Adding*@
+            <div class="form-group">
+                <input asp-for="doDecodeHtml" doRefreshForm="1" /> Decode HTML
+            </div>
+
+            <div>
+                @*02/07/2019 02:40 pm - SSN - Removed class="form-group" when adding doHighlight*@
+                <label class="control-label">Search</label>
+                <input asp-for="SearchText" class="form-control" />
+                <span asp-validation-for="SearchText" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="doHeightlight_v02" doRefreshForm="1" />
+
+                Highlight matches
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Search" class="btn btn-default" />
+                <a href="" class="btn btn-default ">Clear search</a>
+            </div>
+        </form>
+
+        @Model.searchOptionFeedbackMessage
+
     </div>
-    <div class="form-group">
-        <input type="submit" value="Search" class="btn btn-default" />
-        <a href="" class="btn btn-default ">Clear search</a>
-    </div>
-</form>
 
+</div>
 
-@Model.searchResultsfeedbackMessage()
 
 
 <table class="table">
@@ -51,9 +75,40 @@
                     <p>
                         @Html.DisplayFor(modelItem => item.SourceAddress)
                     </p>
-<pre class="codeblock2">
-@Html.Raw(System.Net.WebUtility.HtmlEncode(item.CodeBlock))
-</pre>
+                    <pre class="codeblock2">
+@{ 
+
+    if (Model.doDecodeHtml)
+    {
+
+        if (Model.doHeightlight_v02)
+        {
+             
+        @Html.Raw(System.Net.WebUtility.HtmlDecode(item.CodeBlock))
+        }
+        else
+        { 
+        @Html.Raw(System.Net.WebUtility.HtmlDecode(item.CodeBlock))
+        }
+    }
+    else
+    {
+        if (Model.doHeightlight_v02)
+        { 
+            @Html.Raw(Model.HighlightText(item.CodeBlock))
+        }
+        else
+        { 
+           @item.CodeBlock
+            }
+
+        }
+    
+    }
+
+
+
+
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.DateAdded)
@@ -70,3 +125,66 @@
         }
     </tbody>
 </table>
+
+
+
+@section Scripts {
+    <script>
+
+        $(function () {
+
+            $('[doRefreshForm]').on('click', function (e) {
+
+                $(document.forms[0]).submit();
+
+            });
+
+        });
+
+
+
+        $(window).scroll(function () {
+
+            $("#SearchText").val($(document).height() + " " + $(window).height() + " " + $(window).scrollTop());
+            if ($(document).height() > $(window).height()) {
+                if ($(window).scrollTop() > 100) {
+                    $(".searchOption ").addClass("fixed_101");
+                } else {
+                    $(".searchOption ").removeClass("fixed_101");
+                }
+            }
+
+        });
+
+
+
+    </script>
+}
+
+<style>
+
+    .searchOption_Container {
+        height: 220px;
+        width: 300px;
+        position: relative;
+    }
+
+    .searchOption {
+        background-color: white;
+        height: 220px;
+        width: 300px;
+        padding: 20px;
+        border: 5px solid black;
+        position: relative;
+    }
+
+
+    .searchOption_tall {
+        height: 280px;
+    }
+
+    .fixed_101 {
+        top: 50px;
+        position: fixed;
+    }
+</style>
