@@ -164,7 +164,7 @@
 
         $(window).scroll(function () {
 
-            $("#SearchText").val( '"' + $(document).height() + "-" + $(window).height() + "-" + $(window).scrollTop() + '"' );
+          //  $("#SearchText").val( '"' + $(document).height() + "-" + $(window).height() + "-" + $(window).scrollTop() + '"' );
             if ($(document).height() > $(window).height()) {
                 if ($(window).scrollTop() > 100) {
                     $(".searchOption ").addClass("fixed_101");

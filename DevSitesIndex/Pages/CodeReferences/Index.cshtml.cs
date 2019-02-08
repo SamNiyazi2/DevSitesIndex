@@ -71,7 +71,10 @@ namespace DevSitesIndex.Pages.CodeReferences
 
             if (string.IsNullOrEmpty(SearchText))
             {
-                CodeReference = await _context.CodeReferences.Take(50).ToListAsync();
+                // 02/08/2019 03:14 am - SSN - Added order
+                // CodeReference = await _context.CodeReferences.Take(50).ToListAsync();
+                CodeReference = await _context.CodeReferences.OrderByDescending(r => r.DateModified).ThenByDescending(r => r.DateAdded).Take(50).ToListAsync();
+
                 return Page();
             }
 
@@ -205,7 +208,7 @@ namespace DevSitesIndex.Pages.CodeReferences
         public HtmlString ShowPos(string message)
         {
             if (!doShowPos) return null;
-            return new HtmlString( string.Format("<h6>[H-{0}]</h6>", message));
+            return new HtmlString(string.Format("<h6>[H-{0}]</h6>", message));
         }
     }
 }
