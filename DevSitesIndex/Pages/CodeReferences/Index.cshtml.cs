@@ -146,9 +146,9 @@ namespace DevSitesIndex.Pages.CodeReferences
 
         public string HighlightText(string s)
         {
-
-            if (tempArray == null) return "";
-            if (string.IsNullOrEmpty(s)) return "";
+            // 02/08/2019 02:27 am - SSN - Correct logic - return s;
+            if (tempArray == null) return s;
+            if (string.IsNullOrEmpty(s)) return s;
 
             string[] allText = s.ToLower().Split().Select(r4 => r4.Trim()).ToArray();
 
@@ -198,6 +198,14 @@ namespace DevSitesIndex.Pages.CodeReferences
 
             searchOptionFeedbackMessage = new HtmlString(sb.ToString());
 
+        }
+
+        // 02/08/2019 02:36 pm - SSN - Adding for debugging
+        public bool doShowPos { get; set; } = false;
+        public HtmlString ShowPos(string message)
+        {
+            if (!doShowPos) return null;
+            return new HtmlString( string.Format("<h6>[H-{0}]</h6>", message));
         }
     }
 }

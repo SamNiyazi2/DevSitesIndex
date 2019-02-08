@@ -78,32 +78,51 @@
                     <pre class="codeblock2">
 @{ 
 
+    @Model.ShowPos("101")
+
     if (Model.doDecodeHtml)
     {
 
+    @Model.ShowPos("102")
+
         if (Model.doHeightlight_v02)
         {
-             
+
+    @Model.ShowPos("103")
+
         @Html.Raw(System.Net.WebUtility.HtmlDecode(item.CodeBlock))
         }
         else
-        { 
+        {
+
+    @Model.ShowPos("104")
+
         @Html.Raw(System.Net.WebUtility.HtmlDecode(item.CodeBlock))
         }
     }
     else
     {
+
+    @Model.ShowPos("105")
+
         if (Model.doHeightlight_v02)
-        { 
+        {
+
+    @Model.ShowPos("106")
+
             @Html.Raw(Model.HighlightText(item.CodeBlock))
         }
         else
-        { 
+        {
+
+    @Model.ShowPos("107")
+
            @item.CodeBlock
+
             }
 
         }
-    
+
     }
 
 
@@ -145,7 +164,7 @@
 
         $(window).scroll(function () {
 
-            $("#SearchText").val($(document).height() + " " + $(window).height() + " " + $(window).scrollTop());
+            $("#SearchText").val( '"' + $(document).height() + "-" + $(window).height() + "-" + $(window).scrollTop() + '"' );
             if ($(document).height() > $(window).height()) {
                 if ($(window).scrollTop() > 100) {
                     $(".searchOption ").addClass("fixed_101");
