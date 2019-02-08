@@ -21,7 +21,7 @@ namespace DevSitesIndex.Pages.CodeReferences
 
         // 02/07/2019 02:41 pm - SSN - Adding doHeightlight_v02  and doDecodeHtml 
         [BindProperty]
-        public bool doHeightlight_v02 { get; set; }
+        public bool doHeightlight_v02 { get; set; } = true;
 
 
         // 02/07/2019 04:51 pm - SSN - Adding searchOptionCustomClassName and refactoring searchOptionFeedbackMessage
