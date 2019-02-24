@@ -3,7 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DevSitesIndex.Entities;
+using DevSitesIndex.Entities; 
+using Microsoft.Extensions.Configuration;
 
 // 07/29/2018 03:31 pm - SSN - Copied
 
@@ -11,11 +12,19 @@ namespace DevSitesIndex.Entities
 {
     public class DevSitesIndexContext : DbContext
     {
-        public DevSitesIndexContext(DbContextOptions<DevSitesIndexContext> options)
+        // 02/24/2019 12:42 pm - SSN - [20190224-1247] Adding IConfiguration configuration
+        public DevSitesIndexContext(DbContextOptions<DevSitesIndexContext> options, IConfiguration configuration)
            : base(options)
         {
-            // 02/24/2019 05:32 am - SSN - Reactivated
-            Database.Migrate();
+            // 02/24/2019 12:42 pm - SSN - [20190224-1247] Adding do_database_Migration
+            bool do_database_Migration = false;
+            bool.TryParse(configuration["Database_Migration"], out do_database_Migration);
+
+            if (do_database_Migration)
+            {
+                // 02/24/2019 05:32 am - SSN - Reactivated
+                Database.Migrate();
+            }
         }
 
         // 08/07/2018 12:14 pm - SSN
