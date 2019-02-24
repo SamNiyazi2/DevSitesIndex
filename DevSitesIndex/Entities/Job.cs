@@ -20,8 +20,5 @@ namespace DevSitesIndex.Entities
 
         public Project project{ get; set; }
 
-        // 02/24/2019 12:59 pm - SSN - Testing Azure migration
-        public string Test_0224a { get; set; }
-
     }
 }
