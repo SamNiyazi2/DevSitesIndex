@@ -11,9 +11,10 @@ using System;
 namespace DevSitesIndex.Migrations
 {
     [DbContext(typeof(DevSitesIndexContext))]
-    partial class DevSitesIndexContextModelSnapshot : ModelSnapshot
+    [Migration("20190224111846_CodeReference add Titla")]
+    partial class CodeReferenceaddTitla
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,7 +35,7 @@ namespace DevSitesIndex.Migrations
 
                     b.Property<string>("SourceAddress");
 
-                    b.Property<string>("Title");
+                    b.Property<string>("Titla");
 
                     b.HasKey("Id");
 

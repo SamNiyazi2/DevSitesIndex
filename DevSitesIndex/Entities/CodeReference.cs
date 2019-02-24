@@ -15,6 +15,7 @@ namespace DevSitesIndex.Entities
         public string SourceAddress { get; set; }
         public DateTime DateAdded { get; set; }
         public DateTime DateModified { get; set; }
-
+// 02/24/2019 05:16 - SSN - Added
+        public string Title { get; set; }
     }
 }

@@ -14,7 +14,8 @@ namespace DevSitesIndex.Entities
         public DevSitesIndexContext(DbContextOptions<DevSitesIndexContext> options)
            : base(options)
         {
-            /////////////////////////////////   Database.Migrate(); 
+            // 02/24/2019 05:32 am - SSN - Reactivated
+            Database.Migrate();
         }
 
         // 08/07/2018 12:14 pm - SSN
@@ -40,7 +41,7 @@ namespace DevSitesIndex.Entities
             .HasName("ReferenceSites_SiteTitle");
 
             modelBuilder.Entity<ReferenceSite>()
-            .HasIndex (c => c.SiteURL)
+            .HasIndex(c => c.SiteURL)
             .IsUnique()
             .HasName("ReferenceSites_SiteURL");
 
