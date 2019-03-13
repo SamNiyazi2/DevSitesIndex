@@ -20,6 +20,10 @@ namespace DevSitesIndex.Pages.Companies
 
         public IActionResult OnGet()
         {
+            // 03/13/2019 10:55 am - SSN - Init dateadded.
+            Company = new Company();
+            Company.DateAdded = DateTime.Now;
+
             return Page();
         }
 

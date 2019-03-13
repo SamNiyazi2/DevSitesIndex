@@ -18,6 +18,7 @@ namespace DevSitesIndex.Entities
         [Required]
         // 09/04/2018 10:05 am - SSN - Added remote validation
         [Remote(action: "DoesReferenceSites_SiteTitleExist", controller: "home", AdditionalFields = "Id", HttpMethod = "POST")]
+
         public string SiteTitle { get; set; }
 
         [Required]
@@ -25,6 +26,8 @@ namespace DevSitesIndex.Entities
         [Remote(action: "DoesReferenceSites_SiteUrlExist", controller: "home", AdditionalFields = "Id", HttpMethod = "POST")]
         public string SiteURL { get; set; }
 
+        // 03/13/2019 09:29 am - SSN
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy hh:mm tt}")]
         public DateTime DateAdded { get; set; }
 
     }

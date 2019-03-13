@@ -8,14 +8,21 @@
 <h2>Create</h2>
 
 <h4>CodeReference</h4>
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="CodeReference.Title" class="control-label"></label>
+                <textarea asp-for="CodeReference.Title" class="form-control codeblock1"></textarea>
+                <span asp-validation-for="CodeReference.Title" class="text-danger"></span>
+            </div>
+
             <div class="form-group">
                 <label asp-for="CodeReference.CodeBlock" class="control-label"></label>
-                <textarea  asp-for="CodeReference.CodeBlock" class="form-control codeblock1" ></textarea>
+                <textarea asp-for="CodeReference.CodeBlock" class="form-control codeblock1"></textarea>
                 <span asp-validation-for="CodeReference.CodeBlock" class="text-danger"></span>
             </div>
             <div class="form-group">

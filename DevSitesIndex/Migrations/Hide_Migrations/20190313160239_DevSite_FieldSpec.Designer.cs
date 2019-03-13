@@ -11,9 +11,10 @@ using System;
 namespace DevSitesIndex.Migrations
 {
     [DbContext(typeof(DevSitesIndexContext))]
-    partial class DevSitesIndexContextModelSnapshot : ModelSnapshot
+    [Migration("20190313160239_DevSite_FieldSpec")]
+    partial class DevSite_FieldSpec
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,8 +27,7 @@ namespace DevSitesIndex.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("CodeBlock")
-                        .IsRequired();
+                    b.Property<string>("CodeBlock");
 
                     b.Property<DateTime>("DateAdded");
 
@@ -35,8 +35,7 @@ namespace DevSitesIndex.Migrations
 
                     b.Property<string>("SourceAddress");
 
-                    b.Property<string>("Title")
-                        .HasMaxLength(100);
+                    b.Property<string>("Title");
 
                     b.HasKey("Id");
 
@@ -70,7 +69,7 @@ namespace DevSitesIndex.Migrations
 
                     b.Property<string>("SiteTitle")
                         .IsRequired()
-                        .HasMaxLength(200);
+                        .HasMaxLength(100);
 
                     b.Property<string>("SiteUrl")
                         .HasMaxLength(500);

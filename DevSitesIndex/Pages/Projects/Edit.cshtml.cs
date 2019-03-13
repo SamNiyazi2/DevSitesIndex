@@ -24,7 +24,7 @@ namespace DevSitesIndex.Pages.Projects
 
 
         // 08/08/2018 03:51 pm - SSN
-        public SelectList projectsSL { get; set; }
+        public SelectList companySL { get; set; }
 
 
         public async Task<IActionResult> OnGetAsync(int? id)
@@ -44,7 +44,7 @@ namespace DevSitesIndex.Pages.Projects
 
             // ViewData["CompanyID"] = new SelectList(_context.Company, "CompanyID", "CompanyID");
 
-            projectsSL = new SelectList(_context.Company, "CompanyID", "CompanyName");
+            companySL = new SelectList(_context.Company, "CompanyID", "CompanyName");
 
             return Page();
         }

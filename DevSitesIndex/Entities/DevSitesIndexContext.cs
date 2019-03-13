@@ -20,9 +20,12 @@ namespace DevSitesIndex.Entities
             bool do_database_Migration = false;
             bool.TryParse(configuration["Database_Migration"], out do_database_Migration);
 
+
             if (do_database_Migration)
             {
                 // 02/24/2019 05:32 am - SSN - Reactivated
+
+                Database.SetCommandTimeout(600);
                 Database.Migrate();
             }
         }
@@ -54,6 +57,43 @@ namespace DevSitesIndex.Entities
             .IsUnique()
             .HasName("ReferenceSites_SiteURL");
 
+            // 03/13/2019 10:41 am - SSN
+            modelBuilder.Entity<Project>()
+                .Property(x => x.ProjectTitle)
+                .IsRequired()
+                .HasMaxLength(100);
+
+
+            // 03/13/2019 10:53 am - SSN
+            modelBuilder.Entity<Company>()
+                .Property(x => x.CompanyName)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            // 03/13/2019 11:01 am - SSN - DevSite update
+            modelBuilder.Entity<DevSite>()
+                .Property(x => x.SiteTitle)
+                .IsRequired()
+                .HasMaxLength(200);
+
+            modelBuilder.Entity<DevSite>()
+                .Property(x => x.SiteUrl)
+                .HasMaxLength(500);
+
+            modelBuilder.Entity<DevSite>()
+                .Property(x => x.SolutionName)
+                .HasMaxLength(500);
+
+
+            // 03/13/2019 11:16 am - SSN - CodeReference update
+            // 03/13/2019 03:36 pm - SSN - Take out
+            //modelBuilder.Entity<CodeReference>()
+            //    .Property(x => x.CodeBlock)
+            //    .IsRequired();
+
+            modelBuilder.Entity<CodeReference>()
+                .Property(x => x.Title)
+                .HasMaxLength(100);
 
         }
         public DbSet<SoftwareCode> SoftwareCode { get; set; }

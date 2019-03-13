@@ -23,10 +23,17 @@ namespace DevSitesIndex.Pages.Projects
 
         public IActionResult OnGet()
         {
-
-            companiesSL = new SelectList(_context.Project, "CompanyID", "CompanyName");
+            setupPageRequirements();
 
             return Page();
+        }
+
+        private void setupPageRequirements()
+        {
+            companiesSL = new SelectList(_context.Company, "CompanyID", "CompanyName");
+            if (Project == null)
+                Project = new Project();
+            Project.DateAdded = DateTime.Now;
         }
 
         [BindProperty]
@@ -36,7 +43,7 @@ namespace DevSitesIndex.Pages.Projects
         {
             if (!ModelState.IsValid)
             {
-                companiesSL = new SelectList(_context.Project, "CompanyID", "CompanyName", Project.CompanyID);
+                setupPageRequirements();
                 return Page();
             }
 

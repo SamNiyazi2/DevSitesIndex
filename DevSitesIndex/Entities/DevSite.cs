@@ -18,16 +18,21 @@ namespace DevSitesIndex.Entities
         public int Id { get; set; }
 
         [Required]
+        [DisplayName("Site Title")]
         public string SiteTitle { get; set; }
 
+        [DisplayName("Site URL")]
         public string SiteUrl { get; set; }
 
         [Required]
+        [DisplayName("Solution Name")]
         public string SolutionName { get; set; }
 
+        [DisplayName("Detail")]
         public string Solution_Details { get; set; }
 
         [Required]
+        [DisplayName("Project Software")]
         public int SoftwareCodeID { get; set; }
 
 
@@ -35,17 +40,21 @@ namespace DevSitesIndex.Entities
 
         // 08/24/2018 01:59 am - SSN
         // [DataType(DataType.Date)]
+        // Does not work on date/time - Not tested on date only!
         // [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy hh:mm tt}", ApplyFormatInEditMode = true)]
 
 
       //  [DataType(DataType.DateTime)]
       //  [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [DisplayName("Date Added")]
-
+        // 03/13/2019 09:29 am - SSN
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy hh:mm tt}")]
         public DateTime DateAdded { get; set; }
 
         // 10/12/2018 03:52 pm - SSN - Added
         [DisplayName("Date Updated")]
+        // 03/13/2019 09:29 am - SSN
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy hh:mm tt}")]
         public DateTime? DateUpdated { get; set; }
     }
 

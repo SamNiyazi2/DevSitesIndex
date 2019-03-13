@@ -11,9 +11,10 @@ using System;
 namespace DevSitesIndex.Migrations
 {
     [DbContext(typeof(DevSitesIndexContext))]
-    partial class DevSitesIndexContextModelSnapshot : ModelSnapshot
+    [Migration("20190313162028_CodeReference_Update")]
+    partial class CodeReference_Update
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -70,7 +71,7 @@ namespace DevSitesIndex.Migrations
 
                     b.Property<string>("SiteTitle")
                         .IsRequired()
-                        .HasMaxLength(200);
+                        .HasMaxLength(100);
 
                     b.Property<string>("SiteUrl")
                         .HasMaxLength(500);
