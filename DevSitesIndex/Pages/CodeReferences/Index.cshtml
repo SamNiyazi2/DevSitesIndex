@@ -55,6 +55,7 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.CodeReference[0].Title) /
                 @Html.DisplayNameFor(model => model.CodeReference[0].SourceAddress) /
                 @Html.DisplayNameFor(model => model.CodeReference[0].CodeBlock)
             </th>
@@ -68,65 +69,54 @@
         </tr>
     </thead>
     <tbody>
+
         @foreach (var item in Model.CodeReference)
         {
             <tr>
                 <td>
-                    <p>
-                        @Html.DisplayFor(modelItem => item.SourceAddress)
-                    </p>
+
+                    @if (item.Title != null)
+                    {
+                        <h3>  @Html.DisplayFor(modelItem => item.Title)</h3>
+
+                    }
+
+                    @if (item.SourceAddress != null)
+                    {
+                        <h5>
+                            @Html.DisplayFor(modelItem => item.SourceAddress)
+                        </h5>
+                    }
+
                     <pre class="codeblock2">
-@{ 
+     
 
-    @Model.ShowPos("101")
+                            @if (Model.doDecodeHtml)
+                            { 
+                                if (Model.doHeightlight_v02)
+                                {   
+                                     @Html.Raw(System.Net.WebUtility.HtmlDecode(item.CodeBlock))
+                                }
+                                else
+                                {  
+                                    @Html.Raw(System.Net.WebUtility.HtmlDecode(item.CodeBlock))
+                                }
+                            }
+                            else
+                            {  
+                                if (Model.doHeightlight_v02)
+                                { 
+                                    // 02/08/2019 04:53 am - SSN - Encode
+                                    //@Html.Raw(Model.HighlightText(item.CodeBlock))
+                                    @Html.Raw(Model.HighlightText(System.Net.WebUtility.HtmlEncode(item.CodeBlock)))
+                                }
+                                else
+                                {      
+                                   @item.CodeBlock 
+                                }
 
-    if (Model.doDecodeHtml)
-    {
-
-    @Model.ShowPos("102")
-
-        if (Model.doHeightlight_v02)
-        {
-
-    @Model.ShowPos("103")
-
-        @Html.Raw(System.Net.WebUtility.HtmlDecode(item.CodeBlock))
-        }
-        else
-        {
-
-    @Model.ShowPos("104")
-
-        @Html.Raw(System.Net.WebUtility.HtmlDecode(item.CodeBlock))
-        }
-    }
-    else
-    {
-
-    @Model.ShowPos("105")
-
-        if (Model.doHeightlight_v02)
-        {
-
-    @Model.ShowPos("106")
-
-            // 02/08/2019 04:53 am - SSN - Encode
-            //@Html.Raw(Model.HighlightText(item.CodeBlock))
-            @Html.Raw(Model.HighlightText(System.Net.WebUtility.HtmlEncode(item.CodeBlock)))
-        }
-        else
-        {
-
-    @Model.ShowPos("107")
-
-           @item.CodeBlock
-
-            }
-
-        }
-
-    }
-
+                            }
+                        </pre>
 
 
 
@@ -183,8 +173,8 @@
 
             var code = e.which || e.keyCode;
 
-            if ( [16, 17, 18, 27, 116].find( e2 =>  e2 == code ) ) {
-                return ;
+            if ([16, 17, 18, 27, 116].find(e2 => e2 == code)) {
+                return;
             }
 
             if (e.ctrlKey || e.altKey) {
