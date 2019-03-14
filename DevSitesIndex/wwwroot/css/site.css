@@ -1,12 +1,12 @@
 ﻿.codeblock1 {
 
-    width:1000px;
+    width:900px;
     min-height:200px; 
 }
 
-.codeblock2 {
+.codeblock2 { /* Match maxWidthCol1 */
     width: 600px;
-    height:200px;
+    height: 200px;
 }
 
 
@@ -109,3 +109,18 @@ fieldset {
 }
 
 
+/*03/14/2019 09:04 samp - SSN*/
+.indexNowrapCol{
+    font-size:8pt;
+    white-space:nowrap;
+}
+
+.maxWidthCol1 {
+    max-width: 600px; /* Match codeblock2*/
+    /*white-space: pre-wrap;*/ /* CSS3 */
+    white-space: -moz-pre-wrap; /* Firefox */
+    white-space: -pre-wrap; /* Opera <7 */
+    white-space: -o-pre-wrap; /* Opera 7 */
+    word-wrap: break-word;
+    
+}

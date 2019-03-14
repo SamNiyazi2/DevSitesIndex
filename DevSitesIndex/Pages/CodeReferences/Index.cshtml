@@ -5,16 +5,18 @@
     ViewData["Title"] = "Code Reference - Index";
 }
 
-<h2>@ViewData["Title"]</h2>
+<h2 id="topTitle">@ViewData["Title"]</h2>
 
 <p>
-    <a asp-page="Create">Create New</a>
+    <a asp-page="Create">Create New</a> <span id="searchOptionDiv" hidden cmd-name="hideObject" jQueryObjectName="#searchOptionDiv"> | <a cmd-name="showObject" jQueryObjectName=".searchOption_Container">Show Search</a></span>
 </p>
 @{
 
     Model.searchResultsfeedbackMessage_prep();
     var test101 = @Model.searchOptionCustomClassName;
 }
+
+
 <div class="searchOption_Container @Model.searchOptionCustomClassName">
 
     <div class="searchOption @Model.searchOptionCustomClassName">
@@ -40,6 +42,7 @@
             <div class="form-group">
                 <input type="submit" value="Search" class="btn btn-default" />
                 <a href="" class="btn btn-default ">Clear search</a>
+                <span cmd-name="showObject" jQueryObjectName="#searchOptionDiv"><a class="pull-right" cmd-name="hideObject" jQueryObjectName=".searchOption_Container">Hide</a></span>
             </div>
         </form>
 
@@ -49,11 +52,14 @@
 
 </div>
 
-
+<div class="fixed_anchor" hidden>
+    <a cmd-name="smooth-scroll" jQueryObjectName="#topTitle">Top</a>
+</div>
 
 <table class="table">
     <thead>
         <tr>
+
             <th>
                 @Html.DisplayNameFor(model => model.CodeReference[0].Title) /
                 @Html.DisplayNameFor(model => model.CodeReference[0].SourceAddress) /
@@ -73,8 +79,8 @@
         @foreach (var item in Model.CodeReference)
         {
             <tr>
-                <td>
 
+                <td>
                     @if (item.Title != null)
                     {
                         <h3>  @Html.DisplayFor(modelItem => item.Title)</h3>
@@ -83,9 +89,18 @@
 
                     @if (item.SourceAddress != null)
                     {
-                        <h5>
-                            @Html.DisplayFor(modelItem => item.SourceAddress)
-                        </h5>
+                        <p class="maxWidthCol1">
+                            @if (item.SourceAddress.ToLower().StartsWith("http"))
+                            {
+                                <a target="wincoderef@item.Id" href="@item.SourceAddress">@Html.DisplayFor(modelItem => item.SourceAddress)</a>
+
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(modelItem => item.SourceAddress)
+
+                            }
+                        </p>
                     }
 
                     <pre class="codeblock2">
@@ -121,13 +136,16 @@
 
 
                 </td>
-                <td>
+
+                <td class="indexNowrapCol">
                     @Html.DisplayFor(modelItem => item.DateAdded)
                 </td>
-                <td>
+
+                <td class="indexNowrapCol">
                     @Html.DisplayFor(modelItem => item.DateModified)
                 </td>
-                <td>
+
+                <td class="indexNowrapCol">
                     <a asp-page="./Edit" asp-route-id="@item.Id" asp-route-SearchText="@Model.SearchText">Edit</a> |
                     <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
                     <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
@@ -212,6 +230,11 @@
 
     .fixed_101 {
         top: 50px;
+        position: fixed;
+    }
+
+    .fixed_anchor {
+        left: 10px;
         position: fixed;
     }
 </style>

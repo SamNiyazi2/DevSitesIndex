@@ -13,14 +13,14 @@
 <table class="table">
     <thead>
         <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Project[0].ProjectTitle)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Project[0].DateAdded)
-                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Project[0].ProjectTitle)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Project[0].company.CompanyName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Project[0].DateAdded)
             </th>
             <th></th>
         </tr>
@@ -32,12 +32,12 @@
                 @Html.DisplayFor(modelItem => item.ProjectTitle)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DateAdded)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.company.CompanyName)
             </td>
-            <td>
+            <td class="indexNowrapCol">
+                @Html.DisplayFor(modelItem => item.DateAdded)
+            </td>
+            <td class="indexNowrapCol">
                 <a asp-page="./Edit" asp-route-id="@item.ProjectID">Edit</a> |
                 <a asp-page="./Details" asp-route-id="@item.ProjectID">Details</a> |
                 <a asp-page="./Delete" asp-route-id="@item.ProjectID">Delete</a>
