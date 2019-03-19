@@ -36,6 +36,11 @@ namespace DevSitesIndex.Entities
         public int SoftwareCodeID { get; set; }
 
 
+
+        // 03/18/2019 11:50 pm - SSN - [20190318-2350] Added
+        public bool CanBeLaunched { get; set; }
+
+
         public SoftwareCode SoftwareCode { get; set; }
 
         // 08/24/2018 01:59 am - SSN

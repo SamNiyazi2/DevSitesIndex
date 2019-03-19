@@ -86,36 +86,68 @@
                 <span class="siteTitle" data-bind="text: siteTitle"></span>
                 <!-- /ko -->
                 <!-- ko if: $data.solution_Details -->
-
-                 @*02/05/2019 02:11 pm - SSN - Testing decoding html*@
-                 @*<div class="solution_details" data-bind="text:solution_Details">*@
-                    <div class="solution_details" data-bind="html:solution_Details">
-                    </div>
-                    <!-- /ko -->
-
-                    <br />
-
-                    <div class="menuOptions">
-
-                        <a href="#" class=""
-                           data-bind="click: $parent.showJob">Show Job</a>
-
-                        <a href="#" class=""
-                           data-bind="click: $parent.requestDelConfirm">Delete</a>
-
-                        <a class=""
-                           data-bind="attr: {href: '/devsites/details?id=' + id , target:'devsiteIndexWindow' + id } ">Detail</a>
-
-                    </div>
-                    <hr />
+                @*02/05/2019 02:11 pm - SSN - Testing decoding html*@
+                @*<div class="solution_details" data-bind="text:solution_Details">*@
+                <div class="solution_details" data-bind="html:solution_Details">
                 </div>
+                <!-- /ko -->
+
+                <br />
+
+                <div class="menuOptions">
+
+                    <a href="#" class=""
+                       data-bind="click: $parent.showJob">Show Job</a>
+
+                    <a href="#" class=""
+                       data-bind="click: $parent.requestDelConfirm">Delete</a>
+
+                    <a class=""
+                       data-bind="attr: {href: '/devsites/details?id=' + id , target:'devsiteIndexWindow' + id } ">Detail</a>
+
+
+
+                    @*// 03/19/2019 12:06 am - SSN - [20190318-2350] Added*@
+                    <div data-bind="if: canBeLaunched">
+                        <div data-bind="template: { name: 'launchOption'}">
+
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+                <hr />
             </div>
+        </div>
     </script>
 
 
     @*08/21/2018 02:46 am - SSN - Copied - End*@
 
 
+    @*// 03/19/2019 12:58 am - SSN - [20190318-2350] Added*@
+    <script type="text/html" id="launchOption">
+
+
+        <div data-bind="if: softwareCodeID === 1">
+            <p>
+                Project: <a data-bind="attr:{   href:'ssnalert:appcode=1;targetfile='+solutionName,  target:'window_2_' + id }"><span data-bind="text: solutionName"></span></a>
+            </p>
+        </div>
+
+        <div data-bind="if: softwareCodeID === 2">
+            <p>
+                Project: <a data-bind="attr:{   href:'ssnalert:appcode=2;targetfile='+solutionName,  target:'window_2_' + id }"><span data-bind="text: solutionName"></span></a>
+            </p>
+        </div>
+
+        <div data-bind="if: softwareCodeID !== 2 && softwareCodeID !== 1 && softwareCodeID !== 0">
+            <p class="alert-danger" data-bind="text: 'No option for software code [' + softwareCodeID +']' "></p>
+        </div>
+
+    </script>
 
     <script src="~/js/DemoSites.js" asp-append-version="true"></script>
 
@@ -137,9 +169,9 @@
             this.currentItem = {};
 
             this.errorMessage = ko.observable();
-         
+
             this.devSitesJSON = ko.observableArray(@Html.Raw(Model.devSitesJSON));
-     
+
             this.requestDelConfirm = function (itemToDelete) {
 
                 vm.currentItem = itemToDelete;

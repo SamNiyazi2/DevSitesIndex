@@ -11,9 +11,10 @@ using System;
 namespace DevSitesIndex.Migrations
 {
     [DbContext(typeof(DevSitesIndexContext))]
-    partial class DevSitesIndexContextModelSnapshot : ModelSnapshot
+    [Migration("20190319045714_Add DevSite CanBeLaunched")]
+    partial class AddDevSiteCanBeLaunched
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -64,7 +65,7 @@ namespace DevSitesIndex.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<bool>("CanBeLaunched");
+                    b.Property<bool?>("CanBeLaunched");
 
                     b.Property<DateTime>("DateAdded");
 
