@@ -49,8 +49,8 @@ namespace DevSitesIndex.Entities
         // [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy hh:mm tt}", ApplyFormatInEditMode = true)]
 
 
-      //  [DataType(DataType.DateTime)]
-      //  [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        //  [DataType(DataType.DateTime)]
+        //  [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [DisplayName("Date Added")]
         // 03/13/2019 09:29 am - SSN
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy hh:mm tt}")]
@@ -61,6 +61,18 @@ namespace DevSitesIndex.Entities
         // 03/13/2019 09:29 am - SSN
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy hh:mm tt}")]
         public DateTime? DateUpdated { get; set; }
+
+
+        // 03/19/2019 07:04 pm - SSN - [20190319-1904]
+        [NotMapped]
+        public double docAge
+        {
+            get
+            {
+                return Math.Round(DateTime.Now.Subtract((DateUpdated ?? DateAdded)).TotalHours);
+            }
+        }
+
     }
 
 }
