@@ -8,6 +8,8 @@
 <h2>Edit</h2>
 
 <h4>DevSite</h4>
+@*03/19/2019 10:48 pm - SSN - Added*@
+<div asp-validation-summary="All"></div>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -77,9 +79,18 @@
             @*// 03/19/2019 09:17 pm - SSN - [20190319-2117] Added ForDemo*@
 
             <div class="form-group">
-                <input type="checkbox" asp-for="DevSite.ForDemo" />
-                <label asp-for="DevSite.ForDemo" class="control-label"></label>
-                <span asp-validation-for="DevSite.ForDemo" class="text-danger"></span>
+
+                @*// 03/19/2019 10:13 pm - SSN - [20190319-2117]  ForDemo to ForDemo_v02*@
+
+                <label asp-for="DevSite.ForDemo_v02" class="control-label"></label>
+
+                @foreach (int key in Enum.GetValues(typeof(DevSitesIndex.EnumUtil.ForDemoState)))
+                {
+                    string name = Enum.GetName(typeof(DevSitesIndex.EnumUtil.ForDemoState), key);
+                    <input asp-for="DevSite.ForDemo_v02" type="radio" value="@key" /> @name
+                }
+
+                <span asp-validation-for="DevSite.ForDemo_v02" class="text-danger"></span>
             </div>
 
 
@@ -92,9 +103,11 @@
 </div>
 
 <div>
-    <a  asp-page="./Index">Back to List</a>
+    <a asp-page="./Index">Back to List</a>
 </div>
 
+@*// 03/19/2019 10:52 pm - SSN - [20190319-2117]  This was comments out.  No notes.  Discovered while testing remote validation on ForDemo_v02. It didn't work before reactivating scripts.'
+    *@
 @section Scripts {
-    @*@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}*@
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

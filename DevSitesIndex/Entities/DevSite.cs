@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -64,8 +65,10 @@ namespace DevSitesIndex.Entities
         public DateTime? DateUpdated { get; set; }
 
         // 03/19/2019 09:17 pm - SSN - [20190319-2117] Added ForDemo
+        // 03/19/2019 09:59 pm - SSN - [20190319-2117] ForDemo to ForDemo_v02
         [DisplayName("For Demo")]
-        public bool ForDemo { get; set; }
+        [Remote(action: "isForDemo_v02_SelectionValid", controller: "home", HttpMethod = "POST")]
+        public byte ForDemo_v02 { get; set; }
 
         // 03/19/2019 07:04 pm - SSN - [20190319-1904]
         [NotMapped]
@@ -78,5 +81,7 @@ namespace DevSitesIndex.Entities
         }
 
     }
+
+
 
 }
