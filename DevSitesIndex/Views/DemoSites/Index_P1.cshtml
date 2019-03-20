@@ -77,7 +77,11 @@
     <script type="text/html" id="list-template">
 
         <div class="container-fluid">
-            <div class="siteDiv">
+ 
+
+            @*03/19/2019 11:01 pm - SSN -*@
+            <div data-bind="attr: { class: $parent.getClassForDemoState(forDemo_v02)}">
+                @*class="siteDiv"*@
 
                 @*// 03/19/2019 07:04 pm - SSN - [20190319-1904]*@
 
@@ -178,6 +182,7 @@
 
         var ViewModel = function () {
 
+
             this.currentItem = {};
 
             this.errorMessage = ko.observable();
@@ -225,6 +230,26 @@
                 }
             };
 
+
+            this.getClassForDemoState = function (forDemo_v2) {
+
+                let selectedClass = "";
+
+                switch (forDemo_v2) {
+                    case 1:
+                        selectedClass = ' forDemo_Yes';
+                        break;
+
+                    case 2:
+                        selectedClass =  'forDemo_No';
+                        break;
+
+
+                }
+
+                return "siteDiv" + " " + selectedClass;
+
+            };
 
 
         };

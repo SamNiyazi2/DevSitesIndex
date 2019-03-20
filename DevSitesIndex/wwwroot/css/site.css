@@ -59,6 +59,14 @@ td, .siteDiv {
     vertical-align: text-top;
 }
 
+.forDemo_Yes { 
+    background-color: #92DCE6;
+}
+.forDemo_No {
+    background-color: #FBE7B5;
+}
+
+
 a
 {
     cursor:pointer;
