@@ -50,8 +50,8 @@
 
 
             <div class="form-group">
-                <label asp-for="DevSite.CanBeLaunched" class="control-label"></label>
                 <input type="checkbox" asp-for="DevSite.CanBeLaunched" class="form-control " />
+                <label asp-for="DevSite.CanBeLaunched" class="control-label"></label>
                 <span asp-validation-for="DevSite.CanBeLaunched" class="text-danger"></span>
             </div>
 
@@ -63,6 +63,18 @@
                 <input asp-for="DevSite.DateAdded" class="form-control " />
                 <span asp-validation-for="DevSite.DateAdded" class="text-danger"></span>
             </div>
+
+
+
+            @*// 03/19/2019 09:21 pm - SSN - [20190319-2117] Added ForDemo*@
+
+            <div class="form-group">
+                <input type="checkbox" asp-for="DevSite.ForDemo" />
+                <label asp-for="DevSite.ForDemo" class="control-label"></label>
+                <span asp-validation-for="DevSite.ForDemo" class="text-danger"></span>
+            </div>
+
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>

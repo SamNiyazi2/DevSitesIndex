@@ -51,8 +51,8 @@
 
 
             <div class="form-group">
+                <input type="checkbox" asp-for="DevSite.CanBeLaunched" />
                 <label asp-for="DevSite.CanBeLaunched" class="control-label"></label>
-                <input type="checkbox" asp-for="DevSite.CanBeLaunched" class="form-control " />
                 <span asp-validation-for="DevSite.CanBeLaunched" class="text-danger"></span>
             </div>
 
@@ -71,6 +71,15 @@
                 <label asp-for="DevSite.DateUpdated" class="control-label"></label>
                 <input asp-for="DevSite.DateUpdated" class="form-control " data-ng-model="devSiteRecord.DateUpdated" />
                 <span asp-validation-for="DevSite.DateUpdated" class="text-danger"></span>
+            </div>
+
+
+            @*// 03/19/2019 09:17 pm - SSN - [20190319-2117] Added ForDemo*@
+
+            <div class="form-group">
+                <input type="checkbox" asp-for="DevSite.ForDemo" />
+                <label asp-for="DevSite.ForDemo" class="control-label"></label>
+                <span asp-validation-for="DevSite.ForDemo" class="text-danger"></span>
             </div>
 
 

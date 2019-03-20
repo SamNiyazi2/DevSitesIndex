@@ -38,6 +38,7 @@ namespace DevSitesIndex.Entities
 
 
         // 03/18/2019 11:50 pm - SSN - [20190318-2350] Added
+        [DisplayName("Can be launched")]
         public bool CanBeLaunched { get; set; }
 
 
@@ -62,6 +63,9 @@ namespace DevSitesIndex.Entities
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy hh:mm tt}")]
         public DateTime? DateUpdated { get; set; }
 
+        // 03/19/2019 09:17 pm - SSN - [20190319-2117] Added ForDemo
+        [DisplayName("For Demo")]
+        public bool ForDemo { get; set; }
 
         // 03/19/2019 07:04 pm - SSN - [20190319-1904]
         [NotMapped]
