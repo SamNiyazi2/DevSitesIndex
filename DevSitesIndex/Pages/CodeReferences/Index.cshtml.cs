@@ -112,6 +112,12 @@ namespace DevSitesIndex.Pages.CodeReferences
 
             var x = (doDecodeHtml);
 
+            // 03/22/2019 09:32 pm - SSN - Replaced - ToListAsync<CodeReference>
+            CodeReference = await _context.CodeReferences
+.FromSql("DemoSites.CodeReferences_FullTextSearch {0}", SearchText).ToListAsync<CodeReference>();
+
+            return Page();
+
             var entities = await _context.CodeReferences
        .FromSql("DemoSites.CodeReferences_FullTextSearch {0}", SearchText).ToListAsync();
 

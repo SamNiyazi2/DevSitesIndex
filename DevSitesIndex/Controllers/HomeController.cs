@@ -74,7 +74,7 @@ namespace DevSitesIndex.Controllers
         // 03/19/2019 10:34 pm - SSN - Adding
         public JsonResult isForDemo_v02_SelectionValid([Bind(Prefix = "DevSite.ForDemo_v02")] byte forDemo_V02)
         {
-            bool isValid = Enum.TryParse<EnumUtil.ForDemoState>(forDemo_V02.ToString(), out EnumUtil.ForDemoState selected);
+            bool isValid = Enum.TryParse<EnumList.ForDemoState>(forDemo_V02.ToString(), out EnumList.ForDemoState selected);
 
             if (!isValid)
             {

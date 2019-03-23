@@ -84,12 +84,14 @@
 
                 <label asp-for="DevSite.ForDemo_v02" class="control-label"></label>
 
-                @foreach (int key in Enum.GetValues(typeof(DevSitesIndex.EnumUtil.ForDemoState)))
-                {
-                    string name = Enum.GetName(typeof(DevSitesIndex.EnumUtil.ForDemoState), key);
-                    <input asp-for="DevSite.ForDemo_v02" type="radio" value="@key" /> @name
-                }
+                @*// 03/20/2019 03:42 am - SSN - [20190319-2117]  ForDemo_v02 revised*@
 
+                @foreach (DevSitesIndex.EnumList.ForDemoState o in Enum.GetValues(typeof(DevSitesIndex.EnumList.ForDemoState)))
+                {
+                    string description = o.GetDescription();
+                    int key = (int)o;
+                    <input asp-for="DevSite.ForDemo_v02" type="radio" value="@key" /> @description
+                }
                 <span asp-validation-for="DevSite.ForDemo_v02" class="text-danger"></span>
             </div>
 
@@ -107,7 +109,7 @@
 </div>
 
 @*// 03/19/2019 10:52 pm - SSN - [20190319-2117]  This was comments out.  No notes.  Discovered while testing remote validation on ForDemo_v02. It didn't work before reactivating scripts.'
-    *@
+*@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

@@ -50,7 +50,7 @@
 
 
             <div class="form-group">
-                <input type="checkbox" asp-for="DevSite.CanBeLaunched"   />
+                <input type="checkbox" asp-for="DevSite.CanBeLaunched" />
                 <label asp-for="DevSite.CanBeLaunched" class="control-label"></label>
                 <span asp-validation-for="DevSite.CanBeLaunched" class="text-danger"></span>
             </div>
@@ -75,11 +75,16 @@
 
                 <label asp-for="DevSite.ForDemo_v02" class="control-label"></label>
 
-                @foreach (int key in Enum.GetValues(typeof(DevSitesIndex.EnumUtil.ForDemoState)))
+                @*// 03/20/2019 03:42 am - SSN - [20190319-2117]  ForDemo_v02 revised*@
+
+                @foreach (DevSitesIndex.EnumList.ForDemoState o in Enum.GetValues(typeof(DevSitesIndex.EnumList.ForDemoState)))
                 {
-                    string name = Enum.GetName(typeof(DevSitesIndex.EnumUtil.ForDemoState), key);
-                    <input asp-for="DevSite.ForDemo_v02" type="radio" value="@key" /> @name
+                    string description = o.GetDescription();
+                    int key = (int)o;
+                    <input asp-for="DevSite.ForDemo_v02" type="radio" value="@key" /> @description
                 }
+
+
 
                 <span asp-validation-for="DevSite.ForDemo_v02" class="text-danger"></span>
             </div>
