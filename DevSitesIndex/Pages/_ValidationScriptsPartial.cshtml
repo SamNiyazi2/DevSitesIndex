@@ -1,8 +1,11 @@
-﻿<environment names="Development">
+﻿@*03/27/2019 03:39 pm - SSN - Having trouble with date fields (link to calendar). Using same files for productoin Also put site.min.css back in*@
+
+<environment names="Development,Production">
     <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
 </environment>
-<environment names="Staging,Production">
+
+@*<environment names="Staging,Production">
     <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"
             asp-fallback-src="~/lib/jquery-validation/dist/jquery.validate.min.js"
             asp-fallback-test="window.jQuery && window.jQuery.validator">
@@ -11,4 +14,4 @@
             asp-fallback-src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"
             asp-fallback-test="window.jQuery && window.jQuery.validator && window.jQuery.validator.unobtrusive">
     </script>
-</environment>
+</environment>*@
