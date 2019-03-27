@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using DevSitesIndex.Entities;
 using System.Text;
 using Microsoft.AspNetCore.Html;
+using System.Text.RegularExpressions;
 
 namespace DevSitesIndex.Pages.CodeReferences
 {
@@ -81,9 +82,33 @@ namespace DevSitesIndex.Pages.CodeReferences
             return await getPageWithSearchText();
         }
 
+
+        // 03/27/2019 04:23 am - SSN - Adding
+        string cleanseSearchString(string inputText)
+        {
+            // Take out any non alphanumeric character
+            string pattern = @"(\w*)(\W*)";
+            string replacement = " $1 ";
+            string result = Regex.Replace(inputText, pattern, replacement);
+
+            return result;
+        }
+
+        // 03/27/2019 04:23 am - SSN - Adding
+        bool includeWord(string word)
+        {
+            if (string.IsNullOrEmpty(word) || string.IsNullOrWhiteSpace(word)) return false;
+            return !"near,and,or,".Contains(word.ToLower());
+        }
+
+
         public async Task<IActionResult> getPageWithSearchText()
         {
-            tempArray = SearchText.ToLower().Split().Where(r => r.Trim() != "").Select(r => r.Trim().ToLower()).ToArray();
+            // 03/27/2019 03:33 pm - SSN - Clean up search text of commands and punctuation.
+            string tempSearchString = cleanseSearchString(SearchText);
+            tempArray = tempSearchString.ToLower().Split().Where(r => includeWord(r)).Select(r => r.Trim().ToLower()).ToArray();
+
+            string temp2 = "";
 
             //if ( false )
             //{
