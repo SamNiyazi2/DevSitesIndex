@@ -42,7 +42,7 @@
             </div>
             <div class="form-group">
                 <input type="submit" value="Search" class="btn btn-default" />
-                <a href="" class="btn btn-default ">Clear search</a>
+                <a href="javascript:void(0)" class="btn btn-default " doRefreshForm="0" >Clear search</a>
                 <span cmd-name="showObject" jQueryObjectName="#searchOptionDiv"><a class="pull-right" cmd-name="hideObject" jQueryObjectName=".searchOption_Container">Hide</a></span>
             </div>
         </form>
@@ -165,6 +165,12 @@
 
             $('[doRefreshForm]').on('click', function (e) {
 
+                // 03/27/2019 01:01 pm - SSN - Revise handling of clearing search.
+                var doRefreshForm_temp = $(this).attr("doRefreshForm");
+                if (doRefreshForm_temp === "0") {
+                    $("#SearchText").val("");
+                }
+
                 $(document.forms[0]).submit();
 
             });
@@ -226,7 +232,7 @@
 
 
     .searchOption_tall {
-        height: 280px;
+        height: 290px;
     }
 
     .fixed_101 {
