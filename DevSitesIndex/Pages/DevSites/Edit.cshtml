@@ -100,9 +100,13 @@
             <div class="form-group">
                 <input cmd-name="debug-mvc-angular" type="submit" value="Save" class="btn btn-default" />
 
-                <a href="#" class="btn btn-default"
-                   data-bind="click: requestDelConfirm">Save and stay</a>
-                <span id="devSiteSaveStatus"></span>
+                @if (Model.DevSite.Id > 0)
+                {
+                    <a href="#" class="btn btn-default"
+                       data-bind="click: saveAndStay">Save and stay</a>
+                    <span id="devSiteSaveStatus"></span>
+                }
+
             </div>
 
 
