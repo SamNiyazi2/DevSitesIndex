@@ -91,8 +91,11 @@ namespace DevSitesIndex.Controllers
                 throw;
             }
 
-            return NoContent();
-        
+            // 03/28/2019 04:15 pm - SSN - Possbly address the error:
+            //                        XML Parsing Error: no root element found
+            //return NoContent();
+
+            return Ok(devSite);
         }
 
         // POST: api/DevSites_Testing
