@@ -143,25 +143,7 @@ namespace DevSitesIndex.Pages.CodeReferences
 
             return Page();
 
-            var entities = await _context.CodeReferences
-       .FromSql("DemoSites.CodeReferences_FullTextSearch {0}", SearchText).ToListAsync();
-
-
-            CodeReference = (from first in entities
-                             select new CodeReference
-                             {
-                                 // 02/07/2019 02:43 pm - SSN - Adding doHeightlight_v02
-
-                                 // CodeBlock = doHeightlight_v02 ? HighlightText(first.CodeBlock) : first.CodeBlock,
-                                 CodeBlock = first.CodeBlock,
-                                 DateAdded = first.DateAdded,
-                                 DateModified = first.DateModified,
-                                 Id = first.Id,
-                                 SourceAddress = first.SourceAddress
-                             }).ToList();
-
-
-            return Page();
+     
         }
 
         // [20180906-1710]
