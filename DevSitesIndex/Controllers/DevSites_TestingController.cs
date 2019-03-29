@@ -40,7 +40,7 @@ namespace DevSitesIndex.Controllers
 
             if (devSite == null)
             {
-                return NotFound();
+                return NotFound("Failed to find record.");
             }
 
             return Ok(devSite);
@@ -57,38 +57,41 @@ namespace DevSitesIndex.Controllers
 
             if (id != devSite.Id)
             {
-                return BadRequest();
+                return BadRequest("Mismatched ID");
             }
 
             try
             {
 
-            devSite.DateUpdated = DateTime.Now;
+                devSite.DateUpdated = DateTime.Now;
 
-            _context.Entry(devSite).State = EntityState.Modified;
-            _context.Entry(devSite).Property(p => p.DateAdded).IsModified = false;
+                _context.Entry(devSite).State = EntityState.Modified;
+                _context.Entry(devSite).Property(p => p.DateAdded).IsModified = false;
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!DevSiteExists(id))
+                try
                 {
-                    return NotFound();
+                    await _context.SaveChangesAsync();
                 }
-                else
+                catch (DbUpdateConcurrencyException)
                 {
-                    throw;
+                    if (!DevSiteExists(id))
+                    {
+                        return NotFound("Record not found or it was deleted.");
+                    }
+                    else
+                    {
+                        // throw;
+                        return BadRequest("Record was updated by someone else. (Pending work)");
+
+                    }
                 }
-            }
             }
             catch (Exception ex)
             {
                 string message = ex.Message;
 
-                throw;
+                return BadRequest(string.Format("Record was updated by someone else. (Pending work)<br/>{0}", message));
+                // throw;
             }
 
             // 03/28/2019 04:15 pm - SSN - Possbly address the error:
@@ -125,7 +128,7 @@ namespace DevSitesIndex.Controllers
             var devSite = await _context.DevSites.SingleOrDefaultAsync(m => m.Id == id);
             if (devSite == null)
             {
-                return NotFound();
+                return NotFound("Failed to find record.");
             }
 
             _context.DevSites.Remove(devSite);

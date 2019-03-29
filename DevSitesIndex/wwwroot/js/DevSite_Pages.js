@@ -48,7 +48,8 @@ $(function () {
                 id_local = o5.Id;
             }
 
-
+            console.log('20190328-1722-001');
+ 
 
             $("#devSiteSaveStatus").fadeIn('slow');
             $("#devSiteSaveStatus").removeClass();
@@ -62,6 +63,8 @@ $(function () {
 
                 success: function (response) {
 
+                    console.log('20190328-1722-010');
+
                     $("#devSiteSaveStatus").html("Record saved.");
                     $("#devSiteSaveStatus").addClass('text-success');
 
@@ -69,6 +72,9 @@ $(function () {
                     setTimeout(() => { $("#devSiteSaveStatus").fadeOut('slow') }, 3000);
                 },
                 failure: function (response) {
+
+                    console.log('20190328-1722-021');
+
                     $("#devSiteSaveStatus").html("Failed to save record.<br/>" + response.responseText);
                     $("#devSiteSaveStatus").addClass('text-danger');
 
@@ -79,6 +85,8 @@ $(function () {
                     alert(response.responseText);
                 },
                 error: function (response) {
+
+                    console.log('20190328-1722-031');
 
                     if (response.responseText != null && response.responseText.length > 0) {
                         $("#devSiteSaveStatus").html("System error! Record not saved.<br/>" + response.responseText);
