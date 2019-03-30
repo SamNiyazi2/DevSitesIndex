@@ -15,7 +15,12 @@
             @Html.DisplayNameFor(model => model.CodeReference.CodeBlock)
         </dt>
         <dd>
+            @*03/29/2019 02:52 am - Added pre block*@
+
+            <pre  >
+     
             @Html.DisplayFor(model => model.CodeReference.CodeBlock)
+</pre>
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.CodeReference.SourceAddress)

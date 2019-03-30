@@ -83,24 +83,35 @@
             <div data-bind="attr: { class: $parent.getClassForDemoState(forDemo_v02)}">
                 @*class="siteDiv"*@
 
-                @*// 03/19/2019 07:04 pm - SSN - [20190319-1904]*@
 
-                [<span data-bind="text: docAge"></span>]
-                <!-- ko if:  $data.siteUrl -->
-                <!-- ko ifnot:  $parent.checkIfcallingcmd(siteUrl)-->
+                @*// 03/29/2019 10:03 pm - SSN - Add div siteTitleDiv title to give space*@
+                <div class="siteTitleDiv">
 
-                <a class="siteTitle" data-bind="attr:{   href:siteUrl ,  target:'window_' + id }"><span data-bind="text: siteTitle"></span></a>
-                <!-- /ko -->
-                <!-- ko if:  $parent.checkIfcallingcmd(siteUrl) -->
 
-                <a class="siteTitle" data-bind="attr:{   href:'ssnalert:appcode=4;targetfile='+$parent.siteUrlWithoutCMD(siteUrl)  }"><span data-bind="text: siteTitle"></span></a>
-                <p class="alert-danger">Runs CMD</p>
-                <!-- /ko -->
-                <!-- /ko -->
-                <!-- ko ifnot:  $data.siteUrl -->
-                <span class="siteTitle" data-bind="text: siteTitle"></span>
 
-                <!-- /ko -->
+                    @*// 03/19/2019 07:04 pm - SSN - [20190319-1904]*@
+
+                    [<span data-bind="text: docAge"></span>]
+                    <!-- ko if:  $data.siteUrl -->
+                    <!-- ko ifnot:  $parent.checkIfcallingcmd(siteUrl)-->
+
+                    <a class="siteTitle" data-bind="attr:{   href:siteUrl ,  target:'window_' + id }"><span data-bind="text: siteTitle"></span></a>
+                    <!-- /ko -->
+                    <!-- ko if:  $parent.checkIfcallingcmd(siteUrl) -->
+
+                    <a class="siteTitle" data-bind="attr:{   href:'ssnalert:appcode=4;targetfile='+$parent.siteUrlWithoutCMD(siteUrl)  }"><span data-bind="text: siteTitle"></span></a>
+                    <p class="alert-danger">Runs CMD</p>
+                    <!-- /ko -->
+                    <!-- /ko -->
+                    <!-- ko ifnot:  $data.siteUrl -->
+                    <span class="siteTitle" data-bind="text: siteTitle"></span>
+
+                    <!-- /ko -->
+
+                </div>
+
+
+
                 <!-- ko if: $data.solution_Details -->
                 @*02/05/2019 02:11 pm - SSN - Testing decoding html*@
                 @*<div class="solution_details" data-bind="text:solution_Details">*@

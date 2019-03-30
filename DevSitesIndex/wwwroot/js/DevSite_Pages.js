@@ -19,7 +19,7 @@ $(function () {
 
             var data101 = $('#devSiteForm').serializeArray();
 
-            //  console.log(data101);
+              console.log(data101);
 
 
             var ndx = 0;
@@ -31,13 +31,18 @@ $(function () {
                 var _name = data101[ndx].name.replace('DevSite.', '');
 
                 if (data101[ndx].name.indexOf("DevSite.") > -1) {
-                    o5[_name] = data101[ndx].value;
+
+// mvc creates a hidden field for checkboxes. If the visible one is set to true, we ignore the hidden one that is set to false.
+
+                    if (!o5[_name]  || (o5[_name] && o5[_name].value === "ture" && data101[ndx].value !== "false")) {
+                        o5[_name] = data101[ndx].value;
+                    }
                 }
             }
 
 
 
-            // console.log(o5);
+             console.log(o5);
 
             var id_local = 0;
 
