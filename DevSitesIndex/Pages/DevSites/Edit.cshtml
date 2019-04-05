@@ -100,15 +100,19 @@
             <div class="form-group">
                 <input cmd-name="debug-mvc-angular" type="submit" value="Save" class="btn btn-default" />
 
-                @if (Model.DevSite.Id > 0)
-                {
-                    <a href="#" class="btn btn-default"
-                       data-bind="click: saveAndStay">Save and stay</a>
-                    <span id="devSiteSaveStatus"></span>
-                }
+
 
             </div>
+            @if (Model.DevSite.Id > 0)
+            {
+                <div class="fixed_101">
 
+                    <a href="#" class=""
+                       data-bind="click: saveAndStay" title="Save and Stay!">SaS</a>
+                    <span id="devSiteSaveStatus"></span>
+                </div>
+
+            }
 
         </form>
     </div>
@@ -127,3 +131,12 @@
 
 }
 
+    <style>
+        .fixed_101 {
+        top: 250px;
+        left: 10px;
+        position: fixed;
+        z-index:999;
+background-color:white;
+        }
+        </style >

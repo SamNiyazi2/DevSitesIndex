@@ -42,7 +42,7 @@
             </div>
             <div class="form-group">
                 <input type="submit" value="Search" class="btn btn-default" />
-                <a href="javascript:void(0)" class="btn btn-default " doRefreshForm="0" >Clear search</a>
+                <a href="javascript:void(0)" class="btn btn-default " doRefreshForm="0">Clear search</a>
                 <span cmd-name="showObject" jQueryObjectName="#searchOptionDiv"><a class="pull-right" cmd-name="hideObject" jQueryObjectName=".searchOption_Container">Hide</a></span>
             </div>
         </form>
@@ -77,57 +77,61 @@
     </thead>
     <tbody>
 
-        @foreach (var item in Model.CodeReference)
+        @*// 04/03/2019 09:01 pm - SSN - Adding validation*@
+
+        @if (Model.CodeReference != null)
         {
-            <tr>
+            foreach (var item in Model.CodeReference)
+            {
+                <tr>
 
-                <td>
-                    @if (item.Title != null)
-                    {
-                        <h3>  @Html.DisplayFor(modelItem => item.Title)</h3>
+                    <td>
+                        @if (item.Title != null)
+                        {
+                            <h3>  @Html.DisplayFor(modelItem => item.Title)</h3>
 
-                    }
+                        }
 
-                    @if (item.SourceAddress != null)
-                    {
-                        <p class="maxWidthCol1">
-                            @if (item.SourceAddress.ToLower().StartsWith("http"))
-                            {
-                                <a target="wincoderef@item.Id" href="@item.SourceAddress">@Html.DisplayFor(modelItem => item.SourceAddress)</a>
+                        @if (item.SourceAddress != null)
+                        {
+                            <p class="maxWidthCol1">
+                                @if (item.SourceAddress.ToLower().StartsWith("http"))
+                                {
+                                    <a target="wincoderef@item.Id" href="@item.SourceAddress">@Html.DisplayFor(modelItem => item.SourceAddress)</a>
 
-                            }
-                            else
-                            {
-                                @Html.DisplayFor(modelItem => item.SourceAddress)
+                                }
+                                else
+                                {
+                                    @Html.DisplayFor(modelItem => item.SourceAddress)
 
-                            }
-                        </p>
-                    }
+                                }
+                            </p>
+                        }
 
-                    <pre class="codeblock2">
+                        <pre class="codeblock2">
      
 
                             @if (Model.doDecodeHtml)
-                            { 
+                            {
                                 if (Model.doHeightlight_v02)
-                                {   
+                                {
                                      @Html.Raw(System.Net.WebUtility.HtmlDecode(item.CodeBlock))
                                 }
                                 else
-                                {  
+                                {
                                     @Html.Raw(System.Net.WebUtility.HtmlDecode(item.CodeBlock))
                                 }
                             }
                             else
-                            {  
+                            {
                                 if (Model.doHeightlight_v02)
-                                { 
+                                {
                                     // 02/08/2019 04:53 am - SSN - Encode
                                     //@Html.Raw(Model.HighlightText(item.CodeBlock))
                                     @Html.Raw(Model.HighlightText(System.Net.WebUtility.HtmlEncode(item.CodeBlock)))
                                 }
                                 else
-                                {      
+                                {
                                    @item.CodeBlock 
                                 }
 
@@ -136,22 +140,23 @@
 
 
 
-                </td>
+                    </td>
 
-                <td class="indexNowrapCol">
-                    @Html.DisplayFor(modelItem => item.DateAdded)
-                </td>
+                    <td class="indexNowrapCol">
+                        @Html.DisplayFor(modelItem => item.DateAdded)
+                    </td>
 
-                <td class="indexNowrapCol">
-                    @Html.DisplayFor(modelItem => item.DateModified)
-                </td>
+                    <td class="indexNowrapCol">
+                        @Html.DisplayFor(modelItem => item.DateModified)
+                    </td>
 
-                <td class="indexNowrapCol">
-                    <a asp-page="./Edit" asp-route-id="@item.Id" asp-route-SearchText="@Model.SearchText">Edit</a> |
-                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
+                    <td class="indexNowrapCol">
+                        <a asp-page="./Edit" asp-route-id="@item.Id" asp-route-SearchText="@Model.SearchText">Edit</a> |
+                        <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
         }
     </tbody>
 </table>
@@ -159,59 +164,12 @@
 
 
 @section Scripts {
-    <script>
-
-        $(function () {
-
-            $('[doRefreshForm]').on('click', function (e) {
-
-                // 03/27/2019 01:01 pm - SSN - Revise handling of clearing search.
-                var doRefreshForm_temp = $(this).attr("doRefreshForm");
-                if (doRefreshForm_temp === "0") {
-                    $("#SearchText").val("");
-                }
-
-                $(document.forms[0]).submit();
-
-            });
-
-        });
 
 
-
-        $(window).scroll(function () {
-
-            //  $("#SearchText").val( '"' + $(document).height() + "-" + $(window).height() + "-" + $(window).scrollTop() + '"' );
-            if ($(document).height() > $(window).height()) {
-                if ($(window).scrollTop() > 100) {
-                    $(".searchOption ").addClass("fixed_101");
-                } else {
-                    $(".searchOption ").removeClass("fixed_101");
-                }
-            }
-
-        });
-
-
-        // 02/09/2019 11:33 am - SSN - ALT key are hot access keys
-        $(window).keydown(function (e) {
-
-            var code = e.which || e.keyCode;
-
-            if ([16, 17, 18, 27, 116].find(e2 => e2 == code)) {
-                return;
-            }
-
-            if (e.ctrlKey || e.altKey) {
-                return false;
-            }
-
-        });
-
-
-
-    </script>
+    @*// 04/05/2019 12:55 am - SSN - Extract script to file while attempting to address problem with copying text into serach field.*@
+    <script type="text/javascript" src="~/js/CodeReference_Pages.js"></script>
 }
+
 
 <style>
 

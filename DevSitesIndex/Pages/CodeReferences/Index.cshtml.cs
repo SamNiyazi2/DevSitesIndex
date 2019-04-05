@@ -138,12 +138,22 @@ namespace DevSitesIndex.Pages.CodeReferences
             var x = (doDecodeHtml);
 
             // 03/22/2019 09:32 pm - SSN - Replaced - ToListAsync<CodeReference>
-            CodeReference = await _context.CodeReferences
-.FromSql("DemoSites.CodeReferences_FullTextSearch {0}", SearchText).ToListAsync<CodeReference>();
+            // 04/03/2019 08:55 pm - SSN - Adding validation
+
+            try
+            {
+                CodeReference = await _context.CodeReferences
+                        .FromSql("DemoSites.CodeReferences_FullTextSearch {0}", SearchText).ToListAsync<CodeReference>();
+
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("SearchText", "Invalid syntax");
+            }
 
             return Page();
 
-     
+
         }
 
         // [20180906-1710]
@@ -184,6 +194,11 @@ namespace DevSitesIndex.Pages.CodeReferences
         // 02/07/2019 05:03 pm - SSN - Revise so we can set a custom class name for the containing div. 
         public void searchResultsfeedbackMessage_prep()
         {
+            // 04/03/2019 08:58 pm - SSN - Adding validation
+
+            if (CodeReference == null) return;
+
+
             StringBuilder sb = new StringBuilder();
 
             if (!string.IsNullOrEmpty(SearchText))

@@ -3,10 +3,16 @@
 @{
 }
 
+@{
+    ViewData["Title"] = "Command Line";
+}
+
+<h2>@ViewData["Title"]</h2>
+
 <br />
 <br />
 <form method="post">
-    <input asp-for="AccessKey" type="password"  value="@Model.AccessKey" autofocus/>
+    <input asp-for="AccessKey" type="password" value="@Model.AccessKey" autofocus />
 
     <br />
     <br />
