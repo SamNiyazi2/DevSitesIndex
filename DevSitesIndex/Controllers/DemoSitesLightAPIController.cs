@@ -27,16 +27,21 @@ namespace DevSitesIndex.Controllers
         private readonly IDevSitesIndexRepository _devSitesIndexRepository;
 
 
-
+        public class TempRec
+        {
+            public int Id { get; set; }
+            public string siteTitle { get; set; }
+        }
         // GET: api/<controller>
         [HttpGet]
-        public IEnumerable<dynamic> Get(string lookupValue)
+        public IList<TempRec> Get(string lookupValue)
         {
             if (string.IsNullOrEmpty(lookupValue)) lookupValue = "";
 
-            var devSites_1 = _devSitesIndexRepository.GetDevSites()
-                .Where( r=> r.SiteTitle.ToLower().Contains(lookupValue) || r.Solution_Details.ToLower().Contains(lookupValue) )
-                .Select( r=> new { r.Id, r.SiteTitle }) ;
+            List<TempRec> devSites_1 = _devSitesIndexRepository.GetDevSites()
+                .Where(r => r.SiteTitle.ToLower().Contains(lookupValue) || (r.Solution_Details??"").ToLower().Contains(lookupValue))
+                .Select(r => new TempRec { Id = r.Id, siteTitle = r.SiteTitle })
+                .OrderBy( r=>r.siteTitle).ToList();
 
             return devSites_1;
 
