@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using DevSitesIndex.Entities;
 
-namespace DevSitesIndex.Pages.Jobs
+namespace DevSitesIndex.Pages.TimeLogs
 {
     public class DetailsModel : PageModel
     {
@@ -18,10 +18,7 @@ namespace DevSitesIndex.Pages.Jobs
             _context = context;
         }
 
-        public Job Job { get; set; }
-        
-        public List<TimeLog> job_Timesheet { get; set; }
-
+        public TimeLog TimeLog { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -30,12 +27,11 @@ namespace DevSitesIndex.Pages.Jobs
                 return NotFound();
             }
 
-            Job = await _context.Job
-                .Include(j => j.project).SingleOrDefaultAsync(m => m.JobID == id);
+            TimeLog = await _context.TimeLog
+                .Include(t => t.discipline)
+                .Include(t => t.job).SingleOrDefaultAsync(m => m.TimeLogId == id);
 
-            job_Timesheet = _context.TimeLog.ToList();
-
-            if (Job == null)
+            if (TimeLog == null)
             {
                 return NotFound();
             }

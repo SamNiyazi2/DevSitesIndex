@@ -11,9 +11,10 @@ using System;
 namespace DevSitesIndex.Migrations
 {
     [DbContext(typeof(DevSitesIndexContext))]
-    partial class DevSitesIndexContextModelSnapshot : ModelSnapshot
+    [Migration("20190408051736_Missed TimeLog")]
+    partial class MissedTimeLog
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -123,19 +124,13 @@ namespace DevSitesIndex.Migrations
 
                     b.Property<DateTime>("DateAdded");
 
-                    b.Property<DateTime?>("DateUpdated");
-
-                    b.Property<string>("JobTitle")
-                        .IsRequired()
-                        .HasMaxLength(100);
+                    b.Property<string>("JobTitle");
 
                     b.Property<int>("ProjectID");
 
                     b.HasKey("JobID");
 
-                    b.HasIndex("ProjectID", "JobTitle")
-                        .IsUnique()
-                        .HasName("Job_ProjectID_Title_Unique");
+                    b.HasIndex("ProjectID");
 
                     b.ToTable("Job");
                 });
@@ -227,7 +222,7 @@ namespace DevSitesIndex.Migrations
 
                     b.Property<DateTime>("StartTime");
 
-                    b.Property<int?>("TotalSeconds");
+                    b.Property<int>("TotalSeconds");
 
                     b.Property<string>("WorkDetail");
 

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DevSitesIndex.Entities; 
+using DevSitesIndex.Entities;
 using Microsoft.Extensions.Configuration;
 
 // 07/29/2018 03:31 pm - SSN - Copied
@@ -95,6 +95,29 @@ namespace DevSitesIndex.Entities
                 .Property(x => x.Title)
                 .HasMaxLength(100);
 
+
+            // 04/07/2019 11:53 pm - SSN - [20190407-2345] - TimeLog
+
+            modelBuilder.Entity<Discipline>()
+                .Property(x => x.DisciplineShort)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            modelBuilder.Entity<Discipline>()
+            .HasIndex(c => c.DisciplineShort)
+            .IsUnique()
+            .HasName("Discipline_DisciplineShort_Unique");
+
+            modelBuilder.Entity<Job>()
+               .Property(x => x.JobTitle)
+               .IsRequired()
+               .HasMaxLength(100);
+
+            modelBuilder.Entity<Job>()
+            .HasIndex(x => new { x.ProjectID, x.JobTitle })
+            .HasName("Job_ProjectID_Title_Unique")
+             .IsUnique();
+
         }
         public DbSet<SoftwareCode> SoftwareCode { get; set; }
         public DbSet<DevSite> DevSites { get; set; }
@@ -104,6 +127,8 @@ namespace DevSitesIndex.Entities
         public DbSet<DevSitesIndex.Entities.Project> Project { get; set; }
         public DbSet<ReferenceSite> ReferenceSites { get; set; }
         public DbSet<CodeReference> CodeReferences { get; set; }
+        public DbSet<TimeLog> TimeLog { get; set; }
+        public DbSet<DevSitesIndex.Entities.Discipline> Discipline { get; set; }
 
     }
 }

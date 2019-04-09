@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using DevSitesIndex.Entities;
 
-namespace DevSitesIndex.Pages.Jobs
+namespace DevSitesIndex.Pages.TimeLogs
 {
     public class IndexModel : PageModel
     {
@@ -18,16 +18,13 @@ namespace DevSitesIndex.Pages.Jobs
             _context = context;
         }
 
-        public IList<Job> Job { get; set; }
+        public IList<TimeLog> TimeLog { get;set; }
 
         public async Task OnGetAsync()
         {
-            // 04/08/2019 12:51 am - SSN - [20190407-2345] - TimeLog - Order
-
-            Job = await _context.Job
-                .Include(j => j.project)
-                .OrderByDescending(r => r.DateUpdated ?? r.DateAdded)
-                .ToListAsync();
+            TimeLog = await _context.TimeLog
+                .Include(t => t.discipline)
+                .Include(t => t.job).ToListAsync();
         }
     }
 }

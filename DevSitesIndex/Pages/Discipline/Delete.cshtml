@@ -1,0 +1,40 @@
+﻿@page
+@model DevSitesIndex.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Discipline</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Discipline.DisciplineShort)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Discipline.DisciplineShort)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Discipline.DateAdded)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Discipline.DateAdded)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Discipline.DateModified)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Discipline.DateModified)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="Discipline.DisciplineId" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-page="./Index">Back to List</a>
+    </form>
+</div>

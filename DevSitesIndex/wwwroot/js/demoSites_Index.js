@@ -46,6 +46,16 @@ function demoSiteIndexController($scope, $http, dataService) {
         });
 
 
+    // 04/07/2019 12:51 pm - SSN - [20190407-1250] - Adding AngularJS call to edit DevSite
+
+    $scope.editCommand101 = function (id) {
+
+
+        alert('editCommand101 - test');
+        $('#del-confirm').modal({ backdrop: 'static', keyboard: false });
+
+    };
+
 }
 
 function devSiteUpdateController($scope, $http, $window, dataService ) {

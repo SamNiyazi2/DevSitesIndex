@@ -11,9 +11,10 @@ using System;
 namespace DevSitesIndex.Migrations
 {
     [DbContext(typeof(DevSitesIndexContext))]
-    partial class DevSitesIndexContextModelSnapshot : ModelSnapshot
+    [Migration("20190408055344_Job DateUpdated add")]
+    partial class JobDateUpdatedadd
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -227,7 +228,7 @@ namespace DevSitesIndex.Migrations
 
                     b.Property<DateTime>("StartTime");
 
-                    b.Property<int?>("TotalSeconds");
+                    b.Property<int>("TotalSeconds");
 
                     b.Property<string>("WorkDetail");
 

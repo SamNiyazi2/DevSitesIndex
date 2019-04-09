@@ -1,0 +1,44 @@
+﻿
+@model DevSitesIndex.Pages.Jobs.DetailsModel
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+
+<h1> Partial</h1>
+
+<table>
+
+    @foreach (var item in Model.job_Timesheet)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalSeconds)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateAdded)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateModified)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WorkDetail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.discipline.DisciplineShort)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.job.JobTitle)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.TimeLogId">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.TimeLogId">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.TimeLogId">Delete</a>
+            </td>
+        </tr>
+    }
+
+</table>

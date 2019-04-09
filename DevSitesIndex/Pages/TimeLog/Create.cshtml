@@ -1,0 +1,62 @@
+﻿@page
+@model DevSitesIndex.Pages.TimeLogs.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>TimeLog</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="TimeLog.JobId" class="control-label"></label>
+                <select asp-for="TimeLog.JobId" class ="form-control" asp-items="ViewBag.JobId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="TimeLog.DisciplineID" class="control-label"></label>
+                <select asp-for="TimeLog.DisciplineID" class ="form-control" asp-items="ViewBag.DisciplineID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="TimeLog.StartTime" class="control-label"></label>  <a cmd-name="set-default-time" jQueryObjectName="#TimeLog_StartTime">Now</a>
+                <input asp-for="TimeLog.StartTime" class="form-control" />
+                <span asp-validation-for="TimeLog.StartTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TimeLog.TotalSeconds" class="control-label"></label>
+                <input asp-for="TimeLog.TotalSeconds" class="form-control" />
+                <span asp-validation-for="TimeLog.TotalSeconds" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TimeLog.DateAdded" class="control-label"></label>
+                <input asp-for="TimeLog.DateAdded" class="form-control" />
+                <span asp-validation-for="TimeLog.DateAdded" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TimeLog.DateModified" class="control-label"></label>
+                <input asp-for="TimeLog.DateModified" class="form-control" />
+                <span asp-validation-for="TimeLog.DateModified" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TimeLog.WorkDetail" class="control-label"></label>
+                <input asp-for="TimeLog.WorkDetail" class="form-control" />
+                <span asp-validation-for="TimeLog.WorkDetail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

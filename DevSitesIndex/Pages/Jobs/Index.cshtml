@@ -23,30 +23,37 @@
             <th>
                 @Html.DisplayNameFor(model => model.Job[0].DateAdded)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Job[0].DateUpdated)
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model.Job)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.JobTitle)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.project.ProjectTitle)
-                </td>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.JobTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.project.ProjectTitle)
+            </td>
 
-                <td class="indexNowrapCol">
-                    @Html.DisplayFor(modelItem => item.DateAdded)
-                </td>
+            <td class="indexNowrapCol">
+                @Html.DisplayFor(modelItem => item.DateAdded)
+            </td>
 
-                <td class="indexNowrapCol">
-                    <a asp-page="./Edit" asp-route-id="@item.JobID">Edit</a> |
-                    <a asp-page="./Details" asp-route-id="@item.JobID">Details</a> |
-                    <a asp-page="./Delete" asp-route-id="@item.JobID">Delete</a>
-                </td>
-            </tr>
+            <td class="indexNowrapCol">
+                @Html.DisplayFor(modelItem => item.DateUpdated)
+            </td>
+
+            <td class="indexNowrapCol">
+                <a asp-page="./Edit" asp-route-id="@item.JobID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.JobID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.JobID">Delete</a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>

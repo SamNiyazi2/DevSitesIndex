@@ -11,7 +11,7 @@ $(function () {
         var popupName = $(this).attr('popup-name');
         var jQueryObjectName = $(this).attr('jQueryObjectName');
 
-        //        alert('clicked me! cmdName [' + cmdName + "] popup-name  [" + popupName + "]");
+         //      alert('clicked me! cmdName [' + cmdName + "] popup-name  [" + popupName + "]");
 
         if (cmdName === "open-popup") {
             $(popupName).modal({ backdrop: 'static', keyboard: false });
@@ -40,9 +40,28 @@ $(function () {
             });
 
         }
+        // 04/08/2019 01:33 am - SSN - [20190407-2345] - TimeLog
 
+        if (cmdName === "set-default-time") {
+
+            var d = new Date();
+
+            var cd = d.getFullYear() + "-" + p(d.getMonth(), 2, '0') + "-" + p(d.getDate(), 2, '0') + "T" + p(d.getHours(), 2, '0') + ":" + p(d.getMinutes(), 2, '0');
+            
+            $(jQueryObjectName).val(cd);
+
+        }
     });
 
+    function p(str1, len, char) {
+
+        var str = str1.toString();
+        if (str.length > len) return str;
+        var s1 = ((char.repeat(len)) + str);
+        var s2 = s1.substring( len + ( str.length - len  ) );  
+         
+        return s2;
+    }
 
 
     // 03/14/2019 10:28 am - SSN

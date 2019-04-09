@@ -11,9 +11,10 @@ using System;
 namespace DevSitesIndex.Migrations
 {
     [DbContext(typeof(DevSitesIndexContext))]
-    partial class DevSitesIndexContextModelSnapshot : ModelSnapshot
+    [Migration("20190408053150_Job project and title unique")]
+    partial class Jobprojectandtitleunique
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -123,8 +124,6 @@ namespace DevSitesIndex.Migrations
 
                     b.Property<DateTime>("DateAdded");
 
-                    b.Property<DateTime?>("DateUpdated");
-
                     b.Property<string>("JobTitle")
                         .IsRequired()
                         .HasMaxLength(100);
@@ -227,7 +226,7 @@ namespace DevSitesIndex.Migrations
 
                     b.Property<DateTime>("StartTime");
 
-                    b.Property<int?>("TotalSeconds");
+                    b.Property<int>("TotalSeconds");
 
                     b.Property<string>("WorkDetail");
 

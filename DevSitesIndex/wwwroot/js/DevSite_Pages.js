@@ -93,7 +93,7 @@ $(function () {
 
                     console.log('20190328-1722-031');
 
-                    if (response.responseText != null && response.responseText.length > 0) {
+                    if (response.responseText !== null && response.responseText.length > 0) {
                         $("#devSiteSaveStatus").html("System error! Record not saved.<br/>" + response.responseText);
                         $("#devSiteSaveStatus").addClass('text-danger');
 

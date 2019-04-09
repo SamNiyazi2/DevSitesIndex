@@ -11,9 +11,10 @@ using System;
 namespace DevSitesIndex.Migrations
 {
     [DbContext(typeof(DevSitesIndexContext))]
-    partial class DevSitesIndexContextModelSnapshot : ModelSnapshot
+    [Migration("20190408045743_Add TimeLog and Discipline")]
+    partial class AddTimeLogandDiscipline
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -123,19 +124,13 @@ namespace DevSitesIndex.Migrations
 
                     b.Property<DateTime>("DateAdded");
 
-                    b.Property<DateTime?>("DateUpdated");
-
-                    b.Property<string>("JobTitle")
-                        .IsRequired()
-                        .HasMaxLength(100);
+                    b.Property<string>("JobTitle");
 
                     b.Property<int>("ProjectID");
 
                     b.HasKey("JobID");
 
-                    b.HasIndex("ProjectID", "JobTitle")
-                        .IsUnique()
-                        .HasName("Job_ProjectID_Title_Unique");
+                    b.HasIndex("ProjectID");
 
                     b.ToTable("Job");
                 });
@@ -212,34 +207,6 @@ namespace DevSitesIndex.Migrations
                     b.ToTable("Technologies");
                 });
 
-            modelBuilder.Entity("DevSitesIndex.Entities.TimeLog", b =>
-                {
-                    b.Property<int>("TimeLogId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime>("DateAdded");
-
-                    b.Property<DateTime?>("DateModified");
-
-                    b.Property<int>("DisciplineID");
-
-                    b.Property<int>("JobId");
-
-                    b.Property<DateTime>("StartTime");
-
-                    b.Property<int?>("TotalSeconds");
-
-                    b.Property<string>("WorkDetail");
-
-                    b.HasKey("TimeLogId");
-
-                    b.HasIndex("DisciplineID");
-
-                    b.HasIndex("JobId");
-
-                    b.ToTable("TimeLog");
-                });
-
             modelBuilder.Entity("DevSitesIndex.Entities.DevSite", b =>
                 {
                     b.HasOne("DevSitesIndex.Entities.SoftwareCode", "SoftwareCode")
@@ -261,19 +228,6 @@ namespace DevSitesIndex.Migrations
                     b.HasOne("DevSitesIndex.Entities.Company", "company")
                         .WithMany()
                         .HasForeignKey("CompanyID")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("DevSitesIndex.Entities.TimeLog", b =>
-                {
-                    b.HasOne("DevSitesIndex.Entities.Discipline", "discipline")
-                        .WithMany()
-                        .HasForeignKey("DisciplineID")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("DevSitesIndex.Entities.Job", "job")
-                        .WithMany()
-                        .HasForeignKey("JobId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
