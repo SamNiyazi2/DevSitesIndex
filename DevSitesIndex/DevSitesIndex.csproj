@@ -41,6 +41,10 @@
 
   <ItemGroup>
     <None Include="wwwroot\css\site.css" />
+    <None Include="wwwroot\js\angular-ui\ui-bootstrap-tpls.js" />
+    <None Include="wwwroot\js\angular-ui\ui-bootstrap-tpls.min.js" />
+    <None Include="wwwroot\js\angular-ui\ui-bootstrap.js" />
+    <None Include="wwwroot\js\angular-ui\ui-bootstrap.min.js" />
     <None Include="wwwroot\js\Angular_1_7\angular-route.js" />
     <None Include="wwwroot\js\Angular_1_7\angular-route.min.js" />
     <None Include="wwwroot\js\Angular_1_7\angular-route.min.js.map" />
