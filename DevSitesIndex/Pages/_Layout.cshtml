@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html>
+<html ng-app="timesheetApp">
 @*data-ng-app="@ViewBag.InitModule">*@
 <head>
     <meta charset="utf-8" />
@@ -46,6 +46,11 @@
 
     @*07/29/2018 11:15 am - SSN - Manually added - No Nuget*@
     @*<script src="~/js/jquery-3.3.1.min.js"></script>*@
+
+
+    @RenderSection("Styles", required: false)
+
+
 </head>
 <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -124,7 +129,16 @@
         </environment>*@
 
 
-    <script src="~/js/angular.js"></script>
+
+    @*// 04/12/2019 01:53 am - SSN - [20190412-0142] - TimesheetApp - Replaced - Begin*@
+
+    @*<script src="~/js/angular.js"></script>*@
+    <script src="~/js/Angular_1_7/angular.js"></script>
+    <script src="~/js/Angular_1_7/angular-route.js"></script>
+    <script src="~/js/angular-ui/ui-bootstrap-tpls.js"></script>
+    @*// 04/12/2019 01:53 am - SSN - [20190412-0142] - TimesheetApp - Replaced - End*@
+
+
     <script src="~/lib/knockout.js"></script>
 
 

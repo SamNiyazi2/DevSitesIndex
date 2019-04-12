@@ -2,6 +2,10 @@
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
+    "iis": {
+      "applicationUrl": "http://devsites.nonbs.org:3000",
+      "sslPort": 0
+    },
     "iisExpress": {
       "applicationUrl": "http://localhost:56580/",
       "sslPort": 44365
@@ -22,6 +26,11 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "applicationUrl": "http://localhost:56581/"
+    },
+    "IIS": {
+      "commandName": "IIS",
+      "launchBrowser": true,
+      "launchUrl": "http://devsites.nonbs.org:3000"
     }
   }
 }

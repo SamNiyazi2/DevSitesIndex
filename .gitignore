@@ -260,3 +260,5 @@ paket-files/
 __pycache__/
 *.pyc
 /DevSitesIndex/wwwroot/js/site.min.js.map
+/DevSitesIndex/wwwroot/js/angular-ui
+
