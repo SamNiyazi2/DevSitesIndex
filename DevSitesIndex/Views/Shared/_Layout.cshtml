@@ -115,7 +115,15 @@
 
     <script src="~/js/Angular_1_7/angular.js"></script>
     <script src="~/js/Angular_1_7/angular-route.js"></script>
-    <script src="~/js/angular-ui/ui-bootstrap-tpls.js"></script>
+
+    <environment exclude="Development">
+        <script src="~/js/angular-ui/ui-bootstrap-tpls.js"></script>
+    </environment>
+
+    <environment exclude="Production">
+        <script src="~/js/angular-ui/ui-bootstrap-tpls.min.js"></script>
+    </environment>
+
 
     @*// 04/12/2019 01:53 am - SSN - [20190412-0142] - TimesheetApp - Replaced - End*@
 
