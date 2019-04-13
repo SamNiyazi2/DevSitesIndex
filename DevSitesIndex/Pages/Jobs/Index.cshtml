@@ -9,11 +9,12 @@
 @section Styles {
 
     <style>
+        
 
         @@media only screen and (max-width : 500px) {
 
             .modal-content {
-                max-width: 300px;
+                max-width: 340px;
             }
 
             .modal:before {
@@ -26,6 +27,7 @@
             .modal-dialog {
             }
         }
+
     </style>
 }
 
@@ -83,7 +85,7 @@
                             <a asp-page="./Edit" asp-route-id="@item.JobID">Edit</a> |
                             <a asp-page="./Details" asp-route-id="@item.JobID">Details</a> |
                             <a asp-page="./Delete" asp-route-id="@item.JobID">Delete</a> |
-                            <a ng-click="showCreateEmployeeForm()">Start Timesheet</a>
+                            <a ng-click="showCreateTimesheetForm(@item.JobID)">Start Timesheet</a>
 
                         </td>
                     </tr>
@@ -99,6 +101,7 @@
 
 @section Scripts {
 
-    <script src="~/js/Timesheet/TimesheetApp.js"></script>
-    <script src="~/js/Timesheet/TimesheetController.js"></script>
+    <script src="~/js/Timesheet/TimesheetApp.js" asp-append-version="true">></script>
+    <script src="~/js/Timesheet/TimesheetController.js" asp-append-version="true">></script> 
+    <script src="~/js/dataservices.js" asp-append-version="true"></script>
 }

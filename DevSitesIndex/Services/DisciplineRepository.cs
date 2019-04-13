@@ -5,47 +5,46 @@ using System.Threading.Tasks;
 using DevSitesIndex.Entities;
 using Microsoft.EntityFrameworkCore;
 
-// 07/29/2018 03:45 pm - SSN - Copied
+// 04/13/2019 10:48 am - SSN - [20190413-1037] - Add discipline lookup for timesheet
 
 namespace DevSitesIndex.Services
 {
-    public class DevSitesIndexRepository : IDevSitesIndexRepository
+    public class DisciplineRepository : IEntityRepository<Discipline>
     {
         private readonly DevSitesIndexContext _context;
 
-        public DevSitesIndexRepository(DevSitesIndexContext context)
+        public DisciplineRepository(DevSitesIndexContext context)
         {
             this._context = context;
         }
- 
+         
 
-        public IEnumerable<DevSite> GetDevSites()
+        public IEnumerable<Discipline> GetAll()
         {
-            // 11/03/2018 08:05 am - SSN - order
-            // return _context.DevSites.ToList();
-            return _context.DevSites.OrderByDescending(r => r.DateUpdated ?? r.DateAdded).ToList();
+            return _context.Discipline.OrderBy(r=>r.DisciplineShort).ToList();
         }
 
 
-        public DevSite GetDevSite(int devSiteID)
+        public Discipline GetRecord(int disciplineId)
         {
-            var devSite = _context.DevSites.Where(c => c.Id == devSiteID);
+            var discipline = _context.Discipline.Where(c => c.DisciplineId == disciplineId);
 
-            return devSite.FirstOrDefault();
+            return discipline.FirstOrDefault();
         }
 
-        public DevSite UpdateDevSite(DevSite devSite)
+
+        public Discipline  Update(Discipline discipline)
         {
-            Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<DevSite> r = null;
+            Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<Discipline> r = null;
             try
             {
-                if (devSite.Id == 0)
+                if (discipline.DisciplineId== 0)
                 {
-                    r = _context.DevSites.Add(devSite);
+                    r = _context.Discipline.Add(discipline);
                 }
                 else
                 {
-                    r = _context.DevSites.Update(devSite);
+                    r = _context.Discipline.Update(discipline);
                 }
 
             }
@@ -54,7 +53,7 @@ namespace DevSitesIndex.Services
                 string message = ex.Message;
             }
 
-            return devSite;
+            return discipline;
         }
 
 

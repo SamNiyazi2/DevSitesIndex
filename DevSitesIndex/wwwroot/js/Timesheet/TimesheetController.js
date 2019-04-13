@@ -2,44 +2,69 @@
 
 
 timesheetApp.controller('TimesheetController',
-    function efController($scope, $window, $routeParams, $modalInstance) {
 
-
-        if ($routeParams.id) {
-            $scope.employee = DataService.getEmployee($routeParams.id);
-        }
-        else {
-            $scope.employee = { id: 0 };
-        }
+    function TimesheetController($scope, $uibModalInstance, $http, $q, dataService, jobId) {
 
 
 
-        //$scope.editableEmployee = angular.copy($scope.employee);
+        //        $scope.timeLog = dataService.getEmployee($routeParams.id);
+
+
+        $scope.disciplineSelected = { id: 0, title: '' };
+
+
+        let timeNow = new Date();
+        timeNow.setMilliseconds(0);
+        timeNow.setSeconds(0);
+
+        $scope.timeLog = {
+            timeLogId: 0,
+            id: 0,
+            startTime: timeNow,
+            workDetail: "",
+            disciplineId: '2',
+            jobId: jobId
+        };
 
 
 
-        $scope.departments = [
-            "Engineering",
-            "Marketing",
-            "Finance",
-            "Administration"
-        ];
+        $scope.editableTimeLog = angular.copy($scope.timeLog);
 
+ 
 
 
         $scope.submitForm = function () {
 
-        
-            if ($scope.editableEmployee.id == 0) {
-                DataService.insertEmployee($scope.editableEmployee);
+            var test = $scope.editableTimeLog;
+
+            var promise = null;
+
+            $scope.editableTimeLog.disciplineId = $scope.disciplineSelected.id;
+
+            if ($scope.editableTimeLog.id === 0) {
+                promise = dataService.insertTimeLog($scope.editableTimeLog);
             }
             else {
-                DataService.updateEmployee($scope.editableEmployee);
+                promise = dataService.updateTimeLog($scope.editableTimeLog);
             }
 
-            $scope.employee = angular.copy($scope.editableEmployee);
+            if (promise) {
 
-            $modalInstance.close();
+                promise.then(
+                    function (data) {
+
+                        var test1 = data;
+
+                        $scope.timeLog = angular.copy($scope.editableTimeLog);
+                    },
+                    function (error) {
+
+                        var test2 = error;
+                    });
+            }
+
+
+            // $uibModalInstance.close();
         };
 
 
@@ -47,8 +72,56 @@ timesheetApp.controller('TimesheetController',
         $scope.cancelForm = function () {
 
 
-            $modalInstance.dismiss(); //same as cancel???
+            $uibModalInstance.dismiss(); //same as cancel???
 
         };
 
-    })
+
+
+        // 04/13/2019 11:00 am - SSN - [20190413-1037] - Add discipline lookup
+
+        $scope.getDisciplines = function (lookupValue) {
+
+            if (lookupValue === null) lookupValue = "";
+
+            var deferred = $q.defer();
+
+            $http({
+                method: 'GET',
+                url: 'api/DisciplineAPI'
+
+            }).then(typeaheadDisciplineSuccess, typeaheadDisciplineError);
+
+            return deferred.promise;
+
+            function typeaheadDisciplineSuccess(response) {
+
+                var addresses = [];
+
+                angular.forEach(response.data,
+                    function (item) {
+
+                        if (item.disciplineShort.toLowerCase().indexOf(lookupValue.toLowerCase()) > -1) {
+                            addresses.push({ id: item.disciplineId, title: item.disciplineShort });
+                        }
+                    }
+                );
+
+                deferred.resolve(addresses);
+
+            }
+
+            function typeaheadDisciplineError(response) {
+
+                deferred.reject(response);
+            }
+
+        };
+
+
+
+
+
+    });
+
+console.log("Bottom of TimesheetController.js");

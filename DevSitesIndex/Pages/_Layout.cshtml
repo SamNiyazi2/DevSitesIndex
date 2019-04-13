@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html >
+<html>
 @*data-ng-app="@ViewBag.InitModule">*@
 <head>
     <meta charset="utf-8" />
@@ -135,11 +135,12 @@
     @*<script src="~/js/angular.js"></script>*@
     <script src="~/js/Angular_1_7/angular.js"></script>
     <script src="~/js/Angular_1_7/angular-route.js"></script>
-    <environment exclude="Development">
+
+    <environment include="Development">
         <script src="~/js/angular-ui/ui-bootstrap-tpls.js"></script>
     </environment>
 
-    <environment exclude="Production">
+    <environment include="Production">
         <script src="~/js/angular-ui/ui-bootstrap-tpls.min.js"></script>
     </environment>
 
@@ -149,12 +150,12 @@
     <script src="~/lib/knockout.js"></script>
 
 
-    <environment include="Production">
+    <environment names="Production">
 
         <script src="~/js/site.min.js" asp-append-version="true"></script>
 
     </environment>
-    <environment include="Development">
+    <environment names="Development">
 
         <script src="~/js/site.js" asp-append-version="true"></script>
 

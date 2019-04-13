@@ -30,7 +30,10 @@
     "IIS": {
       "commandName": "IIS",
       "launchBrowser": true,
-      "launchUrl": "http://devsites.nonbs.org:3000"
+      "launchUrl": "http://devsites.nonbs.org:3000",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
     }
   }
 }

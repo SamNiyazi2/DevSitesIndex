@@ -1,9 +1,11 @@
 ﻿// 08/31/2018 08:51 am - SSN 
+// 04/12/2019 02:35 pm - SSN - [20190412-1126] - Timelog - save data - Rename module to ssn_devsite_angular_module
 
-var module = angular.module("demoSites_Index", []);
+
+var ssn_devsite_angular_module = angular.module("demoSites_Index", []);
 
 
-module.config(["$routeProvider", function ($routeProvider) {
+ssn_devsite_angular_module.config(["$routeProvider", function ($routeProvider) {
 
     $routeProvider.when("/", {
         controller: "demoSiteIndexController",
@@ -36,10 +38,10 @@ function demoSiteIndexController($scope, $http, dataService) {
     dataService.getDevSites()
         .then(function (result) {
         },
-        function () {
+            function () {
 
-            alert('failed call to api/demositesapi (20180831-0940');
-        })
+                alert('failed call to api/demositesapi (20180831-0940');
+            })
         .then(function () {
 
             $scope.isBusy2 = false;
@@ -58,7 +60,7 @@ function demoSiteIndexController($scope, $http, dataService) {
 
 }
 
-function devSiteUpdateController($scope, $http, $window, dataService ) {
+function devSiteUpdateController($scope, $http, $window, dataService) {
 
     $scope.devSiteRecord = {
     };
@@ -66,7 +68,7 @@ function devSiteUpdateController($scope, $http, $window, dataService ) {
 
     $scope.save = function (formSelector) {
         //alert("test submit");
-      
+
         var f = $(formSelector);
 
         if (!f.valid()) {
@@ -74,18 +76,18 @@ function devSiteUpdateController($scope, $http, $window, dataService ) {
             return false;
         }
         alert($scope.devSiteRecord.siteTitle);
-   alert($scope.devSiteRecord.solution_Details);
+        alert($scope.devSiteRecord.solution_Details);
 
         // $http.post("./api/demositesapi", $scope.devSiteRecord);
         dataService.addDevSite($scope.devSiteRecord)
-        .then(
-            function () {
-                $window.location = '#/';
-            },
-            function () {
-                alert('Failed to save record.');
-            });
-            
+            .then(
+                function () {
+                    $window.location = '#/';
+                },
+                function () {
+                    alert('Failed to save record.');
+                });
+
 
 
     };

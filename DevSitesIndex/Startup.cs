@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using DevSitesIndex.Services;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Serialization;
 
 namespace DevSitesIndex
 {
@@ -39,7 +40,14 @@ namespace DevSitesIndex
                 //options.Conventions.AddPageRoute("/Employees/Index", "");
                 options.Conventions.AddPageRoute("/jobs", "");
 
-            });
+            }
+          );
+            //  // 04/12/2019 04:18 pm - SSN - [20190412-1126] - Timelog - save data -- Copied from:
+            //// Copied from: C:\Sams_Projects\PluralSight\angularjs-forms-bootstrap-mvc5\Work2\PS_AngularForMVC\PS_AngularForMVC\Global.asax.cs
+            //.AddJsonOptions(options =>
+            // {
+            //     options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            // })
 
             // 07/29/2018 03:37 pm - SSN - Copied in
             var connectionString = Startup.Configuration["connectionStrings:DevSitesIndexDBConnectionString"];
@@ -52,7 +60,7 @@ namespace DevSitesIndex
 
             ApprovedRemoteSites approvedRemoteSites = new ApprovedRemoteSites();
             Configuration.GetSection("ApprovedRemoteSites").Bind(approvedRemoteSites);
-          
+
 
         }
 
@@ -79,6 +87,12 @@ namespace DevSitesIndex
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=demosites}/{action=Index}/{id?}");
+
+                // 04/12/2019 05:31 pm - SSN - [20190412-1126] - Timelog - save data - TESTING
+
+                //routes.MapRoute(
+                //        name: "API Default",
+                //        template: "api/{controller}/{id?}");
 
             });
 
