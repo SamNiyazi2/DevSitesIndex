@@ -27,6 +27,7 @@ namespace DevSitesIndex.Entities
         public DateTime DateAdded { get; set; }
 
         // 03/13/2019 09:29 am - SSN
+        // 04/16/2019 05:59 pm - SSN - [20190416-1759] Nullify - NOT - We need it for order.  Very slow otherwise.
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy hh:mm tt}")]
         [DisplayName("Date Updated")]
         public DateTime DateModified { get; set; }

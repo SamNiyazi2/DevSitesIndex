@@ -1,6 +1,6 @@
 ﻿<!DOCTYPE html>
 @*<html data-ng-app="@ViewBag.InitModule">*@
-<html @Html.Raw(ViewBag.InitModule_Full) >
+<html @Html.Raw(ViewBag.InitModule_Full)>
 
 <head>
     <meta charset="utf-8" />
@@ -23,13 +23,13 @@
     </environment>
 
     @*<environment exclude="Development">
-        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
-              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
-              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+            <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
+                  asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+                  asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
 
-        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+            <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
 
-    </environment>*@
+        </environment>*@
 
 
 </head>
@@ -71,6 +71,9 @@
         </div>
     </nav>
     <div class="container body-content">
+
+
+
         @RenderBody()
         <hr />
 
@@ -109,12 +112,55 @@
 
 
 
+
+    @{
+
+        // 04/16/2019 07:13 pm - SSN - Need to use AngularJS v1.0.7 to older development
+
+        string currentUtil = Context.Request.Path.ToString().ToLower();
+
+
+        int angular_section_to_user = 2;
+
+        if (currentUtil.Contains("index_p2"))
+        {
+            angular_section_to_user = 1;
+
+        }
+
+        if (currentUtil.Contains("index_p3"))
+        {
+            angular_section_to_user = 1;
+
+        }
+
+    }
+
+
+
+
+
     @*// 04/12/2019 01:53 am - SSN - [20190412-0142] - TimesheetApp - Replaced - Begin*@
 
-    @*<script src="~/js/angular.js"></script>*@
 
-    <script src="~/js/Angular_1_7/angular.js"></script>
-    <script src="~/js/Angular_1_7/angular-route.js"></script>
+    @{
+        if (angular_section_to_user == 1)
+        {
+            <script src="~/js/angular.js"></script>
+        }
+
+    }
+
+    @{
+        if (angular_section_to_user == 2)
+        {
+            <script src="~/js/Angular_1_7/angular.js"></script>
+            <script src="~/js/Angular_1_7/angular-route.js"></script>
+        }
+
+    }
+
+
 
     <environment names="Development">
         <script src="~/js/angular-ui/ui-bootstrap-tpls.js"></script>

@@ -35,41 +35,66 @@ namespace DevSitesIndex.Entities
         {
             modelBuilder.HasDefaultSchema("DemoSites");
 
+            setup_ReferenceSite(modelBuilder);
 
-            // 09/04/2018 09:54 am - SSN - Added HasAlternateKey then replaced with HasIndex unique.  First option caused property to be read-only.
-            // modelBuilder.Entity<ReferenceSite>()
-            //.HasAlternateKey(c => c.SiteTitle)
-            //.HasName("ReferenceSites_SiteTitle");
+            setup_Project(modelBuilder);
 
+            setup_Company(modelBuilder);
 
-            // modelBuilder.Entity<ReferenceSite>()
-            //.HasAlternateKey(c => c.SiteURL)
-            //.HasName("ReferenceSites_SiteURL");
+            setup_DevSite(modelBuilder);
 
+            setup_CodeReference(modelBuilder);
 
-            modelBuilder.Entity<ReferenceSite>()
-            .HasIndex(c => c.SiteTitle)
-            .IsUnique()
-            .HasName("ReferenceSites_SiteTitle");
+            setup_Discipline(modelBuilder);
 
-            modelBuilder.Entity<ReferenceSite>()
-            .HasIndex(c => c.SiteURL)
-            .IsUnique()
-            .HasName("ReferenceSites_SiteURL");
+            setup_Job(modelBuilder);
 
-            // 03/13/2019 10:41 am - SSN
-            modelBuilder.Entity<Project>()
-                .Property(x => x.ProjectTitle)
+        }
+
+        private static void setup_Job(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Job>()
+                .Property(x => x.JobTitle)
                 .IsRequired()
                 .HasMaxLength(100);
 
+            modelBuilder.Entity<Job>()
+                .HasIndex(x => new { x.ProjectID, x.JobTitle })
+                .HasName("Job_ProjectID_Title_Unique")
+                .IsUnique();
+            
+        }
 
-            // 03/13/2019 10:53 am - SSN
-            modelBuilder.Entity<Company>()
-                .Property(x => x.CompanyName)
+        private static void setup_Discipline(ModelBuilder modelBuilder)
+        {
+            // 04/07/2019 11:53 pm - SSN - [20190407-2345] - TimeLog
+
+            modelBuilder.Entity<Discipline>()
+                .Property(x => x.DisciplineShort)
                 .IsRequired()
                 .HasMaxLength(100);
 
+            modelBuilder.Entity<Discipline>()
+                .HasIndex(c => c.DisciplineShort)
+                .IsUnique()
+                .HasName("Discipline_DisciplineShort_Unique");
+        }
+
+        private static void setup_CodeReference(ModelBuilder modelBuilder)
+        {
+            // 03/13/2019 11:16 am - SSN - CodeReference update
+            // 03/13/2019 03:36 pm - SSN - Take out
+            //modelBuilder.Entity<CodeReference>()
+            //    .Property(x => x.CodeBlock)
+            //    .IsRequired();
+
+            modelBuilder.Entity<CodeReference>()
+                .Property(x => x.Title)
+                .HasMaxLength(100);
+        }
+
+        private static void setup_DevSite(ModelBuilder modelBuilder)
+        {
             // 03/13/2019 11:01 am - SSN - DevSite update
             modelBuilder.Entity<DevSite>()
                 .Property(x => x.SiteTitle)
@@ -83,42 +108,50 @@ namespace DevSitesIndex.Entities
             modelBuilder.Entity<DevSite>()
                 .Property(x => x.SolutionName)
                 .HasMaxLength(500);
+        }
 
-
-            // 03/13/2019 11:16 am - SSN - CodeReference update
-            // 03/13/2019 03:36 pm - SSN - Take out
-            //modelBuilder.Entity<CodeReference>()
-            //    .Property(x => x.CodeBlock)
-            //    .IsRequired();
-
-            modelBuilder.Entity<CodeReference>()
-                .Property(x => x.Title)
-                .HasMaxLength(100);
-
-
-            // 04/07/2019 11:53 pm - SSN - [20190407-2345] - TimeLog
-
-            modelBuilder.Entity<Discipline>()
-                .Property(x => x.DisciplineShort)
+        private static void setup_Company(ModelBuilder modelBuilder)
+        {
+            // 03/13/2019 10:53 am - SSN
+            modelBuilder.Entity<Company>()
+                .Property(x => x.CompanyName)
                 .IsRequired()
                 .HasMaxLength(100);
-
-            modelBuilder.Entity<Discipline>()
-            .HasIndex(c => c.DisciplineShort)
-            .IsUnique()
-            .HasName("Discipline_DisciplineShort_Unique");
-
-            modelBuilder.Entity<Job>()
-               .Property(x => x.JobTitle)
-               .IsRequired()
-               .HasMaxLength(100);
-
-            modelBuilder.Entity<Job>()
-            .HasIndex(x => new { x.ProjectID, x.JobTitle })
-            .HasName("Job_ProjectID_Title_Unique")
-             .IsUnique();
-
         }
+
+        private static void setup_Project(ModelBuilder modelBuilder)
+        {
+            // 03/13/2019 10:41 am - SSN
+            modelBuilder.Entity<Project>()
+                .Property(x => x.ProjectTitle)
+                .IsRequired()
+                .HasMaxLength(100);
+        }
+
+        private static void setup_ReferenceSite(ModelBuilder modelBuilder)
+        {
+            // 09/04/2018 09:54 am - SSN - Added HasAlternateKey then replaced with HasIndex unique.  First option caused property to be read-only.
+            // modelBuilder.Entity<ReferenceSite>()
+            //.HasAlternateKey(c => c.SiteTitle)
+            //.HasName("ReferenceSites_SiteTitle");
+
+
+            // modelBuilder.Entity<ReferenceSite>()
+            //.HasAlternateKey(c => c.SiteURL)
+            //.HasName("ReferenceSites_SiteURL");
+
+
+            modelBuilder.Entity<ReferenceSite>()
+                .HasIndex(c => c.SiteTitle)
+                .IsUnique()
+                .HasName("ReferenceSites_SiteTitle");
+
+            modelBuilder.Entity<ReferenceSite>()
+                .HasIndex(c => c.SiteURL)
+                .IsUnique()
+                .HasName("ReferenceSites_SiteURL");
+        }
+
         public DbSet<SoftwareCode> SoftwareCode { get; set; }
         public DbSet<DevSite> DevSites { get; set; }
         public DbSet<Technology> Technologies { get; set; }

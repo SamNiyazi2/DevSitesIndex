@@ -23,6 +23,9 @@ namespace DevSitesIndex.Pages.CodeReferences
             // 09/05/2018 03:23 pm - SSN
             CodeReference = new CodeReference();
             CodeReference.DateAdded = DateTime.Now;
+
+            // 04/16/2019 05:59 pm - SSN - [20190416-1759] Take out.
+            // Too slow on Azure if we try to check for nulls
             CodeReference.DateModified = DateTime.Now;
 
             return Page();
