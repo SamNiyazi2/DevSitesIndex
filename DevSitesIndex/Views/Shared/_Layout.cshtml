@@ -119,19 +119,29 @@
 
         string currentUtil = Context.Request.Path.ToString().ToLower();
 
+        // 04/16/2019 07:37 pm - SSN - [20190416-1937] - Corrrection angular version for P2 and P3
+
+        string selectedPage = "";
+
+        DemoSitesViewModel currentModel = Model as DemoSitesViewModel;
+        if (currentModel!=null )
+        {
+            selectedPage = currentModel.selectedPage.ToLower() ;
+        }
+
+        this.Write(string.Format("[20190416-19333] [{0}]", currentUtil));
+        this.Write(string.Format("[20190416-19333] [{0}]", selectedPage));
 
         int angular_section_to_user = 2;
 
-        if (currentUtil.Contains("index_p2"))
+        if (selectedPage.Contains("index_p2"))
         {
             angular_section_to_user = 1;
-
         }
 
-        if (currentUtil.Contains("index_p3"))
+        if (selectedPage.Contains("index_p3"))
         {
             angular_section_to_user = 1;
-
         }
 
     }

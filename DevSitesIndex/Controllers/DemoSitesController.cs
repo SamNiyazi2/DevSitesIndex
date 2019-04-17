@@ -27,7 +27,10 @@ namespace DevSitesIndex.Controllers
                 DemoSitesViewModel vm = new DemoSitesViewModel();
                 vm.devSites = _devSitesIndexRepository.GetDevSites();
 
-                return View("index_p1", vm);
+                // 04/16/2019 07:37 pm - SSN - [20190416-1937] - Corrrection angular version for P2 and P3
+                vm.selectedPage = "index_p1";
+
+                return View(vm.selectedPage, vm);
 
             }
             catch (Exception ex)
@@ -45,7 +48,10 @@ namespace DevSitesIndex.Controllers
                 DemoSitesViewModel vm = new DemoSitesViewModel();
                 vm.devSites = _devSitesIndexRepository.GetDevSites();
 
-                return View("index_p2", vm);
+                // 04/16/2019 07:37 pm - SSN - [20190416-1937] - Corrrection angular version for P2 and P3
+                vm.selectedPage = "index_p2";
+
+                return View(vm.selectedPage, vm);
 
             }
             catch (Exception ex)
@@ -64,7 +70,10 @@ namespace DevSitesIndex.Controllers
                 DemoSitesViewModel vm = new DemoSitesViewModel();
                 vm.devSites = _devSitesIndexRepository.GetDevSites();
 
-                return View("index_p3", vm);
+                // 04/16/2019 07:37 pm - SSN - [20190416-1937] - Corrrection angular version for P2 and P3
+                vm.selectedPage = "index_p3";
+
+                return View(vm.selectedPage, vm);
 
             }
             catch (Exception ex)

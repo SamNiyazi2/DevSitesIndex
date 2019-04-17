@@ -17,6 +17,8 @@ namespace DevSitesIndex.Models
         // Todo  07/292018 04:05 pm - SSN - Replace DemoSite with DevSite
         public IEnumerable<DevSite> devSites;
 
+        // 04/16/2019 07:37 pm - SSN - [20190416-1937] - Corrrection angular version for P2 and P3
+        public string selectedPage { get; set; }
 
         // 08/21/2018 03:57 am - SSN - Ref 
         // C:\Sams_Projects\PluralSight\html5-line-of-business-applications\d\demos\CodedHomes.Web\ViewModels\HomesListViewModel.cs
