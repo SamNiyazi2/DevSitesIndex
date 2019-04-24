@@ -20,6 +20,10 @@ namespace DevSitesIndex.Pages.Projects
 
         public Project Project { get; set; }
 
+        // 04/19/2019 02:05 pm - SSN - [20190419-1405] - Move to Project detail - Correct as we move job_timesheet to project_jobs
+
+        public List<Job> project_Jobs { get; set; }
+
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -29,6 +33,11 @@ namespace DevSitesIndex.Pages.Projects
 
             Project = await _context.Project
                 .Include(p => p.company).SingleOrDefaultAsync(m => m.ProjectID == id);
+
+            // 04/19/2019 02:05 pm - SSN - [20190419-1405] - Move to Project detail
+
+             project_Jobs = _context.Job.Where (r=>r.ProjectID== id).ToList();
+
 
             if (Project == null)
             {

@@ -10,8 +10,9 @@ $(function () {
         var cmdName = $(this).attr('cmd-name');
         var popupName = $(this).attr('popup-name');
         var jQueryObjectName = $(this).attr('jQueryObjectName');
+        var jQueryObjectName2 = $(this).attr('jQueryObjectName2');
 
-         //      alert('clicked me! cmdName [' + cmdName + "] popup-name  [" + popupName + "]");
+        //      alert('clicked me! cmdName [' + cmdName + "] popup-name  [" + popupName + "]");
 
         if (cmdName === "open-popup") {
             $(popupName).modal({ backdrop: 'static', keyboard: false });
@@ -46,20 +47,35 @@ $(function () {
 
             var d = new Date();
 
-            var cd = d.getFullYear() + "-" + p(d.getMonth(), 2, '0') + "-" + p(d.getDate(), 2, '0') + "T" + p(d.getHours(), 2, '0') + ":" + p(d.getMinutes(), 2, '0');
-            
+            var cd = d.getFullYear() + "-" + p(d.getMonth() + 1, 2, '0') + "-" + p(d.getDate(), 2, '0') + "T" + p(d.getHours(), 2, '0') + ":" + p(d.getMinutes(), 2, '0') + ":" + p(d.getSeconds(), 2, '0');
+
             $(jQueryObjectName).val(cd);
 
         }
+
+
+        // 04/19/2019 04:48 pm - SSN - [20190419-1647] - Set amount for TotalSeconds
+
+        if (cmdName === "set-TotalPeriod") {
+
+            var d11 = new Date();
+            var d12 = new Date($(jQueryObjectName).val());
+
+            var delta = Math.floor((d11 - d12) / 1000);
+
+            $(jQueryObjectName2).val(delta);
+
+        }
+
     });
 
     function p(str1, len, char) {
 
         var str = str1.toString();
         if (str.length > len) return str;
-        var s1 = ((char.repeat(len)) + str);
-        var s2 = s1.substring( len + ( str.length - len  ) );  
-         
+        var s1 = char.repeat(len) + str;
+        var s2 = s1.substring(len + (str.length - len));
+
         return s2;
     }
 
@@ -79,3 +95,4 @@ $(function () {
 
 
 });
+

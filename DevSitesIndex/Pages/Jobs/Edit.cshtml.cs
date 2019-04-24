@@ -60,6 +60,13 @@ namespace DevSitesIndex.Pages.Jobs
 
             _context.Attach(Job).State = EntityState.Modified;
 
+            // 04/19/2019 01:35 pm - SSN - Update date modified
+
+            if (Job.JobID > 0)
+            {
+                Job.DateUpdated = DateTime.Now;
+            }
+
             try
             {
                 await _context.SaveChangesAsync();

@@ -32,6 +32,11 @@
         </environment>*@
 
 
+    @*// 04/20/2019 11:28 am - SSN - [20190420-1128] Added toastr *@
+
+    <link href="~/js/toastr/content/toastr.css" rel="stylesheet" />
+
+
 </head>
 <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -124,13 +129,13 @@
         string selectedPage = "";
 
         DemoSitesViewModel currentModel = Model as DemoSitesViewModel;
-        if (currentModel!=null )
+        if (currentModel != null)
         {
-            selectedPage = currentModel.selectedPage.ToLower() ;
+            selectedPage = currentModel.selectedPage.ToLower();
         }
 
-        this.Write(string.Format("[20190416-19333] [{0}]", currentUtil));
-        this.Write(string.Format("[20190416-19333] [{0}]", selectedPage));
+        //this.Write(string.Format("[20190416-19333] [{0}]", currentUtil));
+        //this.Write(string.Format("[20190416-19333] [{0}]", selectedPage));
 
         int angular_section_to_user = 2;
 
@@ -171,14 +176,21 @@
     }
 
 
+    @{
+        if (angular_section_to_user == 2)
+        {
+            <environment names="Development">
+                <script src="~/js/angular-ui/ui-bootstrap-tpls.js"></script>
+            </environment>
 
-    <environment names="Development">
-        <script src="~/js/angular-ui/ui-bootstrap-tpls.js"></script>
-    </environment>
+            <environment names="Production">
+                <script src="~/js/angular-ui/ui-bootstrap-tpls.min.js"></script>
+            </environment>
 
-    <environment names="Production">
-        <script src="~/js/angular-ui/ui-bootstrap-tpls.min.js"></script>
-    </environment>
+        }
+
+    }
+
 
 
     @*// 04/12/2019 01:53 am - SSN - [20190412-0142] - TimesheetApp - Replaced - End*@
@@ -186,6 +198,15 @@
 
 
     <script src="~/lib/knockout.js"></script>
+
+
+
+    @*// 04/20/2019 11:28 am - SSN - [20190420-1128] Added toastr *@
+
+    <script src="~/js/toastr/scripts/toastr.js"></script>
+
+
+
 
     @*<script src="~/js/site.js" asp-append-version="true"></script>*@
     <script src="~/js/site.min.js" asp-append-version="true"></script>

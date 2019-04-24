@@ -9,7 +9,9 @@ namespace DevSitesIndex.Entities
 {
     public class SharedUtil
     {
-        public static async Task save(DevSitesIndexContext _context, IBaseEntity entity)
+        // 04/20/2019 09:25 am - SSN - [20190420-0931] - Return exception
+
+        public static async Task<Exception> save(DevSitesIndexContext _context, IBaseEntity entity)
         {
             _context.Attach(entity).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
 
@@ -21,7 +23,7 @@ namespace DevSitesIndex.Entities
 
                 await _context.SaveChangesAsync();
             }
-            catch (Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException)
+            catch (Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException ex1)
             {
                 //if (!TimeLogExists(TimeLog.TimeLogId))
                 //{
@@ -29,10 +31,20 @@ namespace DevSitesIndex.Entities
                 //}
                 //else
                 {
+                    return ex1;
                     throw;
                 }
 
             }
+            catch (Exception ex2)
+            {
+                {
+                    return ex2;
+                    throw;
+                }
+
+            }
+            return default(Exception);
         }
     }
 }

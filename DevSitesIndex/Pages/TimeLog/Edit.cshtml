@@ -16,22 +16,37 @@
             <input type="hidden" asp-for="TimeLog.TimeLogId" />
             <div class="form-group">
                 <label asp-for="TimeLog.JobId" class="control-label"></label>
-                <select asp-for="TimeLog.JobId" class="form-control" asp-items="ViewBag.JobId"></select>
+                <select asp-for="TimeLog.JobId" class="form-control" asp-items="ViewBag.JobId" autofocus>
+                    <option>Please select...</option>
+                </select>
                 <span asp-validation-for="TimeLog.JobId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="TimeLog.DisciplineID" class="control-label"></label>
-                <select asp-for="TimeLog.DisciplineID" class="form-control" asp-items="ViewBag.DisciplineID"></select>
+                <select asp-for="TimeLog.DisciplineID" class="form-control" asp-items="ViewBag.DisciplineID">
+                    <option>Please select...</option>
+                </select>
                 <span asp-validation-for="TimeLog.DisciplineID" class="text-danger"></span>
             </div>
+            
             <div class="form-group">
                 <label asp-for="TimeLog.StartTime" class="control-label"></label>
-                <input asp-for="TimeLog.StartTime" class="form-control" /> <a cmd-name="set-default-time" jQueryObjectName="#TimeLog_StartTime">Now</a>
+            
+                &nbsp; <a cmd-name="set-default-time" jQueryObjectName="#TimeLog_StartTime">Now</a>
+                
+                <input asp-for="TimeLog.StartTime" class="form-control" />
+                
                 <span asp-validation-for="TimeLog.StartTime" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="TimeLog.TotalSeconds" class="control-label"></label>
+
+                @*// 04/19/2019 04:48 pm - SSN - [20190419-1647] - Set amount for TotalSeconds*@
+                &nbsp; <a cmd-name="set-TotalPeriod" jQueryObjectName="#TimeLog_StartTime" jQueryObjectName2="#TimeLog_TotalSeconds">Now</a>
+
                 <input asp-for="TimeLog.TotalSeconds" class="form-control" />
+
                 <span asp-validation-for="TimeLog.TotalSeconds" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -46,7 +61,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="TimeLog.WorkDetail" class="control-label"></label>
-                <input asp-for="TimeLog.WorkDetail" class="form-control" />
+
+                @*// 04/19/2019 04:44 pm - SSN - Replace Input with textarea*@
+                <textarea cols="40" rows="5" asp-for="TimeLog.WorkDetail" class="form-control">
+
+</textarea>
+
                 <span asp-validation-for="TimeLog.WorkDetail" class="text-danger"></span>
             </div>
             <div class="form-group">

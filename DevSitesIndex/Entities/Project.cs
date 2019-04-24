@@ -10,7 +10,8 @@ using System.Threading.Tasks;
 
 namespace DevSitesIndex.Entities
 {
-    public class Project
+    // 04/19/2019 11:58 am - SSN - Add sort - inherit IBaseEntity
+    public class Project : IBaseEntity
     {
 
         public int ProjectID { get; set; }
@@ -21,7 +22,7 @@ namespace DevSitesIndex.Entities
 
         [DisplayName("Company")]
         [Required(ErrorMessage = "Selection is required")]
-       
+
         public int CompanyID { get; set; }
 
 
@@ -29,6 +30,11 @@ namespace DevSitesIndex.Entities
         [DisplayName("Date Added")]
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy hh:mm tt}")]
         public DateTime DateAdded { get; set; }
+
+        // 04/19/2019 11:58 am - SSN - Add sort
+        [DisplayName("Date Updated")]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy hh:mm tt}")]
+        public DateTime? DateModified { get; set; }
 
 
         public Company company { get; set; }

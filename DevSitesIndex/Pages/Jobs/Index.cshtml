@@ -9,7 +9,7 @@
 @section Styles {
 
     <style>
-        
+
 
         @@media only screen and (max-width : 500px) {
 
@@ -27,7 +27,6 @@
             .modal-dialog {
             }
         }
-
     </style>
 }
 
@@ -79,13 +78,19 @@
 
                         <td class="indexNowrapCol">
                             @Html.DisplayFor(modelItem => item.DateUpdated)
+                            <br>
+                            <b>
+                                @Html.DisplayFor(modelItem => item.MostRecentActivity)
+
+                            </b>
                         </td>
 
                         <td class="indexNowrapCol">
                             <a asp-page="./Edit" asp-route-id="@item.JobID">Edit</a> |
                             <a asp-page="./Details" asp-route-id="@item.JobID">Details</a> |
                             <a asp-page="./Delete" asp-route-id="@item.JobID">Delete</a> |
-                            <a ng-click="showCreateTimesheetForm(@item.JobID)">Start Timesheet</a>
+
+                            <a ng-click="showCreateTimesheetForm(@item.JobID)">Clock-in</a>
 
                         </td>
                     </tr>
@@ -98,10 +103,8 @@
 </div>
 
 
+ 
 
 @section Scripts {
-
-    <script src="~/js/Timesheet/TimesheetApp.js" asp-append-version="true">></script>
-    <script src="~/js/Timesheet/TimesheetController.js" asp-append-version="true">></script> 
-    <script src="~/js/dataservices.js" asp-append-version="true"></script>
+    @{await Html.RenderPartialAsync("TimesheetAngularScripts");}
 }

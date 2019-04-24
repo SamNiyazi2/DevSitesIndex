@@ -21,7 +21,9 @@ namespace DevSitesIndex.Services
 
         public IEnumerable<Discipline> GetAll()
         {
-            return _context.Discipline.OrderBy(r=>r.DisciplineShort).ToList();
+            // 04/20/2019 11:09 am - SSN - [20190420-1109] - Add AsNoTracking to index pages
+
+            return _context.Discipline.OrderBy(r=>r.DisciplineShort).AsNoTracking().ToList();
         }
 
 

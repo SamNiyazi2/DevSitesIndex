@@ -28,6 +28,17 @@
         </dt>
         <dd>
             @Html.DisplayFor(model => model.DevSite.SolutionName)
+
+            @if (Model.DevSite.CanBeLaunched)
+            {
+                int softwareCodeID = Model.DevSite.SoftwareCodeID;
+                string solutionName = Model.DevSite.SolutionName;
+
+                string url = $"<p>Project: <a href=\"ssnalert:appcode={softwareCodeID};targetfile={solutionName}\">Launch Application</a></p>";
+
+                @Html.Raw(url);
+            }
+
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.DevSite.Solution_Details)

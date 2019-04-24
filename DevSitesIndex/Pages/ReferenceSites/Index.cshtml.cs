@@ -32,8 +32,10 @@ namespace DevSitesIndex.Pages.ReferenceSites
 
         private async Task getDefaultList()
         {
+            // 04/20/2019 11:14 am - SSN - [20190420-1109] - Add AsNoTracking to index pages
+
             ReferenceSite = await _context.ReferenceSites
-                                               .OrderByDescending(r => r.DateAdded).ToListAsync();
+                                               .OrderByDescending(r => r.DateAdded).AsNoTracking().ToListAsync();
         }
 
         List<string> tempArray2 = null;

@@ -1,16 +1,17 @@
 ﻿<!--// 04/12/2019 03:57 am - SSN - [20190412-0142] - TimesheetApp-->
 
-<div class="modal-header">
-    <h1>Create New Employee</h1>
-</div>
+<form name="timesheetForm"  novalidate>
 
-<div class="modal-body">
+    <div class="modal-header">
+        <h2>Clock-In</h2>
+    </div>
 
-    <form role="form">
+    <div class="modal-body">
+
 
         <input type="hidden" name="id" ng-model="editableTimeLog.id" />
         <input type="hidden" name="timeLogId" ng-model="editableTimeLog.timeLogId" />
-        
+
         <fieldset>
 
             <legend>Basic Information</legend>
@@ -19,7 +20,7 @@
 
             <!--// 04/13/2019 10:56 am - SSN - [20190413-1037] - Add discipline lookup-->
 
-            <div class="form-group"  >
+            <div class="form-group">
 
                 <label for="discipline" class="col-sm-3 control-label">
                     Discipline
@@ -30,22 +31,25 @@
 
                     <input type="text"
                            ng-model="disciplineSelected"
+                           name="disciplineSelectedLocal"
                            placeholder="Select discipline"
                            uib-typeahead="discipline as discipline.title for discipline in getDisciplines($viewValue) "
                            typeahead-loading="loadingLocations"
                            typeahead-no-results="noResults"
-                           class="form-control">
+                           class="form-control" ng-required="true">
 
                     <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
                     <div ng-show="noResults">
                         <i class="glyphicon glyphicon-remove"></i> No Results Found
                     </div>
 
+
+                    <p ng-show="timesheetForm.disciplineSelectedLocal.$invalid && !timesheetForm.disciplineSelectedLocal.$pristine" class="has-error">Selection is required</p>
                 </div>
             </div>
 
 
- 
+
 
             <div class="form-group">
                 <label for="StartTime" class="col-sm-3 control-label">Start time</label>
@@ -72,25 +76,21 @@
         </fieldset>
 
 
-
-
-
-
-
-    </form>
-</div>
-
-
-<div class="modal-footer">
-
-
-    <div class="col-sm-offset-3 col-sm-9">
-
-
-        <input type="button" class="btn btn-default" value="Cancel" ng-click="cancelForm()" />
-        <input type="button" class="btn btn-primary" value="Submit" ng-click="submitForm()" />
-
     </div>
-</div>
 
- 
+
+
+
+    <div class="modal-footer">
+
+        <div class="col-sm-offset-3 col-sm-9">
+
+            <input type="button" class="btn btn-default" value="Cancel" ng-click="cancelForm()" />
+            <input type="button" class="btn btn-primary" value="Submit" ng-click="submitForm()" ng-disabled="timesheetForm.$invalid" />
+
+        </div>
+    </div>
+
+
+
+</form>

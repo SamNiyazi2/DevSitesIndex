@@ -42,7 +42,7 @@
                 <label asp-for="DevSite.SoftwareCodeID" class="control-label"></label>
                 <select asp-for="DevSite.SoftwareCodeID" class="form-control"
                         asp-items="@Model.softwareCodesSL">
-                    <option value="">Select development software...</option>
+                    <option>Please select...</option>
                 </select>
 
                 <span asp-validation-for="DevSite.SoftwareCodeID" class="text-danger"></span>

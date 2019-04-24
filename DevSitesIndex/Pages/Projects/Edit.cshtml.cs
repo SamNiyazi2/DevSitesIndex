@@ -58,6 +58,14 @@ namespace DevSitesIndex.Pages.Projects
 
             _context.Attach(Project).State = EntityState.Modified;
 
+
+            // 04/19/2019 12:59 pm - SSN - Add sort
+            if (Project.ProjectID > 0)
+            {
+                Project.DateModified = DateTime.Now;
+            }
+
+
             try
             {
                 await _context.SaveChangesAsync();

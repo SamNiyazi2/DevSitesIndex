@@ -13,10 +13,24 @@
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
+            <div class="form-group">
+                <label asp-for="Job.ProjectID" class="control-label"></label>
+
+                @*<select asp-for="Job.ProjectID" class="form-control" asp-items="ViewBag.ProjectID"></select>*@
+                <select asp-for="Job.ProjectID" class="form-control" asp-items="Model.projectsSL" autofocus>
+                    <option>Please select...</option>
+                </select>
+
+                <span asp-validation-for="Job.ProjectID" class="text-danger"></span>
+            </div>
+
+
             <input type="hidden" asp-for="Job.JobID" />
             <div class="form-group">
                 <label asp-for="Job.JobTitle" class="control-label"></label>
-                <input asp-for="Job.JobTitle" class="form-control" autofocus/>
+                <input asp-for="Job.JobTitle" class="form-control" />
                 <span asp-validation-for="Job.JobTitle" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -24,17 +38,15 @@
                 <input asp-for="Job.DateAdded" class="form-control" />
                 <span asp-validation-for="Job.DateAdded" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label asp-for="Job.ProjectID" class="control-label"></label>
-
-                @*<select asp-for="Job.ProjectID" class="form-control" asp-items="ViewBag.ProjectID"></select>*@
-                <select asp-for="Job.ProjectID" class="form-control" asp-items="Model.projectsSL">
-                    <option>Select...</option>
-                </select>
-
-
-                <span asp-validation-for="Job.ProjectID" class="text-danger"></span>
+                <label asp-for="Job.DateUpdated" class="control-label"></label>
+                <input asp-for="Job.DateUpdated" class="form-control" />
+                <span asp-validation-for="Job.DateUpdated" class="text-danger"></span>
             </div>
+
+
+
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>

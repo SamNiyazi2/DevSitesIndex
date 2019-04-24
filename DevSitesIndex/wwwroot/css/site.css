@@ -148,3 +148,9 @@ fieldset {
     word-wrap: break-word;
     
 }
+
+.has-error{
+     
+    color:red
+
+}

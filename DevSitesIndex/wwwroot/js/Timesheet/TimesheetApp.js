@@ -31,7 +31,12 @@ timesheetApp.controller("timesheetController", function ($scope, $uibModal) {
 
     console.log('TimesheetApp.js - timesheetController');
 
+    $scope.timesheetForm_ClockOut = function (timelogId) {
  
+        alert('Clock-out [' + timelogId);
+    };
+
+
     $scope.showCreateTimesheetForm = function (jobID) {
 
         if ( isNaN(jobID))

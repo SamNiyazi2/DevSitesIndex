@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -11,9 +12,14 @@ namespace DevSitesIndex.Entities
     {
 
         public int DisciplineId { get; set; }
+
+        [Display(Name = "Discipline")]
         public string DisciplineShort { get; set; }
 
+        [Display(Name = "Date Added")]
         public DateTime DateAdded { get; set; }
+
+        [Display(Name = "Date Updated")]
         public DateTime? DateModified { get; set; }
 
     }

@@ -143,7 +143,7 @@ namespace DevSitesIndex.Pages.CodeReferences
             try
             {
                 CodeReference = await _context.CodeReferences
-                        .FromSql("DemoSites.CodeReferences_FullTextSearch {0}", SearchText).ToListAsync<CodeReference>();
+                        .FromSql("DemoSites.CodeReferences_FullTextSearch {0}", SearchText).AsNoTracking().ToListAsync<CodeReference>();
 
             }
             catch (Exception)

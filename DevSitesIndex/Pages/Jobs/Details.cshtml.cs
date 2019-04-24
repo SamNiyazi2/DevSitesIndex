@@ -19,7 +19,7 @@ namespace DevSitesIndex.Pages.Jobs
         }
 
         public Job Job { get; set; }
-        
+
         public List<TimeLog> job_Timesheet { get; set; }
 
 
@@ -33,7 +33,12 @@ namespace DevSitesIndex.Pages.Jobs
             Job = await _context.Job
                 .Include(j => j.project).SingleOrDefaultAsync(m => m.JobID == id);
 
-            job_Timesheet = _context.TimeLog.ToList();
+            // 04/19/2019 04:28 pm - SSN - Filter on jobid
+
+            job_Timesheet = _context.TimeLog.Where(r => r.JobId == id)
+                                    .OrderByDescending(r2 => r2.StartTime)
+                                    .Include(r=>r.discipline)
+                                    .ToList();
 
             if (Job == null)
             {

@@ -18,12 +18,16 @@ namespace DevSitesIndex.Pages.Projects
             _context = context;
         }
 
-        public IList<Project> Project { get;set; }
+        public IList<Project> Project { get; set; }
 
         public async Task OnGetAsync()
         {
+            // 04/19/2019 11:58 am - SSN - Add sort
+            // 04/20/2019 11:14 am - SSN - [20190420-1109] - Add AsNoTracking to index pages
+
             Project = await _context.Project
-                .Include(p => p.company).ToListAsync();
+            .OrderByDescending(r => r.DateModified ?? r.DateAdded)
+                .Include(p => p.company).AsNoTracking().ToListAsync();
         }
     }
 }

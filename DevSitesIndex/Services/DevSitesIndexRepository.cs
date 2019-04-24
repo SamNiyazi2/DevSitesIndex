@@ -23,7 +23,9 @@ namespace DevSitesIndex.Services
         {
             // 11/03/2018 08:05 am - SSN - order
             // return _context.DevSites.ToList();
-            return _context.DevSites.OrderByDescending(r => r.DateUpdated ?? r.DateAdded).ToList();
+            // 04/20/2019 11:13 am - SSN - [20190420-1109] - Add AsNoTracking to index pages
+
+            return _context.DevSites.OrderByDescending(r => r.DateUpdated ?? r.DateAdded).AsNoTracking().ToList();
         }
 
 

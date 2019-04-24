@@ -21,7 +21,9 @@ namespace DevSitesIndex.Services
 
         public IEnumerable<TimeLog> GetAll()
         {
-            return _context.TimeLog.OrderByDescending(r => r.DateModified ?? r.DateAdded).ToList();
+            // 04/20/2019 11:12 am - SSN - [20190420-1109] - Add AsNoTracking to index pages
+
+            return _context.TimeLog.OrderByDescending(r => r.DateModified ?? r.DateAdded).AsNoTracking().ToList();
         }
 
 
@@ -35,6 +37,10 @@ namespace DevSitesIndex.Services
 
         public TimeLog Update(TimeLog timeLog)
         {
+            // 04/20/2019 06:56 pm - SSN - Convert time passed by javaScript as Utc 
+            timeLog.StartTime = timeLog.StartTime.ToLocalTime();
+
+
             Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<TimeLog> r = null;
             try
             {

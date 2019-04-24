@@ -6,22 +6,34 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations_Hold_20190419a\**" />
     <Compile Remove="wwwroot\js\Angular_1_2\**" />
     <Compile Remove="wwwroot\js\Angular_x\**" />
     <Compile Remove="wwwroot\js\New folder\**" />
+    <Content Remove="Migrations_Hold_20190419a\**" />
     <Content Remove="wwwroot\js\Angular_1_2\**" />
     <Content Remove="wwwroot\js\Angular_x\**" />
     <Content Remove="wwwroot\js\New folder\**" />
+    <EmbeddedResource Remove="Migrations_Hold_20190419a\**" />
     <EmbeddedResource Remove="wwwroot\js\Angular_1_2\**" />
     <EmbeddedResource Remove="wwwroot\js\Angular_x\**" />
     <EmbeddedResource Remove="wwwroot\js\New folder\**" />
+    <None Remove="Migrations_Hold_20190419a\**" />
     <None Remove="wwwroot\js\Angular_1_2\**" />
     <None Remove="wwwroot\js\Angular_x\**" />
     <None Remove="wwwroot\js\New folder\**" />
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\DevSitesIndexContextModelSnapshot_Hold_20190419a.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="wwwroot\js\SSN_Notes.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Migrations_Hold_20190419a\DevSitesIndexContextModelSnapshot.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,6 +44,7 @@
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.8" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.4" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="toastr" Version="2.1.1" />
     <PackageReference Include="underscore.js" Version="1.8.3" />
   </ItemGroup>
 

@@ -5,69 +5,105 @@
     ViewData["Title"] = "Timesheet Index";
 }
 
+@section styles {
+    <style>
+
+        .table > tbody > tr.detail > td {
+            border: 0px;
+            font-style: italic;
+            font-size: 1.3rem;
+        }
+    </style>
+}
 <h2>@ViewData["Title"]</h2>
 
 <p>
     <a asp-page="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.TimeLog[0].StartTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TimeLog[0].TotalSeconds)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TimeLog[0].DateAdded)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TimeLog[0].DateModified)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TimeLog[0].WorkDetail)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TimeLog[0].discipline)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TimeLog[0].job)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.TimeLog)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StartTime)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TotalSeconds)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DateAdded)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DateModified)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.WorkDetail)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.discipline.DisciplineShort)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.job.JobTitle)
-                </td>
-                <td>
-                    <a asp-page="./Edit" asp-route-id="@item.TimeLogId">Edit</a> |
-                    <a asp-page="./Details" asp-route-id="@item.TimeLogId">Details</a> |
-                    <a asp-page="./Delete" asp-route-id="@item.TimeLogId">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div ng-app="timesheetApp">
+
+    <div ng-controller="timesheetController">
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TimeLog[0].StartTime)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TimeLog[0].TotalSeconds_ToTimeSpanFormat_T)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TimeLog[0].job) /    @Html.DisplayNameFor(model => model.TimeLog[0].WorkDetail)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TimeLog[0].discipline)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.TimeLog[0].DateAdded)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TimeLog[0].DateModified)
+                    </th>
+                    <th></th>
+                </tr>
+
+            </thead>
+            <tbody>
+                @foreach (var item in Model.TimeLog)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StartTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TotalSeconds_ToTimeSpanFormat_T)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.job.JobTitle)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.discipline.DisciplineShort)
+                        </td>
+
+
+
+                        <td class="indexNowrapCol">
+                            @Html.DisplayFor(modelItem => item.DateAdded)
+                        </td>
+
+                        <td class="indexNowrapCol">
+                            @Html.DisplayFor(modelItem => item.DateModified)
+                        </td>
+
+                        <td class="indexNowrapCol">
+                            <a asp-page="./Edit" asp-route-id="@item.TimeLogId">Edit</a> |
+                            <a asp-page="./Details" asp-route-id="@item.TimeLogId">Details</a> |
+                            <a asp-page="./Delete" asp-route-id="@item.TimeLogId">Delete</a> |
+
+                            <a ng-click="timesheetForm_ClockOut(@item.TimeLogId)" class="alert-warning">Clock-out</a>
+                        </td>
+                    </tr>
+
+                    @if (!string.IsNullOrWhiteSpace(item.WorkDetail))
+                    {
+
+                        <tr class="detail">
+                            <td colspan="2"></td>
+                            <td colspan="5">
+                                @Html.DisplayFor(modelItem => item.WorkDetail)
+                            </td>
+
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("TimesheetAngularScripts");}
+}

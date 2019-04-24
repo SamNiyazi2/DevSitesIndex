@@ -39,15 +39,29 @@ namespace DevSitesIndex.Pages.TimeLogs
             {
                 return NotFound();
             }
+            setupRequiredData();
+            return Page();
+        }
+
+        // 04/20/2019 10:57 am - SSN - [20190420-1057] - Refactor to correct problem with postback on failed validation
+
+
+        private void setupRequiredData()
+        {
             ViewData["DisciplineID"] = new SelectList(_context.Discipline, "DisciplineId", "DisciplineShort");
             // 04/08/2019 12:43 am - SSN - [20190407-2345] - TimeLog 
             // ViewData["JobId"] = new SelectList(_context.Job, "JobID", "JobID");
             ViewData["JobId"] = new SelectList(_context.Job, "JobID", "JobTitle");
-            return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync()
+
+        // 04/20/2019 10:57 am - SSN - [20190420-1057] - Refactor to correct problem with postback on failed validation
+        //public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPost()
         {
+
+            setupRequiredData();
+
             if (!ModelState.IsValid)
             {
                 return Page();
@@ -71,7 +85,22 @@ namespace DevSitesIndex.Pages.TimeLogs
             //    }
             //}
 
-            await SharedUtil.save(_context, TimeLog);
+            // 04/20/2019 09:31 am - SSN - [20190420-0931] - Return exception
+
+            Exception ex = await SharedUtil.save(_context, TimeLog);
+
+            if (ex != null)
+            {
+                ModelState.AddModelError("", "Failed to save record.");
+                ModelState.AddModelError("", ex.Message);
+                Exception iex = ex.InnerException;
+                while (iex != null)
+                {
+                    ModelState.AddModelError("", iex.Message);
+                    iex = iex.InnerException;
+                }
+                return Page();
+            }
 
             return RedirectToPage("./Index");
         }

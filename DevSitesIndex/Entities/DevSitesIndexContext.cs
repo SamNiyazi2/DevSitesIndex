@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using DevSitesIndex.Entities;
 using Microsoft.Extensions.Configuration;
 
+
 // 07/29/2018 03:31 pm - SSN - Copied
 
 namespace DevSitesIndex.Entities
@@ -49,6 +50,9 @@ namespace DevSitesIndex.Entities
 
             setup_Job(modelBuilder);
 
+            setup_Timelog(modelBuilder);
+
+
         }
 
         private static void setup_Job(ModelBuilder modelBuilder)
@@ -62,8 +66,27 @@ namespace DevSitesIndex.Entities
                 .HasIndex(x => new { x.ProjectID, x.JobTitle })
                 .HasName("Job_ProjectID_Title_Unique")
                 .IsUnique();
-            
+
+            // 04/19/2019 07:44 pm - SSN - Adding
+
+            modelBuilder.Entity<Job>()
+               .HasMany<TimeLog>(s => s.timelogs)
+               .WithOne(g => g.job)
+               .HasForeignKey(t => t.JobId);
+
         }
+
+        // 04/19/2019 07:07 pm - SSN - Added configuration
+
+        private static void setup_Timelog(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<TimeLog>()
+                .HasOne<Job>(s => s.job)
+                .WithMany(g => g.timelogs)
+                .HasForeignKey(s => s.JobId);
+
+        }
+
 
         private static void setup_Discipline(ModelBuilder modelBuilder)
         {
@@ -156,12 +179,12 @@ namespace DevSitesIndex.Entities
         public DbSet<DevSite> DevSites { get; set; }
         public DbSet<Technology> Technologies { get; set; }
         public DbSet<Company> Company { get; set; }
-        public DbSet<DevSitesIndex.Entities.Job> Job { get; set; }
-        public DbSet<DevSitesIndex.Entities.Project> Project { get; set; }
+        public DbSet<Job> Job { get; set; }
+        public DbSet<Project> Project { get; set; }
         public DbSet<ReferenceSite> ReferenceSites { get; set; }
         public DbSet<CodeReference> CodeReferences { get; set; }
         public DbSet<TimeLog> TimeLog { get; set; }
-        public DbSet<DevSitesIndex.Entities.Discipline> Discipline { get; set; }
+        public DbSet<Discipline> Discipline { get; set; }
 
     }
 }

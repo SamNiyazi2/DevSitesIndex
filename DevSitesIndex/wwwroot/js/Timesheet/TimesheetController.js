@@ -15,7 +15,7 @@ timesheetApp.controller('TimesheetController',
 
         let timeNow = new Date();
         timeNow.setMilliseconds(0);
-        timeNow.setSeconds(0);
+       // timeNow.setSeconds(0);
 
         $scope.timeLog = {
             timeLogId: 0,
@@ -35,6 +35,7 @@ timesheetApp.controller('TimesheetController',
 
         $scope.submitForm = function () {
 
+            
             var test = $scope.editableTimeLog;
 
             var promise = null;
@@ -64,7 +65,8 @@ timesheetApp.controller('TimesheetController',
             }
 
 
-            // $uibModalInstance.close();
+            $uibModalInstance.close();
+            toastr.info("Clocked-in");
         };
 
 

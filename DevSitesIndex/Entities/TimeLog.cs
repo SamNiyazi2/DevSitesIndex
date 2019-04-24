@@ -1,6 +1,8 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,7 +14,7 @@ namespace DevSitesIndex.Entities
     {
         public int TimeLogId { get; set; }
 
-        [Display(Name = "Job Title")]
+        [Display(Name = "Job Title")] 
         public int JobId { get; set; }
 
         [Display(Name = "Discipline")]
@@ -38,5 +40,18 @@ namespace DevSitesIndex.Entities
 
         [Display(Name = "Discipline (2)")]
         public Discipline discipline { get; set; }
+
+        [NotMapped]
+        [Display(Name = "Duration")]
+        public string TotalSeconds_ToTimeSpanFormat_T
+        {
+            get
+            {
+                if (!TotalSeconds.HasValue) return "";
+                long totalSecondsLong = (long)TotalSeconds;
+                long nanosecond = 10000000;
+                return new TimeSpan(totalSecondsLong * nanosecond).ToString("T");
+            }
+        }
     }
 }
