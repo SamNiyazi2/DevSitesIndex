@@ -6,19 +6,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations_Hold_20190419a\**" />
     <Compile Remove="wwwroot\js\Angular_1_2\**" />
     <Compile Remove="wwwroot\js\Angular_x\**" />
     <Compile Remove="wwwroot\js\New folder\**" />
-    <Content Remove="Migrations_Hold_20190419a\**" />
     <Content Remove="wwwroot\js\Angular_1_2\**" />
     <Content Remove="wwwroot\js\Angular_x\**" />
     <Content Remove="wwwroot\js\New folder\**" />
-    <EmbeddedResource Remove="Migrations_Hold_20190419a\**" />
     <EmbeddedResource Remove="wwwroot\js\Angular_1_2\**" />
     <EmbeddedResource Remove="wwwroot\js\Angular_x\**" />
     <EmbeddedResource Remove="wwwroot\js\New folder\**" />
-    <None Remove="Migrations_Hold_20190419a\**" />
     <None Remove="wwwroot\js\Angular_1_2\**" />
     <None Remove="wwwroot\js\Angular_x\**" />
     <None Remove="wwwroot\js\New folder\**" />
@@ -32,9 +28,6 @@
     <Content Remove="wwwroot\js\SSN_Notes.txt" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Compile Include="Migrations_Hold_20190419a\DevSitesIndexContextModelSnapshot.cs" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Angular.UI.Bootstrap" Version="2.5.0" />
