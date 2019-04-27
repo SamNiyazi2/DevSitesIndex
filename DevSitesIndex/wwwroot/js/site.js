@@ -67,6 +67,8 @@ $(function () {
 
         }
 
+         
+
     });
 
     function p(str1, len, char) {
@@ -94,5 +96,54 @@ $(function () {
 
 
 
+
 });
 
+
+function prefixPreWithShowHideAnchor() {
+    
+
+    // 04/26/2019 09:56 pm - SSN - [20190426-2156] - [001] - Hide pre and add a link to show.
+    
+
+    $('pre').each(function (aa) {
+
+        $(this).hide();
+
+        $('<p><a cmd-name="showsibling">Show code</a></p>').insertBefore(this);
+
+    });
+
+
+    // 04/26/2019 10:14 pm - SSN - [20190426-2156] - [002] - Hide pre and add a link to show.
+
+    $("[cmd-name]").on('click', function (e) {
+
+        var cmdName = $(this).attr('cmd-name');
+
+        if (cmdName === "showsibling") {
+
+
+            var _pre = $(this).parent().next();
+            var _link = $(this);
+
+            if ( _pre.is(":visible")) {
+                _link.text('Show code');
+                _pre.fadeOut();
+            } else {
+                _pre.fadeIn();
+                _link.text('Hide code');
+
+            }
+             
+        }
+
+    });
+
+
+
+}
+
+
+setTimeout(prefixPreWithShowHideAnchor, 2000);
+ 

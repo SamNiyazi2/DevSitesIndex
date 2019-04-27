@@ -1,25 +1,27 @@
-﻿.codeblock1 {
-
-    width:900px;
-    min-height:200px; 
-}
-
-.codeblock2 { /* Match maxWidthCol1 */
-    width: 600px;
-    height: 200px;
-}
-
-
-.codeblock2 i {
-    background-color:yellow;
-    padding: 3px;
-}
-
+﻿
 
 body {
     padding-top: 50px;
     padding-bottom: 20px;
 }
+
+h1, h2, h3, h4, h5 {
+    padding: 40px 0 0 0;
+}
+
+
+a {
+    cursor: pointer;
+}
+
+
+fieldset {
+    border: 1px solid gray;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: #efefef;
+}
+
 
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
@@ -58,6 +60,7 @@ td, .siteDiv {
     padding: 5px 10px;
     vertical-align: text-top;
 }
+
 .siteDiv {
     border-bottom: 10px solid white;
 }
@@ -65,41 +68,63 @@ td, .siteDiv {
 .forDemo_Yes {
     background-color: #f0faf0;
 }
+
 .forDemo_No {
     background-color: #f7edf3;
 }
+
 .forDemo_Undecided {
     background-color: #faf9f0;
 }
 
-a
-{
-    cursor:pointer;
+
+.codeblock1 {
+    width: 900px;
+    min-height: 200px;
 }
+
+.codeblock2 { /* Match maxWidthCol1 */
+    width: 600px;
+    height: 200px;
+}
+
+
+    .codeblock2 i {
+        background-color: yellow;
+        padding: 3px;
+    }
 
 .info_good {
     padding: 5px 20px;
     color: black;
-    background-color:lightgreen;
-   
+    background-color: lightgreen;
 }
+
 .info_bad {
     padding: 5px 20px;
-    color:black;
-    background-color:lightcoral;
+    color: black;
+    background-color: lightcoral;
 }
 
 .solution_details {
-    margin:0px;
-    padding: 0px 20px 10px 20px  ;
- 
+    margin: 0px;
+    padding: 0px 20px 10px 20px;
+}
+
+a[cmd-name="showsibling"] {
+
+    color:firebrick;
+    background-color: #faf9f0;
+    padding:10px;
+    font-weight:bold;
 }
 
 .menuOptions {
-    padding:5px 20px 10px 20px;
+    padding: 5px 20px 10px 20px;
 }
+
 .siteTitle {
-    font-size:14pt;
+    font-size: 14pt;
 }
 
 /*// 03/29/2019 10:03 pm - SSN - Add div siteTitleDiv title to give space*/
@@ -117,26 +142,17 @@ a
     font-size: 10pt;
 }
 
-fieldset {
-
-    border:1px solid gray;
-    border-radius: 10px;
-    padding: 10px;
-    background-color:#efefef;
-}
-
-.error
-{
-    background-color:lightyellow;
-    color:red;
+.error {
+    background-color: lightyellow;
+    color: red;
     padding: 5px 10px;
 }
 
 
 /*03/14/2019 09:04 samp - SSN*/
-.indexNowrapCol{
-    font-size:8pt;
-    white-space:nowrap;
+.indexNowrapCol {
+    font-size: 8pt;
+    white-space: nowrap;
 }
 
 .maxWidthCol1 {
@@ -146,11 +162,8 @@ fieldset {
     white-space: -pre-wrap; /* Opera <7 */
     white-space: -o-pre-wrap; /* Opera 7 */
     word-wrap: break-word;
-    
 }
 
-.has-error{
-     
-    color:red
-
+.has-error {
+    color: red
 }
