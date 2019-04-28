@@ -13,69 +13,78 @@
 else
 {
 
-    <table>
-        <tr>
-        <tr>
-            <td>
-                @Html.DisplayNameFor(modelItem => Model.job_Timesheet[0].StartTime)
-            </td>
-            <td>
-                @Html.DisplayNameFor(modelItem => Model.job_Timesheet[0].TotalSeconds)
-            </td>
-            <td>
-                @Html.DisplayNameFor(modelItem => Model.job_Timesheet[0].discipline.DisciplineShort)
-            </td>
-            <td>
-                @Html.DisplayNameFor(modelItem => Model.job_Timesheet[0].job.JobTitle)
-            </td>
-            <td>
-                @Html.DisplayNameFor(modelItem => Model.job_Timesheet[0].DateAdded)
-            </td>
-            <td>
-                @Html.DisplayNameFor(modelItem => Model.job_Timesheet[0].DateModified)
-            </td>
+    <table class="table">
 
-        </tr>
+        <thead>
 
-        @foreach (var item in Model.job_Timesheet)
-        {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.StartTime)
+                    @Html.DisplayNameFor(modelItem => Model.job_Timesheet[0].StartTime)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.TotalSeconds)
+                    @Html.DisplayNameFor(modelItem => Model.job_Timesheet[0].TotalSeconds)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.discipline.DisciplineShort)
+                    @Html.DisplayNameFor(modelItem => Model.job_Timesheet[0].discipline.DisciplineShort)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.job.JobTitle)
+                    @Html.DisplayNameFor(modelItem => Model.job_Timesheet[0].job.JobTitle)
                 </td>
-                <td class="indexNowrapCol">
-                    @Html.DisplayFor(modelItem => item.DateAdded)
+                <td>
+                    @Html.DisplayNameFor(modelItem => Model.job_Timesheet[0].DateAdded)
                 </td>
-                <td class="indexNowrapCol">
-                    @Html.DisplayFor(modelItem => item.DateModified)
+                <td>
+                    @Html.DisplayNameFor(modelItem => Model.job_Timesheet[0].DateModified)
                 </td>
-                <td class="indexNowrapCol">
-                    <a asp-page="../timelog/Edit" asp-route-id="@item.TimeLogId">Edit</a> |
-                    <a asp-page="../timelog/Details" asp-route-id="@item.TimeLogId">Details</a> |
-                    <a asp-page="../timelog/Delete" asp-route-id="@item.TimeLogId">Delete</a>
-                </td>
+
             </tr>
-            @if (!string.IsNullOrWhiteSpace(item.WorkDetail))
+
+        </thead>
+
+        <tbody>
+
+
+            @foreach (var item in Model.job_Timesheet)
             {
-
-                <tr class="detail">
-                    <td colspan="3"></td>
-                    <td colspan="3">
-                        @Html.DisplayFor(modelItem => item.WorkDetail)
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartTime)
                     </td>
-
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TotalSeconds)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.discipline.DisciplineShort)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.job.JobTitle)
+                    </td>
+                    <td class="indexNowrapCol">
+                        @Html.DisplayFor(modelItem => item.DateAdded)
+                    </td>
+                    <td class="indexNowrapCol">
+                        @Html.DisplayFor(modelItem => item.DateModified)
+                    </td>
+                    <td class="indexNowrapCol">
+                        <a asp-page="../timelog/Edit" asp-route-id="@item.TimeLogId">Edit</a> |
+                        <a asp-page="../timelog/Details" asp-route-id="@item.TimeLogId">Details</a> |
+                        <a asp-page="../timelog/Delete" asp-route-id="@item.TimeLogId">Delete</a>
+                    </td>
                 </tr>
+                @if (!string.IsNullOrWhiteSpace(item.WorkDetail))
+                {
+
+                    <tr class="detail">
+                        <td colspan="3"></td>
+                        <td colspan="3">
+                            @Html.DisplayFor(modelItem => item.WorkDetail)
+                        </td>
+
+                    </tr>
+                }
             }
-        }
+
+        </tbody>
 
     </table>
 }
