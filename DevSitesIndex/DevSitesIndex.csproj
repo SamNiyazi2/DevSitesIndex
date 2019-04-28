@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <UserSecretsId>d333cece-1c61-46c9-bdce-fbf359723d24</UserSecretsId>
+    <TypeScriptToolsVersion>3.1</TypeScriptToolsVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -25,7 +26,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\js\site.min.js" />
+    <Content Remove="wwwroot\js\site.min.js.map" />
     <Content Remove="wwwroot\js\SSN_Notes.txt" />
+    <Content Remove="wwwroot\js\____________________________ts.txt" />
   </ItemGroup>
 
 
@@ -57,9 +61,9 @@
     <None Include="wwwroot\js\Angular_1_7\angular.js" />
     <None Include="wwwroot\js\Angular_1_7\angular.min.js" />
     <None Include="wwwroot\js\Angular_1_7\angular.min.js.map" />
-    <None Include="wwwroot\js\site.js" />
     <None Include="wwwroot\js\DemoSites.js" />
     <None Include="wwwroot\js\SSN_Notes.txt" />
+    <None Include="wwwroot\js\____________________________ts.txt" />
     <None Include="wwwroot\Templates\SiteDetail.html" />
   </ItemGroup>
 

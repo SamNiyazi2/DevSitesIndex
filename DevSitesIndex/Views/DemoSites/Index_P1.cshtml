@@ -99,7 +99,7 @@
                     <!-- /ko -->
                     <!-- ko if:  $parent.checkIfcallingcmd(siteUrl) -->
 
-                    <a class="siteTitle" data-bind="attr:{   href:'ssnalert:appcode=4;targetfile='+$parent.siteUrlWithoutCMD(siteUrl)  }"><span data-bind="text: siteTitle"></span></a>
+                    <a class="siteTitle" data-bind="attr:{   href:'ssnalert:appcode=' + softwareCodeID + ';title='+ siteTitle +';targetfile='+$parent.siteUrlWithoutCMD(siteUrl)  }"><span data-bind="text: siteTitle"></span></a>
                     <p class="alert-danger">Runs CMD</p>
                     <!-- /ko -->
                     <!-- /ko -->
@@ -161,7 +161,7 @@
 
         <div data-bind="if: softwareCodeID > 0">
             <p>
-                Project: <a data-bind="attr:{   href:'ssnalert:appcode=1;targetfile='+solutionName }"><span data-bind="text: solutionName"></span></a>
+                Project: <a data-bind="attr:{   href:'ssnalert:appcode=' + softwareCodeID + ';title='+ siteTitle +';targetfile='+solutionName }"><span data-bind="text: solutionName"></span></a>
             </p>
         </div>
 
