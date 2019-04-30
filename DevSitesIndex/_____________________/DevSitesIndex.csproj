@@ -26,15 +26,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Remove="wwwroot\js\fil11e.ts" />
-    <Content Remove="wwwroot\js\site.ts" />
-    <Content Remove="wwwroot\js\siteold.ts" />
     <Content Remove="wwwroot\js\SSN_Notes.txt" />
     <Content Remove="wwwroot\js\____________________________ts.txt" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="file.ts" />
   </ItemGroup>
 
 
@@ -81,10 +74,6 @@
   <ItemGroup>
     <Folder Include="Pages\Discipline\" />
     <Folder Include="wwwroot\js\angular-ui\V_0.11.0\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <TypeScriptCompile Include="wwwroot\js\site.ts" />
   </ItemGroup>
 
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">

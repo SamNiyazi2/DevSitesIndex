@@ -29,7 +29,7 @@ namespace DevSitesIndex.Services
 
         public TimeLog GetRecord(int timeLogId)
         {
-            var timeLog = _context.TimeLog.Where(c => c.TimeLogId == timeLogId);
+            var timeLog = _context.TimeLog.Where(c => c.TimeLogId == timeLogId).Include(r=>r.discipline);
 
             return timeLog.FirstOrDefault();
         }

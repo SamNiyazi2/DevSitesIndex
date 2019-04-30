@@ -24,6 +24,25 @@ ssn_devsite_angular_module.factory("dataService", function ($http, $q) {
     };
 
 
+    // 04/29/2019 05:49 pm - SSN - [20190429-1748] - [001] - Angular clock out popup
+
+    var _getTimelog = function (id) {
+
+        var deferred = $q.defer();
+
+        $http.get('/api/timelogapi/' + id )
+            .then(function (result) {
+
+                deferred.resolve(result.data);
+            },
+                function () {
+                    deferred.reject({ Error: 'Failed call to get timelog [20190829-1819]' });
+                });
+
+        return deferred.promise;
+    };
+
+
     var _addDevSite = function (devSite) {
 
         var deferred = $q.defer();
@@ -69,7 +88,8 @@ ssn_devsite_angular_module.factory("dataService", function ($http, $q) {
         devSites: _devSites,
         getDevSites: _getDevSites,
         addDevSite: _addDevSite,
-        insertTimeLog: _insertTimeLog
+        insertTimeLog: _insertTimeLog,
+        getTimelog: _getTimelog
     };
 
 

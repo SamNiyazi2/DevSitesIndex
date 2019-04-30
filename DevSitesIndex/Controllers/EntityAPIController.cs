@@ -34,11 +34,16 @@ namespace DevSitesIndex.Controllers
 
         }
 
+
+        // 04/29/2019 06:01 pm - SSN - [20190429-1748] - [003] - Angular clock out popup
+
         // GET api/<controller>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public T Get(int id)
         {
-            return "value";
+             T  entity = _entityRepository.GetRecord(id);
+
+            return entity;
         }
 
         // POST api/<controller>

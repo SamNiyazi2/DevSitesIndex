@@ -1,5 +1,4 @@
-﻿/// <reference path="typings/globals/jquery/index.d.ts" />
-// Write your JavaScript code.
+﻿// Write your JavaScript code.
 
 
 
@@ -61,12 +60,10 @@ $(function () {
 
         if (cmdName === "set-TotalPeriod") {
 
-            var d11: Date = new Date();
-            var d12: Date = new Date($(jQueryObjectName).val());
+            var d11 = new Date();
+            var d12 = new Date($(jQueryObjectName).val());
 
-            var delta = d11.getTime() - d12.getTime();
-
-            var delta = Math.floor(delta / 1000);
+            var delta = Math.floor((d11 - d12) / 1000);
 
             $(jQueryObjectName2).val(delta);
 
@@ -155,29 +152,31 @@ function prefixPreWithShowHideAnchor() {
 // Source https://www.c-sharpcorner.com/UploadFile/1d3119/date-serialization-with-angular-js-web-api/
 
 var iso8601RegEx = /(19|20|21)\d\d([-/.])(0[1-9]|1[012])\2(0[1-9]|[12][0-9]|3[01])T(\d\d)([:/.])(\d\d)([:/.])(\d\d)/;
-
-
+alert('loadd site.js');
+console.log('loaded site.js *********************************************888');
 function fnConverDate(input) {
 
     if (typeof input !== "object") return input;
 
-    for (var key in input) {
+    //for (var key in input) {
 
-        if (!input.hasOwnProperty(key)) continue;
+    //    if (!input.hasOwnProperty(key)) continue;
 
-        var value = input[key];
-        var type = typeof value;
-        var match;
-        if (type === 'string' && (match = value.match(iso8601RegEx))) {
-            input[key] = new Date(value)
-        }
-        else if (type === "object") {
-            fnConverDate(value);
-        }
-    }
+    //    var value = input[key];
+    //    var type = typeof value;
+    //    var match;
+    //    if (type == 'string' && (match = value.match(iso8601RegEx))) {
+    //        input[key] = new Date(value)
+    //    }
+    //    else if (type === "object") {
+    //        fnConverDate(value);
+    //    }
+    //}
 }
 
 // 04/29/2019 07:36 pm - SSN - [20190429-1748] - [006] - Angular clock out popup  - End
 
 setTimeout(prefixPreWithShowHideAnchor, 2000);
 
+
+alert('test222');

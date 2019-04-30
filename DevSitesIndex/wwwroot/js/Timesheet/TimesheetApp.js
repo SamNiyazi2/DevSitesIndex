@@ -34,6 +34,23 @@ timesheetApp.controller("timesheetController", function ($scope, $uibModal) {
     $scope.timesheetForm_ClockOut = function (timelogId) {
  
         alert('Clock-out [' + timelogId);
+
+        // 04/29/2019 04:16 pm - SSN - [20190429-1616] - [001] - Timesheet - stop / continue
+
+        $uibModal.open({
+            templateUrl: 'js/timesheet/timesheetTemplate.html',
+            controller: 'TimesheetClockOutController',
+            windowClass: 'ssn-mobile-modal',
+            size: 'md',
+            resolve: {
+                timelogId: function () {
+                    return timelogId;
+                }
+            }
+        });
+
+
+
     };
 
 

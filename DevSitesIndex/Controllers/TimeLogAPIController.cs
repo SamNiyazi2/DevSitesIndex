@@ -21,9 +21,9 @@ namespace DevSitesIndex.Controllers
         public TimeLogAPIController(DevSitesIndexContext context)
         {
             _entityRepository = new TimeLogRepository(context);
-             
+
         }
- 
+
 
     }
 }

@@ -5,9 +5,13 @@
     "outputFileName": "wwwroot/css/site.min.css",
     // An array of relative input file paths. Globbing patterns supported
     "inputFiles": [
-      "wwwroot/css/site.css" 
+      "wwwroot/css/site.css"
     ]
-  },
+  }
+
+  // // 04/29/2019 04:19 pm - SSN - We have started using site.ts
+
+  ,
   {
     "outputFileName": "wwwroot/js/site.min.js",
     "inputFiles": [
