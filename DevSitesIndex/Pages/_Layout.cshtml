@@ -157,21 +157,20 @@
 
     <script src="~/js/toastr/scripts/toastr.js"></script>
 
+
+    <environment names="Development">
+
+        @* // 04/29/2019 04:23 pm - SSN - We have started using site.ts*@
+        <script src="~/js/site.js" asp-append-version="true"></script>
+
+    </environment>
+
     <environment names="Production">
 
         <script src="~/js/site.min.js" asp-append-version="true"></script>
 
     </environment>
-    <environment names="Development">
 
-
-        @*
-        // 04/29/2019 04:23 pm - SSN - We has started using site.ts
-
-        <script src="~/js/site.js" asp-append-version="true"></script>*@
-
-        <script src="~/js/site.min.js" asp-append-version="true"></script>
-    </environment>
 
 
     @RenderSection("Scripts", required: false)

@@ -119,6 +119,19 @@ function prefixPreWithShowHideAnchor() {
 
     });
 
+    // 05/01/2019 04:52 am - SSN - Use JavaScript only
+
+    var list = document.querySelectorAll('pre');
+
+    for (var a of list) {
+
+        var b = a.innerHTML.replace(/</g, '&lt;');
+        a.innerHTML = b;
+
+
+    }
+
+
 
     // 04/26/2019 10:14 pm - SSN - [20190426-2156] - [002] - Hide pre and add a link to show.
 

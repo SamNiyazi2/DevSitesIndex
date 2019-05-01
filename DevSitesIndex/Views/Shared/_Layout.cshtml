@@ -211,10 +211,17 @@
     <script src="~/js/toastr/scripts/toastr.js"></script>
 
 
+ 
+@*05/02/2019 04:56 am - SSN - Breakup for debugging*@
 
+    <environment names="Development">
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    </environment>
 
-    @*<script src="~/js/site.js" asp-append-version="true"></script>*@
-    <script src="~/js/site.min.js" asp-append-version="true"></script>
+    <environment names="Production">
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+    </environment>
+
 
     @RenderSection("Scripts", required: false)
 
