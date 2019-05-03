@@ -26,8 +26,9 @@ namespace DevSitesIndex.Pages.Jobs
         public IActionResult OnGet()
         {
             // ViewData["ProjectID"] = new SelectList(_context.Project, "ProjectID", "ProjectID");
+            // 05/03/2019 05:35 am - SSN - Add order
 
-            projectsSL = new SelectList(_context.Project, "ProjectID", "ProjectTitle");
+            projectsSL = new SelectList(_context.Project.OrderBy(r => r.ProjectTitle), "ProjectID", "ProjectTitle");
             Job = new Job();
             Job.DateAdded = DateTime.Now;
 

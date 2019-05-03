@@ -45,7 +45,8 @@ namespace DevSitesIndex.Pages.Jobs
 
 
             // ViewData["ProjectID"] = new SelectList(_context.Project, "ProjectID", "ProjectID");
-            projectsSL = new SelectList(_context.Project, "ProjectID", "ProjectTitle");
+            // 05/03/2019 05:35 am - SSN - Add order
+            projectsSL = new SelectList(_context.Project.OrderBy(r => r.ProjectTitle), "ProjectID", "ProjectTitle");
 
 
             return Page();
