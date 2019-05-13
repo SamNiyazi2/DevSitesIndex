@@ -48,10 +48,12 @@ namespace DevSitesIndex.Pages.TimeLogs
 
         private void setupRequiredData()
         {
-            ViewData["DisciplineID"] = new SelectList(_context.Discipline, "DisciplineId", "DisciplineShort");
+            // 05/04/2019 09:50 am - SSN - Add order
+
+            ViewData["DisciplineID"] = new SelectList(_context.Discipline.OrderBy(r => r.DisciplineShort), "DisciplineId", "DisciplineShort");
             // 04/08/2019 12:43 am - SSN - [20190407-2345] - TimeLog 
             // ViewData["JobId"] = new SelectList(_context.Job, "JobID", "JobID");
-            ViewData["JobId"] = new SelectList(_context.Job, "JobID", "JobTitle");
+            ViewData["JobId"] = new SelectList(_context.Job.OrderBy(r => r.JobTitle), "JobID", "JobTitle");
         }
 
 

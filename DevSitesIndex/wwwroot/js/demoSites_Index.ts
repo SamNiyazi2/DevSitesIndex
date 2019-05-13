@@ -1,8 +1,22 @@
-﻿// 08/31/2018 08:51 am - SSN 
+﻿ 
+ 
+
+// 08/31/2018 08:51 am - SSN 
 // 04/12/2019 02:35 pm - SSN - [20190412-1126] - Timelog - save data - Rename module to ssn_devsite_angular_module
 
 
-var ssn_devsite_angular_module = angular.module("demoSites_Index", []);
+/// <reference path="../../../Typings_Copied/jquery.typescript.definitelytyped/3.1.2/Content/Scripts/typings/jquery/jquery.d.ts" />
+/// <reference path="../../../node_modules/@types/angular/index.d.ts" />
+// Convert to TypeScript
+// 05/04/2019 09:17 am - SSN - [20190504-0855] - [003] - Testing if we can replace global variable
+
+/// <reference path="../js/DataServices.ts"/>
+
+declare var ssn_devsite_angular_module: any;
+
+ssn_devsite_angular_module = angular.module("demoSites_Index", []);
+
+
 
 
 ssn_devsite_angular_module.config(["$routeProvider", function ($routeProvider) {

@@ -123,7 +123,7 @@ a[cmd-name="showsibling"] {
 
     color:firebrick;
     background-color: #faf9f0;
-    padding:10px;
+    margin:10px;
     font-weight:bold;
 }
 
@@ -174,4 +174,28 @@ a[cmd-name="showsibling"] {
 
 .has-error {
     color: red
+}
+
+
+/* 05/07/2019 09:24 pm - SSN - Copied from __SharedScripts\css_101.css */
+.note {
+    background-color: lightyellow;
+    font-style: italic;
+    font-size: 80%;
+    padding: 5px 20px 5px 40px;
+}
+
+n {
+    background-color: yellow;
+}
+
+h {
+    font-weight: bold;
+    color: red;
+}
+
+alarm {
+    background-color: red;
+    color: yellow;
+    font-weight: bold;
 }

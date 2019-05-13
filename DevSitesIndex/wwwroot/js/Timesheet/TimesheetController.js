@@ -12,6 +12,10 @@ timesheetApp.controller('TimesheetController',
 
         $scope.disciplineSelected = { id: 0, title: '' };
 
+        // 05/03/2019 05:54 pm - SSN - [20190503-1539] - [012] - Add link to create timelog 
+        // Add pageTitle
+        $scope.pageTitle = "Clock-in";
+
 
         let timeNow = new Date();
         timeNow.setMilliseconds(0);
@@ -87,10 +91,13 @@ timesheetApp.controller('TimesheetController',
             if (lookupValue === null) lookupValue = "";
 
             var deferred = $q.defer();
+            // 05/03/2019 04:16 pm - SSN - [20190503-1539] - [006] - Add link to create timelog
+            // from   url:  'api/DisciplineAPI'
+            //   to   url: '/api/DisciplineAPI'
 
             $http({
                 method: 'GET',
-                url: 'api/DisciplineAPI'
+                url: '/api/DisciplineAPI'
 
             }).then(typeaheadDisciplineSuccess, typeaheadDisciplineError);
 

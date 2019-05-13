@@ -35,10 +35,10 @@ namespace DevSitesIndex.Entities
         [Display(Name = "Work Detail")]
         public string WorkDetail { get; set; }
 
-        [Display(Name = "Job Title (2)")]
+        [Display(Name = "Job Title")]
         public Job job { get; set; }
 
-        [Display(Name = "Discipline (2)")]
+        [Display(Name = "Discipline")]
         public Discipline discipline { get; set; }
 
         [NotMapped]

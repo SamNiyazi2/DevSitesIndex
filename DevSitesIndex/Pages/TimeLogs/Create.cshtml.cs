@@ -22,15 +22,18 @@ namespace DevSitesIndex.Pages.TimeLogs
 
         public IActionResult OnGet()
         {
-            ViewData["DisciplineID"] = new SelectList(_context.Discipline, "DisciplineId", "DisciplineShort");
+
+            // 05/04/2019 09:54 am - SSN - Add order
+
+            ViewData["DisciplineID"] = new SelectList(_context.Discipline.OrderBy(r => r.DisciplineShort), "DisciplineId", "DisciplineShort");
             // 04/08/2019 12:43 am - SSN - [20190407-2345] - TimeLog 
             // ViewData["JobId"] = new SelectList(_context.Job, "JobID", "JobID");
-            ViewData["JobId"] = new SelectList(_context.Job, "JobID", "JobTitle");
+            ViewData["JobId"] = new SelectList(_context.Job.OrderBy(r => r.JobTitle), "JobID", "JobTitle");
 
             TimeLog = new TimeLog();
             DateTime d = DateTime.Now;
 
-            TimeLog.DateAdded = new DateTime(d.Year, d.Month, d.Day, d.Hour, d.Minute,0);
+            TimeLog.DateAdded = new DateTime(d.Year, d.Month, d.Day, d.Hour, d.Minute, 0);
 
 
             return Page();
@@ -48,7 +51,7 @@ namespace DevSitesIndex.Pages.TimeLogs
 
             _context.TimeLog.Add(TimeLog);
             await _context.SaveChangesAsync();
-            
+
             return RedirectToPage("./Index");
         }
 

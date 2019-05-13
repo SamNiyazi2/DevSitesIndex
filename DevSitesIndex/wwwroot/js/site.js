@@ -1,18 +1,13 @@
-/// <reference path="typings/globals/jquery/index.d.ts" />
-// Write your JavaScript code.
-//08/23/2018 01:24 am - SSN
 $(function () {
     $("[cmd-name]").on('click', function (e) {
         var cmdName = $(this).attr('cmd-name');
         var popupName = $(this).attr('popup-name');
         var jQueryObjectName = $(this).attr('jQueryObjectName');
         var jQueryObjectName2 = $(this).attr('jQueryObjectName2');
-        //      alert('clicked me! cmdName [' + cmdName + "] popup-name  [" + popupName + "]");
         if (cmdName === "open-popup") {
             $(popupName).modal({ backdrop: 'static', keyboard: false });
             $("#addSite_PageContent").load("/times/start");
         }
-        // 03/14/2019 09:33 am - SSN - Adding hide and show
         if (cmdName === "hideObject") {
             $(jQueryObjectName).hide();
         }
@@ -20,18 +15,15 @@ $(function () {
             $(jQueryObjectName).show();
         }
         if (cmdName === "smooth-scroll") {
-            //$('body').scrollspy({ target: jQueryObjectName });
             document.querySelector(jQueryObjectName).scrollIntoView({
                 behavior: 'smooth'
             });
         }
-        // 04/08/2019 01:33 am - SSN - [20190407-2345] - TimeLog
         if (cmdName === "set-default-time") {
             var d = new Date();
             var cd = d.getFullYear() + "-" + p(d.getMonth() + 1, 2, '0') + "-" + p(d.getDate(), 2, '0') + "T" + p(d.getHours(), 2, '0') + ":" + p(d.getMinutes(), 2, '0') + ":" + p(d.getSeconds(), 2, '0');
             $(jQueryObjectName).val(cd);
         }
-        // 04/19/2019 04:48 pm - SSN - [20190419-1647] - Set amount for TotalSeconds
         if (cmdName === "set-TotalPeriod") {
             var d11 = new Date();
             var d12 = new Date($(jQueryObjectName).val());
@@ -48,7 +40,6 @@ $(function () {
         var s2 = s1.substring(len + (str.length - len));
         return s2;
     }
-    // 03/14/2019 10:28 am - SSN
     $(window).on('scroll', function () {
         var y = $(window).scrollTop();
         if (y > 0) {
@@ -60,18 +51,15 @@ $(function () {
     });
 });
 function prefixPreWithShowHideAnchor() {
-    // 04/26/2019 09:56 pm - SSN - [20190426-2156] - [001] - Hide pre and add a link to show.
     $('pre').each(function (aa) {
         $(this).hide();
         $('<p><a cmd-name="showsibling">Show code</a></p>').insertBefore(this);
     });
-    // 05/01/2019 04:52 am - SSN - Use JavaScript only
     var list = document.querySelectorAll('pre');
     for (var a of list) {
         var b = a.innerHTML.replace(/</g, '&lt;');
         a.innerHTML = b;
     }
-    // 04/26/2019 10:14 pm - SSN - [20190426-2156] - [002] - Hide pre and add a link to show.
     $("[cmd-name]").on('click', function (e) {
         var cmdName = $(this).attr('cmd-name');
         if (cmdName === "showsibling") {
@@ -88,8 +76,6 @@ function prefixPreWithShowHideAnchor() {
         }
     });
 }
-// 04/29/2019 07:36 pm - SSN - [20190429-1748] - [006] - Angular clock out popup  - Begin
-// Source https://www.c-sharpcorner.com/UploadFile/1d3119/date-serialization-with-angular-js-web-api/
 var iso8601RegEx = /(19|20|21)\d\d([-/.])(0[1-9]|1[012])\2(0[1-9]|[12][0-9]|3[01])T(\d\d)([:/.])(\d\d)([:/.])(\d\d)/;
 function fnConverDate(input) {
     if (typeof input !== "object")
@@ -108,6 +94,5 @@ function fnConverDate(input) {
         }
     }
 }
-// 04/29/2019 07:36 pm - SSN - [20190429-1748] - [006] - Angular clock out popup  - End
 setTimeout(prefixPreWithShowHideAnchor, 2000);
 //# sourceMappingURL=site.js.map

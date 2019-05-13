@@ -13,6 +13,13 @@ timesheetApp.controller('TimesheetClockOutController',
         dataService.getTimelog(timelogId).then(getTimelogSuccess, getTimelogError)
             .catch(getTimelogCatch);
 
+
+
+        // 05/03/2019 05:54 pm - SSN - [20190503-1539] - [012] - Add link to create timelog 
+        // Add pageTitle
+        $scope.pageTitle = "Clock-out";
+
+
         function getTimelogSuccess(data) {
 
          

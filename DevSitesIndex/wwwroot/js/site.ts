@@ -1,6 +1,5 @@
-﻿/// <reference path="typings/globals/jquery/index.d.ts" />
-// Write your JavaScript code.
-
+﻿///// <reference path="typings/globals/jquery/index.d.ts" />
+/// <reference path="../../../Typings_Copied/jquery.typescript.definitelytyped/3.1.2/Content/Scripts/typings/jquery/jquery.d.ts" />
 
 
 

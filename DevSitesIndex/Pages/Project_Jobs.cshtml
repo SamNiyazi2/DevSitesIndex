@@ -9,27 +9,41 @@
 
 <h3>Jobs List</h3>
 
-<table>
+<!-- 05/03/2019 03:40 pm - SSN - [20190503-1539] - [002] - Add link to create timelog -->
+<div ng-app="timesheetApp">
+    <div ng-controller="timesheetController">
+        <table>
 
-    @foreach (var item in Model.project_Jobs)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateAdded)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateUpdated)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.JobTitle)
-            </td>
+            @foreach (var item in Model.project_Jobs)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateAdded)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateUpdated)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.JobTitle)
+                    </td>
 
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.JobID">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.JobID">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.JobID">Delete</a>
-            </td>
-        </tr>
-    }
+                    <td>
+                        @*
+                            05/03/2019 05:37 pm - SSN - [20190503-1539] - [010] - Add link to create timelog 
+                            Prefix with /jobs
+                        *@
+                        <a asp-page="/jobs/Edit" asp-route-id="@item.JobID">Edit</a> |
+                        <a asp-page="/jobs/Details" asp-route-id="@item.JobID">Details</a> |
+                        <a asp-page="/jobs/Delete" asp-route-id="@item.JobID">Delete</a> |
 
-</table>
+                        <!-- 05/03/2019 03:39 pm - SSN - [20190503-1539] - [001] - Add link to create timelog -->
+
+                        <a ng-click="showCreateTimesheetForm(@item.JobID)">Clock-in</a>
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>
+

@@ -31,7 +31,7 @@ namespace DevSitesIndex.Entities
         [Display(Name = "Project Title")]
         public int ProjectID { get; set; }
 
-        [Display(Name = "Project Title (2)")]
+        [Display(Name = "Project Title")]
         public Project project { get; set; }
 
         // 04/19/2019 06:26 pm - SSN - [20190419-1826] - Adding timelog to job's model
