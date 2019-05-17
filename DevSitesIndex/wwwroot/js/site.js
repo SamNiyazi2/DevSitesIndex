@@ -57,7 +57,7 @@ function prefixPreWithShowHideAnchor() {
     });
     var list = document.querySelectorAll('pre');
     for (var a of list) {
-        var b = a.innerHTML.replace(/</g, '&lt;');
+        var b = a.innerHTML.replace(/<[^i|^/i|.]/g, '&lt;');
         a.innerHTML = b;
     }
     $("[cmd-name]").on('click', function (e) {

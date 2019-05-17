@@ -129,6 +129,13 @@ a[cmd-name="showsibling"] {
 
 .menuOptions {
     padding: 5px 20px 10px 20px;
+    /* 05/14/2019 04:17 am - SSN Copied from maxWidthCol1  */
+    max-width: 600px; /* Match codeblock2*/
+    /*white-space: pre-wrap;*/ /* CSS3 */
+    white-space: -moz-pre-wrap; /* Firefox */
+    white-space: -pre-wrap; /* Opera <7 */
+    white-space: -o-pre-wrap; /* Opera 7 */
+    word-wrap: break-word;
 }
 
 .siteTitle {
@@ -164,6 +171,7 @@ a[cmd-name="showsibling"] {
 }
 
 .maxWidthCol1 {
+    /* 05/14/2019 04:17 am - SSN Copied to menuOptions */
     max-width: 600px; /* Match codeblock2*/
     /*white-space: pre-wrap;*/ /* CSS3 */
     white-space: -moz-pre-wrap; /* Firefox */
