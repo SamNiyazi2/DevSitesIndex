@@ -125,8 +125,9 @@ function prefixPreWithShowHideAnchor() {
     for (var a of list) {
 
         // 05/17/2019 04:16 am - SSN - Update to exclude highlighting
-        //var b = a.innerHTML.replace(/</g, '&lt;');
-        var b = a.innerHTML.replace(/<[^i|^/i|.]/g, '&lt;');
+        //var b = a.innerHTML.replace(/</g, '&lt;');  
+        // Exclude <h and <n. Already setup for <i.  See site.css.
+        var b = a.innerHTML.replace(/<[^i|^/i|^h|^/h|^n|^/h|.]/g, '&lt;');
 
         a.innerHTML = b;
 
