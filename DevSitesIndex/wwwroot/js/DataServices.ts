@@ -52,7 +52,7 @@
 
                     deferred.resolve(result.data);
                 },
-                    function () {
+                    function (errorMessage) {
                         deferred.reject({ Error: 'Failed call to get timelog [20190829-1819]' });
                     });
 
@@ -99,6 +99,24 @@
         };
 
 
+        // 05/19/2019 03:00 pm - SSN - [20190519-1412] - [004] - Continue work on adding continue option for timesheet record
+        var _addOrUpdateTimeLog = function (timeLog) {
+
+            var deferred = $q.defer();
+
+            $http.post('/api/timeLogAPI', timeLog)
+                .then(function (result) {
+
+                    deferred.resolve(result.data);
+                },
+                    function (error) {
+                        deferred.reject(error);
+                    });
+
+            return deferred.promise;
+
+        };
+
 
         return {
 
@@ -106,7 +124,8 @@
             getDevSites: _getDevSites,
             addDevSite: _addDevSite,
             insertTimeLog: _insertTimeLog,
-            getTimelog: _getTimelog
+            getTimelog: _getTimelog ,
+            addOrUpdateTimeLog: _addOrUpdateTimeLog
         };
 
 

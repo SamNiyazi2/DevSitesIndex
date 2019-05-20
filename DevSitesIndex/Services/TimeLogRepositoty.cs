@@ -29,9 +29,20 @@ namespace DevSitesIndex.Services
 
         public TimeLog GetRecord(int timeLogId)
         {
-            var timeLog = _context.TimeLog.Where(c => c.TimeLogId == timeLogId).Include(r=>r.discipline);
+            // 05/19/2019 03:31 pm - SSN - [20190519-1412] - [007] - Continue work on adding continue option for timesheet record
+            // Debugging
+            try
+            {
+                var timeLog = _context.TimeLog.Where(c => c.TimeLogId == timeLogId).Include(r => r.discipline).FirstOrDefault();
 
-            return timeLog.FirstOrDefault();
+                return timeLog;
+
+            }
+            catch (Exception ex )
+            {
+                string errorMessage = ex.Message;
+                throw;
+            }
         }
 
 
@@ -47,6 +58,9 @@ namespace DevSitesIndex.Services
 
                 if (timeLog.TimeLogId == 0)
                 {
+                    int DisciplineID = timeLog.DisciplineID;
+                    timeLog.discipline = null;
+
                     timeLog.DateAdded = DateTime.Now;
                     r = _context.TimeLog.Add(timeLog);
                 }

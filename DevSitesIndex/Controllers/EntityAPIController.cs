@@ -41,7 +41,7 @@ namespace DevSitesIndex.Controllers
         [HttpGet("{id}")]
         public T Get(int id)
         {
-             T  entity = _entityRepository.GetRecord(id);
+            T entity = _entityRepository.GetRecord(id);
 
             return entity;
         }
@@ -52,9 +52,20 @@ namespace DevSitesIndex.Controllers
         {
 
             _entityRepository.Update(value);
-            if (!_entityRepository.Save())
-            {
 
+            // 05/19/2019 03:06 pm - SSN - [20190519-1412] - [005] - Continue work on adding continue option for timesheet record
+            // Testing save on update
+            try
+            {
+                if (!_entityRepository.Save())
+                {
+                    string message = "Failed to update";
+                }
+
+            }
+            catch (Exception ex)
+            {
+                string message = ex.Message;
             }
 
         }

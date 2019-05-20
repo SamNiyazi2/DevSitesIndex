@@ -75,7 +75,12 @@
                             <a asp-page="./Details" asp-route-id="@item.TimeLogId">Details</a> |
                             <a asp-page="./Delete" asp-route-id="@item.TimeLogId">Delete</a> |
 
-                            <a ng-click="timesheetForm_ClockOut(@item.TimeLogId)" class="alert-warning">Clock-out</a>
+                            <a  ng-If="'@item.TotalSeconds' <= 0 " ng-click="timesheetForm_ClockOut(@item.TimeLogId)" class="alert-warning">Clock-out</a>
+                            <!-- 05/19/2019 08:38 am - SSN - [20190519-0837] - [001] - Adding timesheet "Continue" option -->
+
+                            <a  ng-If="'@item.TotalSeconds' > 0 " ng-click="timesheetForm_ClockContinue(@item.TimeLogId)" class="alert-warning">Continue</a>
+
+
                         </td>
                     </tr>
 

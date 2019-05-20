@@ -17,6 +17,20 @@ timesheetApp.controller("timesheetController", function ($scope, $uibModal) {
             }
         });
     };
+    $scope.timesheetForm_ClockContinue = function (timelogId) {
+        $uibModal.open({
+            templateUrl: '/js/timesheet/timesheetTemplate.html',
+            controller: 'TimesheetContinueController',
+            windowClass: 'ssn-mobile-modal',
+            size: 'md',
+            backdrop: false,
+            resolve: {
+                timelogId: function () {
+                    return timelogId;
+                }
+            }
+        });
+    };
     $scope.showCreateTimesheetForm = function (jobID) {
         if (isNaN(jobID)) {
             jobID = 0;

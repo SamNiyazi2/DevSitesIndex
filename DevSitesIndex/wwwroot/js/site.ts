@@ -1,5 +1,11 @@
-﻿///// <reference path="typings/globals/jquery/index.d.ts" />
-/// <reference path="../../../Typings_Copied/jquery.typescript.definitelytyped/3.1.2/Content/Scripts/typings/jquery/jquery.d.ts" />
+﻿ 
+// 05/19/2019 01:18 pm - SSN - [20190519-1132] - [007] - Address definitely typed errors - No errors
+
+/// <reference path="../../../node_modules/@types/jquery/index.d.ts" /> 
+/// <reference path="../../../node_modules/@types/bootstrap/index.d.ts" /> 
+
+
+
 
 
 
@@ -61,7 +67,11 @@ $(function () {
         if (cmdName === "set-TotalPeriod") {
 
             var d11: Date = new Date();
-            var d12: Date = new Date($(jQueryObjectName).val());
+
+            // 05/19/2019 01:10 pm - SSN - Addressing error. string | number | string[] cannot convert top string | number
+            var selectedDate: string = $(jQueryObjectName).val()[0];
+
+            var d12: Date = new Date(selectedDate);
 
             var delta = d11.getTime() - d12.getTime();
 
@@ -120,19 +130,22 @@ function prefixPreWithShowHideAnchor() {
 
     // 05/01/2019 04:52 am - SSN - Use JavaScript only
 
-    var list = document.querySelectorAll('pre');
+    var list1 = document.querySelectorAll('pre');
 
-    for (var a of list) {
+    // 05/19/2019 12:30 pm - SSN - [20190519-1132] - [004] - Address definitely typed errors
+    // for (var a of list1) {
+    // list1.forEach(function (currentItem, currentIndex, listObj) {
+    list1.forEach(function (a, currentIndex, listObj) {
 
         // 05/17/2019 04:16 am - SSN - Update to exclude highlighting
         //var b = a.innerHTML.replace(/</g, '&lt;');  
         // Exclude <h and <n. Already setup for <i.  See site.css.
-        var b = a.innerHTML.replace(/<[^i|^/i|^h|^/h|^n|^/h|.]/g, '&lt;');
+        var b = a.innerHTML.replace(/<([^i|^/i|^h|^/h|^n|^/h])?/g, '&lt;$1');
 
         a.innerHTML = b;
 
 
-    }
+    });
 
 
 

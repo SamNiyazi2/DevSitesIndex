@@ -1,63 +1,45 @@
-﻿//////////////////////////////////////////////////////// <reference path="../site.js" />
-// 05/19/2019 10:06 am - SSN - [20190519-0837] - [006] - Adding timesheet "Continue" option
+﻿
+// 05/19/2019 09:45 am - SSN - [20190519-0837] - [005] - Adding timesheet "Continue" option
+// Copied from Clockout.
+
+timesheetApp.controller('TimesheetContinueController',
+
+    function  ($scope, $uibModalInstance, $http, $q, dataService, timelogId) {
+
+         
 
 
-// 05/19/2019 12:18 pm - SSN - [20190519-1132] - [003] - Address definitely typed errors
-/// <reference path="../../../../node_modules/@types/toastr/index.d.ts" />
-
-
-// 04/12/2019 03:57 am - SSN - [20190412-0142] - TimesheetApp
-
- 
-timesheetApp.controller('TimesheetClockOutController',
-
-    function TimesheetController($scope, $uibModalInstance, $http, $q, dataService, timelogId) {
-
-
-
-        // 04/29/2019 05:51 pm - SSN - [20190429-1748] - [002] - Angular clock out popup
-        // $scope.timeLog = dataService.getTimelog($routeParams.id);
-        // $scope.timeLog = dataService.getTimelog(timelogId);
         dataService.getTimelog(timelogId).then(getTimelogSuccess, getTimelogError)
             .catch(getTimelogCatch);
 
 
 
-        // 05/03/2019 05:54 pm - SSN - [20190503-1539] - [012] - Add link to create timelog 
-        // Add pageTitle
-        $scope.pageTitle = "Clock-out";
+        $scope.pageTitle = "Continue";
 
 
         function getTimelogSuccess(data) {
 
-         
-            //$scope.disciplineSelected = { id: 0, title: '' };
-
-
-            //let timeNow = new Date();
-            //timeNow.setMilliseconds(0);
-            // timeNow.setSeconds(0);
-
-            //$scope.timeLog = {
-            //    timeLogId: 0,
-            //    id: 0,
-            //    startTime: timeNow,
-            //    workDetail: "",
-            //    disciplineId: '2',
-            //    jobId: jobId
-            //};
             let data2 = data;
             fnConverDate(data2);
+
+
+            let timeNow = new Date();
+            timeNow.setMilliseconds(0);
+
+
             $scope.timeLog = data2;
 
-            // $scope.disciplineSelected = data2.discipline.disciplineShort; // { id: data2.discipline.disciplineId, title: data2.discipline.disciplineShort};
-  
+            // 05/19/2019 02:41 pm - SSN - [20190519-1412] - [003] - Continue work on adding continue option for timesheet record
+            // set TimeLogId = 0
+            $scope.timeLog.timeLogId = 0;
+            $scope.timeLog.startTime = timeNow;
+
             $scope.editableTimeLog = angular.copy($scope.timeLog);
 
             setTimeout(() => {
                 $scope.getDisciplines(data2.discipline.disciplineShort);
                 $scope.disciplineSelected = { id: data2.discipline.disciplineId, title: data2.discipline.disciplineShort };
-}
+            }
                 , 500);
 
 
@@ -91,7 +73,7 @@ timesheetApp.controller('TimesheetClockOutController',
 
             $scope.editableTimeLog.disciplineId = $scope.disciplineSelected.id;
 
-            if ($scope.editableTimeLog.id === 0) {
+            if ($scope.editableTimeLog.timeLogId === 0) {
                 promise = dataService.insertTimeLog($scope.editableTimeLog);
             }
             else {
@@ -118,7 +100,7 @@ timesheetApp.controller('TimesheetClockOutController',
 
 
             $uibModalInstance.close();
-            toastr.info("Clocked-out");
+            toastr.info("Record added.");
         };
 
 
@@ -132,7 +114,6 @@ timesheetApp.controller('TimesheetClockOutController',
 
 
 
-        // 04/13/2019 11:00 am - SSN - [20190413-1037] - Add discipline lookup
 
         $scope.getDisciplines = function (lookupValue) {
 
@@ -178,4 +159,4 @@ timesheetApp.controller('TimesheetClockOutController',
 
     });
 
-console.log("Bottom of TimesheetClockOutController.js");
+console.log("Bottom of TimesheetContinueController.js");

@@ -1,12 +1,15 @@
-﻿ 
- 
+﻿
+
 
 // 08/31/2018 08:51 am - SSN 
 // 04/12/2019 02:35 pm - SSN - [20190412-1126] - Timelog - save data - Rename module to ssn_devsite_angular_module
 
 
-/// <reference path="../../../Typings_Copied/jquery.typescript.definitelytyped/3.1.2/Content/Scripts/typings/jquery/jquery.d.ts" />
+/// <reference path="../../../node_modules/@types/jquery/jquery.d.ts" />
+/////////////////////////////////////// <reference path="../../../node_modules/@types/bootstrap/index.d.ts" />
+
 /// <reference path="../../../node_modules/@types/angular/index.d.ts" />
+
 // Convert to TypeScript
 // 05/04/2019 09:17 am - SSN - [20190504-0855] - [003] - Testing if we can replace global variable
 
@@ -83,9 +86,11 @@ function devSiteUpdateController($scope, $http, $window, dataService) {
     $scope.save = function (formSelector) {
         //alert("test submit");
 
-        var f = $(formSelector);
+        // 05/19/2019 02:20 pm - SSN - [20190519-1412] - [002] - Continue work on adding continue option for timesheet record
+        // Added cast
+        var f: HTMLFormElement = <any>$(formSelector);
 
-        if (!f.valid()) {
+            if (!f.valid()) {
             alert('Invalid form.');
             return false;
         }

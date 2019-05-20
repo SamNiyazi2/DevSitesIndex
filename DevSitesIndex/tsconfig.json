@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "noImplicitAny": false,
+    "noEmitOnError": true,
+    "removeComments": false,
+    "sourceMap": true,
+    "target": "es5",
+
+    "typeRoots": [ "./node_modules/@types" ]
+
+  },
+  "files": [
+    "wwwroot/js/site.ts"
+  ],
+
+  "exclude": [
+    "node_modules",
+    "wwwroot"
+  ]
+}

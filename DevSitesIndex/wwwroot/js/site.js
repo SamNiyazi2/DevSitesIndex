@@ -26,7 +26,8 @@ $(function () {
         }
         if (cmdName === "set-TotalPeriod") {
             var d11 = new Date();
-            var d12 = new Date($(jQueryObjectName).val());
+            var selectedDate = $(jQueryObjectName).val()[0];
+            var d12 = new Date(selectedDate);
             var delta = d11.getTime() - d12.getTime();
             var delta = Math.floor(delta / 1000);
             $(jQueryObjectName2).val(delta);
@@ -55,11 +56,11 @@ function prefixPreWithShowHideAnchor() {
         $(this).hide();
         $('<p><a cmd-name="showsibling">Show code</a></p>').insertBefore(this);
     });
-    var list = document.querySelectorAll('pre');
-    for (var a of list) {
-        var b = a.innerHTML.replace(/<[^i|^/i|^h|^/h|^n|^/h|.]/g, '&lt;');
+    var list1 = document.querySelectorAll('pre');
+    list1.forEach(function (a, currentIndex, listObj) {
+        var b = a.innerHTML.replace(/<([^i|^/i|^h|^/h|^n|^/h])?/g, '&lt;$1');
         a.innerHTML = b;
-    }
+    });
     $("[cmd-name]").on('click', function (e) {
         var cmdName = $(this).attr('cmd-name');
         if (cmdName === "showsibling") {
