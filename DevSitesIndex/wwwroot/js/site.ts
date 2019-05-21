@@ -1,4 +1,4 @@
-﻿ 
+﻿
 // 05/19/2019 01:18 pm - SSN - [20190519-1132] - [007] - Address definitely typed errors - No errors
 
 /// <reference path="../../../node_modules/@types/jquery/index.d.ts" /> 
@@ -66,18 +66,23 @@ $(function () {
 
         if (cmdName === "set-TotalPeriod") {
 
-            var d11: Date = new Date();
 
             // 05/19/2019 01:10 pm - SSN - Addressing error. string | number | string[] cannot convert top string | number
-            var selectedDate: string = $(jQueryObjectName).val()[0];
 
-            var d12: Date = new Date(selectedDate);
+            // 05/202019 02:39 pm - SSN - No calculating elapsed time correctly with TypeScript conversion.
 
-            var delta = d11.getTime() - d12.getTime();
 
-            var delta = Math.floor(delta / 1000);
+            var d11 = new Date();
 
-            $(jQueryObjectName2).val(delta);
+            var selectedDate: string = (<HTMLInputElement>$(jQueryObjectName)[0]).value;
+
+            var d12 = new Date(selectedDate);
+
+            var delta_1 = d11.getTime().valueOf() - d12.getTime().valueOf();
+
+            var delta_2 = Math.floor(delta_1 / 1000);
+
+            $(jQueryObjectName2).val(delta_2);
 
         }
 
@@ -140,7 +145,7 @@ function prefixPreWithShowHideAnchor() {
         // 05/17/2019 04:16 am - SSN - Update to exclude highlighting
         //var b = a.innerHTML.replace(/</g, '&lt;');  
         // Exclude <h and <n. Already setup for <i.  See site.css.
-        var b = a.innerHTML.replace(/<([^i|^/i|^h|^/h|^n|^/h])?/g, '&lt;$1');
+        var b = a.innerHTML.replace(/<([^i|^/i|^h|^/h|^n|^/h])/g, '&lt;$1');
 
         a.innerHTML = b;
 

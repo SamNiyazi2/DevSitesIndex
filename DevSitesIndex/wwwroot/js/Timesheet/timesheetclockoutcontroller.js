@@ -1,13 +1,36 @@
+//////////////////////////////////////////////////////// <reference path="../site.js" />
+// 05/19/2019 10:06 am - SSN - [20190519-0837] - [006] - Adding timesheet "Continue" option
+// 05/19/2019 12:18 pm - SSN - [20190519-1132] - [003] - Address definitely typed errors
+/// <reference path="../../../../node_modules/@types/toastr/index.d.ts" />
+// 04/12/2019 03:57 am - SSN - [20190412-0142] - TimesheetApp
 timesheetApp.controller('TimesheetClockOutController', function TimesheetController($scope, $uibModalInstance, $http, $q, dataService, timelogId) {
+    // 04/29/2019 05:51 pm - SSN - [20190429-1748] - [002] - Angular clock out popup
+    // $scope.timeLog = dataService.getTimelog($routeParams.id);
+    // $scope.timeLog = dataService.getTimelog(timelogId);
     dataService.getTimelog(timelogId).then(getTimelogSuccess, getTimelogError)
         .catch(getTimelogCatch);
+    // 05/03/2019 05:54 pm - SSN - [20190503-1539] - [012] - Add link to create timelog 
+    // Add pageTitle
     $scope.pageTitle = "Clock-out";
     function getTimelogSuccess(data) {
-        let data2 = data;
+        //$scope.disciplineSelected = { id: 0, title: '' };
+        //let timeNow = new Date();
+        //timeNow.setMilliseconds(0);
+        // timeNow.setSeconds(0);
+        //$scope.timeLog = {
+        //    timeLogId: 0,
+        //    id: 0,
+        //    startTime: timeNow,
+        //    workDetail: "",
+        //    disciplineId: '2',
+        //    jobId: jobId
+        //};
+        var data2 = data;
         fnConverDate(data2);
         $scope.timeLog = data2;
+        // $scope.disciplineSelected = data2.discipline.disciplineShort; // { id: data2.discipline.disciplineId, title: data2.discipline.disciplineShort};
         $scope.editableTimeLog = angular.copy($scope.timeLog);
-        setTimeout(() => {
+        setTimeout(function () {
             $scope.getDisciplines(data2.discipline.disciplineShort);
             $scope.disciplineSelected = { id: data2.discipline.disciplineId, title: data2.discipline.disciplineShort };
         }, 500);
@@ -42,8 +65,9 @@ timesheetApp.controller('TimesheetClockOutController', function TimesheetControl
         toastr.info("Clocked-out");
     };
     $scope.cancelForm = function () {
-        $uibModalInstance.dismiss();
+        $uibModalInstance.dismiss(); //same as cancel???
     };
+    // 04/13/2019 11:00 am - SSN - [20190413-1037] - Add discipline lookup
     $scope.getDisciplines = function (lookupValue) {
         if (lookupValue === null)
             lookupValue = "";

@@ -1,3 +1,13 @@
+// 09/01/2018 01:21 pm - SSN
+// 04/12/2019 02:35 pm - SSN - [20190412-1126] - Timelog - save data - Rename module to ssn_devsite_angular_module
+// 05/04/2019 09:26 am - SSN - [20190504-0855] - [004] - Testing if we can replace global variable
+// Convert to TypeScript
+// 05/04/2019 09:58 am - SSN - Since having to import angular when converting to a module
+///// <reference path="../../../node_modules/@types/angular/index.d.ts" />
+// 05/04/2019 08:55 am - SSN - [20190504-0855] - [001] - Testing if we can replace global variable
+// Convert to TypeScript
+// var ssn_devsite_angular_module = angular.module("demoSites_Index", []);
+// Pass angulat module as a parameter. Create function
 ssn_devsite_angular_module.factory("dataService", function ($http, $q) {
     var _devSites = [];
     var _getDevSites = function () {
@@ -11,6 +21,7 @@ ssn_devsite_angular_module.factory("dataService", function ($http, $q) {
         });
         return deferred.promise;
     };
+    // 04/29/2019 05:49 pm - SSN - [20190429-1748] - [001] - Angular clock out popup
     var _getTimelog = function (id) {
         var deferred = $q.defer();
         $http.get('/api/timelogapi/' + id)
@@ -31,6 +42,7 @@ ssn_devsite_angular_module.factory("dataService", function ($http, $q) {
         });
         return deferred.promise;
     };
+    // 04/12/2019 11:26 am - SSN - [20190412-1126] - Timelog - save data
     var _insertTimeLog = function (timeLog) {
         var deferred = $q.defer();
         $http.post('/api/timeLogAPI', timeLog)
@@ -41,6 +53,7 @@ ssn_devsite_angular_module.factory("dataService", function ($http, $q) {
         });
         return deferred.promise;
     };
+    // 05/19/2019 03:00 pm - SSN - [20190519-1412] - [004] - Continue work on adding continue option for timesheet record
     var _addOrUpdateTimeLog = function (timeLog) {
         var deferred = $q.defer();
         $http.post('/api/timeLogAPI', timeLog)

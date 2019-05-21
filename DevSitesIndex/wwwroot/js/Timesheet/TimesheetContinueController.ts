@@ -4,9 +4,9 @@
 
 timesheetApp.controller('TimesheetContinueController',
 
-    function  ($scope, $uibModalInstance, $http, $q, dataService, timelogId) {
+    function ($scope, $uibModalInstance, $http, $q, dataService, timelogId) {
 
-         
+
 
 
         dataService.getTimelog(timelogId).then(getTimelogSuccess, getTimelogError)
@@ -34,7 +34,12 @@ timesheetApp.controller('TimesheetContinueController',
             $scope.timeLog.timeLogId = 0;
             $scope.timeLog.startTime = timeNow;
 
+            // 05/21/2019 07:31 am - SSN - Forgotten
+            $scope.timeLog.totalSeconds = null;
+
             $scope.editableTimeLog = angular.copy($scope.timeLog);
+
+
 
             setTimeout(() => {
                 $scope.getDisciplines(data2.discipline.disciplineShort);

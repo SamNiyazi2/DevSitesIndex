@@ -9,8 +9,10 @@
     "typeRoots": [ "./node_modules/@types" ]
 
   },
+  "compileOnSave": true,
   "files": [
-    "wwwroot/js/site.ts"
+    "wwwroot/js/site.ts",
+    "wwwroot/js/Timesheet/TimesheetApp.ts"
   ],
 
   "exclude": [
