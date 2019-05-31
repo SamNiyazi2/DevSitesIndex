@@ -25,8 +25,8 @@ namespace DevSitesIndex.Entities
             if (do_database_Migration)
             {
                 // 02/24/2019 05:32 am - SSN - Reactivated
-
-                Database.SetCommandTimeout(600);
+                // 05/31/2019 01:13 am - SSN - from 600 to 6000
+                Database.SetCommandTimeout(6000);
                 Database.Migrate();
             }
         }
