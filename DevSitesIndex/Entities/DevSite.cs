@@ -68,7 +68,7 @@ namespace DevSitesIndex.Entities
         // 03/19/2019 09:17 pm - SSN - [20190319-2117] Added ForDemo
         // 03/19/2019 09:59 pm - SSN - [20190319-2117] ForDemo to ForDemo_v02
         [DisplayName("For Demo")]
-        [Remote(action: "isForDemo_v02_SelectionValid", controller: "home", HttpMethod = "POST")]
+        [Remote(action: "isForDemo_v02_SelectionValid", controller: "RemoteDataValidation", HttpMethod = "POST")]
         // 05/18/2019 04L38 pm - SSN - Added
         [Range(1, 3, ErrorMessage = "Select an option please. (DevSite-20190518-1638)")]
         public byte ForDemo_v02 { get; set; }

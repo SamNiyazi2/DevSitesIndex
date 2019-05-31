@@ -26,8 +26,17 @@ namespace DevSitesIndex.Entities
             {
                 // 02/24/2019 05:32 am - SSN - Reactivated
                 // 05/31/2019 01:13 am - SSN - from 600 to 6000
-                Database.SetCommandTimeout(6000);
-                Database.Migrate();
+
+                // 05/31/2019 03:22 pm - SSN - In case we have a problem with the databsae
+                try
+                {
+                    Database.SetCommandTimeout(6000);
+                    Database.Migrate();
+                }
+                catch (Exception)
+                {
+                    // Do nothing here.
+                }
             }
         }
 

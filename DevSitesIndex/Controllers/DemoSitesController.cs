@@ -22,22 +22,27 @@ namespace DevSitesIndex.Controllers
 
         public IActionResult Index()
         {
-            try
-            {
-                DemoSitesViewModel vm = new DemoSitesViewModel();
-                vm.devSites = _devSitesIndexRepository.GetDevSites();
+            //try
+            //{
+            
+            
+            // 05/31/2019 03:37 pm - SSN - Testing capturing errors with databsae.  Take out try/catch block
 
-                // 04/16/2019 07:37 pm - SSN - [20190416-1937] - Corrrection angular version for P2 and P3
-                vm.selectedPage = "index_p1";
+            DemoSitesViewModel vm = new DemoSitesViewModel();
+            vm.devSites = _devSitesIndexRepository.GetDevSites();
 
-                return View(vm.selectedPage, vm);
+            // 04/16/2019 07:37 pm - SSN - [20190416-1937] - Corrrection angular version for P2 and P3
+            vm.selectedPage = "index_p1";
 
-            }
-            catch (Exception ex)
-            {
+            return View(vm.selectedPage, vm);
 
-                return BadRequest(ex);
-            }
+
+            //}
+            //catch (Exception ex)
+            //{
+
+            //    return BadRequest(ex);
+            //}
         }
         // 09/04/2018 06:38 am - SSN
 
