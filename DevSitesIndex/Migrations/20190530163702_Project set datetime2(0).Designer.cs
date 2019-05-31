@@ -11,9 +11,10 @@ using System;
 namespace DevSitesIndex.Migrations
 {
     [DbContext(typeof(DevSitesIndexContext))]
-    partial class DevSitesIndexContextModelSnapshot : ModelSnapshot
+    [Migration("20190530163702_Project set datetime2(0)")]
+    partial class Projectsetdatetime20
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,11 +30,9 @@ namespace DevSitesIndex.Migrations
                     b.Property<string>("CodeBlock")
                         .IsRequired();
 
-                    b.Property<DateTime>("DateAdded")
-                        .HasColumnType("datetime2(0)");
+                    b.Property<DateTime>("DateAdded");
 
-                    b.Property<DateTime>("DateModified")
-                        .HasColumnType("datetime2(0)");
+                    b.Property<DateTime>("DateModified");
 
                     b.Property<string>("SourceAddress");
 
@@ -54,8 +53,7 @@ namespace DevSitesIndex.Migrations
                         .IsRequired()
                         .HasMaxLength(100);
 
-                    b.Property<DateTime>("DateAdded")
-                        .HasColumnType("datetime2(0)");
+                    b.Property<DateTime>("DateAdded");
 
                     b.HasKey("CompanyID");
 
@@ -97,29 +95,14 @@ namespace DevSitesIndex.Migrations
                     b.ToTable("DevSites");
                 });
 
-            modelBuilder.Entity("DevSitesIndex.Entities.DevSiteCodeReference", b =>
-                {
-                    b.Property<int>("DevSiteId");
-
-                    b.Property<int>("CodeReferenceId");
-
-                    b.HasKey("DevSiteId", "CodeReferenceId");
-
-                    b.HasIndex("CodeReferenceId");
-
-                    b.ToTable("DevSiteCodeReference");
-                });
-
             modelBuilder.Entity("DevSitesIndex.Entities.Discipline", b =>
                 {
                     b.Property<int>("DisciplineId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("DateAdded")
-                        .HasColumnType("datetime2(0)");
+                    b.Property<DateTime>("DateAdded");
 
-                    b.Property<DateTime?>("DateModified")
-                        .HasColumnType("datetime2(0)");
+                    b.Property<DateTime?>("DateModified");
 
                     b.Property<string>("DisciplineShort")
                         .IsRequired()
@@ -189,8 +172,7 @@ namespace DevSitesIndex.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("DateAdded")
-                        .HasColumnType("datetime2(0)");
+                    b.Property<DateTime>("DateAdded");
 
                     b.Property<string>("SiteTitle")
                         .IsRequired();
@@ -228,12 +210,9 @@ namespace DevSitesIndex.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("DateAdded")
-                        .HasColumnType("datetime2(0)");
+                    b.Property<DateTime>("DateAdded");
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(100);
+                    b.Property<string>("Description");
 
                     b.HasKey("Id");
 
@@ -245,18 +224,15 @@ namespace DevSitesIndex.Migrations
                     b.Property<int>("TimeLogId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("DateAdded")
-                        .HasColumnType("datetime2(0)");
+                    b.Property<DateTime>("DateAdded");
 
-                    b.Property<DateTime?>("DateModified")
-                        .HasColumnType("datetime2(0)");
+                    b.Property<DateTime?>("DateModified");
 
                     b.Property<int>("DisciplineID");
 
                     b.Property<int>("JobId");
 
-                    b.Property<DateTime>("StartTime")
-                        .HasColumnType("datetime2(0)");
+                    b.Property<DateTime>("StartTime");
 
                     b.Property<int?>("TotalSeconds");
 
@@ -276,19 +252,6 @@ namespace DevSitesIndex.Migrations
                     b.HasOne("DevSitesIndex.Entities.SoftwareCode", "SoftwareCode")
                         .WithMany()
                         .HasForeignKey("SoftwareCodeID")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("DevSitesIndex.Entities.DevSiteCodeReference", b =>
-                {
-                    b.HasOne("DevSitesIndex.Entities.CodeReference", "CodeReference")
-                        .WithMany("DevSiteCodeReferences")
-                        .HasForeignKey("CodeReferenceId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("DevSitesIndex.Entities.DevSite", "DevSite")
-                        .WithMany("DevSiteCodeReferences")
-                        .HasForeignKey("DevSiteId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

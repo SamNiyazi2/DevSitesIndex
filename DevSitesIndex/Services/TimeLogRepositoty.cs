@@ -38,7 +38,7 @@ namespace DevSitesIndex.Services
                 return timeLog;
 
             }
-            catch (Exception ex )
+            catch (Exception ex)
             {
                 string errorMessage = ex.Message;
                 throw;
@@ -48,35 +48,32 @@ namespace DevSitesIndex.Services
 
         public TimeLog Update(TimeLog timeLog)
         {
-            // 04/20/2019 06:56 pm - SSN - Convert time passed by javaScript as Utc 
-            timeLog.StartTime = timeLog.StartTime.ToLocalTime();
 
 
             Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<TimeLog> r = null;
-            try
+            
+            // 05/21/2019 10:35 am - SSN - Take out try/catch block
+
+            // 04/20/2019 06:56 pm - SSN - Convert time passed by javaScript as Utc 
+            timeLog.StartTime = timeLog.StartTime.ToLocalTime();
+
+            if (timeLog.TimeLogId == 0)
             {
+                int DisciplineID = timeLog.DisciplineID;
+                timeLog.discipline = null;
 
-                if (timeLog.TimeLogId == 0)
-                {
-                    int DisciplineID = timeLog.DisciplineID;
-                    timeLog.discipline = null;
-
-                    timeLog.DateAdded = DateTime.Now;
-                    r = _context.TimeLog.Add(timeLog);
-                }
-                else
-                {
-                    _context.Entry(timeLog).State = EntityState.Modified;
-                    _context.Entry(timeLog).Property(p => p.DateAdded).IsModified = false;
-                    timeLog.DateModified = DateTime.Now;
-                    r = _context.TimeLog.Update(timeLog);
-                }
-
+                timeLog.DateAdded = DateTime.Now;
+                r = _context.TimeLog.Add(timeLog);
             }
-            catch (Exception ex)
+            else
             {
-                string message = ex.Message;
+                _context.Entry(timeLog).State = EntityState.Modified;
+                _context.Entry(timeLog).Property(p => p.DateAdded).IsModified = false;
+                timeLog.DateModified = DateTime.Now;
+                r = _context.TimeLog.Update(timeLog);
             }
+
+
 
             return timeLog;
         }

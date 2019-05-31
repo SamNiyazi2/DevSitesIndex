@@ -48,25 +48,31 @@ namespace DevSitesIndex.Controllers
 
         // POST api/<controller>
         //   [HttpPost]
-        public void Post([FromBody]  T value)//  TimeLog value) x123
+        public ActionResult Post([FromBody]  T value)
         {
+            // 05/21/2019 11:33 am - SSN - Return OK and BadRequest
 
-            _entityRepository.Update(value);
 
             // 05/19/2019 03:06 pm - SSN - [20190519-1412] - [005] - Continue work on adding continue option for timesheet record
             // Testing save on update
             try
             {
+                _entityRepository.Update(value);
+
                 if (!_entityRepository.Save())
                 {
-                    string message = "Failed to update";
+                    return BadRequest(string.Format("Failed to save record .  (devsite-20190521-1150) "));
                 }
 
             }
             catch (Exception ex)
             {
                 string message = ex.Message;
+                return BadRequest(string.Format("Failed to save record.  (devsite-20190521-1150)  {0}", message));
             }
+
+            return Ok();
+
 
         }
 

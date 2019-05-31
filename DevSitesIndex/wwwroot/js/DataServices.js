@@ -70,7 +70,7 @@ ssn_devsite_angular_module.factory("dataService", function ($http, $q) {
         addDevSite: _addDevSite,
         insertTimeLog: _insertTimeLog,
         getTimelog: _getTimelog,
-        addOrUpdateTimeLog: _addOrUpdateTimeLog
+        updateTimeLog: _addOrUpdateTimeLog
     };
 });
 //# sourceMappingURL=DataServices.js.map

@@ -10,7 +10,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form method="post">
+        <form method="post" name="codeReferenceForm">
 
 
             <input type="hidden" asp-for="SearchText" />
@@ -25,6 +25,60 @@
                 <input asp-for="CodeReference.Title" class="form-control" maxlength="100" autofocus></input>
                 <span asp-validation-for="CodeReference.Title" class="text-danger"></span>
             </div>
+
+
+            @*05/30/2019 06:40 pm - SSN - Adding*@
+
+            @{
+
+                // Incomplete
+
+                if (false)
+                {
+
+
+                    int ndx = 0;
+
+                    if (Model.CodeReference.DevSiteCodeReferences != null)
+                    {
+
+                        foreach (var item in Model.CodeReference.DevSiteCodeReferences)
+                        {
+
+                            <div class="form-group">
+                                <label class="control-label">Demo Site(s): </label>
+                                @Html.DisplayFor(modelItem => item.DevSite.SiteTitle)
+                                <input name="CodeReference.DevSiteCodeReferences[@ndx].DevSite.SiteTitle" class="form-control" maxlength="100" value="@item.DevSite.SiteTitle"></input>
+
+                                <span asp-validation-for="CodeReference.DevSiteCodeReferences" class="text-danger"></span>
+
+
+                            </div>
+
+                            ndx++;
+                        }
+
+                    }
+
+
+                    <div class="form-group">
+                        <label class="control-label">Demo Site(s): </label>
+
+                        <input name="CodeReference.DevSiteCodeReferences[@ndx].DevSite.SiteTitle" class="form-control" maxlength="100"></input>
+
+                        <span asp-validation-for="CodeReference.DevSiteCodeReferences" class="text-danger"></span>
+                    </div>
+
+
+                    <div ng-app="timesheetApp">
+
+                        <typeahead-discipline key="'TheKeyColumn101'" form-name="codeReferenceForm"></typeahead-discipline>
+
+                    </div>
+
+                }
+
+            }
 
 
 
@@ -56,10 +110,14 @@
 </div>
 
 <div>
-    <a asp-page="index" >Back to List</a> 
+    <a asp-page="index">Back to List</a>
 
 </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+
+    @{await Html.RenderPartialAsync("TimesheetAngularScripts");}
+    <script src="~/js/CodeReference/Typeahead_Discipline.js"></script>
 }

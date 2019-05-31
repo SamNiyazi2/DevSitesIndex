@@ -31,6 +31,7 @@ namespace DevSitesIndex.Entities
             }
         }
 
+
         // 08/07/2018 12:14 pm - SSN
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -52,8 +53,11 @@ namespace DevSitesIndex.Entities
 
             setup_Timelog(modelBuilder);
 
+            setup_Technology(modelBuilder);
 
+            setup_DevSiteCodeReference(modelBuilder);
         }
+
 
         private static void setup_Job(ModelBuilder modelBuilder)
         {
@@ -61,6 +65,16 @@ namespace DevSitesIndex.Entities
                 .Property(x => x.JobTitle)
                 .IsRequired()
                 .HasMaxLength(100);
+
+            // 05/29/2019 06:17 pm - SSN - Adding datetime2(0) DateAdded and DateUpdated
+            modelBuilder.Entity<Job>()
+           .Property(p => p.DateAdded)
+           .HasColumnType("datetime2(0)");
+
+            modelBuilder.Entity<Job>()
+           .Property(p => p.DateUpdated)
+           .HasColumnType("datetime2(0)");
+
 
             modelBuilder.Entity<Job>()
                 .HasIndex(x => new { x.ProjectID, x.JobTitle })
@@ -76,14 +90,29 @@ namespace DevSitesIndex.Entities
 
         }
 
-        // 04/19/2019 07:07 pm - SSN - Added configuration
 
+        // 04/19/2019 07:07 pm - SSN - Added configuration
         private static void setup_Timelog(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<TimeLog>()
                 .HasOne<Job>(s => s.job)
                 .WithMany(g => g.timelogs)
                 .HasForeignKey(s => s.JobId);
+
+
+            // 05/30/2019 11:39 am - SSN - Adding datetime2(0) DateAdded and DateModified and StartTime.
+            modelBuilder.Entity<TimeLog>()
+           .Property(p => p.DateAdded)
+           .HasColumnType("datetime2(0)");
+
+            modelBuilder.Entity<TimeLog>()
+           .Property(p => p.DateModified)
+           .HasColumnType("datetime2(0)");
+
+
+            modelBuilder.Entity<TimeLog>()
+           .Property(p => p.StartTime)
+           .HasColumnType("datetime2(0)");
 
         }
 
@@ -101,7 +130,19 @@ namespace DevSitesIndex.Entities
                 .HasIndex(c => c.DisciplineShort)
                 .IsUnique()
                 .HasName("Discipline_DisciplineShort_Unique");
+
+            // 05/30/2019 11:41 am - SSN - Adding datetime2(0) DateAdded and DateModified
+            modelBuilder.Entity<Discipline>()
+           .Property(p => p.DateAdded)
+           .HasColumnType("datetime2(0)");
+
+            modelBuilder.Entity<Discipline>()
+           .Property(p => p.DateModified)
+           .HasColumnType("datetime2(0)");
+
+
         }
+
 
         private static void setup_CodeReference(ModelBuilder modelBuilder)
         {
@@ -114,7 +155,21 @@ namespace DevSitesIndex.Entities
             modelBuilder.Entity<CodeReference>()
                 .Property(x => x.Title)
                 .HasMaxLength(100);
+
+
+
+            // 05/30/2019 11:42 am - SSN - Adding datetime2(0) DateAdded and DateModified
+            modelBuilder.Entity<CodeReference>()
+           .Property(p => p.DateAdded)
+           .HasColumnType("datetime2(0)");
+
+            modelBuilder.Entity<CodeReference>()
+           .Property(p => p.DateModified)
+           .HasColumnType("datetime2(0)");
+
+
         }
+
 
         private static void setup_DevSite(ModelBuilder modelBuilder)
         {
@@ -131,7 +186,10 @@ namespace DevSitesIndex.Entities
             modelBuilder.Entity<DevSite>()
                 .Property(x => x.SolutionName)
                 .HasMaxLength(500);
+
+
         }
+
 
         private static void setup_Company(ModelBuilder modelBuilder)
         {
@@ -140,7 +198,15 @@ namespace DevSitesIndex.Entities
                 .Property(x => x.CompanyName)
                 .IsRequired()
                 .HasMaxLength(100);
+
+            // 05/30/2019 11:39 am - SSN - Adding datetime2(0) DateAdded 
+            modelBuilder.Entity<Company>()
+           .Property(p => p.DateAdded)
+           .HasColumnType("datetime2(0)");
+
+
         }
+
 
         private static void setup_Project(ModelBuilder modelBuilder)
         {
@@ -149,7 +215,19 @@ namespace DevSitesIndex.Entities
                 .Property(x => x.ProjectTitle)
                 .IsRequired()
                 .HasMaxLength(100);
+
+            // 05/30/2019 11:36 am - SSN - Adding datetime2(0) DateAdded and DateUpdated
+            modelBuilder.Entity<Project>()
+           .Property(p => p.DateAdded)
+           .HasColumnType("datetime2(0)");
+
+            modelBuilder.Entity<Project>()
+           .Property(p => p.DateModified)
+           .HasColumnType("datetime2(0)");
+
+
         }
+
 
         private static void setup_ReferenceSite(ModelBuilder modelBuilder)
         {
@@ -173,7 +251,57 @@ namespace DevSitesIndex.Entities
                 .HasIndex(c => c.SiteURL)
                 .IsUnique()
                 .HasName("ReferenceSites_SiteURL");
+
+
+            // 05/30/2019 11:43 am - SSN - Adding datetime2(0) DateAdded and DateModified
+            modelBuilder.Entity<ReferenceSite>()
+           .Property(p => p.DateAdded)
+           .HasColumnType("datetime2(0)");
+
+
         }
+
+
+
+        // 05/30/2019 12:03 pm - SSN Added
+        private static void setup_Technology(ModelBuilder modelBuilder)
+        {
+            // 03/13/2019 10:41 am - SSN
+            modelBuilder.Entity<Technology>()
+                .Property(x => x.Description)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            // 05/30/2019 11:36 am - SSN - Adding datetime2(0) DateAdded  
+            modelBuilder.Entity<Technology>()
+           .Property(p => p.DateAdded)
+           .HasColumnType("datetime2(0)");
+
+
+
+        }
+
+
+        // 05/30/2019 05:06 pm - SSN - [20190530-0510] 
+        private static void setup_DevSiteCodeReference(ModelBuilder modelBuilder)
+        {
+            // https://www.learnentityframeworkcore.com/configuration/many-to-many-relationship-configuration
+            modelBuilder.Entity<DevSiteCodeReference>()
+                .HasKey(bc => new { bc.DevSiteId, bc.CodeReferenceId });
+
+
+            modelBuilder.Entity<DevSiteCodeReference>()
+               .HasOne(b => b.CodeReference)
+               .WithMany(c => c.DevSiteCodeReferences)
+               .HasForeignKey(fk => fk.CodeReferenceId);
+
+            modelBuilder.Entity<DevSiteCodeReference>()
+               .HasOne(b => b.DevSite)
+               .WithMany(c => c.DevSiteCodeReferences)
+               .HasForeignKey(fk => fk.DevSiteId);
+
+        }
+
 
         public DbSet<SoftwareCode> SoftwareCode { get; set; }
         public DbSet<DevSite> DevSites { get; set; }

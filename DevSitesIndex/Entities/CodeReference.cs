@@ -34,5 +34,10 @@ namespace DevSitesIndex.Entities
 
         // 02/24/2019 05:16 - SSN - Added
         public string Title { get; set; }
+
+
+        // 05/30/2019 05:06 pm - SSN - [20190530-0510]
+        public virtual ICollection<DevSiteCodeReference> DevSiteCodeReferences { get; set; }
+
     }
 }

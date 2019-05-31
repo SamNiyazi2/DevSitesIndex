@@ -46,6 +46,9 @@ namespace DevSitesIndex.Pages.CodeReferences
 
         public async Task<IActionResult> OnPostAsync()
         {
+            CodeReference.DevSiteCodeReferences = null;
+
+
             // 09/05/2018 03:23 pm - SSN
             CodeReference.DateModified = DateTime.Now;
 

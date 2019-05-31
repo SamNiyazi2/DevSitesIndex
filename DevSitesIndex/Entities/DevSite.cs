@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -81,6 +82,11 @@ namespace DevSitesIndex.Entities
                 return Math.Round(DateTime.Now.Subtract((DateUpdated ?? DateAdded)).TotalHours);
             }
         }
+
+
+
+        // 05/30/2019 05:06 pm - SSN - [20190530-0510]
+        public virtual ICollection<DevSiteCodeReference> DevSiteCodeReferences { get; set; }
 
     }
 

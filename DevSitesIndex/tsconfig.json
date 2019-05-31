@@ -12,7 +12,8 @@
   "compileOnSave": true,
   "files": [
     "wwwroot/js/site.ts",
-    "wwwroot/js/Timesheet/TimesheetApp.ts"
+    "wwwroot/js/Timesheet/TimesheetApp.ts",
+    "wwwroot/js/CodeReference/Typeahead_Discipline.ts"
   ],
 
   "exclude": [

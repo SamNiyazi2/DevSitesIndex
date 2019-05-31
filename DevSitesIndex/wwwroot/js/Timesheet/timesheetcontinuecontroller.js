@@ -1,6 +1,6 @@
 // 05/19/2019 09:45 am - SSN - [20190519-0837] - [005] - Adding timesheet "Continue" option
 // Copied from Clockout.
-timesheetApp.controller('TimesheetContinueController', function ($scope, $uibModalInstance, $http, $q, dataService, timelogId) {
+timesheetApp.controller('TimesheetContinueController', function ($scope, $uibModalInstance, $http, $q, dataService, $timeout, timelogId) {
     dataService.getTimelog(timelogId).then(getTimelogSuccess, getTimelogError)
         .catch(getTimelogCatch);
     $scope.pageTitle = "Continue";
@@ -39,17 +39,22 @@ timesheetApp.controller('TimesheetContinueController', function ($scope, $uibMod
             promise = dataService.updateTimeLog($scope.editableTimeLog);
         }
         if (promise) {
+            // 05/21/2019 11:56 am - SSN - Tested OK.
             promise.then(function (data) {
                 var test1 = data;
                 $scope.timeLog = angular.copy($scope.editableTimeLog);
+                $uibModalInstance.close();
+                toastr.info("Record added.  Reloading page...");
+                // 05/21/2019 12:54 pm - SSN - Reload page.
+                $timeout(function () {
+                    location.reload();
+                }, 1000);
             }, function (error) {
-                var test2 = error;
-                alert("System Error! Check console.");
                 console.log(error);
+                $uibModalInstance.close();
+                toastr.error("Failed to add record. See console log.");
             });
         }
-        $uibModalInstance.close();
-        toastr.info("Record added.");
     };
     $scope.cancelForm = function () {
         $uibModalInstance.dismiss(); //same as cancel???

@@ -22,7 +22,7 @@ fieldset {
     background-color: #efefef;
 }
 
- 
+
 
 .table > tbody > tr.detail > td {
     border: 0px;
@@ -30,7 +30,7 @@ fieldset {
     font-size: 1.3rem;
 }
 
- 
+
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
 .body-content {
@@ -86,13 +86,27 @@ td, .siteDiv {
 }
 
 
+/* 05/30/2019 06:32 pm - SSN - Added query media */
+@media only screen and (min-width: 560px) {
+
+    .codeblock1 {
+        width: 900px;
+        min-height: 200px;
+    }
+
+
+    .codeblock2 { /* Match maxWidthCol1 */
+        width: 600px;
+        height: 200px;
+    }
+}
+
 .codeblock1 {
-    width: 900px;
     min-height: 200px;
 }
 
+
 .codeblock2 { /* Match maxWidthCol1 */
-    width: 600px;
     height: 200px;
 }
 
@@ -120,11 +134,10 @@ td, .siteDiv {
 }
 
 a[cmd-name="showsibling"] {
-
-    color:firebrick;
+    color: firebrick;
     background-color: #faf9f0;
-    margin:10px;
-    font-weight:bold;
+    margin: 10px;
+    font-weight: bold;
 }
 
 .menuOptions {
