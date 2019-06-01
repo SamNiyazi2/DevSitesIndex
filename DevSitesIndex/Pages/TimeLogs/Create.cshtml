@@ -24,6 +24,8 @@
                 <select asp-for="TimeLog.DisciplineID" class="form-control" asp-items="ViewBag.DisciplineID">
                     <option>Please select...</option>
                 </select>
+                @*06/01/2019 05:29 pm - SSN - Left out*@
+                <span asp-validation-for="TimeLog.DisciplineID" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="TimeLog.StartTime" class="control-label"></label>  <a cmd-name="set-default-time" jQueryObjectName="#TimeLog_StartTime">Now</a>

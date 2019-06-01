@@ -13,6 +13,7 @@
 </p>
 
 @*12/31/2018 09:37 pm - SSN*@
+@*06/01/2019 11:24 am - SSN - Added class="hidden-xs"*@
 <p>
 
     <form method="post">
@@ -47,13 +48,13 @@
                 <th>
                     @Html.DisplayNameFor(model => model.DevSite[0].Solution_Details)
                 </th>*@
-            <th>
+            <th class="hidden-xs">
                 @Html.DisplayNameFor(model => model.DevSite[0].SoftwareCode)
             </th>
-            <th>
+            <th class="hidden-xs">
                 @Html.DisplayNameFor(model => model.DevSite[0].DateAdded)
             </th>
-            <th>
+            <th class="hidden-xs">
                 @Html.DisplayNameFor(model => model.DevSite[0].DateUpdated)
             </th>
             <th></th>
@@ -75,13 +76,13 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Solution_Details)
                     </td>*@
-                <td>
-                    @Html.DisplayFor(modelItem => item.SoftwareCode)
+                <td class="hidden-xs">
+                    @Html.DisplayFor(modelItem => item.SoftwareCode.SoftwareTitle)
                 </td>
-                <td class="indexNowrapCol">
+                <td class="indexNowrapCol hidden-xs">
                     @Html.DisplayFor(modelItem => item.DateAdded)
                 </td>
-                <td class="indexNowrapCol">
+                <td class="indexNowrapCol hidden-xs">
                     @Html.DisplayFor(modelItem => item.DateUpdated)
                 </td>
                 <td class="indexNowrapCol">

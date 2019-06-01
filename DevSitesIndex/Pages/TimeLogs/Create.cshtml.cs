@@ -22,13 +22,7 @@ namespace DevSitesIndex.Pages.TimeLogs
 
         public IActionResult OnGet()
         {
-
-            // 05/04/2019 09:54 am - SSN - Add order
-
-            ViewData["DisciplineID"] = new SelectList(_context.Discipline.OrderBy(r => r.DisciplineShort), "DisciplineId", "DisciplineShort");
-            // 04/08/2019 12:43 am - SSN - [20190407-2345] - TimeLog 
-            // ViewData["JobId"] = new SelectList(_context.Job, "JobID", "JobID");
-            ViewData["JobId"] = new SelectList(_context.Job.OrderBy(r => r.JobTitle), "JobID", "JobTitle");
+            setupPageRequirements();
 
             TimeLog = new TimeLog();
             DateTime d = DateTime.Now;
@@ -39,6 +33,17 @@ namespace DevSitesIndex.Pages.TimeLogs
             return Page();
         }
 
+        // 06/01/2019 05:28 pm - SSN - Refactor to reload on validation failure.
+        private void setupPageRequirements()
+        {
+            // 05/04/2019 09:54 am - SSN - Add order
+
+            ViewData["DisciplineID"] = new SelectList(_context.Discipline.OrderBy(r => r.DisciplineShort), "DisciplineId", "DisciplineShort");
+            // 04/08/2019 12:43 am - SSN - [20190407-2345] - TimeLog 
+            // ViewData["JobId"] = new SelectList(_context.Job, "JobID", "JobID");
+            ViewData["JobId"] = new SelectList(_context.Job.OrderBy(r => r.JobTitle), "JobID", "JobTitle");
+        }
+
         [BindProperty]
         public TimeLog TimeLog { get; set; }
 
@@ -46,6 +51,7 @@ namespace DevSitesIndex.Pages.TimeLogs
         {
             if (!ModelState.IsValid)
             {
+                setupPageRequirements();
                 return Page();
             }
 

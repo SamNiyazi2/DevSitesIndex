@@ -66,9 +66,10 @@ else
                         @Html.DisplayFor(modelItem => item.DateModified)
                     </td>
                     <td class="indexNowrapCol">
-                        <a asp-page="../timelog/Edit" asp-route-id="@item.TimeLogId">Edit</a> |
-                        <a asp-page="../timelog/Details" asp-route-id="@item.TimeLogId">Details</a> |
-                        <a asp-page="../timelog/Delete" asp-route-id="@item.TimeLogId">Delete</a>
+                        @*06/01/2019 11:32 am - SSN - timelog to timelogs*@
+                        <a asp-page="/timelogs/Edit" asp-route-id="@item.TimeLogId">Edit</a> |
+                        <a asp-page="/timelogs/Details" asp-route-id="@item.TimeLogId">Details</a> |
+                        <a asp-page="/timelogs/Delete" asp-route-id="@item.TimeLogId">Delete</a>
                     </td>
                 </tr>
                 @if (!string.IsNullOrWhiteSpace(item.WorkDetail))

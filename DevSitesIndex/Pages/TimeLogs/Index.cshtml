@@ -6,7 +6,7 @@
 }
 
 @section styles {
-   
+
 }
 <h2>@ViewData["Title"]</h2>
 
@@ -75,10 +75,10 @@
                             <a asp-page="./Details" asp-route-id="@item.TimeLogId">Details</a> |
                             <a asp-page="./Delete" asp-route-id="@item.TimeLogId">Delete</a> |
 
-                            <a  ng-If="'@item.TotalSeconds' <= 0 " ng-click="timesheetForm_ClockOut(@item.TimeLogId)" class="alert-warning">Clock-out</a>
+                            <a ng-If="'@item.TotalSeconds' <= 0 " ng-click="timesheetForm_ClockOut(@item.TimeLogId)" class="alert-warning">Clock-out</a>
                             <!-- 05/19/2019 08:38 am - SSN - [20190519-0837] - [001] - Adding timesheet "Continue" option -->
 
-                            <a  ng-If="'@item.TotalSeconds' > 0 " ng-click="timesheetForm_ClockContinue(@item.TimeLogId)" class="alert-warning">Continue</a>
+                            <a ng-If="'@item.TotalSeconds' > 0 " ng-click="timesheetForm_ClockContinue(@item.TimeLogId)" class="alert-warning">Continue</a>
 
 
                         </td>
@@ -89,7 +89,8 @@
 
                         <tr class="detail">
                             <td colspan="2"></td>
-                            <td colspan="5">
+                            @*06/01/2019 02:59 pm - SSN - Added class codeblock2*@
+                            <td colspan="5" class="codeblock2">
                                 @Html.DisplayFor(modelItem => item.WorkDetail)
                             </td>
 

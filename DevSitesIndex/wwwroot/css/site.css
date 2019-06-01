@@ -108,6 +108,9 @@ td, .siteDiv {
 
 .codeblock2 { /* Match maxWidthCol1 */
     height: 200px;
+
+    /* 06/01/2019 02:58 pm - SSN Added white-space */
+    white-space: pre-line;
 }
 
 

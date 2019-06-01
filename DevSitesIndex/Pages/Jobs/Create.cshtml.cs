@@ -28,12 +28,20 @@ namespace DevSitesIndex.Pages.Jobs
             // ViewData["ProjectID"] = new SelectList(_context.Project, "ProjectID", "ProjectID");
             // 05/03/2019 05:35 am - SSN - Add order
 
-            projectsSL = new SelectList(_context.Project.OrderBy(r => r.ProjectTitle), "ProjectID", "ProjectTitle");
+            setupPageRequirements();
             Job = new Job();
             Job.DateAdded = DateTime.Now;
 
             return Page();
         }
+
+        // 05/31/2019 11:01 pm - SSN - Added to rerun on validation failure.
+        private void setupPageRequirements()
+        {
+            projectsSL = new SelectList(_context.Project.OrderBy(r => r.ProjectTitle), "ProjectID", "ProjectTitle");
+        }
+
+
 
         [BindProperty]
         public Job Job { get; set; }
@@ -42,6 +50,7 @@ namespace DevSitesIndex.Pages.Jobs
         {
             if (!ModelState.IsValid)
             {
+                setupPageRequirements();
                 return Page();
             }
 

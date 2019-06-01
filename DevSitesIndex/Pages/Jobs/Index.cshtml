@@ -8,34 +8,34 @@
 
 @*@section Styles {
 
-    <style>
+        <style>
 
 
-        @@media only screen and (max-width : 500px) {
+            @@media only screen and (max-width : 500px) {
 
-            .modal-content {
-                max-width: 340px;
+                .modal-content {
+                    max-width: 340px;
+                }
+
+                .modal:before {
+                }
+
+                .ssn-mobile-modal {
+                }
+
+
+                .modal-dialog {
+                }
             }
-
-            .modal:before {
-            }
-
-            .ssn-mobile-modal {
-            }
-
-
-            .modal-dialog {
-            }
-        }
-    </style>
-}*@
+        </style>
+    }*@
 
 
 <h2>@ViewData["Title"]</h2>
 
 @*// 04/12/2019 07:18 am - SSN - [20190412-0718] - Move timesheet implementation to job index page. Having imact on "Save and Stay" of Dev sites.*@
 
-
+@*06/01/2019 11:24 am - SSN - Adding class="hidden-xs"*@
 <div ng-app="timesheetApp">
 
     <p>
@@ -43,7 +43,7 @@
     </p>
     <div ng-controller="timesheetController">
 
-        <table class="table">
+        <table class="table table-responsive">
             <thead>
                 <tr>
                     <th>
@@ -52,10 +52,10 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Job[0].JobTitle)
                     </th>
-                    <th>
+                    <th class="hidden-xs">
                         @Html.DisplayNameFor(model => model.Job[0].DateAdded)
                     </th>
-                    <th>
+                    <th class="hidden-xs">
                         @Html.DisplayNameFor(model => model.Job[0].DateUpdated)
                     </th>
                     <th></th>
@@ -64,36 +64,36 @@
             <tbody>
                 @foreach (var item in Model.Job)
                 {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.project.ProjectTitle)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.JobTitle)
-                    </td>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.project.ProjectTitle)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.JobTitle)
+                        </td>
 
-                    <td class="indexNowrapCol">
-                        @Html.DisplayFor(modelItem => item.DateAdded)
-                    </td>
+                        <td class="indexNowrapCol hidden-xs">
+                            @Html.DisplayFor(modelItem => item.DateAdded)
+                        </td>
 
-                    <td class="indexNowrapCol">
-                        @Html.DisplayFor(modelItem => item.DateUpdated)
-                        <br>
-                        <b>
-                            @Html.DisplayFor(modelItem => item.MostRecentActivity)
+                        <td class="indexNowrapCol hidden-xs">
+                            @Html.DisplayFor(modelItem => item.DateUpdated)
+                            <br>
+                            <b>
+                                @Html.DisplayFor(modelItem => item.MostRecentActivity)
 
-                        </b>
-                    </td>
+                            </b>
+                        </td>
 
-                    <td class="indexNowrapCol">
-                        <a asp-page="./Edit" asp-route-id="@item.JobID">Edit</a> |
-                        <a asp-page="./Details" asp-route-id="@item.JobID">Details</a> |
-                        <a asp-page="./Delete" asp-route-id="@item.JobID">Delete</a> |
+                        <td class="indexNowrapCol">
+                            <a asp-page="./Edit" asp-route-id="@item.JobID">Edit</a> |
+                            <a asp-page="./Details" asp-route-id="@item.JobID">Details</a> |
+                            <a asp-page="./Delete" asp-route-id="@item.JobID">Delete</a> |
 
-                        <a ng-click="showCreateTimesheetForm(@item.JobID)">Clock-in</a>
+                            <a ng-click="showCreateTimesheetForm(@item.JobID)">Clock-in</a>
 
-                    </td>
-                </tr>
+                        </td>
+                    </tr>
                 }
             </tbody>
         </table>
@@ -103,7 +103,7 @@
 </div>
 
 
- 
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("TimesheetAngularScripts");}

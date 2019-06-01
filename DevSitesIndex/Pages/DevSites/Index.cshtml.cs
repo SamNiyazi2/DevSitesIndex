@@ -31,7 +31,8 @@ namespace DevSitesIndex.Pages.DevSites
         public async Task OnGetAsync()
         {
             // 10/12/2018 03:53 pm - SSN - Added OrderByDescending (r=>r.DateUpdated 
-            DevSite = await _context.DevSites.OrderByDescending(r => r.DateUpdated ?? r.DateAdded).ToListAsync();
+            // 06/01/2019 11:22 am - SSN - Include
+            DevSite = await _context.DevSites.Include(r => r.SoftwareCode).OrderByDescending(r => r.DateUpdated ?? r.DateAdded).ToListAsync();
         }
 
 
