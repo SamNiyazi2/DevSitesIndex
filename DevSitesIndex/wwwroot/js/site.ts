@@ -123,13 +123,27 @@ function prefixPreWithShowHideAnchor() {
 
 
     // 04/26/2019 09:56 pm - SSN - [20190426-2156] - [001] - Hide pre and add a link to show.
-
+    // 06/01/2019 08:07 pm - SSN - [20190601-2007] - Add title
 
     $('pre').each(function (aa) {
 
         $(this).hide();
 
-        $('<p><a cmd-name="showsibling">Show code</a></p>').insertBefore(this);
+        let titleAttrib = "";
+
+        let _title = $(this).attr("title");
+        let _title_caption = "";
+
+        if (_title !== undefined) {
+
+            titleAttrib = " title='" + _title + "' "
+            _title_caption = ": " + _title;
+        }
+        else {
+            _title = "";
+        }
+
+        $('<p><a cmd-name="showsibling" ' + titleAttrib + ' >Show code' + _title_caption + '</a></p>').insertBefore(this);
 
     });
 
@@ -166,12 +180,23 @@ function prefixPreWithShowHideAnchor() {
             var _pre = $(this).parent().next();
             var _link = $(this);
 
+            // 06/01/2019 08:07 pm - SSN - [20190601-2007] - Add title
+            let _title = $(this).attr('title');
+            let _title_caption = "";
+
+            if (_title === undefined) {
+                _title = "";
+            }
+            else {
+                _title_caption = ": " + _title;
+            }
+
             if (_pre.is(":visible")) {
-                _link.text('Show code');
+                _link.text('Show code' + _title_caption);
                 _pre.fadeOut();
             } else {
                 _pre.fadeIn();
-                _link.text('Hide code');
+                _link.text('Hide code' + _title_caption);
 
             }
 
