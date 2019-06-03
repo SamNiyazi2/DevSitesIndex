@@ -35,14 +35,21 @@ namespace DevSitesIndex
 
             // services.AddMvc();
 
-            services.AddMvc().AddRazorPagesOptions(options =>
-            {
-                options.RootDirectory = "/Pages";
-                //options.Conventions.AddPageRoute("/Employees/Index", "");
-                options.Conventions.AddPageRoute("/jobs", "");
 
-            }
-          )
+            // 06/03/2019 05:20 pm - SSN - [20190603-1427] - [007] - Error handling
+            // Take out options
+
+            //  services.AddMvc().AddRazorPagesOptions(options =>
+            //  {
+            //      options.RootDirectory = "/Pages";
+            //      //options.Conventions.AddPageRoute("/Employees/Index", "");
+            //      options.Conventions.AddPageRoute("/jobs", "");
+
+            //  }
+            //);
+            services.AddMvc();
+
+
             //  // 04/12/2019 04:18 pm - SSN - [20190412-1126] - Timelog - save data -- Copied from:
             //// Copied from: C:\Sams_Projects\PluralSight\angularjs-forms-bootstrap-mvc5\Work2\PS_AngularForMVC\PS_AngularForMVC\Global.asax.cs
             //.AddJsonOptions(options =>
@@ -52,16 +59,16 @@ namespace DevSitesIndex
 
             // 04/29/2019 07:02 pm - SSN - [20190429-1748] - [004] - Angular clock out popup
 
-            .AddJsonOptions(options =>
-             {
-                 // options.SerializerSettings.Converters.Add(new IsoDateTimeConverter());
-                 // options.SerializerSettings.DateFormatHandling = Newtonsoft.Json.DateFormatHandling.MicrosoftDateFormat;
-                 
-                 //options.SerializerSettings.DateFormatHandling = Newtonsoft.Json.DateFormatHandling.IsoDateFormat;
-                 //options.SerializerSettings.DateTimeZoneHandling = Newtonsoft.Json.DateTimeZoneHandling.Local; 
-                 // 04/29/2019 07:26 pm - SSN - [20190429-1748] - [005] - Angular clock out popup
-                 // No benfit
-             });
+            //.AddJsonOptions(options =>
+            // {
+            //     // options.SerializerSettings.Converters.Add(new IsoDateTimeConverter());
+            //     // options.SerializerSettings.DateFormatHandling = Newtonsoft.Json.DateFormatHandling.MicrosoftDateFormat;
+
+            //     //options.SerializerSettings.DateFormatHandling = Newtonsoft.Json.DateFormatHandling.IsoDateFormat;
+            //     //options.SerializerSettings.DateTimeZoneHandling = Newtonsoft.Json.DateTimeZoneHandling.Local; 
+            //     // 04/29/2019 07:26 pm - SSN - [20190429-1748] - [005] - Angular clock out popup
+            //     // No benfit
+            // });
 
             // 07/29/2018 03:37 pm - SSN - Copied in
             var connectionString = Startup.Configuration["connectionStrings:DevSitesIndexDBConnectionString"];
@@ -82,7 +89,9 @@ namespace DevSitesIndex
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             // 08/08/2018 02:16 pm - SSN - Added
-            loggerFactory.AddConsole();
+            // 06/03/2019 05:20 pm - SSN - [20190603-1427] - [007] - Error handling
+            // Turn off
+            // loggerFactory.AddConsole();
 
             if (env.IsDevelopment())
             {
