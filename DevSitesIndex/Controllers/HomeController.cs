@@ -41,12 +41,25 @@ namespace DevSitesIndex.Controllers
             return View();
         }
 
+
+        // 06/03/2019 06:39 pm - SSN - [20190603-1427] - [008] - Error handling
+        // Adding for testing 
+        public IActionResult throw1()
+        {
+            string x = null;
+            string y = x.Substring(1, 1);
+
+            return View();
+        }
+
+
+
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-         
+
 
     }
 }
