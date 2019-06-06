@@ -32,8 +32,11 @@
             {
                 int softwareCodeID = Model.DevSite.SoftwareCodeID;
                 string solutionName = Model.DevSite.SolutionName;
+                string siteTitle = Model.DevSite.SiteTitle;
 
-                string url = $"<p>Project: <a href=\"ssnalert:appcode={softwareCodeID};targetfile={solutionName}\">Launch Application</a></p>";
+                //06/06/2019 02:12 pm - SSN - Added title
+                string url = $"<p>Project: <a href=\"ssnalert:appcode={softwareCodeID};title={siteTitle};targetfile={solutionName}\">Launch Application</a></p>";
+
 
                 @Html.Raw(url);
             }

@@ -70,6 +70,16 @@ else
                         <a asp-page="/timelogs/Edit" asp-route-id="@item.TimeLogId">Edit</a> |
                         <a asp-page="/timelogs/Details" asp-route-id="@item.TimeLogId">Details</a> |
                         <a asp-page="/timelogs/Delete" asp-route-id="@item.TimeLogId">Delete</a>
+
+
+                        @*06/05/2019 08:37 pm - SSN - [20190605-2037] - [001] - Copying timelog links from timelog index*@ 
+
+                        <a ng-If="'@item.TotalSeconds' <= 0 " ng-click="timesheetForm_ClockOut(@item.TimeLogId)" class="alert-warning">Clock-out</a>
+
+                        <a ng-If="'@item.TotalSeconds' > 0 " ng-click="timesheetForm_ClockContinue(@item.TimeLogId)" class="alert-warning">Continue</a>
+
+
+
                     </td>
                 </tr>
                 @if (!string.IsNullOrWhiteSpace(item.WorkDetail))

@@ -89,7 +89,7 @@ function prefixPreWithShowHideAnchor() {
         // 05/17/2019 04:16 am - SSN - Update to exclude highlighting
         //var b = a.innerHTML.replace(/</g, '&lt;');  
         // Exclude <h and <n. Already setup for <i.  See site.css.
-        var b = a.innerHTML.replace(/<([^i|^/i|^h|^/h|^n|^/h])/g, '&lt;$1');
+        var b = a.innerHTML.replace(/<([^i|^/i|^h|^/h|^n|^/h])?/g, '&lt;$1');
         a.innerHTML = b;
     });
     // 04/26/2019 10:14 pm - SSN - [20190426-2156] - [002] - Hide pre and add a link to show.

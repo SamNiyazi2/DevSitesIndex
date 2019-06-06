@@ -13,7 +13,8 @@
   "files": [
     "wwwroot/js/site.ts",
     "wwwroot/js/Timesheet/TimesheetApp.ts",
-    "wwwroot/js/CodeReference/Typeahead_Discipline.ts"
+    "wwwroot/js/CodeReference/Typeahead_Discipline.ts",
+    "wwwroot/js/DemoSites_index_p1.ts"
   ],
 
   "exclude": [
