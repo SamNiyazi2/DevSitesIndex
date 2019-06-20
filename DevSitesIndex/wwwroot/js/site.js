@@ -89,7 +89,12 @@ function prefixPreWithShowHideAnchor() {
         // 05/17/2019 04:16 am - SSN - Update to exclude highlighting
         //var b = a.innerHTML.replace(/</g, '&lt;');  
         // Exclude <h and <n. Already setup for <i.  See site.css.
-        var b = a.innerHTML.replace(/<([^i|^/i|^h|^/h|^n|^/h])?/g, '&lt;$1');
+        // 06/07/2019 11:50 am - SSN - Update - Matches shown https://www.regextester.com/
+        // var b = a.innerHTML.replace(/<([^i|^/i|^h|^/h|^n|^/n]){1}[^\s|^>]{1}/g, '&lt;$1');
+        // var b = a.innerHTML.replace(/(<)((?!\/?[n|i|h]))(.*?>)/g, '\n1---\n[$&]\n2---\n[$1]\n3---\n[$2]\n4---\n[$3]\n\n');
+        // We have not coverred h1, h2, etc.
+        // knockout is doing its own thing when it comes to tags. Evident with the use of generic types ( function<SomeType> )
+        var b = a.innerHTML.replace(/(<)((?!\/?[n|i|h]))(.*?>)/g, '&lt;$3');
         a.innerHTML = b;
     });
     // 04/26/2019 10:14 pm - SSN - [20190426-2156] - [002] - Hide pre and add a link to show.
