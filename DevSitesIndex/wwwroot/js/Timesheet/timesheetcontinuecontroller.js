@@ -14,6 +14,8 @@ timesheetApp.controller('TimesheetContinueController', function ($scope, $uibMod
         // set TimeLogId = 0
         $scope.timeLog.timeLogId = 0;
         $scope.timeLog.startTime = timeNow;
+        // 07/02/2019 09:17 am - SSN - Added nullify dateModified 
+        $scope.timeLog.dateModified = null;
         // 05/21/2019 07:31 am - SSN - Forgotten
         $scope.timeLog.totalSeconds = null;
         $scope.editableTimeLog = angular.copy($scope.timeLog);

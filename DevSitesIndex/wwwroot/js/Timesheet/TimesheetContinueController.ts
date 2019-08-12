@@ -4,7 +4,7 @@
 
 timesheetApp.controller('TimesheetContinueController',
 
-    function ($scope, $uibModalInstance, $http, $q, dataService,$timeout, timelogId) {
+    function ($scope, $uibModalInstance, $http, $q, dataService, $timeout, timelogId) {
 
 
 
@@ -33,6 +33,9 @@ timesheetApp.controller('TimesheetContinueController',
             // set TimeLogId = 0
             $scope.timeLog.timeLogId = 0;
             $scope.timeLog.startTime = timeNow;
+
+            // 07/02/2019 09:17 am - SSN - Added nullify dateModified 
+            $scope.timeLog.dateModified = null;
 
             // 05/21/2019 07:31 am - SSN - Forgotten
             $scope.timeLog.totalSeconds = null;
@@ -97,7 +100,7 @@ timesheetApp.controller('TimesheetContinueController',
 
                         $uibModalInstance.close();
 
-                         toastr.info("Record added.  Reloading page...");
+                        toastr.info("Record added.  Reloading page...");
 
                         // 05/21/2019 12:54 pm - SSN - Reload page.
                         $timeout(() => {
@@ -105,7 +108,7 @@ timesheetApp.controller('TimesheetContinueController',
                         }, 1000);
 
 
-                        
+
                     },
                     function (error) {
 

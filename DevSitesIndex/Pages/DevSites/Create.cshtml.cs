@@ -37,6 +37,8 @@ namespace DevSitesIndex.Pages.DevSites
         {
             if (!ModelState.IsValid)
             {
+                // 06/28/2019 12:07 pm - SSN - Added
+                Populate_softwareCodesSL(_context);
                 return Page();
             }
 

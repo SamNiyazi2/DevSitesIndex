@@ -45,10 +45,14 @@ namespace DevSitesIndex.Pages.DevSites
                 DevSite = await _context.DevSites.OrderByDescending(r => r.DateUpdated ?? r.DateAdded).ToListAsync();
                 return Page();
             }
-            DevSite = await GetData();
+
+            // 08/12/2019 04:48 am - SSN - [20190812-0345] - [005] - Apply fulltext search
+            // DevSite = await GetData();
+            await GetData();
 
             return Page();
         }
+
 
         async Task<IList<DevSite>> GetData_v01()
         {
@@ -73,7 +77,7 @@ namespace DevSitesIndex.Pages.DevSites
         }
 
 
-        async Task<IList<DevSite>> GetData()
+        async Task<IList<DevSite>> GetData_v02()
         {
 
             IEnumerable<string> tempList = SearchText.ToLower().Split().Where(r => r.Trim() != "").Select(r => r.Trim().ToLower());
@@ -91,8 +95,30 @@ namespace DevSitesIndex.Pages.DevSites
                              .ToListAsync());
         }
 
-        //}
 
+        // 08/12/2019 04:37 am - SSN - [20190812-0345] - [004] - Apply fulltext search
+        // Replaced GetData_v02
+
+        // async Task<IList<DevSite>> GetData()
+        async Task GetData()
+        {
+
+            try
+            {
+                DevSite = await _context.DevSites.FromSql("DemoSites.DevSites_FullTextSearch {0}", SearchText).AsNoTracking().ToListAsync<DevSite>();
+                if (DevSite == null || DevSite != null && DevSite.Count == 0)
+                {
+                    ModelState.AddModelError("SearchText", "No match.");
+                }
+
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("SearchText", "Invalid syntax");
+                // return await _context.DevSites.Where(r => r.Id == -1).AsNoTracking().ToListAsync<DevSite>(); ;
+            }
+
+        }
 
 
     }
