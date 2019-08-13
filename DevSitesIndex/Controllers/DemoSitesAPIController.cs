@@ -30,7 +30,7 @@ namespace DevSitesIndex.Controllers
         [HttpGet]
         public IEnumerable<DevSite> Get()
         {
-           // System.Threading.Thread.Sleep(2000);
+            // System.Threading.Thread.Sleep(2000);
 
             IEnumerable<DevSite> devSites_1 = _devSitesIndexRepository.GetDevSites();
 
@@ -55,11 +55,11 @@ namespace DevSitesIndex.Controllers
         }
         [Route("/api/demositesapi/Search")]
         [HttpPost]
-        public IEnumerable<DevSite> Search( SearchObj obj1)
+        public async Task<IEnumerable<DevSite>> SearchAsync([FromBody] SearchObj obj1)
         {
-            var request = Request;
-
-            IEnumerable<DevSite> devSites_1 = _devSitesIndexRepository.GetDevSites();
+            var searchText = obj1?.SearchText ?? "";
+        
+            IEnumerable<DevSite> devSites_1 = await _devSitesIndexRepository.GetDevSites(searchText);
 
             return devSites_1;
 

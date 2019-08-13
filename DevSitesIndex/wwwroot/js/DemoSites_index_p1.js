@@ -8,7 +8,7 @@ $(function () {
     var ViewModel = function () {
         // 08/12/2019 05:58 am - SSN - [20190812-0515] - [006] - Apply fulltext search
         var self = this;
-        self.SearchText_KO = ko.observable("default first");
+        self.SearchText_KO = ko.observable();
         this.currentItem = {};
         this.errorMessage = ko.observable();
         // 06/06/2019 05:44 pm - SSN - Moved from index_p1.cshtml - Update

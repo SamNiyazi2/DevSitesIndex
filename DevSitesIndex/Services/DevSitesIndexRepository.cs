@@ -17,7 +17,7 @@ namespace DevSitesIndex.Services
         {
             this._context = context;
         }
- 
+
 
         public IEnumerable<DevSite> GetDevSites()
         {
@@ -27,6 +27,20 @@ namespace DevSitesIndex.Services
 
             return _context.DevSites.OrderByDescending(r => r.DateUpdated ?? r.DateAdded).AsNoTracking().ToList();
         }
+
+
+
+        // 08/12/2019 08:25 pm - SSN - [20190812-2024] - [001] - DevSites FullText search
+        public async Task<IEnumerable<DevSite>> GetDevSites(string searchText)
+        {
+
+            var devSites = await _context.DevSites.FromSql("DemoSites.DevSites_FullTextSearch {0}", searchText).AsNoTracking().ToListAsync<DevSite>();
+
+            // return _context.DevSites.OrderByDescending(r => r.DateUpdated ?? r.DateAdded).AsNoTracking().ToList();
+            return devSites;
+        }
+
+
 
 
         public DevSite GetDevSite(int devSiteID)
