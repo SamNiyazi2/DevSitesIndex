@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Configuration;
 
 // 09/12/2018 03:34 pm - SSN - Adding
 
@@ -30,13 +31,28 @@ namespace DevSitesIndex.Pages.CommandLine
         public string Results_Error { get; set; }
 
 
+
+        // 08/13/2019 10:57 am - SSN - Added
+        public IConfiguration configuration { get; set; }
+
+        public IndexModel(IConfiguration _configuration)
+        {
+            configuration = _configuration;
+        }
+
         public void OnGet()
         {
 
         }
         public async Task<IActionResult> OnPostAsync()
         {
-            if (AccessKey != "SamIamSamIam")
+
+            // 08/13/2019 10:57 am - SSN - Added
+
+            string commandWindowPassword = configuration["CommandWindowPassword"];
+
+
+            if (AccessKey != commandWindowPassword)
             {
                 Results_Error = "Invalid key.";
             }

@@ -94,6 +94,48 @@ namespace DevSitesIndex
 
 
 
+            // 08/13/2019 08:41 am - SSN - Added
+            // https://docs.microsoft.com/en-us/aspnet/core/security/authentication/identity-configuration?view=aspnetcore-2.2
+            services.Configure<IdentityOptions>(options =>
+            {
+                // Default Lockout settings.
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                options.Lockout.MaxFailedAccessAttempts = 5;
+                options.Lockout.AllowedForNewUsers = true;
+            });
+
+            // https://stackoverflow.com/questions/45875601/cookie-expiry-in-asp-net-core-2-0-with-identity
+            services.AddAuthentication().AddCookie(options => {
+                options.Cookie.Expiration = TimeSpan.FromDays(6);
+                options.Cookie.SameSite = Microsoft.AspNetCore.Http.SameSiteMode.Strict;
+                options.Cookie.Name = "DevSites";
+                // options.LoginPath = "/Account/Login";
+                // options.AccessDeniedPath = "/Account/Forbidden";
+            });
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                //// Default Password settings.
+                //options.Password.RequireDigit = true;
+                //options.Password.RequireLowercase = true;
+                //options.Password.RequireNonAlphanumeric = true;
+                //options.Password.RequireUppercase = true;
+                options.Password.RequiredLength = 8;
+                //options.Password.RequiredUniqueChars = 1;
+            });
+            services.ConfigureApplicationCookie(options =>
+            {
+
+                options.Cookie.HttpOnly = true;
+                options.Cookie.Expiration = TimeSpan.FromMinutes(5);
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+                //options.LoginPath = "/Account/Login";
+                //options.LogoutPath = "/Account/Logout";
+                //options.AccessDeniedPath = "/Account/AccessDenied";
+                options.SlidingExpiration = true;
+            });
+
+            
 
 
 
