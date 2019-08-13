@@ -225,6 +225,7 @@ alarm {
 }
 
 .padded {
+    margin:10px 0px;
     padding: 20px;
     background: rgba(255,255,255,0.5);
     /*-khtml-opacity: .50;
