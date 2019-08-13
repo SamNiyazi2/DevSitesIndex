@@ -33,7 +33,14 @@
             @Html.DisplayNameFor(model => model.DevSite.Solution_Details)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.DevSite.Solution_Details)
+
+            @*
+                // 08/12/2019 12:41 pm - SSN - [20190812-0945] - [015] - Add identity
+
+                @Html.DisplayFor(model => model.DevSite.Solution_Details)
+            *@
+            @Html.Raw(Model.DevSite.Solution_Details)
+
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.DevSite.SoftwareCode)
@@ -48,7 +55,7 @@
             @Html.DisplayFor(model => model.DevSite.DateAdded)
         </dd>
     </dl>
-    
+
     <form method="post">
         <input type="hidden" asp-for="DevSite.Id" />
         <input type="submit" value="Delete" class="btn btn-default" /> |

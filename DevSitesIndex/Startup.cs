@@ -13,6 +13,17 @@ using DevSitesIndex.Services;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json.Converters;
+using Microsoft.AspNetCore.Identity;
+
+
+// 08/12/2019 09:50 am - SSN - [20190812-0945] - [003] - Add identity
+
+
+using Microsoft.AspNetCore.Identity.UI;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc;
+
 
 namespace DevSitesIndex
 {
@@ -70,11 +81,39 @@ namespace DevSitesIndex
             //     // No benfit
             // });
 
+
+
+
+
+
             // 07/29/2018 03:37 pm - SSN - Copied in
             var connectionString = Startup.Configuration["connectionStrings:DevSitesIndexDBConnectionString"];
             services.AddDbContext<DevSitesIndexContext>(o => o.UseSqlServer(connectionString));
 
             services.AddScoped<IDevSitesIndexRepository, DevSitesIndexRepository>();
+
+
+
+
+
+
+            // 08/12/2019 09:45 am - SSN - [20190812-0945] - [001] - Add identity
+
+
+            //services.AddDbContext<ApplicationDbContext>(options =>
+            // options.UseSqlServer(
+            //     Configuration.GetConnectionString("DefaultConnection")));
+
+
+            //services.AddDefaultIdentity<IdentityUser>()
+            //    .AddDefaultUI(UIFramework.Bootstrap4)
+            //    .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            //services.AddDefaultIdentity<IdentityUser>()
+            //             .AddDefaultUI(UIFramework.Bootstrap4)
+            //             .AddEntityFrameworkStores<DevSitesIndexContext>();
+
+
 
 
             // 09/26/2018 01:38 pm - SSN - Adding
@@ -95,7 +134,10 @@ namespace DevSitesIndex
 
             if (env.IsDevelopment())
             {
-                app.UseBrowserLink();
+                // 08/12/2019 10:12 am - SSN - [20190812-0945] - [004] - Add identity
+                // We lost this when trying to add identity
+                //  app.UseBrowserLink();
+
                 app.UseDeveloperExceptionPage();
             }
             else
@@ -104,6 +146,12 @@ namespace DevSitesIndex
             }
 
             app.UseStaticFiles();
+
+
+            // 08/12/2019 11:24 am - SSN - [20190812-0945] - [007] - Add identity
+
+            app.UseAuthentication(); 
+
 
             app.UseMvc(routes =>
             {

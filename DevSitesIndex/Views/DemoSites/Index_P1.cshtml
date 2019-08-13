@@ -7,8 +7,30 @@
 
 }
 
-
 <h1>Demo Sites Index (p1)</h1>
+
+
+<!-- 08/12/2019 05:15 am - SSN - [20190812-0515] - [001] - Apply fulltext search -->
+ 
+
+<form   data-bind="submit: onSubmit">
+
+    <div class="form-group">
+        <label class="control-label">Search</label>
+        <input data-bind="value : SearchText_KO" class="form-control" autofocus />
+        <span asp-validation-for="SearchText" class="text-danger"></span>
+
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Search" class="btn btn-default" />
+        <a href="/" class="btn btn-default">Clear Search</a>
+    </div>
+
+</form>
+
+
+
 
 @{await Html.RenderPartialAsync("Index_Option_Select");}
 

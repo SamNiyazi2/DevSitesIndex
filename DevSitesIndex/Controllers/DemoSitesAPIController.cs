@@ -46,6 +46,26 @@ namespace DevSitesIndex.Controllers
             return "value";
         }
 
+
+        // 08/12/2019 06:10 am - SSN - [20190812-0515] - [008] - Apply fulltext search
+        // Add SearchText
+        public class SearchObj
+        {
+            public string SearchText { get; set; }
+        }
+        [Route("/api/demositesapi/Search")]
+        [HttpPost]
+        public IEnumerable<DevSite> Search( SearchObj obj1)
+        {
+            var request = Request;
+
+            IEnumerable<DevSite> devSites_1 = _devSitesIndexRepository.GetDevSites();
+
+            return devSites_1;
+
+        }
+
+
         // POST api/<controller>
         [HttpPost]
         public void Post([FromBody]DevSite value)

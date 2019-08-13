@@ -1,0 +1,43 @@
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@*
+    // 08/12/2019 11:59 am - SSN - [20190812-0945] - [011] - Add identity
+
+    <ul class="navbar-nav">
+*@
+
+<style>
+    
+    .menu_button {
+        margin: 8px 0px 0px 0px;
+    }
+</style>
+<ul class="nav navbar-nav " style="float:right;"  >
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="nav-item">
+            <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
+        </li>
+        <li class="nav-item">
+            <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
+
+                @*
+        // 08/12/2019 12:05 pm - SSN - [20190812-0945] - [013] - Add identity
+
+        <button id="logout" type="submit" class="nav-link btn btn-link text-dark">Logout</button>*@
+
+                <button id="logout" type="submit" class="nav-link btn btn-link text-dark menu_button">Logout</button>
+            </form>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        </li>
+    }
+</ul>

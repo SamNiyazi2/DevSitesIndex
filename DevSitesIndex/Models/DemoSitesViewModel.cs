@@ -23,6 +23,12 @@ namespace DevSitesIndex.Models
         // 08/21/2018 03:57 am - SSN - Ref 
         // C:\Sams_Projects\PluralSight\html5-line-of-business-applications\d\demos\CodedHomes.Web\ViewModels\HomesListViewModel.cs
 
+
+        // 08/12/2019 05:18 am - SSN - [20190812-0515] - [002] - Apply fulltext search
+        public string SearchText { get; set; }
+
+
+
         public string devSitesJSON
         {
             get
@@ -30,6 +36,9 @@ namespace DevSitesIndex.Models
                 JsonSerializerSettings settings = new JsonSerializerSettings();
 
                 settings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+
+                // 08/12/2019 05:21 am - SSN - [20190812-0515] - [003] - Apply fulltext search
+                Console.WriteLine("Testing-20190812-0521");
 
                 var devSites = JsonConvert.SerializeObject(this.devSites, settings);
                 return devSites;

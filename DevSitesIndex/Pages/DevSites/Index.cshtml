@@ -20,7 +20,7 @@
 
 
         <!-- 08/12/2019 03:45 am - SSN - [20190812-0345] - [001] - Apply fulltext search -->
-<h1>Test it</h1>
+  
         <div class="form-group">
             <label class="control-label">Search</label>
             <input asp-for="SearchText" class="form-control" autofocus />
@@ -64,36 +64,42 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.DevSite)
+
+        <!-- 08/12/2019 05:11 am - SSN - [20190812-0345] - [006] - Apply fulltext search -->
+
+        @if (Model.DevSite != null)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SiteTitle)
-                </td>
-                @*<td>
-                        @Html.DisplayFor(modelItem => item.SiteUrl)
-                    </td>
+            @foreach (var item in Model.DevSite)
+            {
+                <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.SolutionName)
+                        @Html.DisplayFor(modelItem => item.SiteTitle)
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Solution_Details)
-                    </td>*@
-                <td class="hidden-xs">
-                    @Html.DisplayFor(modelItem => item.SoftwareCode.SoftwareTitle)
-                </td>
-                <td class="indexNowrapCol hidden-xs">
-                    @Html.DisplayFor(modelItem => item.DateAdded)
-                </td>
-                <td class="indexNowrapCol hidden-xs">
-                    @Html.DisplayFor(modelItem => item.DateUpdated)
-                </td>
-                <td class="indexNowrapCol">
-                    <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
+                    @*<td>
+                            @Html.DisplayFor(modelItem => item.SiteUrl)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SolutionName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Solution_Details)
+                        </td>*@
+                    <td class="hidden-xs">
+                        @Html.DisplayFor(modelItem => item.SoftwareCode.SoftwareTitle)
+                    </td>
+                    <td class="indexNowrapCol hidden-xs">
+                        @Html.DisplayFor(modelItem => item.DateAdded)
+                    </td>
+                    <td class="indexNowrapCol hidden-xs">
+                        @Html.DisplayFor(modelItem => item.DateUpdated)
+                    </td>
+                    <td class="indexNowrapCol">
+                        <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
         }
     </tbody>
 </table>

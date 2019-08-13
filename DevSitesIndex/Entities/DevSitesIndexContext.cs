@@ -5,13 +5,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using DevSitesIndex.Entities;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 
 // 07/29/2018 03:31 pm - SSN - Copied
 
 namespace DevSitesIndex.Entities
 {
-    public class DevSitesIndexContext : DbContext
+
+    // 08/12/2019 09:47 am - SSN - [20190812-0945] - [002] - Add identity
+      public class DevSitesIndexContext :  DbContext
+   // public class DevSitesIndexContext : IdentityDbContext
     {
         // 02/24/2019 12:42 pm - SSN - [20190224-1247] Adding IConfiguration configuration
         public DevSitesIndexContext(DbContextOptions<DevSitesIndexContext> options, IConfiguration configuration)
@@ -43,7 +48,8 @@ namespace DevSitesIndex.Entities
 
         // 08/07/2018 12:14 pm - SSN
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
+        { 
+
             modelBuilder.HasDefaultSchema("DemoSites");
 
             setup_ReferenceSite(modelBuilder);

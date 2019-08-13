@@ -9,9 +9,14 @@ using DevSitesIndex.Entities;
 using System.Text;
 using Microsoft.AspNetCore.Html;
 using System.Text.RegularExpressions;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DevSitesIndex.Pages.CodeReferences
 {
+
+    // 08/12/2019 12:21 pm - SSN - [20190812-0945] - [014] - Add identity
+    // Add Authorize    public class CreateModel : PageModel
+    [Authorize]
     // 09/05/2018 03:31 pm - SSN - Use SearchPromptModel
     public class IndexModel : PageModel
     {

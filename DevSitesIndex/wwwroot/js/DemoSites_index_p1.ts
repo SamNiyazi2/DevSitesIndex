@@ -16,6 +16,10 @@ $(function () {
 
     var ViewModel = function () {
 
+        // 08/12/2019 05:58 am - SSN - [20190812-0515] - [006] - Apply fulltext search
+        var self = this;
+        self.SearchText_KO = ko.observable("default first");
+
 
         this.currentItem = {};
 
@@ -32,9 +36,9 @@ $(function () {
             var self = this;
 
             $.getJSON("/api/demositesapi", function (data) {
-                 
-                self.devSitesJSON.removeAll();  
-                self.devSitesJSON(data); 
+
+                self.devSitesJSON.removeAll();
+                self.devSitesJSON(data);
             });
 
         }
@@ -82,6 +86,52 @@ $(function () {
         };
 
 
+        // 08/12/2019 05:57 am - SSN - [20190812-0515] - [005] - Apply fulltext search
+        // https://stackoverflow.com/questions/16245905/fetching-or-sending-data-from-a-form-using-knockout-js
+        //self.onSubmit = function () {
+        this.onSubmit = function () {
+            //var data = JSON.stringify(
+            //    {
+            //        SearchText: self.SearchText_KO()
+            //    }); // prepare request data
+ 
+            var data_pre =   {
+                    "SearchText": self.SearchText_KO()
+            };
+
+            var data = JSON.stringify(data_pre);
+
+
+            //$.post("/echo/json", data, function (response) // sends 'post' request
+            //{
+            //    // on success callback
+            //    self.responseJSON(response);
+            //})
+
+
+            //$.post("/api/demositesapi/Search", data, function (response) {
+
+            //    self.devSitesJSON.removeAll();
+            //    self.devSitesJSON(response);
+            //});
+
+            $.ajax({
+                type: "POST",
+                data: data,
+                url: "/api/demositesapi/Search",
+                contentType: "application/json",
+                dataType: 'json'
+            }).done(function (response) {
+                self.devSitesJSON.removeAll();
+                self.devSitesJSON(response);
+
+            });
+
+
+
+        }
+
+
         this.getClassForDemoState = function (forDemo_v2) {
 
             let selectedClass = "";
@@ -111,6 +161,7 @@ $(function () {
     var vm = new ViewModel();
     ko.applyBindings(vm);
     vm.loadData();
+
 
 });
 

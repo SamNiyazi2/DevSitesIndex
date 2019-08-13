@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -10,6 +11,9 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace DevSitesIndex.Pages.CommandLine
 {
+    // 08/12/2019 12:21 pm - SSN - [20190812-0945] - [014] - Add identity
+    // Add Authorize    public class CreateModel : PageModel
+    [Authorize]
     public class IndexModel : PageModel
     {
 
@@ -28,7 +32,7 @@ namespace DevSitesIndex.Pages.CommandLine
 
         public void OnGet()
         {
-           
+
         }
         public async Task<IActionResult> OnPostAsync()
         {

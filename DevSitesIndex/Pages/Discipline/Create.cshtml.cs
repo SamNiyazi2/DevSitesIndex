@@ -6,9 +6,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using DevSitesIndex.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DevSitesIndex
 {
+
+    // 08/12/2019 12:21 pm - SSN - [20190812-0945] - [014] - Add identity
+    // Add Authorize    public class CreateModel : PageModel
+    [Authorize]
     public class CreateModel : PageModel
     {
         private readonly DevSitesIndex.Entities.DevSitesIndexContext _context;
