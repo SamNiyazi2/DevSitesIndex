@@ -77,6 +77,7 @@ $(function () {
             }).done(function (response) {
                 self.devSitesJSON.removeAll();
                 self.devSitesJSON(response);
+                setTimeout(prefixPreWithShowHideAnchor, 2000);
             });
         };
         this.getClassForDemoState = function (forDemo_v2) {

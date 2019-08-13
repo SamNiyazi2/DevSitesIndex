@@ -122,8 +122,10 @@ $(function () {
                 contentType: "application/json",
                 dataType: 'json'
             }).done(function (response) {
+
                 self.devSitesJSON.removeAll();
                 self.devSitesJSON(response);
+                setTimeout(prefixPreWithShowHideAnchor, 2000);
 
             });
 
