@@ -14,7 +14,7 @@ namespace DevSitesIndex.Entities
     {
         public int TimeLogId { get; set; }
 
-        [Display(Name = "Job Title")] 
+        [Display(Name = "Job Title")]
         public int JobId { get; set; }
 
         [Display(Name = "Discipline")]
@@ -47,10 +47,7 @@ namespace DevSitesIndex.Entities
         {
             get
             {
-                if (!TotalSeconds.HasValue) return "";
-                long totalSecondsLong = (long)TotalSeconds;
-                long nanosecond = 10000000;
-                return new TimeSpan(totalSecondsLong * nanosecond).ToString("T");
+                return TotalSeconds.SecondsToTimeDuration();
             }
         }
     }

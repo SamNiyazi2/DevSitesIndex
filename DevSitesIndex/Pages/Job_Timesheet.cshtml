@@ -13,6 +13,8 @@
 else
 {
 
+    <h3>Total hours: @Model.TotalJobSeconds.SecondsToTimeDuration()</h3>
+
     <table class="table">
 
         <thead>
@@ -22,7 +24,7 @@ else
                     @Html.DisplayNameFor(modelItem => Model.job_Timesheet[0].StartTime)
                 </td>
                 <td>
-                    @Html.DisplayNameFor(modelItem => Model.job_Timesheet[0].TotalSeconds)
+                    @Html.DisplayNameFor(modelItem => Model.job_Timesheet[0].TotalSeconds_ToTimeSpanFormat_T)
                 </td>
                 <td>
                     @Html.DisplayNameFor(modelItem => Model.job_Timesheet[0].discipline.DisciplineShort)
@@ -50,8 +52,8 @@ else
                     <td>
                         @Html.DisplayFor(modelItem => item.StartTime)
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TotalSeconds)
+                    <td class="text-right">
+                        @Html.DisplayFor(modelItem => item.TotalSeconds_ToTimeSpanFormat_T)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.discipline.DisciplineShort)

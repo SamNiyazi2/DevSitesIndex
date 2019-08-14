@@ -27,6 +27,8 @@ namespace DevSitesIndex.Pages.Jobs
 
         public List<TimeLog> job_Timesheet { get; set; }
 
+        // 08/14/2019 05:00 am - SSN - [20190814-0433] - [003] - Add timesheet totals
+        public int? TotalJobSeconds { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -42,8 +44,12 @@ namespace DevSitesIndex.Pages.Jobs
 
             job_Timesheet = _context.TimeLog.Where(r => r.JobId == id)
                                     .OrderByDescending(r2 => r2.StartTime)
-                                    .Include(r=>r.discipline)
+                                    .Include(r => r.discipline)
                                     .ToList();
+
+            // 08/14/2019 05:02 am - SSN - [20190814-0433] - [004] - Add timesheet totals
+
+            TotalJobSeconds = job_Timesheet.Where(r => r.TotalSeconds.HasValue).Sum(r => r.TotalSeconds);
 
             if (Job == null)
             {
