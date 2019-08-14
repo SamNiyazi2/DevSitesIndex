@@ -105,7 +105,8 @@ namespace DevSitesIndex
             });
 
             // https://stackoverflow.com/questions/45875601/cookie-expiry-in-asp-net-core-2-0-with-identity
-            services.AddAuthentication().AddCookie(options => {
+            services.AddAuthentication().AddCookie(options =>
+            {
                 options.Cookie.Expiration = TimeSpan.FromDays(6);
                 options.Cookie.SameSite = Microsoft.AspNetCore.Http.SameSiteMode.Strict;
                 options.Cookie.Name = "DevSites";
@@ -127,15 +128,15 @@ namespace DevSitesIndex
             {
 
                 options.Cookie.HttpOnly = true;
-                options.Cookie.Expiration = TimeSpan.FromMinutes(5);
-                options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+                options.Cookie.Expiration = TimeSpan.FromMinutes(20);
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
                 //options.LoginPath = "/Account/Login";
                 //options.LogoutPath = "/Account/Logout";
                 //options.AccessDeniedPath = "/Account/AccessDenied";
                 options.SlidingExpiration = true;
             });
 
-            
+
 
 
 
@@ -192,7 +193,7 @@ namespace DevSitesIndex
 
             // 08/12/2019 11:24 am - SSN - [20190812-0945] - [007] - Add identity
 
-            app.UseAuthentication(); 
+            app.UseAuthentication();
 
 
             app.UseMvc(routes =>

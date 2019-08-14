@@ -74,18 +74,55 @@ namespace DevSitesIndex.Entities
         public byte ForDemo_v02 { get; set; }
 
         // 03/19/2019 07:04 pm - SSN - [20190319-1904]
+        // 08/14/2019 06:09 am - SSN - [20190814-0609] - [001] - Revise demo site index docAge
         [NotMapped]
-        public double docAge
+        // public double docAge
+        public string docAge
         {
             get
             {
-                return Math.Round(DateTime.Now.Subtract((DateUpdated ?? DateAdded)).TotalHours);
+                //return Math.Round(DateTime.Now.Subtract((DateUpdated ?? DateAdded)).TotalHours);
+
+                DateTime selectedDate = DateOfLastActivity;
+
+                TimeSpan age_timespan = DateTime.Now.Subtract(selectedDate);
+
+                int totalMonths = ((DateTime.Now.Year - selectedDate.Year) * 12) + DateTime.Now.Month - selectedDate.Month;
+
+                if (totalMonths > 0)
+                    return totalMonths.ToString() + "m";
+
+                if (age_timespan.Days > 0)
+                    return age_timespan.Days.ToString() + "d";
+
+                if (age_timespan.Hours > 0)
+                    return age_timespan.Hours.ToString() + "h";
+
+                return age_timespan.Minutes.ToString() + "n";
+
+            }
+        }
+
+        [NotMapped]
+        public string dateOfLastActivity_ToString
+        {
+            get
+            { 
+                return DateOfLastActivity.ToLongDateString() + " " + DateOfLastActivity.ToShortTimeString();
+            }
+        }
+
+        [NotMapped]
+        public DateTime DateOfLastActivity
+        {
+            get
+            {
+                return DateUpdated ?? DateAdded;
             }
         }
 
 
-
-        // 05/30/2019 05:06 pm - SSN - [20190530-0510]
+    // 05/30/2019 05:06 pm - SSN - [20190530-0510]
         public virtual ICollection<DevSiteCodeReference> DevSiteCodeReferences { get; set; }
 
     }

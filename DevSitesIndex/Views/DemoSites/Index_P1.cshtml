@@ -111,9 +111,16 @@
 
 
 
-                    @*// 03/19/2019 07:04 pm - SSN - [20190319-1904]*@
+                    @*
+                        // 03/19/2019 07:04 pm - SSN - [20190319-1904]
+                        // 08/14/2019 06:48 am - SSN - [20190814-0609] - [002] - Revise demo site index docAge
+                    *@
 
-                    [<span data-bind="text: docAge"></span>]
+                    <p class="small">
+                        [<span data-bind="text: docAge"></span>]
+                        &nbsp; &nbsp; &nbsp; <span data-bind="text: dateOfLastActivity_ToString"></span>
+                    </p>
+
                     <!-- ko if:  $data.siteUrl -->
                     <!-- ko ifnot:  $parent.checkIfcallingcmd(siteUrl)-->
 
