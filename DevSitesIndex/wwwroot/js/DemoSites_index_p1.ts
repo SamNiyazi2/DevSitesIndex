@@ -44,6 +44,21 @@ $(function () {
         }
 
 
+        // 08/16/2019 04:25 pm - SSN - [20190816-1625] - [001] - Correct logic for getting record count to show no search results message
+
+
+        this.getRecordCount = function () {
+
+            let recordCount: number = self.devSitesJSON().length;
+            // self.devSitesJSON
+
+            return recordCount;
+
+        };
+
+
+
+
         this.requestDelConfirm = function (itemToDelete) {
 
             vm.currentItem = itemToDelete;
@@ -94,9 +109,9 @@ $(function () {
             //    {
             //        SearchText: self.SearchText_KO()
             //    }); // prepare request data
- 
-            var data_pre =   {
-                    "SearchText": self.SearchText_KO()
+
+            var data_pre = {
+                "SearchText": self.SearchText_KO()
             };
 
             var data = JSON.stringify(data_pre);

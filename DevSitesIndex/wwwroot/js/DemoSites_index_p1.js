@@ -22,6 +22,12 @@ $(function () {
                 self.devSitesJSON(data);
             });
         };
+        // 08/16/2019 04:25 pm - SSN - [20190816-1625] - [001] - Correct logic for getting record count to show no search results message
+        this.getRecordCount = function () {
+            var recordCount = self.devSitesJSON().length;
+            // self.devSitesJSON
+            return recordCount;
+        };
         this.requestDelConfirm = function (itemToDelete) {
             vm.currentItem = itemToDelete;
             $('#del-confirm').modal({ backdrop: 'static', keyboard: false });
