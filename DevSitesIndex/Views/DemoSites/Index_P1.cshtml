@@ -79,17 +79,26 @@
 
 
 
-<h3>Source: Bootstrap (list-container template)</h3>
+<h3>Source: Knockout Template (list-container template)</h3>
 <hr />
 
 
+@*
+    Knockout Template
+*@
 <div id="list-container">
 
     <div data-bind="template: {name: 'list-template', foreach: devSitesJSON }"></div>
 
 </div>
 
+@*
+    <!-- 08/15/2019 12:46 pm - SSN - Added message -->
 
+*@
+<div data-bind="visible: devSitesJSON.length == 0">
+    <p class="padded alert-warning ">No records were found!</p>
+</div>
 
 
 
@@ -138,7 +147,6 @@
                     <!-- /ko -->
 
                 </div>
-
 
 
                 <!-- ko if: $data.solution_Details -->
