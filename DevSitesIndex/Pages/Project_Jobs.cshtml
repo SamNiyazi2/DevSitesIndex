@@ -16,31 +16,34 @@
 
             @foreach (var item in Model.project_Jobs)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DateAdded)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DateUpdated)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.JobTitle)
-                    </td>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateAdded)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateUpdated)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalSeconds_ToTimeSpanFormat_T)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.JobTitle)
+                </td>
 
-                    <td>
-                        @*
-                            05/03/2019 05:37 pm - SSN - [20190503-1539] - [010] - Add link to create timelog 
-                            Prefix with /jobs
-                        *@
-                        <a asp-page="/jobs/Edit" asp-route-id="@item.JobID">Edit</a> |
-                        <a asp-page="/jobs/Details" asp-route-id="@item.JobID">Details</a> |
-                        <a asp-page="/jobs/Delete" asp-route-id="@item.JobID">Delete</a> |
+                <td>
+                    @*
+            05/03/2019 05:37 pm - SSN - [20190503-1539] - [010] - Add link to create timelog
+            Prefix with /jobs
+                    *@
+                    <a asp-page="/jobs/Edit" asp-route-id="@item.JobID">Edit</a> |
+                    <a asp-page="/jobs/Details" asp-route-id="@item.JobID">Details</a> |
+                    <a asp-page="/jobs/Delete" asp-route-id="@item.JobID">Delete</a> |
 
-                        <!-- 05/03/2019 03:39 pm - SSN - [20190503-1539] - [001] - Add link to create timelog -->
+                    <!-- 05/03/2019 03:39 pm - SSN - [20190503-1539] - [001] - Add link to create timelog -->
 
-                        <a ng-click="showCreateTimesheetForm(@item.JobID)">Clock-in</a>
-                    </td>
-                </tr>
+                    <a ng-click="showCreateTimesheetForm(@item.JobID)">Clock-in</a>
+                </td>
+            </tr>
             }
 
         </table>

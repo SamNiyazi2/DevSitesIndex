@@ -41,7 +41,23 @@ namespace DevSitesIndex.Pages.Projects
 
             // 04/19/2019 02:05 pm - SSN - [20190419-1405] - Move to Project detail
 
-             project_Jobs = _context.Job.Where (r=>r.ProjectID== id).ToList();
+            project_Jobs = _context.Job.Where(r => r.ProjectID == id).ToList();
+
+
+            // 08/20/2019 01:10 pm - SSN - [20190820-1252] - [002] - Added
+
+            var Jobs_Timesheet_Totals = _context.Job.Where(r => r.ProjectID == id)
+                            .GroupJoin(_context.TimeLog, m => m.JobID, c => c.JobId, (j, t) =>
+                              new
+                              {
+                                  JobId = j.JobID,
+                                  TotalSeconds = t.Sum(r => r.TotalSeconds)
+                              }).ToList();
+
+            foreach (var r in project_Jobs)
+            {
+                r.TotalSeconds = Jobs_Timesheet_Totals.Where(r2 => r2.JobId == r.JobID).Sum(r3 => r3.TotalSeconds);
+            }
 
 
             if (Project == null)

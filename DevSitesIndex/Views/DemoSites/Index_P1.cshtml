@@ -82,6 +82,23 @@
 <h3>Source: Knockout Template (list-container template)</h3>
 <hr />
 
+@*
+    // 08/15/2019 12:46 pm - SSN - Added message
+    // 08/16/2019 04:14 pm - SSN - Noticed visbility logic error. Shows when there is data.
+
+*@
+@*<div data-bind="visible: devSitesJSON.length == 0">*@
+
+<div class="padded" data-bind="visible: getRecordCount() > 0 ">
+    <div>Record count:  <span data-bind="text: getRecordCount() "></span> </div>
+</div>
+
+<div data-bind="visible: getRecordCount() ==0 ">
+    <p class="padded alert-warning ">No records were found!</p>
+</div>
+
+
+
 
 @*
     Knockout Template
@@ -90,19 +107,6 @@
 
     <div data-bind="template: {name: 'list-template', foreach: devSitesJSON }"></div>
 
-</div>
-
-@*
-    // 08/15/2019 12:46 pm - SSN - Added message
-    // 08/16/2019 04:14 pm - SSN - Noticed visbility logic error. Shows when there is data.
-
-*@
-@*<div data-bind="visible: devSitesJSON.length == 0">*@
-
-<div>Record count:  <span data-bind="text: getRecordCount() "></span> </div>
-
-<div data-bind="visible: getRecordCount() ==0 ">
-    <p class="padded alert-warning ">No records were found!</p>
 </div>
 
 

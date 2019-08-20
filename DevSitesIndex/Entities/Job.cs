@@ -70,6 +70,21 @@ namespace DevSitesIndex.Entities
         #endregion Determine job latest activity
 
 
+        // 08/20/2019 12:52 pm - SSN - [20190820-1252] - [001] - Added
+
+        [DisplayName("Total Hours")]
+        [NotMapped]
+        public int? TotalSeconds { get; set; }
+
+        [NotMapped]
+        [Display(Name = "Duration")]
+        public string TotalSeconds_ToTimeSpanFormat_T
+        {
+            get
+            {
+                return TotalSeconds.SecondsToTimeDuration();
+            }
+        }
 
     }
 }

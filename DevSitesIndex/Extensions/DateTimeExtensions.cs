@@ -12,10 +12,13 @@ namespace DevSitesIndex
         public static string SecondsToTimeDuration(this int? duration)
         {
             if (!duration.HasValue) return "";
-            
-            return new TimeSpan(0, 0, duration.Value).ToString("T");
+
+            // 08/19/2019 03:56 pm - SSN - Combine days total with hours.
+            // return new TimeSpan(0, 0, duration.Value).ToString("T");
+            TimeSpan ts = new TimeSpan(0, 0, duration.Value);
+            return string.Format("{0,5}:{1,2:00}:{2:00} ({3})", Math.Floor(ts.TotalHours), ts.Minutes, ts.Seconds, ts.ToString("T"));
         }
- 
+
 
     }
 }
