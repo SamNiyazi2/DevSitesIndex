@@ -9,6 +9,10 @@ $(function () {
         // 08/12/2019 05:58 am - SSN - [20190812-0515] - [006] - Apply fulltext search
         var self = this;
         self.SearchText_KO = ko.observable();
+        // 08/21/2019 12:16 pm - SSN - [20190821-1210] - [003] - SearchResultsFeedback_KO
+        self.SearchResultsFeedback_KO = ko.observable("");
+        self.SearchResultsFeedback_ClassName_KO = ko.observable();
+        self.prefixPreWithShowHideAnchor_DontCall_KO = ko.observable(false);
         this.currentItem = {};
         this.errorMessage = ko.observable();
         // 06/06/2019 05:44 pm - SSN - Moved from index_p1.cshtml - Update
@@ -83,7 +87,16 @@ $(function () {
             }).done(function (response) {
                 self.devSitesJSON.removeAll();
                 self.devSitesJSON(response);
-                setTimeout(prefixPreWithShowHideAnchor, 2000);
+                // 08/21/2019 12:14 pm - SSN - [20190821-1210] - [002] - SearchResultsFeedback_KO
+                self.SearchResultsFeedback_KO('');
+                self.SearchResultsFeedback_ClassName_KO("");
+                if (response.length == 0) {
+                    self.SearchResultsFeedback_KO('Search returned no records.');
+                    self.SearchResultsFeedback_ClassName_KO("alert-warning");
+                }
+                if (!self.prefixPreWithShowHideAnchor_DontCall_KO()) {
+                    setTimeout(prefixPreWithShowHideAnchor, 2000);
+                }
             });
         };
         this.getClassForDemoState = function (forDemo_v2) {
