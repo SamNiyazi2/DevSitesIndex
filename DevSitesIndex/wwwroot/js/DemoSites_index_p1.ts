@@ -160,6 +160,11 @@ $(function () {
                 if (!self.prefixPreWithShowHideAnchor_DontCall_KO()) {
                     setTimeout(prefixPreWithShowHideAnchor, 2000);
                 }
+                else {
+// 08/21/2019 01:48 pm - SSN - [20190821-1348] [001] - Added
+                    setTimeout(showCollapsedDivs, 2000);
+
+                }
 
             });
 

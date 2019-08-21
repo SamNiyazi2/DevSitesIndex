@@ -63,6 +63,10 @@ $(function () {
         }
     });
 });
+// 08/21/2019 01:48 pm 
+function showCollapsedDivs() {
+    $("[data-toggle='collapse']").trigger('click');
+}
 function prefixPreWithShowHideAnchor() {
     // 04/26/2019 09:56 pm - SSN - [20190426-2156] - [001] - Hide pre and add a link to show.
     // 06/01/2019 08:07 pm - SSN - [20190601-2007] - Add title

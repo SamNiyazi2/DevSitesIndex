@@ -118,6 +118,12 @@ $(function () {
 
 });
 
+// 08/21/2019 01:48 pm 
+function showCollapsedDivs() {
+
+    $("[data-toggle='collapse']").trigger('click');
+}
+
 
 function prefixPreWithShowHideAnchor() {
 
