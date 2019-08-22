@@ -15,8 +15,8 @@ namespace DevSitesIndex.Entities
 {
 
     // 08/12/2019 09:47 am - SSN - [20190812-0945] - [002] - Add identity
-      public class DevSitesIndexContext :  DbContext
-   // public class DevSitesIndexContext : IdentityDbContext
+    public class DevSitesIndexContext : DbContext
+    // public class DevSitesIndexContext : IdentityDbContext
     {
         // 02/24/2019 12:42 pm - SSN - [20190224-1247] Adding IConfiguration configuration
         public DevSitesIndexContext(DbContextOptions<DevSitesIndexContext> options, IConfiguration configuration)
@@ -48,7 +48,7 @@ namespace DevSitesIndex.Entities
 
         // 08/07/2018 12:14 pm - SSN
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        { 
+        {
 
             modelBuilder.HasDefaultSchema("DemoSites");
 
@@ -71,8 +71,23 @@ namespace DevSitesIndex.Entities
             setup_Technology(modelBuilder);
 
             setup_DevSiteCodeReference(modelBuilder);
+
+            DisableGlobalCascadeDelete(modelBuilder);
         }
 
+
+        // 08/22/2019 02:56 pm - SSN
+        // https://stackoverflow.com/questions/46526230/disable-cascade-delete-on-ef-core-2-globally
+
+        private static void DisableGlobalCascadeDelete(ModelBuilder modelBuilder)
+        {
+            var cascadeFKs = modelBuilder.Model.GetEntityTypes()
+                .SelectMany(t => t.GetForeignKeys())
+                .Where(fk => !fk.IsOwnership && fk.DeleteBehavior == DeleteBehavior.Cascade);
+
+            foreach (var fk in cascadeFKs)
+                fk.DeleteBehavior = DeleteBehavior.Restrict;
+        }
 
         private static void setup_Job(ModelBuilder modelBuilder)
         {

@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using DevSitesIndex.Models;
 using DevSitesIndex.Entities;
+using Microsoft.AspNetCore.Diagnostics;
+using System.Text;
 
 namespace DevSitesIndex.Controllers
 {
@@ -56,6 +58,46 @@ namespace DevSitesIndex.Controllers
 
         public IActionResult Error()
         {
+            // 08/22/2019 03:26 pm - SSN
+
+            // https://scottsauber.com/2017/04/03/adding-global-error-handling-and-logging-in-asp-net-core/
+
+            // Get the details of the exception that occurred
+            var exceptionFeature = HttpContext.Features.Get<IExceptionHandlerPathFeature>();
+
+            if (exceptionFeature != null)
+            {
+                // Get which route the exception occurred at
+                string routeWhereExceptionOccurred = exceptionFeature.Path;
+
+                // Get the exception that occurred
+                Exception exceptionThatOccurred = exceptionFeature.Error;
+
+                // TODO: Do something with the exception
+                // Log it with Serilog?
+                // Send an e-mail, text, fax, or carrier pidgeon?  Maybe all of the above?
+                // Whatever you do, be careful to catch any exceptions, otherwise you'll end up with a blank page and throwing a 500
+
+
+
+                // 08/22/2019 03:42 pm - SSN
+                //if (routeWhereExceptionOccurred.ToLower().Contains("/delete"))
+
+                string errorMessageToLookFor = "The DELETE statement conflicted with the REFERENCE constraint";
+                if (exceptionThatOccurred.InnerException.Message.Contains(errorMessageToLookFor))
+                {
+                    StringBuilder sb = new StringBuilder();
+                    sb.Append(string.Format("<p>{0}</p>", "This site is work in progress.&nbsp; The delete ation you took is currently being handled by this exception handler."));
+                    sb.Append(string.Format("<p>{0}</p>", "An option to authorized users to delete is in the works."));
+                    sb.Append(string.Format("<p>{0}</p>", "Thank you for reviewing the site."));
+                    ViewData["Feedback"] = sb.ToString();
+
+                }
+
+            }
+
+
+
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
