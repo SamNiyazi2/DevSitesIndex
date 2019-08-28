@@ -39,7 +39,7 @@ AS
       ,[DateUpdated]
       ,[CanBeLaunched]
       ,[ForDemo_v02]
-  FROM [Testing].[DemoSites].[DevSites]
+  FROM [DemoSites].[DevSites]
 
 	    WHERE 
 			Contains( (SolutionName), @searchterm)

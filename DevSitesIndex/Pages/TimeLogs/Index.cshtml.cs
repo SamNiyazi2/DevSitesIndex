@@ -61,18 +61,6 @@ namespace DevSitesIndex.Pages.TimeLogs
             telemetry.TrackPageView("DemoSite-20190828-0818: Timelog Index");
 
 
-            try
-            {
-                throw new Exception("DemoSite-20190828-0830: Testing exception");
-            }
-            catch (Exception ex)
-            {
-                Dictionary<string, string> dic = new Dictionary<string, string>();
-                dic.Add("ErrorCode", "DemoSite-20190828-0839");
-                dic.Add("ErrorMessage", "DevSiteIndexContext Timelog index page test");
-
-                telemetry.TrackException(ex);
-            }
 
 
             // 04/19/2019 04:41 pm - SSN - Add sort
