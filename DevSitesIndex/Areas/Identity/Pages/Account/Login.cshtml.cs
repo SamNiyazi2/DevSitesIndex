@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using Microsoft.ApplicationInsights;
 
 namespace DevSitesIndex.Areas.Identity.Pages.Account
 {
@@ -63,11 +64,21 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
             ReturnUrl = returnUrl;
+
+            // 08/28/2019 08:19 am - SSN - [20190828-0819] - [001] - Adding Application Insights
+            TelemetryClient telemetry = new TelemetryClient();
+            telemetry.TrackEvent("DemoSite-20190828-0802: Timelog Index");
+            telemetry.TrackPageView("DemoSite-20190828-0818: Timelog Index");
+
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl = returnUrl ?? Url.Content("~/");
+
+            // 08/28/2019 08:20 am - SSN - [20190828-0819] - [002] - Adding Application Insights
+            TelemetryClient telemetry = new TelemetryClient();
+
 
             if (ModelState.IsValid)
             {
@@ -77,6 +88,10 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
+
+
+                    telemetry.TrackEvent($"DemoSite-20190828-0821: Login successful {Input.Email}");
+
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
@@ -85,11 +100,27 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
                 }
                 if (result.IsLockedOut)
                 {
+                    try
+                    {
+                        telemetry.TrackEvent($"DemoSite-20190828-0821: Login failure.  Lockedout {Input.Email}");
+                    }
+                    catch (Exception)
+                    {
+                    }
+
                     _logger.LogWarning("User account locked out.");
                     return RedirectToPage("./Lockout");
                 }
                 else
                 {
+                    try
+                    {
+                        telemetry.TrackEvent($"DemoSite-20190828-0821: Login failure.  Invalid login. {Input.Email}");
+                    }
+                    catch (Exception)
+                    {
+                    }
+
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                     return Page();
                 }

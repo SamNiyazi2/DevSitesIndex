@@ -7,6 +7,7 @@ using DevSitesIndex.Entities;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.ApplicationInsights;
 
 
 // 07/29/2018 03:31 pm - SSN - Copied
@@ -38,9 +39,23 @@ namespace DevSitesIndex.Entities
                     Database.SetCommandTimeout(6000);
                     Database.Migrate();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    // Do nothing here.
+                    // 08/28/2019 08:35 am - SSN - [20190828-0819] - [003] - Adding Application Insights
+                    TelemetryClient telemetry = new TelemetryClient();
+
+                    try
+                    {
+                        Dictionary<string, string> dic = new Dictionary<string, string>();
+                        dic.Add("ErrorCode", "DemoSite-20190828-0837");
+                        dic.Add("ErrorMessage", "DevSiteIndexContext Migration failed");
+
+                        telemetry.TrackException(ex, dic);
+                    }
+                    catch (Exception)
+                    {
+                        // Do nothing
+                    }
                 }
             }
         }

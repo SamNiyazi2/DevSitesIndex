@@ -4,6 +4,8 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <UserSecretsId>d333cece-1c61-46c9-bdce-fbf359723d24</UserSecretsId>
     <TypeScriptToolsVersion>3.0</TypeScriptToolsVersion>
+    <ApplicationInsightsResourceId>/subscriptions/d6723a94-6723-4e85-b988-03bf28d6ea51/resourcegroups/PS-FabrikamResidences-RG/providers/microsoft.insights/components/PS-FabrikamResidences</ApplicationInsightsResourceId>
+    <ApplicationInsightsAnnotationResourceId>/subscriptions/d6723a94-6723-4e85-b988-03bf28d6ea51/resourcegroups/PS-FabrikamResidences-RG/providers/microsoft.insights/components/PS-FabrikamResidences</ApplicationInsightsAnnotationResourceId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -93,6 +95,10 @@
     <TypeScriptCompile Include="wwwroot\js\site.ts" />
     <TypeScriptCompile Include="wwwroot\js\Timesheet\TimesheetApp.ts" />
     
+  </ItemGroup>
+
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services" />
   </ItemGroup>
 
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -31,9 +32,23 @@ namespace DevSitesIndex.Areas.Identity.Data
                     Database.SetCommandTimeout(6000);
                     Database.Migrate();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    // Do nothing here.
+                    // 08/28/2019 08:59 am - SSN - [20190828-0819] - [004] - Adding Application Insights
+                    TelemetryClient telemetry = new TelemetryClient();
+
+                    try
+                    {
+                        Dictionary<string, string> dic = new Dictionary<string, string>();
+                        dic.Add("ErrorCode", "DemoSite-20190828-0901");
+                        dic.Add("ErrorMessage", "DevSiteIndexIdentityDbContext Migration failed");
+
+                        telemetry.TrackException(ex, dic);
+                    }
+                    catch (Exception)
+                    {
+                        // Do nothing
+                    }
                 }
             }
 
@@ -45,7 +60,7 @@ namespace DevSitesIndex.Areas.Identity.Data
             // Customize the ASP.NET Identity model and override the defaults if needed.
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
-            
+
         }
 
 

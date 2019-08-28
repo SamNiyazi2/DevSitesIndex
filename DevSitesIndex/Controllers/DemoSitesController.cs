@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using DevSitesIndex.Filters;
 using DevSitesIndex.Models;
 using DevSitesIndex.Services;
+using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -29,6 +30,14 @@ namespace DevSitesIndex.Controllers
          
         public IActionResult Index()
         {
+
+            // 08/28/2019 09:02 am - SSN - [20190828-0819] - [005] - Adding Application Insights
+            TelemetryClient telemetry = new TelemetryClient();
+            telemetry.TrackPageView("DemoSite-20190828-0902: Demo site index page.");
+
+
+
+
             //try
             //{
 
@@ -37,7 +46,7 @@ namespace DevSitesIndex.Controllers
 
 
 
-            
+
             DemoSitesViewModel vm = new DemoSitesViewModel();
 
 
