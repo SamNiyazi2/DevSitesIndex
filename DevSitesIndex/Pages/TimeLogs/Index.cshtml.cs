@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using DevSitesIndex.Entities;
 using Microsoft.AspNetCore.Authorization;
+using DevSitesIndex.Models;
 
 namespace DevSitesIndex.Pages.TimeLogs
 {
@@ -23,19 +24,59 @@ namespace DevSitesIndex.Pages.TimeLogs
             _context = context;
         }
 
-        public IList<TimeLog> TimeLog { get; set; }
 
-        public async Task OnGetAsync()
+        // 08/28/2019 04:29 am - SSN - [20190828-0427] - [002] - Apply sorting and paging to timelogs index
+        //public IList<TimeLog> TimeLog { get; set; }
+        public PaginatedList<TimeLog> TimeLog { get; set; }
+        public HeaderWithSortLinks headerWithSortLinks { get; set; }
+        public TablePager tablePager { get; set; }
+
+
+
+        // 08/28/2019 04:32 am - SSN - [20190828-0427] - [003] - Apply sorting and paging to timelogs index
+        public async Task OnGetAsync(string sortOrder, string desc, int? pageIndex)
         {
+
+
+            headerWithSortLinks = new HeaderWithSortLinks();
+            headerWithSortLinks.TestMessageForDebugging = "This is a call from project index page";
+            headerWithSortLinks.AddColumns("StartTime");
+            headerWithSortLinks.AddColumns("TotalSeconds");
+            headerWithSortLinks.AddColumns("Job");
+            headerWithSortLinks.AddColumns("discipline");
+            headerWithSortLinks.AddColumns("DateAdded");
+            headerWithSortLinks.AddColumns("DateModified");
+            headerWithSortLinks.SetupHeaders<Project>("/timelogs/", sortOrder, desc);
+
+            tablePager = new TablePager();
+
+
+
+
             // 04/19/2019 04:41 pm - SSN - Add sort
             // 04/20/2019 11:13 am - SSN - [20190420-1109] - Add AsNoTracking to index pages
 
-            TimeLog = await _context.TimeLog
+            //TimeLog = await _context.TimeLog
+            //    .Include(t => t.discipline)
+            //    .Include(t => t.job)
+            //    .OrderByDescending(r => r.StartTime)
+            //    .AsNoTracking()
+            //    .ToListAsync();
+
+
+            // 08/28/2019 04:38 am - SSN - [20190828-0427] - [004] - Apply sorting and paging to timelogs index
+
+
+            IQueryable<TimeLog> _timelog = _context.TimeLog
                 .Include(t => t.discipline)
-                .Include(t => t.job)
-                .OrderByDescending(r => r.StartTime)
-                .AsNoTracking()
-                .ToListAsync();
+                .Include(t => t.job);
+
+            TimeLog = await PaginatedList<TimeLog>.GetSourcePage(_timelog, sortOrder, desc, pageIndex, 10);
+
+            tablePager.SetupButtons<TimeLog>(TimeLog, "/timelogs", sortOrder, desc);
+
+
+
         }
     }
 }

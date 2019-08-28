@@ -8,18 +8,26 @@ using DevSitesIndex.Models;
 using DevSitesIndex.Entities;
 using Microsoft.AspNetCore.Diagnostics;
 using System.Text;
+using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Hosting;
 
 namespace DevSitesIndex.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IConfiguration configuration;
+        private readonly IHostingEnvironment env;
 
         // 05/31/2019 02:36 pm - SSN - Take out context for handling errors with database
 
         //   private readonly DevSitesIndex.Entities.DevSitesIndexContext _context;
+        // 08/26/2019 04:29 pm - SSN - [20190826-1619] - [002] - Add sort
+        // Adding IConfiguration and IHostingEnvironment 
 
-        public HomeController(DevSitesIndexContext context)
+        public HomeController(DevSitesIndexContext context, IConfiguration configuration, IHostingEnvironment env)
         {
+            this.configuration = configuration;
+            this.env = env;
             //       _context = context;
         }
 
@@ -82,17 +90,42 @@ namespace DevSitesIndex.Controllers
 
                 // 08/22/2019 03:42 pm - SSN
                 //if (routeWhereExceptionOccurred.ToLower().Contains("/delete"))
-
-                string errorMessageToLookFor = "The DELETE statement conflicted with the REFERENCE constraint";
-                if (exceptionThatOccurred.InnerException.Message.Contains(errorMessageToLookFor))
+                if (exceptionThatOccurred.InnerException != null)
                 {
-                    StringBuilder sb = new StringBuilder();
-                    sb.Append(string.Format("<p>{0}</p>", "This site is work in progress.&nbsp; The delete ation you took is currently being handled by this exception handler."));
-                    sb.Append(string.Format("<p>{0}</p>", "An option to authorized users to delete is in the works."));
-                    sb.Append(string.Format("<p>{0}</p>", "Thank you for reviewing the site."));
-                    ViewData["Feedback"] = sb.ToString();
+
+                    string errorMessageToLookFor = "The DELETE statement conflicted with the REFERENCE constraint";
+                    if (exceptionThatOccurred.InnerException.Message.Contains(errorMessageToLookFor))
+                    {
+                        StringBuilder sb = new StringBuilder();
+                        sb.Append(string.Format("<p>{0}</p>", "This site is work in progress.&nbsp; The delete ation you took is currently being handled by this exception handler."));
+                        sb.Append(string.Format("<p>{0}</p>", "An option to authorized users to delete is in the works."));
+                        sb.Append(string.Format("<p>{0}</p>", "Thank you for reviewing the site."));
+                        ViewData["Feedback"] = sb.ToString();
+
+                    }
 
                 }
+
+                if (env.IsDevelopment())
+                {
+
+                    Exception ex = exceptionThatOccurred;
+
+                    StringBuilder sb = new StringBuilder();
+
+                    while (ex != null)
+                    {
+                        sb.Append(string.Format("<p>{0}</p>", ex.Message));
+                        sb.Append(string.Format("<p>{0}</p>", ex.StackTrace));
+                        sb.Append(string.Format("<p>{0}</p>"));
+                        ex = ex.InnerException;
+
+                    }
+
+                    ViewData["Feedback"] = (ViewData["Feedback"] ?? "") + sb.ToString();
+
+                }
+
 
             }
 

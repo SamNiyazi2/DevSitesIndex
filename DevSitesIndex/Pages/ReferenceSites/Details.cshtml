@@ -18,9 +18,28 @@
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.ReferenceSite.SiteURL)
+
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.ReferenceSite.SiteURL)
+
+
+            @*
+                    08/24/2019 11:20 pm - SSN - Revised to display link.
+                @Html.DisplayFor(model => model.ReferenceSite.SiteURL)
+            *@
+
+
+
+            @{
+
+                string windowName = string.Format("RefSiteWindow_{0}", Model.ReferenceSite.Id);
+                string SiteURL = Model.ReferenceSite.SiteURL;
+                string siteUrl = Model.ReferenceSite.SiteURL;
+
+            }
+
+            <a href="@siteUrl" target="@windowName">@SiteURL</a>
+
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.ReferenceSite.DateAdded)

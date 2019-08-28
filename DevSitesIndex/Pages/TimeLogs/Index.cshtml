@@ -20,25 +20,8 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.TimeLog[0].StartTime)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.TimeLog[0].TotalSeconds_ToTimeSpanFormat_T)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.TimeLog[0].job) /    @Html.DisplayNameFor(model => model.TimeLog[0].WorkDetail)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.TimeLog[0].discipline)
-                    </th>
-
-                    <th>
-                        @Html.DisplayNameFor(model => model.TimeLog[0].DateAdded)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.TimeLog[0].DateModified)
-                    </th>
+                    @*// 08/28/2019 04:28 am - SSN - [20190828-0427] - [001] - Apply sorting and paging to timelogs index*@
+                    @{await Html.RenderPartialAsync("HeaderWithSortLinks", Model.headerWithSortLinks);}
                     <th></th>
                 </tr>
 
@@ -99,6 +82,11 @@
                 }
             </tbody>
         </table>
+
+
+        @*// 08/28/2019 04:28 am - SSN - [20190828-0427] - [001] - Apply sorting and paging to timelogs index*@
+        @{await Html.RenderPartialAsync("TablePager", Model.tablePager);}
+
     </div>
 </div>
 

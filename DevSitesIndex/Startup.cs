@@ -128,8 +128,8 @@ namespace DevSitesIndex
             {
 
                 options.Cookie.HttpOnly = true;
-                options.Cookie.Expiration = TimeSpan.FromMinutes(20);
-                options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+                options.Cookie.Expiration = TimeSpan.FromMinutes(40);
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(40);
                 //options.LoginPath = "/Account/Login";
                 //options.LogoutPath = "/Account/Logout";
                 //options.AccessDeniedPath = "/Account/AccessDenied";

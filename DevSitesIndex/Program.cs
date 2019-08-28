@@ -19,6 +19,7 @@ namespace DevSitesIndex
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .UseApplicationInsights()
                 // 09/26/2018 01:22 pm - SSN - Adding
                 // No clear benefit.  reloadOnChange does not appear to work.
                 //.ConfigureAppConfiguration((hostcontext, config) =>

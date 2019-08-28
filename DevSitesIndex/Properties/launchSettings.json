@@ -32,7 +32,7 @@
       "launchBrowser": true,
       "launchUrl": "http://devsites.nonbs.org:3013",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Production"
+        "ASPNETCORE_ENVIRONMENT": "Development"
       }
     }
   }
