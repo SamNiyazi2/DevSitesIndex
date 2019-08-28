@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -58,9 +59,17 @@ namespace DevSitesIndex.Pages
             foreach (Col col in ColumnNames)
             {
                 IEnumerable<PropertyInfo> columnProps = propList.Where(r => r.Name.ToUpper() == col.Name.ToUpper());
+
                 string displayName = columnProps.Select(property => ((DisplayNameAttribute)property.GetCustomAttributes(typeof(DisplayNameAttribute), false).FirstOrDefault())?.DisplayName).Where(r => !string.IsNullOrWhiteSpace(r)).FirstOrDefault();
 
-                if (string.IsNullOrEmpty(displayName)) displayName = col.Name;
+                if (string.IsNullOrEmpty(displayName))
+                {
+                    displayName = columnProps.Select(property => ((DisplayAttribute)property.GetCustomAttributes(typeof(DisplayAttribute), false).FirstOrDefault())?.Name).Where(r => !string.IsNullOrWhiteSpace(r)).FirstOrDefault();
+                    if (string.IsNullOrEmpty(displayName))
+                    {
+                        displayName = col.Name;
+                    }
+                }
 
                 // We sort ascending when:
                 // When we first come in, the option is null

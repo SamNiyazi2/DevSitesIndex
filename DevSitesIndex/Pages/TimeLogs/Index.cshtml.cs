@@ -36,7 +36,8 @@ namespace DevSitesIndex.Pages.TimeLogs
         // 08/28/2019 04:32 am - SSN - [20190828-0427] - [003] - Apply sorting and paging to timelogs index
         public async Task OnGetAsync(string sortOrder, string desc, int? pageIndex)
         {
-
+            sortOrder = sortOrder ?? "StartTime";
+            desc = desc ?? "true";
 
             headerWithSortLinks = new HeaderWithSortLinks();
             headerWithSortLinks.TestMessageForDebugging = "This is a call from project index page";
@@ -46,7 +47,7 @@ namespace DevSitesIndex.Pages.TimeLogs
             headerWithSortLinks.AddColumns("discipline");
             headerWithSortLinks.AddColumns("DateAdded");
             headerWithSortLinks.AddColumns("DateModified");
-            headerWithSortLinks.SetupHeaders<Project>("/timelogs/", sortOrder, desc);
+            headerWithSortLinks.SetupHeaders<TimeLog>("/timelogs/", sortOrder, desc);
 
             tablePager = new TablePager();
 
