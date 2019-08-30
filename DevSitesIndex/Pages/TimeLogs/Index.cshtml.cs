@@ -56,8 +56,7 @@ namespace DevSitesIndex.Pages.TimeLogs
             // 08/28/2019 08:19 am - SSN - [20190828-0819] - [001] - Adding Application Insights
 
             TelemetryClient telemetry = new TelemetryClient();
-            //throw new Exception("DevSitesIndex_Test_Debug_20190828-0748:  Testing posting record.");
-            telemetry.TrackEvent("DemoSite-20190828-0802: Timelog Index");
+            // Removed 08/29/2019 12:58 pm - telemetry.TrackEvent("DemoSite-20190828-0802: Timelog Index");
             telemetry.TrackPageView("DemoSite-20190828-0818: Timelog Index");
 
 

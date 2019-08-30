@@ -65,7 +65,7 @@ namespace DevSitesIndex.Pages.Projects
 
             IQueryable<Project> _Project = _context.Project;
 
-            Project = await PaginatedList<Project>.GetSourcePage(_Project, sortOrder, desc, pageIndex,3);
+            Project = await PaginatedList<Project>.GetSourcePage(_Project, sortOrder, desc, pageIndex,20);
              
             tablePager.SetupButtons<Project>(Project, "/projects", sortOrder, desc);
 

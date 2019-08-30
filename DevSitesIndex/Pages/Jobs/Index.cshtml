@@ -5,32 +5,6 @@
     ViewData["Title"] = "Jobs - Index";
 }
 
-
-@*@section Styles {
-
-        <style>
-
-
-            @@media only screen and (max-width : 500px) {
-
-                .modal-content {
-                    max-width: 340px;
-                }
-
-                .modal:before {
-                }
-
-                .ssn-mobile-modal {
-                }
-
-
-                .modal-dialog {
-                }
-            }
-        </style>
-    }*@
-
-
 <h2>@ViewData["Title"]</h2>
 
 @*// 04/12/2019 07:18 am - SSN - [20190412-0718] - Move timesheet implementation to job index page. Having imact on "Save and Stay" of Dev sites.*@
@@ -46,57 +20,57 @@
         <table class="table table-responsive">
             <thead>
                 <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Job[0].project.ProjectTitle)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Job[0].JobTitle)
-                    </th>
-                    <th class="hidden-xs">
-                        @Html.DisplayNameFor(model => model.Job[0].DateAdded)
-                    </th>
-                    <th class="hidden-xs">
-                        @Html.DisplayNameFor(model => model.Job[0].DateUpdated)
-                    </th>
+
+                    @*// 08/29/2019 12:53 pm - SSN - [20190829-1253] - [001] - Adding paging and sorting to jobs index*@
+                    @{await Html.RenderPartialAsync("HeaderWithSortLinks", Model.headerWithSortLinks);}
+
                     <th></th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model.Job)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.project.ProjectTitle)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.JobTitle)
-                        </td>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.project.ProjectTitle)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.JobTitle)
+                    </td>
 
-                        <td class="indexNowrapCol hidden-xs">
-                            @Html.DisplayFor(modelItem => item.DateAdded)
-                        </td>
+                    <td class="indexNowrapCol hidden-xs">
+                        @Html.DisplayFor(modelItem => item.DateAdded)
+                    </td>
 
-                        <td class="indexNowrapCol hidden-xs">
-                            @Html.DisplayFor(modelItem => item.DateUpdated)
-                            <br>
-                            <b>
-                                @Html.DisplayFor(modelItem => item.MostRecentActivity)
+                    <td class="indexNowrapCol hidden-xs">
+                        @item.DateUpdated
+                        <br>
+                        <b>
+                            @item.MostRecentActivity
 
-                            </b>
-                        </td>
+                        </b>
+                    </td>
+                    
+                    <td class="indexNowrapCol hidden-xs">
+                        @item.ActivityAge_ToString()
+                    </td>
 
-                        <td class="indexNowrapCol">
-                            <a asp-page="./Edit" asp-route-id="@item.JobID">Edit</a> |
-                            <a asp-page="./Details" asp-route-id="@item.JobID">Details</a> |
-                            <a asp-page="./Delete" asp-route-id="@item.JobID">Delete</a> |
 
-                            <a ng-click="showCreateTimesheetForm(@item.JobID)">Clock-in</a>
+                    <td class="indexNowrapCol">
+                        <a asp-page="./Edit" asp-route-id="@item.JobID">Edit</a> |
+                        <a asp-page="./Details" asp-route-id="@item.JobID">Details</a> |
+                        <a asp-page="./Delete" asp-route-id="@item.JobID">Delete</a> |
 
-                        </td>
-                    </tr>
+                        <a ng-click="showCreateTimesheetForm(@item.JobID)">Clock-in</a>
+
+                    </td>
+                </tr>
                 }
             </tbody>
         </table>
+
+        @*// 08/29/2019 01:36 pm - SSN - [20190829-1253] - [006] - Adding paging and sorting to jobs index*@
+        @{await Html.RenderPartialAsync("TablePager", Model.tablePager);}
 
     </div>
 

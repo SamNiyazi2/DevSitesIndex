@@ -23,7 +23,8 @@ using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
-
+using Microsoft.AspNetCore.Identity.UI.Services;
+using DevSitesIndex.Email;
 
 namespace DevSitesIndex
 {
@@ -83,6 +84,11 @@ namespace DevSitesIndex
 
 
 
+            // 08/29/2019 12:25 pm - SSN - [20190829-1212] - [001] - Adding email confirmation 
+            // Project didn't include email
+            services.AddTransient<IEmailSender, SSNEmailSender>();
+            string SendGrid_APIKey = Configuration["SendGrid:API_Key"];
+            SSNSendGridUtil.SendGridUtil_v02.APIKey = SendGrid_APIKey;
 
 
 
@@ -123,6 +129,10 @@ namespace DevSitesIndex
                 //options.Password.RequireUppercase = true;
                 options.Password.RequiredLength = 8;
                 //options.Password.RequiredUniqueChars = 1;
+
+                // 08/29/2019 12:06 pm - SSN - [20190829-1212] - [001] - Adding email confirmation 
+                options.User.RequireUniqueEmail = true;
+
             });
             services.ConfigureApplicationCookie(options =>
             {

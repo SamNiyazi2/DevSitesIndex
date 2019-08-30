@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Linq.Expressions;
 
 
 
@@ -42,30 +43,67 @@ namespace DevSitesIndex.Entities
 
         #region Determine job latest activity
 
+
+
         [NotMapped]
+        [DisplayName("Most Recent Activity (1)")]
         public DateTime MostRecentActivity
         {
             get
             {
-                DateTime? y = null;
-                if (timelogs == null) return default(DateTime);
 
-                if (timelogs.Count > 0)
-                    y = timelogs.Max(r => r.DateModified ?? r.DateAdded);
+            DateTime? y = null;
 
-                DateTime x = lastDate(y, DateUpdated ?? DateAdded);
-                //// DateTime x = lastDate(timelogs?.Max(r => r.DateAdded), DateAdded);
-                // DateTime x = lastDate(DateAdded,  DateAdded);
-                return x;
+            // 08/29/2019 01:22 pm - SSN - [20190829-1253] - [005] - Adding paging and sorting to jobs index
+            // Why?
+            // if (timelogs == null) return default(DateTime);
+
+            if (timelogs != null && timelogs.Count > 0)
+            {
+                // y = timelogs.Max(r => r.DateModified ?? r.DateAdded);
+                y = timelogs.Max(r => r.StartTime);
             }
+
+            DateTime x = LinqExtensions.lastDate(y, DateUpdated ?? DateAdded);
+            //// DateTime x = lastDate(timelogs?.Max(r => r.DateAdded), DateAdded);
+            // DateTime x = lastDate(DateAdded,  DateAdded);
+            return x;
+
+            }
+
+
         }
 
 
-        DateTime lastDate(DateTime? timelogDate, DateTime jobDate)
+
+        //        [NotMapped]
+        //        [DisplayName("Most Recent Activity (2)")]
+        //        public double ActivityAge
+        //        {
+        //            get
+        //            {
+        //                return 0;
+        ////                return (DateTime.Now - MostRecentActivity()).TotalDays;
+        //            }
+
+        //        }
+
+
+
+
+        //       [NotMapped]
+        [DisplayName("Most Recent Activity (3)")]
+        public string ActivityAge_ToString()
         {
-            if (!timelogDate.HasValue) return jobDate;
-            return timelogDate.Value > jobDate ? timelogDate.Value : jobDate;
+            //            get
+            {
+                return (DateTime.Now - MostRecentActivity).ToString(@"d\-hh\:mm\:ss");
+            }
+
+
         }
+
+
 
         #endregion Determine job latest activity
 
@@ -76,6 +114,7 @@ namespace DevSitesIndex.Entities
         [NotMapped]
         public int? TotalSeconds { get; set; }
 
+
         [NotMapped]
         [Display(Name = "Duration")]
         public string TotalSeconds_ToTimeSpanFormat_T
@@ -84,6 +123,42 @@ namespace DevSitesIndex.Entities
             {
                 return TotalSeconds.SecondsToTimeDuration();
             }
+        }
+
+
+
+    }
+
+
+    public static class LinqExtensions
+    {
+
+       // public static Expression<Func<Job,double>> ActivityAge = (job) =>
+       //{
+       //    Console.WriteLine("**********************************************");
+       //    //return 1;
+       //    Expression<Func<Job, double>> fff = (j) =>
+       //     {
+       //         return 1;
+       //     };
+       //    return fff;
+
+
+       //    //DateTime? y = null;
+
+       //    //DateTime x = lastDate(y, jobDateUpdated ?? jobDateAdded);
+       //    ////// DateTime x = lastDate(timelogs?.Max(r => r.DateAdded), DateAdded);
+       //    //// DateTime x = lastDate(DateAdded,  DateAdded);
+       //    //return (DateTime.Now - x).TotalDays;
+       //};
+
+
+
+
+        public static DateTime lastDate(DateTime? timelogDate, DateTime jobDate)
+        {
+            if (!timelogDate.HasValue) return jobDate;
+            return timelogDate.Value > jobDate ? timelogDate.Value : jobDate;
         }
 
     }
