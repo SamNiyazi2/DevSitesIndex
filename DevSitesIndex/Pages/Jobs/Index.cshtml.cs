@@ -45,7 +45,7 @@ namespace DevSitesIndex.Pages.Jobs
 
             headerWithSortLinks = new HeaderWithSortLinks();
             headerWithSortLinks.TestMessageForDebugging = "This is a call from project index page";
-            headerWithSortLinks.AddColumns("project.ProjectTitle");
+            headerWithSortLinks.AddColumns("ProjectTitle");
             headerWithSortLinks.AddColumns("JobTitle");
             headerWithSortLinks.AddColumns("DateAdded");
             headerWithSortLinks.AddColumns("MostRecentActivity");

@@ -88,7 +88,8 @@ namespace DevSitesIndex
             // Project didn't include email
             services.AddTransient<IEmailSender, SSNEmailSender>();
             string SendGrid_APIKey = Configuration["SendGrid:API_Key"];
-            SSNSendGridUtil.SendGridUtil_v02.APIKey = SendGrid_APIKey;
+            SSNSendGridStandardUtil.SendGridUtil.APIKey = SendGrid_APIKey;
+            SSNSendGridStandardUtil.SendGridUtil.BCC_Default= Configuration["SendGrid:BBC_Default"];
 
 
 

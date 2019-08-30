@@ -13,9 +13,9 @@ namespace DevSitesIndex.Email
     {
         public async Task SendEmailAsync(string email, string subject, string htmlMessage)
         {
-            var emailFrom = SSNSendGridUtil.SendGridUtil_v02.AddEmailAddress("sam2003@niyazi.com", "TestSam.com");
-            var emailTo = SSNSendGridUtil.SendGridUtil_v02.AddEmailAddress(email, email);
-            Response response = await SSNSendGridUtil.SendGridUtil_v02.SendMessage(emailFrom, emailTo, subject, htmlMessage);
+            var emailFrom = SSNSendGridStandardUtil.SendGridUtil.AddEmailAddress("sam2003@niyazi.com", "TestSam.com");
+            var emailTo = SSNSendGridStandardUtil.SendGridUtil.AddEmailAddress(email, email);
+            Response response = await SSNSendGridStandardUtil.SendGridUtil.SendMessage(emailFrom, emailTo, subject, htmlMessage);
 
 
         }
