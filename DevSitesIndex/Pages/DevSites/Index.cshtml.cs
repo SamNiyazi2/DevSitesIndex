@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using DevSitesIndex.Entities;
 using Microsoft.AspNetCore.Authorization;
+using DevSitesIndex.Models;
+using Microsoft.AspNetCore.Html;
 
 namespace DevSitesIndex.Pages.DevSites
 {
@@ -22,8 +24,6 @@ namespace DevSitesIndex.Pages.DevSites
         [BindProperty]
         public string SearchText { get; set; }
 
-
-
         private readonly DevSitesIndex.Entities.DevSitesIndexContext _context;
 
         public IndexModel(DevSitesIndex.Entities.DevSitesIndexContext context)
@@ -31,97 +31,115 @@ namespace DevSitesIndex.Pages.DevSites
             _context = context;
         }
 
-        public IList<DevSite> DevSite { get; set; }
 
-        public async Task OnGetAsync()
+        // 09/01/2019 01:12 pm - SSN - [20190901-1225] - [003] - Add Job_DevSite table - Adding sorting and paging
+
+        // public IList<DevSite> DevSite { get; set; }
+        public PaginatedList<DevSite> DevSites { get; set; }
+        public HeaderWithSortLinks headerWithSortLinks { get; set; }
+        public TablePager tablePager { get; set; }
+
+        public string FormActionUrl { get; set; }
+
+
+        public async Task OnGetAsync(string sortOrder, string desc, int? pageIndex)
         {
+
+            sortOrder = sortOrder ?? "DateAdded";
+            desc = desc ?? "false";
+
+
             // 10/12/2018 03:53 pm - SSN - Added OrderByDescending (r=>r.DateUpdated 
             // 06/01/2019 11:22 am - SSN - Include
-            DevSite = await _context.DevSites.Include(r => r.SoftwareCode).OrderByDescending(r => r.DateUpdated ?? r.DateAdded).ToListAsync();
+
+
+            // DevSite = await _context.DevSites.Include(r => r.SoftwareCode).OrderByDescending(r => r.DateUpdated ?? r.DateAdded).ToListAsync();
+
+            headerWithSortLinks = new HeaderWithSortLinks();
+            headerWithSortLinks.TestMessageForDebugging = "This is a call from project index page";
+            headerWithSortLinks.AddColumns("SiteTitle");
+            headerWithSortLinks.AddColumns("SoftwareCode.SoftwareTitle");
+            headerWithSortLinks.AddColumns("DateAdded");
+            headerWithSortLinks.AddColumns("DateUpdated");
+
+            tablePager = new TablePager();
+
+            await GetData(sortOrder, desc, pageIndex);
         }
+
+
 
 
         // 12/31/2018 09:34 pm - SSN
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(string sortOrder, string desc, int? pageIndex)
         {
+            pageIndex = 1;
+
             if (string.IsNullOrEmpty(SearchText))
             {
-                DevSite = await _context.DevSites.OrderByDescending(r => r.DateUpdated ?? r.DateAdded).ToListAsync();
+                await GetData(sortOrder, desc, pageIndex);
                 return Page();
             }
 
             // 08/12/2019 04:48 am - SSN - [20190812-0345] - [005] - Apply fulltext search
             // DevSite = await GetData();
-            await GetData();
+            await GetData(sortOrder, desc, pageIndex);
 
             return Page();
         }
 
 
-        async Task<IList<DevSite>> GetData_v01()
-        {
-
-            IEnumerable<string> tempList = SearchText.ToLower().Split().Where(r => r.Trim() != "").Select(r => r.Trim().ToLower());
-            return await (_context.DevSites
-
-                                .SelectMany(
-                                x => tempList,
-                                  (a1, b1) => new { a1, b1 })
-                                .Where(z =>
-                              (z.a1.SiteTitle ?? "").ToLower().Contains(z.b1)
-                              ||
-                              (z.a1.SolutionName ?? "").ToLower().Contains(z.b1)
-                              ||
-                              (z.a1.Solution_Details ?? "").ToLower().Contains(z.b1)
-                                )
-
-                                .Select(y => y.a1)
-                                .OrderByDescending(r => r.DateUpdated ?? r.DateAdded)
-                                .ToListAsync());
-        }
-
-
-        async Task<IList<DevSite>> GetData_v02()
-        {
-
-            IEnumerable<string> tempList = SearchText.ToLower().Split().Where(r => r.Trim() != "").Select(r => r.Trim().ToLower());
-            return await (_context.DevSites
-                            .Where(z =>
-                              (
-                                tempList.Any(x => (z.SiteTitle ?? "").ToLower().Contains(x))
-                                ||
-                                tempList.Any(x => (z.SolutionName ?? "").ToLower().Contains(x))
-                                ||
-                                tempList.Any(x => (z.Solution_Details ?? "").ToLower().Contains(x))
-                              )
-                              )
-                             .OrderByDescending(r => r.DateUpdated ?? r.DateAdded)
-                             .ToListAsync());
-        }
 
 
         // 08/12/2019 04:37 am - SSN - [20190812-0345] - [004] - Apply fulltext search
-        // Replaced GetData_v02
 
+        // 09/01/2019 01:12 pm - SSN - [20190901-1225] - [003] - Add Job_DevSite table - Adding sorting and paging
         // async Task<IList<DevSite>> GetData()
-        async Task GetData()
+        async Task GetData(string sortOrder, string desc, int? pageIndex)
         {
 
             try
             {
-                DevSite = await _context.DevSites.FromSql("DemoSites.DevSites_FullTextSearch {0}", SearchText).AsNoTracking().ToListAsync<DevSite>();
-                if (DevSite == null || DevSite != null && DevSite.Count == 0)
+
+
+                IQueryable<DevSite> _DevSites;
+
+                if (string.IsNullOrWhiteSpace(SearchText))
+                {
+                    _DevSites = _context.DevSites.Include(r => r.SoftwareCode).OrderByDescending(r => r.DateUpdated ?? r.DateAdded);
+                }
+                else
+                {
+                    _DevSites = _context.DevSites.FromSql("DemoSites.DevSites_FullTextSearch {0}", SearchText).AsNoTracking();
+                }
+
+                DevSites = await PaginatedList<DevSite>.GetSourcePage(_DevSites, sortOrder, desc, pageIndex, 20);
+
+
+
+
+                FormActionUrl = Util.FormHtmlUtil.GetFormActionUrl("/DevSites", sortOrder, desc, pageIndex);
+
+                headerWithSortLinks.SetupHeaders<DevSite>("/DevSites/", sortOrder, desc);
+
+                tablePager.SetupButtons<DevSite>(DevSites, "/DevSites", sortOrder, desc);
+
+
+
+                if (DevSites == null || DevSites != null && DevSites.Count == 0)
                 {
                     ModelState.AddModelError("SearchText", "No match.");
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                ModelState.AddModelError("SearchText", "Invalid syntax");
-                // return await _context.DevSites.Where(r => r.Id == -1).AsNoTracking().ToListAsync<DevSite>(); ;
+                ModelState.AddModelError("SearchText", "Invalid syntax (SQL Server fulltext)");
             }
+
+
+
 
         }
 

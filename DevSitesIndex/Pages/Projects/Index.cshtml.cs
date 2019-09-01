@@ -36,7 +36,7 @@ namespace DevSitesIndex.Pages.Projects
         {
 
             sortOrder = sortOrder ?? "ProjectTitle";
-            desc = desc ?? "false";
+            desc = desc ?? "true";
 
 
             // 04/19/2019 11:58 am - SSN - Add sort
@@ -63,7 +63,7 @@ namespace DevSitesIndex.Pages.Projects
 
 
 
-            IQueryable<Project> _Project = _context.Project.Include(r=>r.company);
+            IQueryable<Project> _Project = _context.Projects.Include(r=>r.company);
 
             Project = await PaginatedList<Project>.GetSourcePage(_Project, sortOrder, desc, pageIndex,20);
              

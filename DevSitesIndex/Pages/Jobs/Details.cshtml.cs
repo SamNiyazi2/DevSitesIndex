@@ -37,7 +37,7 @@ namespace DevSitesIndex.Pages.Jobs
                 return NotFound();
             }
 
-            Job = await _context.Job
+            Job = await _context.Jobs
                 .Include(j => j.project).SingleOrDefaultAsync(m => m.JobID == id);
 
             // 04/19/2019 04:28 pm - SSN - Filter on jobid

@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Microsoft.ApplicationInsights;
+using Microsoft.Extensions.Configuration;
 
 namespace DevSitesIndex.Areas.Identity.Pages.Account
 {
@@ -18,9 +19,13 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly IConfiguration configuration;
 
-        public LoginModel(SignInManager<IdentityUser> signInManager, ILogger<LoginModel> logger)
+        // 09/01/2019 03:26 pm - SSN - [20190901-1225] - [006] - Add Job_DevSite table - Adding username_temp and pass
+
+        public LoginModel(SignInManager<IdentityUser> signInManager, ILogger<LoginModel> logger, IConfiguration configuration)
         {
+            this.configuration = configuration;
             _signInManager = signInManager;
             _logger = logger;
         }
@@ -47,7 +52,12 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
 
             [Display(Name = "Remember me?")]
             public bool RememberMe { get; set; }
+
+            public string Password_Temp { get; set; }
         }
+
+
+
 
         public async Task OnGetAsync(string returnUrl = null)
         {
@@ -55,6 +65,13 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
             {
                 ModelState.AddModelError(string.Empty, ErrorMessage);
             }
+
+            // 09/01/2019 03:26 pm - SSN - [20190901-1225] - [006] - Add Job_DevSite table - Adding usernamex and password
+
+            Input = new InputModel();
+            Input.Email = configuration["UserNamex"]; ;
+            Input.Password_Temp = configuration["Password"];
+
 
             returnUrl = returnUrl ?? Url.Content("~/");
 

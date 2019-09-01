@@ -23,13 +23,13 @@ namespace DevSitesIndex.Services
         {
             // 04/20/2019 11:09 am - SSN - [20190420-1109] - Add AsNoTracking to index pages
 
-            return _context.Discipline.OrderBy(r=>r.DisciplineShort).AsNoTracking().ToList();
+            return _context.Disciplines.OrderBy(r=>r.DisciplineShort).AsNoTracking().ToList();
         }
 
 
         public Discipline GetRecord(int disciplineId)
         {
-            var discipline = _context.Discipline.Where(c => c.DisciplineId == disciplineId);
+            var discipline = _context.Disciplines.Where(c => c.DisciplineId == disciplineId);
 
             return discipline.FirstOrDefault();
         }
@@ -42,11 +42,11 @@ namespace DevSitesIndex.Services
             {
                 if (discipline.DisciplineId== 0)
                 {
-                    r = _context.Discipline.Add(discipline);
+                    r = _context.Disciplines.Add(discipline);
                 }
                 else
                 {
-                    r = _context.Discipline.Update(discipline);
+                    r = _context.Disciplines.Update(discipline);
                 }
 
             }

@@ -42,7 +42,7 @@ namespace DevSitesIndex
                 return Page();
             }
 
-            _context.Discipline.Add(Discipline);
+            _context.Disciplines.Add(Discipline);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

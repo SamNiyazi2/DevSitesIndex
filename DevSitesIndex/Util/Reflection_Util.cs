@@ -26,12 +26,12 @@ namespace DevSitesIndex.Util
 
 
         // OrderByPropertyOrField
-        public static IQueryable<T> SourceSetOrder<T>(this IQueryable<T> queryable, string propertyOrFieldName_string, bool ascending = true)
+        public static IQueryable<T> SourceSetOrder<T>(this IQueryable<T> queryable, string propertyOrFieldName_string, bool desc = false)
         {
             string[] propertyOrFieldName = propertyOrFieldName_string.Split('.').ToArray();
 
             var elementType = typeof(T);
-            var orderByMethodName = ascending ? "OrderBy" : "OrderByDescending";
+            var orderByMethodName = desc ? "OrderByDescending" : "OrderBy";
 
             var parameterExpression = Expression.Parameter(elementType);
 

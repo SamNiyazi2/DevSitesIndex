@@ -39,7 +39,7 @@ namespace DevSitesIndex.Pages.Projects
                 return NotFound();
             }
 
-            Project = await _context.Project
+            Project = await _context.Projects
                 .Include(p => p.company).SingleOrDefaultAsync(m => m.ProjectID == id);
 
             if (Project == null)
@@ -92,7 +92,7 @@ namespace DevSitesIndex.Pages.Projects
 
         private bool ProjectExists(int id)
         {
-            return _context.Project.Any(e => e.ProjectID == id);
+            return _context.Projects.Any(e => e.ProjectID == id);
         }
     }
 }

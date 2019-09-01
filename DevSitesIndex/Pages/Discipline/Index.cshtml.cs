@@ -29,7 +29,7 @@ namespace DevSitesIndex
         {
             // 04/20/2019 11:16 am - SSN - [20190420-1109] - Add AsNoTracking to index pages
 
-            Discipline = await _context.Discipline.AsNoTracking().ToListAsync();
+            Discipline = await _context.Disciplines.AsNoTracking().ToListAsync();
         }
     }
 }

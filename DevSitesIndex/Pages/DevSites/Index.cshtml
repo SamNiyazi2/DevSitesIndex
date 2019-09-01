@@ -16,11 +16,10 @@
 @*06/01/2019 11:24 am - SSN - Added class="hidden-xs"*@
 <p>
 
-    <form method="post">
-
+    <form method="post" action="@Model.FormActionUrl">
 
         <!-- 08/12/2019 03:45 am - SSN - [20190812-0345] - [001] - Apply fulltext search -->
-  
+
         <div class="form-group">
             <label class="control-label">Search</label>
             <input asp-for="SearchText" class="form-control" autofocus />
@@ -39,37 +38,22 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.DevSite[0].SiteTitle)
-            </th>
-            @*<th>
-                    @Html.DisplayNameFor(model => model.DevSite[0].SiteUrl)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DevSite[0].SolutionName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DevSite[0].Solution_Details)
-                </th>*@
-            <th class="hidden-xs">
-                @Html.DisplayNameFor(model => model.DevSite[0].SoftwareCode)
-            </th>
-            <th class="hidden-xs">
-                @Html.DisplayNameFor(model => model.DevSite[0].DateAdded)
-            </th>
-            <th class="hidden-xs">
-                @Html.DisplayNameFor(model => model.DevSite[0].DateUpdated)
-            </th>
+            @*
+                // 09/01/2019 01:32 pm - SSN - [20190901-1225] - [004] - Add Job_DevSite table - Adding sorting and paging here
+            *@
+            @{await Html.RenderPartialAsync("HeaderWithSortLinks", Model.headerWithSortLinks);}
+
             <th></th>
         </tr>
     </thead>
     <tbody>
 
-        <!-- 08/12/2019 05:11 am - SSN - [20190812-0345] - [006] - Apply fulltext search -->
 
-        @if (Model.DevSite != null)
+        @*08/12/2019 05:11 am - SSN - [20190812-0345] - [006] - Apply fulltext search *@
+
+        @if (Model.DevSites != null)
         {
-            @foreach (var item in Model.DevSite)
+            @foreach (var item in Model.DevSites)
             {
                 <tr>
                     <td>
@@ -103,3 +87,8 @@
         }
     </tbody>
 </table>
+
+@*
+    // 09/01/2019 01:32 pm - SSN - [20190901-1225] - [004] - Add Job_DevSite table - Adding sorting and paging here
+*@
+@{await Html.RenderPartialAsync("TablePager", Model.tablePager);}

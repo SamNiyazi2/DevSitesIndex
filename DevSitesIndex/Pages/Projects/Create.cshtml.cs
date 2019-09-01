@@ -52,7 +52,7 @@ namespace DevSitesIndex.Pages.Projects
                 return Page();
             }
 
-            _context.Project.Add(Project);
+            _context.Projects.Add(Project);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

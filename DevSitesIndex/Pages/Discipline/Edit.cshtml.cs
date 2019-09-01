@@ -34,7 +34,7 @@ namespace DevSitesIndex
                 return NotFound();
             }
 
-            Discipline = await _context.Discipline.SingleOrDefaultAsync(m => m.DisciplineId == id);
+            Discipline = await _context.Disciplines.SingleOrDefaultAsync(m => m.DisciplineId == id);
 
             if (Discipline == null)
             {
@@ -73,7 +73,7 @@ namespace DevSitesIndex
 
         private bool DisciplineExists(int id)
         {
-            return _context.Discipline.Any(e => e.DisciplineId == id);
+            return _context.Disciplines.Any(e => e.DisciplineId == id);
         }
     }
 }

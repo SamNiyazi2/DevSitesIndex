@@ -347,17 +347,21 @@ namespace DevSitesIndex.Entities
 
         }
 
+        // 09/01/2019 12:35 pm - SSN Pluralize Company, Discipline, Job, SoftwareCode and Project.
 
-        public DbSet<SoftwareCode> SoftwareCode { get; set; }
+        public DbSet<SoftwareCode> SoftwareCodes { get; set; }
         public DbSet<DevSite> DevSites { get; set; }
         public DbSet<Technology> Technologies { get; set; }
         public DbSet<Company> Companies { get; set; }
-        public DbSet<Job> Job { get; set; }
-        public DbSet<Project> Project { get; set; }
+        public DbSet<Job> Jobs { get; set; }
+        public DbSet<Project> Projects { get; set; }
         public DbSet<ReferenceSite> ReferenceSites { get; set; }
         public DbSet<CodeReference> CodeReferences { get; set; }
         public DbSet<TimeLog> TimeLog { get; set; }
-        public DbSet<Discipline> Discipline { get; set; }
+        public DbSet<Discipline> Disciplines { get; set; }
+
+        // 09/01/2019 12:34 pm - SSN - [20190901-1225] - [002] - Add Job_DevSite table
+        public DbSet<Job_DevSite> Job_DevSites { get; set; }
 
     }
 }

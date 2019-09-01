@@ -22,7 +22,7 @@ namespace DevSitesIndex.Pages.DevSites
 
         public void Populate_softwareCodesSL(DevSitesIndexContext _context, object selectedValue = null)
         {
-            var softwareCodes = _context.SoftwareCode;
+            var softwareCodes = _context.SoftwareCodes;
 
             softwareCodesSL = new SelectList(softwareCodes.AsNoTracking(),
                         "ID", "SoftwareTitle", selectedValue);

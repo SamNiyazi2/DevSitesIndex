@@ -1,6 +1,7 @@
 ﻿using DevSitesIndex.Entities;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -43,14 +44,14 @@ namespace DevSitesIndex.Pages
         }
 
 
-        public void SetupHeaders<T>(string _path, string sortOrder, string sortDirectionDescRequested)
+        public void SetupHeaders<T>(string _path, string sortOrder, string sortDirectionDescRequested_v02)
         {
             Path = _path;
 
             sortOrder = sortOrder ?? "";
 
             // We assume the sort is ascending on first entry.
-            sortDirectionDescRequested = string.IsNullOrWhiteSpace(sortDirectionDescRequested) ? "false" : sortDirectionDescRequested;
+            sortDirectionDescRequested_v02 = string.IsNullOrWhiteSpace(sortDirectionDescRequested_v02) ? "false" : sortDirectionDescRequested_v02.ToLower();
 
             var propList = typeof(T).GetProperties();
 
@@ -79,7 +80,7 @@ namespace DevSitesIndex.Pages
                 bool case2 = sortOrder.ToLower() != col.Name.ToLower();
 
                 // We sort descending only if the same column is clicked
-                bool case3 = sortOrder.ToLower() == col.Name.ToLower() && (sortDirectionDescRequested.ToLower() == "false");
+                bool case3 = sortOrder.ToLower() == col.Name.ToLower() && (sortDirectionDescRequested_v02.ToLower() == "false");
 
 
                 string sortColumnOptionDescForLink = string.Format("{0}", case3);
@@ -91,7 +92,7 @@ namespace DevSitesIndex.Pages
                 if (col.Name.ToLower() == sortOrder.ToLower())
                 {
 
-                    selectedArrow = (sortDirectionDescRequested.ToLower() == "true" ? arrowDown : arrowUp);
+                    selectedArrow = (sortDirectionDescRequested_v02.ToLower() == "true" ? arrowDown : arrowUp);
 
                 }
 
@@ -106,8 +107,6 @@ namespace DevSitesIndex.Pages
             ReturnedHTML = new HtmlString(sb.ToString());
 
         }
-
- 
 
     }
 }

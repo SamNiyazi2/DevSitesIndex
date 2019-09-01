@@ -40,7 +40,7 @@ namespace DevSitesIndex.Pages.Jobs
                 return NotFound();
             }
 
-            Job = await _context.Job
+            Job = await _context.Jobs
                 .Include(j => j.project).SingleOrDefaultAsync(m => m.JobID == id);
 
             if (Job == null)
@@ -51,7 +51,7 @@ namespace DevSitesIndex.Pages.Jobs
 
             // ViewData["ProjectID"] = new SelectList(_context.Project, "ProjectID", "ProjectID");
             // 05/03/2019 05:35 am - SSN - Add order
-            projectsSL = new SelectList(_context.Project.OrderBy(r => r.ProjectTitle), "ProjectID", "ProjectTitle");
+            projectsSL = new SelectList(_context.Projects.OrderBy(r => r.ProjectTitle), "ProjectID", "ProjectTitle");
 
 
             return Page();
@@ -94,7 +94,7 @@ namespace DevSitesIndex.Pages.Jobs
 
         private bool JobExists(int id)
         {
-            return _context.Job.Any(e => e.JobID == id);
+            return _context.Jobs.Any(e => e.JobID == id);
         }
     }
 }

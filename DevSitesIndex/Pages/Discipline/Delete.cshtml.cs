@@ -33,7 +33,7 @@ namespace DevSitesIndex
                 return NotFound();
             }
 
-            Discipline = await _context.Discipline.SingleOrDefaultAsync(m => m.DisciplineId == id);
+            Discipline = await _context.Disciplines.SingleOrDefaultAsync(m => m.DisciplineId == id);
 
             if (Discipline == null)
             {
@@ -49,11 +49,11 @@ namespace DevSitesIndex
                 return NotFound();
             }
 
-            Discipline = await _context.Discipline.FindAsync(id);
+            Discipline = await _context.Disciplines.FindAsync(id);
 
             if (Discipline != null)
             {
-                _context.Discipline.Remove(Discipline);
+                _context.Disciplines.Remove(Discipline);
                 await _context.SaveChangesAsync();
             }
 

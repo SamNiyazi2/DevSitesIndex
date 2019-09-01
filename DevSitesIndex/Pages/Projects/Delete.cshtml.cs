@@ -33,7 +33,7 @@ namespace DevSitesIndex.Pages.Projects
                 return NotFound();
             }
 
-            Project = await _context.Project
+            Project = await _context.Projects
                 .Include(p => p.company).SingleOrDefaultAsync(m => m.ProjectID == id);
 
             if (Project == null)
@@ -50,11 +50,11 @@ namespace DevSitesIndex.Pages.Projects
                 return NotFound();
             }
 
-            Project = await _context.Project.FindAsync(id);
+            Project = await _context.Projects.FindAsync(id);
 
             if (Project != null)
             {
-                _context.Project.Remove(Project);
+                _context.Projects.Remove(Project);
                 await _context.SaveChangesAsync();
             }
 

@@ -36,17 +36,17 @@ namespace DevSitesIndex.Pages.Projects
                 return NotFound();
             }
 
-            Project = await _context.Project
+            Project = await _context.Projects
                 .Include(p => p.company).SingleOrDefaultAsync(m => m.ProjectID == id);
 
             // 04/19/2019 02:05 pm - SSN - [20190419-1405] - Move to Project detail
 
-            project_Jobs = _context.Job.Where(r => r.ProjectID == id).ToList();
+            project_Jobs = _context.Jobs.Where(r => r.ProjectID == id).ToList();
 
 
             // 08/20/2019 01:10 pm - SSN - [20190820-1252] - [002] - Added
 
-            var Jobs_Timesheet_Totals = _context.Job.Where(r => r.ProjectID == id)
+            var Jobs_Timesheet_Totals = _context.Jobs.Where(r => r.ProjectID == id)
                             .GroupJoin(_context.TimeLog, m => m.JobID, c => c.JobId, (j, t) =>
                               new
                               {

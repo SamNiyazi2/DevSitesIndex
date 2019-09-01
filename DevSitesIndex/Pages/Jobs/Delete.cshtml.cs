@@ -33,7 +33,7 @@ namespace DevSitesIndex.Pages.Jobs
                 return NotFound();
             }
 
-            Job = await _context.Job
+            Job = await _context.Jobs
                 .Include(j => j.project).SingleOrDefaultAsync(m => m.JobID == id);
 
             if (Job == null)
@@ -50,11 +50,11 @@ namespace DevSitesIndex.Pages.Jobs
                 return NotFound();
             }
 
-            Job = await _context.Job.FindAsync(id);
+            Job = await _context.Jobs.FindAsync(id);
 
             if (Job != null)
             {
-                _context.Job.Remove(Job);
+                _context.Jobs.Remove(Job);
                 await _context.SaveChangesAsync();
             }
 

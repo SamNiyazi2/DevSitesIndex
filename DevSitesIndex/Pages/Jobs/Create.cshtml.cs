@@ -49,7 +49,7 @@ namespace DevSitesIndex.Pages.Jobs
         // 05/31/2019 11:01 pm - SSN - Added to rerun on validation failure.
         private void setupPageRequirements()
         {
-            projectsSL = new SelectList(_context.Project.OrderBy(r => r.ProjectTitle), "ProjectID", "ProjectTitle");
+            projectsSL = new SelectList(_context.Projects.OrderBy(r => r.ProjectTitle), "ProjectID", "ProjectTitle");
         }
 
 
@@ -65,7 +65,7 @@ namespace DevSitesIndex.Pages.Jobs
                 return Page();
             }
 
-            _context.Job.Add(Job);
+            _context.Jobs.Add(Job);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

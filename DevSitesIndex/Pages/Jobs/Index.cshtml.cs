@@ -69,7 +69,7 @@ namespace DevSitesIndex.Pages.Jobs
             //// 04/20/2019 11:15 am - SSN - [20190420-1109] - Add AsNoTracking to index pages
 
 
-            IQueryable<Job> _Jobs = _context.Job.FromSql("exec DemoSites.Jobs_Index_WithLastActivityDate");
+            IQueryable<Job> _Jobs = _context.Jobs.FromSql("exec DemoSites.Jobs_Index_WithLastActivityDate");
             
             
            /////// var results = TempTest.OrderByPropertyOrField<Job, Project>(_Jobs, sortOrder.Split('.').ToArray(), desc.ToLower() == "true");
