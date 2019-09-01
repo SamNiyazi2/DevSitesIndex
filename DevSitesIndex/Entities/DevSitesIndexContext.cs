@@ -351,7 +351,7 @@ namespace DevSitesIndex.Entities
         public DbSet<SoftwareCode> SoftwareCode { get; set; }
         public DbSet<DevSite> DevSites { get; set; }
         public DbSet<Technology> Technologies { get; set; }
-        public DbSet<Company> Company { get; set; }
+        public DbSet<Company> Companies { get; set; }
         public DbSet<Job> Job { get; set; }
         public DbSet<Project> Project { get; set; }
         public DbSet<ReferenceSite> ReferenceSites { get; set; }

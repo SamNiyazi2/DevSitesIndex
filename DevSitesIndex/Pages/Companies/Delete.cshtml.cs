@@ -33,7 +33,7 @@ namespace DevSitesIndex.Pages.Companies
                 return NotFound();
             }
 
-            Company = await _context.Company.SingleOrDefaultAsync(m => m.CompanyID == id);
+            Company = await _context.Companies.SingleOrDefaultAsync(m => m.CompanyID == id);
 
             if (Company == null)
             {
@@ -49,11 +49,11 @@ namespace DevSitesIndex.Pages.Companies
                 return NotFound();
             }
 
-            Company = await _context.Company.FindAsync(id);
+            Company = await _context.Companies.FindAsync(id);
 
             if (Company != null)
             {
-                _context.Company.Remove(Company);
+                _context.Companies.Remove(Company);
                 await _context.SaveChangesAsync();
             }
 

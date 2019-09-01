@@ -42,7 +42,7 @@ namespace DevSitesIndex.Pages.Companies
                 return Page();
             }
 
-            _context.Company.Add(Company);
+            _context.Companies.Add(Company);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

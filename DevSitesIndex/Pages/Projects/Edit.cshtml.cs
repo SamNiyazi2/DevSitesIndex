@@ -49,7 +49,7 @@ namespace DevSitesIndex.Pages.Projects
 
             // ViewData["CompanyID"] = new SelectList(_context.Company, "CompanyID", "CompanyID");
 
-            companySL = new SelectList(_context.Company, "CompanyID", "CompanyName");
+            companySL = new SelectList(_context.Companies, "CompanyID", "CompanyName");
 
             return Page();
         }

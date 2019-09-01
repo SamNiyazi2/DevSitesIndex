@@ -35,7 +35,7 @@ namespace DevSitesIndex.Pages.Projects
 
         private void setupPageRequirements()
         {
-            companiesSL = new SelectList(_context.Company, "CompanyID", "CompanyName");
+            companiesSL = new SelectList(_context.Companies, "CompanyID", "CompanyName");
             if (Project == null)
                 Project = new Project();
             Project.DateAdded = DateTime.Now;
