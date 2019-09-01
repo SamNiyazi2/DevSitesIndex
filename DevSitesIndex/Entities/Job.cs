@@ -40,64 +40,47 @@ namespace DevSitesIndex.Entities
 
 
         // 04/19/2019 06:52 pm - SSN - MostRecentActivity
-
+        // 08/31/2019 06:59 pm - SSN - Change MostRecentActivity oo database Jobs_Index_WithLastActivityDate.LastActivityDate
         #region Determine job latest activity
 
 
 
-        [NotMapped]
+
+        public DateTime _LastActivityDate;
+        
+
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         [DisplayName("Most Recent Activity (1)")]
-        public DateTime MostRecentActivity
+        public DateTime LastActivityDate { get; private set; }
+
+
+
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        [DisplayName("Project Title (A)")]
+        public string ProjectTitle_ForActivity { get; private set; }
+
+
+
+        [NotMapped]
+        [DisplayName("Most Recent Activity (2)")]
+        public double ActivityAge
         {
             get
             {
-
-            DateTime? y = null;
-
-            // 08/29/2019 01:22 pm - SSN - [20190829-1253] - [005] - Adding paging and sorting to jobs index
-            // Why?
-            // if (timelogs == null) return default(DateTime);
-
-            if (timelogs != null && timelogs.Count > 0)
-            {
-                // y = timelogs.Max(r => r.DateModified ?? r.DateAdded);
-                y = timelogs.Max(r => r.StartTime);
+                return (DateTime.Now - LastActivityDate).TotalDays;
             }
-
-            DateTime x = LinqExtensions.lastDate(y, DateUpdated ?? DateAdded);
-            //// DateTime x = lastDate(timelogs?.Max(r => r.DateAdded), DateAdded);
-            // DateTime x = lastDate(DateAdded,  DateAdded);
-            return x;
-
-            }
-
 
         }
 
 
 
-        //        [NotMapped]
-        //        [DisplayName("Most Recent Activity (2)")]
-        //        public double ActivityAge
-        //        {
-        //            get
-        //            {
-        //                return 0;
-        ////                return (DateTime.Now - MostRecentActivity()).TotalDays;
-        //            }
-
-        //        }
-
-
-
-
-        //       [NotMapped]
+        [NotMapped]
         [DisplayName("Most Recent Activity (3)")]
-        public string ActivityAge_ToString()
+        public string ActivityAge_ToString
         {
-            //            get
+            get
             {
-                return (DateTime.Now - MostRecentActivity).ToString(@"d\-hh\:mm\:ss");
+                return (DateTime.Now - LastActivityDate).ToString(@"d\-hh\:mm\:ss");
             }
 
 
@@ -130,36 +113,4 @@ namespace DevSitesIndex.Entities
     }
 
 
-    public static class LinqExtensions
-    {
-
-       // public static Expression<Func<Job,double>> ActivityAge = (job) =>
-       //{
-       //    Console.WriteLine("**********************************************");
-       //    //return 1;
-       //    Expression<Func<Job, double>> fff = (j) =>
-       //     {
-       //         return 1;
-       //     };
-       //    return fff;
-
-
-       //    //DateTime? y = null;
-
-       //    //DateTime x = lastDate(y, jobDateUpdated ?? jobDateAdded);
-       //    ////// DateTime x = lastDate(timelogs?.Max(r => r.DateAdded), DateAdded);
-       //    //// DateTime x = lastDate(DateAdded,  DateAdded);
-       //    //return (DateTime.Now - x).TotalDays;
-       //};
-
-
-
-
-        public static DateTime lastDate(DateTime? timelogDate, DateTime jobDate)
-        {
-            if (!timelogDate.HasValue) return jobDate;
-            return timelogDate.Value > jobDate ? timelogDate.Value : jobDate;
-        }
-
-    }
 }

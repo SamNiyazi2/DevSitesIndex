@@ -66,7 +66,7 @@ namespace DevSitesIndex.Models
             PrintList(source, sortOrder, desc, "Before");
 
 
-            if (Util.Reflection_Util.PropertyExists<T>(sortOrder))
+          //  if (Util.Reflection_Util.PropertyExists<T>(sortOrder))
             {
                 source = Util.Reflection_Util.SourceSetOrder<T>(source, sortOrder, desc.ToLower() == "true");
             }

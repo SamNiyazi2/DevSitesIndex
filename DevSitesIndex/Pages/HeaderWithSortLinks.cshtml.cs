@@ -91,7 +91,7 @@ namespace DevSitesIndex.Pages
                 if (col.Name.ToLower() == sortOrder.ToLower())
                 {
 
-                    selectedArrow = (sortDirectionDescRequested.ToLower() == "false" ? arrowDown : arrowUp);
+                    selectedArrow = (sortDirectionDescRequested.ToLower() == "true" ? arrowDown : arrowUp);
 
                 }
 

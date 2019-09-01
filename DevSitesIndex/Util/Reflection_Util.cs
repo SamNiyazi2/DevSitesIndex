@@ -24,8 +24,26 @@ namespace DevSitesIndex.Util
               BindingFlags.Public | BindingFlags.Instance) != null;
         }
 
+
+        public static IQueryable<T> SourceSetOrder<T>(IQueryable<T> query, string sortColumn, bool desc)
+        {
+
+            string sortMethodName = (desc ? "OrderByDescending" : "OrderBy");
+
+            var property = typeof(T).GetProperty(sortColumn);
+            var parameter = Expression.Parameter(typeof(T), "p");
+            var propertyAccess = Expression.MakeMemberAccess(parameter, property);
+            var orderByExpression = Expression.Lambda(propertyAccess, parameter);
+
+            Expression resultExpression = Expression.Call(typeof(Queryable), sortMethodName, new Type[] { typeof(T), property.PropertyType },
+               query.Expression, Expression.Quote(orderByExpression));
+
+            return query.Provider.CreateQuery<T>(resultExpression);
+        }
+
+
         //    public static Expression<Func<T, string>> GetPropertyExpression<T>(string propertyName)
-        public static IQueryable<T> SourceSetOrder<T>(IQueryable<T> source, string propertyName, bool desc)
+        public static IQueryable<T> SourceSetOrder_v01<T>(IQueryable<T> source, string propertyName, bool desc)
         {
             PropertyInfo pi = typeof(T).GetProperty(propertyName, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
 

@@ -33,6 +33,7 @@
     <Content Remove="wwwroot\js\fil11e.ts" />
     <Content Remove="wwwroot\js\siteold.ts" />
     <Content Remove="wwwroot\js\SSN_Notes.txt" />
+    <Content Remove="wwwroot\js\Timesheet\Timelog.ts" />
     <Content Remove="wwwroot\js\____________________________ts.txt" />
   </ItemGroup>
 
@@ -94,6 +95,7 @@
     <TypeScriptCompile Include="wwwroot\js\CodeReference\Typeahead_Discipline.ts" />
     <TypeScriptCompile Include="wwwroot\js\DemoSites_index_p1.ts" />
     <TypeScriptCompile Include="wwwroot\js\site.ts" />
+    <TypeScriptCompile Include="wwwroot\js\Timesheet\Timelog.ts" />
     <TypeScriptCompile Include="wwwroot\js\Timesheet\TimesheetApp.ts" />
     
   </ItemGroup>

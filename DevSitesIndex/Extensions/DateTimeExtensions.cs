@@ -20,5 +20,12 @@ namespace DevSitesIndex
         }
 
 
+
+        public static DateTime lastDate(DateTime? timelogDate, DateTime jobDate)
+        {
+            if (!timelogDate.HasValue) return jobDate;
+            return timelogDate.Value > jobDate ? timelogDate.Value : jobDate;
+        }
+
     }
 }

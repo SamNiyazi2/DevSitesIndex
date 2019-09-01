@@ -40,16 +40,20 @@ namespace DevSitesIndex.Pages.Jobs
 
         public async Task OnGetAsync(string sortOrder, string desc, int? pageIndex)
         {
-            sortOrder = sortOrder ?? "StartTime";
-            desc = desc ?? "true";
+           
 
             headerWithSortLinks = new HeaderWithSortLinks();
             headerWithSortLinks.TestMessageForDebugging = "This is a call from project index page";
-            headerWithSortLinks.AddColumns("ProjectTitle");
+            headerWithSortLinks.AddColumns("ProjectTitle_ForActivity");
             headerWithSortLinks.AddColumns("JobTitle");
             headerWithSortLinks.AddColumns("DateAdded");
-            headerWithSortLinks.AddColumns("MostRecentActivity");
+            headerWithSortLinks.AddColumns("LastActivityDate");
             headerWithSortLinks.AddColumns("ActivityAge");
+
+
+            sortOrder = sortOrder ?? "ActivityAge";
+            desc = desc ?? "true";
+
 
             headerWithSortLinks.SetupHeaders<Job>("/jobs/", sortOrder, desc);
 
@@ -58,30 +62,66 @@ namespace DevSitesIndex.Pages.Jobs
             TelemetryClient telemetry = new TelemetryClient();
             telemetry.TrackPageView("DemoSite-20190829-1257: Jobs Index");
 
-            
+
 
             // 08/29/2019 01:00 pm - SSN - [20190829-1253] - [004] - Adding paging and sorting to jobs index
 
             //// 04/20/2019 11:15 am - SSN - [20190420-1109] - Add AsNoTracking to index pages
 
-            ////List<Job> _Job = await _context.Job
-            ////     .Include(j => j.project.company)
-            ////     .Include(j => j.timelogs)
-            ////     .AsNoTracking()
-            ////     .ToListAsync();
+
+            IQueryable<Job> _Jobs = _context.Job.FromSql("exec DemoSites.Jobs_Index_WithLastActivityDate");
+            
+            
+            var results = TempTest.OrderByPropertyOrField<Job, Project>(_Jobs, sortOrder.Split('.').ToArray(), desc.ToLower() == "true");
             
 
-            IQueryable<Job> _Jobs = _context.Job
-                .Include(j => j.project)
-                .Include(j => j.timelogs);
+            // Job = await PaginatedList<Job>.GetSourcePage(_Jobs, sortOrder, desc, pageIndex, 50);
+            Job = await PaginatedList<Job>.CreateAsync(results, pageIndex ?? 1, 6);
+
             
-            Job = await PaginatedList<Job>.GetSourcePage(_Jobs, sortOrder, desc, pageIndex, 50);
-            
+
+
+
             tablePager.SetupButtons<Job>(Job, "/jobs", sortOrder, desc);
 
-            
+
 
 
         }
     }
+
+    public static class TempTest
+    {
+
+        public static IQueryable<T> OrderByPropertyOrField<T, Y>(this IQueryable<T> queryable, string[] propertyOrFieldName, bool ascending = true)
+        {
+            var elementType = typeof(T);
+            var orderByMethodName = ascending ? "OrderBy" : "OrderByDescending";
+
+            var parameterExpression = Expression.Parameter(elementType);
+
+            var propertyOrFieldExpression = Expression.Property(parameterExpression, propertyOrFieldName[0]);
+            for (int x = 1; x < propertyOrFieldName.Length; x++)
+                propertyOrFieldExpression = Expression.Property(propertyOrFieldExpression, propertyOrFieldName[x]);
+
+
+            var selector = Expression.Lambda(propertyOrFieldExpression, parameterExpression);
+
+
+            //var pe = Expression.Parameter(typeof(object1));
+            //var property1 = typeof(object1).GetProperty(Name1);
+            //var property2 = property1.PropertyType.GetProperty(Name2);
+            //var inner = Expression.Property(pe, property1);
+            //var outer = Expression.Property(inner, property2);
+
+
+
+
+            var orderByExpression = Expression.Call(typeof(Queryable), orderByMethodName,
+                                                    new[] { elementType, propertyOrFieldExpression.Type }, queryable.Expression, selector);
+
+            return queryable.Provider.CreateQuery<T>(orderByExpression);
+        }
+    }
+
 }

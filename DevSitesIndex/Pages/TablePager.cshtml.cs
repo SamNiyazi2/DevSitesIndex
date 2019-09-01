@@ -31,10 +31,10 @@ namespace DevSitesIndex.Pages
             string previousDisabled = source.HasPreviousPage ? "" : "disabled";
             string nextDisabled = source.HasNextPage ? "" : "disabled";
 
-            sb.Append($"<a class=\"btn btn-default {previousDisabled}\" href=\"{Path}?sortOrder={sortOrder}&pageIndex={source.PageIndex - 1}\" >");
+            sb.Append($"<a class=\"btn btn-default {previousDisabled}\" href=\"{Path}?sortOrder={sortOrder}&desc={sortDirectionDescRequested}&pageIndex={source.PageIndex - 1}\" >");
             sb.Append("Previous");
             sb.Append("</a>");
-            sb.Append($"<a class=\"btn btn-default {nextDisabled}\" href=\"{Path}?sortOrder={sortOrder}&pageIndex={source.PageIndex + 1}\" >");
+            sb.Append($"<a class=\"btn btn-default {nextDisabled}\" href=\"{Path}?sortOrder={sortOrder}&desc={sortDirectionDescRequested}&pageIndex={source.PageIndex + 1}\" >");
             sb.Append("Next");
             sb.Append("</a>");
 
