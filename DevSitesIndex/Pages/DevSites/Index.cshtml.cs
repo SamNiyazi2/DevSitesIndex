@@ -36,9 +36,12 @@ namespace DevSitesIndex.Pages.DevSites
 
         // public IList<DevSite> DevSite { get; set; }
         public PaginatedList<DevSite> DevSites { get; set; }
-        public HeaderWithSortLinks headerWithSortLinks { get; set; }
-        public TablePager tablePager { get; set; }
+        public HeaderWithSortLinks headerWithSortLinks { get; set; } = new HeaderWithSortLinks();
 
+        [BindProperty]
+        public TablePager tablePager { get; set; } = new TablePager();
+
+        //[BindProperty]
         public string FormActionUrl { get; set; }
 
 
@@ -56,7 +59,6 @@ namespace DevSitesIndex.Pages.DevSites
             // DevSite = await _context.DevSites.Include(r => r.SoftwareCode).OrderByDescending(r => r.DateUpdated ?? r.DateAdded).ToListAsync();
 
             headerWithSortLinks = new HeaderWithSortLinks();
-            headerWithSortLinks.TestMessageForDebugging = "This is a call from project index page";
             headerWithSortLinks.AddColumns("SiteTitle");
             headerWithSortLinks.AddColumns("SoftwareCode.SoftwareTitle");
             headerWithSortLinks.AddColumns("DateAdded");
@@ -72,8 +74,21 @@ namespace DevSitesIndex.Pages.DevSites
 
         // 12/31/2018 09:34 pm - SSN
 
-        public async Task<IActionResult> OnPostAsync(string sortOrder, string desc, int? pageIndex)
+        //        public async Task<IActionResult> OnPostAsync(string sortOrder, string desc, int? pageIndex)
+        public async Task<IActionResult> OnPostAsync()
         {
+            string xxxxx = FormActionUrl;
+//            int pageIndex = 1;
+            string sortOrder = "SiteTitle";
+  //          string desc = "false";
+
+            int? pageIndex = tablePager.pageIndex;
+            string desc = tablePager.desc;
+            string sortColumn = tablePager.sortColumn;
+
+
+
+
             pageIndex = 1;
 
             if (string.IsNullOrEmpty(SearchText))

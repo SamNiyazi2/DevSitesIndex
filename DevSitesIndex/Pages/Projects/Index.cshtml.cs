@@ -35,7 +35,7 @@ namespace DevSitesIndex.Pages.Projects
         public async Task OnGetAsync(string sortOrder, string desc, int? pageIndex)
         {
 
-            sortOrder = sortOrder ?? "ProjectTitle";
+            sortOrder = sortOrder ?? "DateAdded";
             desc = desc ?? "true";
 
 
@@ -49,7 +49,6 @@ namespace DevSitesIndex.Pages.Projects
 
 
             headerWithSortLinks = new HeaderWithSortLinks();
-            headerWithSortLinks.TestMessageForDebugging = "This is a call from project index page";
             headerWithSortLinks.AddColumns("ProjectTitle");
             headerWithSortLinks.AddColumns("Company");
             headerWithSortLinks.AddColumns("DateAdded");

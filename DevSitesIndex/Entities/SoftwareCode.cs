@@ -13,6 +13,8 @@ namespace DevSitesIndex.Entities
     {
 
         public int ID { get; set; }
+
+        [DisplayName("Software")]
         public string SoftwareTitle { get; set; }
     }
 

@@ -19,13 +19,10 @@ namespace DevSitesIndex.Pages
 
 
     public class HeaderWithSortLinks : PageModel
-    {
+    { 
 
-        public string TestMessageForDebugging { get; set; }
-        public HtmlString ReturnedHTML { get; set; }
-
-        IBaseEntity Entity { get; set; }
-
+        public HtmlString ReturnedHTML { get; set; } = new HtmlString("");
+         
         List<Col> ColumnNames { get; set; }
 
         string Path;
@@ -40,7 +37,6 @@ namespace DevSitesIndex.Pages
         {
             if (ColumnNames == null) ColumnNames = new List<Col>();
             ColumnNames.Add(new Col { Name = _columnName });
-
         }
 
 
@@ -92,7 +88,7 @@ namespace DevSitesIndex.Pages
                 if (col.Name.ToLower() == sortOrder.ToLower())
                 {
 
-                    selectedArrow = (sortDirectionDescRequested_v02.ToLower() == "true" ? arrowDown : arrowUp);
+                    selectedArrow = (sortDirectionDescRequested_v02.ToLower() == "false" ? arrowDown : arrowUp);
 
                 }
 

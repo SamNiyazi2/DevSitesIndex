@@ -1,6 +1,7 @@
 ﻿using DevSitesIndex.Entities;
 using DevSitesIndex.Models;
 using Microsoft.AspNetCore.Html;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Text;
 
@@ -14,17 +15,37 @@ namespace DevSitesIndex.Pages
     public class TablePager : PageModel
     {
 
-        public string TestMessageForDebugging { get; set; }
-        public HtmlString ReturnedHTML { get; set; }
-
-        IBaseEntity Entity { get; set; }
+        public HtmlString ReturnedHTML { get; set; } = new HtmlString("");
 
         string Path;
+
+
+        //[BindProperty]
+        public string sortColumn { get; set; }
+
+        //[BindProperty]
+        public string desc { get; set; }
+
+        //[BindProperty]
+        public int pageIndex { get; set; }
+
+
+        public TablePager()
+        {
+
+        }
+
 
 
         public void SetupButtons<T>(PaginatedList<T> source, string _path, string sortOrder, string sortDirectionDescRequested)
         {
             Path = _path;
+
+
+            sortColumn = sortOrder;
+            desc = sortDirectionDescRequested;
+            pageIndex = source.PageIndex;
+
 
             StringBuilder sb = new StringBuilder();
 

@@ -43,7 +43,6 @@ namespace DevSitesIndex.Pages.Jobs
            
 
             headerWithSortLinks = new HeaderWithSortLinks();
-            headerWithSortLinks.TestMessageForDebugging = "This is a call from project index page";
             headerWithSortLinks.AddColumns("ProjectTitle_ForActivity");
             headerWithSortLinks.AddColumns("JobTitle");
             headerWithSortLinks.AddColumns("DateAdded");
@@ -52,7 +51,7 @@ namespace DevSitesIndex.Pages.Jobs
 
 
             sortOrder = sortOrder ?? "ActivityAge";
-            desc = desc ?? "true";
+            desc = desc ?? "false";
 
 
             headerWithSortLinks.SetupHeaders<Job>("/jobs/", sortOrder, desc);

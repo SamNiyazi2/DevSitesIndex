@@ -16,9 +16,15 @@
 @*06/01/2019 11:24 am - SSN - Added class="hidden-xs"*@
 <p>
 
-    <form method="post" action="@Model.FormActionUrl">
+    <form method="post" id="devSiteForm">
 
-        <!-- 08/12/2019 03:45 am - SSN - [20190812-0345] - [001] - Apply fulltext search -->
+
+        <input type="hidden" name="FormActionUrl" value="@Model.FormActionUrl" />
+
+        @{await Html.RenderPartialAsync("TablePager", Model.tablePager);}
+        @*
+        08/12/2019 03:45 am - SSN - [20190812-0345] - [001] - Apply fulltext search
+        *@
 
         <div class="form-group">
             <label class="control-label">Search</label>
@@ -30,6 +36,7 @@
             <input type="submit" value="Search" class="btn btn-default" />
             <a href="/devsites" class="btn btn-default">Clear Search</a>
         </div>
+
 
     </form>
 
