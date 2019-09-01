@@ -39,7 +39,7 @@ namespace DevSitesIndex.Pages.TimeLogs
         public async Task OnGetAsync(string sortOrder, string desc, int? pageIndex)
         {
             sortOrder = sortOrder ?? "StartTime";
-            desc = desc ?? "true";
+            desc = desc ?? "false";
 
             headerWithSortLinks = new HeaderWithSortLinks();
             headerWithSortLinks.TestMessageForDebugging = "This is a call from project index page";

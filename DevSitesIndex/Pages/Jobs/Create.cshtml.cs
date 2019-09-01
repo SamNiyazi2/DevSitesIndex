@@ -28,7 +28,7 @@ namespace DevSitesIndex.Pages.Jobs
             _context = context;
         }
 
-        public IActionResult OnGet()
+        public IActionResult OnGet(int? id)
         {
             // ViewData["ProjectID"] = new SelectList(_context.Project, "ProjectID", "ProjectID");
             // 05/03/2019 05:35 am - SSN - Add order
@@ -37,6 +37,12 @@ namespace DevSitesIndex.Pages.Jobs
             Job = new Job();
             Job.DateAdded = DateTime.Now;
 
+            // 09/01/2019 11:41 am - SSN - [20190901-1141] - [001] - Add job create option to project detail page 
+
+            if (id.HasValue)
+            {
+                Job.ProjectID = id.Value;
+            }
             return Page();
         }
 

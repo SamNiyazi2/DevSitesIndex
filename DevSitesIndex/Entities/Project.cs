@@ -37,6 +37,7 @@ namespace DevSitesIndex.Entities
         public DateTime? DateModified { get; set; }
 
 
+        [DisplayName("Company")]
         public Company company { get; set; }
 
     }

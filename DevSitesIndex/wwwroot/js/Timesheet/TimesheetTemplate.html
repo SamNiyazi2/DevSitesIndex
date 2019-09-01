@@ -35,7 +35,7 @@
                            uib-typeahead="discipline as discipline.title for discipline in getDisciplines($viewValue) "
                            typeahead-loading="loadingLocations"
                            typeahead-no-results="noResults"
-                           class="form-control" ng-required="true">
+                           class="form-control" ng-required="true" autofocus>
 
                     <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
                     <div ng-show="noResults">
