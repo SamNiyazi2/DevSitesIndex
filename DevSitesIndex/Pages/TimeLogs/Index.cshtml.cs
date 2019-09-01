@@ -45,7 +45,7 @@ namespace DevSitesIndex.Pages.TimeLogs
             headerWithSortLinks.TestMessageForDebugging = "This is a call from project index page";
             headerWithSortLinks.AddColumns("StartTime");
             headerWithSortLinks.AddColumns("TotalSeconds");
-            headerWithSortLinks.AddColumns("Job");
+            headerWithSortLinks.AddColumns("job.JobTitle");
             headerWithSortLinks.AddColumns("discipline");
             headerWithSortLinks.AddColumns("DateAdded");
             headerWithSortLinks.AddColumns("DateModified");

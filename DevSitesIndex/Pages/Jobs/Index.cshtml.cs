@@ -72,11 +72,11 @@ namespace DevSitesIndex.Pages.Jobs
             IQueryable<Job> _Jobs = _context.Job.FromSql("exec DemoSites.Jobs_Index_WithLastActivityDate");
             
             
-            var results = TempTest.OrderByPropertyOrField<Job, Project>(_Jobs, sortOrder.Split('.').ToArray(), desc.ToLower() == "true");
+           /////// var results = TempTest.OrderByPropertyOrField<Job, Project>(_Jobs, sortOrder.Split('.').ToArray(), desc.ToLower() == "true");
             
 
-            // Job = await PaginatedList<Job>.GetSourcePage(_Jobs, sortOrder, desc, pageIndex, 50);
-            Job = await PaginatedList<Job>.CreateAsync(results, pageIndex ?? 1, 6);
+             Job = await PaginatedList<Job>.GetSourcePage(_Jobs, sortOrder, desc, pageIndex, 50);
+         /////////   Job = await PaginatedList<Job>.CreateAsync(results, pageIndex ?? 1, 6);
 
             
 
@@ -90,38 +90,5 @@ namespace DevSitesIndex.Pages.Jobs
         }
     }
 
-    public static class TempTest
-    {
-
-        public static IQueryable<T> OrderByPropertyOrField<T, Y>(this IQueryable<T> queryable, string[] propertyOrFieldName, bool ascending = true)
-        {
-            var elementType = typeof(T);
-            var orderByMethodName = ascending ? "OrderBy" : "OrderByDescending";
-
-            var parameterExpression = Expression.Parameter(elementType);
-
-            var propertyOrFieldExpression = Expression.Property(parameterExpression, propertyOrFieldName[0]);
-            for (int x = 1; x < propertyOrFieldName.Length; x++)
-                propertyOrFieldExpression = Expression.Property(propertyOrFieldExpression, propertyOrFieldName[x]);
-
-
-            var selector = Expression.Lambda(propertyOrFieldExpression, parameterExpression);
-
-
-            //var pe = Expression.Parameter(typeof(object1));
-            //var property1 = typeof(object1).GetProperty(Name1);
-            //var property2 = property1.PropertyType.GetProperty(Name2);
-            //var inner = Expression.Property(pe, property1);
-            //var outer = Expression.Property(inner, property2);
-
-
-
-
-            var orderByExpression = Expression.Call(typeof(Queryable), orderByMethodName,
-                                                    new[] { elementType, propertyOrFieldExpression.Type }, queryable.Expression, selector);
-
-            return queryable.Provider.CreateQuery<T>(orderByExpression);
-        }
-    }
-
+    
 }

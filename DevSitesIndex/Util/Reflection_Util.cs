@@ -25,7 +25,33 @@ namespace DevSitesIndex.Util
         }
 
 
-        public static IQueryable<T> SourceSetOrder<T>(IQueryable<T> query, string sortColumn, bool desc)
+        // OrderByPropertyOrField
+        public static IQueryable<T> SourceSetOrder<T>(this IQueryable<T> queryable, string propertyOrFieldName_string, bool ascending = true)
+        {
+            string[] propertyOrFieldName = propertyOrFieldName_string.Split('.').ToArray();
+
+            var elementType = typeof(T);
+            var orderByMethodName = ascending ? "OrderBy" : "OrderByDescending";
+
+            var parameterExpression = Expression.Parameter(elementType);
+
+            var propertyOrFieldExpression = Expression.Property(parameterExpression, propertyOrFieldName[0]);
+            for (int x = 1; x < propertyOrFieldName.Length; x++)
+                propertyOrFieldExpression = Expression.Property(propertyOrFieldExpression, propertyOrFieldName[x]);
+
+
+            var selector = Expression.Lambda(propertyOrFieldExpression, parameterExpression);
+
+            var orderByExpression = Expression.Call(typeof(Queryable), orderByMethodName,
+                                                    new[] { elementType, propertyOrFieldExpression.Type }, queryable.Expression, selector);
+
+            return queryable.Provider.CreateQuery<T>(orderByExpression);
+        }
+
+
+
+
+        public static IQueryable<T> SourceSetOrder_v02<T>(IQueryable<T> query, string sortColumn, bool desc)
         {
 
             string sortMethodName = (desc ? "OrderByDescending" : "OrderBy");
