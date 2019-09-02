@@ -30,27 +30,15 @@ namespace DevSitesIndex.Pages.TimeLogs
         // 08/28/2019 04:29 am - SSN - [20190828-0427] - [002] - Apply sorting and paging to timelogs index
         //public IList<TimeLog> TimeLog { get; set; }
         public PaginatedList<TimeLog> TimeLog { get; set; }
-        public HeaderWithSortLinks headerWithSortLinks { get; set; }
-        public TablePager tablePager { get; set; }
+        public PageUtil pageUtil { get; set; }
 
 
 
         // 08/28/2019 04:32 am - SSN - [20190828-0427] - [003] - Apply sorting and paging to timelogs index
         public async Task OnGetAsync(string sortOrder, string desc, int? pageIndex)
         {
-            sortOrder = sortOrder ?? "StartTime";
-            desc = desc ?? "true";
 
-            headerWithSortLinks = new HeaderWithSortLinks(); 
-            headerWithSortLinks.AddColumns("StartTime");
-            headerWithSortLinks.AddColumns("TotalSeconds");
-            headerWithSortLinks.AddColumns("job.JobTitle");
-            headerWithSortLinks.AddColumns("discipline");
-            headerWithSortLinks.AddColumns("DateAdded");
-            headerWithSortLinks.AddColumns("DateModified");
-            headerWithSortLinks.SetupHeaders<TimeLog>("/timelogs/", sortOrder, desc);
 
-            tablePager = new TablePager();
 
             // 08/28/2019 08:19 am - SSN - [20190828-0819] - [001] - Adding Application Insights
 
@@ -60,16 +48,22 @@ namespace DevSitesIndex.Pages.TimeLogs
 
 
 
+            sortOrder = sortOrder ?? "StartTime";
+            desc = desc ?? "true";
+
+            pageUtil = new PageUtil();
+            pageUtil.AddColumns("StartTime");
+            pageUtil.AddColumns("TotalSeconds");
+            pageUtil.AddColumns("job.JobTitle");
+            pageUtil.AddColumns("discipline");
+            pageUtil.AddColumns("DateAdded");
+            pageUtil.AddColumns("DateModified");
+            pageUtil.SetupHeaders<TimeLog>("/timelogs/", sortOrder, desc);
+
+
+
 
             // 04/19/2019 04:41 pm - SSN - Add sort
-            // 04/20/2019 11:13 am - SSN - [20190420-1109] - Add AsNoTracking to index pages
-
-            //TimeLog = await _context.TimeLog
-            //    .Include(t => t.discipline)
-            //    .Include(t => t.job)
-            //    .OrderByDescending(r => r.StartTime)
-            //    .AsNoTracking()
-            //    .ToListAsync();
 
 
             // 08/28/2019 04:38 am - SSN - [20190828-0427] - [004] - Apply sorting and paging to timelogs index
@@ -81,7 +75,7 @@ namespace DevSitesIndex.Pages.TimeLogs
 
             TimeLog = await PaginatedList<TimeLog>.GetSourcePage(_timelog, sortOrder, desc, pageIndex, 10);
 
-            tablePager.SetupButtons<TimeLog>(TimeLog, "/timelogs", sortOrder, desc);
+            pageUtil.SetupButtons<TimeLog>(TimeLog, "/timelogs", sortOrder, desc);
 
 
 

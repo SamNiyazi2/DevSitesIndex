@@ -14,7 +14,7 @@
 <table class="table">
     <thead>
         <tr>
-            @{await Html.RenderPartialAsync("HeaderWithSortLinks", Model.headerWithSortLinks);}
+            @{await Html.RenderPartialAsync("HeaderWithSortLinks", Model.pageUtil.headerWithSortLinks);}
             <th></th>
         </tr>
     </thead>
@@ -45,25 +45,4 @@
 </table>
 
 
-@*@{
-    var prevDisabled = !Model.Project.HasPreviousPage ? "disabled" : "";
-    var nextDisabled = !Model.Project.HasNextPage ? "disabled" : "";
-}*@
-
-@*<a asp-page="./Index"
-   asp-route-sortOrder="@Model.CurrentSort"
-   asp-route-pageIndex="@(Model.Project.PageIndex - 1)"
-   asp-route-currentFilter="@Model.CurrentFilter"
-   asp-route-desc="@Model.CurrentDesc"
-   class="btn btn-default @prevDisabled">
-    Previous
-</a>
-<a asp-page="./Index"
-   asp-route-sortOrder="@Model.CurrentSort"
-   asp-route-pageIndex="@(Model.Project.PageIndex + 1)"
-   asp-route-currentFilter="@Model.CurrentFilter"
-   asp-route-desc="@Model.CurrentDesc"
-   class="btn btn-default @nextDisabled">
-    Next
-</a>*@
-@{await Html.RenderPartialAsync("TablePager", Model.tablePager);}
+@{await Html.RenderPartialAsync("TablePager", Model.pageUtil.tablePager);}

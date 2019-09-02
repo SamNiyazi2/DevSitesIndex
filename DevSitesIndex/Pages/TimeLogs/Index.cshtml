@@ -21,7 +21,7 @@
             <thead>
                 <tr>
                     @*// 08/28/2019 04:28 am - SSN - [20190828-0427] - [001] - Apply sorting and paging to timelogs index*@
-                    @{await Html.RenderPartialAsync("HeaderWithSortLinks", Model.headerWithSortLinks);}
+                    @{await Html.RenderPartialAsync("HeaderWithSortLinks", Model.pageUtil.headerWithSortLinks);}
                     <th></th>
                 </tr>
 
@@ -58,7 +58,7 @@
                             <a asp-page="./Edit" asp-route-id="@item.TimeLogId">Edit</a> ||
                             <strong>
                                 @*
-        // 08/31/2019 05:10 pm - SSN - Added /jobs/details
+                                    // 08/31/2019 05:10 pm - SSN - Added /jobs/details
                                 *@
                                 <a asp-page="/jobs/details" asp-route-id="@item.JobId" target="_blank">Job Details</a> |
 
@@ -95,7 +95,7 @@
 
 
         @*// 08/28/2019 04:28 am - SSN - [20190828-0427] - [001] - Apply sorting and paging to timelogs index*@
-        @{await Html.RenderPartialAsync("TablePager", Model.tablePager);}
+        @{await Html.RenderPartialAsync("TablePager", Model.pageUtil.tablePager);}
 
     </div>
 </div>

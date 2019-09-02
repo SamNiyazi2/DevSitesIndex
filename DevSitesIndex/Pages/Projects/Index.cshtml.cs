@@ -27,8 +27,7 @@ namespace DevSitesIndex.Pages.Projects
 
 
         public PaginatedList<Project> Project { get; set; }
-        public HeaderWithSortLinks headerWithSortLinks { get; set; }
-        public TablePager tablePager { get; set; }
+        public PageUtil pageUtil { get; set; }
 
 
 
@@ -47,32 +46,27 @@ namespace DevSitesIndex.Pages.Projects
             //.OrderByDescending(r => r.DateModified ?? r.DateAdded)
             //    .Include(p => p.company).AsNoTracking().ToListAsync();
 
+            pageUtil = new PageUtil();
+            pageUtil.AddColumns("ProjectTitle");
+            pageUtil.AddColumns("Company");
+            pageUtil.AddColumns("DateAdded");
+            pageUtil.AddColumns("DateModified");
 
-            headerWithSortLinks = new HeaderWithSortLinks();
-            headerWithSortLinks.AddColumns("ProjectTitle");
-            headerWithSortLinks.AddColumns("Company");
-            headerWithSortLinks.AddColumns("DateAdded");
-            headerWithSortLinks.AddColumns("DateModified");
-
-            headerWithSortLinks.SetupHeaders<Project>("/projects/", sortOrder, desc);
-
-            // 08/28/2019 03:53 am - SSN - [20190828-0350] - [002] - Refactor pager
-            tablePager = new TablePager();
+            pageUtil.SetupHeaders<Project>("/projects/", sortOrder, desc);
 
 
 
+            IQueryable<Project> _Project = _context.Projects.Include(r => r.company);
 
-            IQueryable<Project> _Project = _context.Projects.Include(r=>r.company);
+            Project = await PaginatedList<Project>.GetSourcePage(_Project, sortOrder, desc, pageIndex, 20);
 
-            Project = await PaginatedList<Project>.GetSourcePage(_Project, sortOrder, desc, pageIndex,20);
-             
-            tablePager.SetupButtons<Project>(Project, "/projects", sortOrder, desc);
+            pageUtil.SetupButtons<Project>(Project, "/projects", sortOrder, desc);
 
 
         }
 
 
 
-     
+
     }
 }

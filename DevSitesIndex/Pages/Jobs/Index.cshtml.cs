@@ -31,8 +31,7 @@ namespace DevSitesIndex.Pages.Jobs
         // 08/29/2019 12:54 pm - SSN - [20190829-1253] - [002] - Adding paging and sorting to jobs index
         //public IList<Job> Job { get; set; }
         public PaginatedList<Job> Job { get; set; }
-        public HeaderWithSortLinks headerWithSortLinks { get; set; }
-        public TablePager tablePager { get; set; }
+        public PageUtil pageUtil { get; set; }
 
 
 
@@ -40,28 +39,24 @@ namespace DevSitesIndex.Pages.Jobs
 
         public async Task OnGetAsync(string sortOrder, string desc, int? pageIndex)
         {
-           
-
-            headerWithSortLinks = new HeaderWithSortLinks();
-            headerWithSortLinks.AddColumns("ProjectTitle_ForActivity");
-            headerWithSortLinks.AddColumns("JobTitle");
-            headerWithSortLinks.AddColumns("DateAdded");
-            headerWithSortLinks.AddColumns("LastActivityDate");
-            headerWithSortLinks.AddColumns("ActivityAge");
-
-
-            sortOrder = sortOrder ?? "ActivityAge";
-            desc = desc ?? "false";
-
-
-            headerWithSortLinks.SetupHeaders<Job>("/jobs/", sortOrder, desc);
-
-            tablePager = new TablePager();
 
             TelemetryClient telemetry = new TelemetryClient();
             telemetry.TrackPageView("DemoSite-20190829-1257: Jobs Index");
 
 
+            pageUtil = new PageUtil();
+
+            pageUtil.AddColumns("ProjectTitle_ForActivity");
+            pageUtil.AddColumns("JobTitle");
+            pageUtil.AddColumns("DateAdded");
+            pageUtil.AddColumns("LastActivityDate");
+            pageUtil.AddColumns("ActivityAge");
+
+
+            sortOrder = sortOrder ?? "ActivityAge";
+            desc = desc ?? "false";
+
+            pageUtil.SetupHeaders<Job>("/jobs/", sortOrder, desc);
 
             // 08/29/2019 01:00 pm - SSN - [20190829-1253] - [004] - Adding paging and sorting to jobs index
 
@@ -69,25 +64,14 @@ namespace DevSitesIndex.Pages.Jobs
 
 
             IQueryable<Job> _Jobs = _context.Jobs.FromSql("exec DemoSites.Jobs_Index_WithLastActivityDate");
-            
-            
-           /////// var results = TempTest.OrderByPropertyOrField<Job, Project>(_Jobs, sortOrder.Split('.').ToArray(), desc.ToLower() == "true");
-            
 
-             Job = await PaginatedList<Job>.GetSourcePage(_Jobs, sortOrder, desc, pageIndex, 50);
-         /////////   Job = await PaginatedList<Job>.CreateAsync(results, pageIndex ?? 1, 6);
+            Job = await PaginatedList<Job>.GetSourcePage(_Jobs, sortOrder, desc, pageIndex, 50);
 
-            
-
-
-
-            tablePager.SetupButtons<Job>(Job, "/jobs", sortOrder, desc);
-
-
+            pageUtil.SetupButtons<Job>(Job, "/jobs", sortOrder, desc);
 
 
         }
     }
 
-    
+
 }

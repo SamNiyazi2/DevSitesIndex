@@ -22,7 +22,7 @@
                 <tr>
 
                     @*// 08/29/2019 12:53 pm - SSN - [20190829-1253] - [001] - Adding paging and sorting to jobs index*@
-                    @{await Html.RenderPartialAsync("HeaderWithSortLinks", Model.headerWithSortLinks);}
+                    @{await Html.RenderPartialAsync("HeaderWithSortLinks", Model.pageUtil.headerWithSortLinks);}
 
                     <th></th>
                 </tr>
@@ -30,47 +30,47 @@
             <tbody>
                 @foreach (var item in Model.Job)
                 {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ProjectTitle_ForActivity)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.JobTitle)
-                    </td>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProjectTitle_ForActivity)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.JobTitle)
+                        </td>
 
-                    <td class="indexNowrapCol hidden-xs">
-                        @Html.DisplayFor(modelItem => item.DateAdded)
-                    </td>
+                        <td class="indexNowrapCol hidden-xs">
+                            @Html.DisplayFor(modelItem => item.DateAdded)
+                        </td>
 
-                    <td class="indexNowrapCol hidden-xs">
-                        @item.DateUpdated
-                        <br>
-                        <b>
-                            @item.LastActivityDate
+                        <td class="indexNowrapCol hidden-xs">
+                            @item.DateUpdated
+                            <br>
+                            <b>
+                                @item.LastActivityDate
 
-                        </b>
-                    </td>
-                    
-                    <td class="indexNowrapCol hidden-xs">
-                        @item.ActivityAge_ToString
-                    </td>
+                            </b>
+                        </td>
+
+                        <td class="indexNowrapCol hidden-xs">
+                            @item.ActivityAge_ToString
+                        </td>
 
 
-                    <td class="indexNowrapCol">
-                        <a asp-page="./Edit" asp-route-id="@item.JobID">Edit</a> |
-                        <a asp-page="./Details" asp-route-id="@item.JobID">Details</a> |
-                        <a asp-page="./Delete" asp-route-id="@item.JobID">Delete</a> |
+                        <td class="indexNowrapCol">
+                            <a asp-page="./Edit" asp-route-id="@item.JobID">Edit</a> |
+                            <a asp-page="./Details" asp-route-id="@item.JobID">Details</a> |
+                            <a asp-page="./Delete" asp-route-id="@item.JobID">Delete</a> |
 
-                        <a ng-click="showCreateTimesheetForm(@item.JobID)">Clock-in</a>
+                            <a ng-click="showCreateTimesheetForm(@item.JobID)">Clock-in</a>
 
-                    </td>
-                </tr>
+                        </td>
+                    </tr>
                 }
             </tbody>
         </table>
 
         @*// 08/29/2019 01:36 pm - SSN - [20190829-1253] - [006] - Adding paging and sorting to jobs index*@
-        @{await Html.RenderPartialAsync("TablePager", Model.tablePager);}
+        @{await Html.RenderPartialAsync("TablePager", Model.pageUtil.tablePager);}
 
     </div>
 

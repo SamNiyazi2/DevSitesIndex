@@ -20,42 +20,25 @@ namespace DevSitesIndex.Pages
         string Path;
 
 
-        //[BindProperty]
-        public string sortColumn { get; set; }
-
-        //[BindProperty]
-        public string desc { get; set; }
-
-        //[BindProperty]
-        public int pageIndex { get; set; }
-
-
-        public TablePager()
+        public void SetupButtons<T>(PaginatedList<T> source, string _path, string sortOrder, string sortDirectionDescRequested, UrlMaker urlMaker = null)
         {
+            if (urlMaker == null) return;
 
-        }
-
-
-
-        public void SetupButtons<T>(PaginatedList<T> source, string _path, string sortOrder, string sortDirectionDescRequested)
-        {
             Path = _path;
-
-
-            sortColumn = sortOrder;
-            desc = sortDirectionDescRequested;
-            pageIndex = source.PageIndex;
-
 
             StringBuilder sb = new StringBuilder();
 
             string previousDisabled = source.HasPreviousPage ? "" : "disabled";
             string nextDisabled = source.HasNextPage ? "" : "disabled";
 
-            sb.Append($"<a class=\"btn btn-default {previousDisabled}\" href=\"{Path}?sortOrder={sortOrder}&desc={sortDirectionDescRequested}&pageIndex={source.PageIndex - 1}\" >");
+            string url = urlMaker.MakeUrl(Path, sortOrder, sortDirectionDescRequested);
+
+            sb.Append($"<a class=\"btn btn-default {previousDisabled}\" href=\"{url}&pageIndex={source.PageIndex - 1}\" >");
             sb.Append("Previous");
             sb.Append("</a>");
-            sb.Append($"<a class=\"btn btn-default {nextDisabled}\" href=\"{Path}?sortOrder={sortOrder}&desc={sortDirectionDescRequested}&pageIndex={source.PageIndex + 1}\" >");
+
+
+            sb.Append($"<a class=\"btn btn-default {nextDisabled}\" href=\"{url}&pageIndex={source.PageIndex + 1}\" >");
             sb.Append("Next");
             sb.Append("</a>");
 

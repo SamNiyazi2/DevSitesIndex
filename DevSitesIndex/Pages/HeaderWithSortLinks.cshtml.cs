@@ -1,4 +1,5 @@
 ﻿using DevSitesIndex.Entities;
+using DevSitesIndex.Models;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
@@ -19,11 +20,12 @@ namespace DevSitesIndex.Pages
 
 
     public class HeaderWithSortLinks : PageModel
-    { 
+    {
 
         public HtmlString ReturnedHTML { get; set; } = new HtmlString("");
-         
+
         List<Col> ColumnNames { get; set; }
+
 
         string Path;
 
@@ -33,14 +35,14 @@ namespace DevSitesIndex.Pages
             public bool SortDescending { get; set; }
         }
 
-        public void AddColumns(string _columnName)
+        internal void AddColumns(string _columnName)
         {
             if (ColumnNames == null) ColumnNames = new List<Col>();
             ColumnNames.Add(new Col { Name = _columnName });
         }
 
 
-        public void SetupHeaders<T>(string _path, string sortOrder, string sortDirectionDescRequested_v02)
+        internal void SetupHeaders<T>(string _path, string sortOrder, string sortDirectionDescRequested_v02, UrlMaker urlMaker)
         {
             Path = _path;
 
@@ -51,7 +53,9 @@ namespace DevSitesIndex.Pages
 
             var propList = typeof(T).GetProperties();
 
+            // sb is for storing the final output.
             StringBuilder sb = new StringBuilder();
+
 
             foreach (Col col in ColumnNames)
             {
@@ -92,8 +96,30 @@ namespace DevSitesIndex.Pages
 
                 }
 
+
+
+                // Here we create the default url with the page path and querystring for the sort and page clicks. The url includes the path, column order selected and whethere it is
+                // in descending order and the page index.
+
+                // The output format for each column: <th><a href="the context od sb">displayName</a></th>
+
+                // sb example: "/SomeRoute/?sortOrder=ProjectTitle&desc=false. 
+                // We don't supply the closing quote until we check if we have any other objects (OtherHtmlInputToSave) to 
+                // append to the url address before supplying the closing quote.
+
+
                 sb.Append("<th>");
-                sb.Append($"<a href=\"{Path}?sortOrder={col.Name}&desc={sortColumnOptionDescForLink}\">");
+
+                sb.Append($"<a href=\"");
+
+
+
+                sb.Append(urlMaker.MakeUrl(Path, col.Name, sortColumnOptionDescForLink));
+
+
+
+                sb.Append("\"");
+                sb.Append(">");
                 sb.Append($"{displayName}");
                 sb.Append("</a>");
                 sb.Append($"&nbsp;{selectedArrow}</th>");
@@ -105,4 +131,90 @@ namespace DevSitesIndex.Pages
         }
 
     }
+
+
+    public class UrlMaker
+    {
+
+        Dictionary<string, string> OtherHtmlInputToSave { get; set; }
+
+        internal void AddOtherHtmlInputToSave(string objectName, string objectValue)
+        {
+            if (OtherHtmlInputToSave == null) OtherHtmlInputToSave = new Dictionary<string, string>();
+
+            OtherHtmlInputToSave.Add(objectName, objectValue);
+        }
+
+
+        public string MakeUrl(string path, string sortColumn, string desc)
+        {
+
+            StringBuilder sb = new StringBuilder();
+            StringBuilder otherHtmlInput = new StringBuilder();
+
+            // We are adding in any html input provided (like search) se we may pass on with sort and page click
+            // otherHtmlInput = "&key1=val1;key2=val2"
+
+            if (OtherHtmlInputToSave != null)
+            {
+                foreach (KeyValuePair<string, string> e in OtherHtmlInputToSave)
+                {
+                    otherHtmlInput.Append(string.Format("&{0}={1}", e.Key, e.Value));
+                }
+            }
+
+
+            sb.Append($"{path}?sortOrder={sortColumn}&desc={desc}");
+
+            if (otherHtmlInput.Length > 0)
+            {
+                sb.Append(otherHtmlInput.ToString());
+            }
+
+            return sb.ToString();
+
+        }
+
+    }
+
+
+    public class PageUtil
+    {
+
+        public HeaderWithSortLinks headerWithSortLinks { get; set; } = new HeaderWithSortLinks();
+
+        public TablePager tablePager { get; set; } = new TablePager();
+        public UrlMaker urlMaker { get; set; } = new UrlMaker();
+        public PageUtil()
+        {
+            headerWithSortLinks = new HeaderWithSortLinks();
+            tablePager = new TablePager();
+        }
+
+
+        public void AddColumns(string _columnName)
+        {
+            headerWithSortLinks.AddColumns(_columnName);
+        }
+
+
+        public void SetupHeaders<T>(string _path, string sortOrder, string sortDirectionDescRequested_v02)
+        {
+            headerWithSortLinks.SetupHeaders<T>(_path, sortOrder, sortDirectionDescRequested_v02, urlMaker);
+        }
+
+
+        public void SetupButtons<T>(PaginatedList<T> source, string _path, string sortOrder, string sortDirectionDescRequested)
+        {
+            tablePager.SetupButtons<T>(source, _path, sortOrder, sortDirectionDescRequested, urlMaker);
+        }
+
+        public void AddOtherHtmlInputToSave(string objectName, string objectValue)
+        {
+            AddOtherHtmlInputToSave(objectName, objectValue);
+        }
+
+    }
 }
+
+

@@ -32,43 +32,33 @@ namespace DevSitesIndex.Pages.DevSites
         }
 
 
+        public PaginatedList<DevSite> DevSites { get; set; }
+        public PageUtil pageUtil { get; set; }
+
         // 09/01/2019 01:12 pm - SSN - [20190901-1225] - [003] - Add Job_DevSite table - Adding sorting and paging
 
         // public IList<DevSite> DevSite { get; set; }
-        public PaginatedList<DevSite> DevSites { get; set; }
-        public HeaderWithSortLinks headerWithSortLinks { get; set; } = new HeaderWithSortLinks();
+
 
         [BindProperty]
-        public TablePager tablePager { get; set; } = new TablePager();
+        public string sortOrder_XXXX { get; set; }
+        [BindProperty]
+        public string desc_XXXX { get; set; }
+        [BindProperty]
+        public int? pageIndex_XXXX { get; set; }
 
-        //[BindProperty]
-        public string FormActionUrl { get; set; }
 
 
-        public async Task OnGetAsync(string sortOrder, string desc, int? pageIndex)
+
+        public async Task OnGetAsync(string sortOrder, string desc, int? pageIndex, string searchText)
         {
-
-            sortOrder = sortOrder ?? "DateAdded";
-            desc = desc ?? "false";
-
 
             // 10/12/2018 03:53 pm - SSN - Added OrderByDescending (r=>r.DateUpdated 
             // 06/01/2019 11:22 am - SSN - Include
 
 
-            // DevSite = await _context.DevSites.Include(r => r.SoftwareCode).OrderByDescending(r => r.DateUpdated ?? r.DateAdded).ToListAsync();
-
-            headerWithSortLinks = new HeaderWithSortLinks();
-            headerWithSortLinks.AddColumns("SiteTitle");
-            headerWithSortLinks.AddColumns("SoftwareCode.SoftwareTitle");
-            headerWithSortLinks.AddColumns("DateAdded");
-            headerWithSortLinks.AddColumns("DateUpdated");
-
-            tablePager = new TablePager();
-
-            await GetData(sortOrder, desc, pageIndex);
+            await GetData(sortOrder, desc, pageIndex, searchText);
         }
-
 
 
 
@@ -77,29 +67,18 @@ namespace DevSitesIndex.Pages.DevSites
         //        public async Task<IActionResult> OnPostAsync(string sortOrder, string desc, int? pageIndex)
         public async Task<IActionResult> OnPostAsync()
         {
-            string xxxxx = FormActionUrl;
-//            int pageIndex = 1;
-            string sortOrder = "SiteTitle";
-  //          string desc = "false";
 
-            int? pageIndex = tablePager.pageIndex;
-            string desc = tablePager.desc;
-            string sortColumn = tablePager.sortColumn;
-
-
-
-
-            pageIndex = 1;
+            pageIndex_XXXX = 1;
 
             if (string.IsNullOrEmpty(SearchText))
             {
-                await GetData(sortOrder, desc, pageIndex);
+                await GetData(sortOrder_XXXX, desc_XXXX, pageIndex_XXXX, SearchText);
                 return Page();
             }
 
             // 08/12/2019 04:48 am - SSN - [20190812-0345] - [005] - Apply fulltext search
             // DevSite = await GetData();
-            await GetData(sortOrder, desc, pageIndex);
+            await GetData(sortOrder_XXXX, desc_XXXX, pageIndex_XXXX, SearchText);
 
             return Page();
         }
@@ -111,11 +90,22 @@ namespace DevSitesIndex.Pages.DevSites
 
         // 09/01/2019 01:12 pm - SSN - [20190901-1225] - [003] - Add Job_DevSite table - Adding sorting and paging
         // async Task<IList<DevSite>> GetData()
-        async Task GetData(string sortOrder, string desc, int? pageIndex)
+        async Task GetData(string sortOrder, string desc, int? pageIndex, string searchText)
         {
 
             try
             {
+
+
+                sortOrder = sortOrder ?? "DateAdded";
+                desc = desc ?? "false";
+
+                SearchText = searchText;
+
+                sortOrder_XXXX = sortOrder;
+                desc_XXXX = desc;
+                pageIndex_XXXX = pageIndex;
+
 
 
                 IQueryable<DevSite> _DevSites;
@@ -129,16 +119,23 @@ namespace DevSitesIndex.Pages.DevSites
                     _DevSites = _context.DevSites.FromSql("DemoSites.DevSites_FullTextSearch {0}", SearchText).AsNoTracking();
                 }
 
+
                 DevSites = await PaginatedList<DevSite>.GetSourcePage(_DevSites, sortOrder, desc, pageIndex, 20);
 
 
 
+                SetupPageObjects();
 
-                FormActionUrl = Util.FormHtmlUtil.GetFormActionUrl("/DevSites", sortOrder, desc, pageIndex);
+                if (!string.IsNullOrWhiteSpace(SearchText))
+                {
+                    pageUtil.AddOtherHtmlInputToSave("SearchText", SearchText);
+                }
 
-                headerWithSortLinks.SetupHeaders<DevSite>("/DevSites/", sortOrder, desc);
 
-                tablePager.SetupButtons<DevSite>(DevSites, "/DevSites", sortOrder, desc);
+
+                pageUtil.SetupHeaders<DevSite>("/DevSites/", sortOrder, desc);
+
+                pageUtil.SetupButtons<DevSite>(DevSites, "/DevSites", sortOrder, desc);
 
 
 
@@ -157,6 +154,22 @@ namespace DevSitesIndex.Pages.DevSites
 
 
         }
+
+
+
+
+        private void SetupPageObjects()
+        {
+            pageUtil = new PageUtil();
+            pageUtil.AddColumns("SiteTitle");
+            pageUtil.AddColumns("SoftwareCode.SoftwareTitle");
+            pageUtil.AddColumns("DateAdded");
+            pageUtil.AddColumns("DateUpdated");
+
+
+        }
+
+
 
 
     }

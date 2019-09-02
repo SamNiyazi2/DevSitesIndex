@@ -19,11 +19,13 @@
     <form method="post" id="devSiteForm">
 
 
-        <input type="hidden" name="FormActionUrl" value="@Model.FormActionUrl" />
+        <input type="hidden" asp-for="sortOrder_XXXX" />
+        <input type="hidden" asp-for="desc_XXXX" />
+        <input type="hidden" asp-for="pageIndex_XXXX" />
 
-        @{await Html.RenderPartialAsync("TablePager", Model.tablePager);}
+
         @*
-        08/12/2019 03:45 am - SSN - [20190812-0345] - [001] - Apply fulltext search
+            08/12/2019 03:45 am - SSN - [20190812-0345] - [001] - Apply fulltext search
         *@
 
         <div class="form-group">
@@ -48,7 +50,7 @@
             @*
                 // 09/01/2019 01:32 pm - SSN - [20190901-1225] - [004] - Add Job_DevSite table - Adding sorting and paging here
             *@
-            @{await Html.RenderPartialAsync("HeaderWithSortLinks", Model.headerWithSortLinks);}
+            @{await Html.RenderPartialAsync("HeaderWithSortLinks", Model.pageUtil.headerWithSortLinks);}
 
             <th></th>
         </tr>
@@ -95,7 +97,4 @@
     </tbody>
 </table>
 
-@*
-    // 09/01/2019 01:32 pm - SSN - [20190901-1225] - [004] - Add Job_DevSite table - Adding sorting and paging here
-*@
-@{await Html.RenderPartialAsync("TablePager", Model.tablePager);}
+@{await Html.RenderPartialAsync("TablePager", Model.pageUtil.tablePager);}
