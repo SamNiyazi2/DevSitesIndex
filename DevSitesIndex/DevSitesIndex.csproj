@@ -95,7 +95,6 @@
     <TypeScriptCompile Include="wwwroot\js\CodeReference\Typeahead_Discipline.ts" />
     <TypeScriptCompile Include="wwwroot\js\DemoSites_index_p1.ts" />
     <TypeScriptCompile Include="wwwroot\js\site.ts" />
-    <TypeScriptCompile Include="wwwroot\js\Timesheet\Timelog.ts" />
     <TypeScriptCompile Include="wwwroot\js\Timesheet\TimesheetApp.ts" />
     
   </ItemGroup>

@@ -211,7 +211,7 @@ namespace DevSitesIndex.Pages
 
         public void AddOtherHtmlInputToSave(string objectName, string objectValue)
         {
-            AddOtherHtmlInputToSave(objectName, objectValue);
+            urlMaker.AddOtherHtmlInputToSave(objectName, objectValue);
         }
 
     }
