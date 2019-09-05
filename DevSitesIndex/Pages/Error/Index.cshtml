@@ -1,0 +1,13 @@
+﻿@page
+@model DevSitesIndex.Pages.Error.ErrorModel
+@{
+    ViewData["Title"] = "ErrorModel";
+}
+
+<h2>ErrorModel</h2>
+@{
+    if (Model.HasFeedbackToUser)
+    {
+        @Html.Raw(Model.FeedbackToUser_AsHtml)
+    }
+}ErrorModel

@@ -107,9 +107,46 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+
+
+                // 09/04/2019 06:45 pm - SSN - [20190904-1845] - [001] - Enforce email confirmation
+                var identityUser = new IdentityUser(Input.Email);
+                bool canSignIN = await _signInManager.CanSignInAsync(identityUser);
+
+
+                if (canSignIN)
+                {
+
+                    if (!await _signInManager.UserManager.IsEmailConfirmedAsync(identityUser))
+                    {
+                        ModelState.AddModelError("", "Email not confirmed.");
+
+                        telemetry.TrackEvent("DemoSite-20190904-1851 - Email not confirmed");
+
+                        string message = @"
+<p>You have not confirmed your email address.&nbsp; Please click <a href='/'>here</a> to restart the process.</p>
+<p>Thank you!</p>
+";
+                        int messageIndex = ErrorModel.AddMessage(message);
+                         
+
+                        return RedirectToPage("/Error", new { ErrorModelIndex = messageIndex });
+
+
+                    }
+
+                }
+
+
+
+
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: true);
                 if (result.Succeeded)
                 {
+
+
+
+
                     _logger.LogInformation("User logged in.");
 
 

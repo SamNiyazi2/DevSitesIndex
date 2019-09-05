@@ -98,7 +98,7 @@ namespace DevSitesIndex.Pages.DevSites
 
 
                 sortOrder = sortOrder ?? "DateAdded";
-                desc = desc ?? "false";
+                desc = desc ?? "true";
 
                 SearchText = searchText;
 
@@ -120,7 +120,7 @@ namespace DevSitesIndex.Pages.DevSites
                 }
 
 
-                DevSites = await PaginatedList<DevSite>.GetSourcePage(_DevSites, sortOrder, desc, pageIndex, 20);
+                DevSites = await PaginatedList<DevSite>.GetSourcePage(_DevSites, sortOrder, desc, pageIndex, 50);
 
 
 

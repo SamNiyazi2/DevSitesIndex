@@ -13,6 +13,13 @@
     </p>
 }
 
+
+@{
+    if (Model.HasFeedbackToUser)
+    {
+        @Html.Raw(Model.FeedbackToUser_AsHtml)
+    }
+}
 <br />
 <br />
 @Html.Raw(ViewData["Feedback"])

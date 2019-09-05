@@ -1,0 +1,24 @@
+﻿@page
+@model ConfirmEmailModel
+@{
+    ViewData["Title"] = "Confirm email";
+}
+
+<h2>@ViewData["Title"]</h2>
+<div>
+
+    @{
+        // 09/04/2019 09:00 am - SSN - [20190904-0203] - [008] - M07-06 - Demo: Multi-factor Authentication using an authenticator device
+        // Display FeedbackToUser
+        if (string.IsNullOrWhiteSpace(Model.FeedbackToUser))
+        {
+            <p>Thank you for confirming your email.</p>
+
+        }
+        else
+        {
+            @Model.FeedbackToUser
+        }
+    }
+
+</div>

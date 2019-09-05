@@ -1,0 +1,18 @@
+﻿@page
+@model DevSitesIndex.Areas.Identity.ErrorModel
+@{
+    ViewData["Title"] = "System Error!";
+}
+
+<h2>System Error!</h2>
+
+@{
+    if (Model.HasFeedbackToUser)
+    {
+        @Html.Raw(Model.FeedbackToUser_AsHtml)
+    }
+
+    @Html.Raw(Model.getErrorModelList())
+
+}
+
