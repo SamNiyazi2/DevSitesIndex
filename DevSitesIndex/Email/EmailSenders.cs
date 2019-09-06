@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Encodings.Web;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 // 09/05/2019 09:16 am - SSN - [20190904-1845] - [014] - Enforce email confirmation
@@ -26,8 +27,6 @@ namespace DevSitesIndex.Email
 
         public EmailSenders(
             UserManager<IdentityUser> userManager,
-            //SignInManager<IdentityUser> signInManager,
-            //ILogger<RegisterModel> logger,
             IEmailSender emailSender,
             IHostingEnvironment env)
         {
@@ -39,9 +38,9 @@ namespace DevSitesIndex.Email
 
         public async Task SendEmailConfirmationRequest(IUrlHelper urlHelper, HttpRequest request, IdentityUser user)
         {
+
             if (user == null || string.IsNullOrWhiteSpace(user.Email))
             {
-
                 telemetry.TrackEvent($"DemoSite-20190905-0950 - Calling SendEmailConfirmationRequest with null or empty values [{user?.Email}]");
 
                 return;
@@ -49,35 +48,22 @@ namespace DevSitesIndex.Email
 
             var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
 
-
-            // var confirmationEmail = Url.Action("/identity/account/ConfirmEmail", "Home", new { token, email = user.Email }, Request.Scheme);
-            // var confirmationEmail = Url.Action("account/ConfirmEmail", "Identity",  new { token, email = user.Email }, Request.Scheme);
-
-            //string confirmationEmail_1 = this.Url.Page("", "", new { code = token, email = user.Email }, Request.Scheme);
-            //string confirmationEmail_2 = this.Url.Page("");
-
-            //string confirmationEmail = confirmationEmail_1.Replace(confirmationEmail_2, "/identity/account/ConfirmEmail");
-
-            //if (env.IsDevelopment())
-            //{
-            //    System.IO.File.WriteAllText("ConfirmationLink_20190825a.txt", confirmationEmail);
-            //}
-
-
             string confirmationEmail = CreateEmailLink(urlHelper, request, user.Email, token);
 
-
+            if (_env.IsDevelopment())
+            {
+                System.IO.File.WriteAllText("ConfirmationLink_20190825a.txt", confirmationEmail);
+            }
 
             string emailSubject = "Email Confirmation Request";
 
             string emailBodyText = System.IO.File.ReadAllText("./EmailTemplates/RegistrationConfirmationMessage_20190828_2357.html");
-            string css_Context = System.IO.File.ReadAllText("./EmailTemplates/default.css");
-
+        
             emailBodyText = emailBodyText.Replace("{{EMAIL_LINK}}", confirmationEmail);
-            emailBodyText = emailBodyText.Replace("{{CSS_CONTENT}}", css_Context);
+
+            emailBodyText = ReplaceGenericVariables(emailBodyText);
 
 
-            /////  // Response response = await sendEmail(userName, emailSubject, emailBodyText);
 
             await _emailSender.SendEmailAsync(user.Email, emailSubject, emailBodyText);
         }
@@ -120,15 +106,168 @@ namespace DevSitesIndex.Email
             string emailSubject = "Reset Password Request";
 
             string emailBodyText = System.IO.File.ReadAllText("./EmailTemplates/ResetPasswordMessage_20190829_0129.html");
-            string css_Context = System.IO.File.ReadAllText("./EmailTemplates/default.css");
+
 
             emailBodyText = emailBodyText.Replace("{{EMAIL_LINK}}", HtmlEncoder.Default.Encode(callbackUrl));
-            emailBodyText = emailBodyText.Replace("{{CSS_CONTENT}}", css_Context);
+
+            emailBodyText = ReplaceGenericVariables(emailBodyText);
 
             //  $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.")
 
-            await _emailSender.SendEmailAsync( user.Email, emailSubject, emailBodyText);
+            await _emailSender.SendEmailAsync(user.Email, emailSubject, emailBodyText);
         }
+
+
+
+        #region Shared Utilities
+
+        
+        private static string ReplaceGenericVariables(string emailBodyText)
+        {
+            emailBodyText = emailBodyText.Replace("{{SITE_TITLE}}", Startup.SITE_NAME);
+            emailBodyText = emailBodyText.Replace("{{CSS_BODY}}", CSS_BODY);
+            emailBodyText = emailBodyText.Replace("{{CSS_TITLEBLOCK}}", CSS_TITLEBLOCK);
+            emailBodyText = emailBodyText.Replace("{{CSS_CONTAINER}}", CSS_CONTAINER);
+            return emailBodyText;
+        }
+
+
+        #endregion Shared Utilities
+
+
+
+
+        #region CSS Constants
+
+
+        static string CSS_BODY => myCssHelper.GetDefinitionFor(ENUM_CSS_CLASS_NAMES.CSS_BODY);
+
+        static string CSS_TITLEBLOCK => myCssHelper.GetDefinitionFor(ENUM_CSS_CLASS_NAMES.CSS_TITLEBLOCK);
+
+        static string CSS_CONTAINER => myCssHelper.GetDefinitionFor(ENUM_CSS_CLASS_NAMES.CSS_CONTAINER);
+        
+
+
+        static CSS_Helper myCssHelper = new CSS_Helper();
+
+
+        
+        internal enum ENUM_CSS_CLASS_NAMES
+        {
+            CSS_BODY,
+            CSS_TITLEBLOCK,
+            CSS_CONTAINER
+        }
+
+
+        class CSS_Helper
+        {
+
+            static List<CSS_Record> CSS_Class_List = new List<CSS_Record>();
+
+
+
+
+
+            public CSS_Helper()
+            {
+                SetupListOfDefinitions();
+            }
+
+
+            internal string GetDefinitionFor(ENUM_CSS_CLASS_NAMES option)
+            {
+                CSS_Record classDefinition = CSS_Class_List.Where(r => r.ClassName == option).FirstOrDefault();
+
+                if (classDefinition == null) return "";
+
+                return Regex.Replace(classDefinition.Class_Definition, "\\s", "");
+            }
+
+
+
+
+
+            class CSS_Record
+            {
+                public ENUM_CSS_CLASS_NAMES ClassName { get; set; }
+                public string Class_Definition { get; set; }
+            }
+
+
+            static void SetupListOfDefinitions()
+            {
+                CSS_Class_List = new List<CSS_Record> {
+                    new CSS_Record
+                    {
+                        ClassName = ENUM_CSS_CLASS_NAMES.CSS_BODY,
+                        Class_Definition = CSS_DEFINITIONS.CSS_BODY
+                    },
+
+                    new CSS_Record
+                    {
+                        ClassName = ENUM_CSS_CLASS_NAMES.CSS_CONTAINER,
+                        Class_Definition = CSS_DEFINITIONS.CSS_CONTAINER
+                    },
+
+                    new CSS_Record
+                    {
+                        ClassName = ENUM_CSS_CLASS_NAMES.CSS_TITLEBLOCK,
+                        Class_Definition = CSS_DEFINITIONS.CSS_TITLEBLOCK
+                    }
+
+                               };
+            }
+
+
+
+
+
+
+            struct CSS_DEFINITIONS
+            {
+
+                public const string CSS_BODY = @"
+
+    font-family: ""Helvetica Neue"", Helvetica, Arial, sans-serif;
+        font-size: 14px; 
+    width:100%;max-width:600px;
+    margin:auto;
+
+";
+
+
+
+
+
+
+                public const string CSS_TITLEBLOCK = @"
+
+    background-color: #222;
+    border-color: #080808;
+    padding: 15px;
+
+    color: #9d9d9d;
+    margin: 0px;
+    font-size: 18px;
+
+";
+
+
+
+
+                public const string CSS_CONTAINER = @"
+
+    padding: 20px;
+
+
+";
+
+            }
+
+        }
+
+        #endregion CSS Constants
 
 
 

@@ -55,15 +55,18 @@
 
                         <td class="indexNowrapCol">
 
-                            <a asp-page="./Edit" asp-route-id="@item.TimeLogId">Edit</a> ||
+                            <a asp-page="./Edit" asp-route-id="@item.TimeLogId">Edit</a>
+
+
                             <strong>
-                                @*
-                                    // 08/31/2019 05:10 pm - SSN - Added /jobs/details
-                                *@
-                                <a asp-page="/jobs/details" asp-route-id="@item.JobId" target="_blank">Job Details</a> |
-
-                                <a asp-page="./Details" asp-route-id="@item.TimeLogId">Details</a> ||
-
+                               
+                                ||
+                                <a asp-page="./Details" asp-route-id="@item.TimeLogId"  >Entry's Details</a>
+                                |
+                                <a asp-page="/jobs/details" asp-route-id="@item.JobId" >Job's Details</a>
+                                |
+                                <a asp-page="/projects/details" asp-route-id="@item.job.ProjectID" >Project's Details</a>
+                                ||
                             </strong>
 
                             <a asp-page="./Delete" asp-route-id="@item.TimeLogId">Delete</a> |
