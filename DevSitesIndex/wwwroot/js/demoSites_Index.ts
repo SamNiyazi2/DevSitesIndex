@@ -75,6 +75,45 @@ function demoSiteIndexController($scope, $http, dataService) {
 
     };
 
+    // 09/06/2019 05:19 am - SSN - [20190906-0518] - [001] - Angular - edit div content
+    // https://www.tutorialsplane.com/angularjs-update-table-row/
+
+    // Initialize.
+    $scope.editablerow = '';
+
+
+    $scope.editContent = function (content) {
+
+        console.log('20190906-0642');
+        console.log(content);
+
+        $scope.editablerow = angular.copy(content);
+
+    }
+
+    $scope.saveData = function (indx) {
+
+        console.log("20190906-0655 - Begin");
+        console.log(indx);
+
+        $scope.rows[indx] = angular.copy($scope.editablerow);
+        $scope.reset();
+
+        console.log("20190906-0655 - End");
+
+    };
+
+    $scope.reset = function () {
+        $scope.editablerow = [];
+    };
+
+
+    $scope.loadTemplate = function (content) {
+      
+        if (content.id === $scope.editablerow.id) return 'edit';
+        else return 'view';
+    }
+    // 09/06/2019 05:19 am - SSN - [20190906-0518] - [001] 
 }
 
 function devSiteUpdateController($scope, $http, $window, dataService) {

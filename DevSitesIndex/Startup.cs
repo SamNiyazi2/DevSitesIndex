@@ -204,12 +204,31 @@ namespace DevSitesIndex
                 app.UseExceptionHandler("/Home/Error");
             }
 
+
+
+            // 09/06/2019 07:16 am - SSN - 
+
+            bool firstRequest = true;
+            app.Use(async (context, next) =>
+            {
+                if (firstRequest)
+                {
+                    SITE_NAME = context.Request.Host.Host.ToString();
+                    firstRequest = false;
+                }
+                await next();
+            });
+
+
+
+
             app.UseStaticFiles();
 
 
             // 08/12/2019 11:24 am - SSN - [20190812-0945] - [007] - Add identity
 
             app.UseAuthentication();
+
 
 
             app.UseMvc(routes =>
@@ -225,6 +244,8 @@ namespace DevSitesIndex
                 //        template: "api/{controller}/{id?}");
 
             });
+
+
 
         }
     }

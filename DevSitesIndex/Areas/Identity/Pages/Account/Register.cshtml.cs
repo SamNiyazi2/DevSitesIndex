@@ -113,7 +113,7 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
 ";
                     Feedbackw_util.PageContent pageContent = new Feedbackw_util.PageContent();
 
-                    pageContent.AddTitle("Registration Completed");
+                    pageContent.AddTitle("Registration Confirmation");
                     pageContent.AddMessage(message);
 
                     ////////////////////geturl(user);

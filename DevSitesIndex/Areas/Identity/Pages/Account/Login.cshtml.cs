@@ -194,7 +194,7 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
                 _logger.LogInformation("User logged in.");
 
 
-                telemetry.TrackEvent($"DemoSite-20190828-0821: Login successful {Input.Email}");
+                telemetry.TrackEvent($"DemoSite-20190828-0821: Login successful (2) {Input.Email} [{returnUrl}]");
 
                 return LocalRedirect(returnUrl);
             }

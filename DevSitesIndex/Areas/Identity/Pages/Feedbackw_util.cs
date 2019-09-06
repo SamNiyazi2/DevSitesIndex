@@ -96,7 +96,7 @@ namespace DevSitesIndex.Areas.Identity
             public static PageContent GetPageData(Guid pageID)
             {
 
-                telemetry.TrackEvent($"DemoSite-20190905-0010 - Displaying Error page [{pageID}]");
+                telemetry.TrackEvent($"DemoSite-20190905-0010 - Displaying Feedbackx contents (2)");
 
                 PageContent pageContent = PageCnetentList.Where(r => r.PageID == pageID).FirstOrDefault();
                 pageContent.BuildPageContent(pageContent);
