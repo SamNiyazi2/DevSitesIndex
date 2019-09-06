@@ -22,36 +22,40 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
 
         public string FeedbackToUser { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(string userId, string code)
+        public async Task<IActionResult> OnGetAsync(string email, string code)
         {
-            if (userId == null || code == null)
+            if (email == null || code == null)
             {
                 return RedirectToPage("/Index");
             }
 
-            var user = await _userManager.FindByIdAsync(userId);
+
+            var user = await _userManager.FindByEmailAsync(email);
+
             if (user == null)
             {
-                // return NotFound($"Unable to load user with ID '{userId}'.");
 
                 FeedbackToUser = "Confirmation failed.";
 
                 TelemetryClient telemetry = new TelemetryClient();
-                telemetry.TrackEvent($"DevSitesIndex-20190904-0901: Failed confirm email - Invalid user [{userId}] code [{code}]- Message to user [{FeedbackToUser}]");
+                telemetry.TrackEvent($"DemoSite-20190904-0901: Failed confirm email - Invalid email [{email}] code [{code}]- Message to user [{FeedbackToUser}]");
 
             }
-
-            var result = await _userManager.ConfirmEmailAsync(user, code);
-            if (!result.Succeeded)
+            else
             {
 
-                // 09/04/2019 08:54 am - SSN - [20190904-0203] - [007] - M07-06 - Demo: Multi-factor Authentication using an authenticator device
+                var result = await _userManager.ConfirmEmailAsync(user, code);
+                if (!result.Succeeded)
+                {
 
-                // throw new InvalidOperationException($"Error confirming email for user with ID '{userId}':");
-                FeedbackToUser = "Confirmation failed.";
+                    // 09/04/2019 08:54 am - SSN - [20190904-0203] - [007] - M07-06 - Demo: Multi-factor Authentication using an authenticator device
 
-                TelemetryClient telemetry = new TelemetryClient();
-                telemetry.TrackEvent($"DevSitesIndex-20190904-0854: Failed confirm email  user [{userId}] code [{code}] - Message to user [{FeedbackToUser}]  Result [{result}]");
+                    // throw new InvalidOperationException($"Error confirming email for user with ID '{userId}':");
+                    FeedbackToUser = "Confirmation failed.";
+
+                    TelemetryClient telemetry = new TelemetryClient();
+                    telemetry.TrackEvent($"DemoSite-20190904-0854: Failed confirm email  email [{email}] code [{code}] - Message to user [{FeedbackToUser}]  Result [{result}]");
+                }
             }
 
             return Page();

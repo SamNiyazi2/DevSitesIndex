@@ -39,6 +39,7 @@ namespace DevSitesIndex
         // public  IConfiguration Configuration { get; }
         public static IConfiguration Configuration { get; private set; }
 
+        public static string SITE_NAME = "TestSam.com";
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -89,7 +90,7 @@ namespace DevSitesIndex
             services.AddTransient<IEmailSender, SSNEmailSender>();
             string SendGrid_APIKey = Configuration["SendGrid:API_Key"];
             SSNSendGridStandardUtil.SendGridUtil.APIKey = SendGrid_APIKey;
-            SSNSendGridStandardUtil.SendGridUtil.BCC_Default= Configuration["SendGrid:BBC_Default"];
+            SSNSendGridStandardUtil.SendGridUtil.BCC_Default = Configuration["SendGrid:BBC_Default"];
 
 
 
@@ -109,6 +110,10 @@ namespace DevSitesIndex
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
                 options.Lockout.MaxFailedAccessAttempts = 5;
                 options.Lockout.AllowedForNewUsers = true;
+
+                // 09/04/2019 10:26 pm - SSN - [20190904-1845] - [007] - Enforce email confirmation
+                options.SignIn.RequireConfirmedEmail = true;
+
             });
 
             // https://stackoverflow.com/questions/45875601/cookie-expiry-in-asp-net-core-2-0-with-identity

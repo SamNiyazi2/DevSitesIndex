@@ -13,7 +13,7 @@ namespace DevSitesIndex.Email
     {
         public async Task SendEmailAsync(string email, string subject, string htmlMessage)
         {
-            var emailFrom = SSNSendGridStandardUtil.SendGridUtil.AddEmailAddress("sam2003@niyazi.com", "TestSam.com");
+            var emailFrom = SSNSendGridStandardUtil.SendGridUtil.AddEmailAddress("sam2003@niyazi.com", Startup.SITE_NAME);
             var emailTo = SSNSendGridStandardUtil.SendGridUtil.AddEmailAddress(email, email);
             Response response = await SSNSendGridStandardUtil.SendGridUtil.SendMessage(emailFrom, emailTo, subject, htmlMessage);
 

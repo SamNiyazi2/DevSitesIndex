@@ -81,7 +81,7 @@ namespace DevSitesIndex.Controllers
                     else
                     {
                         // throw;
-                        return BadRequest("devsite-20190518-1629 - Record was updated by someone else. (Pending work)");
+                        return BadRequest("DemoSite-20190518-1629 - Record was updated by someone else. (Pending work)");
 
                     }
                 }
@@ -90,7 +90,7 @@ namespace DevSitesIndex.Controllers
             {
                 string message = ex.Message;
 
-                return BadRequest(string.Format("['devsite-20190518-1630 - Systme error. (Pending work)','{0}']", message));
+                return BadRequest(string.Format("['DemoSite-20190518-1630 - Systme error. (Pending work)','{0}']", message));
                 // throw;
             }
 

@@ -70,7 +70,7 @@ namespace DevSitesIndex.Entities
         [DisplayName("For Demo")]
         [Remote(action: "isForDemo_v02_SelectionValid", controller: "RemoteDataValidation", HttpMethod = "POST")]
         // 05/18/2019 04L38 pm - SSN - Added
-        [Range(1, 3, ErrorMessage = "Select an option please. (DevSite-20190518-1638)")]
+        [Range(1, 3, ErrorMessage = "Select an option please. (DemoSite-20190518-1638)")]
         public byte ForDemo_v02 { get; set; }
 
         // 03/19/2019 07:04 pm - SSN - [20190319-1904]
