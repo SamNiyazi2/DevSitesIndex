@@ -124,7 +124,7 @@ namespace DevSitesIndex.Email
         
         private static string ReplaceGenericVariables(string emailBodyText)
         {
-            emailBodyText = emailBodyText.Replace("{{SITE_TITLE}}", Startup.SITE_NAME);
+            emailBodyText = emailBodyText.Replace("{{SITE_TITLE}}", Startup.SITE_NAME_HTML.ToString());
             emailBodyText = emailBodyText.Replace("{{CSS_BODY}}", CSS_BODY);
             emailBodyText = emailBodyText.Replace("{{CSS_TITLEBLOCK}}", CSS_TITLEBLOCK);
             emailBodyText = emailBodyText.Replace("{{CSS_CONTAINER}}", CSS_CONTAINER);

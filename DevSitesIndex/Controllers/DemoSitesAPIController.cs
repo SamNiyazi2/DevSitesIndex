@@ -68,9 +68,9 @@ namespace DevSitesIndex.Controllers
 
         // POST api/<controller>
         [HttpPost]
-        public void Post([FromBody]DevSite value)
+        public async void Post([FromBody]DevSite value)
         {
-            _devSitesIndexRepository.UpdateDevSite(value);
+           await _devSitesIndexRepository.UpdateDevSiteAsync(value);
             _devSitesIndexRepository.Save();
 
         }

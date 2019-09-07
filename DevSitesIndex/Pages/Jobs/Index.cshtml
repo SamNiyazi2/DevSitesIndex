@@ -60,10 +60,10 @@
                             <a asp-page="./Edit" asp-route-id="@item.JobID">Edit</a>
                             ||
                             <strong>
-                               
-                                <a asp-page="/projects/Details" asp-route-id="@item.ProjectID" >Project's Details</a>
+
+                                <a asp-page="./Details" asp-route-id="@item.JobID">Job's Details</a> 
                                 |
-                                <a asp-page="./Details" asp-route-id="@item.JobID" >Job's Details</a> |
+                                <a asp-page="/projects/Details" asp-route-id="@item.ProjectID">Project's Details</a>
 
                             </strong>
                             ||

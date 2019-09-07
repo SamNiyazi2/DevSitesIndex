@@ -21,8 +21,7 @@ namespace DevSitesIndex.Areas.Identity.Data
 
 
 
-            bool do_database_Migration = false;
-            bool.TryParse(configuration["Database_Migration"], out do_database_Migration);
+            bool.TryParse(configuration["Database_Migration"], out bool do_database_Migration);
 
 
             if (do_database_Migration)
@@ -39,9 +38,11 @@ namespace DevSitesIndex.Areas.Identity.Data
 
                     try
                     {
-                        Dictionary<string, string> dic = new Dictionary<string, string>();
-                        dic.Add("ErrorCode", "DemoSite-20190828-0901");
-                        dic.Add("ErrorMessage", "DevSiteIndexIdentityDbContext Migration failed");
+                        Dictionary<string, string> dic = new Dictionary<string, string>
+                        {
+                            { "ErrorCode", "DemoSite-20190828-0901" },
+                            { "ErrorMessage", "DevSiteIndexIdentityDbContext Migration failed" }
+                        };
 
                         telemetry.TrackException(ex, dic);
                     }

@@ -59,17 +59,23 @@ namespace DevSitesIndex.Pages.CommandLine
             else
             {
 
+                // 09/06/2019 08:26 am - SSN
+                await Task.Run(() =>
+                {
 
-                RunCommand_v2 runCommand = new RunCommand_v2(AppContext.BaseDirectory, WaitForExit);
 
-                StringBuilder sb = new StringBuilder(CommandText);
+                    RunCommand_v2 runCommand = new RunCommand_v2(AppContext.BaseDirectory, WaitForExit);
 
-                runCommand.Run(sb);
+                    StringBuilder sb = new StringBuilder(CommandText);
 
-                Results_Error = "Disabled-20180913-1631";
+                    runCommand.Run(sb);
 
-                Results_Error = runCommand.strError;
-                Results_Output = runCommand.strOutput;
+                    Results_Error = "Disabled-20180913-1631";
+
+                    Results_Error = runCommand.strError;
+                    Results_Output = runCommand.strOutput;
+
+                });
 
             }
 

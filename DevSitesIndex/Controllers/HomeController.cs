@@ -117,7 +117,7 @@ namespace DevSitesIndex.Controllers
                     {
                         sb.Append(string.Format("<p>{0}</p>", ex.Message));
                         sb.Append(string.Format("<p>{0}</p>", ex.StackTrace));
-                        sb.Append(string.Format("<p>{0}</p>"));
+                        sb.Append(string.Format("<p></p>"));
                         ex = ex.InnerException;
 
                     }

@@ -160,8 +160,10 @@ namespace DevSitesIndex.Areas.Identity
 
         internal static PageContent AddPage()
         {
-            PageContent pageContent = new PageContent();
-            pageContent.PageID = Guid.NewGuid();
+            PageContent pageContent = new PageContent
+            {
+                PageID = Guid.NewGuid()
+            };
 
             PageCnetentList.Add(pageContent);
             return pageContent;

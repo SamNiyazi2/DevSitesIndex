@@ -108,6 +108,10 @@ namespace DevSitesIndex.Entities
             }
         }
 
+        // 09/06/2019 07:09 pm - SSN - [20190906-0518] - [009] - Angular - edit div content - Adding timestamp
+
+        [Timestamp]
+        public byte[] RowVersion { get; set; }
 
 
     }

@@ -12,7 +12,7 @@
     <meta http-equiv="Content-Language" content="en">
 
 
-    <title>@ViewData["Title"] - @Startup.SITE_NAME</title>
+    <title>@ViewData["Title"] - @Startup.SITE_NAME_STRING</title>
 
 
     @*03/27/2019 03:26 pm - SSN - Having problem with date field - Using same files for production*@
@@ -55,7 +55,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">@Startup.SITE_NAME</a>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">@Startup.SITE_NAME_STRING</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -246,5 +246,6 @@
 
 <!-- 20190905-2332 -->
 <!-- 20190906-0633 -->
+<!-- 20190906-0831 -->
 </body>
 </html>

@@ -25,6 +25,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using DevSitesIndex.Email;
+using Microsoft.AspNetCore.Html;
 
 namespace DevSitesIndex
 {
@@ -39,7 +40,8 @@ namespace DevSitesIndex
         // public  IConfiguration Configuration { get; }
         public static IConfiguration Configuration { get; private set; }
 
-        public static string SITE_NAME = "TestSam.com";
+        public static string SITE_NAME_STRING = "";
+        public static HtmlString SITE_NAME_HTML => new HtmlString(SITE_NAME_STRING.Replace(".", "<span>.<span>"));// For email to prevent email client vendors from hyperlinking the domain name.
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -100,7 +102,15 @@ namespace DevSitesIndex
 
             services.AddScoped<IDevSitesIndexRepository, DevSitesIndexRepository>();
 
+            
+            
+            // 09/06/2019 11:45 pm - SSN - [20190906-2040] - [002] - Logger
 
+            //services.AddSingleton<Util.ILogger_SSN, Util.SSN_Logger>();
+             services.AddTransient< Util.ILogger_SSN , Util.SSN_Logger>();
+
+
+            
 
             // 08/13/2019 08:41 am - SSN - Added
             // https://docs.microsoft.com/en-us/aspnet/core/security/authentication/identity-configuration?view=aspnetcore-2.2
@@ -213,7 +223,7 @@ namespace DevSitesIndex
             {
                 if (firstRequest)
                 {
-                    SITE_NAME = context.Request.Host.Host.ToString();
+                    SITE_NAME_STRING = context.Request.Host.Host.ToString();
                     firstRequest = false;
                 }
                 await next();

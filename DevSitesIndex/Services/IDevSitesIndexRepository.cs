@@ -17,7 +17,7 @@ namespace DevSitesIndex.Services
         Task<IEnumerable<DevSite>> GetDevSites(string searchText);
 
 
-        DevSite UpdateDevSite(DevSite devSite);
+        Task<DevSite> UpdateDevSiteAsync(DevSite devSite);
 
         DevSite GetDevSite(int DevSiteID);
 

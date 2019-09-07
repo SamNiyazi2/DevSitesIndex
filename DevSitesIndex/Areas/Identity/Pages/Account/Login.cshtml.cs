@@ -19,17 +19,17 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
     public class LoginModel : PageModel
     {
         private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly ILogger<LoginModel> _logger;
+        private readonly Util.ILogger_SSN _logger;
         private readonly IConfiguration configuration;
         private readonly IHostingEnvironment env;
 
         // 08/28/2019 08:19 am - SSN - [20190828-0819] - [001] - Adding Application Insights
-        TelemetryClient telemetry = new TelemetryClient();
+        // TelemetryClient telemetry = new TelemetryClient();
 
 
         // 09/01/2019 03:26 pm - SSN - [20190901-1225] - [006] - Add Job_DevSite table - Adding username_temp and pass
 
-        public LoginModel(SignInManager<IdentityUser> signInManager, ILogger<LoginModel> logger, IConfiguration configuration, IHostingEnvironment env)
+        public LoginModel(SignInManager<IdentityUser> signInManager, Util.ILogger_SSN logger, IConfiguration configuration, IHostingEnvironment env)
         {
             this.configuration = configuration;
             this.env = env;
@@ -68,6 +68,11 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
 
         public async Task OnGetAsync(string returnUrl = null)
         {
+
+
+            _logger.LogInformation("****************************** demosite-20190906-2024 - Login top - Testing logging");
+
+
             if (!string.IsNullOrEmpty(ErrorMessage))
             {
                 ModelState.AddModelError(string.Empty, ErrorMessage);
@@ -93,9 +98,9 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
             ReturnUrl = returnUrl;
 
             // 08/28/2019 08:19 am - SSN - [20190828-0819] - [001] - Adding Application Insights
-      
-            telemetry.TrackEvent("DemoSite-20190828-0802: Timelog Index");
-            telemetry.TrackPageView("DemoSite-20190828-0818: Timelog Index");
+
+            _logger.TrackEvent("DemoSite-20190828-0802: Timelog Index");
+            _logger.TrackPageView("DemoSite-20190828-0818: Timelog Index");
 
         }
 
@@ -125,7 +130,7 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
             if (identityUser == null)
             {
                 ModelState.AddModelError(string.Empty, "Invalid email or password.");
-                telemetry.TrackEvent($"DemoSite-20190905-0517 - Invalid email [{Input.Email}]");
+                _logger.TrackEvent($"DemoSite-20190905-0517 - Invalid email [{Input.Email}]");
                 return Page();
 
             }
@@ -137,7 +142,7 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
             if (!hasValidCredentials)
             {
                 ModelState.AddModelError(string.Empty, "Invalid email  or password.");
-                telemetry.TrackEvent($"DemoSite-20190905-0539 - Invalid email or password [{Input.Email}]");
+                _logger.TrackEvent($"DemoSite-20190905-0539 - Invalid email or password [{Input.Email}]");
                 return Page();
 
             }
@@ -148,7 +153,7 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
             {
                 ModelState.AddModelError("", "Email not confirmed.");
 
-                telemetry.TrackEvent("DemoSite-20190904-1851 - Email not confirmed");
+                _logger.TrackEvent("DemoSite-20190904-1851 - Email not confirmed");
 
 
                 #region  Message to user when they click the link to resend their confirmation email
@@ -194,7 +199,7 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
                 _logger.LogInformation("User logged in.");
 
 
-                telemetry.TrackEvent($"DemoSite-20190828-0821: Login successful (2) {Input.Email} [{returnUrl}]");
+                _logger.TrackEvent($"DemoSite-20190828-0821: Login successful (2) {Input.Email} [{returnUrl}]");
 
                 return LocalRedirect(returnUrl);
             }
@@ -212,14 +217,14 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
 
             if (result.IsLockedOut)
             {
-                telemetry.TrackEvent($"DemoSite-20190828-0821: Login failure.  Lockedout {Input.Email}");
+                _logger.TrackEvent($"DemoSite-20190828-0821: Login failure.  Lockedout {Input.Email}");
 
                 _logger.LogWarning("User account locked out.");
                 return RedirectToPage("./Lockout");
             }
             else
             {
-                telemetry.TrackEvent($"DemoSite-20190828-0821: Login failure.  Invalid login. {Input.Email}");
+                _logger.TrackEvent($"DemoSite-20190828-0821: Login failure.  Invalid login. {Input.Email}");
 
                 ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                 return Page();

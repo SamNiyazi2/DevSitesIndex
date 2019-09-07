@@ -14,6 +14,8 @@ ssn_devsite_angular_module.factory("dataService", function ($http, $q) {
         var deferred = $q.defer();
         $http.get('/api/demositesapi')
             .then(function (result) {
+            console.log("dataservices - getDevSites");
+            console.log(result);
             angular.copy(result.data, _devSites);
             deferred.resolve();
         }, function () {
@@ -33,6 +35,17 @@ ssn_devsite_angular_module.factory("dataService", function ($http, $q) {
         return deferred.promise;
     };
     var _addDevSite = function (devSite) {
+        var deferred = $q.defer();
+        $http.post('/api/demositesapi', devSite)
+            .then(function (result) {
+            deferred.resolve(result.data);
+        }, function () {
+            deferred.reject();
+        });
+        return deferred.promise;
+    };
+    // 09/06/2019 04:45 pm - SSN - [20190906-0518] - [003] - Angular - edit div content
+    var _updateDevSite = function (devSite) {
         var deferred = $q.defer();
         $http.post('/api/demositesapi', devSite)
             .then(function (result) {
@@ -65,12 +78,15 @@ ssn_devsite_angular_module.factory("dataService", function ($http, $q) {
         return deferred.promise;
     };
     return {
-        devSites: _devSites,
+        devSites: ko.observable(_devSites),
         getDevSites: _getDevSites,
         addDevSite: _addDevSite,
+        // 09/06/2019 04:44 pm - SSN - [20190906-0518] - [002] - Angular - edit div content
+        updateDevSite: _updateDevSite,
         insertTimeLog: _insertTimeLog,
         getTimelog: _getTimelog,
         updateTimeLog: _addOrUpdateTimeLog
     };
 });
+console.log("DataService loaded.");
 //# sourceMappingURL=DataServices.js.map

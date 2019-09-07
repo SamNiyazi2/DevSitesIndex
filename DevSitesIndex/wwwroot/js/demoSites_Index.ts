@@ -49,11 +49,30 @@ function demoSiteIndexController($scope, $http, dataService) {
 
     // $scope.data = [];
     $scope.data = dataService;
+
+
+
     $scope.isBusy2 = true;
 
     //    $http.get('./api/demositesapi')
     dataService.getDevSites()
         .then(function (result) {
+
+            var test = "Test-2090609-1506 - dataService.getDevSites call";
+            console.log(test);
+
+            console.log("demosite-20190906-1710 - then");
+            console.log(result);
+            console.log($scope.data.devSites());
+
+            console.log("demosite-20190906-1710 - ======================================");
+
+
+             $scope.data_local = ko.observable( $scope.data.devSites() );
+            //$scope.data_local =  $scope.data.devSites;
+
+            console.log($scope.data_local() );
+
         },
             function () {
 
@@ -87,19 +106,41 @@ function demoSiteIndexController($scope, $http, dataService) {
         console.log('20190906-0642');
         console.log(content);
 
-        $scope.editablerow = angular.copy(content);
+        // $scope.editablerow = angular.copy(content);
+        $scope.editablerow =  content;
 
     }
 
     $scope.saveData = function (indx) {
 
-        console.log("20190906-0655 - Begin");
+        console.log("20190906-0655 - saveData Begin indx [" + indx +"]");
         console.log(indx);
 
-        $scope.rows[indx] = angular.copy($scope.editablerow);
+//        console.log($scope.data_local[indx]);
+
+//        $scope.data_local[indx] = angular.copy($scope.editablerow);
+
+        console.log("After assignment");
+
+        console.log($scope.data_local()[indx]);
+
+        console.log("Result from save (20190906-1636-B)");
+
+        $scope.data.updateDevSite($scope.data_local()[indx])
+            .then((response) => {
+                console.log("Then response");
+                console.log(response);
+            },
+            (error) => {
+                console.log("Failed:");
+                console.log(error);
+            } );
+
+
         $scope.reset();
 
-        console.log("20190906-0655 - End");
+
+        console.log("20190906-0655 - saveData Begin indx [" + indx + "]");
 
     };
 
@@ -109,7 +150,10 @@ function demoSiteIndexController($scope, $http, dataService) {
 
 
     $scope.loadTemplate = function (content) {
-      
+
+        console.log("loadTemplate");
+      //  console.log(content);
+
         if (content.id === $scope.editablerow.id) return 'edit';
         else return 'view';
     }

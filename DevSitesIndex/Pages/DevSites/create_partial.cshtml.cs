@@ -28,8 +28,10 @@ namespace DevSitesIndex.Pages.DevSites
         public IActionResult OnGet()
         {
             Populate_softwareCodesSL(_context);
-            DevSite = new DevSite();
-            DevSite.DateAdded = DateTime.Now;
+            DevSite = new DevSite
+            {
+                DateAdded = DateTime.Now
+            };
 
             return Page();
         }
