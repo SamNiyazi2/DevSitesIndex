@@ -1,0 +1,22 @@
+﻿
+
+09/07/2019 01:02 am - SSN - Creating DAL
+
+install-package microsoft.entityframeworkcore
+
+install-package microsoft.aspnetcore.identity
+
+Microsoft.VisualStudio.Web.CodeGeneration.Design  (no change)
+
+
+   
+install-package microsoft.extensions.identity.core 
+
+install-package Microsoft.EntityFrameworkCore.SqlServer
+install-package Microsoft.EntityFrameworkCore.Design 
+
+install-package microsoft.aspnetcore.identity.entityframeworkcore
+
+install-package microsoft.applicationinsights
+
+

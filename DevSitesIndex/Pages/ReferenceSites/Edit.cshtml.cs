@@ -8,9 +8,32 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DevSitesIndex.Entities;
 using Microsoft.AspNetCore.Authorization;
+using System.ComponentModel.DataAnnotations;
 
+// todo clean up
+//namespace DevSitesIndex.Entities
+//{
+//    [ModelMetadataType(typeof(ReferenceSiteMetaData))]
+//    public partial class ReferenceSite  
+//    {
+
+//    }
+//    public class ReferenceSiteMetaData
+//    {
+//        [Remote(action: "DoesReferenceSites_SiteTitleExist", controller: "RemoteDataValidation", AdditionalFields = "Id", HttpMethod = "POST")]
+//        public string SiteTitle { get; set; }
+//        [Remote(action: "DoesReferenceSites_SiteUrlExist", controller: "RemoteDataValidation", AdditionalFields = "Id", HttpMethod = "POST")]
+//        public string SiteURL { get; set; }
+
+
+//    }
+//}
 namespace DevSitesIndex.Pages.ReferenceSites
 {
+
+   
+
+
 
     // 08/12/2019 12:21 pm - SSN - [20190812-0945] - [014] - Add identity
     // Add Authorize    public class CreateModel : PageModel
@@ -27,13 +50,15 @@ namespace DevSitesIndex.Pages.ReferenceSites
         [BindProperty]
         public ReferenceSite ReferenceSite { get; set; }
 
+ 
+
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-
+          
             ReferenceSite = await _context.ReferenceSites.SingleOrDefaultAsync(m => m.Id == id);
 
             if (ReferenceSite == null)
@@ -75,6 +100,12 @@ namespace DevSitesIndex.Pages.ReferenceSites
             }catch ( Exception ex )
             {
                 string message = ex.Message;
+
+                if (!Util.ExceptionHandler_SSN.HandleException(ex))
+                {
+                    return Page();
+                }
+
             }
 
             return RedirectToPage("./Index");
