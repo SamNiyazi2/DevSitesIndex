@@ -47,7 +47,7 @@
     <PackageReference Include="bootstrap" Version="4.1.3" />
     <PackageReference Include="bootstrap.TypeScript.DefinitelyTyped" Version="0.9.8" />
     <PackageReference Include="BuildBundlerMinifier" Version="2.8.391" />
-    <PackageReference Include="devsites_dal_standard" Version="1.0.5" />
+    <PackageReference Include="devsites_dal_standard" Version="1.0.6" />
     <PackageReference Include="jQuery.Typescript.DefinitelyTyped" Version="3.1.2" />
     <PackageReference Include="knockoutjs" Version="3.4.2" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.1.1" />
