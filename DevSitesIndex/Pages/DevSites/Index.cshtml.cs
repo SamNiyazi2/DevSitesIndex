@@ -96,8 +96,7 @@ namespace DevSitesIndex.Pages.DevSites
             try
             {
 
-
-                sortOrder = sortOrder ?? "DateAdded";
+                sortOrder = sortOrder ?? "DateUpdated";
                 desc = desc ?? "true";
 
                 SearchText = searchText;

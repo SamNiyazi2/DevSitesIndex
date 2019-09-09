@@ -14,7 +14,10 @@
     "wwwroot/js/site.ts",
     "wwwroot/js/Timesheet/TimesheetApp.ts",
     "wwwroot/js/CodeReference/Typeahead_Discipline.ts",
-    "wwwroot/js/DemoSites_index_p1.ts"
+    "wwwroot/js/DemoSites_index_p1.ts",
+    "wwwroot/js/DemoSites_index.ts",
+    "wwwroot/js/DataServices.ts",
+    "wwwroot/js/DataServices.ts"
   ],
 
   "exclude": [

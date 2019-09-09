@@ -41,15 +41,10 @@
         // 09/06/2019 05:19 am - SSN - [20190906-0518] - [001]
     *@
 
-    <h1>20190906-0457 - LoadTemplate </h1>
-
-
-    <h4>( | limitTo:5)</h4>
-
     @*<div data-ng-repeat="i in data.devSites | limitTo:5" ng-include="loadTemplate(i)">*@
 
-
-    <div  data-ng-repeat="i in data_local() | limitTo:5" ng-include="loadTemplate(i)">
+    <p>Listing top five jobs by last activity date.</p>
+    <div data-ng-repeat="devSiteRec in data_local() | limitTo:5 | orderBy:'-lastActivityDate'" ng-include="loadTemplate(devSiteRec)">
 
     </div>
 
@@ -64,17 +59,23 @@
 <script type="text/ng-template" id="view">
 
 
-    <div>
+    <div ng-class="'siteTitleDiv ' + setTableRowClass($index)">
 
+        <p>
+            <span ng-hide="isValidUrl(devSiteRec)" class="siteTitle" target="window2_{{ devSiteRec.id }}">{{ devSiteRec.siteTitle }}</span>
 
-        <a ng-show="i.siteUrl" class="siteTitle" href="{{ i.siteUrl}}" target="window2_{{ i.id }}">{{ i.siteTitle }}</a>
+            <a ng-show="isValidUrl(devSiteRec)" class="siteTitle" href="{{devSiteRec.siteUrl }}" target="window2_{{ devSiteRec.id }}">{{ devSiteRec.siteTitle }}</a>
+        </p>
 
-        <span ng-show="!i.siteUrl" class="siteTitle">{{ i.siteTitle }}</span>
+        <p ng-hide="devSiteRec.siteUrl">{{devSiteRec.siteUrl}}</p>
 
 
         <div>
-            <a class="btn btn-sm" ng-click="editContent(i)">Edit</a>
+            <a class="btn btn-sm" ng-click="editContent(devSiteRec)">Edit</a>
         </div>
+
+
+        <hr />
 
         @*<div class="menuOptions">
 
@@ -102,7 +103,7 @@
 
     <div class="padded" style="margin:-20px;position:absolute;background-color:lightblue;width:400px;">
 
-        <div  >
+        <div>
             <div class="col-md-12">
 
                 <div class="form-group">
@@ -116,8 +117,8 @@
                 </div>
 
                 <div>
-                    <a class="btn btn-default" ng-click="saveData($index)">Save</a>
-                    <a class="btn btn-default" ng-click="reset()">Cancel</a>
+                    <button class="btn btn-default" ng-click="saveData($index)">Save</button>
+                    <button class="btn btn-default" ng-click="reset()">Cancel</button>
                 </div>
             </div>
         </div>
@@ -127,65 +128,7 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <div>
-
-
-        <a ng-show="i.siteUrl" class="siteTitle" href="{{ i.siteUrl}}" target="window2_{{ i.id }}">{{ i.siteTitle }}</a>
-
-        <span ng-show="!i.siteUrl" class="siteTitle">{{ i.siteTitle }}</span>
-
-
-        <div>
-            <a class="btn btn-sm" ng-click="editContent(i)">Edit</a>
-        </div>
-
-        @*<div class="menuOptions">
-
-                <a href="#" class=""
-                   data-bind="click: $parent.showJob">Show Job</a>
-
-                <a href="#" class=""
-                   data-bind="click: $parent.requestDelConfirm">Delete</a>
-
-                <a class=""
-                   data-bind="attr: {href: '/devsites/details?id=' + id , target:'devsiteIndexWindow' + id } ">Detail</a>
-
-            </div>*@
-
-    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <div ng-include="'view'"></div>
 
 
 
@@ -229,7 +172,7 @@
 
             <div class="modal-header">
                 <h2>
-                    <span class="modal-title">Delete Confirmation</span>
+                    <span class="modal-title">Delete Confirmation (p2)</span>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X </button>
                 </h2>
             </div>

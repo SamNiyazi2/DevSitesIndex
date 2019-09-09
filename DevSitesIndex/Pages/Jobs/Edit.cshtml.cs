@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using DevSitesIndex.Entities;
 using Microsoft.AspNetCore.Authorization;
 
+
 namespace DevSitesIndex.Pages.Jobs
 {
 
@@ -48,13 +49,17 @@ namespace DevSitesIndex.Pages.Jobs
                 return NotFound();
             }
 
+            DoPageSetup();
 
+            return Page();
+        }
+
+
+        private void DoPageSetup()
+        {
             // ViewData["ProjectID"] = new SelectList(_context.Project, "ProjectID", "ProjectID");
             // 05/03/2019 05:35 am - SSN - Add order
             projectsSL = new SelectList(_context.Projects.OrderBy(r => r.ProjectTitle), "ProjectID", "ProjectTitle");
-
-
-            return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -63,6 +68,8 @@ namespace DevSitesIndex.Pages.Jobs
             {
                 return Page();
             }
+
+            DoPageSetup();
 
             _context.Attach(Job).State = EntityState.Modified;
 
@@ -77,24 +84,60 @@ namespace DevSitesIndex.Pages.Jobs
             {
                 await _context.SaveChangesAsync();
             }
-            catch (DbUpdateConcurrencyException)
+
+
+            catch (DbUpdateConcurrencyException ex)
             {
-                if (!JobExists(Job.JobID))
+                var entry = ex.Entries.Single();
+
+                var clientValues = (Job)entry.Entity;
+
+                var databaseEntry = entry.GetDatabaseValues();
+
+                if (databaseEntry == null)
                 {
-                    return NotFound();
+                    ModelState.AddModelError(string.Empty,
+                        "Unable to save changes. The job was deleted by another user.");
                 }
                 else
                 {
-                    throw;
+
+
+                    var databaseValues = (Job)databaseEntry.ToObject();
+
+                    if (databaseValues.JobTitle != clientValues.JobTitle)
+
+                        ModelState.AddModelError("Job.JobTitle", "Current value: "
+                            + databaseValues.JobTitle);
+
+                    if (databaseValues.ProjectID != clientValues.ProjectID)
+                    {
+
+                        Project project = _context.Projects.Where(r => r.ProjectID == databaseValues.ProjectID).FirstOrDefault();
+
+                        ModelState.AddModelError("Job.ProjectID", "Current value: "
+                                     + project?.ProjectTitle);
+                    }
+
+
+
+                    ModelState.AddModelError(string.Empty, "The record you attempted to edit "
+                        + "was modified by another user after you got the original value. The "
+                        + "edit operation was canceled and the current values in the database "
+                        + "have been displayed. If you still want to edit this record, click "
+                        + "the Save button again. Otherwise click the 'Back to List' hyperlink.");
+
+                    Job.RowVersion = databaseValues.RowVersion;
                 }
+
+                return Page();
+
+
             }
 
             return RedirectToPage("./Index");
         }
 
-        private bool JobExists(int id)
-        {
-            return _context.Jobs.Any(e => e.JobID == id);
-        }
+
     }
 }

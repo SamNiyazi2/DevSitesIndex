@@ -1,11 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <UserSecretsId>d333cece-1c61-46c9-bdce-fbf359723d24</UserSecretsId>
     <TypeScriptToolsVersion>3.0</TypeScriptToolsVersion>
     <ApplicationInsightsResourceId>/subscriptions/d6723a94-6723-4e85-b988-03bf28d6ea51/resourcegroups/PS-FabrikamResidences-RG/providers/microsoft.insights/components/PS-FabrikamResidences</ApplicationInsightsResourceId>
-    <ApplicationInsightsAnnotationResourceId>/subscriptions/d6723a94-6723-4e85-b988-03bf28d6ea51/resourcegroups/PS-FabrikamResidences-RG/providers/microsoft.insights/components/PS-FabrikamResidences</ApplicationInsightsAnnotationResourceId>
   </PropertyGroup>
 
   <ItemGroup>

@@ -58,20 +58,7 @@ function demoSiteIndexController($scope, $http, dataService) {
     dataService.getDevSites()
         .then(function (result) {
 
-            var test = "Test-2090609-1506 - dataService.getDevSites call";
-            console.log(test);
-
-            console.log("demosite-20190906-1710 - then");
-            console.log(result);
-            console.log($scope.data.devSites());
-
-            console.log("demosite-20190906-1710 - ======================================");
-
-
-             $scope.data_local = ko.observable( $scope.data.devSites() );
-            //$scope.data_local =  $scope.data.devSites;
-
-            console.log($scope.data_local() );
+            $scope.data_local = ko.observable($scope.data.devSites());
 
         },
             function () {
@@ -101,46 +88,34 @@ function demoSiteIndexController($scope, $http, dataService) {
     $scope.editablerow = '';
 
 
+
     $scope.editContent = function (content) {
 
-        console.log('20190906-0642');
-        console.log(content);
-
-        // $scope.editablerow = angular.copy(content);
-        $scope.editablerow =  content;
+        $scope.editablerow = angular.copy(content);
+        ///////////////////////////////////////////$scope.editablerow = content;
 
     }
 
     $scope.saveData = function (indx) {
 
-        console.log("20190906-0655 - saveData Begin indx [" + indx +"]");
-        console.log(indx);
 
-//        console.log($scope.data_local[indx]);
+        let theIndex = $scope.data_local().findIndex(r => r.id === $scope.editablerow.id);
 
-//        $scope.data_local[indx] = angular.copy($scope.editablerow);
+        $scope.data_local()[theIndex] = $scope.editablerow;
 
-        console.log("After assignment");
-
-        console.log($scope.data_local()[indx]);
-
-        console.log("Result from save (20190906-1636-B)");
-
-        $scope.data.updateDevSite($scope.data_local()[indx])
+        $scope.data.updateDevSite($scope.editablerow)
             .then((response) => {
-                console.log("Then response");
+                console.log("20190908-0628 - demoSites_Index - updateDevSite Success");
                 console.log(response);
             },
-            (error) => {
-                console.log("Failed:");
-                console.log(error);
-            } );
+                (error) => {
+                    console.log("20190908-0628 - demoSites_Index - updateDevSite Success");
+                    console.log(error);
+                });
 
 
         $scope.reset();
 
-
-        console.log("20190906-0655 - saveData Begin indx [" + indx + "]");
 
     };
 
@@ -151,13 +126,45 @@ function demoSiteIndexController($scope, $http, dataService) {
 
     $scope.loadTemplate = function (content) {
 
-        console.log("loadTemplate");
-      //  console.log(content);
-
         if (content.id === $scope.editablerow.id) return 'edit';
         else return 'view';
     }
-    // 09/06/2019 05:19 am - SSN - [20190906-0518] - [001] 
+
+
+
+    // 09/06/2019 05:19 am - SSN - [20190906-0518] - [001]
+
+    // 09/08/2019 12:01 am - SSN - [20190908-0001] - [001] - Concurrency
+    // Check we are not hyperlink invalid addresses
+
+    $scope.isValidUrl = function (content) {
+
+
+        if (!content || content.siteUrl == null) return false;
+
+        const urlToTest = content.siteUrl.toLowerCase().trim();
+
+
+        let c1 = urlToTest.substr(0, 7);
+        let c2 = urlToTest.substr(0, 8);
+
+        const validchemas = "|http://|https://|";
+
+        let validOptions = 0;
+
+        validOptions += (validchemas.indexOf(c1) == 1) ? 1 : 0;
+        validOptions += (validchemas.indexOf(c2) == 1) ? 1 : 0;
+
+        return (validOptions > 0);
+
+    }
+
+    // 09/08/2019 05:31 pm - SSN - Added
+    $scope.setTableRowClass = function (index) {
+
+        return index % 2 == 0 ? 'evenRow' : 'oddRow';
+    }
+
 }
 
 function devSiteUpdateController($scope, $http, $window, dataService) {
@@ -173,7 +180,7 @@ function devSiteUpdateController($scope, $http, $window, dataService) {
         // Added cast
         var f: HTMLFormElement = <any>$(formSelector);
 
-            if (!f.valid()) {
+        if (!f.valid()) {
             alert('Invalid form.');
             return false;
         }

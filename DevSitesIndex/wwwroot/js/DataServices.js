@@ -14,8 +14,6 @@ ssn_devsite_angular_module.factory("dataService", function ($http, $q) {
         var deferred = $q.defer();
         $http.get('/api/demositesapi')
             .then(function (result) {
-            console.log("dataservices - getDevSites");
-            console.log(result);
             angular.copy(result.data, _devSites);
             deferred.resolve();
         }, function () {
@@ -88,5 +86,4 @@ ssn_devsite_angular_module.factory("dataService", function ($http, $q) {
         updateTimeLog: _addOrUpdateTimeLog
     };
 });
-console.log("DataService loaded.");
 //# sourceMappingURL=DataServices.js.map

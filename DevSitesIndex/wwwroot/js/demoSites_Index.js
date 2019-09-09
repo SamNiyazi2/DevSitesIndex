@@ -24,15 +24,7 @@ function demoSiteIndexController($scope, $http, dataService) {
     //    $http.get('./api/demositesapi')
     dataService.getDevSites()
         .then(function (result) {
-        var test = "Test-2090609-1506 - dataService.getDevSites call";
-        console.log(test);
-        console.log("demosite-20190906-1710 - then");
-        console.log(result);
-        console.log($scope.data.devSites());
-        console.log("demosite-20190906-1710 - ======================================");
         $scope.data_local = ko.observable($scope.data.devSites());
-        //$scope.data_local =  $scope.data.devSites;
-        console.log($scope.data_local());
     }, function () {
         alert('failed call to api/demositesapi (20180831-0940');
     })
@@ -49,42 +41,50 @@ function demoSiteIndexController($scope, $http, dataService) {
     // Initialize.
     $scope.editablerow = '';
     $scope.editContent = function (content) {
-        console.log('20190906-0642');
-        console.log(content);
-        // $scope.editablerow = angular.copy(content);
-        $scope.editablerow = content;
+        $scope.editablerow = angular.copy(content);
+        ///////////////////////////////////////////$scope.editablerow = content;
     };
     $scope.saveData = function (indx) {
-        console.log("20190906-0655 - saveData Begin indx [" + indx + "]");
-        console.log(indx);
-        //        console.log($scope.data_local[indx]);
-        //        $scope.data_local[indx] = angular.copy($scope.editablerow);
-        console.log("After assignment");
-        console.log($scope.data_local()[indx]);
-        console.log("Result from save (20190906-1636-B)");
-        $scope.data.updateDevSite($scope.data_local()[indx])
+        var theIndex = $scope.data_local().findIndex(function (r) { return r.id === $scope.editablerow.id; });
+        $scope.data_local()[theIndex] = $scope.editablerow;
+        $scope.data.updateDevSite($scope.editablerow)
             .then(function (response) {
-            console.log("Then response");
+            console.log("20190908-0628 - demoSites_Index - updateDevSite Success");
             console.log(response);
         }, function (error) {
-            console.log("Failed:");
+            console.log("20190908-0628 - demoSites_Index - updateDevSite Success");
             console.log(error);
         });
         $scope.reset();
-        console.log("20190906-0655 - saveData Begin indx [" + indx + "]");
     };
     $scope.reset = function () {
         $scope.editablerow = [];
     };
     $scope.loadTemplate = function (content) {
-        console.log("loadTemplate");
-        //  console.log(content);
         if (content.id === $scope.editablerow.id)
             return 'edit';
         else
             return 'view';
     };
-    // 09/06/2019 05:19 am - SSN - [20190906-0518] - [001] 
+    // 09/06/2019 05:19 am - SSN - [20190906-0518] - [001]
+    // 09/08/2019 12:01 am - SSN - [20190908-0001] - [001] - Concurrency
+    // Check we are not hyperlink invalid addresses
+    $scope.isValidUrl = function (content) {
+        if (!content || content.siteUrl == null)
+            return false;
+        var urlToTest = content.siteUrl.toLowerCase().trim();
+        var c1 = urlToTest.substr(0, 7);
+        var c2 = urlToTest.substr(0, 8);
+        var validchemas = "|http://|https://|";
+        var validOptions = 0;
+        validOptions += (validchemas.indexOf(c1) == 1) ? 1 : 0;
+        validOptions += (validchemas.indexOf(c2) == 1) ? 1 : 0;
+        return (validOptions > 0);
+    };
+    // 09/08/2019 05:31 pm - SSN - Added
+    $scope.setTableRowClass = function (index) {
+        return index % 2 == 0 ? 'evenRow' : 'oddRow';
+    };
 }
 function devSiteUpdateController($scope, $http, $window, dataService) {
     $scope.devSiteRecord = {};

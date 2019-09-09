@@ -18,7 +18,7 @@ $(function () {
 
         // 08/12/2019 05:58 am - SSN - [20190812-0515] - [006] - Apply fulltext search
         var self = this;
-        self.SearchText_KO = ko.observable();
+        self.SearchText_KO = ko.observable({});
 
         // 08/21/2019 12:16 pm - SSN - [20190821-1210] - [003] - SearchResultsFeedback_KO
 
@@ -26,9 +26,11 @@ $(function () {
         self.SearchResultsFeedback_ClassName_KO = ko.observable();
         self.prefixPreWithShowHideAnchor_DontCall_KO = ko.observable(false);
 
-        this.currentItem = {};
+        // 09/08/2019 07:10 pm - SSN - [20190908-0001] - [007] - Concurrency
+        //////this.currentItem = {};
+        self.currentItem = ko.observable();
 
-        this.errorMessage = ko.observable();
+        self.errorMessage = ko.observable();
 
         // 06/06/2019 05:44 pm - SSN - Moved from index_p1.cshtml - Update
         //  this.devSitesJSON = ko.observableArray(@Html.Raw(Model.devSitesJSON));
@@ -63,16 +65,21 @@ $(function () {
 
 
 
-
+        // 09/08/2019 08:07 pm - SSN - [20190908-0001] - [009] - Concurrency
+        // Renamed del-confirm del_confirm_p1
         this.requestDelConfirm = function (itemToDelete) {
 
-            vm.currentItem = itemToDelete;
-            $('#del-confirm').modal({ backdrop: 'static', keyboard: false });
+            console.log("20190908-1804");
+            console.log(itemToDelete);
+
+            self.currentItem(itemToDelete);
+            $('#del_confirm_p1').modal({ backdrop: 'static', keyboard: false });
 
         };
 
 
-        this.showJob = function () {
+
+        this.showJob = function (devSiteID) {
 
             $('#show-job').modal();
 
@@ -147,7 +154,7 @@ $(function () {
                 self.devSitesJSON(response);
 
                 // 08/21/2019 12:14 pm - SSN - [20190821-1210] - [002] - SearchResultsFeedback_KO
-            
+
                 self.SearchResultsFeedback_KO('');
                 self.SearchResultsFeedback_ClassName_KO("");
 
@@ -161,7 +168,7 @@ $(function () {
                     setTimeout(prefixPreWithShowHideAnchor, 2000);
                 }
                 else {
-// 08/21/2019 01:48 pm - SSN - [20190821-1348] [001] - Added
+                    // 08/21/2019 01:48 pm - SSN - [20190821-1348] [001] - Added
                     setTimeout(showCollapsedDivs, 2000);
 
                 }

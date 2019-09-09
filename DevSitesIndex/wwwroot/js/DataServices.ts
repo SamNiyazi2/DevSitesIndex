@@ -30,8 +30,6 @@
             $http.get('/api/demositesapi')
                 .then(function (result) {
 
-                    console.log("dataservices - getDevSites");
-                    console.log(result);
                     angular.copy(result.data, _devSites);
                     deferred.resolve();
                 },
@@ -83,6 +81,7 @@
   // 09/06/2019 04:45 pm - SSN - [20190906-0518] - [003] - Angular - edit div content
       var _updateDevSite = function (devSite) {
 
+         
             var deferred = $q.defer();
 
             $http.post('/api/demositesapi', devSite)
@@ -122,6 +121,7 @@
         // 05/19/2019 03:00 pm - SSN - [20190519-1412] - [004] - Continue work on adding continue option for timesheet record
         var _addOrUpdateTimeLog = function (timeLog) {
 
+
             var deferred = $q.defer();
 
             $http.post('/api/timeLogAPI', timeLog)
@@ -130,6 +130,7 @@
                     deferred.resolve(result.data);
                 },
                     function (error) {
+
                         deferred.reject(error);
                     });
 
@@ -153,5 +154,3 @@
 
 
     });
-
-console.log("DataService loaded.");
