@@ -24,8 +24,10 @@ switch  ($option)
     { 
         write-host "Locally deployed packages"
         write-host ""
-        Invoke-Expression ".\List_NuGet_Versions.cmd"    
-        write-host ""
+#        Invoke-Expression ".\List_NuGet_Versions.cmd"    
+dir "..\SSN_DevSites_DAL_NuGet_Pack_Output" | sort lastwritetime 
+
+write-host ""
         break;
     }
     

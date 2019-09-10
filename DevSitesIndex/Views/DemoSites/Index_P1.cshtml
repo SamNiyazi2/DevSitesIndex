@@ -161,8 +161,8 @@
 
 
                     @*
-                        // 03/19/2019 07:04 pm - SSN - [20190319-1904]
-                        // 08/14/2019 06:48 am - SSN - [20190814-0609] - [002] - Revise demo site index docAge
+            // 03/19/2019 07:04 pm - SSN - [20190319-1904]
+            // 08/14/2019 06:48 am - SSN - [20190814-0609] - [002] - Revise demo site index docAge
                     *@
 
                     <p class="small">
@@ -192,7 +192,9 @@
                 <!-- ko if: $data.solution_Details -->
                 @*02/05/2019 02:11 pm - SSN - Testing decoding html*@
                 @*<div class="solution_details" data-bind="text:solution_Details">*@
-                <div class="solution_details" data-bind="html:solution_Details">
+                @*// 09/10/2019 10:26 am - SSN - [20190910-0147] - [012] - WARNING: Tried to load angular more than once. - Replaced Solution_Details_PRE_Encoded*@
+
+                <div class="solution_details" data-bind="html:solution_Details_PRE_Encoded">
                 </div>
                 <!-- /ko -->
 

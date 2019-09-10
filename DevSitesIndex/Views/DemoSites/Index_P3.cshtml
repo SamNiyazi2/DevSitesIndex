@@ -88,8 +88,11 @@
                                             if (!string.IsNullOrEmpty(x.Solution_Details))
                                             {
 
-                                                <pre class="solution_details">
-                                                    @x.Solution_Details
+                                        <pre class="solution_details">
+
+                                            @*// 09/10/2019 10:13 am - SSN - [20190910-0147] - [011] - WARNING: Tried to load angular more than once. - Replaced Solution_Details_PRE_Encoded*@
+
+                                                    @x.Solution_Details_PRE_Encoded
                                                 </pre>
 
                                             }
@@ -204,7 +207,10 @@
                 <span class="siteTitle" data-bind="text: siteTitle"></span>
                 <!-- /ko -->
                 <!-- ko if: $data.solution_Details -->
-                <div class="solution_details" data-bind="html:solution_Details">
+            
+                @*// 09/10/2019 10:11 am - SSN - [20190910-0147] - [010] - WARNING: Tried to load angular more than once. - Replaced solution_Details_PRE_Encoded *@
+
+                <div class="solution_details" data-bind="html:solution_Details_PRE_Encoded">
                 </div>
                 <!-- /ko -->
 

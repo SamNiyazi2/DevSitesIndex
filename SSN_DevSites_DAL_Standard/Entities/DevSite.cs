@@ -18,6 +18,9 @@ namespace DevSitesIndex.Entities
     public class DevSite
     {
 
+        SSN_GenUtil_StandardLib.RegularExpression_Utility RE_Util = new SSN_GenUtil_StandardLib.RegularExpression_Utility();
+
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
@@ -33,8 +36,18 @@ namespace DevSitesIndex.Entities
         [DisplayName("Solution Name")]
         public string SolutionName { get; set; }
 
+
+
+
+
         [DisplayName("Detail")]
         public string Solution_Details { get; set; }
+        
+        // 09/10/2019 09:57 am - SSN 
+        [NotMapped]
+        public string Solution_Details_PRE_Encoded => RE_Util.EncodeContentOfPreTag(Solution_Details);
+            
+
 
         [Required]
         [DisplayName("Project Software")]
@@ -92,7 +105,7 @@ namespace DevSitesIndex.Entities
         public string docAge
         {
             get
-            { 
+            {
 
                 DateTime selectedDate = LastActivityDate;
 
@@ -149,6 +162,7 @@ namespace DevSitesIndex.Entities
 
         // 05/30/2019 05:06 pm - SSN - [20190530-0510]
         public virtual ICollection<DevSiteCodeReference> DevSiteCodeReferences { get; set; }
+
 
     }
 
