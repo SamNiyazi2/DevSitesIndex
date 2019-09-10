@@ -18,7 +18,12 @@ $(function () {
 
         // 08/12/2019 05:58 am - SSN - [20190812-0515] - [006] - Apply fulltext search
         var self = this;
-        self.SearchText_KO = ko.observable({});
+
+
+        // 09/10/2019 04:20 am - SSN - [20190910-0147] - [009] - WARNING: Tried to load angular more than once.
+        // Since bound to control, it displays the observable as object[object]. Take out.
+        self.SearchText_KO = ""; // ko.observable({});
+
 
         // 08/21/2019 12:16 pm - SSN - [20190821-1210] - [003] - SearchResultsFeedback_KO
 
@@ -124,8 +129,12 @@ $(function () {
             //        SearchText: self.SearchText_KO()
             //    }); // prepare request data
 
+
+            // 09/10/2019 04:20 am - SSN - [20190910-0147] - [009] - WARNING: Tried to load angular more than once.
+            // "SearchText": self.SearchText_KO()
+
             var data_pre = {
-                "SearchText": self.SearchText_KO()
+                "SearchText": self.SearchText_KO
             };
 
             var data = JSON.stringify(data_pre);
