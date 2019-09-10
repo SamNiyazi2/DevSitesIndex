@@ -3,7 +3,9 @@
 @{
     ViewData["Title"] = "Index";
 
-
+    // 09/10/2019 02:44 am - SSN - [20190910-0147] - [004] - WARNING: Tried to load angular more than once.
+    // Added in - See [20190910-0147] - [005]
+    ViewBag.InitModule_Full = "data-ng-app=\"demoSites_Index\"";
 
 }
 
@@ -53,8 +55,8 @@
 @*// Renamed del-confirm del_confirm_p1*@
 <div id="del_confirm_p1" class="modal" tabindex="-1" role="dialog" aria-labelledby="del-confirm-label" aria-hidden="true">
     <div class="modal-dialog" role="document">
- 
-        <div class="modal-content"  data-bind="with: currentItem">
+
+        <div class="modal-content" data-bind="with: currentItem">
 
             <div class="modal-header">
                 <h2>
@@ -165,7 +167,7 @@
 
                     <p class="small">
                         [<span data-bind="text: docAge"></span>]
-                        &nbsp; &nbsp; &nbsp; <span data-bind="text: dateOfLastActivity_ToString"></span>
+                        &nbsp; &nbsp; &nbsp; <span data-bind="text:dateOfLastActivity_ToString"></span>
                     </p>
 
                     <!-- ko if:  $data.siteUrl -->
@@ -246,6 +248,12 @@
     <script src="~/js/demoSites_Index_p1.js" asp-append-version="true"></script>
 
 
+    @*
+        // 09/10/2019 02:53 am - SSN - [20190910-0147] - [005] - WARNING: Tried to load angular more than once.
+        // Added  see [20190910-0147] - [004]
+    *@
+
+    <script src="~/js/demoSites_Index.js" asp-append-version="true"></script>
 
 
 

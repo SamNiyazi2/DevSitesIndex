@@ -67,7 +67,6 @@ $(function () {
         };
 
 
-
         // 09/08/2019 08:07 pm - SSN - [20190908-0001] - [009] - Concurrency
         // Renamed del-confirm del_confirm_p1
         this.requestDelConfirm = function (itemToDelete) {

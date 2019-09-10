@@ -3,10 +3,12 @@
 /// <reference path="../../../node_modules/@types/jquery/jquery.d.ts" />
 /// <reference path="../../../node_modules/@types/angular/index.d.ts" />
 /// <reference path="../js/DataServices.ts"/>
-ssn_devsite_angular_module = angular.module("demoSites_Index", []);
+// 09/10/2019 03:05 am - SSN - [20190910-0147] - [006] - WARNING: Tried to load angular more than once.
+// Added + 'ngRoute'
+ssn_devsite_angular_module = angular.module("demoSites_Index", ['ngRoute']);
 ssn_devsite_angular_module.config(["$routeProvider", function ($routeProvider) {
         $routeProvider.when("/", {
-            controller: "demoSiteIndexController",
+            controller: "demoSiteIndexController_101",
             templateUrl: "/templates/SitesIndex.html"
         });
         // 09/10/2019 01:47 am - SSN - [20190910-0147] - [001] - WARNING: Tried to load angular more than once.
@@ -18,7 +20,7 @@ ssn_devsite_angular_module.config(["$routeProvider", function ($routeProvider) {
         //});
         $routeProvider.otherwise({ redirectTo: "/" });
     }]);
-function demoSiteIndexController($scope, $http, dataService) {
+function demoSiteIndexController_101($scope, $http, dataService) {
     $scope.Title = "Title set in Angular controller.";
     // $scope.data = [];
     $scope.data = dataService;
@@ -90,6 +92,12 @@ function demoSiteIndexController($scope, $http, dataService) {
         return index % 2 == 0 ? 'evenRow' : 'oddRow';
     };
 }
+console.log("20190910-0327");
+console.log("Creating conroller demoSiteIndexController_101");
+// 09/10/2019 03:30 am - SSN - [20190910-0147] - [008] - WARNING: Tried to load angular more than once.
+// Adding line. Function was already functioning before all new changes.
+ssn_devsite_angular_module.controller("demoSiteIndexController_101", demoSiteIndexController_101);
+console.log("20190910-0327-Done");
 function devSiteUpdateController($scope, $http, $window, dataService) {
     $scope.devSiteRecord = {};
     $scope.save = function (formSelector) {
@@ -112,4 +120,5 @@ function devSiteUpdateController($scope, $http, $window, dataService) {
         });
     };
 }
+console.log('demoSites_Index loaded');
 //# sourceMappingURL=demoSites_Index.js.map

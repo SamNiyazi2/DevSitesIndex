@@ -17,7 +17,9 @@
 
 declare var ssn_devsite_angular_module: any;
 
-ssn_devsite_angular_module = angular.module("demoSites_Index", []);
+// 09/10/2019 03:05 am - SSN - [20190910-0147] - [006] - WARNING: Tried to load angular more than once.
+// Added + 'ngRoute'
+ssn_devsite_angular_module = angular.module("demoSites_Index", ['ngRoute']);
 
 
 
@@ -25,12 +27,12 @@ ssn_devsite_angular_module = angular.module("demoSites_Index", []);
 ssn_devsite_angular_module.config(["$routeProvider", function ($routeProvider) {
 
     $routeProvider.when("/", {
-        controller: "demoSiteIndexController",
+        controller: "demoSiteIndexController_101",
         templateUrl: "/templates/SitesIndex.html"
     });
 
-// 09/10/2019 01:47 am - SSN - [20190910-0147] - [001] - WARNING: Tried to load angular more than once.
-// Turn off
+    // 09/10/2019 01:47 am - SSN - [20190910-0147] - [001] - WARNING: Tried to load angular more than once.
+    // Turn off
     //$routeProvider.when("/detail", {
     //    controller: "devSiteUpdateController",
     //    // templateUrl: "/templates/SiteDetail.html"
@@ -44,7 +46,8 @@ ssn_devsite_angular_module.config(["$routeProvider", function ($routeProvider) {
 }]);
 
 
-function demoSiteIndexController($scope, $http, dataService) {
+
+function demoSiteIndexController_101($scope, $http, dataService) {
 
     $scope.Title = "Title set in Angular controller.";
 
@@ -171,6 +174,16 @@ function demoSiteIndexController($scope, $http, dataService) {
 
 }
 
+
+console.log("20190910-0327");
+console.log("Creating conroller demoSiteIndexController_101");
+
+// 09/10/2019 03:30 am - SSN - [20190910-0147] - [008] - WARNING: Tried to load angular more than once.
+// Adding line. Function was already functioning before all new changes.
+ssn_devsite_angular_module.controller("demoSiteIndexController_101", demoSiteIndexController_101);
+console.log("20190910-0327-Done");
+
+
 function devSiteUpdateController($scope, $http, $window, dataService) {
 
     $scope.devSiteRecord = {
@@ -205,3 +218,5 @@ function devSiteUpdateController($scope, $http, $window, dataService) {
 
     };
 }
+
+console.log('demoSites_Index loaded');

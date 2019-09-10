@@ -1,7 +1,12 @@
 ﻿@inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
 <!DOCTYPE html>
+
 @*<html data-ng-app="@ViewBag.InitModule">*@
-<html @Html.Raw(ViewBag.InitModule_Full)>
+@*// 09/10/2019 02:37 am - SSN - [20190910-0147] - [003] - WARNING: Tried to load angular more than once.*@
+@*<html @Html.Raw(ViewBag.InitModule_Full)>*@
+<html>
+
+
 
 <head>
     <meta charset="utf-8" />
@@ -45,64 +50,72 @@
 
     @Html.Raw(JavaScriptSnippet.FullScript)
 </head>
+
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">@Startup.SITE_NAME_STRING</a>
+
+
+    @*// 09/10/2019 02:37 am - SSN - [20190910-0147] - [003] - WARNING: Tried to load angular more than once.*@
+
+
+    <div @Html.Raw(ViewBag.InitModule_Full)>
+
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">@Startup.SITE_NAME_STRING</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                        <li><a asp-area="" asp-controller="DemoSites" asp-action="Index">Sites</a></li>
+
+
+
+                        <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
+                        <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+
+                        <li class="dropdown-submenu">
+
+                            <a class="dropdown-toggle" data-toggle="dropdown">Jobs  <span class="caret"></span></a>
+
+                            <ul class="dropdown-menu">
+
+                                @await Html.PartialAsync("menuoptions")
+                            </ul>
+
+                        </li>
+                    </ul>
+
+
+                    @*
+                        // 08/12/2019 12:03 pm - SSN - [20190812-0945] - [012] - Add identity
+
+                    *@
+                    <partial name="_LoginPartial" />
+
+
+                </div>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="DemoSites" asp-action="Index">Sites</a></li>
+        </nav>
+        <div class="container body-content">
 
 
 
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+            @RenderBody()
+            <hr />
 
-                    <li class="dropdown-submenu">
-
-                        <a class="dropdown-toggle" data-toggle="dropdown">Jobs  <span class="caret"></span></a>
-
-                        <ul class="dropdown-menu">
-
-                            @await Html.PartialAsync("menuoptions")
-                        </ul>
-
-                    </li>
-                </ul>
-
-
-                @*
-                    // 08/12/2019 12:03 pm - SSN - [20190812-0945] - [012] - Add identity
-
-                *@
-                <partial name="_LoginPartial" />
-
-
-            </div>
         </div>
-    </nav>
-    <div class="container body-content">
-
-
-
-        @RenderBody()
-        <hr />
-
+        <footer style="padding:20px;">
+            <hr />
+            @DevSitesIndex.Util.Odds.showCopyright()
+        </footer>
     </div>
-    <footer style="padding:20px;">
-        <hr />
-        @DevSitesIndex.Util.Odds.showCopyright()
-    </footer>
-
 
     <environment include="Development,Production">
 
@@ -164,11 +177,19 @@
             if (selectedPage.Contains("index_p2"))
             {
                 angular_section_to_user = 1;
+                // 09/10/2019 03:09 am - SSN - [20190910-0147] - [007] - WARNING: Tried to load angular more than once.
+                // Testing for ngRoute
+                angular_section_to_user = 2;
+
             }
 
             if (selectedPage.Contains("index_p3"))
             {
                 angular_section_to_user = 1;
+                // 09/10/2019 03:36 am - SSN - [20190910-0147] - [007] - WARNING: Tried to load angular more than once.
+                // Testing for ngRoute
+                angular_section_to_user = 2;
+                 
             }
 
         }

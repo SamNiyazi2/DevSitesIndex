@@ -34,7 +34,9 @@ namespace DevSitesIndex.Controllers
         [HttpGet]
         public IEnumerable<DevSite> Get()
         {
-            return GetTop(null);
+
+            IEnumerable<DevSite> devSites_1 = _devSitesIndexRepository.GetDevSites();
+            return devSites_1;
         }
 
 
@@ -48,7 +50,7 @@ namespace DevSitesIndex.Controllers
         {
             // System.Threading.Thread.Sleep(2000);
 
-            IEnumerable<DevSite> devSites_1 = _devSitesIndexRepository.GetDevSites();
+            IEnumerable<DevSite> devSites_1 = Get();
 
             if (recordCount.HasValue)
                 devSites_1 = devSites_1.Take(recordCount.Value);
