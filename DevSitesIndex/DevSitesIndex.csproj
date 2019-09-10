@@ -54,7 +54,7 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="SSNSendGridStandardUtil" Version="1.0.2" />
-    <PackageReference Include="SSN_DevSites_DAL_Standard" Version="1.0.8" />
+    <PackageReference Include="SSN_DevSites_DAL_Standard" Version="1.0.13" />
     <PackageReference Include="toastr" Version="2.1.1" />
     <PackageReference Include="underscore.js" Version="1.8.3" />
   </ItemGroup>

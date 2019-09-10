@@ -84,7 +84,10 @@
          
             var deferred = $q.defer();
 
-            $http.post('/api/demositesapi', devSite)
+          // 09/09/2019 10:33 pm - SSN - [20190909-2136] - [004] - select top 20 
+
+     //       $http.post('/api/demositesapi', devSite)
+          $http.post('/api/demositesapi/Top?recordCount=20', devSite)
                 .then(function (result) {
 
                     deferred.resolve(result.data);

@@ -42,7 +42,10 @@ $(function () {
         this.loadData = function () {
             var self = this;
 
-            $.getJSON("/api/demositesapi", function (data) {
+            // 09/09/2019 10:35 pm - SSN - [20190909-2136] - [005] - Select top 15
+
+            // $.getJSON("/api/demositesapi", function (data) {
+            $.getJSON("/api/demositesapi/top?recordCount=15", function (data) {
 
                 self.devSitesJSON.removeAll();
                 self.devSitesJSON(data);

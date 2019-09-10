@@ -96,7 +96,7 @@ namespace DevSitesIndex.Pages.DevSites
             try
             {
 
-                sortOrder = sortOrder ?? "DateUpdated";
+                sortOrder = sortOrder ?? "LastActivityDate";
                 desc = desc ?? "true";
 
                 SearchText = searchText;
@@ -163,7 +163,7 @@ namespace DevSitesIndex.Pages.DevSites
             pageUtil.AddColumns("SiteTitle");
             pageUtil.AddColumns("SoftwareCode.SoftwareTitle");
             pageUtil.AddColumns("DateAdded");
-            pageUtil.AddColumns("DateUpdated");
+            pageUtil.AddColumns("LastActivityDate");
 
 
         }

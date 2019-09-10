@@ -45,7 +45,9 @@ ssn_devsite_angular_module.factory("dataService", function ($http, $q) {
     // 09/06/2019 04:45 pm - SSN - [20190906-0518] - [003] - Angular - edit div content
     var _updateDevSite = function (devSite) {
         var deferred = $q.defer();
-        $http.post('/api/demositesapi', devSite)
+        // 09/09/2019 10:33 pm - SSN - [20190909-2136] - [004] - select top 20 
+        //       $http.post('/api/demositesapi', devSite)
+        $http.post('/api/demositesapi/Top?recordCount=20', devSite)
             .then(function (result) {
             deferred.resolve(result.data);
         }, function () {
