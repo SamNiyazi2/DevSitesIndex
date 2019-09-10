@@ -25,9 +25,23 @@ namespace DevSitesIndex.Controllers
         private readonly IDevSitesIndexRepository _devSitesIndexRepository;
 
 
-        // 09/09/2019 10:30 pm - SSN - [20190909-2136] - [003] -  Limit record count
+
+        // 09/10/2019 01:03 am - SSN - [20190909-2136] - [003] -  But leave call to the original
+
 
         // GET: api/<controller>
+        [Route("/api/demositesapi")]
+        [HttpGet]
+        public IEnumerable<DevSite> Get()
+        {
+            return GetTop(null);
+        }
+
+
+
+
+        // 09/09/2019 10:30 pm - SSN - [20190909-2136] - [003] -  Limit record count
+
         [Route("/api/demositesapi/top")]
         [HttpGet]
         public IEnumerable<DevSite> GetTop(int? recordCount)

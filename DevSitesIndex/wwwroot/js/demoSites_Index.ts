@@ -61,9 +61,11 @@ function demoSiteIndexController($scope, $http, dataService) {
             $scope.data_local = ko.observable($scope.data.devSites());
 
         },
-            function () {
+            function (ex) {
 
-                alert('failed call to api/demositesapi (20180831-0940');
+                console.log("20190910-0101");
+                console.log(ex)
+                alert('failed call to api/demositesapi (20180831-0940) - See console.');
             })
         .then(function () {
 
