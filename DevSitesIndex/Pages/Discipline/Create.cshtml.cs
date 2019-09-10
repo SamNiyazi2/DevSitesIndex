@@ -27,8 +27,10 @@ namespace DevSitesIndex
         {
             // 04/08/2019 12:11 am - SSN - [20190407-2345] - TimeLog
 
-            Discipline= new Discipline();
-            Discipline.DateAdded = DateTime.Now;
+            Discipline = new Discipline
+            {
+                DateAdded = DateTime.Now
+            };
             return Page();
         }
 

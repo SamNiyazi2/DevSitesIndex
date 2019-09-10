@@ -30,7 +30,7 @@ namespace DevSitesIndex.Util
         {
             var type = typeof(T);
 
-            if (!type.IsEnum) throw new InvalidOperationException(string.Format("DevSitesIndex-20190320-0308 [{0}] is not of type Enum.", description));
+            if (!type.IsEnum) throw new InvalidOperationException(string.Format("DemoSite-20190320-0308 [{0}] is not of type Enum.", description));
 
             foreach (var field in type.GetFields())
             {
@@ -47,7 +47,7 @@ namespace DevSitesIndex.Util
                         return (T)field.GetValue(null);
                 }
             }
-            throw new ArgumentException(string.Format("DevSitesIndex-20190320-0309 Enum not found in Enum .[{0}]", type.FullName), "description");
+            throw new ArgumentException(string.Format("DemoSite-20190320-0309 - Enum not found in Enum .[{0}]", type.FullName), "description");
             // or return default(T);
         }
 

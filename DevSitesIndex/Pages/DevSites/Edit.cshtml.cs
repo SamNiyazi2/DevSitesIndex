@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DevSitesIndex.Entities;
 using Microsoft.AspNetCore.Authorization;
+using DevSitesIndex.Services;
 
 namespace DevSitesIndex.Pages.DevSites
 {
@@ -19,10 +20,18 @@ namespace DevSitesIndex.Pages.DevSites
     {
         private readonly DevSitesIndex.Entities.DevSitesIndexContext _context;
 
-        public EditModel(DevSitesIndex.Entities.DevSitesIndexContext context)
+        // 09/06/2019 06:47 pm - SSN - [20190906-0518] - [007] - Angular - edit div content - Adding _devSitesIndexRepository
+        private readonly IDevSitesIndexRepository _devSitesIndexRepository;
+        private readonly Util.ILogger_SSN _logger;
+
+        public EditModel(DevSitesIndex.Entities.DevSitesIndexContext context, IDevSitesIndexRepository devSitesIndexRepository, Util.ILogger_SSN logger)
         {
             _context = context;
+            _devSitesIndexRepository = devSitesIndexRepository;
+            _logger = logger;
         }
+
+
 
         [BindProperty]
         public DevSite DevSite { get; set; }
@@ -49,41 +58,76 @@ namespace DevSitesIndex.Pages.DevSites
 
         public async Task<IActionResult> OnPostAsync()
         {
+
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            _context.Attach(DevSite).State = EntityState.Modified;
-            // 10/12/2018 04{27 pm - SSN - Added
-            _context.Entry(DevSite).Property(x => x.DateAdded).IsModified = false;
+            // 09/06/2019 06:35 pm - SSN - [20190906-0518] - [005] - Angular - edit div content
+            // Refactored orginal code and replace with 
+            // await temp.saveRecord(_context, DevSite);
 
+            await _devSitesIndexRepository.UpdateDevSiteAsync(DevSite);
+            _devSitesIndexRepository.Save();
 
-            try
-            {
-                // 10/12/2018 04:19 pm - SSN - Added
-                DevSite.DateUpdated = DateTime.Now;
-
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!DevSiteExists(DevSite.Id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
 
             return RedirectToPage("./Index");
         }
 
-        private bool DevSiteExists(int id)
+        // 09/06/2019 06:41 pm - SSN - [20190906-0518] - [006] - Angular - edit div content
+
+        class temp
         {
-            return _context.DevSites.Any(e => e.Id == id);
+
+            public static async Task saveRecord(DevSitesIndexContext _context, DevSite DevSite)
+            {
+
+
+                // 10/12/2018 04{27 pm - SSN - Added -
+
+                _context.Attach(DevSite).State = EntityState.Modified;
+
+                _context.Entry(DevSite).Property(x => x.DateAdded).IsModified = false;
+
+
+                try
+                {
+                    // 10/12/2018 04:19 pm - SSN - Added
+                    DevSite.DateUpdated = DateTime.Now;
+
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException ex)
+                {
+                    string message = ex.Message;
+
+                    if (!DevSiteExists(_context, DevSite.Id))
+                    {
+                        ////////////////////////////////////////////////////////////////////// return NotFound();
+
+                        throw;
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                catch (Exception ex2)
+                {
+
+                    string message = ex2.Message;
+
+                }
+
+            }
+
+
+            private static bool DevSiteExists(DevSitesIndexContext _context, int id)
+            {
+                return _context.DevSites.Any(e => e.Id == id);
+            }
         }
+
     }
 }

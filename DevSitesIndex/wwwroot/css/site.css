@@ -160,7 +160,7 @@ a[cmd-name="showsibling"] {
 
 /*// 03/29/2019 10:03 pm - SSN - Add div siteTitleDiv title to give space*/
 .siteTitleDiv {
-    padding: 5px 5px 20px 5px;
+    padding: 8px 8px 20px 8px;
 }
 
 
@@ -234,4 +234,11 @@ alarm {
     filter: alpha(opacity=50);
     filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0.5);
     opacity: .50;*/
+}
+
+.evenRow{
+    background-color:#eee;
+}
+.oddRow {
+    background-color: #ddd;
 }

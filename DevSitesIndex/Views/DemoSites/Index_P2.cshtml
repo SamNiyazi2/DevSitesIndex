@@ -34,38 +34,105 @@
     <div class="progress progress-striped active" data-ng-show="isBusy2">
         <div class="progress-bar" style="width: 100%;"></div>
     </div>
-    <div data-ng-repeat="i in data.devSites">
 
 
 
-        <div class="container-fluid">
-            <div class="siteDiv">
+    @*
+        // 09/06/2019 05:19 am - SSN - [20190906-0518] - [001]
+    *@
 
-                <a ng-show="i.siteUrl" class="siteTitle" href="{{ i.siteUrl}}" target="window2_{{ i.id }}">{{ i.siteTitle }}</a>
+    @*<div data-ng-repeat="i in data.devSites | limitTo:5" ng-include="loadTemplate(i)">*@
 
-                <span ng-show="!i.siteUrl" class="siteTitle">{{ i.siteTitle }}</span>
+    <p>Listing top five jobs by last activity date.</p>
+    <div data-ng-repeat="devSiteRec in data_local() | limitTo:5 | orderBy:'-lastActivityDate'" ng-include="loadTemplate(devSiteRec)">
+
+    </div>
 
 
 
-                @*<div class="menuOptions">
+</div>
 
-                        <a href="#" class=""
-                           data-bind="click: $parent.showJob">Show Job</a>
 
-                        <a href="#" class=""
-                           data-bind="click: $parent.requestDelConfirm">Delete</a>
 
-                        <a class=""
-                           data-bind="attr: {href: '/devsites/details?id=' + id , target:'devsiteIndexWindow' + id } ">Detail</a>
 
-                    </div>*@
 
-            </div>
+<script type="text/ng-template" id="view">
+
+
+    <div ng-class="'siteTitleDiv ' + setTableRowClass($index)">
+
+        <p>
+            <span ng-hide="isValidUrl(devSiteRec)" class="siteTitle" target="window2_{{ devSiteRec.id }}">{{ devSiteRec.siteTitle }}</span>
+
+            <a ng-show="isValidUrl(devSiteRec)" class="siteTitle" href="{{devSiteRec.siteUrl }}" target="window2_{{ devSiteRec.id }}">{{ devSiteRec.siteTitle }}</a>
+        </p>
+
+        <p ng-hide="devSiteRec.siteUrl">{{devSiteRec.siteUrl}}</p>
+
+
+        <div>
+            <a class="btn btn-sm" ng-click="editContent(devSiteRec)">Edit</a>
         </div>
 
 
+        <hr />
+
+        @*<div class="menuOptions">
+
+                <a href="#" class=""
+                   data-bind="click: $parent.showJob">Show Job</a>
+
+                <a href="#" class=""
+                   data-bind="click: $parent.requestDelConfirm">Delete</a>
+
+                <a class=""
+                   data-bind="attr: {href: '/devsites/details?id=' + id , target:'devsiteIndexWindow' + id } ">Detail</a>
+
+            </div>*@
+
     </div>
-</div>
+
+</script>
+
+<script type="text/ng-template" id="edit">
+
+
+
+
+
+
+    <div class="padded" style="margin:-20px;position:absolute;background-color:lightblue;width:400px;">
+
+        <div>
+            <div class="col-md-12">
+
+                <div class="form-group">
+                    <label class="control-label">Site Title</label>
+                    <input ng-model="editablerow.siteTitle" class="form-control" autofocus>
+                </div>
+
+                <div class="form-group">
+                    <label>Site URL:</label>
+                    <input ng-model="editablerow.siteUrl" class="form-control">
+                </div>
+
+                <div>
+                    <button class="btn btn-default" ng-click="saveData($index)">Save</button>
+                    <button class="btn btn-default" ng-click="reset()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <div ng-include="'view'"></div>
+
+
+
+</script>
 
 <h3>Angular Container (2) - End</h3>
 
@@ -105,7 +172,7 @@
 
             <div class="modal-header">
                 <h2>
-                    <span class="modal-title">Delete Confirmation</span>
+                    <span class="modal-title">Delete Confirmation (p2)</span>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X </button>
                 </h2>
             </div>

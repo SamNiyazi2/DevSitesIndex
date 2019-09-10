@@ -24,6 +24,7 @@ function demoSiteIndexController($scope, $http, dataService) {
     //    $http.get('./api/demositesapi')
     dataService.getDevSites()
         .then(function (result) {
+        $scope.data_local = ko.observable($scope.data.devSites());
     }, function () {
         alert('failed call to api/demositesapi (20180831-0940');
     })
@@ -34,6 +35,55 @@ function demoSiteIndexController($scope, $http, dataService) {
     $scope.editCommand101 = function (id) {
         alert('editCommand101 - test');
         $('#del-confirm').modal({ backdrop: 'static', keyboard: false });
+    };
+    // 09/06/2019 05:19 am - SSN - [20190906-0518] - [001] - Angular - edit div content
+    // https://www.tutorialsplane.com/angularjs-update-table-row/
+    // Initialize.
+    $scope.editablerow = '';
+    $scope.editContent = function (content) {
+        $scope.editablerow = angular.copy(content);
+        ///////////////////////////////////////////$scope.editablerow = content;
+    };
+    $scope.saveData = function (indx) {
+        var theIndex = $scope.data_local().findIndex(function (r) { return r.id === $scope.editablerow.id; });
+        $scope.data_local()[theIndex] = $scope.editablerow;
+        $scope.data.updateDevSite($scope.editablerow)
+            .then(function (response) {
+            console.log("20190908-0628 - demoSites_Index - updateDevSite Success");
+            console.log(response);
+        }, function (error) {
+            console.log("20190908-0628 - demoSites_Index - updateDevSite Success");
+            console.log(error);
+        });
+        $scope.reset();
+    };
+    $scope.reset = function () {
+        $scope.editablerow = [];
+    };
+    $scope.loadTemplate = function (content) {
+        if (content.id === $scope.editablerow.id)
+            return 'edit';
+        else
+            return 'view';
+    };
+    // 09/06/2019 05:19 am - SSN - [20190906-0518] - [001]
+    // 09/08/2019 12:01 am - SSN - [20190908-0001] - [001] - Concurrency
+    // Check we are not hyperlink invalid addresses
+    $scope.isValidUrl = function (content) {
+        if (!content || content.siteUrl == null)
+            return false;
+        var urlToTest = content.siteUrl.toLowerCase().trim();
+        var c1 = urlToTest.substr(0, 7);
+        var c2 = urlToTest.substr(0, 8);
+        var validchemas = "|http://|https://|";
+        var validOptions = 0;
+        validOptions += (validchemas.indexOf(c1) == 1) ? 1 : 0;
+        validOptions += (validchemas.indexOf(c2) == 1) ? 1 : 0;
+        return (validOptions > 0);
+    };
+    // 09/08/2019 05:31 pm - SSN - Added
+    $scope.setTableRowClass = function (index) {
+        return index % 2 == 0 ? 'evenRow' : 'oddRow';
     };
 }
 function devSiteUpdateController($scope, $http, $window, dataService) {

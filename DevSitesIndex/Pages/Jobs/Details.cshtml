@@ -20,7 +20,11 @@
                     @Html.DisplayNameFor(model => model.Job.project)
                 </dt>
                 <dd>
-                    @Html.DisplayFor(model => model.Job.project.ProjectTitle)
+
+                    <a asp-page="/projects/Details" asp-route-id="@Model.Job.ProjectID">
+                        @Html.DisplayFor(model => model.Job.project.ProjectTitle)
+                    </a>
+
                 </dd>
 
                 <dt>

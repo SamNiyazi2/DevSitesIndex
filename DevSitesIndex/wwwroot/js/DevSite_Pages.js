@@ -19,7 +19,7 @@ $(function () {
 
             var data101 = $('#devSiteForm').serializeArray();
 
-              console.log(data101);
+            console.log(data101);
 
 
             var ndx = 0;
@@ -32,9 +32,9 @@ $(function () {
 
                 if (data101[ndx].name.indexOf("DevSite.") > -1) {
 
-// mvc creates a hidden field for checkboxes. If the visible one is set to true, we ignore the hidden one that is set to false.
+                    // mvc creates a hidden field for checkboxes. If the visible one is set to true, we ignore the hidden one that is set to false.
 
-                    if (!o5[_name]  || (o5[_name] && o5[_name].value === "ture" && data101[ndx].value !== "false")) {
+                    if (!o5[_name] || (o5[_name] && o5[_name].value === "ture" && data101[ndx].value !== "false")) {
                         o5[_name] = data101[ndx].value;
                     }
                 }
@@ -42,7 +42,7 @@ $(function () {
 
 
 
-             console.log(o5);
+            console.log(o5);
 
             var id_local = 0;
 
@@ -54,7 +54,7 @@ $(function () {
             }
 
             console.log('20190328-1722-001');
- 
+
 
             $("#devSiteSaveStatus").fadeIn('slow');
             $("#devSiteSaveStatus").removeClass();
@@ -81,7 +81,8 @@ $(function () {
                     console.log('20190328-1722-021');
 
                     $("#devSiteSaveStatus").html("Failed to save record.<br/>" + response.responseText);
-                    $("#devSiteSaveStatus").addClass('text-danger');
+                    $("#devSiteSaveStatus").addClass('text-warning');
+                    $("#devSiteSaveStatus").css({ 'background-color': 'yellow'});
 
                     console.log("Failure-20190328-0705");
                     console.log(response.responseText);
@@ -95,13 +96,15 @@ $(function () {
 
                     if (response.responseText !== null && response.responseText.length > 0) {
                         $("#devSiteSaveStatus").html("System error! Record not saved.<br/>" + response.responseText);
-                        $("#devSiteSaveStatus").addClass('text-danger');
+                        $("#devSiteSaveStatus").addClass('text-warning');
+                        $("#devSiteSaveStatus").css({ 'background-color': 'yellow' });
+
 
                         console.log("Error-20190328-0704");
                         console.log(response.responseText);
 
-                        alert("Error-20190328-0704 - See log");
-                        alert(response.responseText);
+                       // alert("Error-20190328-0704 - See log");
+                       // alert(response.responseText);
 
                     }
                 }

@@ -25,6 +25,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using DevSitesIndex.Email;
+using Microsoft.AspNetCore.Html;
 
 namespace DevSitesIndex
 {
@@ -39,6 +40,8 @@ namespace DevSitesIndex
         // public  IConfiguration Configuration { get; }
         public static IConfiguration Configuration { get; private set; }
 
+        public static string SITE_NAME_STRING = "";
+        public static HtmlString SITE_NAME_HTML => new HtmlString(SITE_NAME_STRING.Replace(".", "<span>.<span>"));// For email to prevent email client vendors from hyperlinking the domain name.
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -89,7 +92,7 @@ namespace DevSitesIndex
             services.AddTransient<IEmailSender, SSNEmailSender>();
             string SendGrid_APIKey = Configuration["SendGrid:API_Key"];
             SSNSendGridStandardUtil.SendGridUtil.APIKey = SendGrid_APIKey;
-            SSNSendGridStandardUtil.SendGridUtil.BCC_Default= Configuration["SendGrid:BBC_Default"];
+            SSNSendGridStandardUtil.SendGridUtil.BCC_Default = Configuration["SendGrid:BBC_Default"];
 
 
 
@@ -99,7 +102,15 @@ namespace DevSitesIndex
 
             services.AddScoped<IDevSitesIndexRepository, DevSitesIndexRepository>();
 
+            
+            
+            // 09/06/2019 11:45 pm - SSN - [20190906-2040] - [002] - Logger
 
+            //services.AddSingleton<Util.ILogger_SSN, Util.SSN_Logger>();
+             services.AddTransient< Util.ILogger_SSN , Util.SSN_Logger>();
+
+
+            
 
             // 08/13/2019 08:41 am - SSN - Added
             // https://docs.microsoft.com/en-us/aspnet/core/security/authentication/identity-configuration?view=aspnetcore-2.2
@@ -109,6 +120,10 @@ namespace DevSitesIndex
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
                 options.Lockout.MaxFailedAccessAttempts = 5;
                 options.Lockout.AllowedForNewUsers = true;
+
+                // 09/04/2019 10:26 pm - SSN - [20190904-1845] - [007] - Enforce email confirmation
+                options.SignIn.RequireConfirmedEmail = true;
+
             });
 
             // https://stackoverflow.com/questions/45875601/cookie-expiry-in-asp-net-core-2-0-with-identity
@@ -199,12 +214,31 @@ namespace DevSitesIndex
                 app.UseExceptionHandler("/Home/Error");
             }
 
+
+
+            // 09/06/2019 07:16 am - SSN - 
+
+            bool firstRequest = true;
+            app.Use(async (context, next) =>
+            {
+                if (firstRequest)
+                {
+                    SITE_NAME_STRING = context.Request.Host.Host.ToString();
+                    firstRequest = false;
+                }
+                await next();
+            });
+
+
+
+
             app.UseStaticFiles();
 
 
             // 08/12/2019 11:24 am - SSN - [20190812-0945] - [007] - Add identity
 
             app.UseAuthentication();
+
 
 
             app.UseMvc(routes =>
@@ -220,6 +254,8 @@ namespace DevSitesIndex
                 //        template: "api/{controller}/{id?}");
 
             });
+
+
 
         }
     }

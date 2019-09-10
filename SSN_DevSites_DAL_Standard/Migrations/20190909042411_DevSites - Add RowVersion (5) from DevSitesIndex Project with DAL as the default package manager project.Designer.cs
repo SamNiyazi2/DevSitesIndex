@@ -4,19 +4,21 @@ using DevSitesIndex.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DevSitesIndex.Migrations
 {
     [DbContext(typeof(DevSitesIndexContext))]
-    partial class DevSitesIndexContextModelSnapshot : ModelSnapshot
+    [Migration("20190909042411_DevSites - Add RowVersion (5) from DevSitesIndex Project with DAL as the default package manager project")]
+    partial class DevSitesAddRowVersion5fromDevSitesIndexProjectwithDALasthedefaultpackagemanagerproject
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasDefaultSchema("DemoSites")
-                .HasAnnotation("ProductVersion", "2.2.3-servicing-35854")
+                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -76,6 +78,10 @@ namespace DevSitesIndex.Migrations
                     b.Property<DateTime?>("DateUpdated");
 
                     b.Property<byte>("ForDemo_v02");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
 
                     b.Property<string>("SiteTitle")
                         .IsRequired()
@@ -159,6 +165,10 @@ namespace DevSitesIndex.Migrations
                     b.Property<int>("ProjectID");
 
                     b.Property<string>("ProjectTitle_ForActivity")
+                        .ValueGeneratedOnAddOrUpdate();
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
                         .ValueGeneratedOnAddOrUpdate();
 
                     b.HasKey("JobID");

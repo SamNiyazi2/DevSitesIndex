@@ -1,4 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+﻿
+
+// 09/07/2019 01:31 am - SSN - [20190907-0018] - [003] - Entity Framework concurrency check
+// using Microsoft.AspNetCore.Mvc.ModelBinding;
+
+
+
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

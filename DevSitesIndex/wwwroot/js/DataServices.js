@@ -42,6 +42,19 @@ ssn_devsite_angular_module.factory("dataService", function ($http, $q) {
         });
         return deferred.promise;
     };
+    // 09/06/2019 04:45 pm - SSN - [20190906-0518] - [003] - Angular - edit div content
+    var _updateDevSite = function (devSite) {
+        var deferred = $q.defer();
+        // 09/09/2019 10:33 pm - SSN - [20190909-2136] - [004] - select top 20 
+        //       $http.post('/api/demositesapi', devSite)
+        $http.post('/api/demositesapi/Top?recordCount=20', devSite)
+            .then(function (result) {
+            deferred.resolve(result.data);
+        }, function () {
+            deferred.reject();
+        });
+        return deferred.promise;
+    };
     // 04/12/2019 11:26 am - SSN - [20190412-1126] - Timelog - save data
     var _insertTimeLog = function (timeLog) {
         var deferred = $q.defer();
@@ -65,9 +78,11 @@ ssn_devsite_angular_module.factory("dataService", function ($http, $q) {
         return deferred.promise;
     };
     return {
-        devSites: _devSites,
+        devSites: ko.observable(_devSites),
         getDevSites: _getDevSites,
         addDevSite: _addDevSite,
+        // 09/06/2019 04:44 pm - SSN - [20190906-0518] - [002] - Angular - edit div content
+        updateDevSite: _updateDevSite,
         insertTimeLog: _insertTimeLog,
         getTimelog: _getTimelog,
         updateTimeLog: _addOrUpdateTimeLog

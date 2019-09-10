@@ -11,6 +11,12 @@
 <div class="row">
     <div class="col-md-4">
         <form method="post">
+
+            @*// 09/08/2019 07:00 am - SSN - [20190908-0001] - [002] - Concurrency*@
+
+            <input asp-for="Job.RowVersion" type="hidden" />
+            <input type="hidden" asp-for="Job.JobID" />
+
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
 
@@ -26,7 +32,6 @@
             </div>
 
 
-            <input type="hidden" asp-for="Job.JobID" />
             <div class="form-group">
                 <label asp-for="Job.JobTitle" class="control-label"></label>
                 <input asp-for="Job.JobTitle" class="form-control" />

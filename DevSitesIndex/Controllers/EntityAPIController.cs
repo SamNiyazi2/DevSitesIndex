@@ -61,14 +61,14 @@ namespace DevSitesIndex.Controllers
 
                 if (!_entityRepository.Save())
                 {
-                    return BadRequest(string.Format("Failed to save record .  (devsite-20190521-1150) "));
+                    return BadRequest(string.Format("Failed to save record .  (DemoSite-20190521-1150) "));
                 }
 
             }
             catch (Exception ex)
             {
                 string message = ex.Message;
-                return BadRequest(string.Format("Failed to save record.  (devsite-20190521-1150)  {0}", message));
+                return BadRequest(string.Format("Failed to save record.  (DemoSite-20190521-1150)  {0}", message));
             }
 
             return Ok();

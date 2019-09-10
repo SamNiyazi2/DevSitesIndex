@@ -57,8 +57,16 @@
 
 
                         <td class="indexNowrapCol">
-                            <a asp-page="./Edit" asp-route-id="@item.JobID">Edit</a> |
-                            <a asp-page="./Details" asp-route-id="@item.JobID">Details</a> |
+                            <a asp-page="./Edit" asp-route-id="@item.JobID">Edit</a>
+                            ||
+                            <strong>
+
+                                <a asp-page="./Details" asp-route-id="@item.JobID">Job's Details</a> 
+                                |
+                                <a asp-page="/projects/Details" asp-route-id="@item.ProjectID">Project's Details</a>
+
+                            </strong>
+                            ||
                             <a asp-page="./Delete" asp-route-id="@item.JobID">Delete</a> |
 
                             <a ng-click="showCreateTimesheetForm(@item.JobID)">Clock-in</a>

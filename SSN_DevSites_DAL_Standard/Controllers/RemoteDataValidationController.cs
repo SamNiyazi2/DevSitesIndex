@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using DevSitesIndex.Entities;
 using Microsoft.AspNetCore.Mvc;
-using DevSitesIndex.Models;
-using DevSitesIndex.Entities;
+using System;
+using System.Linq;
 
 namespace DevSitesIndex.Controllers
 {
@@ -26,8 +22,10 @@ namespace DevSitesIndex.Controllers
 
 
 
-        // 09/04/2018 09:00 am - SSN - Added remote validation   
-        public JsonResult DoesReferenceSites_SiteUrlExist([Bind(Prefix = "ReferenceSite.SiteURL")] string siteUrl, [Bind(Prefix = "ReferenceSite.Id")] int Id)
+        // 09/04/2018 09:00 am - SSN - Added remote validation 
+        // 09/07/2019 05:11 am - SSN - [20190907-0018] - [008] - Entity Framework concurrency check
+// Result of moving DAL objects out.
+        public JsonResult DoesReferenceSites_SiteUrlExist([Bind(Prefix = "ReferenceSite.SiteUrl")] string siteUrl, [Bind(Prefix = "ReferenceSite.Id")] int Id)
         {
             ReferenceSite r = _context.ReferenceSites.Where(e => e.SiteURL == siteUrl && e.Id != Id).FirstOrDefault();
             if (r != null)

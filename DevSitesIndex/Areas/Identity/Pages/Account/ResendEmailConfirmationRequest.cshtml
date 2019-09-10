@@ -1,0 +1,13 @@
+﻿@page
+@model DevSitesIndex.Areas.Identity.Pages.Account.ResendEmailConfirmationRequestModel
+
+@{
+    ViewData["Title"] = Model.pageContent?.MessageTitle_ViewBag;
+}
+
+@Html.Raw(Model?.pageContent?.MessageTitle)
+
+<br />
+<br />
+
+@Html.Raw(Model?.pageContent?.MessageBody)

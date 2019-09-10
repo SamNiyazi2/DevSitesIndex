@@ -13,7 +13,7 @@ namespace DevSitesIndex.Util
 
         public static HtmlString showCopyright()
         {
-            return new HtmlString("<p>&copy; 2018 - dev.testsam.com</p>");
+            return new HtmlString($"<p>&copy; 2018 - {Startup.SITE_NAME_STRING}</p>");
         }
     }
 }

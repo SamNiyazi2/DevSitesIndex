@@ -50,18 +50,28 @@ namespace DevSitesIndex.Services
             return devSite.FirstOrDefault();
         }
 
-        public DevSite UpdateDevSite(DevSite devSite)
+        // 09/06/2019 06:50 pm - SSN - [20190906-0518] - [008] - Angular - edit div content - Revised to handle async and use with edit.cshtml
+
+ 
+
+        public async Task<DevSite> UpdateDevSiteAsync(DevSite devSite)
         {
             Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<DevSite> r = null;
             try
             {
                 if (devSite.Id == 0)
                 {
-                    r = _context.DevSites.Add(devSite);
+                    r = await _context.DevSites.AddAsync(devSite);
                 }
                 else
                 {
-                    r = _context.DevSites.Update(devSite);
+                    // 09/06/2019 05:29 pm - SSN - [20190906-0518] - [004] - Angular - edit div content
+                    devSite.DateUpdated = DateTime.Now;
+                    _context.Attach(devSite).State = EntityState.Modified;
+                    _context.Entry(devSite).Property(x => x.DateAdded).IsModified = false;
+
+
+                    ////////////////////////////////      r = _context.DevSites.Update(devSite);
                 }
 
             }
@@ -94,7 +104,6 @@ namespace DevSitesIndex.Services
                 _context.Dispose();
             }
         }
-
 
     }
 }

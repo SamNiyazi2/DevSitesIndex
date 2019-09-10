@@ -19,6 +19,7 @@ namespace DevSitesIndex
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+
                 .UseApplicationInsights()
                 // 09/26/2018 01:22 pm - SSN - Adding
                 // No clear benefit.  reloadOnChange does not appear to work.
@@ -28,6 +29,28 @@ namespace DevSitesIndex
                 //})
                 .UseStartup<Startup>()
 
-            .Build();
+                .ConfigureLogging((hostingContext, logging) =>
+                {
+                    logging.AddProvider(
+                        new Util.SSN_LoggerProvider(
+                                                    new Util.SSN_LoggerProviderConfiguration
+                                                    {
+                                                        Color = ConsoleColor.Yellow,
+                                                        LogLevel = LogLevel.Information
+
+                                                    }
+                                            ));
+
+                    logging.AddSSN_Logger((r) =>
+                    {
+                        r.Color = ConsoleColor.Red;
+                        r.LogLevel = LogLevel.Debug;
+
+                    });
+                })
+                .Build();
     }
+
+
 }
+

@@ -78,6 +78,28 @@
         };
 
 
+  // 09/06/2019 04:45 pm - SSN - [20190906-0518] - [003] - Angular - edit div content
+      var _updateDevSite = function (devSite) {
+
+         
+            var deferred = $q.defer();
+
+          // 09/09/2019 10:33 pm - SSN - [20190909-2136] - [004] - select top 20 
+
+     //       $http.post('/api/demositesapi', devSite)
+          $http.post('/api/demositesapi/Top?recordCount=20', devSite)
+                .then(function (result) {
+
+                    deferred.resolve(result.data);
+                },
+                    function () {
+                        deferred.reject();
+                    });
+
+            return deferred.promise;
+
+        };
+
 
         // 04/12/2019 11:26 am - SSN - [20190412-1126] - Timelog - save data
 
@@ -102,6 +124,7 @@
         // 05/19/2019 03:00 pm - SSN - [20190519-1412] - [004] - Continue work on adding continue option for timesheet record
         var _addOrUpdateTimeLog = function (timeLog) {
 
+
             var deferred = $q.defer();
 
             $http.post('/api/timeLogAPI', timeLog)
@@ -110,6 +133,7 @@
                     deferred.resolve(result.data);
                 },
                     function (error) {
+
                         deferred.reject(error);
                     });
 
@@ -120,9 +144,12 @@
 
         return {
 
-            devSites: _devSites,
+            devSites: ko.observable( _devSites),
             getDevSites: _getDevSites,
             addDevSite: _addDevSite,
+            // 09/06/2019 04:44 pm - SSN - [20190906-0518] - [002] - Angular - edit div content
+            updateDevSite: _updateDevSite,
+
             insertTimeLog: _insertTimeLog,
             getTimelog: _getTimelog ,
             updateTimeLog: _addOrUpdateTimeLog
@@ -130,5 +157,3 @@
 
 
     });
-
-
