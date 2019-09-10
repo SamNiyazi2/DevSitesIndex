@@ -29,11 +29,13 @@ ssn_devsite_angular_module.config(["$routeProvider", function ($routeProvider) {
         templateUrl: "/templates/SitesIndex.html"
     });
 
-    $routeProvider.when("/detail", {
-        controller: "devSiteUpdateController",
-        // templateUrl: "/templates/SiteDetail.html"
-        templateUrl: "/DevSites/Create_partial"
-    });
+// 09/10/2019 01:47 am - SSN - [20190910-0147] - [001] - WARNING: Tried to load angular more than once.
+// Turn off
+    //$routeProvider.when("/detail", {
+    //    controller: "devSiteUpdateController",
+    //    // templateUrl: "/templates/SiteDetail.html"
+    //    templateUrl: "/DevSites/Create_partial"
+    //});
 
     $routeProvider.otherwise({ redirectTo: "/" });
 

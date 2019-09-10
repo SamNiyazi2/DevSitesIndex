@@ -201,17 +201,22 @@
 
 
     @{
-        if (angular_section_to_user == 2)
-        {
-            <environment names="Development">
-                <script src="~/js/angular-ui/ui-bootstrap-tpls.js"></script>
-            </environment>
+        @*
+                // 09/10/2019 01:56 am - SSN - [20190910-0147] - [002] - WARNING: Tried to load angular more than once.
+            // Removed
 
-            <environment names="Production">
-                <script src="~/js/angular-ui/ui-bootstrap-tpls.min.js"></script>
-            </environment>
 
-        }
+                if (angular_section_to_user == 2)
+            {
+                <environment names="Development">
+                    <script src="~/js/angular-ui/ui-bootstrap-tpls.js"></script>
+                </environment>
+
+                <environment names="Production">
+                    <script src="~/js/angular-ui/ui-bootstrap-tpls.min.js"></script>
+                </environment>
+
+                                    }*@
 
     }
 
@@ -245,7 +250,7 @@
     @RenderSection("Scripts", required: false)
 
     @await Html.PartialAsync("ApplicationVersion")
-  
+
 
 </body>
 </html>
