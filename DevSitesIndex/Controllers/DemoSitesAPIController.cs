@@ -36,6 +36,9 @@ namespace DevSitesIndex.Controllers
 
             IEnumerable<DevSite> devSites_1 = _devSitesIndexRepository.GetDevSites();
 
+            if (recordCount.HasValue)
+                devSites_1 = devSites_1.Take(recordCount.Value);
+
             return devSites_1;
 
 
@@ -60,7 +63,7 @@ namespace DevSitesIndex.Controllers
         public async Task<IEnumerable<DevSite>> SearchAsync([FromBody] SearchObj obj1)
         {
             var searchText = obj1?.SearchText ?? "";
-        
+
             IEnumerable<DevSite> devSites_1 = await _devSitesIndexRepository.GetDevSites(searchText);
 
             return devSites_1;
@@ -72,7 +75,7 @@ namespace DevSitesIndex.Controllers
         [HttpPost]
         public async void Post([FromBody]DevSite value)
         {
-           await _devSitesIndexRepository.UpdateDevSiteAsync(value);
+            await _devSitesIndexRepository.UpdateDevSiteAsync(value);
             _devSitesIndexRepository.Save();
 
         }
