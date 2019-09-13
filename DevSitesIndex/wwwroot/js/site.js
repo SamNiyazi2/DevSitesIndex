@@ -148,5 +148,11 @@ function fnConverDate(input) {
     }
 }
 // 04/29/2019 07:36 pm - SSN - [20190429-1748] - [006] - Angular clock out popup  - End
+// 09/10/2019 08:53 pm - SSN - Replaced
+// 09/11/2019 07:08 am - SSN - DevSiteIndex p1 data is coming after document is ready.
 setTimeout(prefixPreWithShowHideAnchor, 2000);
+//$(function () {
+//    console.log('20190910-2054 - prefixPreWithShowHideAnchor timeout to jquery ready');
+//    prefixPreWithShowHideAnchor();
+//});
 //# sourceMappingURL=site.js.map

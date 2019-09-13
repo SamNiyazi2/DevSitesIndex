@@ -1,6 +1,6 @@
 ﻿// 09/07/2019 01:51 am - SSN - [20190907-0018] - [006] - Entity Framework concurrency check
 // using Microsoft.AspNetCore.Mvc;
-// todo - clean up
+ 
 
 using System;
 using System.Collections.Generic;
@@ -136,17 +136,7 @@ namespace DevSitesIndex.Entities
             }
         }
 
-        //[NotMapped]
-        //public DateTime DateOfLastActivity
-        //{
-        //    get
-        //    {
-        //        return DateUpdated ?? DateAdded;
-        //    }
-        //}
-
-
-
+ 
         // 09/08/2019 09:29 pm - SSN - [20190908-2129] - [001] - Concurrency - DevSite
         [Timestamp]
         public byte[] RowVersion { get; set; }

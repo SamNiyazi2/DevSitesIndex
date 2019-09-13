@@ -58,7 +58,8 @@ namespace DevSitesIndex.Pages.TimeLogs
             ViewData["DisciplineID"] = new SelectList(_context.Disciplines.OrderBy(r => r.DisciplineShort), "DisciplineId", "DisciplineShort");
             // 04/08/2019 12:43 am - SSN - [20190407-2345] - TimeLog 
             // ViewData["JobId"] = new SelectList(_context.Job, "JobID", "JobID");
-            ViewData["JobId"] = new SelectList(_context.Jobs.OrderBy(r => r.JobTitle), "JobID", "JobTitle");
+            // 09/13/2019
+            ViewData["JobId"] = new SelectList(_context.Jobs.Where ( r=>r.ProjectID == TimeLog.job.ProjectID).OrderBy(r => r.JobTitle), "JobID", "JobTitle");
         }
 
 

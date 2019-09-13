@@ -42,14 +42,7 @@
             }
 
         </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.DevSite.Solution_Details)
-        </dt>
-        <dd>
 
-            @Html.Raw(Model.DevSite.Solution_Details)
-
-        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.DevSite.SoftwareCode)
         </dt>
@@ -68,6 +61,23 @@
         <dd>
             @Html.DisplayFor(model => model.DevSite.DateUpdated)
         </dd>
+
+
+        @*
+            09/13/2019 04:30 am - SSN - [20190913-0421] - [001] 
+            Moved down
+        *@
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DevSite.Solution_Details)
+        </dt>
+        <dd>
+            @*09/10/2019 05:56 pm - SSN - Solution_Details_PRE_Encoded*@
+            @Html.Raw(Model.DevSite.Solution_Details_PRE_Encoded)
+
+        </dd>
+
+
 
     </dl>
 </div>

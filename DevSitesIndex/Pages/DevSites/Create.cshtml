@@ -27,11 +27,7 @@
                 <input asp-for="DevSite.SolutionName" class="form-control" />
                 <span asp-validation-for="DevSite.SolutionName" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="DevSite.Solution_Details" class="control-label"></label>
-                <input asp-for="DevSite.Solution_Details" class="form-control" />
-                <span asp-validation-for="DevSite.Solution_Details" class="text-danger"></span>
-            </div>
+ 
             <div class="form-group">
                 <label asp-for="DevSite.SoftwareCodeID" class="control-label"></label>
 
@@ -87,6 +83,24 @@
 
                 <span asp-validation-for="DevSite.ForDemo_v02" class="text-danger"></span>
             </div>
+
+            @*
+                09/13/2019 04:30 am - SSN - [20190913-0421] - [001]
+                Moved down
+            *@
+
+
+            <div class="form-group">
+                <label asp-for="DevSite.Solution_Details" class="control-label"></label>
+
+                <textarea cols="40" rows="5" asp-for="DevSite.Solution_Details" class="form-control">
+
+</textarea>
+
+
+                <span asp-validation-for="DevSite.Solution_Details" class="text-danger"></span>
+            </div>
+
 
 
             <div class="form-group">

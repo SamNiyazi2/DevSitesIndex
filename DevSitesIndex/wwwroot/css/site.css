@@ -5,8 +5,12 @@ body {
     padding-bottom: 20px;
 }
 
-h1, h2, h3, h4, h5 {
+h1 {
     padding: 24px 0 0 0;
+}
+
+h2, h3, h4, h5 {
+    padding: 18px 0 0 0;
 }
 
 
@@ -234,6 +238,11 @@ alarm {
     filter: alpha(opacity=50);
     filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0.5);
     opacity: .50;*/
+}
+/*09/11/2019 09:08 pm - SSN*/
+.indented {
+    padding: 0px 20px 20px 20px ;
+    background: rgba(255,255,255,0.5);
 }
 
 .evenRow{

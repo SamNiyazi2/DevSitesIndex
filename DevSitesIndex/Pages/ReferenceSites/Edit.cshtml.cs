@@ -10,30 +10,10 @@ using DevSitesIndex.Entities;
 using Microsoft.AspNetCore.Authorization;
 using System.ComponentModel.DataAnnotations;
 
-// todo clean up
-//namespace DevSitesIndex.Entities
-//{
-//    [ModelMetadataType(typeof(ReferenceSiteMetaData))]
-//    public partial class ReferenceSite  
-//    {
 
-//    }
-//    public class ReferenceSiteMetaData
-//    {
-//        [Remote(action: "DoesReferenceSites_SiteTitleExist", controller: "RemoteDataValidation", AdditionalFields = "Id", HttpMethod = "POST")]
-//        public string SiteTitle { get; set; }
-//        [Remote(action: "DoesReferenceSites_SiteUrlExist", controller: "RemoteDataValidation", AdditionalFields = "Id", HttpMethod = "POST")]
-//        public string SiteURL { get; set; }
-
-
-//    }
-//}
 namespace DevSitesIndex.Pages.ReferenceSites
 {
-
-   
-
-
+    
 
     // 08/12/2019 12:21 pm - SSN - [20190812-0945] - [014] - Add identity
     // Add Authorize    public class CreateModel : PageModel

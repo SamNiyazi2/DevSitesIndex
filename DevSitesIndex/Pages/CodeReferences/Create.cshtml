@@ -21,11 +21,6 @@
             </div>
 
             <div class="form-group">
-                <label asp-for="CodeReference.CodeBlock" class="control-label"></label>
-                <textarea asp-for="CodeReference.CodeBlock" class="form-control codeblock1 "></textarea>
-                <span asp-validation-for="CodeReference.CodeBlock" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="CodeReference.SourceAddress" class="control-label"></label>
                 <input asp-for="CodeReference.SourceAddress" class="form-control" />
                 <span asp-validation-for="CodeReference.SourceAddress" class="text-danger"></span>
@@ -40,6 +35,21 @@
                 <input asp-for="CodeReference.DateModified" class="form-control" />
                 <span asp-validation-for="CodeReference.DateModified" class="text-danger"></span>
             </div>
+
+
+
+            @*
+                09/13/2019 04:30 am - SSN - [20190913-0421] - [001] -  
+                Moved down
+            *@
+
+            <div class="form-group">
+                <label asp-for="CodeReference.CodeBlock" class="control-label"></label>
+                <textarea asp-for="CodeReference.CodeBlock" class="form-control codeblock1 "></textarea>
+                <span asp-validation-for="CodeReference.CodeBlock" class="text-danger"></span>
+            </div>
+
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>

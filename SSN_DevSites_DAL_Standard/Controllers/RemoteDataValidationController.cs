@@ -61,6 +61,20 @@ namespace DevSitesIndex.Controllers
 
         }
 
+        // 09/13/2019 05:17 am - SSN - [20190913-0517] - [001] - Job title duplicate check
+
+        public JsonResult Job_duplicate_Check([Bind(Prefix = "Job.JobTitle")] string jobTitle, [Bind(Prefix = "Job.JobID")] int Id)
+        {
+            Job r = _context.Jobs.Where(e => e.JobTitle== jobTitle && e.JobID != Id).FirstOrDefault();
+            if (r != null)
+            {
+                return Json(data: $"Job title is already on <a href='/jobs/Details?id={r.JobID}' target='jobewin{r.JobID}' >file</a>.");
+            }
+            return Json(data: true);
+
+        }
+
+
 
     }
 }
