@@ -29,6 +29,7 @@
   <ItemGroup>
     <Content Remove="wwwroot\js\CodeReference\Typeahead_Discipline.ts" />
     <Content Remove="wwwroot\js\DemoSites_index_p1.ts" />
+    <Content Remove="wwwroot\js\DropdownList\DropdownListDirective.ts" />
     <Content Remove="wwwroot\js\fil11e.ts" />
     <Content Remove="wwwroot\js\siteold.ts" />
     <Content Remove="wwwroot\js\SSN_Notes.txt" />
@@ -94,6 +95,7 @@
   <ItemGroup>
     <TypeScriptCompile Include="wwwroot\js\CodeReference\Typeahead_Discipline.ts" />
     <TypeScriptCompile Include="wwwroot\js\DemoSites_index_p1.ts" />
+    <TypeScriptCompile Include="wwwroot\js\DropdownList\DropdownListDirective.ts" />
     <TypeScriptCompile Include="wwwroot\js\site.ts" />
     <TypeScriptCompile Include="wwwroot\js\Timesheet\TimesheetApp.ts" />
     

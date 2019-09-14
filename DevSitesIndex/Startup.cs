@@ -62,7 +62,19 @@ namespace DevSitesIndex
 
             //  }
             //);
-            services.AddMvc();
+
+
+
+
+            //// 09/13/2019 01:32 pm - SSN - [20190913-0548] - [008] - Crate generic dropdown list directive
+            //// Todo:  Need to take out after resolving problem posting form from DropdownListDirective.ts
+            ////services.AddMvc();
+            //services.AddMvc().AddRazorPagesOptions(o =>
+            //{
+            //    o.Conventions.ConfigureFilter(new IgnoreAntiforgeryTokenAttribute());
+            //});
+
+
 
 
             //  // 04/12/2019 04:18 pm - SSN - [20190412-1126] - Timelog - save data -- Copied from:
