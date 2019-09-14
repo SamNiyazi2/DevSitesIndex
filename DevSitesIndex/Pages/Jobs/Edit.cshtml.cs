@@ -51,6 +51,17 @@ namespace DevSitesIndex.Pages.Jobs
 
             DoPageSetup();
 
+
+
+
+            // 09/14/2019 04:52 am - SSN - [20190914-0227] - [004] - Creating dynamic process to process data in the catch block
+            // Testing
+            var job2 = Util.ExpressionBuilder_SSN.CreateExpression<Job>(_context.Jobs, Job, "", "JobTitle", "==", "Test  222");
+            var job3 = Util.ExpressionBuilder_SSN.CreateExpression<Job>(_context.Jobs, Job, "or", "JobTitle", "==", "Test", job2);
+
+
+
+
             return Page();
         }
 
@@ -80,6 +91,27 @@ namespace DevSitesIndex.Pages.Jobs
                 Job.DateUpdated = DateTime.Now;
             }
 
+            List<ConcurrencyValidationRecord> validationList = new List<ConcurrencyValidationRecord>();
+            validationList.Add(new ConcurrencyValidationRecord { PropertyName = "JobTitle", ModelErrorEntryName = "Job.JobTitle" });
+
+            if (!await testSave.saveRecord<Job>(Job, _context, ModelState))
+            {
+                return Page();
+            }
+
+            return RedirectToPage("./Index");
+        }
+
+
+    }
+
+
+    // 09/14/2019 01:01 am - SSN - Generic commit change
+    public static class testSave
+    {
+
+        public static async Task<bool> saveRecord<T>(T entity, DevSitesIndexContext _context, Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary ModelState)
+        {
             try
             {
                 await _context.SaveChangesAsync();
@@ -87,10 +119,11 @@ namespace DevSitesIndex.Pages.Jobs
 
 
             catch (DbUpdateConcurrencyException ex)
+            // catch (Exception ex2)
             {
                 var entry = ex.Entries.Single();
 
-                var clientValues = (Job)entry.Entity;
+                var clientValues = (T)entry.Entity;
 
                 var databaseEntry = entry.GetDatabaseValues();
 
@@ -103,21 +136,38 @@ namespace DevSitesIndex.Pages.Jobs
                 {
 
 
-                    var databaseValues = (Job)databaseEntry.ToObject();
+                    var databaseValues = (T)databaseEntry.ToObject();
 
-                    if (databaseValues.JobTitle != clientValues.JobTitle)
 
-                        ModelState.AddModelError("Job.JobTitle", "Current value: "
-                            + databaseValues.JobTitle);
 
-                    if (databaseValues.ProjectID != clientValues.ProjectID)
+                    // todo 09/14/2019
+                    // 09/14/2019 02:27 am - SSN - [20190914-0227] - [001] - Creating dynamic process to process data in the catch block
+
+
+                    //if (databaseValues.JobTitle != clientValues.JobTitle)
+                    string propertyName = "JobTitle";
+
+                    var databaseValue = entity.GetType().GetProperty(propertyName).GetValue(databaseValues, null);
+                    var clientValue = entity.GetType().GetProperty(propertyName).GetValue(clientValues, null);
+                    if (databaseValue != clientValue)
                     {
+                        string modelErrorName = "Job.JobTitle";
 
-                        Project project = _context.Projects.Where(r => r.ProjectID == databaseValues.ProjectID).FirstOrDefault();
+                        //ModelState.AddModelError("Job.JobTitle", "Current value: "
+                        //    + databaseValues.JobTitle);
 
-                        ModelState.AddModelError("Job.ProjectID", "Current value: "
-                                     + project?.ProjectTitle);
+                        ModelState.AddModelError(modelErrorName, "Current value: "
+                            + databaseValue);
                     }
+
+                    //if (databaseValues.ProjectID != clientValues.ProjectID)
+                    //{
+
+                    //    Project project = _context.Projects.Where(r => r.ProjectID == databaseValues.ProjectID).FirstOrDefault();
+
+                    //    ModelState.AddModelError("Job.ProjectID", "Current value: "
+                    //                 + project?.ProjectTitle);
+                    //}
 
 
 
@@ -127,17 +177,38 @@ namespace DevSitesIndex.Pages.Jobs
                         + "have been displayed. If you still want to edit this record, click "
                         + "the Save button again. Otherwise click the 'Back to List' hyperlink.");
 
-                    Job.RowVersion = databaseValues.RowVersion;
+
+
+
+
+                    // todo 09/14/2019
+                    ////////////////////////                    Job.RowVersion = databaseValues.RowVersion;
+
+
+
                 }
 
-                return Page();
+                return false;
 
 
             }
 
-            return RedirectToPage("./Index");
+            return true;
+
         }
-
-
     }
+
+    // 09/14/2019 02:47 am - SSN - [20190914-0227] - [002] - Creating dynamic process to process data in the catch block
+    // Added
+    class ConcurrencyValidationRecord
+    {
+
+        public string PropertyName { get; set; }
+        public string ModelErrorEntryName { get; set; }
+    }
+
+
+
+
+
 }

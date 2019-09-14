@@ -64,10 +64,12 @@ namespace DevSitesIndex.Util
 
             if (_config.EventId == 0 || _config.EventId == eventId.Id)
             {
+                DateTime d = DateTime.Now;
+
                 var color = Console.ForegroundColor;
                 Console.ForegroundColor = _config.Color;
                 Console.WriteLine();
-                Console.WriteLine($"=-=-=-=-=-=-=-=-=-=-=-= {logLevel.ToString()} - {eventId.Id} - {_name}");
+                Console.WriteLine($"=-=-=-=-=-=-=-=-=-=-=-= {d:yyy-MM-dd hh:mm:ss:fff tt}:  {logLevel.ToString()} - {eventId.Id} - {_name}");
                 Console.WriteLine($"{formatter(state, exception)}");
                 Console.WriteLine();
                 Console.ForegroundColor = color;

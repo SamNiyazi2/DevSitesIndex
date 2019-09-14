@@ -16,7 +16,8 @@ namespace DevSitesIndex.Entities
     {
 
         public int JobID { get; set; }
-        [Display(Name = "Title")]
+        [Display(Name = "Title", Prompt = "Enter title")]  // 09/14/2019 12:46 am - SSN Added prompt
+        [Required] // 09/13/2019 11:23 pm - SSN - Forgotten
         public string JobTitle { get; set; }
 
 
@@ -29,7 +30,8 @@ namespace DevSitesIndex.Entities
         [Display(Name = "Date Updated")]
         public DateTime? DateUpdated { get; set; }
 
-        [Display(Name = "Project Title")]
+        [Display(Name = "Project Title", Prompt = "Select a project")] // 09/14/2019 12:40 am - SSN - Added prompt (PlaceHolder?)
+        [Required]  // 09/13/2019 12:19 am - SSN - Added
         public int ProjectID { get; set; }
 
         [Display(Name = "Project Title")]
@@ -47,7 +49,7 @@ namespace DevSitesIndex.Entities
 
 
         public DateTime _LastActivityDate;
-        
+
 
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         [DisplayName("Most Recent Activity (1)")]

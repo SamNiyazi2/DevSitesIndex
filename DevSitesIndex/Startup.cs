@@ -114,15 +114,15 @@ namespace DevSitesIndex
 
             services.AddScoped<IDevSitesIndexRepository, DevSitesIndexRepository>();
 
-            
-            
+
+
             // 09/06/2019 11:45 pm - SSN - [20190906-2040] - [002] - Logger
 
             //services.AddSingleton<Util.ILogger_SSN, Util.SSN_Logger>();
-             services.AddTransient< Util.ILogger_SSN , Util.SSN_Logger>();
+            services.AddTransient<Util.ILogger_SSN, Util.SSN_Logger>();
 
 
-            
+
 
             // 08/13/2019 08:41 am - SSN - Added
             // https://docs.microsoft.com/en-us/aspnet/core/security/authentication/identity-configuration?view=aspnetcore-2.2
@@ -208,6 +208,12 @@ namespace DevSitesIndex
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+
+            // 09/14/2019 07:39 am - SSN - [20190914-0227] - [009] - Creating dynamic process to process data in the catch block
+            GetMeSomeServiceLocator.Instance = app.ApplicationServices;
+
+
+
             // 08/08/2018 02:16 pm - SSN - Added
             // 06/03/2019 05:20 pm - SSN - [20190603-1427] - [007] - Error handling
             // Turn off
@@ -270,6 +276,14 @@ namespace DevSitesIndex
 
 
         }
+    }
+
+
+    // 09/14/2019 07:38 am - SSN - [20190914-0227] - [008] - Creating dynamic process to process data in the catch block
+    // https://stackoverflow.com/questions/46383377/how-to-instantiate-an-iloggerfactory-without-using-dependency-injection
+    public static class GetMeSomeServiceLocator
+    {
+        public static IServiceProvider Instance { get; set; }
     }
 
 

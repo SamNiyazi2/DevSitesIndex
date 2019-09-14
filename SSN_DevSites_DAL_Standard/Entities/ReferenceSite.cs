@@ -25,18 +25,11 @@ namespace DevSitesIndex.Entities
 
         public int Id { get; set; }
 
-
-
-        // 09/07/2019 01:49 am - SSN - [20190907-0018] - [005] - Entity Framework concurrency check
-        // Todo   -  Move remote
-
+        
         [Required]
         [DisplayName("Site Title")]
         // 09/04/2018 10:05 am - SSN - Added remote validation
-
-        // Todo   -  Move remote
         [Remote(action: "DoesReferenceSites_SiteTitleExist", controller: "RemoteDataValidation", AdditionalFields = "Id", HttpMethod = "POST")]
-
         public string SiteTitle { get; set; }
 
 
@@ -44,12 +37,8 @@ namespace DevSitesIndex.Entities
         [Required]
         [DisplayName("Site URL")]
         // 09/04/2018 09:00 am - SSN - Added remote validation
-
-        // Todo   -  Move remote
         [Remote(action: "DoesReferenceSites_SiteUrlExist", controller: "RemoteDataValidation", AdditionalFields = "Id", HttpMethod = "POST")]
         public string SiteURL { get; set; }
-
-
 
 
 

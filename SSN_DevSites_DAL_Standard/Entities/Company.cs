@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -15,7 +16,11 @@ namespace DevSitesIndex.Entities
         public int CompanyID { get; set; }
 
         [DisplayName("Company Name")]
+
         [Required(ErrorMessage = "Company name is required")]
+        // 09/13/2019 11:37 pm - SSN - Add remote
+        // Todo: Are we done
+        [Remote(action: "CompanyName_IsDuplicate", controller: "RemoteDataValidation", HttpMethod = "POST")]
         public string CompanyName { get; set; }
 
         // 03/13/2019 09:29 am - SSN

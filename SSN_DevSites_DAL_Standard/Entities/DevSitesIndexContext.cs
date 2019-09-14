@@ -249,6 +249,12 @@ namespace DevSitesIndex.Entities
            .Property(p => p.DateAdded)
            .HasColumnType("datetime2(0)");
 
+            // 09/13/2019 11:35 pm - SSN - Added unique
+            modelBuilder.Entity<Company>()
+           .HasIndex(x => new { x.CompanyName})
+           .HasName("Job_CompanyName_Unique")
+           .IsUnique();
+
 
         }
 
