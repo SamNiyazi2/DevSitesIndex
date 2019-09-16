@@ -15,12 +15,15 @@ namespace DevSitesIndex.Entities
         public int TimeLogId { get; set; }
 
         [Display(Name = "Job Title")]
+        [Required] // 09/13/2019 11:26 pm - SSN - Forgotten
         public int JobId { get; set; }
 
         [Display(Name = "Discipline")]
+        [Required] // 09/13/2019 11:26 pm - SSN - Forgotten
         public int DisciplineID { get; set; }
 
         [Display(Name = "Start Time")]
+        [Required] // 09/13/2019 11:26 pm - SSN - Forgotten
         public DateTime StartTime { get; set; }
 
         [Display(Name = "Duration (Seconds)")]

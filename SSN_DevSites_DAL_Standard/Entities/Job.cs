@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -17,12 +16,8 @@ namespace DevSitesIndex.Entities
     {
 
         public int JobID { get; set; }
-        [Display(Name = "Title")]
-        
-        // 09/13/2019 05:21 am - SSN - [20190913-0517] - [002] - Job title duplicate check
-
-        [Remote(action: "Job_duplicate_Check", controller: "RemoteDataValidation", AdditionalFields = "Id", HttpMethod = "POST")]
-
+        [Display(Name = "Title", Prompt = "Enter title")]  // 09/14/2019 12:46 am - SSN Added prompt
+        [Required] // 09/13/2019 11:23 pm - SSN - Forgotten
         public string JobTitle { get; set; }
 
 
@@ -35,7 +30,8 @@ namespace DevSitesIndex.Entities
         [Display(Name = "Date Updated")]
         public DateTime? DateUpdated { get; set; }
 
-        [Display(Name = "Project Title")]
+        [Display(Name = "Project Title", Prompt = "Select a project")] // 09/14/2019 12:40 am - SSN - Added prompt (PlaceHolder?)
+        [Required]  // 09/13/2019 12:19 am - SSN - Added
         public int ProjectID { get; set; }
 
         [Display(Name = "Project Title")]
@@ -53,7 +49,7 @@ namespace DevSitesIndex.Entities
 
 
         public DateTime _LastActivityDate;
-        
+
 
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         [DisplayName("Most Recent Activity (1)")]

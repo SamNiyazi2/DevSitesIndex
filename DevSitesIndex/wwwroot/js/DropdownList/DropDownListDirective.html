@@ -1,0 +1,28 @@
+﻿
+<div class="form-group">
+
+    <label class="control-label">
+        {{typeahead_label}}
+    </label>
+
+    <!--uib-typeahead="discipline as discipline.title for discipline in vm101.getDisciplines($viewValue) "-->
+
+
+    <input type="text"
+           ng-model="disciplineSelected"
+           name="disciplineSelectedLocal"
+           placeholder="Select..."
+           uib-typeahead="discipline as discipline.title for discipline in vm101.getDisciplines($viewValue) "
+           typeahead-loading="loadingLocations"
+           typeahead-no-results="noResults"
+           class="form-control" ng-required="true">
+
+    <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+
+    <div ng-show="noResults">
+        <i class="glyphicon glyphicon-remove"></i> No Results Found
+    </div>
+
+    <p ng-show="!vm101.isValid()" class="has-error">Selection is required</p>
+
+</div>

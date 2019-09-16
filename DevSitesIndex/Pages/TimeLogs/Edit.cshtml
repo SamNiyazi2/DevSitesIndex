@@ -3,38 +3,99 @@
 
 @{
     ViewData["Title"] = "Edit TimeLog";
+
+    // 09/13/2019 06:01 am - SSN - [20190913-0548] - [003] - Crate generic dropdown list directive
+
+    ViewBag.InitModule_Full = "data-ng-app=\"demoSites_Index_Timesheet\"";
 }
 
 <h2>@ViewData["Title"]</h2>
- 
+
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    @*// 09/13/2019 06:02 am - SSN - [20190913-0548] - [004] - Crate generic dropdown list directive  ng-controller *@
+
+
+
+    <div class="col-md-4" ng-controller="utilityController" form-name="timesheetForm">
+        <form method="post" name="timesheetForm" ng-submit="submitForm_1($event,timesheetForm)" action="">
+
+
+            @*
+                // 09/13/2019 02:01 pm - SSN - [20190913-0548] - [010] - Crate generic dropdown list directive
+                // Do we need this to post from directive???
+                // Todo:
+            *@
+
+            @Html.AntiForgeryToken()
             <input type="hidden" asp-for="TimeLog.TimeLogId" />
-            <div class="form-group">
-                <label asp-for="TimeLog.JobId" class="control-label"></label>
-                <select asp-for="TimeLog.JobId" class="form-control" asp-items="ViewBag.JobId" autofocus>
-                    <option>Please select...</option>
-                </select>
-                <span asp-validation-for="TimeLog.JobId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TimeLog.DisciplineID" class="control-label"></label>
-                <select asp-for="TimeLog.DisciplineID" class="form-control" asp-items="ViewBag.DisciplineID">
-                    <option>Please select...</option>
-                </select>
-                <span asp-validation-for="TimeLog.DisciplineID" class="text-danger"></span>
-            </div>
-            
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
+
+            @*
+                09/16/2019 03:41 am - SSN - Remove "Please select..." from JobId and DisciplineId
+            *@
+
+            @if (!Model.Timesheet_Dropdown_20190913_0624)
+            {
+
+                <div class="form-group">
+                    <label asp-for="TimeLog.JobId" class="control-label"></label>
+                    <select asp-for="TimeLog.JobId" class="form-control" asp-items="ViewBag.JobId" autofocus>
+                        <option></option>
+                    </select>
+                    <span asp-validation-for="TimeLog.JobId" class="text-danger"></span>
+                </div>
+
+            }
+            else
+            {
+
+                <input asp-for="TimeLog.JobId" type="hidden" />
+                <dropdown-list-directive key="TimeLog.JobId" form-name="timesheetForm"></dropdown-list-directive>
+            }
+
+
+
+            @*
+                09/16/2019 03:44 am - SSN - Replaced disciplineID wiht dropdown-list-directive and hidden field
+            *@
+
+            @if (!Model.Timesheet_Dropdown_20190913_0624)
+            {
+
+                <div class="form-group">
+                    <label asp-for="TimeLog.DisciplineID" class="control-label"></label>
+                    <select asp-for="TimeLog.DisciplineID" class="form-control" asp-items="ViewBag.DisciplineID">
+                        <option></option>
+                    </select>
+                    <span asp-validation-for="TimeLog.DisciplineID" class="text-danger"></span>
+                </div>
+
+            }
+            else
+            {
+
+
+                <input asp-for="TimeLog.DisciplineID" type="hidden" />
+
+
+                <dropdown-list-directive key="TimeLog.DisciplineID" form-name="timesheetForm"></dropdown-list-directive>
+
+
+            }
+
+
+
             <div class="form-group">
                 <label asp-for="TimeLog.StartTime" class="control-label"></label>
-            
+
                 &nbsp; <a cmd-name="set-default-time" jQueryObjectName="#TimeLog_StartTime">Now</a>
-                
+
                 <input asp-for="TimeLog.StartTime" class="form-control" />
-                
+
                 <span asp-validation-for="TimeLog.StartTime" class="text-danger"></span>
             </div>
 
@@ -69,7 +130,7 @@
                 <span asp-validation-for="TimeLog.WorkDetail" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Save" class="btn btn-default" ng-click="submitForm_2($event,timesheetForm)" />
             </div>
         </form>
     </div>
@@ -81,4 +142,8 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    @*// 09/13/2019 05:58 am - SSN - [20190913-0548] - [002] - Crate generic dropdown list directive*@
+
+    <script src="~/js/DropdownList/DropdownListDirective.js"></script>
 }
