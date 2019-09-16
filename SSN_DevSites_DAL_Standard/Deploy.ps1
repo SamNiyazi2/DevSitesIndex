@@ -33,7 +33,7 @@ function write-heading {
 function step_00_list_existing_packages() {
 
     write-heading "Locally deployed packages"
-    dir \sams_nuget\packages\ssn_devsites_dal_standard | sort LastWriteTime  
+    get-childitem  \sams_nuget\packages\ssn_devsites_dal_standard | sort LastWriteTime  
 }
 
 
@@ -74,7 +74,8 @@ function step_02_pack {
 }
 
 
-# 09/14/2019 12:06 amm - SSN - Refactor
+# 09/14/2019 12:06 am - SSN - Refactor
+# 09/16/2019 06:25 am - SSN - Missed revision - Anther Git moment
 function step_03_publish_local {
 
     param(
@@ -82,8 +83,21 @@ function step_03_publish_local {
         $version
     )
 
-    write-heading  "PS: Calling Publish_Package_Local.cmd..."
-    Invoke-Expression ".\Publish_Package_Local.cmd $version" 
+    write-heading  "PS: Publish to local NuGet..."
+
+    
+
+    $cmd = {
+        param(
+            $version
+        )
+    
+        & "c:\sams_nuget\nuget" push "C:\Sams_Projects\__DevSites_Index\DevSitesIndex\SSN_DevSites_DAL_NuGet_Pack_Output\SSN_DevSites_DAL_Standard.$version.nupkg" -source c:\sams_nuget\packages
+    }
+
+
+    Invoke-Command -Command $cmd -ArgumentList $version   
+
 
 }
 
@@ -96,8 +110,79 @@ function step_04_publish_remote {
         $version
     )
 
-    write-heading   "PS: Calling Publish_Package_Local.cmd..."
-    Invoke-Expression ".\Publish_Package_NuGet.cmd $version" 
+
+    write-host ""
+    write-host ""
+    write-host ""
+    write-host ""
+    write-warning "Do we have the key?"
+    write-host ""
+    write-host ""
+    write-host ""
+    write-host ""
+    write-warning [$env:NuGet_Key]
+    write-host ""
+    write-host ""
+    write-host ""
+    write-host ""
+
+    write-host "PS: Pushing to Remote NuGet... $version"
+    Write-Host ""
+    Write-Host ""
+
+
+
+
+    $reply = ""
+    $reply = read-host "Are you sure you want to publish to NuGet? [YES]"
+
+
+
+    if ( [System.string]::IsNullOrWhiteSpace(  $reply)) {
+        $reply = "No"
+    }
+
+    write-host $reply 
+
+    if ( $reply.ToUpper() -eq "YES" ) {
+
+
+        write-host ""
+        write-host ""
+        write-host "Publishing..."
+
+
+        write-host ""
+        write-host ""
+
+
+        dotnet nuget push "C:\Sams_Projects\__DevSites_Index\DevSitesIndex\SSN_DevSites_DAL_NuGet_Pack_Output\SSN_DevSites_DAL_Standard.$version.nupkg"  -k $env:NuGet_Key -s https://api.nuget.org/v3/index.json
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
 
