@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using DevSitesIndex.Entities;
 using DevSitesIndex.Services;
@@ -19,9 +20,7 @@ namespace DevSitesIndex.Controllers
     {
 
         public IEntityRepository<T> _entityRepository;
-
-
-
+         
 
         // GET: api/<controller>
         [HttpGet]
@@ -98,4 +97,20 @@ namespace DevSitesIndex.Controllers
         public string WorkDetail { get; set; }
 
     }
+
+
+
+    // 09/16/2019 04:58 am - SSN - [20190916-0355] - [005] - Adding JobAPI controller
+    public class TypeAheadRecord
+    {
+        public TypeAheadRecord(int id , string description)
+        {
+            this.ta_id = id.ToString();
+            this.ta_description = description;
+        }
+
+        public string ta_id { get; set; }
+        public string ta_description { get; set; }
+    }
+    
 }

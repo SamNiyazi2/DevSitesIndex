@@ -8,7 +8,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DevSitesIndex.Entities;
 using Microsoft.AspNetCore.Authorization;
-
+using DevSitesIndex.Util;
+using System.Data.SqlClient;
 
 namespace DevSitesIndex.Pages.Jobs
 {
@@ -19,10 +20,12 @@ namespace DevSitesIndex.Pages.Jobs
     public class EditModel : PageModel
     {
         private readonly DevSitesIndex.Entities.DevSitesIndexContext _context;
+        private readonly ILogger_SSN logger;
 
-        public EditModel(DevSitesIndex.Entities.DevSitesIndexContext context)
+        public EditModel(DevSitesIndex.Entities.DevSitesIndexContext context, ILogger_SSN logger)
         {
             _context = context;
+            this.logger = logger;
         }
 
         [BindProperty]
@@ -36,6 +39,8 @@ namespace DevSitesIndex.Pages.Jobs
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
+
+
             if (id == null)
             {
                 return NotFound();
@@ -49,6 +54,10 @@ namespace DevSitesIndex.Pages.Jobs
                 return NotFound();
             }
 
+
+            logger.TrackPageView("DemoSite-20190915-0941");
+
+
             DoPageSetup();
 
 
@@ -56,11 +65,19 @@ namespace DevSitesIndex.Pages.Jobs
 
             // 09/14/2019 04:52 am - SSN - [20190914-0227] - [004] - Creating dynamic process to process data in the catch block
             // Testing
-            var job2 = Util.ExpressionBuilder_SSN.CreateExpression<Job>(_context.Jobs, Job, "", "JobTitle", "==", "Test  222");
-            var job3 = Util.ExpressionBuilder_SSN.CreateExpression<Job>(_context.Jobs, Job, "or", "JobTitle", "==", "Test", job2);
+            ExpressionBuilderResults_SSN<Job> result1 = Util.ExpressionBuilder_SSN.CreateExpression<Job>(_context.Jobs, Job, "", "JobTitle", "==", "Test  222");
+            ExpressionBuilderResults_SSN<Job> result2 = Util.ExpressionBuilder_SSN.CreateExpression<Job>(_context.Jobs, Job, "or", "JobTitle", "==", "Test", result1.func);
 
 
 
+
+            //    Project project = _context.Projects.Where(r => r.ProjectID == databaseValues.ProjectID).FirstOrDefault();
+
+            //    ModelState.AddModelError("Job.ProjectID", "Current value: "
+            //                 + project?.ProjectTitle);
+            //}
+            Project proj = new Project();
+            Util.ExpressionBuilder_SSN.CreateExpression<Project>(_context.Projects, proj, "", "ProjectID", "==", 1);
 
             return Page();
         }
@@ -112,15 +129,16 @@ namespace DevSitesIndex.Pages.Jobs
 
         public static async Task<bool> saveRecord<T>(T entity, DevSitesIndexContext _context, Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary ModelState)
         {
+            // 09/15/2019 09:47 pm - SSN - Added
+            ILogger_SSN logger = (ILogger_SSN)GetMeSomeServiceLocator.Instance.GetService(typeof(ILogger_SSN));
+
             try
             {
                 await _context.SaveChangesAsync();
             }
-
-
             catch (DbUpdateConcurrencyException ex)
-            // catch (Exception ex2)
             {
+
                 var entry = ex.Entries.Single();
 
                 var clientValues = (T)entry.Entity;
@@ -146,18 +164,17 @@ namespace DevSitesIndex.Pages.Jobs
 
                     //if (databaseValues.JobTitle != clientValues.JobTitle)
                     string propertyName = "JobTitle";
+                    string modelErrorName = "Job.JobTitle";
 
                     var databaseValue = entity.GetType().GetProperty(propertyName).GetValue(databaseValues, null);
                     var clientValue = entity.GetType().GetProperty(propertyName).GetValue(clientValues, null);
                     if (databaseValue != clientValue)
                     {
-                        string modelErrorName = "Job.JobTitle";
 
                         //ModelState.AddModelError("Job.JobTitle", "Current value: "
                         //    + databaseValues.JobTitle);
 
-                        ModelState.AddModelError(modelErrorName, "Current value: "
-                            + databaseValue);
+                        ModelState.AddModelError(modelErrorName, "Current value: " + databaseValue);
                     }
 
                     //if (databaseValues.ProjectID != clientValues.ProjectID)
@@ -184,12 +201,75 @@ namespace DevSitesIndex.Pages.Jobs
                     // todo 09/14/2019
                     ////////////////////////                    Job.RowVersion = databaseValues.RowVersion;
 
-
+                    await logger.PostException(ex, "DemoSite-20190915-0939", "Concurrency failure");
 
                 }
 
                 return false;
 
+
+            }
+
+            catch (SqlException ex)
+            {
+
+                await logger.PostException(ex, "DemoSite-20190915-0957", "SqlException");
+                return false;
+            }
+
+
+            catch (DbUpdateException ex)
+            {
+                // "Cannot insert duplicate key row in object 'DemoSites.Jobs' with unique index 'Job_ProjectID_Title_Unique'. The duplicate key value is (9, test).\r\nThe statement has been terminated."
+
+                bool postedMessageToUser = false;
+
+                if (ex.InnerException != null)
+                {
+                    if ( ex.InnerException is SqlException)
+                    {
+                        SqlException ex_sql = (SqlException)ex.InnerException;
+                        if (ex_sql.Message.Contains("Cannot insert duplicate key row") && ex_sql.Number == 2601)
+                        {
+                            if (ex_sql.Message.ToLower().Contains("project_id"))
+                            {
+                                ModelState.AddModelError("Job.ProjectID", "Duplicate project title.");
+                                postedMessageToUser = true;
+                            }
+
+                        }
+                    }
+                    else
+                    {
+                        if (ex.Message.Contains("Cannot insert duplicate key row"))
+                        {
+                            ModelState.AddModelError(string.Empty, "Duplicate entry.");
+                            postedMessageToUser = true;
+                        }
+
+                    }
+
+                }
+                else
+                {
+
+                }
+
+                if (!postedMessageToUser)
+                {
+                    ModelState.AddModelError(string.Empty, "Invalid entry.");
+                }
+
+                await logger.PostException(ex, "DemoSite-20190915-0958", "DbUpdateException - Not showing proper error message.");
+
+                return false;
+
+            }
+
+            catch (Exception ex)
+            {
+                await logger.PostException(ex, "DemoSite-20190915-0940", "Exception");
+                return false;
 
             }
 

@@ -88,6 +88,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Connected Services\" />
     <Folder Include="Pages\Discipline\" />
     <Folder Include="wwwroot\js\angular-ui\V_0.11.0\" />
   </ItemGroup>

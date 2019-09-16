@@ -19,45 +19,75 @@
 
 
     <div class="col-md-4" ng-controller="utilityController" form-name="timesheetForm">
-        <form method="post" name="timesheetForm" ng-submit="submitForm_1.onSubmit($event)" novalidate role="form" action="/">
+        <form method="post" name="timesheetForm" ng-submit="submitForm_1($event,timesheetForm)" action="">
 
 
             @*
                 // 09/13/2019 02:01 pm - SSN - [20190913-0548] - [010] - Crate generic dropdown list directive
                 // Do we need this to post from directive???
                 // Todo:
-                *@
+            *@
 
             @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="TimeLog.TimeLogId" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-            @if (Model.Timesheet_Dropdown_20190913_0624)
+
+
+            @*
+                09/16/2019 03:41 am - SSN - Remove "Please select..." from JobId and DisciplineId
+            *@
+
+            @if (!Model.Timesheet_Dropdown_20190913_0624)
             {
-                <h1>---------------------------------------------</h1>
 
-                <dropdown-list-directive key="TimeLog.DisciplineID" form-name="timesheetForm"></dropdown-list-directive>
+                <div class="form-group">
+                    <label asp-for="TimeLog.JobId" class="control-label"></label>
+                    <select asp-for="TimeLog.JobId" class="form-control" asp-items="ViewBag.JobId" autofocus>
+                        <option></option>
+                    </select>
+                    <span asp-validation-for="TimeLog.JobId" class="text-danger"></span>
+                </div>
 
-                <h1>---------------------------------------------</h1>
+            }
+            else
+            {
 
+                <input asp-for="TimeLog.JobId" type="hidden" />
+                <dropdown-list-directive key="TimeLog.JobId" form-name="timesheetForm"></dropdown-list-directive>
             }
 
 
 
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <input type="hidden" asp-for="TimeLog.TimeLogId" />
-            <div class="form-group">
-                <label asp-for="TimeLog.JobId" class="control-label"></label>
-                <select asp-for="TimeLog.JobId" class="form-control" asp-items="ViewBag.JobId" autofocus>
-                    <option>Please select...</option>
-                </select>
-                <span asp-validation-for="TimeLog.JobId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TimeLog.DisciplineID" class="control-label"></label>
-                <select asp-for="TimeLog.DisciplineID" class="form-control" asp-items="ViewBag.DisciplineID">
-                    <option>Please select...</option>
-                </select>
-                <span asp-validation-for="TimeLog.DisciplineID" class="text-danger"></span>
-            </div>
+            @*
+                09/16/2019 03:44 am - SSN - Replaced disciplineID wiht dropdown-list-directive and hidden field
+            *@
+
+            @if (!Model.Timesheet_Dropdown_20190913_0624)
+            {
+
+                <div class="form-group">
+                    <label asp-for="TimeLog.DisciplineID" class="control-label"></label>
+                    <select asp-for="TimeLog.DisciplineID" class="form-control" asp-items="ViewBag.DisciplineID">
+                        <option></option>
+                    </select>
+                    <span asp-validation-for="TimeLog.DisciplineID" class="text-danger"></span>
+                </div>
+
+            }
+            else
+            {
+
+
+                <input asp-for="TimeLog.DisciplineID" type="hidden" />
+
+
+                <dropdown-list-directive key="TimeLog.DisciplineID" form-name="timesheetForm"></dropdown-list-directive>
+
+
+            }
+
+
 
             <div class="form-group">
                 <label asp-for="TimeLog.StartTime" class="control-label"></label>
@@ -100,7 +130,7 @@
                 <span asp-validation-for="TimeLog.WorkDetail" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Save" class="btn btn-default" ng-click="submitForm_2($event,timesheetForm)" />
             </div>
         </form>
     </div>

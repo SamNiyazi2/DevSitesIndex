@@ -19,50 +19,78 @@ namespace DevSitesIndex.Util
     {
 
 
-        public static Expression<Func<T, bool>> CreateExpression<T>(DbSet<T> entityx,  T record,  string andOrOperator, string propName, string opr, string value, Expression<Func<T, bool>> expr = null) where T :class
+
+        // For reference:
+        // "==,  <,  >, >=, <= , !=, &&, ||, LIKE, NOTLIKE";
+        // https://www.dvteclipse.com/documentation/svlinter/How_to_use_special_characters_in_XML.3F.html
+        // <param name="opr">&#61;&#61;,  &#60;,  &#62;, &#62;&#61;, &#60;= , &#33;&#61;, &#38;&#38;, &#124;&#124;, LIKE, NOTLIKE</param>
+
+
+
+        /// <summary>
+        /// Creates an expression that evaluate to a boolean (comparing two columns) or return a result set to determine if a record exists.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="entityx">The table being updated.</param>
+        /// <param name="record">The current record being added or updated.</param>
+        /// <param name="andOrOperator">"and" | "or" | "": When combining two or more expressions. Leave blank otherwise.</param>
+        /// <param name="propName">The property being evaluated (Column name)</param>
+        /// <param name="opr">&#61;&#61;,  &#60;,  &#62;, &#62;&#61;, &#60;= , &#33;&#61;, &#38;&#38;, &#124;&#124;, LIKE, NOTLIKE</param>
+        /// <param name="value">The value being compared to. If you are checking if an employee exists, this would be the employee ID.</param>
+        /// <param name="expr">When combining more than on expression, pass the previous one in.</param>
+        /// <returns></returns>
+
+
+        public static ExpressionBuilderResults_SSN<T> CreateExpression<T>(DbSet<T> entityx, T record, string andOrOperator, string propName, string opr, object value, Expression<Func<T, bool>> expr = null) where T : class
         {
+
+            ExpressionBuilderResults_SSN<T> results = new ExpressionBuilderResults_SSN<T>();
 
             // Expression<Func<T, bool>> result = ToExpression<T>(andOrOperator, propName, opr, value, expr);
             TempDTO<T> result_dto = ToExpression<T>(andOrOperator, propName, opr, value, expr);
 
-            var test1 = result_dto.func.Compile();
-            bool test2 = test1(record);
+            Func<T, bool> test1 = result_dto.func.Compile();  /// Evaluate
+            results.ConditionIsTrueForTheCurrentRecord = test1(record);
 
 
+            // This creates and express to evaluate to something like "entity.where ( r=> r.propertyName == value).FirstOrDefault()
             IQueryable<T> queryableData = entityx;
 
             MethodCallExpression whereCallExpression = Expression.Call(
-             typeof(Queryable),
-             "Where",
-             new Type[] { queryableData.ElementType },
-             queryableData.Expression,
-            // Expression.Lambda<Func<bool>>(result_dto.binExpr, new ParameterExpression[] { pe }));
-            result_dto.func);
+                                                                        typeof(Queryable),
+                                                                        "Where",
+                                                                        new Type[] { queryableData.ElementType },
+                                                                        queryableData.Expression,
+                                                                        result_dto.func);
 
-            IQueryable<T> results = queryableData.Provider.CreateQuery<T>(whereCallExpression);
+            IQueryable<T> tableQueryResult = queryableData.Provider.CreateQuery<T>(whereCallExpression);
 
-            // Enumerate the results.  
-            foreach (T company in results)
-                Console.WriteLine(company);
+            results.ConditionIsTrueForTheTable = tableQueryResult != null;
 
-            return result_dto.func;
+            results.func = result_dto.func;
+
+            return results;
 
         }
 
         class TempDTO<T>
         {
-            public Expression<Func<T, bool>>  func  { get; set; }
+            public Expression<Func<T, bool>> func { get; set; }
             public Expression binExpr { get; set; }
-            
+
         }
 
-        private static TempDTO<T> ToExpression<T>(string andOrOperator, string propName, string opr, string value, Expression<Func<T, bool>> expr = null)
+
+
+        private static TempDTO<T> ToExpression<T>(string andOrOperator, string propName, string opr, object value, Expression<Func<T, bool>> expr = null)
         {
 
-            SSN_Logger logger = (SSN_Logger)GetMeSomeServiceLocator.Instance.GetService(typeof(SSN_Logger));
+            // SSN_Logger logger = (SSN_Logger)GetMeSomeServiceLocator.Instance.GetService(typeof(SSN_Logger));
+            // 09/15/2019 09:47 pm - SSN - Revised
+            ILogger_SSN logger = (ILogger_SSN)GetMeSomeServiceLocator.Instance.GetService(typeof(ILogger_SSN));
 
             Expression<Func<T, bool>> func = null;
-            Expression binExpr = null; 
+            Expression binExpr = null;
 
             try
             {
@@ -150,11 +178,13 @@ namespace DevSitesIndex.Util
 
 
 
-        private static Expression ToExprConstant(Type prop, string value)
+        private static Expression ToExprConstant(Type prop, object value)
         {
-            if (value.IsNull())
+            if (value == null)
                 return Expression.Constant(value);
+
             object val = null;
+
             switch (prop.FullName)
             {
                 case "xxxxxxxxxxxxxSystem.Guid":
@@ -217,9 +247,6 @@ namespace DevSitesIndex.Util
 
 
 
-
-
-
         static Expression<Func<T, object>> PropExpr<T>(string PropName)
         {
             ParameterExpression paramExpr = Expression.Parameter(typeof(T));
@@ -249,6 +276,21 @@ namespace DevSitesIndex.Util
             return Expression.Lambda<Func<T, bool>>(Expression.OrElse(expr1.Body, invokedExpr), expr1.Parameters);
         }
     }
+
+
+
+    // 09/15/2019 12:58 am - SSN - [20190914-0227] - [010] - Creating dynamic process to process data in the catch block
+
+    public class ExpressionBuilderResults_SSN<T>
+    {
+        public bool ConditionIsTrueForTheCurrentRecord { get; set; }
+        public bool ConditionIsTrueForTheTable { get; set; }
+        public Expression<Func<T, bool>> func { get; set; }
+    }
+
+
+
+
 }
 
 

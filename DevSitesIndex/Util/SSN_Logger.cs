@@ -1,11 +1,10 @@
-﻿using System;
-using DevSitesIndex.Util;
+﻿using DevSitesIndex.Util;
 using Microsoft.ApplicationInsights;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 // 09/06/2019 08:40 pm - SSN - [20190906-2040] - [001] - Logger
@@ -17,7 +16,7 @@ namespace DevSitesIndex.Util
     {
         void TrackPageView(string viewLabel);
         void TrackEvent(string eventLabel);
-        void PostException(Exception ex, string customErrorCode, string customErrorMessage);
+        Task PostException(Exception ex, string customErrorCode, string customErrorMessage);
     }
 
 
@@ -51,6 +50,9 @@ namespace DevSitesIndex.Util
 
         public bool IsEnabled(LogLevel logLevel)
         {
+            // 09/16/2019 02:43 am - SSN - Added
+            if (logLevel == LogLevel.Information) return false;
+
             return true;
             return logLevel == _config.LogLevel;
         }
@@ -62,6 +64,8 @@ namespace DevSitesIndex.Util
                 return;
             }
 
+           
+
             if (_config.EventId == 0 || _config.EventId == eventId.Id)
             {
                 DateTime d = DateTime.Now;
@@ -69,7 +73,7 @@ namespace DevSitesIndex.Util
                 var color = Console.ForegroundColor;
                 Console.ForegroundColor = _config.Color;
                 Console.WriteLine();
-                Console.WriteLine($"=-=-=-=-=-=-=-=-=-=-=-= {d:yyy-MM-dd hh:mm:ss:fff tt}:  {logLevel.ToString()} - {eventId.Id} - {_name}");
+                Console.WriteLine($"=-=-=-=-=-=-=-=-=-=-=-= {d:yyy-MM-dd hh:mm:ss:fff tt}: LogLevel: {logLevel.ToString()} - EventID: {eventId.Id} - {_name}");
                 Console.WriteLine($"{formatter(state, exception)}");
                 Console.WriteLine();
                 Console.ForegroundColor = color;
@@ -94,7 +98,7 @@ namespace DevSitesIndex.Util
         }
 
 
-        public void PostException(Exception ex, string customErrorCode, string customErrorMessage)
+        public async Task PostException(Exception ex, string customErrorCode, string customErrorMessage)
         {
             try
             {
@@ -103,12 +107,19 @@ namespace DevSitesIndex.Util
                 dic.Add("ErrorMessage", customErrorMessage);
 
                 telemetry.TrackException(ex, dic);
+
+                await Util.ExceptionHandler_SSN.writeExcelptionToConsole(ex);
+
             }
-            catch (Exception)
+            catch (Exception ex2)
             {
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine($"SSN_Logger_20190915_1047: Exception while posting exception");
+
                 // Do nothing
             }
         }
+
 
         #endregion Application Insights
 
