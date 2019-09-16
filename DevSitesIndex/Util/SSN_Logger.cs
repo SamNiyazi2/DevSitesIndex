@@ -54,7 +54,7 @@ namespace DevSitesIndex.Util
             if (logLevel == LogLevel.Information) return false;
 
             return true;
-            return logLevel == _config.LogLevel;
+            // return logLevel == _config.LogLevel;
         }
 
         public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
@@ -64,7 +64,7 @@ namespace DevSitesIndex.Util
                 return;
             }
 
-           
+
 
             if (_config.EventId == 0 || _config.EventId == eventId.Id)
             {
@@ -111,7 +111,7 @@ namespace DevSitesIndex.Util
                 await Util.ExceptionHandler_SSN.writeExcelptionToConsole(ex);
 
             }
-            catch (Exception ex2)
+            catch (Exception)
             {
                 StringBuilder sb = new StringBuilder();
                 sb.AppendLine($"SSN_Logger_20190915_1047: Exception while posting exception");

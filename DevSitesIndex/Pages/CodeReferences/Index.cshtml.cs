@@ -113,32 +113,6 @@ namespace DevSitesIndex.Pages.CodeReferences
             string tempSearchString = cleanseSearchString(SearchText);
             tempArray = tempSearchString.ToLower().Split().Where(r => includeWord(r)).Select(r => r.Trim().ToLower()).ToArray();
 
-            string temp2 = "";
-
-            //if ( false )
-            //{
-
-
-            //// CodeReference = await _context.CodeReferences.ToListAsync();
-
-            //CodeReference = await (from first in _context.CodeReferences
-            //                           //                 from second in tempArray
-            //                       where check1(first.CodeBlock)
-            //                       // where second.Count ( r=>  false) > 0
-            //                       select new CodeReference
-            //                       {
-            //                           CodeBlock = HighlightText(first.CodeBlock),
-            //                           DateAdded = first.DateAdded,
-            //                           DateModified = first.DateModified,
-            //                           Id = first.Id,
-            //                           SourceAddress = first.SourceAddress
-            //                       }).Take(50).ToListAsync();
-
-            //}
-
-            //  var q = from o in _context.CodeReferences where "CONTAINS({0},{1})".SQL<bool>(o.CodeBlock, SearchText) select o;
-
-
 
             var x = (doDecodeHtml);
 
@@ -164,16 +138,6 @@ namespace DevSitesIndex.Pages.CodeReferences
         // [20180906-1710]
         string[] tempArray = null;
 
-
-        //bool check1(string s)
-        //{
-        //    if (tempArray == null) return false;
-        //    if (string.IsNullOrEmpty(s)) return false;
-
-        //    int counter = s.Split().Count(r => tempArray.Any(y => y == r.ToLower()));
-        //    return counter > 0;
-
-        //}
 
         public string HighlightText(string s)
         {

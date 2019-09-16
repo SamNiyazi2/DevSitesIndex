@@ -144,7 +144,7 @@ namespace DevSitesIndex.Pages.DevSites
                 }
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 ModelState.AddModelError("SearchText", "Invalid syntax (SQL Server fulltext)");
             }
