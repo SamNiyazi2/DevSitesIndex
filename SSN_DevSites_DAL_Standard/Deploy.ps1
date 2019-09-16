@@ -32,8 +32,8 @@ function write-heading {
 
 function step_00_list_existing_packages() {
 
-    write-headin "Locally deployed packages"
-    Invoke-Expression ".\List_NuGet_Versions.cmd"    
+    write-heading "Locally deployed packages"
+    dir \sams_nuget\packages\ssn_devsites_dal_standard | sort LastWriteTime  
 }
 
 

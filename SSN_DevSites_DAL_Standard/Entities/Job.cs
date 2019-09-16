@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -18,6 +19,11 @@ namespace DevSitesIndex.Entities
         public int JobID { get; set; }
         [Display(Name = "Title", Prompt = "Enter title")]  // 09/14/2019 12:46 am - SSN Added prompt
         [Required] // 09/13/2019 11:23 pm - SSN - Forgotten
+
+        // 09/13/2019 05:21 am - SSN - [20190913-0517] - [002] - Job title duplicate check
+
+        [Remote(action: "Job_duplicate_Check", controller: "RemoteDataValidation", AdditionalFields = "Id", HttpMethod = "POST")]
+
         public string JobTitle { get; set; }
 
 
