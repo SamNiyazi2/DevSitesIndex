@@ -31,6 +31,8 @@
     <Content Remove="wwwroot\js\DemoSites_index_p1.ts" />
     <Content Remove="wwwroot\js\DropdownList\DropdownListDirective.ts" />
     <Content Remove="wwwroot\js\fil11e.ts" />
+    <Content Remove="wwwroot\js\HeaderWithSort.ts" />
+    <Content Remove="wwwroot\js\Jobs\JobsIndexController.ts" />
     <Content Remove="wwwroot\js\siteold.ts" />
     <Content Remove="wwwroot\js\SSN_Notes.txt" />
     <Content Remove="wwwroot\js\Timesheet\Timelog.ts" />
@@ -55,7 +57,7 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="SSNSendGridStandardUtil" Version="1.0.2" />
-    <PackageReference Include="SSN_DevSites_DAL_Standard" Version="1.0.26" />
+    <PackageReference Include="SSN_DevSites_DAL_Standard" Version="1.0.49" />
     <PackageReference Include="toastr" Version="2.1.1" />
     <PackageReference Include="underscore.js" Version="1.8.3" />
   </ItemGroup>
@@ -97,6 +99,8 @@
     <TypeScriptCompile Include="wwwroot\js\CodeReference\Typeahead_Discipline.ts" />
     <TypeScriptCompile Include="wwwroot\js\DemoSites_index_p1.ts" />
     <TypeScriptCompile Include="wwwroot\js\DropdownList\DropdownListDirective.ts" />
+    <TypeScriptCompile Include="wwwroot\js\Util\HeaderWithSort.ts" />
+    <TypeScriptCompile Include="wwwroot\js\Jobs\JobsIndexController.ts" />
     <TypeScriptCompile Include="wwwroot\js\site.ts" />
     <TypeScriptCompile Include="wwwroot\js\Timesheet\TimesheetApp.ts" />
     

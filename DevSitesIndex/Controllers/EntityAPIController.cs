@@ -112,5 +112,17 @@ namespace DevSitesIndex.Controllers
         public string ta_id { get; set; }
         public string ta_description { get; set; }
     }
-    
+
+
+    // 09/17/2019 08:04 am - SSN - [20190916-1123] - [020] - Adding job status
+
+    public class DataBag<T>
+    {
+        public IEnumerable<T> dataList { get; set; }
+        public string columnName { get; set; }
+        public bool desc { get; set; }
+    }
+
+
+
 }

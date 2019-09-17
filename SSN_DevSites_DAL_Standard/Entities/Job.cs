@@ -43,9 +43,22 @@ namespace DevSitesIndex.Entities
         [Display(Name = "Project Title")]
         public Project project { get; set; }
 
-        // 04/19/2019 06:26 pm - SSN - [20190419-1826] - Adding timelog to job's model
-        public ICollection<TimeLog> timelogs { get; set; }
 
+        // 09/06/2019 07:09 pm - SSN - [20190906-0518] - [009] - Angular - edit div content - Adding timestamp
+
+        [Timestamp]
+        public byte[] RowVersion { get; set; }
+
+
+        // 09/16/2019 11:27 am - SSN - [20190916-1123] - [002] - Adding job status
+        [DefaultValue(1)] // 1 = Open
+        public int Job_StatusID { get; set; }
+        
+        public virtual Job_Status job_Status { get; set; }
+
+
+
+        #region NotMapped properties
 
         // 04/19/2019 06:52 pm - SSN - MostRecentActivity
         // 08/31/2019 06:59 pm - SSN - Change MostRecentActivity oo database Jobs_Index_WithLastActivityDate.LastActivityDate
@@ -116,12 +129,18 @@ namespace DevSitesIndex.Entities
             }
         }
 
-        // 09/06/2019 07:09 pm - SSN - [20190906-0518] - [009] - Angular - edit div content - Adding timestamp
 
-        [Timestamp]
-        public byte[] RowVersion { get; set; }
+        #endregion NotMapped properties
 
 
+
+
+        // 04/19/2019 06:26 pm - SSN - [20190419-1826] - Adding timelog to job's model
+        // 09/16/2019 11:27 am - SSN - Added virtual
+        public virtual ICollection<TimeLog> timelogs { get; set; }
+
+        
+        
     }
 
 

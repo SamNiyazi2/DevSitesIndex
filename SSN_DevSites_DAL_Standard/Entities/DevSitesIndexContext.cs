@@ -87,7 +87,11 @@ namespace DevSitesIndex.Entities
 
             setup_DevSiteCodeReference(modelBuilder);
 
+            setup_Job_Status(modelBuilder);
+
             DisableGlobalCascadeDelete(modelBuilder);
+
+
         }
 
 
@@ -132,6 +136,12 @@ namespace DevSitesIndex.Entities
                .HasMany<TimeLog>(s => s.timelogs)
                .WithOne(g => g.job)
                .HasForeignKey(t => t.JobId);
+
+            // 09/16/2019 12:55 pm - SSN - [20190916-1123] - [007] - Adding job status
+
+            modelBuilder.Entity<Job>()
+              .Property(b => b.Job_StatusID)
+              .HasDefaultValueSql("1");
 
         }
 
@@ -357,7 +367,33 @@ namespace DevSitesIndex.Entities
                .WithMany(c => c.DevSiteCodeReferences)
                .HasForeignKey(fk => fk.DevSiteId);
 
+
         }
+
+        
+        // 09/16/2019 11:38 am - SSN - [20190916-1123] - [003] - Adding job status
+
+        private static void setup_Job_Status(ModelBuilder modelBuilder)
+        {
+
+            modelBuilder.Entity<Job_Status>()
+                .Property(x => x.Status)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            modelBuilder.Entity<Job_Status>()
+           .Property(p => p.DateAdded)
+           .HasColumnType("datetime2(0)");
+
+            modelBuilder.Entity<Job_Status>()
+           .HasIndex(x => new { x.Status })
+           .HasName("Job_Status_Unique")
+           .IsUnique();
+
+
+        }
+
+
 
         // 09/01/2019 12:35 pm - SSN Pluralize Company, Discipline, Job, SoftwareCode and Project.
 
@@ -374,6 +410,10 @@ namespace DevSitesIndex.Entities
 
         // 09/01/2019 12:34 pm - SSN - [20190901-1225] - [002] - Add Job_DevSite table
         public DbSet<Job_DevSite> Job_DevSites { get; set; }
+
+
+        // 09/16/2019 11:44 am - SSN - [20190916-1123] - [004] - Adding job status
+        public DbSet<Job_Status> Job_Statuses { get; set; }
 
     }
 }

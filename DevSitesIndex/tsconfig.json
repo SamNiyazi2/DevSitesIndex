@@ -18,7 +18,9 @@
     "wwwroot/js/DemoSites_index.ts",
     "wwwroot/js/DataServices.ts",
     "wwwroot/js/DataServices.ts",
-    "wwwroot/js/DropdownList/DropdownListDirective.ts"
+    "wwwroot/js/DropdownList/DropdownListDirective.ts",
+    "wwwroot/js/jobs/JobsIndexController.ts",
+    "wwwroot/js/Util/HeaderWithSort.ts"
   ],
 
   "exclude": [

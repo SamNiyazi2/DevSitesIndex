@@ -4,14 +4,16 @@ using DevSitesIndex.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DevSitesIndex.Migrations
 {
     [DbContext(typeof(DevSitesIndexContext))]
-    partial class DevSitesIndexContextModelSnapshot : ModelSnapshot
+    [Migration("20190916164753_Add Job_Statuses table")]
+    partial class AddJob_Statusestable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -164,9 +166,7 @@ namespace DevSitesIndex.Migrations
                         .IsRequired()
                         .HasMaxLength(100);
 
-                    b.Property<int>("Job_StatusID")
-                        .ValueGeneratedOnAdd()
-                        .HasDefaultValueSql("1");
+                    b.Property<int>("Job_StatusID");
 
                     b.Property<DateTime>("LastActivityDate")
                         .ValueGeneratedOnAddOrUpdate();

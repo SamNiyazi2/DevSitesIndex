@@ -142,6 +142,28 @@
         };
 
 
+
+        // 09/17/2019 12:56 am - SSN - [20190916-1123] - [016] - Adding job status
+// Adding option to list Jobs
+
+        var _getJobs = function (pageNo, recordsPerPage, columnName, desc) {
+
+            var deferred = $q.defer();
+
+            $http.get('/api/jobapi/list/' + pageNo + "/" + recordsPerPage + "/" + columnName + "/" + desc)
+                .then(function (result) {
+
+                    deferred.resolve(result.data);
+                },
+                    function (errorMessage) {
+                        deferred.reject({ Error: 'Failed call to get jobs [20190917-0057]' });
+                    });
+
+            return deferred.promise;
+        };
+
+
+
         return {
 
             devSites: ko.observable( _devSites),
@@ -152,7 +174,8 @@
 
             insertTimeLog: _insertTimeLog,
             getTimelog: _getTimelog ,
-            updateTimeLog: _addOrUpdateTimeLog
+            updateTimeLog: _addOrUpdateTimeLog,
+            getJobs: _getJobs
         };
 
 

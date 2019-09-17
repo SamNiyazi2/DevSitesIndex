@@ -40,6 +40,8 @@ namespace DevSitesIndex.Pages.Jobs
         public async Task OnGetAsync(string sortOrder, string desc, int? pageIndex)
         {
 
+            List<Job_Status> js = _context.Job_Statuses.ToList();
+
             TelemetryClient telemetry = new TelemetryClient();
             telemetry.TrackPageView("DemoSite-20190829-1257: Jobs Index");
 
