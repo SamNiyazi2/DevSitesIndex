@@ -1,88 +1,76 @@
 ﻿
+/// <reference path="../../../node_modules/@types/angular/index.d.ts" />
+
+
+
 // 09/17/2019 02:04 am - SSN - [20190916-1123] - [018] - Adding job status
 
-/// <reference path="../../../../node_modules/@types/jquery/jquery.d.ts" /> 
-/// <reference path="../../../../node_modules/@types/angular/index.d.ts" />
-/// <reference path="../DataServices.ts"/>
-
-declare var headerWithSort_angular_module: any;
-
-headerWithSort_angular_module = angular.module("timesheetApp");
-
-'use strict';
-
-headerWithSort_angular_module.controller('utilityController', function ($scope, dataService) {
 
 
-    console.log("headerWithSort - UtilityController");
+console.log("headerWithSort - angular - 20190920-0720-n");
 
 
-
-    $scope.sortMethod101 = function (column) {
-        console.log("Calling sort method [20190917-0554-bbbb");
-
-        console.log("Calling sort ************************** 3");
-
-        console.log(column);
-
-        return dataService.getJobs(1, 10, column.column, column.desc);
-        
+import * as angular from 'angular'
 
 
-    }
-
-});
+import * as ssn_globals from "../globals";
 
 
-headerWithSort_angular_module.directive('headerWithSort', function () {
+interface iFixScope extends ng.IScope {
+
+    sort(): any,
+    sortmethod(): any
+}
 
 
 
-    return {
+// 09/21/2019 05:21 am - SSN - [20190921-0357] - [007] - Creating multiple entry for Webpack
 
-        restrict: "A",
 
-        //transclude: true,
-        templateUrl: "/js/Util/headerWithSort.html"
+var headerWithSort_instance = function () {
 
-        ,
-        scope: {
-            columnlist: "=columnlist", sortmethod: "&", datasource: "="}
 
+    console.log("angular - 20190920-0720-m");
+
+
+    var headerWithSort_angular_module: angular.IModule = ssn_globals.default.getInstance("timesheetApp");
+
+
+    headerWithSort_angular_module.controller('utilityController', function ($scope, dataService) {
+
+    });
+
+
+    headerWithSort_angular_module.directive('headerWithSort', function () {
+
+        return {
+
+            restrict: "A",
+            templateUrl: "/js/Util/headerWithSort.html",
+            scope: {
+                columnlist: "=columnlist", sortmethod: "&"
+            }
             ,
-            link: function (scope, el, attrs) {
+            link: function (scope: iFixScope , el, attrs) {
 
-
-                scope.sort = function (column) {
-
-                                        // Duplicate [20190917-0541] - begin
-                    
-
+                scope.sort = function () {
+                    console.log("headerWithSort - 20190921-0613 - ");
                     scope.sortmethod();
-                    
-                    return;
-                 //   .then(getJobsSuccess, getJobsError).catch(getTimelogCatch);
-
-                 
-
-
-                    function getJobsSuccess(data) {
-                         
-                        scope.datasource = data;
-              
-                      
-
-                    }
-
-                    function getJobsError(data) { var temp = data; }
-
-                    function getTimelogCatch(data) { var temp = data; }
-                    // Duplicate [20190917-0541] - End
 
                 }
- 
 
             }
         };
 
     });
+
+
+    return {
+        headerWithSort_angular_module: headerWithSort_angular_module
+    };
+
+
+}();
+
+export { headerWithSort_instance };
+

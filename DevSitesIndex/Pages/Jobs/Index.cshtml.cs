@@ -65,11 +65,14 @@ namespace DevSitesIndex.Pages.Jobs
             //// 04/20/2019 11:15 am - SSN - [20190420-1109] - Add AsNoTracking to index pages
 
 
-            IQueryable<Job> _Jobs = _context.Jobs.FromSql("exec DemoSites.Jobs_Index_WithLastActivityDate");
 
-            Job = await PaginatedList<Job>.GetSourcePage(_Jobs, sortOrder, desc, pageIndex, 50);
+            // 09/17/2019 01:40 pm - SSN - [20190917-0929] - [008] - Adding paging for angular lists
+            // Take out since we are replacing with Angular view.
+            //////////////IQueryable<Job> _Jobs = _context.Jobs.FromSql("exec DemoSites.Jobs_Index_WithLastActivityDate");
 
-            pageUtil.SetupButtons<Job>(Job, "/jobs", sortOrder, desc);
+            //////////////Job = await PaginatedList<Job>.GetSourcePage(_Jobs, sortOrder, desc, pageIndex, 50);
+
+            //////////////pageUtil.SetupButtons<Job>(Job, "/jobs", sortOrder, desc);
 
 
         }

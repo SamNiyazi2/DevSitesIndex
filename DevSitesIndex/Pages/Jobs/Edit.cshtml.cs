@@ -36,6 +36,10 @@ namespace DevSitesIndex.Pages.Jobs
 
         public SelectList projectsSL { get; set; }
 
+        // 09/18/2019 08:17 am - SSN - [20190918-0817] - [001] - Adding paging for angular lists
+
+        public SelectList job_statusSL { get; set; }
+
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -88,6 +92,10 @@ namespace DevSitesIndex.Pages.Jobs
             // ViewData["ProjectID"] = new SelectList(_context.Project, "ProjectID", "ProjectID");
             // 05/03/2019 05:35 am - SSN - Add order
             projectsSL = new SelectList(_context.Projects.OrderBy(r => r.ProjectTitle), "ProjectID", "ProjectTitle");
+
+            // 09/18/2019 08:17 am - SSN - [20190918-0817] - [001] - Adding paging for angular lists
+            job_statusSL = new SelectList(_context.Job_Statuses, "ID", "Status");
+
         }
 
         public async Task<IActionResult> OnPostAsync()

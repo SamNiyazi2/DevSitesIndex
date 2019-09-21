@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using DevSitesIndex.Entities;
@@ -21,11 +23,13 @@ namespace DevSitesIndex.Controllers
     public class JobAPIController : EntityAPIController<Job>
     {
         private readonly DevSitesIndexContext context;
+        private readonly Util.ILogger_SSN logger;
 
-        public JobAPIController(DevSitesIndexContext context)
+        public JobAPIController(DevSitesIndexContext context, Util.ILogger_SSN logger)
         {
             _entityRepository = new JobRepository(context);
             this.context = context;
+            this.logger = logger;
         }
 
 
@@ -80,17 +84,58 @@ namespace DevSitesIndex.Controllers
             _recordsPerPage = (_recordsPerPage > 50) ? 50 : _recordsPerPage;
 
             int _pageNo = pageNo ?? 1;
-            int recordsToSkip = _recordsPerPage * (_pageNo - 1);
 
 
-            IQueryable<Job> list = context.Jobs.FromSql("demosites.Jobs_Index_WithLastActivityDate").Take(_recordsPerPage).Skip(recordsToSkip);
+            // 09/18/2019 12:40 am - SSN - [20190917-0929] - [009] - Adding paging for angular lists
 
-            list = Util.Reflection_Util.SourceSetOrder<Job>(list, columnName, desc.ToLower() == "true");
+            // Tried to first replace with this:
 
-            DataBag<Job> databag = new DataBag<Job> { dataList = list, columnName = columnName, desc = desc.ToLower() != "true" };
+
+            //string sql = "demosites.Jobs_Index_WithLastActivityDate @recordsPerPage , @pageNo  @sortColumn ";
+            //SqlParameter parameter_recordsPerPage = new SqlParameter("@recordsPerPage", _recordsPerPage);
+            //SqlParameter parameter_pageNo = new SqlParameter("@pageNo", _pageNo);
+            //SqlParameter parameter_SortColumn = new SqlParameter("@sortColumn", columnName);
+
+
+            //var resultSet= context.FromSql(sql,parameter_recordsPerPage, parameter_pageNo, parameter_SortColumn);
+
+            //            IEnumerable < Job > list = resultSet;
+            //            list = Util.Reflection_Util.SourceSetOrder<Job>(list, columnName, desc.ToLower() == "true");
+
+            // But ended up with this: (Solution for multiple result sets)  
+
+
+            Util.ExecuteStoredProcedure exec = new Util.ExecuteStoredProcedure(context);
+
+            exec.LoadStoredProc("demosites.Jobs_Index_WithLastActivityDate");
+
+            exec.WithSqlParam("@recordsPerPage", _recordsPerPage);
+            exec.WithSqlParam("@pageNo", _pageNo);
+            exec.WithSqlParam("@sortColumn", columnName);
+            exec.WithSqlParam("@desc", desc.ToLower() == "true");
+
+            IEnumerable<Job> result1_data = exec.GetResultSet<Job>();
+            IList<SqlStatsRecord> result2_Stats = exec.GetResultSet<SqlStatsRecord>();
+
+            SqlStatsRecord sqlStatsRecord = null;
+
+            if (result2_Stats.Count == 0)
+            {
+                logger.PostException(new Exception { Source = "JobAPIController" }, "20190918-0057", "Procedure did not return a second result set of table/page stats.");
+                sqlStatsRecord = new SqlStatsRecord { };
+            }
+            else
+            {
+                sqlStatsRecord = result2_Stats[0];
+            }
+            exec.CloseConnection();
+
+
+            DataBag<Job> databag = new DataBag<Job> { dataList = result1_data, sqlStatsRecord = sqlStatsRecord };
 
             return databag;
         }
+
 
 
     }

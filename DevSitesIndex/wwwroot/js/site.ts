@@ -1,12 +1,12 @@
 ﻿
 // 05/19/2019 01:18 pm - SSN - [20190519-1132] - [007] - Address definitely typed errors - No errors
 
-/// <reference path="../../../node_modules/@types/jquery/index.d.ts" /> 
-/// <reference path="../../../node_modules/@types/bootstrap/index.d.ts" /> 
+/// <reference path="../../node_modules/@types/jquery/index.d.ts" />   
 
 
+/// <reference path="../../node_modules_hack/SSN_jquery_modal.d.ts" />
 
-
+ 
 
 
 //08/23/2018 01:24 am - SSN
@@ -260,4 +260,11 @@ setTimeout(prefixPreWithShowHideAnchor, 2000);
 //    console.log('20190910-2054 - prefixPreWithShowHideAnchor timeout to jquery ready');
 //    prefixPreWithShowHideAnchor();
 //});
+
+
+
+
+// 09/19/2019 05:44 am - SSN - [20190919-0354] - [013] - Putting things back - Cleanup from implementing AMD - Adding tsconfig.json     "alwaysStrict": true,
+
+export { fnConverDate, prefixPreWithShowHideAnchor, showCollapsedDivs };
 

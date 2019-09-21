@@ -1,8 +1,14 @@
 // 09/13/2019 05:48 am - SSN - [20190913-0548] - [001] - Crate generic dropdown list directive
-/// <reference path="../../../../node_modules/@types/jquery/jquery.d.ts" /> 
-/// <reference path="../../../../node_modules/@types/angular/index.d.ts" />
+/// <reference path="../../../node_modules/@types/jquery/jquery.d.ts" /> 
+/// <reference path="../../../node_modules/@types/angular/index.d.ts" />
 /// <reference path="../DataServices.ts"/>
-var downdownList_angular_module = angular.module("demoSites_Index_Timesheet", ['ui.bootstrap']);
+// 09/20/2019 10:52 am - SSN - Added import angular
+import * as angular from 'angular';
+// 09/20/2019 10:21 am - SSN - Replace angular.module
+// var downdownList_angular_module = angular.module("demoSites_Index_Timesheet", ['ui.bootstrap']);
+console.log("globals - 20190920-1012---104-B");
+import * as ssn_globals from '../globals';
+var downdownList_angular_module = ssn_globals.default.getInstance("demoSites_Index_Timesheet", ['ui.bootstrap']);
 'use strict';
 downdownList_angular_module.controller('utilityController', function ($scope, $attrs, $location) {
     console.log('20190913-0950 -  controller top - A - 103 ');

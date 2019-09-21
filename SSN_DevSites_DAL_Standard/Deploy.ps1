@@ -98,8 +98,8 @@ function step_02_pack {
 
     # Invoke-Expression "dotnet pack --output ..\lib_pack_output -p:PackageVersion=$version --include-symbols" 
 
-
-    Invoke-Expression "dotnet pack --output ..\SSN_DevSites_DAL_NuGet_Pack_Output  -p:PackageVersion=$version " 
+# 09/18/2019 07:13 am - SSN - Added --include-symbols --include-source
+    Invoke-Expression "dotnet pack --output ..\SSN_DevSites_DAL_NuGet_Pack_Output  -p:PackageVersion=$version   --include-symbols --include-source "
 
 }
 

@@ -1,7 +1,8 @@
+"use strict";
 // 05/04/2019 09:19 am - SSN - [20190504-0855] - [004] - Testing if we can replace global variable
 // Convert to TypeScript
-/// <reference path="../../../node_modules/@types/jquery/index.d.ts" />
-/// <reference path="../../../node_modules/@types/angular/index.d.ts" />
+/// <reference path="../../node_modules/@types/jquery/index.d.ts" />
+/// <reference path="../../node_modules/@types/angular/index.d.ts" />
 $('[cmd_name]').on('click', function (e) {
     var cmd_name = $(this).attr('cmd_name');
     // cmd_name = openSolution

@@ -1,8 +1,19 @@
+console.log("globals - 20190920-0714-d");
+// import { getInstance } from "../globals";
+import * as globals from "../globals";
+// 09/19/2019 04:23 am - SSN - [20190919-0354] - [006] - Putting things back - Cleanup from implementing AMD - Adding tsconfig.json     "alwaysStrict": true,
+// import angular = require("angular");
+import * as angular from 'angular';
+// 09/19/2019 05:43 am - SSN - [20190919-0354] - [012] - Putting things back - Cleanup from implementing AMD - Adding tsconfig.json     "alwaysStrict": true,
+import * as util from '../site';
 //////////////////////////////////////////////////////// <reference path="../site.js" />
 // 05/19/2019 10:06 am - SSN - [20190519-0837] - [006] - Adding timesheet "Continue" option
 // 05/19/2019 12:18 pm - SSN - [20190519-1132] - [003] - Address definitely typed errors
 /// <reference path="../../../../node_modules/@types/toastr/index.d.ts" />
 // 04/12/2019 03:57 am - SSN - [20190412-0142] - TimesheetApp
+// 09/19/2019 03:57 am - SSN - [20190919-0354] - [001] - Putting things back - Cleanup from implementing AMD - Adding tsconfig.json     "alwaysStrict": true,
+// var timesheetApp = angular.module('timesheetApp', ['ngRoute', 'ui.bootstrap']);  //,  'ui.bootstrap'    
+var timesheetApp = globals.default.getInstance("timesheetApp");
 timesheetApp.controller('TimesheetClockOutController', function TimesheetController($scope, $uibModalInstance, $http, $q, dataService, timelogId) {
     // 04/29/2019 05:51 pm - SSN - [20190429-1748] - [002] - Angular clock out popup
     // $scope.timeLog = dataService.getTimelog($routeParams.id);
@@ -26,7 +37,7 @@ timesheetApp.controller('TimesheetClockOutController', function TimesheetControl
         //    jobId: jobId
         //};
         var data2 = data;
-        fnConverDate(data2);
+        util.fnConverDate(data2);
         $scope.timeLog = data2;
         // $scope.disciplineSelected = data2.discipline.disciplineShort; // { id: data2.discipline.disciplineId, title: data2.discipline.disciplineShort};
         $scope.editableTimeLog = angular.copy($scope.timeLog);

@@ -20,7 +20,7 @@ namespace DevSitesIndex.Controllers
     {
 
         public IEntityRepository<T> _entityRepository;
-         
+
 
         // GET: api/<controller>
         [HttpGet]
@@ -103,7 +103,7 @@ namespace DevSitesIndex.Controllers
     // 09/16/2019 04:58 am - SSN - [20190916-0355] - [005] - Adding JobAPI controller
     public class TypeAheadRecord
     {
-        public TypeAheadRecord(int id , string description)
+        public TypeAheadRecord(int id, string description)
         {
             this.ta_id = id.ToString();
             this.ta_description = description;
@@ -119,7 +119,18 @@ namespace DevSitesIndex.Controllers
     public class DataBag<T>
     {
         public IEnumerable<T> dataList { get; set; }
+        public SqlStatsRecord sqlStatsRecord { get; set; }
+    }
+
+    // 09/17/2019 11:55 am - SSN - [20190917-0929] - [006] - Adding paging for angular lists
+
+    public class SqlStatsRecord
+    {
+        public int RecordsPerPage { get; set; }
+        public int CurrentPageNo { get; set; }
+        public int TotalRecordCount { get; set; }
         public string columnName { get; set; }
+        public string columnNameSelected { get; set; }
         public bool desc { get; set; }
     }
 

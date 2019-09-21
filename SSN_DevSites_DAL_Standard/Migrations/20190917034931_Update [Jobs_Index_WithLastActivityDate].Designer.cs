@@ -11,7 +11,7 @@ namespace DevSitesIndex.Migrations
 {
     [DbContext(typeof(DevSitesIndexContext))]
     [Migration("20190917034931_Update [Jobs_Index_WithLastActivityDate]")]
-    partial class UpdateJobs_Index_WithLastActivityDate
+    partial class UpdateJobs_Index_WithLastActivityDate_1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

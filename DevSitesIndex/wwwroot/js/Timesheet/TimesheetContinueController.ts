@@ -1,6 +1,33 @@
 ﻿
+
+console.log("globals - 20190920-0714-c");
+
+// import { getInstance } from "../globals";
+import * as globals from "../globals";
+
+// 09/19/2019 04:23 am - SSN - [20190919-0354] - [007] - Putting things back - Cleanup from implementing AMD - Adding tsconfig.json     "alwaysStrict": true,
+// import angular = require("angular");
+import * as angular from 'angular'
+
 // 05/19/2019 09:45 am - SSN - [20190519-0837] - [005] - Adding timesheet "Continue" option
 // Copied from Clockout.
+
+
+
+// 09/19/2019 05:43 am - SSN - [20190919-0354] - [012] - Putting things back - Cleanup from implementing AMD - Adding tsconfig.json     "alwaysStrict": true,
+import * as util from '../site';
+
+
+// 09/19/2019 03:57 am - SSN - [20190919-0354] - [001] - Putting things back - Cleanup from implementing AMD - Adding tsconfig.json     "alwaysStrict": true,
+
+// var timesheetApp = angular.module('timesheetApp', ['ngRoute', 'ui.bootstrap']);  //,  'ui.bootstrap'    
+
+
+var timesheetApp = globals.default.getInstance("timesheetApp");
+
+
+
+
 
 timesheetApp.controller('TimesheetContinueController',
 
@@ -20,7 +47,7 @@ timesheetApp.controller('TimesheetContinueController',
         function getTimelogSuccess(data) {
 
             let data2 = data;
-            fnConverDate(data2);
+            util.fnConverDate(data2);
 
 
             let timeNow = new Date();

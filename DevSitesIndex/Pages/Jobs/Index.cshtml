@@ -8,8 +8,6 @@
     // 09/16/2019 11:08 pm - SSN - [20190916-1123] - [013] - Adding job status
 
 
-
-
 }
 
 <h2>@ViewData["Title"]</h2>
@@ -26,12 +24,15 @@
 
     <div ng-controller="jobsIndexController">
 
+        <div ng-controller="utilityController">
+            <span job-status-directive></span>
+        </div>
 
-        <table class="table table-responsive">
+        <table class="table table-responsive" height="300">
 
             <thead ng-controller="utilityController">
                 <tr>
-                    <th header-with-sort columnlist="item" sortmethod="$parent.$parent.sortMethod101(item)"   ng-repeat="item in fieldsList"></th>
+                    <th header-with-sort columnlist="item" sortmethod="$parent.$parent.sortMethod101(item)" ng-repeat="item in fieldsList"></th>
                 </tr>
             </thead>
 
@@ -45,7 +46,7 @@
                         {{job.projectTitle_ForActivity}}
                     </td>
                     <td>
-                        {{job.jobTitle}}
+                        <div class="truncateLongText">{{job.jobTitle}}</div>
                     </td>
 
                     <td class="indexNowrapCol hidden-xs">
@@ -89,6 +90,12 @@
 
             </tbody>
         </table>
+
+        <div ng-controller="utilityController">
+            <div ng-if="sqlStatsRecord" paging-directive pagingmethod="$parent.pagingmethod101(sqlStatsRecord)" databag="databag" sqlstatsrecord="sqlStatsRecord"></div>
+        </div>
+
+
     </div>
 
 
@@ -97,17 +104,61 @@
 
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("TimesheetAngularScripts");}
+
 
 
 
     @*
-        09/16/2019 10:57 pm - SSN - [20190916-1123] - [012] - Adding job status
-        Adding AngularJS
+
+        // 09/2019/2019 11:45 am - SSN - [20190920-1145] [001} - RunWhatJavaScriptVersion  left out
+
     *@
 
 
-    <script src="~/js/Jobs/JobsIndexController.js" asp-append-version="true"></script>
-    <script src="~/js/Util/headerWithSort.js" asp-append-version="true"></script>
+    @{
+
+
+
+        if (Program.RunWhatJavaScriptVersion == Program.whatJavaScriptVersion.Original)
+        {
+            await Html.RenderPartialAsync("TimesheetAngularScripts");
+
+            <script type="module" src="~/js/Jobs/JobsIndexController.js" asp-append-version="true"></script>
+            <script type="module" src="~/js/Util/headerWithSort.js" asp-append-version="true"></script>
+            <script type="module" src="~/js/Util/pagingDirective.js" asp-append-version="true"></script>
+
+        }
+
+
+
+        if (Program.RunWhatJavaScriptVersion == Program.whatJavaScriptVersion.Babel_Only)
+        {
+            await Html.RenderPartialAsync("TimesheetAngularScripts");
+
+            <script type="module" src="~/babel_lib/Jobs/JobsIndexController.js" asp-append-version="true"></script>
+            <script type="module" src="~/babel_lib/Util/headerWithSort.js" asp-append-version="true"></script>
+            <script type="module" src="~/babel_lib/Util/pagingDirective.js" asp-append-version="true"></script>
+
+        }
+
+
+
+
+        if (Program.RunWhatJavaScriptVersion == Program.whatJavaScriptVersion.Webpack)
+        {
+
+            <script src="~/webpack_build/bundle_timesheetapp.js" asp-append-version="true"></script>
+        }
+
+
+
+
+
+
+    }
 
 }
+
+
+
+

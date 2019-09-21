@@ -1,120 +1,153 @@
 ﻿
-// 09/16/2019 10:53 pm - SSN - [20190916-1123] - [011] - Adding job status
-
-/// <reference path="../../../../node_modules/@types/jquery/jquery.d.ts" /> 
-/// <reference path="../../../../node_modules/@types/angular/index.d.ts" />
+/// <reference path="../../../node_modules/@types/jquery/jquery.d.ts" /> 
+/// <reference path="../../../node_modules/@types/angular/index.d.ts" /> 
 /// <reference path="../DataServices.ts"/>
 
 
-console.log('20190916-2321 - top of JobsIndexController');
+console.log("JobsIndexController - 20190921-0448 - Top");
 
-
-declare var Jobs_Angular_Module: any;
-
-Jobs_Angular_Module = angular.module("timesheetApp");
-
-Jobs_Angular_Module.controller('jobsIndexController',
-
-
-    function ($scope, $http, $q, dataService, $timeout, $sce, $uibModal) {
-
-
-        $scope.fieldsList = [
-            { column: 'projectTitle_ForActivity', caption: 'Project Title', desc: 'true' },
-            { column: 'jobTitle', caption: 'Job Title', desc: 'true' },
-            { column: 'dateAdded', caption: 'Date Added', desc: 'true' },
-            { column: 'lastActivityDate', caption: 'Last Activity Date', desc: 'true' },
-            { column: 'activityAge', caption: 'Activity Age', desc: 'true' },
-        ];
+import * as angular from 'angular'
+import IColumnBag from '../IColumnBag';
+import * as globals from "../globals";
 
 
 
+// 09/21/2019 04:42 am - SSN - [20190921-0357] - [003] - Creating multiple entry for Webpack
 
-        var columnName = 'dateAdded';
-        var desc = 'false';
-
-        // Duplicate [20190917-0541] - begin
-        dataService.getJobs(1, 10, columnName, desc).then(getJobsSuccess, getJobsError).catch(getTimelogCatch);
-
-        function getJobsSuccess(data) {
-            $scope.databag = {
-                jobs: data.dataList, column: columnName, desc: data.desc
-            }
-        };
-
-        function getJobsError(data) { var temp = data; }
-
-        function getTimelogCatch(data) { var temp = data; }
-        // Duplicate [20190917-0541] - End
+var jobsIndexController_instance = function () {
 
 
-        $scope.sortMethod101 = function (column) {
-            console.log("calling controller sortMethod101 20190917-0730");
-            // Duplicate [20190917-0541] - begin
+    console.log("globals - 20190920-0714-f-2");
 
 
+    var Jobs_Angular_Module: angular.IModule = globals.default.getInstance("timesheetApp");
+
+    Jobs_Angular_Module.controller('jobsIndexController',
 
 
-            dataService.getJobs(1, 10, column.column, column.desc).then(getJobsSuccess, getJobsError).catch(getTimelogCatch);
+        function ($scope, $http, $q, dataService, $timeout, $sce, $uibModal) {
 
 
+            // 09/18/2019 01:15 am - SSN - [20190917-0929] - [010] - Adding paging for angular lists
+            //$scope.sqlStatsRecord = {};
 
 
+            let columnBag: IColumnBag = {
+                columnName: 'dateAdded',
+                columnNameSelected: 'dateAdded',
+                currentPageNo: 1,
+                desc: true,
+                recordsPerPage: 4,
+                totalRecordCount: 0,
+                caption: "Date Added"
+            };
 
-            function getJobsSuccess(data) {
+
+            let _fieldList: IColumnBag[] = [
+                { ...columnBag, columnName: 'projectTitle_ForActivity', caption: 'Project Title' },
+                { ...columnBag, columnName: 'jobTitle', caption: 'Job Title' },
+                { ...columnBag, columnName: 'dateAdded', caption: 'Date Added' },
+                { ...columnBag, columnName: 'lastActivityDate', caption: 'Last Activity Date' },
+                { ...columnBag, columnName: 'activityAge', caption: 'Activity Age', },
+            ];
 
 
-                $scope.databag = {
-                    jobs: data.dataList, column: data.columnName, desc: data.desc
+            $scope.fieldsList = _fieldList;
+
+
+            getJobsList(columnBag);
+
+            
+
+            function getJobsList(columnBag: IColumnBag) {
+                
+                dataService.getJobs(columnBag).then(getJobsSuccess, getJobsError).catch(getTimelogCatch);
+
+
+                function getJobsSuccess(data) {
+
+                    $scope.databag = {
+                        jobs: data.dataList, column: data.columnName, desc: data.desc
+                    }
+
+                    $scope.sqlStatsRecord = data.sqlStatsRecord;
+
+                    var currentColumnIndex = $scope.fieldsList.findIndex(r => r.column === data.columnName);
+                    if (currentColumnIndex > -1) {
+                        $scope.fieldsList[currentColumnIndex].desc = data.desc;
+
+                    }
+
                 }
 
-                var currentColumnIndex = $scope.fieldsList.findIndex(r=> r.column === data.columnName);
-                if (currentColumnIndex > -1) {
-                    $scope.fieldsList[currentColumnIndex].desc = data.desc;
 
-                }
+                function getJobsError(data) { var temp = data; }
 
-                var rowCount = $scope.fieldsList.length;
+                function getTimelogCatch(data) { var temp = data; }
 
-                $scope.fieldsList.push(
-                    { column: 'column ' + (rowCount + 1), caption: 'Title ' + (rowCount + 1), desc: 'true' });
             }
 
-            function getJobsError(data) { var temp = data; }
 
-            function getTimelogCatch(data) { var temp = data; }
-            // Duplicate [20190917-0541] - End
 
+            $scope.sortMethod101 = function (columnBag: IColumnBag) {
+
+                if (columnBag.columnName != columnBag.columnNameSelected) {
+                    columnBag.columnNameSelected = columnBag.columnName;
+                }
+                else {
+                    columnBag.desc = !columnBag.desc;
+                }
+                getJobsList(columnBag);
+
+            }
+
+
+            $scope.pagingmethod101 = function (columnBag: IColumnBag) {
+                
+
+                getJobsList(columnBag);
+
+                $scope.sqlStatsRecord = columnBag;
+            }
+
+
+
+            $scope.showCreateTimesheetForm = function (jobID) {
+
+                if (isNaN(jobID)) {
+                    jobID = 0;
+                }
+
+                $uibModal.open({
+                    templateUrl: '/js/timesheet/timesheetTemplate.html',
+                    controller: 'TimesheetController',
+
+
+                    backdrop: false,
+
+                    resolve: {
+                        jobId: function () {
+                            return jobID;
+                        }
+                    }
+                });
+
+            };
 
         }
 
-        // 09/17/2019 12:37 am - SSN - [20190916-1123] - [015] - Adding job status
-        // Copied from TimesheetApp.ts
+    );
 
-        $scope.showCreateTimesheetForm = function (jobID) {
+    console.log("JobsIndexController - 20190921-0448-YYY - bottom of function");
 
-            if (isNaN(jobID)) {
-                jobID = 0;
-            }
-
-            $uibModal.open({
-                templateUrl: '/js/timesheet/timesheetTemplate.html',
-                controller: 'TimesheetController',
-
-
-                backdrop: false,
-
-                resolve: {
-                    jobId: function () {
-                        return jobID;
-                    }
-                }
-            });
-
-        };
-
+    return {
+        Jobs_Angular_Module: Jobs_Angular_Module
     }
 
-);
 
+}();
+
+console.log("JobsIndexController - 20190921-0448-ZZZ - bottom");
+
+export { jobsIndexController_instance };
 

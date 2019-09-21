@@ -266,3 +266,5 @@ __pycache__/
 /DevSitesIndex/wwwroot/js/DemoSites_index_p1.js.map
 /DevSitesIndex/wwwroot/js/DemoSites_index_p1.js
 /DevSitesIndex/ConfirmationLink_*.txt
+/DevSitesIndex/wwwroot/babel_lib
+/DevSitesIndex/wwwroot/Webpack_Build
