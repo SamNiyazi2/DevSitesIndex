@@ -259,11 +259,9 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
-/DevSitesIndex/wwwroot/js/site.min.js.map
 /DevSitesIndex/wwwroot/js/angular-ui
 
 /DevSitesIndex/Migrations_Hold_20190419a
-/DevSitesIndex/wwwroot/js/DemoSites_index_p1.js.map
-/DevSitesIndex/wwwroot/js/DemoSites_index_p1.js
+
 /DevSitesIndex/ConfirmationLink_20190825a.txt
 /DevSitesIndex_201909220212.zip
