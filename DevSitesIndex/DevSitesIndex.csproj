@@ -35,10 +35,13 @@
     <Content Remove="wwwroot\js\IAngularApp.ts" />
     <Content Remove="wwwroot\js\IColumnBag.ts" />
     <Content Remove="wwwroot\js\Jobs\JobsIndexController.ts" />
+    <Content Remove="wwwroot\js\Jobs\jobsIndex_main.ts" />
+    <Content Remove="wwwroot\js\Jobs\Job_Status_CheckBoxes_setup.ts" />
     <Content Remove="wwwroot\js\siteold.ts" />
     <Content Remove="wwwroot\js\SSN_Notes.txt" />
     <Content Remove="wwwroot\js\Timesheet\Timelog.ts" />
     <Content Remove="wwwroot\js\Timesheet\timesheet_main.ts" />
+    <Content Remove="wwwroot\js\Util\JobStatusDisplayDirective.ts" />
     <Content Remove="wwwroot\js\Util\pagingDirective.ts" />
     <Content Remove="wwwroot\js\____________________________ts.txt" />
   </ItemGroup>
@@ -125,11 +128,13 @@
     <TypeScriptCompile Include="wwwroot\js\globals.ts" />
     <TypeScriptCompile Include="wwwroot\js\IAngularApp.ts" />
     <TypeScriptCompile Include="wwwroot\js\IColumnBag.ts" />
+    <TypeScriptCompile Include="wwwroot\js\Jobs\jobsIndex_main.ts" />
     <TypeScriptCompile Include="wwwroot\js\Timesheet\timesheet_main.ts" />
     <TypeScriptCompile Include="wwwroot\js\Util\HeaderWithSort.ts" />
     <TypeScriptCompile Include="wwwroot\js\Jobs\JobsIndexController.ts" />
     <TypeScriptCompile Include="wwwroot\js\site.ts" />
     <TypeScriptCompile Include="wwwroot\js\Timesheet\TimesheetApp.ts" />
+    <TypeScriptCompile Include="wwwroot\js\Util\JobStatusDisplayDirective.ts" />
     <TypeScriptCompile Include="wwwroot\js\Util\pagingDirective.ts" />
     
   </ItemGroup>

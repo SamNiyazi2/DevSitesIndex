@@ -76,9 +76,12 @@ namespace DevSitesIndex.Controllers
 
         // 09/17/2019 01:01 am - SSN - [20190916-1123] - [017] - Adding job status
 
-        [Route("list/{pageNo}/{recordsPerPage}/{columnName}/{desc}")]
+        // 09/22/2019 08:27 am - SSN - [20190922-0822] - [003] - Plug in job status filter on job's index - update data source
+        // Adding job_statuses_selected
+
+        [Route("list/{pageNo}/{recordsPerPage}/{columnName}/{desc}/{job_statuses_selected}")]
         [HttpGet]
-        public DataBag<Job> Get_Jobs(int? pageNo, int? recordsPerPage, string columnName, string desc)
+        public DataBag<Job> Get_Jobs(int? pageNo, int? recordsPerPage, string columnName, string desc, string job_statuses_selected)
         {
             int _recordsPerPage = recordsPerPage ?? 10;
             _recordsPerPage = (_recordsPerPage > 50) ? 50 : _recordsPerPage;
@@ -113,6 +116,11 @@ namespace DevSitesIndex.Controllers
             exec.WithSqlParam("@pageNo", _pageNo);
             exec.WithSqlParam("@sortColumn", columnName);
             exec.WithSqlParam("@desc", desc.ToLower() == "true");
+
+            // 09/22/2019 09:18 am - SSN - [20190922-0822] - [005] - Plug in job status filter on job's index - update data source
+
+            exec.WithSqlParam("@job_statuses_selected", job_statuses_selected);
+
 
             IEnumerable<Job> result1_data = exec.GetResultSet<Job>();
             IList<SqlStatsRecord> result2_Stats = exec.GetResultSet<SqlStatsRecord>();

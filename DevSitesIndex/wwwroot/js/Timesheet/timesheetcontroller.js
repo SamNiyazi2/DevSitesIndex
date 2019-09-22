@@ -1,4 +1,4 @@
-console.log("TimesheetControl - 20190921-0637 - TOP ");
+console.log("TimesheetController - 20190921-0637 - TOP ");
 import * as globals from "../globals";
 import * as angular from "angular";
 /// <reference path="../../../../node_modules/@types/toastr/index.d.ts" />
@@ -84,6 +84,6 @@ var timesheetController_instance = function () {
         timesheetApp_TimesheetController: timesheetApp
     };
 }();
-console.log("TimesheetControl - 20190921-0637 - Bottom");
+console.log("TimesheetController - 20190921-0637 - Bottom");
 export { timesheetController_instance };
 //# sourceMappingURL=TimesheetController.js.map

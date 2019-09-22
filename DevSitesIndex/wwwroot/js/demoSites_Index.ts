@@ -7,12 +7,9 @@
 /// <reference path="../../node_modules/@types/jquery/jquery.d.ts" />
 /// <reference path="../../node_modules/@types//knockout/index.d.ts" />
 /// <reference path="../js/DataServices.ts"/>
-
-
 /// <reference path="../../node_modules_hack/SSN_jquery_modal.d.ts" />
 
 
-console.log("demoSites_index - 20190921-0801-A");
 
 import * as angular from 'angular'
 import * as globals from './globals';
@@ -97,12 +94,7 @@ var ssn_devsite_angular_module_instance = function () {
 
 
         $scope.editContent = function (content) {
-
-
-
-            console.log("angular - 20190920-0720-e");
-
-
+            
             $scope.editablerow = angular.copy(content);
             ///////////////////////////////////////////$scope.editablerow = content;
 
@@ -179,18 +171,9 @@ var ssn_devsite_angular_module_instance = function () {
 
     }
 
-
-    console.log("20190910-0327");
-    console.log("Creating conroller demoSiteIndexController_101");
-
-    // 09/10/2019 03:30 am - SSN - [20190910-0147] - [008] - WARNING: Tried to load angular more than once.
-    // Adding line. Function was already functioning before all new changes.
+    
 
     ssn_devsite_angular_module.controller("demoSiteIndexController_101", demoSiteIndexController_101);
-
-
-    console.log("20190910-0327-Done");
-
 
     // 09/21/2019 08:23 am - SSN - [20190921-0357] - [012] - Creating multiple entry for Webpack
     // function devSiteUpdateController  
@@ -236,8 +219,6 @@ var ssn_devsite_angular_module_instance = function () {
 
 }();
 
-
-console.log('demoSites_Index loaded');
 
 
 export { ssn_devsite_angular_module_instance };

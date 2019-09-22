@@ -132,6 +132,9 @@ namespace DevSitesIndex.Controllers
         public string columnName { get; set; }
         public string columnNameSelected { get; set; }
         public bool desc { get; set; }
+
+        // 09/22/2019 08:25 am - SSN - [20190922-0822] - [002] - Plug in job status filter on job's index - update data source
+        public string job_statuses_selected { get; set; }
     }
 
 

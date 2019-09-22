@@ -1,8 +1,4 @@
-﻿
-
-
-console.log("TimesheetControl - 20190921-0637 - TOP ");
-
+﻿ 
 
 import * as globals from "../globals";
 import * as angular from "angular";
@@ -13,8 +9,6 @@ import * as tostr from "toastr";
 /// <reference path="../../../../node_modules/@types/toastr/index.d.ts" />
 
 // 04/12/2019 03:57 am - SSN - [20190412-0142] - TimesheetApp
-
-
 
 // 09/18/2019 11:13 am - SSN - [20190918-0943] - [008] - Adding job status option to index
 
@@ -49,21 +43,14 @@ var timesheetController_instance = function () {
                 jobId: jobId
             };
 
-
-
-            console.log("TimeshetController - 20190920-0720-q");
-
-
+ 
             $scope.editableTimeLog = angular.copy($scope.timeLog);
 
 
 
 
             $scope.submitForm = function () {
-
-
-                console.log("TimeshetController - SubmitForm - 20190921-0639");
-
+ 
                 var test = $scope.editableTimeLog;
 
                 var promise = null;
@@ -83,12 +70,7 @@ var timesheetController_instance = function () {
                         function (data) {
 
                             var test1 = data;
-
-
-                            console.log("TimesheetController - 20190921-0640 - promise > then");
-
-
-
+ 
                             $scope.timeLog = angular.copy($scope.editableTimeLog);
                         },
                         function (error) {
@@ -179,8 +161,6 @@ var timesheetController_instance = function () {
 
 }();
 
-
-console.log("TimesheetControl - 20190921-0637 - Bottom");
-
+ 
 export { timesheetController_instance };
 

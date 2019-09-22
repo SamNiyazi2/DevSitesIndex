@@ -24,14 +24,23 @@
 
     <div ng-controller="jobsIndexController">
 
+
         <div ng-controller="utilityController">
-            <span job-status-directive></span>
+            <span job-status-option ng-repeat="job_status in job_statuses"
+                  entry="job_status"
+                  checkedfunction="job_status_changed101(job_status)"
+                  jobstatusesselected102="job_statuses_selected"></span>
+        </div>
+
+        <div>
+            <button ng-click="job_statuses_checkAll(1)">Check all</button>
+            <button ng-click="job_statuses_checkAll(0)">Uncheck all</button>
         </div>
 
         <table class="table table-responsive" height="300">
 
             <thead ng-controller="utilityController">
-                <tr>
+                <tr ng-show="databag.jobs.length>0">
                     <th header-with-sort columnlist="item" sortmethod="$parent.$parent.sortMethod101(item)" ng-repeat="item in fieldsList"></th>
                 </tr>
             </thead>
@@ -42,11 +51,11 @@
                 <tr ng-repeat="job in databag.jobs">
 
 
-                    <td>
+                    <td class="truncateLongText_100">
                         {{job.projectTitle_ForActivity}}
                     </td>
                     <td>
-                        <div class="truncateLongText">{{job.jobTitle}}</div>
+                        <div job-status-display job-status="job.job_StatusID" class="truncateLongText_200">{{job.jobTitle}}</div>
                     </td>
 
                     <td class="indexNowrapCol hidden-xs">
@@ -147,7 +156,7 @@
         if (Program.RunWhatJavaScriptVersion == Program.whatJavaScriptVersion.Webpack)
         {
 
-            <script src="~/webpack_build/bundle_timesheetapp.js" asp-append-version="true"></script>
+            <script src="~/webpack_build/bundle_jobsIndex.js" asp-append-version="true"></script>
         }
 
 

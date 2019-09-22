@@ -4,6 +4,68 @@ module.exports =
 
     [
 
+        // 09/21/2019 11:29 am - SSN - [20190921-1129] - [001] - Plug in job status filter on job's index
+
+        {
+            output: {
+                path: path.resolve(__dirname, './wwwroot/webpack_build'),
+                filename: 'bundle_jobsIndex.js'
+            },
+            externals: {
+                angular: 'angular'
+            },
+
+
+            devtool: 'inline-source-map',
+
+            watch: true,
+            watchOptions: {
+                ignored: ['wwwroot/js/Angular_1_2', 'wwwroot/js/Angular_1_7', 'wwwroot/js/Angular_x', 'wwwroot/js/Angular_ui', 'wwwroot/js/tostr', 'node_modules'],
+                aggregateTimeout: 300,
+                poll: 1000
+            }
+            ,
+
+            mode: "development",
+
+            entry: [
+                './jobs/JobsIndex_main.ts'
+            ]
+            ,
+            context: path.resolve(__dirname, './wwwroot/js')
+
+            ,
+
+
+
+            module: {
+                rules: [{
+                    loader: ['babel-loader', "source-map-loader"],
+                    test: /\.(js|ts)$/,
+                    exclude: /node_modules/
+                },
+                {
+                    test: /\.tsx?$/,
+                    use: ['ts-loader', "source-map-loader"],
+                    exclude: [
+                        path.resolve(__dirname, 'node_modules'),
+                        path.resolve(__dirname, 'wwwroot/lib'),
+                        path.resolve(__dirname, 'wwwroot/js/Angular_1_2'),
+                        path.resolve(__dirname, 'wwwroot/js/Angular_1_7'),
+                        path.resolve(__dirname, 'wwwroot/js/Angular_x'),
+                        path.resolve(__dirname, 'wwwroot/js/Angular_ui'),
+                        path.resolve(__dirname, 'wwwroot/js/tostr')
+                    ]
+                }
+                ]
+            },
+            resolve: { extensions: ['.js', '.jsx', '.tsx', '.ts', '.json'] }
+        }
+
+
+    ,
+
+
         {
             output: {
                 path: path.resolve(__dirname, './wwwroot/webpack_build'),
@@ -37,7 +99,7 @@ module.exports =
 
             ,
 
-           
+
 
             module: {
                 rules: [{
@@ -97,9 +159,9 @@ module.exports =
 
             //entry: ['./Scripts/es6/main.js'],
             entry: [
-               
+
                 './DemoSites_index_main.ts',
-               
+
             ]
             ,
             context: path.resolve(__dirname, './wwwroot/js')

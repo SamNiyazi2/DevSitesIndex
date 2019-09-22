@@ -112,7 +112,6 @@ td, .siteDiv {
 
 .codeblock2 { /* Match maxWidthCol1 */
     height: 200px;
-
     /* 06/01/2019 02:58 pm - SSN Added white-space */
     white-space: pre-line;
 }
@@ -229,7 +228,7 @@ alarm {
 }
 
 .padded {
-    margin:10px 0px;
+    margin: 10px 0px;
     padding: 20px;
     background: rgba(255,255,255,0.5);
     /*-khtml-opacity: .50;
@@ -241,20 +240,44 @@ alarm {
 }
 /*09/11/2019 09:08 pm - SSN*/
 .indented {
-    padding: 0px 20px 20px 20px ;
+    padding: 0px 20px 20px 20px;
     background: rgba(255,255,255,0.5);
 }
 
-.evenRow{
-    background-color:#eee;
+.evenRow {
+    background-color: #eee;
 }
+
 .oddRow {
     background-color: #ddd;
 }
 
-.truncateLongText {
-    white-space:nowrap;
+.truncateLongText_100 {
+    white-space: nowrap;
+    width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.truncateLongText_200 {
+    white-space: nowrap;
     width: 200px;
     overflow: hidden;
-    text-overflow: ellipsis; 
+    text-overflow: ellipsis;
+}
+
+.job_status_open_1 {
+    background-color: aqua;
+}
+
+.job_status_Pending_2 {
+    background-color:khaki;
+}
+
+.job_status_Completed_3 {
+    background-color:burlywood;
+}
+
+.job_status_Cancelled_4 {
+    background-color:goldenrod;
 }

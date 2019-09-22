@@ -4,20 +4,19 @@
 /// <reference path="../DataServices.ts"/>
 
 
-console.log("JobsIndexController - 20190921-0448 - Top");
 
 import * as angular from 'angular'
 import IColumnBag from '../IColumnBag';
 import * as globals from "../globals";
 
+import { jobStatusDisplayDirective_instance  } from "../Util/JobStatusDisplayDirective";
+
+jobStatusDisplayDirective_instance ;
 
 
 // 09/21/2019 04:42 am - SSN - [20190921-0357] - [003] - Creating multiple entry for Webpack
 
 var jobsIndexController_instance = function () {
-
-
-    console.log("globals - 20190920-0714-f-2");
 
 
     var Jobs_Angular_Module: angular.IModule = globals.default.getInstance("timesheetApp");
@@ -31,6 +30,9 @@ var jobsIndexController_instance = function () {
             // 09/18/2019 01:15 am - SSN - [20190917-0929] - [010] - Adding paging for angular lists
             //$scope.sqlStatsRecord = {};
 
+            //  Setup intiail values for list
+
+            $scope.job_statuses_selected = [1]; // open
 
             let columnBag: IColumnBag = {
                 columnName: 'dateAdded',
@@ -39,7 +41,8 @@ var jobsIndexController_instance = function () {
                 desc: true,
                 recordsPerPage: 4,
                 totalRecordCount: 0,
-                caption: "Date Added"
+                caption: "Date Added",
+                job_statuses_selected: [$scope.job_statuses_selected]
             };
 
 
@@ -47,7 +50,7 @@ var jobsIndexController_instance = function () {
                 { ...columnBag, columnName: 'projectTitle_ForActivity', caption: 'Project Title' },
                 { ...columnBag, columnName: 'jobTitle', caption: 'Job Title' },
                 { ...columnBag, columnName: 'dateAdded', caption: 'Date Added' },
-                { ...columnBag, columnName: 'lastActivityDate', caption: 'Last Activity Date' },
+                { ...columnBag, columnName: 'lastActivityDate', caption: 'Last Activity' },
                 { ...columnBag, columnName: 'activityAge', caption: 'Activity Age', },
             ];
 
@@ -57,10 +60,10 @@ var jobsIndexController_instance = function () {
 
             getJobsList(columnBag);
 
-            
+
 
             function getJobsList(columnBag: IColumnBag) {
-                
+
                 dataService.getJobs(columnBag).then(getJobsSuccess, getJobsError).catch(getTimelogCatch);
 
 
@@ -69,6 +72,10 @@ var jobsIndexController_instance = function () {
                     $scope.databag = {
                         jobs: data.dataList, column: data.columnName, desc: data.desc
                     }
+
+
+                    // We need to convert to an array. We don't have a setter on an interface.
+                    data.sqlStatsRecord.job_statuses_selected = data.sqlStatsRecord.job_statuses_selected.split(',');
 
                     $scope.sqlStatsRecord = data.sqlStatsRecord;
 
@@ -103,13 +110,59 @@ var jobsIndexController_instance = function () {
 
 
             $scope.pagingmethod101 = function (columnBag: IColumnBag) {
-                
+
 
                 getJobsList(columnBag);
 
                 $scope.sqlStatsRecord = columnBag;
             }
 
+
+
+
+            // 09/22/2019 10:47 am - SSN - [20190922-0822] - [007] - Plug in job status filter on job's index - update data source
+
+            $scope.job_status_changed101 = function (job_status) {
+
+                var indexOfSelectedItem = $scope.job_statuses_selected.indexOf(job_status.id);
+
+                if (indexOfSelectedItem > -1)
+                    $scope.job_statuses_selected.splice(indexOfSelectedItem, 1);
+                else
+                    $scope.job_statuses_selected[$scope.job_statuses_selected.length] = job_status.id;
+
+                if ($scope.sqlStatsRecord) {
+                    $scope.sqlStatsRecord.job_statuses_selected = $scope.job_statuses_selected; //.join(',');
+                }
+
+                columnBag.job_statuses_selected = $scope.sqlStatsRecord.job_statuses_selected;
+
+                getJobsList(columnBag);
+            }
+
+
+
+
+
+
+
+            // 09/22/2019 05:20 am - SSN - [20190921-1129] - [007] - Plug in job status filter on job's index
+ 
+ 
+            $scope.job_statuses_checkAll = function (enable) {
+
+                if (enable) {
+                    $scope.job_statuses_selected = $scope.job_statuses.map(function (job_status) { return job_status.id });
+                }
+                else {
+                    $scope.job_statuses_selected = [];
+                }
+
+                columnBag.job_statuses_selected = $scope.job_statuses_selected 
+
+
+                getJobsList(columnBag);
+            }
 
 
             $scope.showCreateTimesheetForm = function (jobID) {
@@ -134,11 +187,38 @@ var jobsIndexController_instance = function () {
 
             };
 
+
+
+            function getJob_Statuses() {
+
+                dataService.getJob_Statuses().then(getJob_StatusesSuccess, getJob_StatusesError).catch(getJob_StatusesCatch);
+
+
+                function getJob_StatusesSuccess(data) {
+                    $scope.job_statuses = data;
+                }
+
+
+                function getJob_StatusesError(data) {
+                    console.log("JobIndexController -  20190922-0758 - Data error ?????????????????????????????");
+                    console.log(data);
+                }
+
+
+                function getJob_StatusesCatch(data) {
+                    console.log("JobIndexController -  20190922-0758 - Data error (catch) ?????????????????????????????");
+                    console.log(data);
+                }
+
+            }
+
+            getJob_Statuses();
+
+
         }
 
     );
 
-    console.log("JobsIndexController - 20190921-0448-YYY - bottom of function");
 
     return {
         Jobs_Angular_Module: Jobs_Angular_Module
@@ -147,7 +227,7 @@ var jobsIndexController_instance = function () {
 
 }();
 
-console.log("JobsIndexController - 20190921-0448-ZZZ - bottom");
+
 
 export { jobsIndexController_instance };
 

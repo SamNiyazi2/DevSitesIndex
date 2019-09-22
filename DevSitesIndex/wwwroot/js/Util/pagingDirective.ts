@@ -23,9 +23,6 @@ interface iFixScope extends ng.IScope {
 }
 
 
-console.log("pagingDirective - 20190921-0618-Top");
-
-
 import * as angular from 'angular'
 import * as ssn_globals from '../globals';
 
@@ -84,15 +81,18 @@ var pagingDirective_instance = function () {
                     scope.previousdisabled = scope.sqlstatsrecord.currentPageNo <= 1;
                     scope.nextdisabled = scope.sqlstatsrecord.currentPageNo >= totalPageCount;
 
-                    scope.sayWhatPageWeAreOn = "Page " + scope.sqlstatsrecord.currentPageNo + " of " + totalPageCount;
+                    if (totalPageCount > 0) {
+                        scope.sayWhatPageWeAreOn = "Page " + scope.sqlstatsrecord.currentPageNo + " of " + totalPageCount;
+                    } else {
+                        scope.sayWhatPageWeAreOn = "No records.";
+                    }
 
-                    $timeout(scope.init101, 3000); // to pickup actual values after API call to get data, just in case!!!
+                    $timeout(scope.init101, 1000); // to pickup actual values after API call to get data, just in case!!!
                 }
 
 
                 scope.onPrevious = function () {
 
-                    console.log("pagingDirective - onPrevious - 20190921-0519");
 
                     this.sqlstatsrecord.currentPageNo = this.sqlstatsrecord.currentPageNo > 1 ? this.sqlstatsrecord.currentPageNo - 1 : 1;
 
@@ -104,8 +104,7 @@ var pagingDirective_instance = function () {
 
 
                 scope.onNext = function () {
-
-                    console.log("pagingDirective - onNext - 20190921-0520");
+                    
 
                     var totalPageCount = getTotalPageCount();
 

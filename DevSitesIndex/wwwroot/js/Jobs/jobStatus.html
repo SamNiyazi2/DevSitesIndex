@@ -1,1 +1,9 @@
-﻿<h1>job satus</h1>
+﻿
+<span job-status-display job-status="{{entry.id}}">
+    <input type="checkbox"
+           ng-true-value="{{entry.id}}"
+           ng-checked="job_status_checked(entry)"
+           ng-click="job_status_click(entry)" />
+    {{entry.id}} - {{entry.status}}
+</span> &nbsp; &nbsp;
+

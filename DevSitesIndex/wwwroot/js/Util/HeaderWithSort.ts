@@ -2,16 +2,10 @@
 /// <reference path="../../../node_modules/@types/angular/index.d.ts" />
 
 
-
 // 09/17/2019 02:04 am - SSN - [20190916-1123] - [018] - Adding job status
 
 
-
-console.log("headerWithSort - angular - 20190920-0720-n");
-
-
 import * as angular from 'angular'
-
 
 import * as ssn_globals from "../globals";
 
@@ -30,19 +24,16 @@ interface iFixScope extends ng.IScope {
 var headerWithSort_instance = function () {
 
 
-    console.log("angular - 20190920-0720-m");
-
-
     var headerWithSort_angular_module: angular.IModule = ssn_globals.default.getInstance("timesheetApp");
 
 
     headerWithSort_angular_module.controller('utilityController', function ($scope, dataService) {
-
+         
     });
 
 
     headerWithSort_angular_module.directive('headerWithSort', function () {
-
+         
         return {
 
             restrict: "A",
@@ -52,7 +43,7 @@ var headerWithSort_instance = function () {
             }
             ,
             link: function (scope: iFixScope , el, attrs) {
-
+                 
                 scope.sort = function () {
                     console.log("headerWithSort - 20190921-0613 - ");
                     scope.sortmethod();

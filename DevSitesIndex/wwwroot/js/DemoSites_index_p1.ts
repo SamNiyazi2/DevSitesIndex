@@ -9,19 +9,13 @@
 /// <reference path="../../node_modules/@types/knockout/index.d.ts" /> 
 
 
-
-
 import * as util from '../js/site';
-
-
-console.log("demoSites_index_p1 - 20190921-0722 - top ");
 
 
 
 var demosites_index_p1_instance = function () {
 
 
-    console.log("demoSites_index_p1 - 20190921-0722-B - top of function ");
 
     // Knockout related
 
@@ -88,9 +82,6 @@ var demosites_index_p1_instance = function () {
             // Renamed del-confirm del_confirm_p1
             this.requestDelConfirm = function (itemToDelete) {
 
-                console.log("20190908-1804");
-                console.log(itemToDelete);
-
                 self.currentItem(itemToDelete);
                 $('#del_confirm_p1').modal({ backdrop: 'static', keyboard: false });
 
@@ -106,7 +97,7 @@ var demosites_index_p1_instance = function () {
 
 
             this.del = function () {
-                alert('Calling del!!!!');
+
                 var itemToDelete = ko.toJS(vm.currentItem);
                 $('#del-confirm').modal('hide');
 
@@ -188,11 +179,11 @@ var demosites_index_p1_instance = function () {
 
 
                     if (!self.prefixPreWithShowHideAnchor_DontCall_KO()) {
-                        setTimeout(util.prefixPreWithShowHideAnchor, 2000);
+                        setTimeout(util.site_instance.prefixPreWithShowHideAnchor, 2000);
                     }
                     else {
                         // 08/21/2019 01:48 pm - SSN - [20190821-1348] [001] - Added
-                        setTimeout(util.showCollapsedDivs, 2000);
+                        setTimeout(util.site_instance.showCollapsedDivs, 2000);
 
                     }
 
@@ -234,10 +225,6 @@ var demosites_index_p1_instance = function () {
         vm.loadData();
 
        
-
-
-
-    console.log("demoSites_index_p1 - 20190921-0722-C - bottom of function  fff");
 
 
 }();

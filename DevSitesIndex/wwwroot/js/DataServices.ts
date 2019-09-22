@@ -8,25 +8,11 @@
 // 05/04/2019 09:58 am - SSN - Since having to import angular when converting to a module
 
 
-
-
-console.log("");
-console.log("DataServices loading - 20190920-0714-a");
-
-// import { IColumnBag } from './IColumnBag';
 import * as   IColumnBagTemp from './IColumnBag';
 
-//import {  getInstance } from './globals';
 import * as   globals from './globals';
 
-
-console.log("angular - 20190920-0720-j");
-
-
 import * as angular from "angular";
-
-
-
 
 
 
@@ -35,11 +21,8 @@ var dataService_instance = function () {
 
     var doSetup = function (currentApplication: string) {
 
-        console.log("DataService:  Name of application beign served [" + currentApplication + "]");
-
 
         var ssn_devsite_angular_module = globals.default.getInstance(currentApplication);
-
 
 
         ssn_devsite_angular_module.factory("dataService", function ($http, $q) {
@@ -49,12 +32,6 @@ var dataService_instance = function () {
             var _getDevSites = function () {
 
                 var deferred = $q.defer();
-
-
-
-                console.log("angular - 20190920-0720-h");
-
-
 
 
                 $http.get('/api/demositesapi')
@@ -182,14 +159,38 @@ var dataService_instance = function () {
 
                 var deferred = $q.defer();
 
-                //$http.get('/api/jobapi/list/' + pageNo + "/" + recordsPerPage + "/" + columnName + "/" + desc)
-                $http.get('/api/jobapi/list/' + columnBag.currentPageNo + "/" + columnBag.recordsPerPage + "/" + columnBag.columnName + "/" + columnBag.desc)
+                // 09/22/2019 08:23 am - SSN - [20190922-0822] - [001] - Plug in job status filter on job's index - update data source
+
+                var job_statuses_selected = ((columnBag.job_statuses_selected.length == 0) ? "nothing-201909221117" : columnBag.job_statuses_selected.join(','));
+
+                console.log(job_statuses_selected );
+
+                $http.get('/api/jobapi/list/' + columnBag.currentPageNo + "/" + columnBag.recordsPerPage + "/" + columnBag.columnName + "/" + columnBag.desc + "/" + job_statuses_selected)
                     .then(function (result) {
 
                         deferred.resolve(result.data);
                     },
                         function (errorMessage) {
                             deferred.reject({ Error: 'Failed call to get jobs [20190917-0057]' });
+                        });
+
+                return deferred.promise;
+            };
+
+
+            // 09/21/2019 01:25 pm - SSN - [20190921-1129] - [003] - Plug in job status filter on job's index
+
+            var _getJob_Statuses = function () {
+
+                var deferred = $q.defer();
+
+                $http.get('/api/job_statusAPI/')
+                    .then(function (result) {
+
+                        deferred.resolve(result.data);
+                    },
+                        function (errorMessage) {
+                            deferred.reject({ Error: 'Failed call to get job_statuses [20190921-1326' });
                         });
 
                 return deferred.promise;
@@ -208,7 +209,8 @@ var dataService_instance = function () {
                 insertTimeLog: _insertTimeLog,
                 getTimelog: _getTimelog,
                 updateTimeLog: _addOrUpdateTimeLog,
-                getJobs: _getJobs
+                getJobs: _getJobs,
+                getJob_Statuses: _getJob_Statuses
             };
 
 
@@ -216,18 +218,12 @@ var dataService_instance = function () {
     };
 
     return {
-//        ssn_devsite_angular_module: ssn_devsite_angular_module
+        //        ssn_devsite_angular_module: ssn_devsite_angular_module
         doSetup: doSetup
     };
 
 
 }();
-
-
-
-
-console.log("DataServices loading - 20190920-0714-zzz");
-console.log("");
 
 
 

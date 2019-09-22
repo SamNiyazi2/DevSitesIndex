@@ -1,22 +1,34 @@
 // 09/18/2019 09:43 am - SSN - [20190918-0943] - [001] - Adding job status option to index
 /// <reference path="../../../node_modules/@types/angular/index.d.ts" />
-console.log("angular - 20190920-0720-101");
-// 09/20/2019 10:10 am - SSN - Replace angular.module
-// declare var angular: any;
-// declare var Job_Status_Angular_Module: any;
-// Job_Status_Angular_Module = angular.module("timesheetApp");
-console.log("globals - 20190920-1012---103");
 import * as ssn_globals from '../globals';
-var Job_Status_Angular_Module = ssn_globals.default.getInstance("timesheetApp");
-Job_Status_Angular_Module.controller("utilityController", function () {
-});
-Job_Status_Angular_Module.directive('jobStatusOpton', function () {
+;
+var jobStatusDirective_instance = function () {
+    var Job_Status_Angular_Module = ssn_globals.default.getInstance("timesheetApp");
+    Job_Status_Angular_Module.controller("utilityController", function ($scope, dataService) {
+    });
+    Job_Status_Angular_Module.directive('jobStatusOption', function () {
+        return {
+            restrict: "A",
+            templateUrl: "/js/jobs/jobStatus.html",
+            scope: {
+                entry: "=",
+                checkedfunction: "&",
+                jobstatusesselected102: "="
+            },
+            link: function (scope, el, attrs) {
+                scope.job_status_click = function (entry) {
+                    this.checkedfunction();
+                };
+                scope.job_status_checked = function (entry) {
+                    var isSelected = this.jobstatusesselected102.indexOf(entry.id);
+                    return isSelected > -1;
+                };
+            }
+        };
+    });
     return {
-        restrict: "A",
-        templateUrl: "/js/jobs/jobStatus.html",
-        scope: {},
-        link: function (scope, el, attrs) {
-        }
+        Job_Status_Angular_Module: Job_Status_Angular_Module
     };
-});
+}();
+export { jobStatusDirective_instance };
 //# sourceMappingURL=JobStatusDirective.js.map
