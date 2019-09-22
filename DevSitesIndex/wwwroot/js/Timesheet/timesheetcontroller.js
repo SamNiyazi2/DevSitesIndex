@@ -1,4 +1,3 @@
-console.log("TimesheetController - 20190921-0637 - TOP ");
 import * as globals from "../globals";
 import * as angular from "angular";
 /// <reference path="../../../../node_modules/@types/toastr/index.d.ts" />
@@ -22,10 +21,8 @@ var timesheetController_instance = function () {
             disciplineId: '2',
             jobId: jobId
         };
-        console.log("TimeshetController - 20190920-0720-q");
         $scope.editableTimeLog = angular.copy($scope.timeLog);
         $scope.submitForm = function () {
-            console.log("TimeshetController - SubmitForm - 20190921-0639");
             var test = $scope.editableTimeLog;
             var promise = null;
             $scope.editableTimeLog.disciplineId = $scope.disciplineSelected.id;
@@ -38,7 +35,6 @@ var timesheetController_instance = function () {
             if (promise) {
                 promise.then(function (data) {
                     var test1 = data;
-                    console.log("TimesheetController - 20190921-0640 - promise > then");
                     $scope.timeLog = angular.copy($scope.editableTimeLog);
                 }, function (error) {
                     var test2 = error;
@@ -84,6 +80,5 @@ var timesheetController_instance = function () {
         timesheetApp_TimesheetController: timesheetApp
     };
 }();
-console.log("TimesheetController - 20190921-0637 - Bottom");
 export { timesheetController_instance };
 //# sourceMappingURL=TimesheetController.js.map

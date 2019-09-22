@@ -98,7 +98,6 @@ var timesheetClockoutController_instance = function () {
             }
         };
     });
-    console.log("timesheetClockoutController - 20190921-1153 - Bottom");
 }();
 export { timesheetClockoutController_instance };
 //# sourceMappingURL=timesheetclockoutcontroller.js.map

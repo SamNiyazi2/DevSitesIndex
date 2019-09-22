@@ -42,8 +42,6 @@ var demosites_index_p1_instance = function () {
         // 09/08/2019 08:07 pm - SSN - [20190908-0001] - [009] - Concurrency
         // Renamed del-confirm del_confirm_p1
         this.requestDelConfirm = function (itemToDelete) {
-            console.log("20190908-1804");
-            console.log(itemToDelete);
             self.currentItem(itemToDelete);
             $('#del_confirm_p1').modal({ backdrop: 'static', keyboard: false });
         };
@@ -51,7 +49,6 @@ var demosites_index_p1_instance = function () {
             $('#show-job').modal();
         };
         this.del = function () {
-            alert('Calling del!!!!');
             var itemToDelete = ko.toJS(vm.currentItem);
             $('#del-confirm').modal('hide');
         };

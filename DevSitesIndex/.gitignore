@@ -269,3 +269,7 @@ __pycache__/
 /PS_MultiTenantMVC/Content/CSSC/JavaScript/bxslider
 /PS_MultiTenantMVC/Content/CSSC/JavaScript/tappize
 /PS_MultiTenantMVC/Content/CSSC/JavaScript/validate
+ .\wwwroot\js\Jobs\JobsIndexController.js 
+ .\wwwroot\js\Jobs\JobsIndexController.js.map 
+.\wwwroot\js\Timesheet\timesheetclockoutcontroller.js 
+.\wwwroot\js\Timesheet\timesheetclockoutcontroller.js.map 

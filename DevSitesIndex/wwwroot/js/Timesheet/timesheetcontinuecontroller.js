@@ -1,6 +1,5 @@
 // 05/19/2019 09:45 am - SSN - [20190519-0837] - [005] - Adding timesheet "Continue" option
 // Copied from Clockout.
-console.log("timesheetContinueController - 20190921-1137 - TOP ");
 import * as globals from "../globals";
 import * as angular from 'angular';
 import * as util from '../site';
@@ -91,6 +90,5 @@ var timesheetContinueController_instance = function () {
         };
     });
 }();
-console.log("timesheetContinueController - 20190921-1137 - Bottom");
 export { timesheetContinueController_instance };
 //# sourceMappingURL=timesheetcontinuecontroller.js.map

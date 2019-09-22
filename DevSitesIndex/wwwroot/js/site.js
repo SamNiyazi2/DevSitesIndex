@@ -1,7 +1,6 @@
 // 05/19/2019 01:18 pm - SSN - [20190519-1132] - [007] - Address definitely typed errors - No errors
 /// <reference path="../../node_modules/@types/jquery/index.d.ts" />   
 /// <reference path="../../node_modules_hack/SSN_jquery_modal.d.ts" />
-console.log("site - 20190922-074");
 //08/23/2018 01:24 am - SSN
 // 09/21/2019 12:27 pm - SSN - [201909-1227] Revise to accommodate Babel/Webpack
 var site_instance = function () {

@@ -189,7 +189,7 @@ function step_04_publish_remote {
         write-host ""
 
 
-        dotnet nuget push "C:\Sams_Projects\__DevSites_Index\DevSitesIndex\SSN_DevSites_DAL_NuGet_Pack_Output\SSN_DevSites_DAL_Standard.$version.nupkg"  -k $env:NuGet_Key -s https://api.nuget.org/v3/index.json
+        dotnet nuget push "..\SSN_DevSites_DAL_NuGet_Pack_Output\SSN_DevSites_DAL_Standard.$version.nupkg"  -k $env:NuGet_Key -s https://api.nuget.org/v3/index.json
 
 
     }
