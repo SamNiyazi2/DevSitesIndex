@@ -3,7 +3,7 @@
 import * as ssn_globals from '../globals';
 ;
 var jobStatusDirective_instance = function () {
-    var Job_Status_Angular_Module = ssn_globals.default.getInstance("timesheetApp");
+    var Job_Status_Angular_Module = ssn_globals.globals_instance.getInstance("timesheetApp");
     Job_Status_Angular_Module.controller("utilityController", function ($scope, dataService) {
     });
     Job_Status_Angular_Module.directive('jobStatusOption', function () {

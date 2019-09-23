@@ -16,9 +16,9 @@ dataService_instance.doSetup('timesheetApp');
 
 timesheetController_instance.timesheetApp_TimesheetController;
 
-timesheetContinueController_instance;
+timesheetContinueController_instance.timesheetApp;
 
-timesheetClockoutController_instance;
+timesheetClockoutController_instance.timesheetApp;
 
 timesheetApp_instance.timesheetApp;
 

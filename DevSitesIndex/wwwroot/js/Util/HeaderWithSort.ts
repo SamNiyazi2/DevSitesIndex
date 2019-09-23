@@ -24,7 +24,7 @@ interface iFixScope extends ng.IScope {
 var headerWithSort_instance = function () {
 
 
-    var headerWithSort_angular_module: angular.IModule = ssn_globals.default.getInstance("timesheetApp");
+    var headerWithSort_angular_module: angular.IModule = ssn_globals.globals_instance.getInstance("timesheetApp");
 
 
     headerWithSort_angular_module.controller('utilityController', function ($scope, dataService) {

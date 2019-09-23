@@ -1,7 +1,7 @@
 // 09/22/2019 12:45 pm - SSN - [20190922-0822] - [008] - Plug in job status filter on job's index - update data source
 import * as ssn_globals from "../globals";
 var jobStatusDisplayDirective_instance = function () {
-    var app = ssn_globals.default.getInstance('timesheetApp');
+    var app = ssn_globals.globals_instance.getInstance('timesheetApp');
     var jobStatusDisplay = app.directive('jobStatusDisplay', function () {
         return {
             link: function (scope, el, attrs) {

@@ -12,12 +12,12 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
-import * as globals from "../globals";
+import * as ssn_globals from "../globals";
 import { jobStatusDisplayDirective_instance } from "../Util/JobStatusDisplayDirective";
 jobStatusDisplayDirective_instance;
 // 09/21/2019 04:42 am - SSN - [20190921-0357] - [003] - Creating multiple entry for Webpack
 var jobsIndexController_instance = function () {
-    var Jobs_Angular_Module = globals.default.getInstance("timesheetApp");
+    var Jobs_Angular_Module = ssn_globals.globals_instance.getInstance("timesheetApp");
     Jobs_Angular_Module.controller('jobsIndexController', function ($scope, $http, $q, dataService, $timeout, $sce, $uibModal) {
         // 09/18/2019 01:15 am - SSN - [20190917-0929] - [010] - Adding paging for angular lists
         //$scope.sqlStatsRecord = {};

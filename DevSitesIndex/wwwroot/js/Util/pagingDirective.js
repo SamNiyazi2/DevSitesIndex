@@ -4,7 +4,7 @@
 import * as ssn_globals from '../globals';
 // 09/21/2019 05:07 am - SSN - [20190921-0357] - [004] - Creating multiple entry for Webpack
 var pagingDirective_instance = function () {
-    var pagingDirective_angular_module = ssn_globals.default.getInstance("timesheetApp");
+    var pagingDirective_angular_module = ssn_globals.globals_instance.getInstance("timesheetApp");
     pagingDirective_angular_module.controller('utilityController', function ($scope, dataService) {
     });
     pagingDirective_angular_module.directive('pagingDirective', function ($timeout) {

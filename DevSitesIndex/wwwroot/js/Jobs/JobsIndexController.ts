@@ -7,7 +7,7 @@
 
 import * as angular from 'angular'
 import IColumnBag from '../IColumnBag';
-import * as globals from "../globals";
+import * as ssn_globals from "../globals";
 
 import { jobStatusDisplayDirective_instance  } from "../Util/JobStatusDisplayDirective";
 
@@ -19,7 +19,7 @@ jobStatusDisplayDirective_instance ;
 var jobsIndexController_instance = function () {
 
 
-    var Jobs_Angular_Module: angular.IModule = globals.default.getInstance("timesheetApp");
+    var Jobs_Angular_Module: angular.IModule = ssn_globals.globals_instance.getInstance("timesheetApp");
 
     Jobs_Angular_Module.controller('jobsIndexController',
 

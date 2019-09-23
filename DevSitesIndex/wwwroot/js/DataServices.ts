@@ -22,7 +22,7 @@ var dataService_instance = function () {
     var doSetup = function (currentApplication: string) {
 
 
-        var ssn_devsite_angular_module = globals.default.getInstance(currentApplication);
+        var ssn_devsite_angular_module = globals.globals_instance.getInstance(currentApplication);
 
 
         ssn_devsite_angular_module.factory("dataService", function ($http, $q) {
@@ -163,7 +163,7 @@ var dataService_instance = function () {
 
                 var job_statuses_selected = ((columnBag.job_statuses_selected.length == 0) ? "nothing-201909221117" : columnBag.job_statuses_selected.join(','));
 
-                console.log(job_statuses_selected );
+                console.log(job_statuses_selected);
 
                 $http.get('/api/jobapi/list/' + columnBag.currentPageNo + "/" + columnBag.recordsPerPage + "/" + columnBag.columnName + "/" + columnBag.desc + "/" + job_statuses_selected)
                     .then(function (result) {

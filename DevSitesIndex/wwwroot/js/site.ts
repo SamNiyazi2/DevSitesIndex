@@ -298,7 +298,7 @@ var site_instance = function () {
         fnConverDate: fnConverDate,
         showCollapsedDivs: showCollapsedDivs,
         prefixPreWithShowHideAnchor: prefixPreWithShowHideAnchor
-    }
+    };
 
 }();
 

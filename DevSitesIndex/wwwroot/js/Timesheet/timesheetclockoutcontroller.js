@@ -2,12 +2,12 @@
 // 05/19/2019 12:18 pm - SSN - [20190519-1132] - [003] - Address definitely typed errors
 // 09/21/2019 11:52 am  - SSN - Upgrading to use Babel/WWebpack
 console.log("timesheetClockoutController - 20190921-1153 - TOP");
-import * as globals from "../globals";
+import * as ssn_globals from "../globals";
 import * as angular from 'angular';
 import * as util from '../site';
 var timesheetClockoutController_instance = function () {
     // 05/19/2019 10:06 am - SSN - [20190519-0837] - [006] - Adding timesheet "Continue" option
-    var timesheetApp = globals.default.getInstance("timesheetApp");
+    var timesheetApp = ssn_globals.globals_instance.getInstance("timesheetApp");
     timesheetApp.controller('TimesheetClockOutController', function TimesheetController($scope, $uibModalInstance, $http, $q, dataService, timelogId) {
         // 04/29/2019 05:51 pm - SSN - [20190429-1748] - [002] - Angular clock out popup
         // $scope.timeLog = dataService.getTimelog($routeParams.id);
@@ -98,6 +98,9 @@ var timesheetClockoutController_instance = function () {
             }
         };
     });
+    return {
+        timesheetApp: timesheetApp
+    };
 }();
 export { timesheetClockoutController_instance };
 //# sourceMappingURL=timesheetclockoutcontroller.js.map

@@ -17,7 +17,7 @@ import * as globals from './globals';
 
 var ssn_devsite_angular_module_instance = function () {
 
-    var ssn_devsite_angular_module = globals.default.getInstance("demoSites_Index", ['ngRoute']);
+    var ssn_devsite_angular_module = globals.globals_instance.getInstance("demoSites_Index", ['ngRoute']);
 
 
     ssn_devsite_angular_module.config(["$routeProvider", function ($routeProvider) {
@@ -94,7 +94,7 @@ var ssn_devsite_angular_module_instance = function () {
 
 
         $scope.editContent = function (content) {
-            
+
             $scope.editablerow = angular.copy(content);
             ///////////////////////////////////////////$scope.editablerow = content;
 
@@ -171,7 +171,7 @@ var ssn_devsite_angular_module_instance = function () {
 
     }
 
-    
+
 
     ssn_devsite_angular_module.controller("demoSiteIndexController_101", demoSiteIndexController_101);
 

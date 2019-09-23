@@ -1,10 +1,10 @@
 // 05/19/2019 09:45 am - SSN - [20190519-0837] - [005] - Adding timesheet "Continue" option
 // Copied from Clockout.
-import * as globals from "../globals";
+import * as ssn_globals from "../globals";
 import * as angular from 'angular';
 import * as util from '../site';
 var timesheetContinueController_instance = function () {
-    var timesheetApp = globals.default.getInstance("timesheetApp");
+    var timesheetApp = ssn_globals.globals_instance.getInstance("timesheetApp");
     timesheetApp.controller('TimesheetContinueController', function ($scope, $uibModalInstance, $http, $q, dataService, $timeout, timelogId) {
         dataService.getTimelog(timelogId).then(getTimelogSuccess, getTimelogError)
             .catch(getTimelogCatch);
@@ -89,6 +89,9 @@ var timesheetContinueController_instance = function () {
             }
         };
     });
+    return {
+        timesheetApp: timesheetApp
+    };
 }();
 export { timesheetContinueController_instance };
 //# sourceMappingURL=timesheetcontinuecontroller.js.map

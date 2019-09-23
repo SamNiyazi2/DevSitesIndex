@@ -9,7 +9,7 @@ import * as angular from 'angular';
 console.log("globals - 20190920-1012---104-B");
 import * as ssn_globals from '../globals';
 var dropdownListDirective_instance = function () {
-    var downdownList_angular_module = ssn_globals.default.getInstance("demoSites_Index_Timesheet", ['ui.bootstrap']);
+    var downdownList_angular_module = ssn_globals.globals_instance.getInstance("demoSites_Index_Timesheet", ['ui.bootstrap']);
     downdownList_angular_module.controller('utilityController', function ($scope, $attrs, $location) {
         console.log('20190913-0950 -  controller top - A - 103 ');
         // Needed to be able to submit form

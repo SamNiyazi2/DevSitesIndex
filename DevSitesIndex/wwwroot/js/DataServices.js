@@ -3,7 +3,7 @@ import * as globals from './globals';
 import * as angular from "angular";
 var dataService_instance = function () {
     var doSetup = function (currentApplication) {
-        var ssn_devsite_angular_module = globals.default.getInstance(currentApplication);
+        var ssn_devsite_angular_module = globals.globals_instance.getInstance(currentApplication);
         ssn_devsite_angular_module.factory("dataService", function ($http, $q) {
             var _devSites = [];
             var _getDevSites = function () {

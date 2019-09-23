@@ -6,7 +6,7 @@
 import * as angular from 'angular';
 import * as globals from './globals';
 var ssn_devsite_angular_module_instance = function () {
-    var ssn_devsite_angular_module = globals.default.getInstance("demoSites_Index", ['ngRoute']);
+    var ssn_devsite_angular_module = globals.globals_instance.getInstance("demoSites_Index", ['ngRoute']);
     ssn_devsite_angular_module.config(["$routeProvider", function ($routeProvider) {
             $routeProvider.when("/", {
                 controller: "demoSiteIndexController_101",

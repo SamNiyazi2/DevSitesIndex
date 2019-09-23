@@ -1,12 +1,11 @@
 // 04/12/2019 01:42 am - SSN - [20190412-0142] - TimesheetApp
-import * as globals from "../globals.js";
+import * as ssn_globals from "../globals.js";
 var timesheetApp_instance = function () {
     // 05/03/2019 06:33 pm - SSN - [20190503-1539] - [013] - Add link to create timelog
     // Convert to TS
-    var timesheetApp = globals.default.getInstance("timesheetApp");
+    var timesheetApp = ssn_globals.globals_instance.getInstance("timesheetApp");
     // 04/12/2019 02:35 pm - SSN - [20190412-1126] - Timelog - save data - ssn_devsite_angular_module is in use by DataServices.js
     timesheetApp.controller("timesheetController", function ($scope, $uibModal) {
-        console.log('TimesheetApp.js - timesheetController');
         $scope.timesheetForm_ClockOut = function (timelogId) {
             // 04/29/2019 04:16 pm - SSN - [20190429-1616] - [001] - Timesheet - stop / continue
             // 05/03/2019 03:54 pm - SSN - [20190503-1539] - [004] - Add link to create timelog

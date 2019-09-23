@@ -8,7 +8,7 @@ import { dropdownListDirective_instance } from '../DropdownList/DropdownListDire
 dropdownListDirective_instance;
 dataService_instance.doSetup('timesheetApp');
 timesheetController_instance.timesheetApp_TimesheetController;
-timesheetContinueController_instance;
-timesheetClockoutController_instance;
+timesheetContinueController_instance.timesheetApp;
+timesheetClockoutController_instance.timesheetApp;
 timesheetApp_instance.timesheetApp;
 //# sourceMappingURL=Timesheet_main.js.map

@@ -6,14 +6,14 @@
 
  
 
-import * as globals from "../globals";
+import * as ssn_globals from "../globals";
 import * as angular from 'angular'
 import * as util from '../site';
 
 
 var timesheetContinueController_instance = function () {
 
-    var timesheetApp = globals.default.getInstance("timesheetApp");
+    var timesheetApp = ssn_globals.globals_instance.getInstance("timesheetApp");
 
     timesheetApp.controller('TimesheetContinueController',
 
@@ -193,6 +193,9 @@ var timesheetContinueController_instance = function () {
         });
 
 
+    return {
+        timesheetApp: timesheetApp
+    };
 
 }();
 

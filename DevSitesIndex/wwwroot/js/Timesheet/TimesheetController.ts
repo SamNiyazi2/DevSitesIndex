@@ -15,7 +15,7 @@ import * as tostr from "toastr";
 
 var timesheetController_instance = function () {
 
-    var timesheetApp = globals.default.getInstance("timesheetApp");
+    var timesheetApp = globals.globals_instance.getInstance("timesheetApp");
 
 
     timesheetApp.controller('TimesheetController',

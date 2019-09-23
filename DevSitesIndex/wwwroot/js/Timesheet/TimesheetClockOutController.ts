@@ -5,7 +5,7 @@
 
 console.log("timesheetClockoutController - 20190921-1153 - TOP");
 
-import * as globals from "../globals";
+import * as ssn_globals from "../globals";
 import * as angular from 'angular'
 import * as util from '../site';
 
@@ -16,7 +16,8 @@ var timesheetClockoutController_instance = function () {
 
     // 05/19/2019 10:06 am - SSN - [20190519-0837] - [006] - Adding timesheet "Continue" option
 
-    var timesheetApp = globals.default.getInstance("timesheetApp");
+  
+    var timesheetApp = ssn_globals.globals_instance.getInstance("timesheetApp");
 
     timesheetApp.controller('TimesheetClockOutController',
 
@@ -183,7 +184,11 @@ var timesheetClockoutController_instance = function () {
 
         });
 
-  
+
+    return {
+        timesheetApp: timesheetApp
+    };
+
 }();
 
  

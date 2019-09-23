@@ -2,7 +2,7 @@
 // 04/12/2019 01:42 am - SSN - [20190412-0142] - TimesheetApp
 
 
-import * as globals from "../globals.js";
+import * as ssn_globals from "../globals.js";
 
 
 var timesheetApp_instance = function () {
@@ -14,7 +14,7 @@ var timesheetApp_instance = function () {
 
 
 
-    var timesheetApp = globals.default.getInstance("timesheetApp");
+    var timesheetApp = ssn_globals.globals_instance.getInstance("timesheetApp");
 
 
 
@@ -22,9 +22,6 @@ var timesheetApp_instance = function () {
 
     
     timesheetApp.controller("timesheetController", function ($scope, $uibModal) {
-
-        console.log('TimesheetApp.js - timesheetController');
-
         $scope.timesheetForm_ClockOut = function (timelogId) {
 
 
@@ -143,6 +140,8 @@ var timesheetApp_instance = function () {
     return {
         timesheetApp: timesheetApp
     };
+
+
 }();
 
 

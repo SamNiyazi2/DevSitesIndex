@@ -4,7 +4,7 @@ import * as angular from "angular";
 // 04/12/2019 03:57 am - SSN - [20190412-0142] - TimesheetApp
 // 09/18/2019 11:13 am - SSN - [20190918-0943] - [008] - Adding job status option to index
 var timesheetController_instance = function () {
-    var timesheetApp = globals.default.getInstance("timesheetApp");
+    var timesheetApp = globals.globals_instance.getInstance("timesheetApp");
     timesheetApp.controller('TimesheetController', function TimesheetController($scope, $uibModalInstance, $http, $q, dataService, jobId) {
         $scope.disciplineSelected = { id: 0, title: '' };
         // 05/03/2019 05:54 pm - SSN - [20190503-1539] - [012] - Add link to create timelog 
