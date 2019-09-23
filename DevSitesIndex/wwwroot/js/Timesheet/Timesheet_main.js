@@ -3,8 +3,12 @@ import { dataService_instance } from '../DataServices';
 import { timesheetApp_instance } from './TimesheetApp';
 import { timesheetController_instance } from './TimesheetController';
 import { timesheetContinueController_instance } from './timesheetcontinuecontroller';
-var x1 = timesheetController_instance.timesheetApp_TimesheetController;
-var x = dataService_instance.doSetup('timesheetApp');
-var x3 = timesheetContinueController_instance;
-var timesheetApp = timesheetApp_instance.timesheetApp;
+import { timesheetClockoutController_instance } from './timesheetclockoutcontroller';
+import { dropdownListDirective_instance } from '../DropdownList/DropdownListDirective';
+dropdownListDirective_instance;
+dataService_instance.doSetup('timesheetApp');
+timesheetController_instance.timesheetApp_TimesheetController;
+timesheetContinueController_instance;
+timesheetClockoutController_instance;
+timesheetApp_instance.timesheetApp;
 //# sourceMappingURL=Timesheet_main.js.map
