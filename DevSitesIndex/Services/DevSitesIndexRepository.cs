@@ -25,7 +25,11 @@ namespace DevSitesIndex.Services
             // return _context.DevSites.ToList();
             // 04/20/2019 11:13 am - SSN - [20190420-1109] - Add AsNoTracking to index pages
 
-            return _context.DevSites.OrderByDescending(r => r.DateUpdated ?? r.DateAdded).AsNoTracking().ToList();
+            // 09/10/2019 02:28 am - SSN - 
+            // IEnumerable<DevSite> devSites = _context.DevSites.OrderByDescending(r => r.DateUpdated ?? r.DateAdded).AsNoTracking().ToList();
+            IEnumerable<DevSite> devSites = _context.DevSites.OrderByDescending(r => r.LastActivityDate).AsNoTracking().ToList();
+
+            return devSites;
         }
 
 
@@ -52,7 +56,7 @@ namespace DevSitesIndex.Services
 
         // 09/06/2019 06:50 pm - SSN - [20190906-0518] - [008] - Angular - edit div content - Revised to handle async and use with edit.cshtml
 
- 
+
 
         public async Task<DevSite> UpdateDevSiteAsync(DevSite devSite)
         {

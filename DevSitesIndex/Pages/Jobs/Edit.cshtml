@@ -11,6 +11,12 @@
 <div class="row">
     <div class="col-md-4">
         <form method="post">
+
+            @*// 09/08/2019 07:00 am - SSN - [20190908-0001] - [002] - Concurrency*@
+
+            <input asp-for="Job.RowVersion" type="hidden" />
+            <input type="hidden" asp-for="Job.JobID" />
+
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
 
@@ -19,19 +25,35 @@
 
                 @*<select asp-for="Job.ProjectID" class="form-control" asp-items="ViewBag.ProjectID"></select>*@
                 <select asp-for="Job.ProjectID" class="form-control" asp-items="Model.projectsSL" autofocus>
-                    <option>Please select...</option>
+                    <option></option>
                 </select>
 
                 <span asp-validation-for="Job.ProjectID" class="text-danger"></span>
             </div>
 
 
-            <input type="hidden" asp-for="Job.JobID" />
+            @*
+
+                // 09/18/2019 08:20 am - SSN - [20190918-0817] - [002] - Adding paging for angular lists
+
+            *@
+            <div class="form-group">
+                <label asp-for="Job.Job_StatusID" class="control-label"></label>
+
+                <select asp-for="Job.Job_StatusID" class="form-control" asp-items="Model.job_statusSL" autofocus>
+                    <option></option>
+                </select>
+
+                <span asp-validation-for="Job.Job_StatusID" class="text-danger"></span>
+            </div>
+
+
             <div class="form-group">
                 <label asp-for="Job.JobTitle" class="control-label"></label>
                 <input asp-for="Job.JobTitle" class="form-control" />
                 <span asp-validation-for="Job.JobTitle" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="Job.DateAdded" class="control-label"></label>
                 <input asp-for="Job.DateAdded" class="form-control" />

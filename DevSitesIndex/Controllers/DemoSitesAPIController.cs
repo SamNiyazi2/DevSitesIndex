@@ -26,13 +26,34 @@ namespace DevSitesIndex.Controllers
 
 
 
+        // 09/10/2019 01:03 am - SSN - [20190909-2136] - [003] -  But leave call to the original
+
+
         // GET: api/<controller>
+        [Route("/api/demositesapi")]
         [HttpGet]
         public IEnumerable<DevSite> Get()
         {
-            // System.Threading.Thread.Sleep(2000);
 
             IEnumerable<DevSite> devSites_1 = _devSitesIndexRepository.GetDevSites();
+            return devSites_1;
+        }
+
+
+
+
+        // 09/09/2019 10:30 pm - SSN - [20190909-2136] - [003] -  Limit record count
+
+        [Route("/api/demositesapi/top")]
+        [HttpGet]
+        public IEnumerable<DevSite> GetTop(int? recordCount)
+        {
+            // System.Threading.Thread.Sleep(2000);
+
+            IEnumerable<DevSite> devSites_1 = Get();
+
+            if (recordCount.HasValue)
+                devSites_1 = devSites_1.Take(recordCount.Value);
 
             return devSites_1;
 
@@ -58,7 +79,7 @@ namespace DevSitesIndex.Controllers
         public async Task<IEnumerable<DevSite>> SearchAsync([FromBody] SearchObj obj1)
         {
             var searchText = obj1?.SearchText ?? "";
-        
+
             IEnumerable<DevSite> devSites_1 = await _devSitesIndexRepository.GetDevSites(searchText);
 
             return devSites_1;
@@ -70,7 +91,7 @@ namespace DevSitesIndex.Controllers
         [HttpPost]
         public async void Post([FromBody]DevSite value)
         {
-           await _devSitesIndexRepository.UpdateDevSiteAsync(value);
+            await _devSitesIndexRepository.UpdateDevSiteAsync(value);
             _devSitesIndexRepository.Save();
 
         }

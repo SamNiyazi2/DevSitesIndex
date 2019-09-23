@@ -1,5 +1,6 @@
+"use strict";
 // 05/30/2019 07:23 pm - SSN - Created
-/// <reference path="../../../../node_modules/@types/angular/index.d.ts" />
+/// <reference path="../../../node_modules/@types/angular/index.d.ts" />
 var app = angular.module('timesheetApp', ['ui.bootstrap']);
 app.directive('typeaheadDiscipline', function () {
     var controller = function ($http, $q, $scope) {

@@ -12,6 +12,18 @@ namespace DevSitesIndex
 {
     public class Program
     {
+        // 09/20/2019 01:03 pm - SSN - Added babel_only
+
+        public enum whatJavaScriptVersion
+        {
+            Original= 1,
+            Webpack = 2,
+            Babel_Only = 3
+        }
+        
+        public static whatJavaScriptVersion RunWhatJavaScriptVersion { get; set; } = whatJavaScriptVersion.Webpack;
+
+
         public static void Main(string[] args)
         {
             BuildWebHost(args).Run();

@@ -5,8 +5,12 @@ body {
     padding-bottom: 20px;
 }
 
-h1, h2, h3, h4, h5 {
+h1 {
     padding: 24px 0 0 0;
+}
+
+h2, h3, h4, h5 {
+    padding: 18px 0 0 0;
 }
 
 
@@ -108,7 +112,6 @@ td, .siteDiv {
 
 .codeblock2 { /* Match maxWidthCol1 */
     height: 200px;
-
     /* 06/01/2019 02:58 pm - SSN Added white-space */
     white-space: pre-line;
 }
@@ -160,7 +163,7 @@ a[cmd-name="showsibling"] {
 
 /*// 03/29/2019 10:03 pm - SSN - Add div siteTitleDiv title to give space*/
 .siteTitleDiv {
-    padding: 5px 5px 20px 5px;
+    padding: 8px 8px 20px 8px;
 }
 
 
@@ -225,7 +228,7 @@ alarm {
 }
 
 .padded {
-    margin:10px 0px;
+    margin: 10px 0px;
     padding: 20px;
     background: rgba(255,255,255,0.5);
     /*-khtml-opacity: .50;
@@ -234,4 +237,47 @@ alarm {
     filter: alpha(opacity=50);
     filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0.5);
     opacity: .50;*/
+}
+/*09/11/2019 09:08 pm - SSN*/
+.indented {
+    padding: 0px 20px 20px 20px;
+    background: rgba(255,255,255,0.5);
+}
+
+.evenRow {
+    background-color: #eee;
+}
+
+.oddRow {
+    background-color: #ddd;
+}
+
+.truncateLongText_100 {
+    white-space: nowrap;
+    width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.truncateLongText_200 {
+    white-space: nowrap;
+    width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.job_status_open_1 {
+    background-color: aqua;
+}
+
+.job_status_Pending_2 {
+    background-color:khaki;
+}
+
+.job_status_Completed_3 {
+    background-color:burlywood;
+}
+
+.job_status_Cancelled_4 {
+    background-color:goldenrod;
 }

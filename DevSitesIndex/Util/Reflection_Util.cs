@@ -28,24 +28,41 @@ namespace DevSitesIndex.Util
         // OrderByPropertyOrField
         public static IQueryable<T> SourceSetOrder<T>(this IQueryable<T> queryable, string propertyOrFieldName_string, bool desc = false)
         {
-            string[] propertyOrFieldName = propertyOrFieldName_string.Split('.').ToArray();
 
-            var elementType = typeof(T);
-            var orderByMethodName = desc ? "OrderByDescending" : "OrderBy";
+            try
+            {
 
-            var parameterExpression = Expression.Parameter(elementType);
+                string[] propertyOrFieldName = propertyOrFieldName_string.Split('.').ToArray();
 
-            var propertyOrFieldExpression = Expression.Property(parameterExpression, propertyOrFieldName[0]);
-            for (int x = 1; x < propertyOrFieldName.Length; x++)
-                propertyOrFieldExpression = Expression.Property(propertyOrFieldExpression, propertyOrFieldName[x]);
+                var elementType = typeof(T);
+                var orderByMethodName = desc ? "OrderByDescending" : "OrderBy";
+
+                var parameterExpression = Expression.Parameter(elementType);
+
+                var propertyOrFieldExpression = Expression.Property(parameterExpression, propertyOrFieldName[0]);
+                for (int x = 1; x < propertyOrFieldName.Length; x++)
+                    propertyOrFieldExpression = Expression.Property(propertyOrFieldExpression, propertyOrFieldName[x]);
 
 
-            var selector = Expression.Lambda(propertyOrFieldExpression, parameterExpression);
+                var selector = Expression.Lambda(propertyOrFieldExpression, parameterExpression);
 
-            var orderByExpression = Expression.Call(typeof(Queryable), orderByMethodName,
-                                                    new[] { elementType, propertyOrFieldExpression.Type }, queryable.Expression, selector);
+                var orderByExpression = Expression.Call(typeof(Queryable), orderByMethodName,
+                                                        new[] { elementType, propertyOrFieldExpression.Type }, queryable.Expression, selector);
 
-            return queryable.Provider.CreateQuery<T>(orderByExpression);
+                return queryable.Provider.CreateQuery<T>(orderByExpression);
+
+            }
+            catch (Exception ex)
+            {
+
+                ILogger_SSN logger = (ILogger_SSN)GetMeSomeServiceLocator.Instance.GetService(typeof(ILogger_SSN));
+
+                logger.PostException(ex, "20190917-0531", "Failed call to SourceSetOrder");
+            }
+
+
+            return queryable;
+
         }
 
 

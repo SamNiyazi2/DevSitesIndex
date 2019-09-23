@@ -6,7 +6,7 @@
 }
 
 <h2>@ViewData["Title"] </h2>
- 
+
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -17,8 +17,10 @@
                 <label asp-for="Job.ProjectID" class="control-label"></label>
 
                 @*<select asp-for="Job.ProjectID" class="form-control" asp-items="ViewBag.ProjectID"></select>*@
+
+                @*09/14/2019 12:28 am - SSN - Remove "Please select" from option and leave blank. Added placeholder*@
                 <select asp-for="Job.ProjectID" class="form-control" asp-items="Model.projectsSL" autofocus>
-                    <option>Please select...</option>
+                    <option></option>
                 </select>
                 <span asp-validation-for="Job.ProjectID" class="text-danger"></span>
             </div>
@@ -26,9 +28,30 @@
 
             <div class="form-group">
                 <label asp-for="Job.JobTitle" class="control-label"></label>
-                <input asp-for="Job.JobTitle" class="form-control"  />
+                <input asp-for="Job.JobTitle" class="form-control" />
                 <span asp-validation-for="Job.JobTitle" class="text-danger"></span>
             </div>
+
+
+
+            @*
+
+        // 09/18/2019 09:22 am - SSN - [20190918-0817] - [006] - Adding paging for angular lists
+
+
+            *@
+            <div class="form-group">
+                <label asp-for="Job.Job_StatusID" class="control-label"></label>
+
+                <select asp-for="Job.Job_StatusID" class="form-control" asp-items="Model.job_statusSL" autofocus>
+                    <option></option>
+                </select>
+
+                <span asp-validation-for="Job.Job_StatusID" class="text-danger"></span>
+            </div>
+
+
+
             <div class="form-group">
                 <label asp-for="Job.DateAdded" class="control-label"></label>
                 <input asp-for="Job.DateAdded" class="form-control" />

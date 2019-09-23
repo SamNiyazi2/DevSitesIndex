@@ -68,10 +68,12 @@ $(function () {
 
                 success: function (response) {
 
-                    console.log('20190328-1722-010');
+                    console.log('20190328-1722-010-C');
+                    // 09/21/2019 12:13 pm - SSN - Update rowVersion
 
                     $("#devSiteSaveStatus").html("Record saved.");
                     $("#devSiteSaveStatus").addClass('text-success');
+                    $("#DevSite_RowVersion").val(response.rowVersion);
 
 
                     setTimeout(() => { $("#devSiteSaveStatus").fadeOut('slow') }, 3000);
@@ -82,7 +84,7 @@ $(function () {
 
                     $("#devSiteSaveStatus").html("Failed to save record.<br/>" + response.responseText);
                     $("#devSiteSaveStatus").addClass('text-warning');
-                    $("#devSiteSaveStatus").css({ 'background-color': 'yellow'});
+                    $("#devSiteSaveStatus").css({ 'background-color': 'yellow' });
 
                     console.log("Failure-20190328-0705");
                     console.log(response.responseText);
@@ -103,8 +105,8 @@ $(function () {
                         console.log("Error-20190328-0704");
                         console.log(response.responseText);
 
-                       // alert("Error-20190328-0704 - See log");
-                       // alert(response.responseText);
+                        // alert("Error-20190328-0704 - See log");
+                        // alert(response.responseText);
 
                     }
                 }

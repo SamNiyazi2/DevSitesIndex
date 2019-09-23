@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DevSitesIndex.Entities;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Configuration;
 
 // 04/08/2019 12:43 am - SSN - [20190407-2345] - TimeLog 
 
@@ -17,17 +18,40 @@ namespace DevSitesIndex.Pages.TimeLogs
     // 08/12/2019 12:21 pm - SSN - [20190812-0945] - [014] - Add identity
     // Add Authorize    public class CreateModel : PageModel
     [Authorize]
+    [ValidateAntiForgeryToken]
     public class EditModel : PageModel
     {
         private readonly DevSitesIndex.Entities.DevSitesIndexContext _context;
+        private readonly IConfiguration _configuration;
 
-        public EditModel(DevSitesIndex.Entities.DevSitesIndexContext context)
+
+
+
+
+
+        // 09/13/2019 06:22 am - SSN - [20190913-0548] - [007] - Crate generic dropdown list directive - IConfiguration configuration
+
+        public EditModel(DevSitesIndex.Entities.DevSitesIndexContext context, IConfiguration configuration)
         {
+            _configuration = configuration;
             _context = context;
+
+
+            // 09/13/2019 06:22 am - SSN - [20190913-0548] - [007] - Crate generic dropdown list directive
+
+            bool _Timesheet_Dropdown_20190913_0624 = false;
+            bool.TryParse(configuration["Timesheet_Dropdown_20190913_0624"], out _Timesheet_Dropdown_20190913_0624);
+            Timesheet_Dropdown_20190913_0624 = _Timesheet_Dropdown_20190913_0624;
+
+
         }
 
         [BindProperty]
         public TimeLog TimeLog { get; set; }
+
+        // 09/13/2019 06:21 am - SSN - [20190913-0548] - [006] - Crate generic dropdown list directive
+        public bool Timesheet_Dropdown_20190913_0624 { get; set; }
+
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -36,8 +60,10 @@ namespace DevSitesIndex.Pages.TimeLogs
                 return NotFound();
             }
 
+            // 09/21/2019 11:08 am - SSN - Added include job and project to display titles on form.
             TimeLog = await _context.TimeLog
                 .Include(t => t.discipline)
+                .Include(t => t.job).ThenInclude(j => j.project)
                 .Include(t => t.job).SingleOrDefaultAsync(m => m.TimeLogId == id);
 
             if (TimeLog == null)
@@ -58,7 +84,8 @@ namespace DevSitesIndex.Pages.TimeLogs
             ViewData["DisciplineID"] = new SelectList(_context.Disciplines.OrderBy(r => r.DisciplineShort), "DisciplineId", "DisciplineShort");
             // 04/08/2019 12:43 am - SSN - [20190407-2345] - TimeLog 
             // ViewData["JobId"] = new SelectList(_context.Job, "JobID", "JobID");
-            ViewData["JobId"] = new SelectList(_context.Jobs.OrderBy(r => r.JobTitle), "JobID", "JobTitle");
+            // 09/13/2019
+            ViewData["JobId"] = new SelectList(_context.Jobs.Where(r => r.ProjectID == TimeLog.job.ProjectID).OrderBy(r => r.JobTitle), "JobID", "JobTitle");
         }
 
 

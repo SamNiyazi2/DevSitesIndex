@@ -3,6 +3,11 @@
 
 @{
     ViewData["Title"] = "Jobs - Index";
+
+
+    // 09/16/2019 11:08 pm - SSN - [20190916-1123] - [013] - Adding job status
+
+
 }
 
 <h2>@ViewData["Title"]</h2>
@@ -15,78 +20,154 @@
     <p>
         <a asp-page="Create">Create New</a>
     </p>
-    <div ng-controller="timesheetController">
 
-        <table class="table table-responsive">
-            <thead>
-                <tr>
 
-                    @*// 08/29/2019 12:53 pm - SSN - [20190829-1253] - [001] - Adding paging and sorting to jobs index*@
-                    @{await Html.RenderPartialAsync("HeaderWithSortLinks", Model.pageUtil.headerWithSortLinks);}
+    <div ng-controller="jobsIndexController">
 
-                    <th></th>
+
+        <div ng-controller="utilityController">
+            <span job-status-option ng-repeat="job_status in job_statuses"
+                  entry="job_status"
+                  checkedfunction="job_status_changed101(job_status)"
+                  jobstatusesselected102="job_statuses_selected"></span>
+        </div>
+
+        <div>
+            <button ng-click="job_statuses_checkAll(1)">Check all</button>
+            <button ng-click="job_statuses_checkAll(0)">Uncheck all</button>
+        </div>
+
+        <table class="table table-responsive" height="300">
+
+            <thead ng-controller="utilityController">
+                <tr ng-show="databag.jobs.length>0">
+                    <th header-with-sort columnlist="item" sortmethod="$parent.$parent.sortMethod101(item)" ng-repeat="item in fieldsList"></th>
                 </tr>
             </thead>
+
+
             <tbody>
-                @foreach (var item in Model.Job)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ProjectTitle_ForActivity)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.JobTitle)
-                        </td>
 
-                        <td class="indexNowrapCol hidden-xs">
-                            @Html.DisplayFor(modelItem => item.DateAdded)
-                        </td>
-
-                        <td class="indexNowrapCol hidden-xs">
-                            @item.DateUpdated
-                            <br>
-                            <b>
-                                @item.LastActivityDate
-
-                            </b>
-                        </td>
-
-                        <td class="indexNowrapCol hidden-xs">
-                            @item.ActivityAge_ToString
-                        </td>
+                <tr ng-repeat="job in databag.jobs">
 
 
-                        <td class="indexNowrapCol">
-                            <a asp-page="./Edit" asp-route-id="@item.JobID">Edit</a>
-                            ||
-                            <strong>
+                    <td class="truncateLongText_100">
+                        {{job.projectTitle_ForActivity}}
+                    </td>
+                    <td>
+                        <div job-status-display job-status="job.job_StatusID" class="truncateLongText_200">{{job.jobTitle}}</div>
+                    </td>
 
-                                <a asp-page="./Details" asp-route-id="@item.JobID">Job's Details</a> 
-                                |
-                                <a asp-page="/projects/Details" asp-route-id="@item.ProjectID">Project's Details</a>
+                    <td class="indexNowrapCol hidden-xs">
+                        {{job.dateAdded}}
+                    </td>
 
-                            </strong>
-                            ||
-                            <a asp-page="./Delete" asp-route-id="@item.JobID">Delete</a> |
+                    <td class="indexNowrapCol hidden-xs">
+                        {{job.dateUpdated}}
+                        <br>
+                        <b>
+                            {{job.lastActivityDate}}
 
-                            <a ng-click="showCreateTimesheetForm(@item.JobID)">Clock-in</a>
+                        </b>
+                    </td>
 
-                        </td>
-                    </tr>
-                }
+                    <td class="indexNowrapCol hidden-xs">
+                        {{job.activityAge_ToString}}
+                    </td>
+
+
+
+
+
+                    <td class="indexNowrapCol">
+                        <a href="/jobs/Edit?id={{job.jobID}}">Edit</a>
+                        ||
+                        <strong>
+
+                            <a href="/jobs/Details?id={{job.jobID}}">Job's Details</a>
+                            |
+                            <a href="/projects/Details?id={{job.projectID}}">Project's Details</a>
+
+                        </strong>
+                        ||
+                        <a href="/jobs/Delete?id={{job.jobID}}">Delete</a> |
+
+                        <a ng-click="showCreateTimesheetForm(job.jobID)">Clock-in</a>
+
+                    </td>
+
+
             </tbody>
         </table>
 
-        @*// 08/29/2019 01:36 pm - SSN - [20190829-1253] - [006] - Adding paging and sorting to jobs index*@
-        @{await Html.RenderPartialAsync("TablePager", Model.pageUtil.tablePager);}
+        <div ng-controller="utilityController">
+            <div ng-if="sqlStatsRecord" paging-directive pagingmethod="$parent.pagingmethod101(sqlStatsRecord)" databag="databag" sqlstatsrecord="sqlStatsRecord"></div>
+        </div>
+
 
     </div>
+
 
 </div>
 
 
 
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("TimesheetAngularScripts");}
+
+
+
+
+    @*
+
+        // 09/2019/2019 11:45 am - SSN - [20190920-1145] [001} - RunWhatJavaScriptVersion  left out
+
+    *@
+
+
+    @{
+
+
+
+        if (Program.RunWhatJavaScriptVersion == Program.whatJavaScriptVersion.Original)
+        {
+            await Html.RenderPartialAsync("TimesheetAngularScripts");
+
+            <script type="module" src="~/js/Jobs/JobsIndexController.js" asp-append-version="true"></script>
+            <script type="module" src="~/js/Util/headerWithSort.js" asp-append-version="true"></script>
+            <script type="module" src="~/js/Util/pagingDirective.js" asp-append-version="true"></script>
+
+        }
+
+
+
+        if (Program.RunWhatJavaScriptVersion == Program.whatJavaScriptVersion.Babel_Only)
+        {
+            await Html.RenderPartialAsync("TimesheetAngularScripts");
+
+            <script type="module" src="~/babel_lib/Jobs/JobsIndexController.js" asp-append-version="true"></script>
+            <script type="module" src="~/babel_lib/Util/headerWithSort.js" asp-append-version="true"></script>
+            <script type="module" src="~/babel_lib/Util/pagingDirective.js" asp-append-version="true"></script>
+
+        }
+
+
+
+
+        if (Program.RunWhatJavaScriptVersion == Program.whatJavaScriptVersion.Webpack)
+        {
+
+            <script src="~/webpack_build/bundle_jobsIndex.js" asp-append-version="true"></script>
+        }
+
+
+
+
+
+
+    }
+
 }
+
+
+
+

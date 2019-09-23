@@ -96,8 +96,7 @@ namespace DevSitesIndex.Pages.DevSites
             try
             {
 
-
-                sortOrder = sortOrder ?? "DateAdded";
+                sortOrder = sortOrder ?? "LastActivityDate";
                 desc = desc ?? "true";
 
                 SearchText = searchText;
@@ -145,7 +144,7 @@ namespace DevSitesIndex.Pages.DevSites
                 }
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 ModelState.AddModelError("SearchText", "Invalid syntax (SQL Server fulltext)");
             }
@@ -164,7 +163,7 @@ namespace DevSitesIndex.Pages.DevSites
             pageUtil.AddColumns("SiteTitle");
             pageUtil.AddColumns("SoftwareCode.SoftwareTitle");
             pageUtil.AddColumns("DateAdded");
-            pageUtil.AddColumns("DateUpdated");
+            pageUtil.AddColumns("LastActivityDate");
 
 
         }

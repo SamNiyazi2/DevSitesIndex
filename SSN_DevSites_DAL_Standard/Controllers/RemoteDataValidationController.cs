@@ -24,7 +24,7 @@ namespace DevSitesIndex.Controllers
 
         // 09/04/2018 09:00 am - SSN - Added remote validation 
         // 09/07/2019 05:11 am - SSN - [20190907-0018] - [008] - Entity Framework concurrency check
-// Result of moving DAL objects out.
+        // Result of moving DAL objects out.
         public JsonResult DoesReferenceSites_SiteUrlExist([Bind(Prefix = "ReferenceSite.SiteUrl")] string siteUrl, [Bind(Prefix = "ReferenceSite.Id")] int Id)
         {
             ReferenceSite r = _context.ReferenceSites.Where(e => e.SiteURL == siteUrl && e.Id != Id).FirstOrDefault();
@@ -61,6 +61,32 @@ namespace DevSitesIndex.Controllers
 
         }
 
+        // 09/13/2019 05:17 am - SSN - [20190913-0517] - [001] - Job title duplicate check
+
+        public JsonResult Job_duplicate_Check([Bind(Prefix = "Job.JobTitle")] string jobTitle, [Bind(Prefix = "Job.JobID")] int JobID)
+        {
+            Job r = _context.Jobs.Where(e => e.JobTitle== jobTitle && e.JobID != JobID).FirstOrDefault();
+            if (r != null)
+            {
+                return Json(data: $"Job title is already on <a href='/jobs/Details?id={r.JobID}' target='jobewin{r.JobID}' >file</a>.");
+            }
+            return Json(data: true);
+
+        }
+
+
+
+        // 09/13/2019 11:38 pm - SSN - Added
+        public JsonResult CompanyName_IsDuplicate([Bind(Prefix = "Company.CompanyName")] string companyName)
+        {
+            Company r = _context.Companies.Where(e => e.CompanyName == companyName).FirstOrDefault();
+            if (r != null)
+            {
+                return Json(data: $"Company name is already on <a href='/Companies/Details?id={r.CompanyID }' target='companyWin{r.CompanyID}' >file</a>.");
+            }
+            return Json(data: true);
+
+        }
 
     }
 }

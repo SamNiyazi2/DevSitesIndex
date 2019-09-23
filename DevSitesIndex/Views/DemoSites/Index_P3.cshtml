@@ -31,7 +31,7 @@
 
             <div class="modal-header">
                 <h2>
-                    <span class="modal-title">Delete Confirmation</span>
+                    <span class="modal-title">Delete Confirmation (P3)</span>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X </button>
                 </h2>
             </div>
@@ -89,7 +89,10 @@
                                             {
 
                                                 <pre class="solution_details">
-                                                    @x.Solution_Details
+
+                                            @*// 09/10/2019 10:13 am - SSN - [20190910-0147] - [011] - WARNING: Tried to load angular more than once. - Replaced Solution_Details_PRE_Encoded*@
+
+                                                    @x.Solution_Details_PRE_Encoded
                                                 </pre>
 
                                             }
@@ -129,12 +132,12 @@
 
 <h3>Angular (2) - Begin</h3>
 
-<div data-ng-controller="demoSiteIndexController">
+<div data-ng-controller="demoSiteIndexController_101">
 
     <div class="progress progress-striped active" data-ng-show="isBusy2">
         <div class="progress-bar" style="width: 100%;"></div>
     </div>
-    <div data-ng-repeat="i in data.devSites">
+    <div data-ng-repeat="i in data.devSites()">
 
 
 
@@ -204,7 +207,9 @@
                 <span class="siteTitle" data-bind="text: siteTitle"></span>
                 <!-- /ko -->
                 <!-- ko if: $data.solution_Details -->
-                <div class="solution_details" data-bind="html:solution_Details">
+                @*// 09/10/2019 10:11 am - SSN - [20190910-0147] - [010] - WARNING: Tried to load angular more than once. - Replaced solution_Details_PRE_Encoded *@
+
+                <div class="solution_details" data-bind="html:solution_Details_PRE_Encoded">
                 </div>
                 <!-- /ko -->
 
@@ -232,13 +237,31 @@
 
 
 
-    <script src="~/js/DemoSites.js" asp-append-version="true"></script>
 
-    @*08/31/2018 08:51 am - SSN*@
-    <script src="~/js/demoSites_Index.js" asp-append-version="true"></script>
+    @{
 
-    @*09/01/2018 01:38 pm - SSN -*@
-    <script src="~/js/dataservices.js" asp-append-version="true"></script>
+        // 09/21/2019 09:34 am - SSN - [20190921-0357] - [014] - Creating multiple entry for Webpack
+
+        if (Program.RunWhatJavaScriptVersion == Program.whatJavaScriptVersion.Original)
+        {
+            <script type="module" src="~/js/DemoSites.js" asp-append-version="true"></script>
+
+            @*08/31/2018 08:51 am - SSN*@
+            <script type="module" src="~/js/demoSites_Index.js" asp-append-version="true"></script>
+
+
+            @await Html.PartialAsync("DataServices_Scripts")
+        }
+
+
+
+        if (Program.RunWhatJavaScriptVersion == Program.whatJavaScriptVersion.Webpack)
+        {
+
+            <script src="~/webpack_build/bundle_DevSitesIndex.js" asp-append-version="true"></script>
+        }
+
+    }
 
 
 
@@ -262,6 +285,8 @@
             this.devSitesJSON = ko.observableArray(@Html.Raw(Model.devSitesJSON));
 
             this.requestDelConfirm = function (itemToDelete) {
+
+                console.log("index_p3 - 20190921-0947-3");
 
                 vm.currentItem = itemToDelete;
                 $('#del-confirm').modal({ backdrop: 'static', keyboard: false });

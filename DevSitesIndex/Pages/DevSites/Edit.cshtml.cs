@@ -22,16 +22,17 @@ namespace DevSitesIndex.Pages.DevSites
 
         // 09/06/2019 06:47 pm - SSN - [20190906-0518] - [007] - Angular - edit div content - Adding _devSitesIndexRepository
         private readonly IDevSitesIndexRepository _devSitesIndexRepository;
+        private readonly Util.ILogger_SSN _logger;
 
-
-        public EditModel(DevSitesIndex.Entities.DevSitesIndexContext context, IDevSitesIndexRepository devSitesIndexRepository)
+        public EditModel(DevSitesIndex.Entities.DevSitesIndexContext context, IDevSitesIndexRepository devSitesIndexRepository, Util.ILogger_SSN logger)
         {
             _context = context;
             _devSitesIndexRepository = devSitesIndexRepository;
+            _logger = logger;
         }
 
 
-        
+
         [BindProperty]
         public DevSite DevSite { get; set; }
 
@@ -57,6 +58,7 @@ namespace DevSitesIndex.Pages.DevSites
 
         public async Task<IActionResult> OnPostAsync()
         {
+
             if (!ModelState.IsValid)
             {
                 return Page();
@@ -96,8 +98,10 @@ namespace DevSitesIndex.Pages.DevSites
 
                     await _context.SaveChangesAsync();
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (DbUpdateConcurrencyException ex)
                 {
+                    string message = ex.Message;
+
                     if (!DevSiteExists(_context, DevSite.Id))
                     {
                         ////////////////////////////////////////////////////////////////////// return NotFound();
@@ -109,6 +113,13 @@ namespace DevSitesIndex.Pages.DevSites
                         throw;
                     }
                 }
+                catch (Exception ex2)
+                {
+
+                    string message = ex2.Message;
+
+                }
+
             }
 
 

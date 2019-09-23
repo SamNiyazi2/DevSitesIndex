@@ -1,6 +1,6 @@
 ﻿// 09/07/2019 01:51 am - SSN - [20190907-0018] - [006] - Entity Framework concurrency check
 // using Microsoft.AspNetCore.Mvc;
-// todo - clean up
+ 
 
 using System;
 using System.Collections.Generic;
@@ -18,6 +18,9 @@ namespace DevSitesIndex.Entities
     public class DevSite
     {
 
+        SSN_GenUtil_StandardLib.RegularExpression_Utility RE_Util = new SSN_GenUtil_StandardLib.RegularExpression_Utility();
+
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
@@ -33,8 +36,18 @@ namespace DevSitesIndex.Entities
         [DisplayName("Solution Name")]
         public string SolutionName { get; set; }
 
+
+
+
+
         [DisplayName("Detail")]
         public string Solution_Details { get; set; }
+        
+        // 09/10/2019 09:57 am - SSN 
+        [NotMapped]
+        public string Solution_Details_PRE_Encoded => RE_Util.EncodeContentOfPreTag(Solution_Details);
+            
+
 
         [Required]
         [DisplayName("Project Software")]
@@ -68,9 +81,9 @@ namespace DevSitesIndex.Entities
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy hh:mm tt}")]
         public DateTime? DateUpdated { get; set; }
 
-     
-        
-        
+
+
+
         // 03/19/2019 09:17 pm - SSN - [20190319-2117] Added ForDemo
         // 03/19/2019 09:59 pm - SSN - [20190319-2117] ForDemo to ForDemo_v02
         [DisplayName("For Demo")]
@@ -79,9 +92,9 @@ namespace DevSitesIndex.Entities
         // 09/07/2019 01:51 am - SSN - [20190907-0018] - [006] - Entity Framework concurrency check
         // Temp out
         // [Remote(action: "isForDemo_v02_SelectionValid", controller: "RemoteDataValidation", HttpMethod = "POST")]
-        
-            
-            // 05/18/2019 04L38 pm - SSN - Added
+
+
+        // 05/18/2019 04L38 pm - SSN - Added
         [Range(1, 3, ErrorMessage = "Select an option please. (DemoSite-20190518-1638)")]
         public byte ForDemo_v02 { get; set; }
 
@@ -93,9 +106,8 @@ namespace DevSitesIndex.Entities
         {
             get
             {
-                //return Math.Round(DateTime.Now.Subtract((DateUpdated ?? DateAdded)).TotalHours);
 
-                DateTime selectedDate = DateOfLastActivity;
+                DateTime selectedDate = LastActivityDate;
 
                 TimeSpan age_timespan = DateTime.Now.Subtract(selectedDate);
 
@@ -119,23 +131,28 @@ namespace DevSitesIndex.Entities
         public string dateOfLastActivity_ToString
         {
             get
-            { 
-                return DateOfLastActivity.ToLongDateString() + " " + DateOfLastActivity.ToShortTimeString();
-            }
-        }
-
-        [NotMapped]
-        public DateTime DateOfLastActivity
-        {
-            get
             {
-                return DateUpdated ?? DateAdded;
+                return LastActivityDate.ToLongDateString() + " " + LastActivityDate.ToShortTimeString();
             }
         }
 
+ 
+        // 09/08/2019 09:29 pm - SSN - [20190908-2129] - [001] - Concurrency - DevSite
+        [Timestamp]
+        public byte[] RowVersion { get; set; }
 
-    // 05/30/2019 05:06 pm - SSN - [20190530-0510]
+
+        // 09/09/2019 12:33 am - SSN - [20190908-2129] - [004] - Concurrency - DevSite
+        // Added - Replaced an unmapped property DateOfLastActivity
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        [DisplayName("Last activity")]
+        public DateTime LastActivityDate { get; private set; }
+
+
+
+        // 05/30/2019 05:06 pm - SSN - [20190530-0510]
         public virtual ICollection<DevSiteCodeReference> DevSiteCodeReferences { get; set; }
+
 
     }
 

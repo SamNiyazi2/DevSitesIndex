@@ -10,6 +10,26 @@
 <div>
     <hr />
     <dl class="dl-horizontal">
+
+        @*// 09/21/2019 11:08 am - SSN - Added include job and project to display titles on form.*@
+        <dt>
+            @Html.DisplayNameFor(model => model.TimeLog.job.project)
+        </dt>
+        <dd>
+            <a asp-page="/projects/Details" asp-route-id="@Model.TimeLog.job.ProjectID">
+                @Html.DisplayFor(model => model.TimeLog.job.project.ProjectTitle)
+            </a>
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TimeLog.job.JobTitle)
+        </dt>
+        <dd>
+            <a asp-page="/jobs/Details" asp-route-id="@Model.TimeLog.JobId">
+                @Html.DisplayFor(model => model.TimeLog.job.JobTitle)
+            </a>
+        </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.TimeLog.StartTime)
         </dt>

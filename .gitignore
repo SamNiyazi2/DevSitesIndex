@@ -260,8 +260,8 @@ paket-files/
 __pycache__/
 *.pyc
 /DevSitesIndex/wwwroot/js/angular-ui
-
 /DevSitesIndex/Migrations_Hold_20190419a
+/DevSitesIndex/ConfirmationLink_*.txt
+/DevSitesIndex*.zip
+ 
 
-/DevSitesIndex/ConfirmationLink_20190825a.txt
-/DevSitesIndex_201909220212.zip

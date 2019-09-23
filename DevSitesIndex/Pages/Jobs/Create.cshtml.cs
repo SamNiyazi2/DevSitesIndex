@@ -23,6 +23,10 @@ namespace DevSitesIndex.Pages.Jobs
         public SelectList projectsSL { get; set; }
 
 
+        // 09/18/2019 09:20 am - SSN - [20190918-0817] - [004] - Adding paging for angular lists
+        public SelectList job_statusSL { get; set; }
+
+
         public CreateModel(DevSitesIndex.Entities.DevSitesIndexContext context)
         {
             _context = context;
@@ -50,6 +54,9 @@ namespace DevSitesIndex.Pages.Jobs
         private void setupPageRequirements()
         {
             projectsSL = new SelectList(_context.Projects.OrderBy(r => r.ProjectTitle), "ProjectID", "ProjectTitle");
+
+            // 09/18/2019 09:21 am - SSN - [20190918-0817] - [005] - Adding paging for angular lists
+            job_statusSL = new SelectList(_context.Job_Statuses, "ID", "Status");
         }
 
 

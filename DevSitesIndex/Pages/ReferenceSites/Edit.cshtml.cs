@@ -10,28 +10,9 @@ using DevSitesIndex.Entities;
 using Microsoft.AspNetCore.Authorization;
 using System.ComponentModel.DataAnnotations;
 
-// todo clean up
-//namespace DevSitesIndex.Entities
-//{
-//    [ModelMetadataType(typeof(ReferenceSiteMetaData))]
-//    public partial class ReferenceSite  
-//    {
 
-//    }
-//    public class ReferenceSiteMetaData
-//    {
-//        [Remote(action: "DoesReferenceSites_SiteTitleExist", controller: "RemoteDataValidation", AdditionalFields = "Id", HttpMethod = "POST")]
-//        public string SiteTitle { get; set; }
-//        [Remote(action: "DoesReferenceSites_SiteUrlExist", controller: "RemoteDataValidation", AdditionalFields = "Id", HttpMethod = "POST")]
-//        public string SiteURL { get; set; }
-
-
-//    }
-//}
 namespace DevSitesIndex.Pages.ReferenceSites
 {
-
-   
 
 
 
@@ -50,7 +31,7 @@ namespace DevSitesIndex.Pages.ReferenceSites
         [BindProperty]
         public ReferenceSite ReferenceSite { get; set; }
 
- 
+
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -58,7 +39,7 @@ namespace DevSitesIndex.Pages.ReferenceSites
             {
                 return NotFound();
             }
-          
+
             ReferenceSite = await _context.ReferenceSites.SingleOrDefaultAsync(m => m.Id == id);
 
             if (ReferenceSite == null)
@@ -77,7 +58,7 @@ namespace DevSitesIndex.Pages.ReferenceSites
 
             _context.Attach(ReferenceSite).State = EntityState.Modified;
 
-            if ( ReferenceSite.DateAdded.Date != DateTime.Today && ReferenceSite.DateAdded.Date < new DateTime(2018,8,1))
+            if (ReferenceSite.DateAdded.Date != DateTime.Today && ReferenceSite.DateAdded.Date < new DateTime(2018, 8, 1))
             {
                 DateTime d = ReferenceSite.DateAdded;
                 ReferenceSite.DateAdded = new DateTime(d.Year, d.Month, d.Day);
@@ -87,7 +68,7 @@ namespace DevSitesIndex.Pages.ReferenceSites
             {
                 await _context.SaveChangesAsync();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (DbUpdateConcurrencyException ex)
             {
                 if (!ReferenceSiteExists(ReferenceSite.Id))
                 {
@@ -95,16 +76,18 @@ namespace DevSitesIndex.Pages.ReferenceSites
                 }
                 else
                 {
+                    await Util.ExceptionHandler_SSN.writeExcelptionToConsole(ex);
                     throw;
                 }
-            }catch ( Exception ex )
+            }
+            catch (Exception ex)
             {
                 string message = ex.Message;
 
-                if (!Util.ExceptionHandler_SSN.HandleException(ex))
-                {
-                    return Page();
-                }
+                await Util.ExceptionHandler_SSN.writeExcelptionToConsole(ex);
+
+                return Page();
+
 
             }
 

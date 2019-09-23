@@ -1,24 +1,104 @@
 {
   "compilerOptions": {
+
+     
+    "moduleResolution": "classic",
+
+
+
+    // 09/19/2019 04:07 am - SSN - [20190919-0354] - [003] - Putting things back - Cleanup from implementing AMD - Adding tsconfig.json     "alwaysStrict": true,
+
+
+
+    // 09/19/2019 06:30 am - SSN - [20190919-0354] - [016] - Putting things back - Cleanup from implementing AMD - Adding tsconfig.json     "alwaysStrict": true,
+
+    //  "https": null, //blog.rendall.dev/posts/2019/1/14/problem-typescript-adds-objectdefinepropertyexports-esmodule-value-true/
+
+
+    //    "module": "umd",
+    "module": "es2015",
+
+
+
+
+
     "noImplicitAny": false,
     "noEmitOnError": true,
     "removeComments": false,
     "sourceMap": true,
+
+    //"target": "es2016",
     "target": "es5",
+
+
+    // 09/18/2019 09:51 am - SSN - https://www.logicbig.com/tutorials/misc/typescript/ts-config-json.html
+    // "strict": true,
+    // "noImplicitAny": true,                 /* Raise error on expressions and declarations with an implied 'any' type. */
+    // "strictNullChecks": true,              /* Enable strict null checks. */
+    // "strictFunctionTypes": true,           /* Enable strict checking of function types. */
+    // "strictBindCallApply": true,           /* Enable strict 'bind', 'call', and 'apply' methods on functions. */
+    // "strictPropertyInitialization": true,  /* Enable strict checking of property initialization in classes. */
+    // "noImplicitThis": true,                /* Raise error on 'this' expressions with an implied 'any' type. */
+
+    // 09/19/2019 06:25 am - SSN - [20190919-0354] - [015] - Putting things back - Cleanup from implementing AMD - Adding tsconfig.json     "alwaysStrict": true,
+    "alwaysStrict": true,
+
 
     "typeRoots": [ "./node_modules/@types" ]
 
   },
   "compileOnSave": true,
   "files": [
+    "wwwroot/js/DataServices.ts",
+    "wwwroot/js/DemoSites.ts",
+    "wwwroot/js/demoSites_Index.ts",
+    "wwwroot/js/DemoSites_index_p1.ts",
+    "wwwroot/js/globals.ts",
+    "wwwroot/js/IAngularApp.ts",
+    "wwwroot/js/IColumnBag.ts",
     "wwwroot/js/site.ts",
-    "wwwroot/js/Timesheet/TimesheetApp.ts",
     "wwwroot/js/CodeReference/Typeahead_Discipline.ts",
-    "wwwroot/js/DemoSites_index_p1.ts"
+    "wwwroot/js/DropdownList/DropdownListDirective.ts",
+    "wwwroot/js/Jobs/JobsIndexController.ts",
+    "wwwroot/js/Jobs/JobStatusDirective.ts",
+    "wwwroot/js/Timesheet/TimesheetApp.ts",
+    "wwwroot/js/Timesheet/Timesheet_main.ts",
+    "wwwroot/js/Timesheet/timesheetclockoutcontroller.ts",
+    "wwwroot/js/Timesheet/timesheetcontinuecontroller.ts",
+    "wwwroot/js/Timesheet/TimesheetController.ts",
+    "wwwroot/js/Util/HeaderWithSort.ts",
+    "wwwroot/js/Util/pagingDirective.ts"
+
   ],
 
   "exclude": [
-    "node_modules",
-    "wwwroot"
-  ]
+    "node_modules"
+  ],
+
+  // 09/19/2019 04:08 am - SSN - [20190919-0354] - [004] - Putting things back - Cleanup from implementing AMD - Adding tsconfig.json     "alwaysStrict": true,
+  // "https": null, //stackoverflow.com/questions/43042889/typescript-referenceerror-exports-is-not-defined
+
+  //"lib": [
+  //  "es2016",
+  //  "dom",
+  //  "es5"
+  //]
+
+  // 09/19/2019 05:59 am - SSN - [20190919-0354] - [014] - Putting things back - Cleanup from implementing AMD - Adding tsconfig.json     "alwaysStrict": true,
+
+  // "https": null, //www.meziantou.net/which-version-of-ecmascript-should-i-use-in-the-typescript-configuration.htm
+
+  //"lib": [
+  //  "ES5",
+  //  "ES2015.Promise",
+  //  "ES2016.Array.Include"
+  //],
+
+
+  // 09/19/2019 06:30 am - SSN - [20190919-0354] - [016] - Putting things back - Cleanup from implementing AMD - Adding tsconfig.json     "alwaysStrict": true,
+
+  //  "https": null, //blog.rendall.dev/posts/2019/1/14/problem-typescript-adds-objectdefinepropertyexports-esmodule-value-true/
+
+  "lib": [ "dom", "es5", "es6" ]
+
 }

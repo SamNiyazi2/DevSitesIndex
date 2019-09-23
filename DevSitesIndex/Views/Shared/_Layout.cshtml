@@ -1,7 +1,12 @@
 ﻿@inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
 <!DOCTYPE html>
+
 @*<html data-ng-app="@ViewBag.InitModule">*@
-<html @Html.Raw(ViewBag.InitModule_Full)>
+@*// 09/10/2019 02:37 am - SSN - [20190910-0147] - [003] - WARNING: Tried to load angular more than once.*@
+@*<html @Html.Raw(ViewBag.InitModule_Full)>*@
+<html>
+
+
 
 <head>
     <meta charset="utf-8" />
@@ -45,209 +50,85 @@
 
     @Html.Raw(JavaScriptSnippet.FullScript)
 </head>
+
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">@Startup.SITE_NAME_STRING</a>
+
+
+    @*// 09/10/2019 02:37 am - SSN - [20190910-0147] - [003] - WARNING: Tried to load angular more than once.*@
+
+
+    <div @Html.Raw(ViewBag.InitModule_Full)>
+
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">@Startup.SITE_NAME_STRING</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                        <li><a asp-area="" asp-controller="DemoSites" asp-action="Index">Sites</a></li>
+
+
+
+                        <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
+                        <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+
+                        <li class="dropdown-submenu">
+
+                            <a class="dropdown-toggle" data-toggle="dropdown">Jobs  <span class="caret"></span></a>
+
+                            <ul class="dropdown-menu">
+
+                                @await Html.PartialAsync("menuoptions")
+                            </ul>
+
+                        </li>
+                    </ul>
+
+
+                    @*
+                        // 08/12/2019 12:03 pm - SSN - [20190812-0945] - [012] - Add identity
+
+                    *@
+                    <partial name="_LoginPartial" />
+
+
+                </div>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="DemoSites" asp-action="Index">Sites</a></li>
+        </nav>
+        <div class="container body-content">
 
 
 
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+            @RenderBody()
+            <hr />
 
-                    <li class="dropdown-submenu">
-
-                        <a class="dropdown-toggle" data-toggle="dropdown">Jobs  <span class="caret"></span></a>
-
-                        <ul class="dropdown-menu">
-
-                            @await Html.PartialAsync("menuoptions")
-                        </ul>
-
-                    </li>
-                </ul>
-
-
-                @*
-                    // 08/12/2019 12:03 pm - SSN - [20190812-0945] - [012] - Add identity
-
-                *@
-                <partial name="_LoginPartial" />
-
-
-            </div>
         </div>
-    </nav>
-    <div class="container body-content">
-
-
-
-        @RenderBody()
-        <hr />
-
+        <footer style="padding:20px;">
+            <hr />
+            @DevSitesIndex.Util.Odds.showCopyright()
+        </footer>
     </div>
-    <footer style="padding:20px;">
-        <hr />
-        @DevSitesIndex.Util.Odds.showCopyright()
-    </footer>
 
 
-    <environment include="Development,Production">
-
-        <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-
-    </environment>
-
-
-    @*<environment exclude="Development">
-            <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
-                    asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                    asp-fallback-test="window.jQuery"
-                    crossorigin="anonymous"
-                    integrity="sha384-K+ctZQ+LL8q6tP7I94W+qzQsfRV2a+AfHIi9k8z8l9ggpc8X+Ytst4yBo/hH+8Fk">
-            </script>
-            <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
-                    asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
-                    asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
-                    crossorigin="anonymous"
-                    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
-            </script>
-
-
-        </environment>
+    @*
+                // 09/19/2019 01:25 am - SSN - [20190919-0114] - [002] - Adding requirejs - Clean up scripts between views and pages
+        Using ong file for views and pages
     *@
 
-
-
-
-    @{
-
-        // 04/16/2019 07:13 pm - SSN - Need to use AngularJS v1.0.7 to older development
-
-        string currentUtil = Context.Request.Path.ToString().ToLower();
-
-        // 04/16/2019 07:37 pm - SSN - [20190416-1937] - Corrrection angular version for P2 and P3
-
-        int angular_section_to_user = 2;
-
-        // 05/31/2019 03:16 pm - SSN - Revise logic to accomodate errors with database
-
-        if (currentUtil.ToLower().Contains("demosites/index"))
-        {
-
-
-            string selectedPage = "";
-
-            DemoSitesViewModel currentModel = Model as DemoSitesViewModel;
-            if (currentModel != null)
-            {
-                selectedPage = currentModel.selectedPage.ToLower();
-            }
-
-            //this.Write(string.Format("[20190416-19333] [{0}]", currentUtil));
-            //this.Write(string.Format("[20190416-19333] [{0}]", selectedPage));
-
-
-            if (selectedPage.Contains("index_p2"))
-            {
-                angular_section_to_user = 1;
-            }
-
-            if (selectedPage.Contains("index_p3"))
-            {
-                angular_section_to_user = 1;
-            }
-
-        }
-
-    }
-
-
-
-
-
-    @*// 04/12/2019 01:53 am - SSN - [20190412-0142] - TimesheetApp - Replaced - Begin*@
-
-
-    @{
-        if (angular_section_to_user == 1)
-        {
-            <script src="~/js/angular.js"></script>
-        }
-
-    }
-
-    @{
-        if (angular_section_to_user == 2)
-        {
-            <script src="~/js/Angular_1_7/angular.js"></script>
-            <script src="~/js/Angular_1_7/angular-route.js"></script>
-        }
-
-    }
-
-
-    @{
-        if (angular_section_to_user == 2)
-        {
-            <environment names="Development">
-                <script src="~/js/angular-ui/ui-bootstrap-tpls.js"></script>
-            </environment>
-
-            <environment names="Production">
-                <script src="~/js/angular-ui/ui-bootstrap-tpls.min.js"></script>
-            </environment>
-
-        }
-
-    }
-
-
-
-    @*// 04/12/2019 01:53 am - SSN - [20190412-0142] - TimesheetApp - Replaced - End*@
-
-
-
-    <script src="~/lib/knockout.js"></script>
-
-
-
-    @*// 04/20/2019 11:28 am - SSN - [20190420-1128] Added toastr *@
-
-    <script src="~/js/toastr/scripts/toastr.js"></script>
-
-
-
-    @*05/02/2019 04:56 am - SSN - Breakup for debugging*@
-
-    <environment names="Development">
-        <script src="~/js/site.js" asp-append-version="true"></script>
-    </environment>
-
-    <environment names="Production">
-        <script src="~/js/site.min.js" asp-append-version="true"></script>
-    </environment>
-
+    @await Html.PartialAsync("JavaScriptFiles")
 
     @RenderSection("Scripts", required: false)
 
-    <!-- 20190905-2332 -->
-    <!-- 20190906-0633 -->
-    <!-- 20190906-0831 -->
-    <!-- 20190907-1856 -->
-    <!-- 20190907-1938 -->
+    @await Html.PartialAsync("ApplicationVersion")
+
+
 </body>
 </html>

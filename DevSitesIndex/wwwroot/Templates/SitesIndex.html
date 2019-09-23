@@ -5,15 +5,15 @@
 <h2>Site Index 2c</h2>
  
 
-<p>Templates/SitesIndex.html - Begin  (demoSiteIndexController)</p>
+<p>Templates/SitesIndex.html - Begin  (demoSiteIndexController_101)</p>
 
-<div data-ng-controller="demoSiteIndexController">
+<div data-ng-controller="demoSiteIndexController_101">
   
     <div class="progress progress-striped active" data-ng-show="isBusy2">
        <div class="progress-bar" style="width: 100%;"></div>
     </div>
     <h4>( | limitTo:5)</h4>
-    <div data-ng-repeat="i in data.devSites  | limitTo:5 ">
+    <div data-ng-repeat="i in data_local()   | limitTo:5 ">
 
 
 

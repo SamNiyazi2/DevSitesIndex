@@ -14,6 +14,7 @@ namespace DevSitesIndex.Entities
         public int DisciplineId { get; set; }
 
         [Display(Name = "Discipline")]
+        [Required]  // 09/13/2019 11:21 pm
         public string DisciplineShort { get; set; }
 
         [Display(Name = "Date Added")]
