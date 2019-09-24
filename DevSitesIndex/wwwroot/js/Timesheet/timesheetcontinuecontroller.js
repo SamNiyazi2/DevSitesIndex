@@ -29,13 +29,6 @@ var timesheetContinueController_instance = function () {
                     $scope.getDisciplines(data2.discipline.disciplineShort);
                     $scope.disciplineSelected = { id: data2.discipline.disciplineId, title: data2.discipline.disciplineShort };
                 }, 500);
-                console.log("timesheetContinueController - 20190924-0503");
-                console.log(data2);
-                console.log("1---------------------------------------");
-                console.log($scope.timeLog);
-                console.log("2---------------------------------------");
-                console.log($scope.editableTimeLog);
-                console.log("3---------------------------------------");
             }
             function getTimelogError(data) {
                 var temp = data;
