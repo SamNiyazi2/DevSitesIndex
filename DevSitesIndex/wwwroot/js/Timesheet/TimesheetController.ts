@@ -18,7 +18,7 @@ var timesheetController_instance = function () {
     var timesheetApp = globals.globals_instance.getInstance("timesheetApp");
 
 
-    timesheetApp.controller('TimesheetController',
+    timesheetApp.controller('TimesheetController', ['$scope', '$uibModalInstance', '$http', '$q, dataService',
         function TimesheetController($scope, $uibModalInstance, $http, $q, dataService, jobId) {
 
 
@@ -153,7 +153,7 @@ var timesheetController_instance = function () {
 
 
 
-        });
+        }]);
 
     return {
         timesheetApp_TimesheetController: timesheetApp

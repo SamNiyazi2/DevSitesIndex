@@ -36,14 +36,14 @@ var pagingDirective_instance = function () {
 
 
     var pagingDirective_angular_module: angular.IModule = ssn_globals.globals_instance.getInstance("timesheetApp");
-    
-    pagingDirective_angular_module.controller('utilityController', function ($scope, dataService) {
+
+    pagingDirective_angular_module.controller('utilityController', ['$scope', 'dataService', function ($scope, dataService) {
 
 
-    });
+    }]);
 
 
-    pagingDirective_angular_module.directive('pagingDirective', function ($timeout) {
+    pagingDirective_angular_module.directive('pagingDirective', ['$timeout', function ($timeout) {
 
 
         return {
@@ -104,7 +104,7 @@ var pagingDirective_instance = function () {
 
 
                 scope.onNext = function () {
-                    
+
 
                     var totalPageCount = getTotalPageCount();
 
@@ -122,7 +122,7 @@ var pagingDirective_instance = function () {
             }
         };
 
-    });
+    }]);
 
 
     return {

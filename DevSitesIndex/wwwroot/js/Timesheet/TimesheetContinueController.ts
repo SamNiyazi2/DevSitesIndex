@@ -15,7 +15,7 @@ var timesheetContinueController_instance = function () {
 
     var timesheetApp = ssn_globals.globals_instance.getInstance("timesheetApp");
 
-    timesheetApp.controller('TimesheetContinueController',
+    timesheetApp.controller('TimesheetContinueController', ['$scope', '$uibModalInstance', '$http', '$q', 'dataService', '$timeout', 'timelogId',
 
         function ($scope, $uibModalInstance, $http, $q, dataService, $timeout, timelogId) {
 
@@ -27,7 +27,7 @@ var timesheetContinueController_instance = function () {
 
 
 
-            $scope.pageTitle = "Continue";
+            $scope.pageTitle = "Continue / Line Item";
 
 
             function getTimelogSuccess(data) {
@@ -76,15 +76,7 @@ var timesheetContinueController_instance = function () {
 
             }
 
-
-
-
-
-
-
-
-
-
+              
             $scope.submitForm = function () {
 
 
@@ -145,8 +137,7 @@ var timesheetContinueController_instance = function () {
 
             };
 
-
-
+ 
 
             $scope.getDisciplines = function (lookupValue) {
 
@@ -190,7 +181,7 @@ var timesheetContinueController_instance = function () {
 
 
 
-        });
+        }]);
 
 
     return {

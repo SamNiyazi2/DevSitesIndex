@@ -25,7 +25,7 @@ var dataService_instance = function () {
         var ssn_devsite_angular_module = globals.globals_instance.getInstance(currentApplication);
 
 
-        ssn_devsite_angular_module.factory("dataService", function ($http, $q) {
+        ssn_devsite_angular_module.factory("dataService", ['$http', '$q', function ($http, $q) {
 
             var _devSites = [];
 
@@ -54,7 +54,9 @@ var dataService_instance = function () {
 
                 var deferred = $q.defer();
 
-                $http.get('/api/timelogapi/' + id)
+// 09/24/2019 07:15 am - SSN - [20190924-0401] - [009] - Quick timelog entry
+
+                $http.get('/api/timelogapi/get_custom/' + id)
                     .then(function (result) {
 
                         deferred.resolve(result.data);
@@ -85,16 +87,16 @@ var dataService_instance = function () {
             };
 
 
-            // 09/06/2019 04:45 pm - SSN - [20190906-0518] - [003] - Angular - edit div content
+            // 09/06/2019 04:45 pm - SSN - [20190906-0518] - [003] - Angular - editMode div content
             var _updateDevSite = function (devSite) {
 
 
                 var deferred = $q.defer();
 
                 // 09/09/2019 10:33 pm - SSN - [20190909-2136] - [004] - select top 20 
-
+                // 09/24/2019 03:38 am - SSN - Logic error - updating wrong link
                 //       $http.post('/api/demositesapi', devSite)
-                $http.post('/api/demositesapi/Top?recordCount=20', devSite)
+                $http.post('/api/demositesapi', devSite)
                     .then(function (result) {
 
                         deferred.resolve(result.data);
@@ -203,7 +205,7 @@ var dataService_instance = function () {
                 devSites: ko.observable(_devSites),
                 getDevSites: _getDevSites,
                 addDevSite: _addDevSite,
-                // 09/06/2019 04:44 pm - SSN - [20190906-0518] - [002] - Angular - edit div content
+                // 09/06/2019 04:44 pm - SSN - [20190906-0518] - [002] - Angular - editMode div content
                 updateDevSite: _updateDevSite,
 
                 insertTimeLog: _insertTimeLog,
@@ -214,7 +216,7 @@ var dataService_instance = function () {
             };
 
 
-        });
+        }]);
     };
 
     return {

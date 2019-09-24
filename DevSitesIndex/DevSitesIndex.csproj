@@ -117,6 +117,7 @@
   <ItemGroup>
     <Folder Include="Connected Services\" />
     <Folder Include="Pages\Discipline\" />
+    <Folder Include="wwwroot\js\Timesheet\Templates\" />
   </ItemGroup>
 
   <ItemGroup>

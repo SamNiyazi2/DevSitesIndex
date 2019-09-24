@@ -44,15 +44,13 @@ var ssn_devsite_angular_module_instance = function () {
 
     // 09/21/2019 08:23 am - SSN - [20190921-0357] - [012] - Creating multiple entry for Webpack
     // = function
-    var demoSiteIndexController_101 = function ($scope, $http, dataService) {
+    var demoSiteIndexController_101 = function ($scope, $http, $window, dataService) {
 
         $scope.Title = "Title set in Angular controller.";
 
 
         // $scope.data = [];
         $scope.data = dataService;
-
-
 
         $scope.isBusy2 = true;
 
@@ -85,7 +83,7 @@ var ssn_devsite_angular_module_instance = function () {
 
         };
 
-        // 09/06/2019 05:19 am - SSN - [20190906-0518] - [001] - Angular - edit div content
+        // 09/06/2019 05:19 am - SSN - [20190906-0518] - [001] - Angular - editMode div content
         // https://www.tutorialsplane.com/angularjs-update-table-row/
 
         // Initialize.
@@ -109,11 +107,11 @@ var ssn_devsite_angular_module_instance = function () {
 
             $scope.data.updateDevSite($scope.editablerow)
                 .then((response) => {
-                    console.log("20190908-0628 - demoSites_Index - updateDevSite Success");
+                    console.log("20190908-0628-S - demoSites_Index - updateDevSite Success");
                     console.log(response);
                 },
                     (error) => {
-                        console.log("20190908-0628 - demoSites_Index - updateDevSite Success");
+                        console.log("20190908-0628-E - demoSites_Index - updateDevSite Error");
                         console.log(error);
                     });
 
@@ -130,8 +128,8 @@ var ssn_devsite_angular_module_instance = function () {
 
         $scope.loadTemplate = function (content) {
 
-            if (content.id === $scope.editablerow.id) return 'edit';
-            else return 'view';
+            if (content.id === $scope.editablerow.id) return 'editMode';
+            else return 'viewMode';
         }
 
 
@@ -173,7 +171,7 @@ var ssn_devsite_angular_module_instance = function () {
 
 
 
-    ssn_devsite_angular_module.controller("demoSiteIndexController_101", demoSiteIndexController_101);
+    ssn_devsite_angular_module.controller("demoSiteIndexController_101", ['$scope', '$http', '$window', 'dataService', demoSiteIndexController_101]);
 
     // 09/21/2019 08:23 am - SSN - [20190921-0357] - [012] - Creating multiple entry for Webpack
     // function devSiteUpdateController  

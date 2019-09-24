@@ -20,9 +20,9 @@ var jobStatusDirective_instance = function () {
     var Job_Status_Angular_Module = ssn_globals.globals_instance.getInstance("timesheetApp");
 
 
-    Job_Status_Angular_Module.controller("utilityController", function ($scope, dataService) {
+    Job_Status_Angular_Module.controller("utilityController", ['$scope', 'dataService', function ($scope, dataService) {
 
-    });
+    }]);
 
 
 

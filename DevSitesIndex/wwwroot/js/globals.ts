@@ -24,7 +24,7 @@ var globals_instance = function () {
         private static ssn_devsite_angular_module: IAngularApp[] = []; //angular.IModule[];
 
         // 09/23/2019 06:13 am - SSN - [20190923-0613] - [001] - Adding a lock
- 
+
 
 
 
@@ -39,25 +39,21 @@ var globals_instance = function () {
 
         public static getInstance(applicationName: string, args: string[] = null): angular.IModule {
 
+            ////  DO NOT REMOVE.
+            //// Option to call an injected AngularJS server from here. Tested.  
+
+            //factorySetup.doFactorySetup();
+
+            //try {
+
+            //    console.log("globals: 20190923-1136 - Calling test_102");
+            //    test_103.doIt();
+            //} catch (e) {
+            //    console.error("globals:  20190923-1135 - Failed call to test_102");
+            //    console.log(e);
+            //}
 
 
-
-            console.log("AAAAAAAAAAAAAAAAAAAAAA checking globals_instance_local");
-
-            factorySetup.doFactorySetup();
-
-
-
-
-
-
-            //    console.log('GLOBALS - getInstance - 65');
-
-
-
-
-
-            console.log("Bottom of getInstance==============================================");
 
             return SSN_Globals.getInstance_Original(applicationName, args);
 
@@ -75,12 +71,6 @@ var globals_instance = function () {
 
         public static getInstance_Original(applicationName: string, args: string[] = null) {
 
-            console.log("Global - 20190923-0618 - &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
-
-
-
-
-
 
             var angularApp: IAngularApp = null;
 
@@ -90,7 +80,20 @@ var globals_instance = function () {
 
             if (selected.length > 0) {
 
-                console.log("Globals - 20190923-0543 - 001 - Found application [" + applicationName + "]  Instance count [" + selected.length + "]");
+                if (selected.length > 1) {
+
+                    console.log("********************************************");
+                    console.log("********************************************");
+                    console.log("********************************************");
+                    console.log("********************************************");
+
+                    console.log("Globals - 20190923-0543 - 001 - Found application [" + applicationName + "]  Instance count [" + selected.length + "]");
+
+                    console.log("********************************************");
+                    console.log("********************************************");
+                    console.log("********************************************");
+                    console.log("********************************************");
+                }
 
                 angularApp = selected[0];
 
@@ -100,10 +103,6 @@ var globals_instance = function () {
 
                     case 'timesheetApp':
 
-                        console.log("Globals - 20190923-0543 - 002 - Creating application [" + applicationName + "]");
-                        console.log(args);
-                        console.log("Default: ngRoute, ui.bootstrap");
-
                         angularApp = {
                             name: applicationName,
                             instance: angular.module('timesheetApp', ['ngRoute', 'ui.bootstrap'])
@@ -111,15 +110,9 @@ var globals_instance = function () {
 
                         SSN_Globals.ssn_devsite_angular_module.push(angularApp);
 
-                        console.log("Globals - 20190923-0543 - 002-ZZZ - Created application [" + applicationName + "]");
-
                         break;
 
                     case 'demoSites_Index_Timesheet':
-
-                        console.log("Globals - 20190923-0543 - 003 - Creating application [" + applicationName + "]");
-                        console.log(args);
-                        console.log("Default: args");
 
                         angularApp = {
                             name: applicationName,
@@ -128,16 +121,10 @@ var globals_instance = function () {
 
                         SSN_Globals.ssn_devsite_angular_module.push(angularApp);
 
-                        console.log("Globals - 20190923-0543 - 003-ZZZ - Created application [" + applicationName + "]");
-
                         break;
 
 
                     case 'demoSites_Index':
-
-                        console.log("Globals - 20190923-0543 - 003 - Creating application [" + applicationName + "]");
-                        console.log(args);
-                        console.log("Default: args");
 
                         angularApp = {
                             name: applicationName,
@@ -145,8 +132,6 @@ var globals_instance = function () {
                         }
 
                         SSN_Globals.ssn_devsite_angular_module.push(angularApp);
-
-                        console.log("Globals - 20190923-0543 - 003-ZZZ - Created application [" + applicationName + "]");
 
                         break;
 
@@ -162,9 +147,6 @@ var globals_instance = function () {
 
             }
 
-            console.log("Global - 20190923-0618 - RETURNING zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz");
-
-            console.log(angularApp.instance);
 
             return angularApp.instance;
 
@@ -188,33 +170,23 @@ var globals_instance = function () {
 
         var doFactorySetup = function () {
 
-            console.log("Checking factory ZZZZZZZZZZZZZZZZZZZZz-2");
-
+            var app_globals;
 
             try {
-                if (angular.module("globalAngularApp")) {
+                app_globals = angular.module('globalAngularApp');
 
-                    console.log("...................Exists");
-                    return
-                }
             }
-            catch (err) { /* failed to require */ }
+            catch (err) {
+
+                app_globals = angular.module('globalAngularApp', []);
+
+            }
 
 
+            app_globals.factory("globalAngularAppUtil", ['$http', '$q', function ($http, $q) {
 
 
-            var app_globals = angular.module('globalAngularApp', []);
-            //////////   console.log("doFactorySetup - AAAAAAAAAAAAAAAAAAAAAAAAAA");
-
-
-            app_globals.factory("globalAngularAppUtil", function ($http, $q) {
-
-
-                var doTest101 = function () {
-
-                    console.log('GLOBALS - asyncGreet - 40 - QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQqQQQQQQQQ');
-
-
+                var doTest101 = function (namePassedIn) {
 
                     var deferred = $q.defer();
 
@@ -223,15 +195,16 @@ var globals_instance = function () {
 
                         console.log('GLOBALS - asyncGreet - 45');
 
-                        deferred.notify('About to greet ' + name + '.');
+                        deferred.notify('About to greet ' + namePassedIn + '.');
 
-                        if (okToGreet(name)) {
+
+                        if (okToGreet(namePassedIn)) {
                             console.log('GLOBALS - asyncGreet - 50');
-                            deferred.resolve('Hello, ' + name + '!');
+                            deferred.resolve('Hello, ' + namePassedIn + '!');
                         } else {
                             console.log('GLOBALS - asyncGreet - 53');
 
-                            deferred.reject('Greeting ' + name + ' is not allowed.');
+                            deferred.reject('Greeting ' + namePassedIn + ' is not allowed.');
                         }
                     }, 1000);
 
@@ -250,7 +223,7 @@ var globals_instance = function () {
 
                 };
 
-            });
+            }]);
         }
 
 
@@ -258,9 +231,7 @@ var globals_instance = function () {
             doFactorySetup: doFactorySetup
         };
 
-        //console.log("calling factory setup ********************");
-        //doFactorySetup();
-        //console.log("calling factory setup *****    DONE    ********************");
+
 
 
     }();
@@ -300,97 +271,52 @@ var globals_instance = function () {
 
 
 
-export { globals_instance };
 
 
+var test_103 = function () {
 
 
-var test_102 = function () {
+    var doIt = function () {
 
 
-    var app_globals;
+        angular.injector(['ng', 'globalAngularApp']).invoke(['globalAngularAppUtil', function (globalAngularAppUtil) {
+
+            globalAngularAppUtil.doTest101('Name passed to doTest101').then(doTest101Success, doTest101Error).catch(doTest101Catch);
+
+        }]);
 
 
-    try {
-        app_globals = angular.module("globalAngularApp");
+        function doTest101Success(response) {
 
+            console.log('globals - doTest101Success - 20190924-0316 ');
+            console.log(response);
+        }
 
-        console.log("...................Exists");
+        function doTest101Error(response) {
+            console.log('globals - doTest101Error - 20190924-0316-B ');
+            console.log(response);
+        }
 
-    }
-    catch (err) {
+        function doTest101Catch(response) {
+            console.log('globals - doTest101Catch - 20190924-0316-C');
+            console.log(response);
 
-        /* failed to require */
-        app_globals = angular.module('globalAngularApp', []);
-        console.log("...................CREATING ************************************");
-    }
-
-
-
-
-    //console.log("asyncGreet - calling app_globals module- Before");
-    //console.log(app_globals);
-    //console.log("asyncGreet - calling app_globals module - After ");
-
-
-
-    function theControllerFunction(globalAngularAppUtil) {
-
-        console.log("asyncGreet - calling app_globals module- Before  - controller XXXXXXXXXXXXXXXXXXXXXXXXx-1");
-
-        console.log(globalAngularAppUtil);
-        console.log("asyncGreet - calling app_globals module- after  - controller XXXXXXXXXXXXXXXXXXXXXXXXx-2");
-
-
-        console.log("**********************************************888");
-        console.log("**********************************************888");
-        console.log("**********************************************888");
-        console.log("**********************************************888");
-
-
-        console.log("Call to doTest101 - Before -----------------------------------------------")
-        globalAngularAppUtil.doTest101();
-        console.log("Call to doTest101 - After -----------------------------------------------")
-
-
-        function okToGreet(name) {
-            return false;
         }
 
 
-        //function asyncGreet(name) {
-        //    // perform some asynchronous operation, resolve or reject the promise when appropriate.
-        //    return $q(function (resolve, reject) {
-        //        setTimeout(function () {
-        //            if (okToGreet(name)) {
-        //                resolve('Hello, ' + name + '!');
-        //            } else {
-        //                reject('Greeting ' + name + ' is not allowed.');
-        //            }
-        //        }, 1000);
-        //    });
-        //}
-
-        //var promise = asyncGreet('Robin Hood');
-        //promise.then(function (greeting) {
-        //    alert('Success: ' + greeting);
-        //}, function (reason) {
-        //    alert('Failed: ' + reason);
-        //});
     }
 
 
-    var test101 = app_globals.controller('globalsComponent', ['globalAngularAppUtil', theControllerFunction]);
 
     return {
-        app_globals: app_globals,
-        test101: test101
+        doIt: doIt
     };
 
 
 }();
 
 
+export { globals_instance };
 
-export { test_102 };
+export { test_103 };
 

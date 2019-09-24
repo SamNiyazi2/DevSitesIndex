@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using DevSitesIndex.Entities;
 using DevSitesIndex.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
@@ -21,6 +22,9 @@ namespace DevSitesIndex.Controllers
 
         public IEntityRepository<T> _entityRepository;
 
+        // 09/24/2019 05:48 am - SSN - [20190924-0401] - [006] - Quick timelog entry
+        // Add _context
+        public DevSitesIndexContext _context;
 
         // GET: api/<controller>
         [HttpGet]

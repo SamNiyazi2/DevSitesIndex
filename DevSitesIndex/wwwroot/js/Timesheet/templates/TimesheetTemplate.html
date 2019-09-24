@@ -3,7 +3,19 @@
 <form name="timesheetForm"  novalidate>
 
     <div class="modal-header">
-        <h2>{{pageTitle}}</h2>
+        <h2>{{pageTitle}} (TEST 3)</h2>
+        <table>
+            <tr>
+                <td>Project </td>
+                <td>{{editableTimeLog.job.project.projectTitle}}</td>
+            </tr>
+            <tr>
+                <td>Job</td>
+                <td>{{editableTimeLog.job.jobTitle}}</td>
+            </tr>
+
+        </table>
+
     </div>
 
     <div class="modal-body">

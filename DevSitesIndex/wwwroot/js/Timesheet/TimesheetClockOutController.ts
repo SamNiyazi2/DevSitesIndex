@@ -3,8 +3,6 @@
 // 05/19/2019 12:18 pm - SSN - [20190519-1132] - [003] - Address definitely typed errors
 // 09/21/2019 11:52 am  - SSN - Upgrading to use Babel/WWebpack
 
-console.log("timesheetClockoutController - 20190921-1153 - TOP");
-
 import * as ssn_globals from "../globals";
 import * as angular from 'angular'
 import * as util from '../site';
@@ -12,14 +10,13 @@ import * as util from '../site';
 
 var timesheetClockoutController_instance = function () {
 
-
-
+  
     // 05/19/2019 10:06 am - SSN - [20190519-0837] - [006] - Adding timesheet "Continue" option
 
-  
+
     var timesheetApp = ssn_globals.globals_instance.getInstance("timesheetApp");
 
-    timesheetApp.controller('TimesheetClockOutController',
+    timesheetApp.controller('TimesheetClockOutController', ['$scope', '$uibModalInstance', '$http', '$q', 'dataService', 'timelogId',
 
         function TimesheetController($scope, $uibModalInstance, $http, $q, dataService, timelogId) {
 
@@ -86,8 +83,6 @@ var timesheetClockoutController_instance = function () {
             }
 
  
-
-
             $scope.submitForm = function () {
 
 
@@ -127,17 +122,14 @@ var timesheetClockoutController_instance = function () {
                 toastr.info("Clocked-out");
             };
 
-
-
+ 
             $scope.cancelForm = function () {
 
 
                 $uibModalInstance.dismiss(); //same as cancel???
 
             };
-
-
-
+             
             // 04/13/2019 11:00 am - SSN - [20190413-1037] - Add discipline lookup
 
             $scope.getDisciplines = function (lookupValue) {
@@ -182,7 +174,7 @@ var timesheetClockoutController_instance = function () {
 
 
 
-        });
+        }]);
 
 
     return {
@@ -191,5 +183,5 @@ var timesheetClockoutController_instance = function () {
 
 }();
 
- 
+
 export { timesheetClockoutController_instance };

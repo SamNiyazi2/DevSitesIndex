@@ -23,7 +23,7 @@ var ssn_devsite_angular_module_instance = function () {
         }]);
     // 09/21/2019 08:23 am - SSN - [20190921-0357] - [012] - Creating multiple entry for Webpack
     // = function
-    var demoSiteIndexController_101 = function ($scope, $http, dataService) {
+    var demoSiteIndexController_101 = function ($scope, $http, $window, dataService) {
         $scope.Title = "Title set in Angular controller.";
         // $scope.data = [];
         $scope.data = dataService;
@@ -45,7 +45,7 @@ var ssn_devsite_angular_module_instance = function () {
             alert('editCommand101 - test');
             $('#del-confirm').modal({ backdrop: 'static', keyboard: false });
         };
-        // 09/06/2019 05:19 am - SSN - [20190906-0518] - [001] - Angular - edit div content
+        // 09/06/2019 05:19 am - SSN - [20190906-0518] - [001] - Angular - editMode div content
         // https://www.tutorialsplane.com/angularjs-update-table-row/
         // Initialize.
         $scope.editablerow = '';
@@ -58,10 +58,10 @@ var ssn_devsite_angular_module_instance = function () {
             $scope.data_local()[theIndex] = $scope.editablerow;
             $scope.data.updateDevSite($scope.editablerow)
                 .then(function (response) {
-                console.log("20190908-0628 - demoSites_Index - updateDevSite Success");
+                console.log("20190908-0628-S - demoSites_Index - updateDevSite Success");
                 console.log(response);
             }, function (error) {
-                console.log("20190908-0628 - demoSites_Index - updateDevSite Success");
+                console.log("20190908-0628-E - demoSites_Index - updateDevSite Error");
                 console.log(error);
             });
             $scope.reset();
@@ -71,9 +71,9 @@ var ssn_devsite_angular_module_instance = function () {
         };
         $scope.loadTemplate = function (content) {
             if (content.id === $scope.editablerow.id)
-                return 'edit';
+                return 'editMode';
             else
-                return 'view';
+                return 'viewMode';
         };
         // 09/06/2019 05:19 am - SSN - [20190906-0518] - [001]
         // 09/08/2019 12:01 am - SSN - [20190908-0001] - [001] - Concurrency
@@ -95,7 +95,7 @@ var ssn_devsite_angular_module_instance = function () {
             return index % 2 == 0 ? 'evenRow' : 'oddRow';
         };
     };
-    ssn_devsite_angular_module.controller("demoSiteIndexController_101", demoSiteIndexController_101);
+    ssn_devsite_angular_module.controller("demoSiteIndexController_101", ['$scope', '$http', '$window', 'dataService', demoSiteIndexController_101]);
     // 09/21/2019 08:23 am - SSN - [20190921-0357] - [012] - Creating multiple entry for Webpack
     // function devSiteUpdateController  
     var devSiteUpdateController = function ($scope, $http, $window, dataService) {

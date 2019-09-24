@@ -21,9 +21,22 @@ namespace DevSitesIndex.Controllers
         public TimeLogAPIController(DevSitesIndexContext context)
         {
             _entityRepository = new TimeLogRepository(context);
+            _context = context;
 
         }
 
+
+        // 09/24/2019 05:10 am - SSN - [20190924-0401] - [003] - Quick timelog entry
+
+        [HttpGet("get_custom/{id}")]
+        public TimeLog Get_custom(int id)
+        {
+            JobRepository jobRepository = new JobRepository(_context);
+            TimeLog entity = _entityRepository.GetRecord(id);
+            entity.job.timelogs = null;
+
+            return entity;
+        }
 
     }
 }

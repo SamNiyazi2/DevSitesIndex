@@ -27,9 +27,9 @@ var headerWithSort_instance = function () {
     var headerWithSort_angular_module: angular.IModule = ssn_globals.globals_instance.getInstance("timesheetApp");
 
 
-    headerWithSort_angular_module.controller('utilityController', function ($scope, dataService) {
+    headerWithSort_angular_module.controller('utilityController', ['$scope', 'dataService', function ($scope, dataService) {
          
-    });
+    }]);
 
 
     headerWithSort_angular_module.directive('headerWithSort', function () {

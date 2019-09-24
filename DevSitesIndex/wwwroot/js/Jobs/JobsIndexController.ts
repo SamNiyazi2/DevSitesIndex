@@ -21,7 +21,7 @@ var jobsIndexController_instance = function () {
 
     var Jobs_Angular_Module: angular.IModule = ssn_globals.globals_instance.getInstance("timesheetApp");
 
-    Jobs_Angular_Module.controller('jobsIndexController',
+    Jobs_Angular_Module.controller('jobsIndexController', ['$scope', '$http', '$q', 'dataService', '$timeout', '$sce', '$uibModal',
 
 
         function ($scope, $http, $q, dataService, $timeout, $sce, $uibModal) {
@@ -140,11 +140,7 @@ var jobsIndexController_instance = function () {
                 getJobsList(columnBag);
             }
 
-
-
-
-
-
+            
 
             // 09/22/2019 05:20 am - SSN - [20190921-1129] - [007] - Plug in job status filter on job's index
  
@@ -215,7 +211,7 @@ var jobsIndexController_instance = function () {
             getJob_Statuses();
 
 
-        }
+        }]
 
     );
 
