@@ -78,6 +78,10 @@ namespace DevSitesIndex.Pages.CodeReferences
             }
 
             _context.Attach(CodeReference).State = EntityState.Modified;
+            
+            
+            // 09/24/2019 11:44 am - SSN - [20190924-1134] - [005] - Removing date add/updated from create/edit pages
+            _context.Entry(CodeReference).Property(x => x.DateAdded).IsModified = false;
 
             try
             {

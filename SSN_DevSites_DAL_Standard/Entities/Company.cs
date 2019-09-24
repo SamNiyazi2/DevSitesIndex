@@ -20,7 +20,10 @@ namespace DevSitesIndex.Entities
         [Required(ErrorMessage = "Company name is required")]
         // 09/13/2019 11:37 pm - SSN - Add remote
         // Todo: Are we done
-        [Remote(action: "CompanyName_IsDuplicate", controller: "RemoteDataValidation", HttpMethod = "POST")]
+        
+        // 09/24/2019 12:40 pm - SSN - [20190924-1134] - [011] - Removing date add/updated from create/edit pages
+        // Forgot AdditionalFields 
+        [Remote(action: "CompanyName_IsDuplicate", controller: "RemoteDataValidation", AdditionalFields = "CompanyID", HttpMethod = "POST")]
         public string CompanyName { get; set; }
 
         // 03/13/2019 09:29 am - SSN

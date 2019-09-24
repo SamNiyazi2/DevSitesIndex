@@ -32,6 +32,10 @@ namespace DevSitesIndex.Entities
         [Display(Name = "Date Added")]
         public DateTime DateAdded { get; set; }
 
+
+        // 09/24/2019 01:11 pm - SSN - [20190924-1134] - [017] - Removing date add/updated from create/edit pages
+// Was on added but not on updated.  Noticed the differene when working with Jobs. 
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy hh:mm tt}")]
         // 04/08/2019 12:53 am - SSN - [20190407-2345] - TimeLog - Added
         [Display(Name = "Date Updated")]
         public DateTime? DateUpdated { get; set; }

@@ -37,6 +37,7 @@
     <Content Remove="wwwroot\js\Jobs\JobsIndexController.ts" />
     <Content Remove="wwwroot\js\Jobs\jobsIndex_main.ts" />
     <Content Remove="wwwroot\js\Jobs\Job_Status_CheckBoxes_setup.ts" />
+    <Content Remove="wwwroot\js\Projects\ProjectsIndex.ts" />
     <Content Remove="wwwroot\js\siteold.ts" />
     <Content Remove="wwwroot\js\SSN_Notes.txt" />
     <Content Remove="wwwroot\js\Timesheet\Timelog.ts" />
@@ -65,7 +66,7 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="SSNSendGridStandardUtil" Version="1.0.2" />
-    <PackageReference Include="SSN_DevSites_DAL_Standard" Version="1.0.57" />
+    <PackageReference Include="SSN_DevSites_DAL_Standard" Version="1.0.66" />
     <PackageReference Include="toastr" Version="2.1.1" />
     <PackageReference Include="underscore.js" Version="1.8.3" />
   </ItemGroup>
@@ -130,6 +131,7 @@
     <TypeScriptCompile Include="wwwroot\js\IAngularApp.ts" />
     <TypeScriptCompile Include="wwwroot\js\IColumnBag.ts" />
     <TypeScriptCompile Include="wwwroot\js\Jobs\jobsIndex_main.ts" />
+    <TypeScriptCompile Include="wwwroot\js\Projects\ProjectsIndex.ts" />
     <TypeScriptCompile Include="wwwroot\js\Timesheet\timesheet_main.ts" />
     <TypeScriptCompile Include="wwwroot\js\Util\HeaderWithSort.ts" />
     <TypeScriptCompile Include="wwwroot\js\Jobs\JobsIndexController.ts" />

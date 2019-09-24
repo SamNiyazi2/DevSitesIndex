@@ -73,6 +73,10 @@ namespace DevSitesIndex.Pages.Jobs
             }
 
             _context.Jobs.Add(Job);
+
+            // 09/24/2019 01:08 pm - SSN - [20190924-1134] - [016] - Removing date add/updated from create/edit pages
+            Job.DateAdded = DateTime.Now;
+
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

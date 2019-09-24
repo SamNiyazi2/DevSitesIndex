@@ -9,20 +9,33 @@
 
 <hr />
 <div class="row">
+
+    @*
+        09/24/2019 11:40 am - SSN - [20190924-1134] - [002] - Removing date add/updated from create/edit pages
+    *@
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Company.DateAdded)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Company.DateAdded)
+        </dd>
+    </dl>
+
+
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
             <input type="hidden" asp-for="Company.CompanyID" />
+
             <div class="form-group">
                 <label asp-for="Company.CompanyName" class="control-label"></label>
-                <input asp-for="Company.CompanyName" class="form-control" autofocus/>
+                <input asp-for="Company.CompanyName" class="form-control" autofocus />
                 <span asp-validation-for="Company.CompanyName" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Company.DateAdded" class="control-label"></label>
-                <input asp-for="Company.DateAdded" class="form-control" />
-                <span asp-validation-for="Company.DateAdded" class="text-danger"></span>
-            </div>
+
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>

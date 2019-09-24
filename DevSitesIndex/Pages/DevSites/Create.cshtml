@@ -27,14 +27,14 @@
                 <input asp-for="DevSite.SolutionName" class="form-control" />
                 <span asp-validation-for="DevSite.SolutionName" class="text-danger"></span>
             </div>
- 
+
             <div class="form-group">
                 <label asp-for="DevSite.SoftwareCodeID" class="control-label"></label>
 
 
                 <select asp-for="DevSite.SoftwareCodeID" class="form-control"
                         asp-items="@Model.softwareCodesSL">
-                    <option>Please select...</option>
+                    <option></option>
                 </select>
 
 
@@ -48,15 +48,6 @@
                 <input type="checkbox" asp-for="DevSite.CanBeLaunched" />
                 <label asp-for="DevSite.CanBeLaunched" class="control-label"></label>
                 <span asp-validation-for="DevSite.CanBeLaunched" class="text-danger"></span>
-            </div>
-
-
-
-
-            <div class="form-group">
-                <label asp-for="DevSite.DateAdded" class="control-label"></label>
-                <input asp-for="DevSite.DateAdded" class="form-control " />
-                <span asp-validation-for="DevSite.DateAdded" class="text-danger"></span>
             </div>
 
 

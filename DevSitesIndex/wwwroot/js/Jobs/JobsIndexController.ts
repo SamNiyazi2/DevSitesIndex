@@ -50,7 +50,7 @@ var jobsIndexController_instance = function () {
                 { ...columnBag, columnName: 'projectTitle_ForActivity', caption: 'Project Title' },
                 { ...columnBag, columnName: 'jobTitle', caption: 'Job Title' },
                 { ...columnBag, columnName: 'dateAdded', caption: 'Date Added' },
-                { ...columnBag, columnName: 'lastActivityDate', caption: 'Last Activity' },
+                { ...columnBag, columnName: 'dateUpdated', caption: 'Date Updated' },
                 { ...columnBag, columnName: 'activityAge', caption: 'Activity Age', },
             ];
 

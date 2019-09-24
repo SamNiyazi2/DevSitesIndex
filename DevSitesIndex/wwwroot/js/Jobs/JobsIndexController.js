@@ -38,7 +38,7 @@ var jobsIndexController_instance = function () {
                 __assign({}, columnBag, { columnName: 'projectTitle_ForActivity', caption: 'Project Title' }),
                 __assign({}, columnBag, { columnName: 'jobTitle', caption: 'Job Title' }),
                 __assign({}, columnBag, { columnName: 'dateAdded', caption: 'Date Added' }),
-                __assign({}, columnBag, { columnName: 'lastActivityDate', caption: 'Last Activity' }),
+                __assign({}, columnBag, { columnName: 'dateUpdated', caption: 'Date Updated' }),
                 __assign({}, columnBag, { columnName: 'activityAge', caption: 'Activity Age' }),
             ];
             $scope.fieldsList = _fieldList;
