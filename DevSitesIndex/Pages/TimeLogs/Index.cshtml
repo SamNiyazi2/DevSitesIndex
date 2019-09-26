@@ -71,13 +71,17 @@
 
                             <a asp-page="./Delete" asp-route-id="@item.TimeLogId">Delete</a> |
 
-                            <a ng-If="'@item.TotalSeconds' <= 0 " ng-click="timesheetForm_ClockOut(@item.TimeLogId)" class="alert-warning">Clock-out</a>
-
+                            @*
+                                <!-- Todo-SSN - 09/26/2019 11:31 am - SSN - [20190926-1047] - [008] - Debugging: timelog not posting -->
+                            *@
+                            <span ng-If="'@item.TotalSeconds' <= 0 ">
+                                <a ng-click="timesheetForm_ClockOut(@item.TimeLogId)" class="alert-warning">Clock-out</a>
+                                |
+                            </span>
 
                             <!-- 05/19/2019 08:38 am - SSN - [20190519-0837] - [001] - Adding timesheet "Continue" option -->
                             <!-- 09/24/2019 04:16 am - SSN - [20190924-0401] - [002] - Quick timelog entry -->
                             <!-- Allow to resue link for a quick entry-->
-                            |
                             @{
                                 string caption = (item.TotalSeconds ?? 0) > 0 ? "Continue" : "Line Item";
 
@@ -100,7 +104,7 @@
 
                         </tr>
                     }
-                }
+                                }
             </tbody>
         </table>
 

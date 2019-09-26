@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DevSitesIndex.Entities;
 using DevSitesIndex.Services;
+using DevSitesIndex.Util;
 using Microsoft.AspNetCore.Mvc;
 
 // 04/12/2019 02:24 pm - SSN - [20190412-1126] - Timelog - save data
@@ -18,9 +19,12 @@ namespace DevSitesIndex.Controllers
     public class TimeLogAPIController : EntityAPIController<TimeLog>
     {
 
-        public TimeLogAPIController(DevSitesIndexContext context)
+        // 09/26/2019 11:02 am - SSN - [20190926-1047] - [005] - Debugging: timelog not posting
+        // Add logger
+
+        public TimeLogAPIController(DevSitesIndexContext context, ILogger_SSN logger)
         {
-            _entityRepository = new TimeLogRepository(context);
+            _entityRepository = new TimeLogRepository(context, logger);
             _context = context;
 
         }
