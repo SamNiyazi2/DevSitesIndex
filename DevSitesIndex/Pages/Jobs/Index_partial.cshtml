@@ -1,0 +1,72 @@
+﻿@page
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@*
+    09/17/2019 12:12 am - SSN - [20190916-1123] - [014] - Adding job status
+    Creating from current index.
+*@
+@{
+    Layout = null;
+}
+@model DevSitesIndex.Pages.Jobs.IndexModel
+<h1>Test partial</h1>
+<table class="table table-responsive">
+    <thead>
+        <tr>
+
+            @*// 08/29/2019 12:53 pm - SSN - [20190829-1253] - [001] - Adding paging and sorting to jobs index*@
+            @{await Html.RenderPartialAsync("HeaderWithSortLinks", Model.pageUtil.headerWithSortLinks);}
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Job)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProjectTitle_ForActivity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.JobTitle)
+                </td>
+
+                <td class="indexNowrapCol hidden-xs">
+                    @Html.DisplayFor(modelItem => item.DateAdded)
+                </td>
+
+                <td class="indexNowrapCol hidden-xs">
+                    @item.DateUpdated
+                    <br>
+                    <b>
+                        @item.LastActivityDate
+
+                    </b>
+                </td>
+
+                <td class="indexNowrapCol hidden-xs">
+                    @item.ActivityAge_ToString
+                </td>
+
+
+                <td class="indexNowrapCol">
+                    <a asp-page="./Edit" asp-route-id="@item.JobID">Edit</a>
+                    ||
+                    <strong>
+
+                        <a asp-page="./Details" asp-route-id="@item.JobID">Job's Details</a>
+                        |
+                        <a asp-page="/projects/Details" asp-route-id="@item.ProjectID">Project's Details</a>
+
+                    </strong>
+                    ||
+                    <a asp-page="./Delete" asp-route-id="@item.JobID">Delete</a> |
+
+                    <a ng-click="showCreateTimesheetForm(@item.JobID)">Clock-in</a>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

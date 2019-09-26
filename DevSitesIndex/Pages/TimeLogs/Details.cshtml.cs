@@ -32,9 +32,11 @@ namespace DevSitesIndex.Pages.TimeLogs
                 return NotFound();
             }
 
+            // 09/21/2019 11:06 am - SSN - Included projct and updated form to display project and job titles.
             TimeLog = await _context.TimeLog
                 .Include(t => t.discipline)
-                .Include(t => t.job).SingleOrDefaultAsync(m => m.TimeLogId == id);
+                .Include(t => t.job).ThenInclude(r=>r.project)
+                .SingleOrDefaultAsync(m => m.TimeLogId == id);
 
             if (TimeLog == null)
             {

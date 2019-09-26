@@ -20,3 +20,158 @@ npm install @types/angular --save
 05/19/20190 01:15 pm - SSN 
 npm install @types/bootstrap --save
 
+
+
+11:59 AM 9/18/2019
+
+npm install requiredjs
+version 2.3.6
+
+We are trying to 
+tsconfig.json "alwaysStrict": true,
+Copied 
+"C:\Sams\DevSitesIndex\node_modules\requirejs\require.js"
+to
+"C:\Sams\DevSitesIndex\DevSitesIndex\wwwroot\lib\require.js"
+
+09/19/2019 03:26 am - Drop it.
+
+
+
+09/19/2019 02:59 pm - SSN - Insalling Babel and Webpack for export/import
+
+Based on tested project C:\Sams_Projects\JavaScript\JavaScript_HTML\TypeScript_Babel_Webpack_Import_Export
+
+See: https://www.slightedgecoder.com/2017/05/22/setting-es6-environment-asp-net-mvc-5/
+Setting up a React Environment for ASP.NET MVC 
+
+
+npm install  --save-dev  @babel/core babel-core @babel/preset-env babel-preset-env @babel/preset-typescript babel-loader ts-loader typescript webpack webpack-cli
+
+Added to package.json scripts section:
+ "build": "webpack"
+
+Added to Build Events > pre-build events:
+
+npm run build --prefix $(ProjectDir) 
+
+
+Added .babelrc
+
+{ "presets": 
+      ["@babel/env", "@babel/typescript"] 
+} 
+
+
+
+Added webpack.config.js
+
+const path = require('path');
+
+module.exports = {
+    mode: "development",
+    watch: true,
+    entry: ['./Scripts/es6/main.js'],
+    output: {
+        path: path.resolve(__dirname, './Scripts/build'),
+        filename: 'bundle.js'
+    },
+    // IMPORTANT NOTE: If you are using Webpack 2 or above, replace "loaders" with "rules"
+    module: {
+        rules: [{
+            loader:  [ 'babel-loader'],
+            test: /\.js$/,
+            exclude: /node_modules/
+        },
+        {
+            test: /\.tsx?$/,
+            use: 'ts-loader',
+            exclude: /node_modules/
+          }
+        ]
+    },
+    resolve: { extensions: ['.js', '.jsx', '.tsx', '.ts', '.json'] } 
+}
+
+
+-----------------------------------------------------------
+1>ERROR in ./wwwroot/js/globals.ts 17:12
+1>Module parse failed: Unexpected token (17:12)
+1>You may need an appropriate loader to handle this file type, currently no loaders are configured to process this file. See https://webpack.js.org/concepts#loaders
+1>|
+1>|
+1>>     private static ssn_devsite_angular_module: IAngularApp[] = []; //angular.IModule[];
+1>|
+1>|
+
+Possible solution:
+
+
+npm install --save-dev @babel/plugin-proposal-class-properties
+  "plugins": ["@babel/plugin-proposal-class-properties"]
+
+npm install --save-dev babel-polyfill
+
+
+
+
+
+09/20/2019 03:30 am - SSN 
+
+npm i -D source-map-loader
+
+Add    use: ["source-map-loader"], to rules
+
+
+Added to tsconfig.json
+  "sourceMap": true,
+
+
+
+Added to webpack.config.js
+
+    devtool: 'eval-source-map',
+
+
+
+
+Copied in ssn_build.cmd (Renamed ssn_build_scripts.cmd)
+
+
+
+
+
+
+
+
+
+09/20/2019 0145 pm - SSN
+
+
+exports is not defined
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+
+https://babeljs.io/docs/en/babel-plugin-transform-runtime
+npm install --save-dev @babel/plugin-transform-runtime
+npm install --save @babel/runtime
+
+{
+  "plugins": ["@babel/plugin-transform-runtime"]
+}
+
+"plugins": [
+    [
+      "@babel/plugin-transform-runtime",
+      {
+        "absoluteRuntime": false,
+        "corejs": false,
+        "helpers": true,
+        "regenerator": true,
+        "useESModules": false
+      }
+    ]
+  ]

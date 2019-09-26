@@ -63,9 +63,9 @@ namespace DevSitesIndex.Controllers
 
         // 09/13/2019 05:17 am - SSN - [20190913-0517] - [001] - Job title duplicate check
 
-        public JsonResult Job_duplicate_Check([Bind(Prefix = "Job.JobTitle")] string jobTitle, [Bind(Prefix = "Job.JobID")] int Id)
+        public JsonResult Job_duplicate_Check([Bind(Prefix = "Job.JobTitle")] string jobTitle, [Bind(Prefix = "Job.JobID")] int JobID)
         {
-            Job r = _context.Jobs.Where(e => e.JobTitle== jobTitle && e.JobID != Id).FirstOrDefault();
+            Job r = _context.Jobs.Where(e => e.JobTitle == jobTitle && e.JobID != JobID).FirstOrDefault();
             if (r != null)
             {
                 return Json(data: $"Job title is already on <a href='/jobs/Details?id={r.JobID}' target='jobewin{r.JobID}' >file</a>.");
@@ -77,12 +77,31 @@ namespace DevSitesIndex.Controllers
 
 
         // 09/13/2019 11:38 pm - SSN - Added
-        public JsonResult CompanyName_IsDuplicate([Bind(Prefix = "Company.CompanyName")] string companyName)
+        // 09/24/2019 11:47 am - SSN - [20190924-1134] - [007] - Removing date add/updated from create/edit pages
+        // Wasn't checking ID
+        public JsonResult CompanyName_IsDuplicate([Bind(Prefix = "Company.CompanyName")] string companyName, [Bind(Prefix = "Company.CompanyID")] int CompanyID)
         {
-            Company r = _context.Companies.Where(e => e.CompanyName == companyName).FirstOrDefault();
+            var reqeust = Request;
+
+            Company r = _context.Companies.Where(e => e.CompanyID != CompanyID && e.CompanyName == companyName).FirstOrDefault();
             if (r != null)
             {
                 return Json(data: $"Company name is already on <a href='/Companies/Details?id={r.CompanyID }' target='companyWin{r.CompanyID}' >file</a>.");
+            }
+            return Json(data: true);
+
+        }
+
+
+        // 09/24/2019 12:34 pm - SSN - [20190924-1134] - [010] - Removing date add/updated from create/edit pages
+        // Added
+        public JsonResult Discipline_IsDuplicate([Bind(Prefix = "Discipline.DisciplineShort")] string disciplineShort, [Bind(Prefix = "Discipline.DisciplineId")] int disciplineId)
+        {
+
+            Discipline r = _context.Disciplines.Where(e => e.DisciplineShort == disciplineShort && e.DisciplineId != disciplineId).FirstOrDefault();
+            if (r != null)
+            {
+                return Json(data: $"Discipline is already on <a href='/Disciplines/Details?id={r.DisciplineId}' target='refsitewin{r.DisciplineId}' >file</a>.");
             }
             return Json(data: true);
 

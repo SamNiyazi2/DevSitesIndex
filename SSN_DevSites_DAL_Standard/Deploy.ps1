@@ -11,12 +11,40 @@ param(
     $version,
 
     [parameter(Mandatory)]
-    $option
+    $option,
 
+    [switch]
+    $override = $false
+    
 )
 
 
+write-warning $override
 
+# 09/16/2019 11:59 am - SSN - [20190916-1123] - [004] - Adding job status - Optiokn to override - Delete piece
+
+function delete-package () {
+
+    param ($version)
+
+    if ( -not $override ){
+        return
+    }
+    
+
+    $TheCurrentlyExecutingScriptRootPath = $MyInvocation.PSScriptRoot
+
+    $project = get-item -Path $TheCurrentlyExecutingScriptRootPath -Filter "*.crproj"
+    
+    $targetDir = "C:\Sams_NuGet\Packages\$($project.name)" 
+
+    write-warning    "Deleting $targetDir"
+
+    $fileslist = get-childitem -path $targetDir -Filter "$version" 
+
+    $fileslist | remove-item
+     
+}
 
 function write-heading {
 
@@ -69,7 +97,9 @@ function step_02_pack {
     write-heading "PS: Calling dotnet_pack.cmd..."
 
     # Invoke-Expression "dotnet pack --output ..\lib_pack_output -p:PackageVersion=$version --include-symbols" 
-    Invoke-Expression "dotnet pack --output ..\SSN_DevSites_DAL_NuGet_Pack_Output  -p:PackageVersion=$version " 
+
+# 09/18/2019 07:13 am - SSN - Added --include-symbols --include-source
+    Invoke-Expression "dotnet pack --output ..\SSN_DevSites_DAL_NuGet_Pack_Output  -p:PackageVersion=$version   --include-symbols --include-source "
 
 }
 
@@ -92,7 +122,10 @@ function step_03_publish_local {
             $version
         )
     
-        & "c:\sams_nuget\nuget" push "C:\Sams_Projects\__DevSites_Index\DevSitesIndex\SSN_DevSites_DAL_NuGet_Pack_Output\SSN_DevSites_DAL_Standard.$version.nupkg" -source c:\sams_nuget\packages
+        delete-package -version $version  
+
+#        & "c:\sams_nuget\nuget" push "C:\Sams_Projects\__DevSites_Index\DevSitesIndex\SSN_DevSites_DAL_NuGet_Pack_Output\SSN_DevSites_DAL_Standard.$version.nupkg" -source c:\sams_nuget\packages
+        & "c:\sams_nuget\nuget" push "..\SSN_DevSites_DAL_NuGet_Pack_Output\SSN_DevSites_DAL_Standard.$version.nupkg" -source c:\sams_nuget\packages
     }
 
 
@@ -156,7 +189,7 @@ function step_04_publish_remote {
         write-host ""
 
 
-        dotnet nuget push "C:\Sams_Projects\__DevSites_Index\DevSitesIndex\SSN_DevSites_DAL_NuGet_Pack_Output\SSN_DevSites_DAL_Standard.$version.nupkg"  -k $env:NuGet_Key -s https://api.nuget.org/v3/index.json
+        dotnet nuget push "..\SSN_DevSites_DAL_NuGet_Pack_Output\SSN_DevSites_DAL_Standard.$version.nupkg"  -k $env:NuGet_Key -s https://api.nuget.org/v3/index.json
 
 
     }
@@ -194,7 +227,7 @@ Write-Host ""
 switch ($option) {
 
 
-    0 { step_00_list_existing_packages  }
+    0 { step_00_list_existing_packages }
     
     1 { step_01_build -version $version }
     2 { step_02_pack -version $version }
@@ -224,3 +257,4 @@ switch ($option) {
     }
 
 }
+

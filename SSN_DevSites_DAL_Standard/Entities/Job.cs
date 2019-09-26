@@ -17,13 +17,13 @@ namespace DevSitesIndex.Entities
     {
 
         public int JobID { get; set; }
-        [Display(Name = "Title", Prompt = "Enter title")]  // 09/14/2019 12:46 am - SSN Added prompt
+        [Display(Name = "Job Title", Prompt = "Enter job title")]  // 09/14/2019 12:46 am - SSN Added prompt
         [Required] // 09/13/2019 11:23 pm - SSN - Forgotten
 
         // 09/13/2019 05:21 am - SSN - [20190913-0517] - [002] - Job title duplicate check
 
-        [Remote(action: "Job_duplicate_Check", controller: "RemoteDataValidation", AdditionalFields = "Id", HttpMethod = "POST")]
-
+// 09/18/2019 09:29 am - SSN - Corrected earlier the proper name of the additioanl field. Must match model. It is posted as a form field.
+        [Remote(action: "Job_duplicate_Check", controller: "RemoteDataValidation", AdditionalFields = "JobID", HttpMethod = "POST")]
         public string JobTitle { get; set; }
 
 
@@ -32,6 +32,10 @@ namespace DevSitesIndex.Entities
         [Display(Name = "Date Added")]
         public DateTime DateAdded { get; set; }
 
+
+        // 09/24/2019 01:11 pm - SSN - [20190924-1134] - [017] - Removing date add/updated from create/edit pages
+// Was on added but not on updated.  Noticed the differene when working with Jobs. 
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy hh:mm tt}")]
         // 04/08/2019 12:53 am - SSN - [20190407-2345] - TimeLog - Added
         [Display(Name = "Date Updated")]
         public DateTime? DateUpdated { get; set; }
@@ -43,9 +47,23 @@ namespace DevSitesIndex.Entities
         [Display(Name = "Project Title")]
         public Project project { get; set; }
 
-        // 04/19/2019 06:26 pm - SSN - [20190419-1826] - Adding timelog to job's model
-        public ICollection<TimeLog> timelogs { get; set; }
 
+        // 09/06/2019 07:09 pm - SSN - [20190906-0518] - [009] - Angular - edit div content - Adding timestamp
+
+        [Timestamp]
+        public byte[] RowVersion { get; set; }
+
+
+        // 09/16/2019 11:27 am - SSN - [20190916-1123] - [002] - Adding job status
+        [DefaultValue(1)] // 1 = Open
+        [Display(Name = "Job Status", Prompt = "Select job status")]
+        public int Job_StatusID { get; set; }
+        
+        public virtual Job_Status job_Status { get; set; }
+
+
+
+        #region NotMapped properties
 
         // 04/19/2019 06:52 pm - SSN - MostRecentActivity
         // 08/31/2019 06:59 pm - SSN - Change MostRecentActivity oo database Jobs_Index_WithLastActivityDate.LastActivityDate
@@ -116,12 +134,18 @@ namespace DevSitesIndex.Entities
             }
         }
 
-        // 09/06/2019 07:09 pm - SSN - [20190906-0518] - [009] - Angular - edit div content - Adding timestamp
 
-        [Timestamp]
-        public byte[] RowVersion { get; set; }
+        #endregion NotMapped properties
 
 
+
+
+        // 04/19/2019 06:26 pm - SSN - [20190419-1826] - Adding timelog to job's model
+        // 09/16/2019 11:27 am - SSN - Added virtual
+        public virtual ICollection<TimeLog> timelogs { get; set; }
+
+        
+        
     }
 
 

@@ -33,7 +33,13 @@ namespace DevSitesIndex.Services
             // Debugging
             try
             {
-                var timeLog = _context.TimeLog.Where(c => c.TimeLogId == timeLogId).Include(r => r.discipline).FirstOrDefault();
+                // 09/24/2019 06:26 am - SSN - [20190924-0401] - [008] - Quick timelog entry
+                // include job and project.
+                var timeLog = _context.TimeLog
+                                            .Where(c => c.TimeLogId == timeLogId)
+                                            .Include(r => r.discipline)
+                                            .Include(r => r.job).ThenInclude(r => r.project)
+                                            .FirstOrDefault();
 
                 return timeLog;
 
@@ -51,7 +57,7 @@ namespace DevSitesIndex.Services
 
 
             Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<TimeLog> r = null;
-            
+
             // 05/21/2019 10:35 am - SSN - Take out try/catch block
 
             // 04/20/2019 06:56 pm - SSN - Convert time passed by javaScript as Utc 

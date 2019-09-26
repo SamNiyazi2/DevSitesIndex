@@ -21,6 +21,27 @@
     <div class="col-md-4" ng-controller="utilityController" form-name="timesheetForm">
         <form method="post" name="timesheetForm" ng-submit="submitForm_1($event,timesheetForm)" action="">
 
+            @*// 09/21/2019 11:08 am - SSN - Added include job and project to display titles on form.*@
+
+            <dt>
+                @Html.DisplayNameFor(model => model.TimeLog.job.project)
+            </dt>
+            <dd>
+                <a asp-page="/projects/Details" asp-route-id="@Model.TimeLog.job.ProjectID">
+                    @Html.DisplayFor(model => model.TimeLog.job.project.ProjectTitle)
+                </a>
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.TimeLog.job.JobTitle)
+            </dt>
+            <dd>
+                <a asp-page="/jobs/Details" asp-route-id="@Model.TimeLog.JobId">
+                    @Html.DisplayFor(model => model.TimeLog.job.JobTitle)
+                </a>
+            </dd>
+
+
 
             @*
                 // 09/13/2019 02:01 pm - SSN - [20190913-0548] - [010] - Crate generic dropdown list directive
@@ -140,10 +161,8 @@
     <a asp-page="./Index">Back to List</a>
 </div>
 
+
+
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-
-    @*// 09/13/2019 05:58 am - SSN - [20190913-0548] - [002] - Crate generic dropdown list directive*@
-
-    <script src="~/js/DropdownList/DropdownListDirective.js"></script>
+    @{await Html.RenderPartialAsync("TimesheetAngularScripts");}
 }

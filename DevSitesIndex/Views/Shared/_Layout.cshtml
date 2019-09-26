@@ -9,6 +9,12 @@
 
 
 <head>
+
+    @*
+        // 09/26/2019 06:17 am - SSN - [20190926-0551] Add $locationProvider
+    *@
+    <base href="/">
+
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -72,11 +78,12 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                        @*
+                            <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                        *@
+
                         <li><a asp-area="" asp-controller="DemoSites" asp-action="Index">Sites</a></li>
-
-
-
+                         
                         <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                         <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
 
@@ -117,156 +124,13 @@
         </footer>
     </div>
 
-    <environment include="Development,Production">
 
-        <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-
-    </environment>
-
-
-    @*<environment exclude="Development">
-            <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
-                    asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                    asp-fallback-test="window.jQuery"
-                    crossorigin="anonymous"
-                    integrity="sha384-K+ctZQ+LL8q6tP7I94W+qzQsfRV2a+AfHIi9k8z8l9ggpc8X+Ytst4yBo/hH+8Fk">
-            </script>
-            <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
-                    asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
-                    asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
-                    crossorigin="anonymous"
-                    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
-            </script>
-
-
-        </environment>
+    @*
+                // 09/19/2019 01:25 am - SSN - [20190919-0114] - [002] - Adding requirejs - Clean up scripts between views and pages
+        Using ong file for views and pages
     *@
 
-
-
-
-    @{
-
-        // 04/16/2019 07:13 pm - SSN - Need to use AngularJS v1.0.7 to older development
-
-        string currentUtil = Context.Request.Path.ToString().ToLower();
-
-        // 04/16/2019 07:37 pm - SSN - [20190416-1937] - Corrrection angular version for P2 and P3
-
-        int angular_section_to_user = 2;
-
-        // 05/31/2019 03:16 pm - SSN - Revise logic to accomodate errors with database
-
-        if (currentUtil.ToLower().Contains("demosites/index"))
-        {
-
-
-            string selectedPage = "";
-
-            DemoSitesViewModel currentModel = Model as DemoSitesViewModel;
-            if (currentModel != null)
-            {
-                selectedPage = currentModel.selectedPage.ToLower();
-            }
-
-            //this.Write(string.Format("[20190416-19333] [{0}]", currentUtil));
-            //this.Write(string.Format("[20190416-19333] [{0}]", selectedPage));
-
-
-            if (selectedPage.Contains("index_p2"))
-            {
-                angular_section_to_user = 1;
-                // 09/10/2019 03:09 am - SSN - [20190910-0147] - [007] - WARNING: Tried to load angular more than once.
-                // Testing for ngRoute
-                angular_section_to_user = 2;
-
-            }
-
-            if (selectedPage.Contains("index_p3"))
-            {
-                angular_section_to_user = 1;
-                // 09/10/2019 03:36 am - SSN - [20190910-0147] - [007] - WARNING: Tried to load angular more than once.
-                // Testing for ngRoute
-                angular_section_to_user = 2;
-                 
-            }
-
-        }
-
-    }
-
-
-
-
-
-    @*// 04/12/2019 01:53 am - SSN - [20190412-0142] - TimesheetApp - Replaced - Begin*@
-
-
-    @{
-        if (angular_section_to_user == 1)
-        {
-            <script src="~/js/angular.js"></script>
-        }
-
-    }
-
-    @{
-        if (angular_section_to_user == 2)
-        {
-            <script src="~/js/Angular_1_7/angular.js"></script>
-            <script src="~/js/Angular_1_7/angular-route.js"></script>
-        }
-
-    }
-
-
-    @{
-        @*
-                // 09/10/2019 01:56 am - SSN - [20190910-0147] - [002] - WARNING: Tried to load angular more than once.
-            // Removed
-
-
-                if (angular_section_to_user == 2)
-            {
-                <environment names="Development">
-                    <script src="~/js/angular-ui/ui-bootstrap-tpls.js"></script>
-                </environment>
-
-                <environment names="Production">
-                    <script src="~/js/angular-ui/ui-bootstrap-tpls.min.js"></script>
-                </environment>
-
-                                    }*@
-
-    }
-
-
-
-    @*// 04/12/2019 01:53 am - SSN - [20190412-0142] - TimesheetApp - Replaced - End*@
-
-
-
-    <script src="~/lib/knockout.js"></script>
-
-
-
-    @*// 04/20/2019 11:28 am - SSN - [20190420-1128] Added toastr *@
-
-    <script src="~/js/toastr/scripts/toastr.js"></script>
-
-
-
-    @*05/02/2019 04:56 am - SSN - Breakup for debugging*@
-
-    <environment names="Development">
-        <script src="~/js/site.js" asp-append-version="true"></script>
-    </environment>
-
-    <environment names="Production">
-        <script src="~/js/site.min.js" asp-append-version="true"></script>
-    </environment>
-
+    @await Html.PartialAsync("JavaScriptFiles")
 
     @RenderSection("Scripts", required: false)
 

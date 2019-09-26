@@ -10,6 +10,28 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
+        @*
+            09/24/2019 11:34 am - SSN - [20190924-1134] - [001] - Removing date add/updated from create/edit pages
+        *@
+
+        <dl class="dl-horizontal">
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Project.DateAdded)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Project.DateAdded)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Project.DateModified)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Project.DateModified)
+            </dd>
+
+        </dl>
+
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Project.ProjectID" />
@@ -23,21 +45,14 @@
 
                 @*<select asp-for="Project.CompanyID" class="form-control" asp-items="ViewBag.CompanyID"></select>*@
                 <select asp-for="Project.CompanyID" class="form-control" asp-items="Model.companySL">
-                    <option>Please select...</option>
+                    <option></option>
                 </select>
 
                 <span asp-validation-for="Project.CompanyID" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Project.DateAdded" class="control-label"></label>
-                <input asp-for="Project.DateAdded" class="form-control" />
-                <span asp-validation-for="Project.DateAdded" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Project.DateModified" class="control-label"></label>
-                <input asp-for="Project.DateModified" class="form-control" />
-                <span asp-validation-for="Project.DateModified" class="text-danger"></span>
-            </div>
+
+
+
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>

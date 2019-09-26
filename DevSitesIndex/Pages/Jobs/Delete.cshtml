@@ -23,6 +23,20 @@
         <dd>
             @Html.DisplayFor(model => model.Job.DateAdded)
         </dd>
+
+        @*
+            // 09/24/2019 01:24 pm - SSN - [20190924-1134] - [019] - Removing date add/updated from create/edit pages
+        *@
+        @if (Model.Job.DateUpdated.HasValue)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Job.DateUpdated)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Job.DateUpdated)
+            </dd>
+
+        }
         <dt>
             @Html.DisplayNameFor(model => model.Job.project)
         </dt>
@@ -30,7 +44,7 @@
             @Html.DisplayFor(model => model.Job.project.ProjectID)
         </dd>
     </dl>
-    
+
     <form method="post">
         <input type="hidden" asp-for="Job.JobID" />
         <input type="submit" value="Delete" class="btn btn-default" /> |

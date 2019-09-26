@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -15,6 +16,10 @@ namespace DevSitesIndex.Entities
 
         [Display(Name = "Discipline")]
         [Required]  // 09/13/2019 11:21 pm
+
+        // 09/24/2019 12:42 pm - SSN - [20190924-1134] - [012] - Removing date add/updated from create/edit pages
+// Added
+        [Remote(action: "Discipline_IsDuplicate", controller: "RemoteDataValidation", AdditionalFields = "DisciplineId", HttpMethod = "POST")]
         public string DisciplineShort { get; set; }
 
         [Display(Name = "Date Added")]

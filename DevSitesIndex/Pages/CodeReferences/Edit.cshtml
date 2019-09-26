@@ -10,6 +10,27 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
+
+        @*
+            09/24/2019 11:34 am - SSN - [20190924-1134] - [001] - Removing date add/updated from create/edit pages
+        *@
+
+        <dl class="dl-horizontal">
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CodeReference.DateAdded)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.CodeReference.DateAdded)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.CodeReference.DateModified)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.CodeReference.DateModified)
+            </dd>
+
+        </dl>
         <form method="post" name="codeReferenceForm">
 
 
@@ -32,16 +53,6 @@
                 <label asp-for="CodeReference.SourceAddress" class="control-label"></label>
                 <input asp-for="CodeReference.SourceAddress" class="form-control" />
                 <span asp-validation-for="CodeReference.SourceAddress" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CodeReference.DateAdded" class="control-label"></label>
-                <input asp-for="CodeReference.DateAdded" class="form-control" />
-                <span asp-validation-for="CodeReference.DateAdded" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CodeReference.DateModified" class="control-label"></label>
-                <input asp-for="CodeReference.DateModified" class="form-control" />
-                <span asp-validation-for="CodeReference.DateModified" class="text-danger"></span>
             </div>
 
 
@@ -105,8 +116,8 @@
 
 
             @*
-        09/13/2019 04:30 am - SSN - [20190913-0421] - [001]
-        Moved down
+                09/13/2019 04:30 am - SSN - [20190913-0421] - [001]
+                Moved down
             *@
 
             <div class="form-group">

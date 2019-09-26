@@ -100,7 +100,15 @@ namespace DevSitesIndex.Controllers
             try
             {
                 DemoSitesViewModel vm = new DemoSitesViewModel();
+
+
                 vm.devSites = _devSitesIndexRepository.GetDevSites();
+
+                // 09/21/2019 09:43 am - SSN - [20190921-0357] - [015] - Creating multiple entry for Webpack
+                foreach (Entities.DevSite r in vm.devSites)
+                {
+                    r.Solution_Details = "***Remove***";
+                }
 
                 // 04/16/2019 07:37 pm - SSN - [20190416-1937] - Corrrection angular version for P2 and P3
                 vm.selectedPage = "index_p3";

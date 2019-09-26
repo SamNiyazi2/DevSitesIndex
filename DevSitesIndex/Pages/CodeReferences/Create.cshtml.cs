@@ -47,6 +47,13 @@ namespace DevSitesIndex.Pages.CodeReferences
             }
 
             _context.CodeReferences.Add(CodeReference);
+
+            // 09/24/2019 11:34 am - SSN - [20190924-1134] - [001] - Removing date add/updated from create/edit pages
+
+            CodeReference.DateAdded = DateTime.Now;
+            CodeReference.DateModified = DateTime.Now;
+
+
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

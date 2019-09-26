@@ -1,0 +1,75 @@
+﻿
+
+<environment include="Development,Production">
+
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+
+</environment>
+
+
+
+
+@*<script src="~/js/angular.js"></script>*@
+
+<script src="~/js/Angular_1_7/angular.js"></script>
+<script src="~/js/Angular_1_7/angular-route.js"></script>
+
+
+
+
+@*Used by timesheet popups*@
+<script src="~/js/angular-ui/ui-bootstrap-tpls.js"></script>
+
+
+<script src="~/lib/knockout.js"></script>
+
+
+@*// 04/20/2019 11:28 am - SSN - [20190420-1128] Added toastr *@
+
+<script src="~/js/toastr/scripts/toastr.js"></script>
+
+
+@{
+
+
+    if (Program.RunWhatJavaScriptVersion == Program.whatJavaScriptVersion.Original)
+    {
+
+        <script src="~/js/IAngularApp.js" asp-append-version="true"></script>
+        <script src="~/js/IColumnBag.js" asp-append-version="true"></script>
+        <script type="module" src="~/js/globals.js" asp-append-version="true"></script>
+
+        <environment names="Development">
+            <script type="module" src="~/js/site.js" asp-append-version="true"></script>
+        </environment>
+
+        <environment names="Production">
+            <script type="module" src="~/js/site.min.js" asp-append-version="true"></script>
+        </environment>
+
+    }
+
+
+
+
+    if (Program.RunWhatJavaScriptVersion == Program.whatJavaScriptVersion.Babel_Only)
+    {
+
+        <script type="module" src="~/babel_lib/IAngularApp.js" asp-append-version="true"></script>
+        <script type="module" src="~/babel_lib/IColumnBag.js" asp-append-version="true"></script>
+        <script type="module" src="~/babel_lib/globals.js" asp-append-version="true"></script>
+
+        <environment names="Development">
+            <script type="module" src="~/babel_lib/site.js" asp-append-version="true"></script>
+        </environment>
+
+        <environment names="Production">
+            <script src="~/babel_lib/site.min.js" asp-append-version="true"></script>
+        </environment>
+
+    }
+
+
+
+}

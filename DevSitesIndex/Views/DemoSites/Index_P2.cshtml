@@ -56,7 +56,7 @@
 
 
 
-<script type="text/ng-template" id="view">
+<script type="text/ng-template" id="viewMode">
 
 
     <div ng-class="'siteTitleDiv ' + setTableRowClass($index)">
@@ -94,7 +94,7 @@
 
 </script>
 
-<script type="text/ng-template" id="edit">
+<script type="text/ng-template" id="editMode">
 
 
 
@@ -128,7 +128,7 @@
 
 
 
-    <div ng-include="'view'"></div>
+    <div ng-include="'viewMode'"></div>
 
 
 
@@ -144,14 +144,29 @@
 @section Scripts {
 
 
+    @{
+        // 09/21/2019 09:34 am - SSN - [20190921-0357] - [014] - Creating multiple entry for Webpack
 
-    @*08/31/2018 08:51 am - SSN*@
-    <script src="~/js/demoSites_Index.js" asp-append-version="true"></script>
+        if (Program.RunWhatJavaScriptVersion == Program.whatJavaScriptVersion.Original)
+        {
 
-    @*09/01/2018 01:38 pm - SSN -*@
-    <script src="~/js/dataservices.js" asp-append-version="true"></script>
+            @*08/31/2018 08:51 am - SSN*@
+        <script type="module" src="~/js/demoSites_Index.js" asp-append-version="true"></script>
 
 
+        @await Html.PartialAsync("DataServices_Scripts")
+
+    }
+
+
+
+    if (Program.RunWhatJavaScriptVersion == Program.whatJavaScriptVersion.Webpack)
+    {
+
+        <script src="~/webpack_build/bundle_DevSitesIndex.js" asp-append-version="true"></script>
+    }
+
+    }
 
 }
 

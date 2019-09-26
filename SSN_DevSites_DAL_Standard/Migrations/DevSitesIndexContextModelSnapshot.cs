@@ -164,6 +164,10 @@ namespace DevSitesIndex.Migrations
                         .IsRequired()
                         .HasMaxLength(100);
 
+                    b.Property<int>("Job_StatusID")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("1");
+
                     b.Property<DateTime>("LastActivityDate")
                         .ValueGeneratedOnAddOrUpdate();
 
@@ -177,6 +181,8 @@ namespace DevSitesIndex.Migrations
                         .ValueGeneratedOnAddOrUpdate();
 
                     b.HasKey("JobID");
+
+                    b.HasIndex("Job_StatusID");
 
                     b.HasIndex("ProjectID", "JobTitle")
                         .IsUnique()
@@ -204,6 +210,28 @@ namespace DevSitesIndex.Migrations
                     b.ToTable("Job_DevSites");
                 });
 
+            modelBuilder.Entity("DevSitesIndex.Entities.Job_Status", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DateAdded")
+                        .HasColumnType("datetime2(0)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(100);
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("Status")
+                        .IsUnique()
+                        .HasName("Job_Status_Unique");
+
+                    b.ToTable("Job_Statuses");
+                });
+
             modelBuilder.Entity("DevSitesIndex.Entities.Project", b =>
                 {
                     b.Property<int>("ProjectID")
@@ -224,7 +252,9 @@ namespace DevSitesIndex.Migrations
 
                     b.HasKey("ProjectID");
 
-                    b.HasIndex("CompanyID");
+                    b.HasIndex("CompanyID", "ProjectTitle")
+                        .IsUnique()
+                        .HasName("Project_CompanyID_ProjectTitle_IsUnique");
 
                     b.ToTable("Projects");
                 });
@@ -343,6 +373,11 @@ namespace DevSitesIndex.Migrations
 
             modelBuilder.Entity("DevSitesIndex.Entities.Job", b =>
                 {
+                    b.HasOne("DevSitesIndex.Entities.Job_Status", "job_Status")
+                        .WithMany()
+                        .HasForeignKey("Job_StatusID")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("DevSitesIndex.Entities.Project", "project")
                         .WithMany()
                         .HasForeignKey("ProjectID")
