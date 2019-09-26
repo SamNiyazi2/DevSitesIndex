@@ -266,58 +266,6 @@
 
 
 
-    @*
-        08/21/2018 02:46 am - SSN - Copied - Begin
-        08/21/2018 02:46 am - SSN - Copied from C:\Sams_Projects\PluralSight\html5-line-of-business-applications\d\demos\CodedHomes.Web\Views\Homes
-    *@
-    <script>
-
-        // Knockout related
-
-    $(function () {
-
-        var ViewModel = function () {
-
-            this.currentItem = {};
-
-            this.errorMessage = ko.observable();
-
-            this.devSitesJSON = ko.observableArray(@Html.Raw(Model.devSitesJSON));
-
-            this.requestDelConfirm = function (itemToDelete) {
-
-                console.log("index_p3 - 20190921-0947-3");
-
-                vm.currentItem = itemToDelete;
-                $('#del-confirm').modal({ backdrop: 'static', keyboard: false });
-
-            };
-
-
-            this.showJob = function () {
-
-                $('#show-job').modal();
-
-            };
-
-
-            this.del = function () {
-                alert('Calling del. [20190812-2128]');
-                var itemToDelete = ko.toJS(vm.currentItem);
-                $('#del-confirm').modal('hide');
-
-            };
-
-        };
-
-        var vm = new ViewModel();
-        ko.applyBindings(vm);
-    });
-
-    </script>
-
-
-
-
+  
 
 }

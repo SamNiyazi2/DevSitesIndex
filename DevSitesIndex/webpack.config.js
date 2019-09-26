@@ -64,9 +64,12 @@ var d_master = {
 
 var config = [
 
+
+
+
+
     // 09/22/2019 03:46 pm - SSN - [20190922-0822] - [010] - Plug in job status filter on job's index - update data source
     // Bring up-to-date with Babel/Webpack implementation
-
 
 
     // 09/21/2019 11:29 am - SSN - [20190921-1129] - [001] - Plug in job status filter on job's index
@@ -140,8 +143,36 @@ var config = [
 
 
 
+    ,
 
-]
+
+
+
+
+// 09/26/2019 06:52 am - SSN - [20190926-0638] - [005] - Move scripts from index_p1.cshtml to demoSites_index_p1
+    {
+        ...d_master,
+
+        output: {
+            path: path.resolve(__dirname, './wwwroot/webpack_build'),
+            filename: 'bundle_DevSitesIndex_p3.js'
+        },
+
+
+        entry: [
+            './DemoSites_index_p3_main.ts'
+        ]
+
+    }
+
+
+
+
+
+
+
+
+];
 
 
 

@@ -28,6 +28,7 @@
     <Content Remove="wwwroot\js\CodeReference\Typeahead_Discipline.ts" />
     <Content Remove="wwwroot\js\DemoSites_Index_main.ts" />
     <Content Remove="wwwroot\js\DemoSites_index_p1.ts" />
+    <Content Remove="wwwroot\js\demoSites_index_p3.ts" />
     <Content Remove="wwwroot\js\DropdownList\DropdownListDirective.ts" />
     <Content Remove="wwwroot\js\fil11e.ts" />
     <Content Remove="wwwroot\js\globals.ts" />
@@ -126,6 +127,7 @@
     <TypeScriptCompile Include="wwwroot\js\CodeReference\Typeahead_Discipline.ts" />
     <TypeScriptCompile Include="wwwroot\js\DemoSites_Index_main.ts" />
     <TypeScriptCompile Include="wwwroot\js\DemoSites_index_p1.ts" />
+    <TypeScriptCompile Include="wwwroot\js\demoSites_index_p3.ts" />
     <TypeScriptCompile Include="wwwroot\js\DropdownList\DropdownListDirective.ts" />
     <TypeScriptCompile Include="wwwroot\js\globals.ts" />
     <TypeScriptCompile Include="wwwroot\js\IAngularApp.ts" />

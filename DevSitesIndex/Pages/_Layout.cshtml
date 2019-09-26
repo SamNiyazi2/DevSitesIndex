@@ -77,7 +77,10 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                    @*
+                        <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                    *@
+
                     <li><a asp-area="" asp-controller="DemoSites" asp-action="Index">Sites</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
@@ -117,8 +120,8 @@
     </footer>
 
     @*
-        // 09/19/2019 01:25 am - SSN - [20190919-0114] - [002] - Adding requirejs - Clean up scripts between views and pages
-Using ong file for views and pages
+                // 09/19/2019 01:25 am - SSN - [20190919-0114] - [002] - Adding requirejs - Clean up scripts between views and pages
+        Using ong file for views and pages
     *@
     @await Html.PartialAsync("JavaScriptFiles")
 
