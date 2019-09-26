@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DevSitesIndex.Entities;
+using DevSitesIndex.Util;
 using Microsoft.EntityFrameworkCore;
 
 // 04/12/2019 11:51 am - SSN - [20190412-1126] - Timelog - save data - Copied from DevSitesIndexRepository
@@ -12,10 +13,15 @@ namespace DevSitesIndex.Services
     public class TimeLogRepository : IEntityRepository<TimeLog>
     {
         private readonly DevSitesIndexContext _context;
+        private readonly ILogger_SSN logger;
 
-        public TimeLogRepository(DevSitesIndexContext context)
+        // 09/26/2019 10:56 am - SSN - [20190926-1047] - [002] - Debugging: timelog not posting
+        // Add logged to post error messages.
+
+        public TimeLogRepository(DevSitesIndexContext context, ILogger_SSN logger)
         {
             this._context = context;
+            this.logger = logger;
         }
 
 
@@ -46,7 +52,9 @@ namespace DevSitesIndex.Services
             }
             catch (Exception ex)
             {
-                string errorMessage = ex.Message;
+                // 09/26/2019 11:01 am - SSN - [20190926-1047] - [003] - Debugging: timelog not posting
+                 
+                logger.PostException(ex, "20190926-1057", $"Failed to get timelog record {timeLogId}");
                 throw;
             }
         }
@@ -68,8 +76,14 @@ namespace DevSitesIndex.Services
                 int DisciplineID = timeLog.DisciplineID;
                 timeLog.discipline = null;
 
+                // We "include"d projects for displaying titles. We need to exclude them from inserts.
+                timeLog.job = null;
+
+
                 timeLog.DateAdded = DateTime.Now;
                 r = _context.TimeLog.Add(timeLog);
+
+
             }
             else
             {
@@ -78,9 +92,7 @@ namespace DevSitesIndex.Services
                 timeLog.DateModified = DateTime.Now;
                 r = _context.TimeLog.Update(timeLog);
             }
-
-
-
+             
             return timeLog;
         }
 
@@ -93,7 +105,11 @@ namespace DevSitesIndex.Services
             }
             catch (Exception ex)
             {
-                string message = ex.Message;
+
+                // 09/26/2019 11:01 am - SSN - [20190926-1047] - [004] - Debugging: timelog not posting
+
+                logger.PostException(ex, "20190926-1059", "Failed to save timelog record");
+                 
                 return false;
             }
         }
