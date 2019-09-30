@@ -43,7 +43,6 @@ var timesheetApp_instance = function () {
                 });
             };
             $scope.showCreateTimesheetForm = function (jobID) {
-                console.log("TimesheetApp - showCreateTimesheetForm - 20190921-0632");
                 if (isNaN(jobID)) {
                     jobID = 0;
                 }

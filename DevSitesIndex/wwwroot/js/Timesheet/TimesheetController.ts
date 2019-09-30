@@ -1,4 +1,4 @@
-﻿ 
+﻿
 
 import * as globals from "../globals";
 import * as angular from "angular";
@@ -18,7 +18,7 @@ var timesheetController_instance = function () {
     var timesheetApp = globals.globals_instance.getInstance("timesheetApp");
 
 
-    timesheetApp.controller('TimesheetController', ['$scope', '$uibModalInstance', '$http', '$q, dataService',
+    timesheetApp.controller('TimesheetController', ['$scope', '$uibModalInstance', '$http', '$q', 'dataService',
         function TimesheetController($scope, $uibModalInstance, $http, $q, dataService, jobId) {
 
 
@@ -43,14 +43,14 @@ var timesheetController_instance = function () {
                 jobId: jobId
             };
 
- 
+
             $scope.editableTimeLog = angular.copy($scope.timeLog);
 
 
 
 
             $scope.submitForm = function () {
- 
+
                 var test = $scope.editableTimeLog;
 
                 var promise = null;
@@ -70,7 +70,7 @@ var timesheetController_instance = function () {
                         function (data) {
 
                             var test1 = data;
- 
+
                             $scope.timeLog = angular.copy($scope.editableTimeLog);
                         },
                         function (error) {
@@ -161,6 +161,6 @@ var timesheetController_instance = function () {
 
 }();
 
- 
+
 export { timesheetController_instance };
 

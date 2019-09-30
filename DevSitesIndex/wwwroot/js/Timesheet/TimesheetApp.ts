@@ -20,8 +20,8 @@ var timesheetApp_instance = function () {
 
     // 04/12/2019 02:35 pm - SSN - [20190412-1126] - Timelog - save data - ssn_devsite_angular_module is in use by DataServices.js
 
-    
-    timesheetApp.controller("timesheetController", ['$scope', '$uibModal',function ($scope, $uibModal) {
+
+    timesheetApp.controller("timesheetController", ['$scope', '$uibModal', function ($scope, $uibModal) {
 
         $scope.timesheetForm_ClockOut = function (timelogId) {
 
@@ -56,7 +56,7 @@ var timesheetApp_instance = function () {
 
 
         };
-        
+
 
         // 05/19/2019 08:39 am - SSN - [20190519-0837] - [002] - Adding timesheet "Continue" option
 
@@ -68,7 +68,7 @@ var timesheetApp_instance = function () {
             // 05/19/2019 09:37 am - SSN - [20190519-0837] - [003] - Adding timesheet "Continue" option
 
             $uibModal.open({
-                templateUrl: '/js/timesheet/templates//timesheetTemplate.html?v=' + $scope.versionForHTMLRefresh ,
+                templateUrl: '/js/timesheet/templates//timesheetTemplate.html?v=' + $scope.versionForHTMLRefresh,
                 controller: 'TimesheetContinueController',
                 windowClass: 'ssn-mobile-modal',
                 size: 'md',
@@ -91,20 +91,17 @@ var timesheetApp_instance = function () {
         $scope.showCreateTimesheetForm = function (jobID) {
 
 
-            console.log("TimesheetApp - showCreateTimesheetForm - 20190921-0632");
-
-
             if (isNaN(jobID)) {
                 jobID = 0;
             }
 
             // 05/03/2019 04:10 pm - SSN - [20190503-1539] - [004] - Add link to create timelog
- 
+
 
             $uibModal.open({
                 templateUrl: '/js/timesheet/templates/timesheetTemplate.html',
-                controller: 'TimesheetController',
 
+                controller: 'TimesheetController',
 
                 // 05/03/2019 04:29 pm - SSN - [20190503-1539] - [007] - Add link to create timelog - Prevent close (Testing)
                 // windowClass: 'ssn-mobile-modal',
@@ -124,7 +121,7 @@ var timesheetApp_instance = function () {
 
         };
 
-        
+
 
     }]);
 

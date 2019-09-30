@@ -164,27 +164,27 @@ var jobsIndexController_instance = function () {
             // 09/28/2019 04:06 pm - SSN - [20190928-1256] - [011] - Adding Entity Framework model attribute
             // Duplicate - Wrong way to go!
 
-            //$scope.showCreateTimesheetForm = function (jobID) {
+            $scope.showCreateTimesheetForm = function (jobID) {
 
-            //    if (isNaN(jobID)) {
-            //        jobID = 0;
-            //    }
+                if (isNaN(jobID)) {
+                    jobID = 0;
+                }
 
-            //    $uibModal.open({
-            //        templateUrl: '/js/timesheet/timesheetTemplate.html',
-            //        controller: 'TimesheetController',
+                $uibModal.open({
+                    templateUrl: '/js/timesheet/templates/timesheetTemplate.html',
+                    controller: 'TimesheetController',
 
 
-            //        backdrop: false,
+                    backdrop: false,
 
-            //        resolve: {
-            //            jobId: function () {
-            //                return jobID;
-            //            }
-            //        }
-            //    });
+                    resolve: {
+                        jobId: function () {
+                            return jobID;
+                        }
+                    }
+                });
 
-            //};
+            };
 
 
 
