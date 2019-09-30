@@ -69,8 +69,16 @@ namespace DevSitesIndex.Pages.DevSites
             // await temp.saveRecord(_context, DevSite);
 
             await _devSitesIndexRepository.UpdateDevSiteAsync(DevSite);
-            _devSitesIndexRepository.Save();
 
+            // 09/30/201+ 09:07 am - SSN - book to exception.
+            Exception ex = _devSitesIndexRepository.Save();
+
+            if (ex != null)
+            {
+                ModelState.AddModelError("", "Failed to save record.");
+                ModelState.AddModelError("", ex.Message);
+                return Page();
+            }
 
             return RedirectToPage("./Index");
         }

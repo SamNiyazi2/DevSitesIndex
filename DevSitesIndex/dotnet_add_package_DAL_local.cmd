@@ -4,17 +4,25 @@
 
 echo:
 echo:
+echo:
+echo:
 dotnet remove package ssn_devsites_dal_standard
+echo:
+echo:
 echo:
 echo:
 
 : 09/29/2019 10:08 am - SSN - Added remove project reference ..\SSN_DevSites_DAL_Standard\SSN_DevSites_DAL_Standard.csproj
 echo:
 echo:
+echo:
+echo:
 echo Calling  SSN_Remove_DAL_DLL_FromProject.cmd...
 echo:
 echo:
 call SSN_Remove_DAL_DLL_FromProject
+echo:
+echo:
 echo:
 echo:
 echo: Calling dotnet add package....

@@ -15,6 +15,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 // 08/08/2018 02:34 pm - SSN
+// 09/30/2019 08:28 am - SSN - [20190930-0818] - [002] - Added dateadded/dateupdated attributes to entity models
 
 namespace DevSitesIndex.Entities
 {
@@ -44,11 +45,13 @@ namespace DevSitesIndex.Entities
         // 03/13/2019 09:29 am - SSN
         [DisplayName("Date Added")]
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy hh:mm tt}")]
+        [EFCoreShadowProperty.Models.DateAdded]
         public DateTime DateAdded { get; set; }
 
         // 04/19/2019 11:58 am - SSN - Add sort
         [DisplayName("Date Updated")]
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy hh:mm tt}")]
+        [EFCoreShadowProperty.Models.DateUpdated]
         public DateTime? DateModified { get; set; }
 
 

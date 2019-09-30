@@ -20,6 +20,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Company[0].DateAdded)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Company[0].DateUpdated)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -33,6 +36,10 @@
 
                 <td class="indexNowrapCol">
                     @Html.DisplayFor(modelItem => item.DateAdded)
+                </td>
+
+                <td class="indexNowrapCol">
+                    @Html.DisplayFor(modelItem => item.DateUpdated)
                 </td>
 
                 <td class="indexNowrapCol">

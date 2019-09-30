@@ -4,14 +4,16 @@ using DevSitesIndex.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DevSitesIndex.Migrations
 {
     [DbContext(typeof(DevSitesIndexContext))]
-    partial class DevSitesIndexContextModelSnapshot : ModelSnapshot
+    [Migration("20190930134212_Companies add date_updated")]
+    partial class Companiesadddate_updated
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -58,7 +60,7 @@ namespace DevSitesIndex.Migrations
                     b.Property<DateTime>("DateAdded")
                         .HasColumnType("datetime2(0)");
 
-                    b.Property<DateTime?>("DateUpdated");
+                    b.Property<DateTime>("DateUpdated");
 
                     b.HasKey("CompanyID");
 

@@ -293,3 +293,25 @@ alarm {
 .site_alert_css_name{
     background-color:yellow;
 }
+
+
+/* 09/30/2019 07:55 am - SSN */
+
+.dropdownHint {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdownHint-content {
+    display: none;
+    position: absolute;
+    background-color: #eee;
+    min-width: 200px;
+    box-shadow: 0px 10px 10px 0px rgba(0,0,0,0.2);
+    padding: 20px;
+    z-index: 1; 
+}
+
+.dropdownHint:hover + .dropdownHint-content {
+    display: block;
+}

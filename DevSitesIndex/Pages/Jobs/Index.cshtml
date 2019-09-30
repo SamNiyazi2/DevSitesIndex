@@ -55,7 +55,15 @@
                         {{job.projectTitle_ForActivity}}
                     </td>
                     <td>
-                        <div job-status-display job-status="job.job_StatusID" class="truncateLongText_200">{{job.jobTitle}}</div>
+                        <div job-status-display job-status="job.job_StatusID" class="truncateLongText_200 dropdownHint">
+                            {{job.jobTitle}}
+                        </div>
+
+                        <div class="dropdownHint-content">
+                            {{job.jobTitle}}
+                        </div>
+
+
                     </td>
 
                     <td class="indexNowrapCol hidden-xs">

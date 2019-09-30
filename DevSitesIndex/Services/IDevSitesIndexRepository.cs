@@ -21,7 +21,8 @@ namespace DevSitesIndex.Services
 
         DevSite GetDevSite(int DevSiteID);
 
-        bool Save();
+        // 09/30/2019 09:05 am - SSN - bool to Exception
+        Exception Save();
         void Dispose();
     }
 }

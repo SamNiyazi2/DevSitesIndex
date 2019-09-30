@@ -27,12 +27,17 @@
             <dd>
                 @Html.DisplayFor(model => model.DevSite.DateAdded)
             </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.DevSite.DateUpdated)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.DevSite.DateUpdated)
-            </dd>
+            @{
+                if (Model.DevSite.DateUpdated != null)
+                {
+                    <dt>
+                        @Html.DisplayNameFor(model => model.DevSite.DateUpdated)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.DevSite.DateUpdated)
+                    </dd>
+                }
+            }
         </dl>
 
 
@@ -104,8 +109,8 @@
 
 
             @*
-            09/13/2019 04:30 am - SSN - [20190913-0421] - [001]
-            Moved down
+                09/13/2019 04:30 am - SSN - [20190913-0421] - [001]
+                Moved down
             *@
 
 

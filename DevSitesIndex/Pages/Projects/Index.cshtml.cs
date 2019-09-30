@@ -95,11 +95,12 @@ namespace DevSitesIndex.Pages.Projects
         }
 
 
-        public async Task OnPostAsync(string searchText, List<SearchTableRecord> searchTables, string columnName, string desc, int? pageIndex, string selectedTablesIDs)
+        // selectedTablesIDs not needed here. Initial search request.
+        public async Task OnPostAsync(string searchText, List<SearchTableRecord> searchTables, string columnName, string desc, int? pageIndex)
         {
-            searchTablesOptions_Fill(selectedTablesIDs);
+            searchTablesOptions_Fill(null);
 
-            await searchResults_Fill(searchText, searchTables, columnName, desc, pageIndex, selectedTablesIDs);
+            await searchResults_Fill(searchText, searchTables, columnName, desc, pageIndex, null);
 
         }
 

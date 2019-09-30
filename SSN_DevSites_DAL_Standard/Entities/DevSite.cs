@@ -1,6 +1,6 @@
 ﻿// 09/07/2019 01:51 am - SSN - [20190907-0018] - [006] - Entity Framework concurrency check
 // using Microsoft.AspNetCore.Mvc;
- 
+
 
 using System;
 using System.Collections.Generic;
@@ -14,6 +14,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace DevSitesIndex.Entities
 {
 
+    // 09/30/2019 09:13 am - SSN - [20190930-0818] - [004] - Added dateadded/dateupdated attributes to entity models
 
     public class DevSite
     {
@@ -42,11 +43,11 @@ namespace DevSitesIndex.Entities
 
         [DisplayName("Detail")]
         public string Solution_Details { get; set; }
-        
+
         // 09/10/2019 09:57 am - SSN 
         [NotMapped]
         public string Solution_Details_PRE_Encoded => RE_Util.EncodeContentOfPreTag(Solution_Details);
-            
+
 
 
         [Required]
@@ -73,12 +74,14 @@ namespace DevSitesIndex.Entities
         [DisplayName("Date Added")]
         // 03/13/2019 09:29 am - SSN
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy hh:mm tt}")]
+        [EFCoreShadowProperty.Models.DateAdded]
         public DateTime DateAdded { get; set; }
 
         // 10/12/2018 03:52 pm - SSN - Added
         [DisplayName("Date Updated")]
         // 03/13/2019 09:29 am - SSN
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy hh:mm tt}")]
+        [EFCoreShadowProperty.Models.DateUpdated]
         public DateTime? DateUpdated { get; set; }
 
 
@@ -136,7 +139,7 @@ namespace DevSitesIndex.Entities
             }
         }
 
- 
+
         // 09/08/2019 09:29 pm - SSN - [20190908-2129] - [001] - Concurrency - DevSite
         [Timestamp]
         public byte[] RowVersion { get; set; }

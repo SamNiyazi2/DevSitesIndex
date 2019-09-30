@@ -88,16 +88,20 @@ namespace DevSitesIndex.Services
         }
 
 
-        public bool Save()
+        // 09/30/2019 09:06 am - SSN - bool to Exception
+        public Exception Save()
         {
             try
             {
-                return _context.SaveChanges() > 0;
+                if (_context.SaveChanges() > 0) return default(Exception);
+
+                return new Exception("20190930-0906 - Failed to save record.");
             }
             catch (Exception ex)
             {
-                string message = ex.Message;
-                return false;
+                //string message = ex.Message;
+                //return false;
+                return ex;
             }
         }
 
