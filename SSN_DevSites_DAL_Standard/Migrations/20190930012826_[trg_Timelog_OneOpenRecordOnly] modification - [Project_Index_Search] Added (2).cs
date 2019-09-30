@@ -12,7 +12,7 @@ namespace DevSitesIndex.Migrations
  
 
 -- 09/26/2019 01:13 pm - SSN - [20190926-1242] - [004] - Search projects-- Create procedure
--- 09/27/2019 10:04 am - SSN - Add stats results
+-- 09/27/2019 10:04 am - SSN - Add stats results (c#)
 
 create procedure [DemoSites].[Project_Index_Search]
 (
@@ -134,7 +134,7 @@ select	@recordsPerPage			as RecordsPerpage ,
 
  
 -- 06/01/2019 04:01 pm - SSN - Verify that we don't have more than one open record (null totalSeconds) at a time.
--- c#
+-- 09/28/2019 03:06 pm - SSN - [20190928-1453] Make sure we don't post more than four hours. (c#)
 
 ALTER TRIGGER [DemoSites].[trg_Timelog_OneOpenRecordOnly] 
    ON  [DemoSites].[TimeLog]

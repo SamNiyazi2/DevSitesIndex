@@ -1,4 +1,5 @@
-﻿ 
+﻿@inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
+ 
 <!DOCTYPE html>
 
 @*<html data-ng-app="@ViewBag.InitModule">*@
@@ -54,6 +55,7 @@
     <link href="~/js/toastr/content/toastr.css" rel="stylesheet" />
 
      
+    @Html.Raw(JavaScriptSnippet.FullScript)
 </head>
 
 <body>

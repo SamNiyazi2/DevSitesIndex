@@ -16,11 +16,11 @@ namespace DevSitesIndex
 
         public enum whatJavaScriptVersion
         {
-            Original= 1,
+            Original = 1,
             Webpack = 2,
             Babel_Only = 3
         }
-        
+
         public static whatJavaScriptVersion RunWhatJavaScriptVersion { get; set; } = whatJavaScriptVersion.Webpack;
 
 
@@ -33,10 +33,11 @@ namespace DevSitesIndex
             WebHost.CreateDefaultBuilder(args)
 
 
-                // 09/27/2019 02:21 pm - SSN - [20190927-0634] - [023] - Testing
-                // While moving some code to SSN_GenUtil_StandardLib, we had to replace some packages with version 3.0.0 with 2.2.0
-                // it may have impacted this.  Comment out
-                // .UseApplicationInsights()
+            // 09/27/2019 02:21 pm - SSN - [20190927-0634] - [023] - Testing
+            // While moving some code to SSN_GenUtil_StandardLib, we had to replace some packages with version 3.0.0 with 2.2.0
+            // it may have impacted this.  Comment out
+            // 09/29/2019 09:26 pm - SSN - Adding back in.    
+            .UseApplicationInsights()
 
 
                 .UseStartup<Startup>()
