@@ -50,7 +50,7 @@ insert into @table
 			coalesce ( [DateModified],[DateAdded]) LastActivity,
 			[ProjectTitle]
       
-		FROM [Testing].[DemoSites].[Projects] with (nolock)
+		FROM [DemoSites].[Projects] with (nolock)
 	
 		where @includeProjects = 1 and contains ( ProjectTitle , @searchTerm )  
 
@@ -68,7 +68,7 @@ insert into @table
 			--,
 			--[Job_StatusID]
 
-		FROM [Testing].[DemoSites].[Jobs] with (nolock)
+		FROM [DemoSites].[Jobs] with (nolock)
   
 		where @includeJobs = 1 and  contains ( [JobTitle] , @searchTerm )  
 
@@ -88,7 +88,7 @@ insert into @table
 	--,
 	--		[DisciplineID],
 
-		FROM [Testing].[DemoSites].[TimeLog] with (nolock)
+		FROM [DemoSites].[TimeLog] with (nolock)
 
 		where @includeTimelog = 1 and  contains ( [WorkDetail] , @searchTerm )  
 
