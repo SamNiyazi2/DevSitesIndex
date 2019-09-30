@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 // 09/17/2019 12:40 pm - SSN - [20190917-0929] - [007] - Adding paging for angular lists
@@ -16,13 +17,17 @@ namespace DevSitesIndex.Util
     {
 
         DbContext context = null;
+        private readonly ILogger_SSN logger;
         DbCommand cmd = null;
         DbDataReader reader = null;
 
+        // 09/26/2019 03:43 pm - SSN - [20190926-1242] - [014] - Search projects
+        // Added logger
 
-        public ExecuteStoredProcedure(DbContext _context)
+        public ExecuteStoredProcedure(DbContext _context, ILogger_SSN logger)
         {
             context = _context;
+            this.logger = logger;
         }
 
 
@@ -48,33 +53,66 @@ namespace DevSitesIndex.Util
         }
 
 
-        private IList<T> MapToList<T>()
+        // 09/26/2019 03:25 pm - SSN - [20190926-1242] - [012] - Search projects
+        // async/await
+
+
+        private async Task<IList<T>> MapToList<T>()
         {
-            var objList = new List<T>();
-            var props = typeof(T).GetProperties();
+
+            CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+
+            CancellationToken cancellationToken = cancellationTokenSource.Token;
+
+            Task<List<T>> T1 = Task.Factory.StartNew(() =>
+               {
+                   var objList = new List<T>();
+                   var props = typeof(T).GetProperties();
 
 
-            var colMapping = reader.GetColumnSchema()
-                .Where(x => props.Any(y => y.Name.ToLower() == x.ColumnName.ToLower()))
-                .ToDictionary(key => key.ColumnName.ToLower());
+                   var colMapping = reader.GetColumnSchema()
+                       .Where(x => props.Any(y => y.Name.ToLower() == x.ColumnName.ToLower()))
+                       .ToDictionary(key => key.ColumnName.ToLower());
 
-            if (reader.HasRows)
-            {
-                while (reader.Read())
-                {
-                    T obj = Activator.CreateInstance<T>();
-                    foreach (var prop in props)
-                    {
-                        if (colMapping.Any(r => r.Key.ToLower() == prop.Name.ToLower()))
-                        {
-                            var val = reader.GetValue(colMapping[prop.Name.ToLower()].ColumnOrdinal.Value);
-                            prop.SetValue(obj, val == DBNull.Value ? null : val);
-                        }
-                    }
-                    objList.Add(obj);
-                }
-            }
-            return objList;
+                   if (reader.HasRows)
+                   {
+                       while (reader.Read())
+                       {
+                           T obj = Activator.CreateInstance<T>();
+                           foreach (var prop in props)
+                           {
+                               if (colMapping.Any(r => r.Key.ToLower() == prop.Name.ToLower()))
+                               {
+                                   var val = reader.GetValue(colMapping[prop.Name.ToLower()].ColumnOrdinal.Value);
+                                   prop.SetValue(obj, val == DBNull.Value ? null : val);
+                               }
+                           }
+                           objList.Add(obj);
+                       }
+                   }
+                   return objList;
+
+               });
+
+
+            Task T2a = T1.ContinueWith((T2b) =>
+                                  {
+                                      if (T2b.IsFaulted)
+                                      {
+                                          logger.PostException(T2b.Exception, "20190926-1544-A", "Task failed");
+                                          logger.TrackEvent("DemoSite-20190926-1544-B - Do we see (A)");
+                                      }
+
+                                  }
+                                  , cancellationToken
+                                );
+
+
+
+            Task.WaitAll(T1, T2a);
+            return await T1;
+
+
         }
 
         //public static IList<T> ExecuteStoredProc<T>(this DbCommand command)
@@ -98,7 +136,11 @@ namespace DevSitesIndex.Util
         //}
 
 
-        public IList<T> GetResultSet<T>()
+
+        // 09/26/2019 03:22 pm - SSN - [20190926-1242] - [011] - Search projects
+        // async/awaut
+
+        public async Task<IList<T>> GetResultSet_v02<T>()
         {
 
             if (cmd.Connection.State == System.Data.ConnectionState.Closed)
@@ -106,18 +148,19 @@ namespace DevSitesIndex.Util
 
 
             if (reader == null)
-                reader = cmd.ExecuteReader();
+                reader = await cmd.ExecuteReaderAsync();
             else
                 reader.NextResult();
 
 
             if (reader != null)
             {
-                return MapToList<T>();
+                return await MapToList<T>();
 
             }
 
-            return null;
+            return default(List<T>);
+
         }
 
 

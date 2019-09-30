@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using DevSitesIndex.Entities;
 using DevSitesIndex.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
@@ -62,16 +63,28 @@ namespace DevSitesIndex.Controllers
             {
                 _entityRepository.Update(value);
 
-                if (!_entityRepository.Save())
+                // 09/29/2019 09:50 am - SSN - [20190928-1256] - [017] - Adding Entity Framework model attribute
+                // if (!_entityRepository.Save())
+                Exception ex = _entityRepository.Save();
+                if (ex != null)
                 {
-                    return BadRequest(string.Format("Failed to save record .  (DemoSite-20190521-1150) "));
+                    return BadRequest(string.Format("Failed to save record .  (DemoSite-20190521-1150-AAA) {0}", ex.Message));
                 }
 
             }
             catch (Exception ex)
             {
-                string message = ex.Message;
-                return BadRequest(string.Format("Failed to save record.  (DemoSite-20190521-1150)  {0}", message));
+
+                // 09/29/2019 11:43 am - SSN - [20190928-1256] - [022] - Adding Entity Framework model attribute
+                //string message = ex.Message;
+                SSN_GenUtil_StandardLib.ExceptionHandler_SSN eh = new SSN_GenUtil_StandardLib.ExceptionHandler_SSN();
+
+                SSN_GenUtil_StandardLib.ExceptionsList el = eh.HandleException_GetExAsSB_v02(ex);
+
+
+
+                string message = el.Message_ToStringBuilder().ToString();
+                return BadRequest(string.Format("Failed to save record.  (DemoSite-20190521-1150-ZZZ)  {0}", message));
             }
 
             return Ok();
@@ -124,6 +137,34 @@ namespace DevSitesIndex.Controllers
     {
         public IEnumerable<T> dataList { get; set; }
         public SqlStatsRecord sqlStatsRecord { get; set; }
+
+        public ModelStateDictionary modelState { get; set; }
+
+        public void addModelError(string key, string errorMessage)
+        {
+            if (modelState == null) modelState = new ModelStateDictionary();
+            modelState.AddModelError(key, errorMessage);
+        }
+        public bool hasErrors => modelState != null && modelState.ErrorCount > 0;
+
+        public void copyModelError(ModelStateDictionary pageModelState)
+        {
+            if (modelState == null) return;
+
+            foreach (KeyValuePair<string, ModelStateEntry> e in modelState)
+            {
+                string key = e.Key;
+                foreach (ModelError me in e.Value.Errors)
+                {
+                    string em = me.ErrorMessage;
+                    pageModelState.AddModelError(key, em);
+                    pageModelState.AddModelError(key, em);
+                }
+
+            }
+
+        }
+
     }
 
     // 09/17/2019 11:55 am - SSN - [20190917-0929] - [006] - Adding paging for angular lists

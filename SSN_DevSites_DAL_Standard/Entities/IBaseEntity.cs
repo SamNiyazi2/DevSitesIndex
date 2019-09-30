@@ -9,7 +9,26 @@ namespace DevSitesIndex.Entities
 {
     public interface IBaseEntity
     {
+        // 09/27/2019 03:20 pm - SSN - [20190927-0634] - [1001] - Testing
+
         DateTime DateAdded { get; set; }
         DateTime? DateModified { get; set; }
     }
+
+
+    // 09/28/2019 12:56 pm - SSN - [20190928-1256] - [001] - Adding Entity Framework model attribute 
+
+    namespace EFCoreShadowProperty.Models
+    {
+        [AttributeUsage(AttributeTargets.Property)]
+        public class DateAddedAttribute : Attribute
+        {
+        }
+
+        [AttributeUsage(AttributeTargets.Property)]
+        public class DateUpdatedAttribute : Attribute
+        {
+        }
+    }
+
 }

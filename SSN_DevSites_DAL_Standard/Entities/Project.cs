@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -22,6 +23,13 @@ namespace DevSitesIndex.Entities
     {
 
         public int ProjectID { get; set; }
+
+
+        // 09/27/2019 03:26 pm - SSN - [20190927-0634] - [1003] - Testing
+        // Added
+        [NotMapped]
+        public int? Id_Temp { get => ProjectID; set { } }
+
 
         [DisplayName("Project Title")]
         [Required(ErrorMessage = "Title is required")]
@@ -46,6 +54,7 @@ namespace DevSitesIndex.Entities
 
         [DisplayName("Company")]
         public Company company { get; set; }
+
 
     }
 }

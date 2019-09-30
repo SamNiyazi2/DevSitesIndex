@@ -37,7 +37,7 @@ namespace DevSitesIndex.Pages.Jobs
 
         // 08/29/2019 12:57 pm - SSN - [20190829-1253] - [003] - Adding paging and sorting to jobs index
 
-        public async Task OnGetAsync(string sortOrder, string desc, int? pageIndex)
+        public async Task OnGetAsync(string columnName, string desc, int? pageIndex)
         {
 
             List<Job_Status> js = _context.Job_Statuses.ToList();
@@ -55,24 +55,11 @@ namespace DevSitesIndex.Pages.Jobs
             pageUtil.AddColumns("ActivityAge");
 
 
-            sortOrder = sortOrder ?? "ActivityAge";
+            columnName = columnName ?? "ActivityAge";
             desc = desc ?? "false";
 
-            pageUtil.SetupHeaders<Job>("/jobs/", sortOrder, desc);
+            pageUtil.SetupHeaders<Job>("/jobs/", columnName, desc);
 
-            // 08/29/2019 01:00 pm - SSN - [20190829-1253] - [004] - Adding paging and sorting to jobs index
-
-            //// 04/20/2019 11:15 am - SSN - [20190420-1109] - Add AsNoTracking to index pages
-
-
-
-            // 09/17/2019 01:40 pm - SSN - [20190917-0929] - [008] - Adding paging for angular lists
-            // Take out since we are replacing with Angular view.
-            //////////////IQueryable<Job> _Jobs = _context.Jobs.FromSql("exec DemoSites.Jobs_Index_WithLastActivityDate");
-
-            //////////////Job = await PaginatedList<Job>.GetSourcePage(_Jobs, sortOrder, desc, pageIndex, 50);
-
-            //////////////pageUtil.SetupButtons<Job>(Job, "/jobs", sortOrder, desc);
 
 
         }

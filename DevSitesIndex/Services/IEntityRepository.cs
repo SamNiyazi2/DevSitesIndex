@@ -13,11 +13,14 @@ namespace DevSitesIndex.Services
     {
 
         IEnumerable<T> GetAll();
-        T Update(T dbSet);
-
+        
         T GetRecord(int id);
 
-        bool Save();
+        // 09/29/2019 09:49 am - SSN - [20190928-1256] - [016] - Adding Entity Framework model attribute
+        T Update(T dbSet);
+        // bool Save();
+        Exception Save();
+
         void Dispose();
     }
 }

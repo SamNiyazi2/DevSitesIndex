@@ -50,14 +50,14 @@ namespace DevSitesIndex.Pages.DevSites
 
 
 
-        public async Task OnGetAsync(string sortOrder, string desc, int? pageIndex, string searchText)
+        public async Task OnGetAsync(string columnName, string desc, int? pageIndex, string searchText)
         {
 
             // 10/12/2018 03:53 pm - SSN - Added OrderByDescending (r=>r.DateUpdated 
             // 06/01/2019 11:22 am - SSN - Include
 
 
-            await GetData(sortOrder, desc, pageIndex, searchText);
+            await GetData(columnName, desc, pageIndex, searchText);
         }
 
 
@@ -90,18 +90,18 @@ namespace DevSitesIndex.Pages.DevSites
 
         // 09/01/2019 01:12 pm - SSN - [20190901-1225] - [003] - Add Job_DevSite table - Adding sorting and paging
         // async Task<IList<DevSite>> GetData()
-        async Task GetData(string sortOrder, string desc, int? pageIndex, string searchText)
+        async Task GetData(string columnName, string desc, int? pageIndex, string searchText)
         {
 
             try
             {
 
-                sortOrder = sortOrder ?? "LastActivityDate";
+                columnName = columnName ?? "LastActivityDate";
                 desc = desc ?? "true";
 
                 SearchText = searchText;
 
-                sortOrder_XXXX = sortOrder;
+                sortOrder_XXXX = columnName;
                 desc_XXXX = desc;
                 pageIndex_XXXX = pageIndex;
 
@@ -119,7 +119,7 @@ namespace DevSitesIndex.Pages.DevSites
                 }
 
 
-                DevSites = await PaginatedList<DevSite>.GetSourcePage(_DevSites, sortOrder, desc, pageIndex, 50);
+                DevSites = await PaginatedList<DevSite>.GetSourcePage(_DevSites, columnName, desc, pageIndex, 50);
 
 
 
@@ -132,9 +132,9 @@ namespace DevSitesIndex.Pages.DevSites
 
 
 
-                pageUtil.SetupHeaders<DevSite>("/DevSites/", sortOrder, desc);
+                pageUtil.SetupHeaders<DevSite>("/DevSites/", columnName, desc);
 
-                pageUtil.SetupButtons<DevSite>(DevSites, "/DevSites", sortOrder, desc);
+                pageUtil.SetupButtons<DevSite>(DevSites, "/DevSites", columnName, desc);
 
 
 

@@ -59,18 +59,25 @@ namespace DevSitesIndex.Services
         }
 
 
-        public bool Save()
+        // 09/29/2019 09:56 am - SSN - [20190928-1256] - [020] - Adding Entity Framework model attribute
+        // public bool Save()
+        public Exception Save()
         {
             try
             {
-                return _context.SaveChanges() > 0;
+                //return _context.SaveChanges() > 0;
+                if (_context.SaveChanges() > 0) return default(Exception);
+
+                return new Exception("20190929-0957 - Failed to save record.");
             }
             catch (Exception ex)
             {
                 string message = ex.Message;
-                return false;
+                // return false;
+                throw;
             }
         }
+
 
         public void Dispose()
         {

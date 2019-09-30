@@ -42,11 +42,19 @@ namespace DevSitesIndex.Pages
         }
 
 
-        internal void SetupHeaders<T>(string _path, string sortOrder, string sortDirectionDescRequested_v02, UrlMaker urlMaker)
+        /// <summary>
+        /// Creates table header row with links for sorting.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="_path">The URL prefix for the page</param>
+        /// <param name="columnName">The name of the field/column</param>
+        /// <param name="sortDirectionDescRequested_v02">true or false to sort in ascending or descending order</param>
+        /// <param name="urlMaker">An object reference to UrlMaker - Shard object between rendering headers and footer (paging)</param>
+        internal void SetupHeaders<T>(string _path, string columnName, string sortDirectionDescRequested_v02, UrlMaker urlMaker)
         {
             Path = _path;
 
-            sortOrder = sortOrder ?? "";
+            columnName = columnName ?? "";
 
             // We assume the sort is ascending on first entry.
             sortDirectionDescRequested_v02 = string.IsNullOrWhiteSpace(sortDirectionDescRequested_v02) ? "false" : sortDirectionDescRequested_v02.ToLower();
@@ -73,14 +81,8 @@ namespace DevSitesIndex.Pages
                 }
 
                 // We sort ascending when:
-                // When we first come in, the option is null
-                bool case1 = string.IsNullOrWhiteSpace(sortOrder);
-
-                // On subsequent call when a different column is selected
-                bool case2 = sortOrder.ToLower() != col.Name.ToLower();
-
                 // We sort descending only if the same column is clicked
-                bool case3 = sortOrder.ToLower() == col.Name.ToLower() && (sortDirectionDescRequested_v02.ToLower() == "false");
+                bool case3 = columnName.ToLower() == col.Name.ToLower() && (sortDirectionDescRequested_v02.ToLower() == "false");
 
 
                 string sortColumnOptionDescForLink = string.Format("{0}", case3);
@@ -89,7 +91,7 @@ namespace DevSitesIndex.Pages
                 string arrowDown = "&#9660;";
                 string selectedArrow = "";
 
-                if (col.Name.ToLower() == sortOrder.ToLower())
+                if (col.Name.ToLower() == columnName.ToLower())
                 {
 
                     selectedArrow = (sortDirectionDescRequested_v02.ToLower() == "false" ? arrowDown : arrowUp);
@@ -103,7 +105,7 @@ namespace DevSitesIndex.Pages
 
                 // The output format for each column: <th><a href="the context od sb">displayName</a></th>
 
-                // sb example: "/SomeRoute/?sortOrder=ProjectTitle&desc=false. 
+                // sb example: "/SomeRoute/?columnName=ProjectTitle&desc=false. 
                 // We don't supply the closing quote until we check if we have any other objects (OtherHtmlInputToSave) to 
                 // append to the url address before supplying the closing quote.
 
@@ -164,7 +166,7 @@ namespace DevSitesIndex.Pages
             }
 
 
-            sb.Append($"{path}?sortOrder={sortColumn}&desc={desc}");
+            sb.Append($"{path}?columnName={sortColumn}&desc={desc}");
 
             if (otherHtmlInput.Length > 0)
             {
@@ -198,15 +200,15 @@ namespace DevSitesIndex.Pages
         }
 
 
-        public void SetupHeaders<T>(string _path, string sortOrder, string sortDirectionDescRequested_v02)
+        public void SetupHeaders<T>(string _path, string columnName, string sortDirectionDescRequested_v02)
         {
-            headerWithSortLinks.SetupHeaders<T>(_path, sortOrder, sortDirectionDescRequested_v02, urlMaker);
+            headerWithSortLinks.SetupHeaders<T>(_path, columnName, sortDirectionDescRequested_v02, urlMaker);
         }
 
 
-        public void SetupButtons<T>(PaginatedList<T> source, string _path, string sortOrder, string sortDirectionDescRequested)
+        public void SetupButtons<T>(PaginatedList<T> source, string _path, string columnName, string sortDirectionDescRequested)
         {
-            tablePager.SetupButtons<T>(source, _path, sortOrder, sortDirectionDescRequested, urlMaker);
+            tablePager.SetupButtons<T>(source, _path, columnName, sortDirectionDescRequested, urlMaker);
         }
 
         public void AddOtherHtmlInputToSave(string objectName, string objectValue)

@@ -8,6 +8,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.ApplicationInsights;
+using System.Reflection;
+using System.ComponentModel.DataAnnotations;
+using System.Text;
+using SSN_GenUtil_StandardLib;
+using System.Threading;
 
 
 // 07/29/2018 03:31 pm - SSN - Copied
@@ -19,13 +24,18 @@ namespace DevSitesIndex.Entities
     public class DevSitesIndexContext : DbContext
     // public class DevSitesIndexContext : IdentityDbContext
     {
+        private readonly ILogger_SSN logger;
+        
+            
         // 02/24/2019 12:42 pm - SSN - [20190224-1247] Adding IConfiguration configuration
-        public DevSitesIndexContext(DbContextOptions<DevSitesIndexContext> options, IConfiguration configuration)
+        public DevSitesIndexContext(DbContextOptions<DevSitesIndexContext> options, IConfiguration configuration, ILogger_SSN logger)
            : base(options)
         {
             // 02/24/2019 12:42 pm - SSN - [20190224-1247] Adding do_database_Migration
             bool do_database_Migration = false;
             bool.TryParse(configuration["Database_Migration"], out do_database_Migration);
+
+            this.logger = logger;
 
 
             if (do_database_Migration)
@@ -58,7 +68,124 @@ namespace DevSitesIndex.Entities
                     }
                 }
             }
+
         }
+
+
+
+        // 09/28/2019 02:08 pm - SSN - [20190928-1256] - [003] - Adding Entity Framework model attribute
+        // Implementing SaveChanges and SaveChangesAsync
+
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken))
+        {
+            SaveChanges();
+            return base.SaveChangesAsync(cancellationToken);
+        }
+        public override int SaveChanges()
+        {
+
+            ChangeTracker.DetectChanges();
+            var timestamp = DateTime.Now;
+
+            foreach (var entry in ChangeTracker.Entries().Where(e => e.State == EntityState.Added || e.State == EntityState.Modified))
+            {
+
+                var type = entry.Entity.GetType();
+                var properties = type.GetProperties();
+
+                PropertyInfo property_Key = properties.FirstOrDefault(p => p.GetCustomAttributes(false).Any(a => a.GetType() == typeof(KeyAttribute)));
+                PropertyInfo property_DateAdded = properties.FirstOrDefault(p => p.GetCustomAttributes(false).Any(a => a.GetType() == typeof(Entities.EFCoreShadowProperty.Models.DateAddedAttribute)));
+                PropertyInfo property_DateUpdated = properties.FirstOrDefault(p => p.GetCustomAttributes(false).Any(a => a.GetType() == typeof(Entities.EFCoreShadowProperty.Models.DateUpdatedAttribute)));
+
+                //object dateUpdatedPro = entry.Entity.GetType().GetCustomAttributes(typeof(Entities.EFCoreShadowProperty.Models.DateUpdatedAttribute), true).FirstOrDefault();
+                // if (entry.Entity.GetType().GetCustomAttributes(typeof(EFCoreShadowProperty.Models.AuditableAttribute), true).Length > 0)
+                //if (entry.Properties.Any(r => r.Metadata.Name == "LastModifiedOn"))
+
+
+                if (property_DateAdded == null)
+                {
+                    throw new Exception($"20190928-1444 - No DateAdded attribute on {type.Name}.");
+                }
+
+
+                if (property_DateUpdated == null)
+                {
+                    throw new Exception($"20190928-1444 - No DateUpdated attribute on {type.Name}.");
+                }
+
+
+                if (entry.State == EntityState.Added && property_DateAdded != null)
+                {
+                    entry.Property(property_DateAdded.Name).CurrentValue = timestamp;
+                }
+
+                if (entry.State == EntityState.Modified && property_DateUpdated != null)
+                {
+                    entry.Property(property_DateUpdated.Name).CurrentValue = timestamp;
+                }
+
+
+            }
+
+
+
+
+
+            bool currentSetting = ChangeTracker.AutoDetectChangesEnabled;
+
+            // Must select "Entity"
+            var entities = from e in ChangeTracker.Entries()
+                           where e.State == EntityState.Added
+                               || e.State == EntityState.Modified
+                           select e.Entity;
+
+            var results = new List<ValidationResult>();
+
+            StringBuilder message2 = new StringBuilder();
+
+            foreach (var entity in entities)
+            {
+                var validationContext = new ValidationContext(entity);
+
+                if (!Validator.TryValidateObject(entity, validationContext, results, true)) // Need to set all properties, otherwise it just checks required.
+                {
+                    var errorsList = results.Select(r => r.ErrorMessage).ToList();
+
+                    string message1 = (results.Select(r => r.ErrorMessage).ToList().Aggregate((message, nextMessage) => message + ", " + nextMessage + Environment.NewLine));
+                    message2.AppendLine($"Unable to save changes for {entity.GetType().FullName} due to error(s): {message1}");
+
+                }
+
+            }
+
+
+            try
+            {
+
+                if (results.Count == 0)
+                {
+                    return base.SaveChanges();
+                }
+                else
+                {
+                    throw new ApplicationException(message2.ToString());
+                }
+            }
+            catch (Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException ex1)
+            {
+                logger.PostException(ex1, "DevDAL-20190927-1315", "Failed to save record");
+                throw;
+            }
+            catch (Exception ex2)
+            {
+                logger.PostException(ex2, "DevDAL-20190927-1317", "Failed to save record");
+                throw;
+            }
+
+
+
+        }
+
 
 
         // 08/07/2018 12:14 pm - SSN
@@ -261,7 +388,7 @@ namespace DevSitesIndex.Entities
 
             // 09/13/2019 11:35 pm - SSN - Added unique
             modelBuilder.Entity<Company>()
-           .HasIndex(x => new { x.CompanyName})
+           .HasIndex(x => new { x.CompanyName })
            .HasName("Job_CompanyName_Unique")
            .IsUnique();
 
@@ -370,7 +497,7 @@ namespace DevSitesIndex.Entities
 
         }
 
-        
+
         // 09/16/2019 11:38 am - SSN - [20190916-1123] - [003] - Adding job status
 
         private static void setup_Job_Status(ModelBuilder modelBuilder)
