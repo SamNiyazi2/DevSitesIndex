@@ -63,8 +63,9 @@ namespace DevSitesIndex.Services
         public TimeLog Update(TimeLog timeLog)
         {
 
-
-            Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<TimeLog> r = null;
+            // 09/28/2019 03:48 pm - SSN - [20190928-1256] - [008] - Adding Entity Framework model attribute
+            //////////////////////////////////////////
+           Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<TimeLog> r = null;
 
             // 05/21/2019 10:35 am - SSN - Take out try/catch block
 
@@ -88,8 +89,8 @@ namespace DevSitesIndex.Services
             else
             {
                 _context.Entry(timeLog).State = EntityState.Modified;
-                _context.Entry(timeLog).Property(p => p.DateAdded).IsModified = false;
-                timeLog.DateModified = DateTime.Now;
+                //////////////////////////////////////////    _context.Entry(timeLog).Property(p => p.DateAdded).IsModified = false;
+                //////////////////////////////////////////timeLog.DateModified = DateTime.Now;
                 r = _context.TimeLog.Update(timeLog);
             }
              
@@ -97,11 +98,16 @@ namespace DevSitesIndex.Services
         }
 
 
-        public bool Save()
+        // 09/29/2019 09:47 am - SSN - [20190928-1256] - [014] - Adding Entity Framework model attribute
+        // public bool Save()
+        public Exception Save()
         {
             try
             {
-                return _context.SaveChanges() > 0;
+                if (_context.SaveChanges() > 0)
+                    return default(Exception);
+                else
+                    return new Exception("20190929-0948 - Failed to save record.");
             }
             catch (Exception ex)
             {
@@ -109,8 +115,10 @@ namespace DevSitesIndex.Services
                 // 09/26/2019 11:01 am - SSN - [20190926-1047] - [004] - Debugging: timelog not posting
 
                 logger.PostException(ex, "20190926-1059", "Failed to save timelog record");
-                 
-                return false;
+
+                // 09/29/2019 09:48 am - SSN - [20190928-1256] - [015] - Adding Entity Framework model attribute
+                // return false;
+                throw;
             }
         }
 

@@ -29,7 +29,7 @@ namespace DevSitesIndex.Services
             throw new NotImplementedException();
         }
 
-        public bool Save()
+        public Exception Save()
         {
             throw new NotImplementedException();
         }

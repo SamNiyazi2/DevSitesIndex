@@ -18,12 +18,12 @@ namespace DevSitesIndex.Services
         {
             this._context = context;
         }
-         
+
 
         public IEnumerable<Job> GetAll()
         {
 
-            return _context.Jobs.OrderBy(r=>r.JobTitle).AsNoTracking().ToList();
+            return _context.Jobs.OrderBy(r => r.JobTitle).AsNoTracking().ToList();
         }
 
 
@@ -35,12 +35,12 @@ namespace DevSitesIndex.Services
         }
 
 
-        public Job  Update(Job job)
+        public Job Update(Job job)
         {
             Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<Job> r = null;
             try
             {
-                if (job.JobID== 0)
+                if (job.JobID == 0)
                 {
                     r = _context.Jobs.Add(job);
                 }
@@ -58,17 +58,25 @@ namespace DevSitesIndex.Services
             return job;
         }
 
-
-        public bool Save()
+        // 09/29/2019 09:52 am - SSN - [20190928-1256] - [018] - Adding Entity Framework model attribute
+        // public bool Save()
+        public Exception Save()
         {
             try
             {
-                return _context.SaveChanges() > 0;
+                // return _context.SaveChanges() > 0;
+                if (_context.SaveChanges() > 0) throw default(Exception);
+
+                return new Exception("20190929-0954 - Failed to save record. ");
+
             }
             catch (Exception ex)
             {
                 string message = ex.Message;
-                return false;
+
+                // 09/29/2019 09:55 am - SSN - [20190928-1256] - [019] - Adding Entity Framework model attribute
+                //return false;
+                throw;
             }
         }
 

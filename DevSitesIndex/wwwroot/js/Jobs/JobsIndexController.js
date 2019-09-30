@@ -97,21 +97,23 @@ var jobsIndexController_instance = function () {
                 columnBag.job_statuses_selected = $scope.job_statuses_selected;
                 getJobsList(columnBag);
             };
-            $scope.showCreateTimesheetForm = function (jobID) {
-                if (isNaN(jobID)) {
-                    jobID = 0;
-                }
-                $uibModal.open({
-                    templateUrl: '/js/timesheet/timesheetTemplate.html',
-                    controller: 'TimesheetController',
-                    backdrop: false,
-                    resolve: {
-                        jobId: function () {
-                            return jobID;
-                        }
-                    }
-                });
-            };
+            // 09/28/2019 04:06 pm - SSN - [20190928-1256] - [011] - Adding Entity Framework model attribute
+            // Duplicate - Wrong way to go!
+            //$scope.showCreateTimesheetForm = function (jobID) {
+            //    if (isNaN(jobID)) {
+            //        jobID = 0;
+            //    }
+            //    $uibModal.open({
+            //        templateUrl: '/js/timesheet/timesheetTemplate.html',
+            //        controller: 'TimesheetController',
+            //        backdrop: false,
+            //        resolve: {
+            //            jobId: function () {
+            //                return jobID;
+            //            }
+            //        }
+            //    });
+            //};
             function getJob_Statuses() {
                 dataService.getJob_Statuses().then(getJob_StatusesSuccess, getJob_StatusesError).catch(getJob_StatusesCatch);
                 function getJob_StatusesSuccess(data) {

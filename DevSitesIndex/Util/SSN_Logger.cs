@@ -9,6 +9,13 @@ using System.Threading.Tasks;
 
 // 09/06/2019 08:40 pm - SSN - [20190906-2040] - [001] - Logger
 
+// 09/27/2019 02:16 pm - SSN - [20190927-0634] - [021] - Testing
+// 09/27/2019 02:16 pm - SSN - [20190927-0634] - [021] - Testing
+// 09/27/2019 02:16 pm - SSN - [20190927-0634] - [021] - Testing
+// 09/27/2019 02:16 pm - SSN - [20190927-0634] - [021] - Testing
+// 09/27/2019 02:16 pm - SSN - [20190927-0634] - [021] - Testing
+// Moving a copy to SSN_GenUtil_StandardLib 
+
 
 namespace DevSitesIndex.Util
 {
@@ -26,14 +33,14 @@ namespace DevSitesIndex.Util
 
 
         private readonly string _name;
-        private readonly SSN_LoggerProviderConfiguration _config;
+        private readonly SSN_LoggerProviderConfiguration_ov_01 _config;
 
-        public SSN_Logger() : this("NotSet_20190907_0007", new SSN_LoggerProviderConfiguration())
+        public SSN_Logger() : this("NotSet_20190907_0007", new SSN_LoggerProviderConfiguration_ov_01())
         {
 
         }
 
-        public SSN_Logger(string name, SSN_LoggerProviderConfiguration config)
+        public SSN_Logger(string name, SSN_LoggerProviderConfiguration_ov_01 config)
         {
             _name = name;
             _config = config;
@@ -126,19 +133,19 @@ namespace DevSitesIndex.Util
     }
 
 
-    public class SSN_LoggerProviderConfiguration
+    public class SSN_LoggerProviderConfiguration_ov_01
     {
         public LogLevel LogLevel { get; set; } = LogLevel.Warning;
         public int EventId { get; set; } = 0;
         public ConsoleColor Color { get; set; } = ConsoleColor.Yellow;
     }
 
-    public class SSN_LoggerProvider : ILoggerProvider
+    public class SSN_LoggerProvider_ov_01 : ILoggerProvider
     {
-        private readonly SSN_LoggerProviderConfiguration _config;
+        private readonly SSN_LoggerProviderConfiguration_ov_01 _config;
         private readonly ConcurrentDictionary<string, SSN_Logger> _loggers = new ConcurrentDictionary<string, SSN_Logger>();
 
-        public SSN_LoggerProvider(SSN_LoggerProviderConfiguration config)
+        public SSN_LoggerProvider_ov_01(SSN_LoggerProviderConfiguration_ov_01 config)
         {
             _config = config;
         }
@@ -162,24 +169,24 @@ namespace Microsoft.Extensions.Logging // System // Microsoft.AspNetCore.Hosting
 
     public static class SSN_LoggerExtensions
     {
-        public static void AddSSN_Logger(this ILoggingBuilder loggerFactory, SSN_LoggerProviderConfiguration config)
+        public static void AddSSN_Logger_ov_01(this ILoggingBuilder loggerFactory, SSN_LoggerProviderConfiguration_ov_01 config)
         {
-            loggerFactory.AddProvider(new SSN_LoggerProvider(config));
+            loggerFactory.AddProvider(new SSN_LoggerProvider_ov_01(config));
         }
 
 
-        public static void AddSSN_Logger(this ILoggingBuilder loggerFactory)
+        public static void AddSSN_Logger_ov_01(this ILoggingBuilder loggerFactory)
         {
-            var config = new SSN_LoggerProviderConfiguration();
-            loggerFactory.AddSSN_Logger(config);
+            var config = new SSN_LoggerProviderConfiguration_ov_01();
+            loggerFactory.AddSSN_Logger_ov_01(config);
         }
 
 
-        public static void AddSSN_Logger(this ILoggingBuilder loggerFactory, Action<SSN_LoggerProviderConfiguration> configure)
+        public static void AddSSN_Logger_ov_01(this ILoggingBuilder loggerFactory, Action<SSN_LoggerProviderConfiguration_ov_01> configure)
         {
-            var config = new SSN_LoggerProviderConfiguration();
+            var config = new SSN_LoggerProviderConfiguration_ov_01();
             configure(config);
-            loggerFactory.AddSSN_Logger(config);
+            loggerFactory.AddSSN_Logger_ov_01(config);
         }
     }
 

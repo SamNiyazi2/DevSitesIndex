@@ -9,6 +9,8 @@ using Microsoft.EntityFrameworkCore;
 using DevSitesIndex.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Configuration;
+using SSN_GenUtil_StandardLib;
+
 
 // 04/08/2019 12:43 am - SSN - [20190407-2345] - TimeLog 
 
@@ -23,17 +25,17 @@ namespace DevSitesIndex.Pages.TimeLogs
     {
         private readonly DevSitesIndex.Entities.DevSitesIndexContext _context;
         private readonly IConfiguration _configuration;
-
-
-
-
+        private readonly ILogger_SSN logger;
 
 
         // 09/13/2019 06:22 am - SSN - [20190913-0548] - [007] - Crate generic dropdown list directive - IConfiguration configuration
 
-        public EditModel(DevSitesIndex.Entities.DevSitesIndexContext context, IConfiguration configuration)
+        // 09/27/2019 02:06 pm - SSN - [20190927-0634] - [018] - Testing
+        // Added logger
+        public EditModel(DevSitesIndex.Entities.DevSitesIndexContext context, IConfiguration configuration, ILogger_SSN logger)
         {
             _configuration = configuration;
+            this.logger = logger;
             _context = context;
 
 
@@ -89,12 +91,19 @@ namespace DevSitesIndex.Pages.TimeLogs
         }
 
 
+        // 09/28/2019 03:33 pm - SSN - [20190928-1256] - [007] - Adding Entity Framework model attribute
+        private void setupRequiredData_OnFailure()
+        {
+            TimeLog.job = _context.Jobs.Where(r => r.JobID == TimeLog.JobId).FirstOrDefault();
+        }
+
+
         // 04/20/2019 10:57 am - SSN - [20190420-1057] - Refactor to correct problem with postback on failed validation
         //public async Task<IActionResult> OnPostAsync()
         public async Task<IActionResult> OnPost()
         {
-
             setupRequiredData();
+            setupRequiredData_OnFailure();
 
             if (!ModelState.IsValid)
             {
@@ -121,20 +130,47 @@ namespace DevSitesIndex.Pages.TimeLogs
 
             // 04/20/2019 09:31 am - SSN - [20190420-0931] - Return exception
 
-            Exception ex = await SharedUtil.save(_context, TimeLog);
+            // 09/27/2019 02:06 pm - SSN - [20190927-0634] - [019] - Testing
+            // Renamed v02 and added logger
 
-            if (ex != null)
+
+
+
+
+            // 09/28/2019 03:10 pm - SSN - [20190928-1256] - [006] - Adding Entity Framework model attribute
+
+            //  Exception ex = await SharedUtil.save_v02(_context, TimeLog, logger);
+            //if (ex != null)
+            //            {
+            //                ModelState.AddModelError("", "Failed to save record.");
+            //                ModelState.AddModelError("", ex.Message);
+            //                Exception iex = ex.InnerException;
+            //                while (iex != null)
+            //                {
+            //                    ModelState.AddModelError("", iex.Message);
+            //                    iex = iex.InnerException;
+            //                }
+            //                return Page();
+            //            }
+
+            try
             {
-                ModelState.AddModelError("", "Failed to save record.");
-                ModelState.AddModelError("", ex.Message);
-                Exception iex = ex.InnerException;
+
+                _context.Attach(TimeLog).State = EntityState.Modified;
+
+                int result = await _context.SaveChangesAsync();
+            }
+            catch (Exception iex)
+            {
                 while (iex != null)
                 {
                     ModelState.AddModelError("", iex.Message);
                     iex = iex.InnerException;
                 }
+
                 return Page();
             }
+
 
             return RedirectToPage("./Index");
         }

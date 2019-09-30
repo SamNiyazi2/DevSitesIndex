@@ -32,20 +32,27 @@ namespace DevSitesIndex
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
 
-                .UseApplicationInsights()
-                // 09/26/2018 01:22 pm - SSN - Adding
-                // No clear benefit.  reloadOnChange does not appear to work.
-                //.ConfigureAppConfiguration((hostcontext, config) =>
-                //{
-                //    config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
-                //})
+
+                // 09/27/2019 02:21 pm - SSN - [20190927-0634] - [023] - Testing
+                // While moving some code to SSN_GenUtil_StandardLib, we had to replace some packages with version 3.0.0 with 2.2.0
+                // it may have impacted this.  Comment out
+                // .UseApplicationInsights()
+
+
                 .UseStartup<Startup>()
 
                 .ConfigureLogging((hostingContext, logging) =>
                 {
+
+
+
+                    // 09/27/2019 02:19 pm - SSN - [20190927-0634] - [022] - Testing
+                    #region Moving a copy to SSN_GenUtil_StandardLib 
+
+
                     logging.AddProvider(
-                        new Util.SSN_LoggerProvider(
-                                                    new Util.SSN_LoggerProviderConfiguration
+                        new Util.SSN_LoggerProvider_ov_01(
+                                                    new Util.SSN_LoggerProviderConfiguration_ov_01
                                                     {
                                                         Color = ConsoleColor.Yellow,
                                                         LogLevel = LogLevel.Information
@@ -53,12 +60,38 @@ namespace DevSitesIndex
                                                     }
                                             ));
 
+                    logging.AddSSN_Logger_ov_01((r) =>
+                    {
+                        r.Color = ConsoleColor.Red;
+                        r.LogLevel = LogLevel.Debug;
+
+                    });
+
+
+
+
+                    logging.AddProvider(
+                       new SSN_GenUtil_StandardLib.SSN_LoggerProvider(
+                                                   new SSN_GenUtil_StandardLib.SSN_LoggerProviderConfiguration
+                                                   {
+                                                       Color = ConsoleColor.Yellow,
+                                                       LogLevel = LogLevel.Information
+
+                                                   }
+                                           ));
+
                     logging.AddSSN_Logger((r) =>
                     {
                         r.Color = ConsoleColor.Red;
                         r.LogLevel = LogLevel.Debug;
 
                     });
+
+
+                    #endregion Moving a copy to SSN_GenUtil_StandardLib 
+
+
+
                 })
                 .Build();
     }

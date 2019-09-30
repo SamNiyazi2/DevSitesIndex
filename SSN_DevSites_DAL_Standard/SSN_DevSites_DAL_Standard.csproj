@@ -1,9 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="microsoft.applicationinsights" Version="2.10.0" />
     <PackageReference Include="microsoft.aspnetcore.identity" Version="2.2.0" />
@@ -14,7 +12,8 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.6" />
     <PackageReference Include="microsoft.extensions.identity.core" Version="2.2.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
-    <PackageReference Include="ssn_genutil_standardlib" Version="1.0.2" />
+    <PackageReference Include="ssn_genutil_standardlib" Version="1.0.12" />
   </ItemGroup>
-
+  <ItemGroup>
+  </ItemGroup>
 </Project>

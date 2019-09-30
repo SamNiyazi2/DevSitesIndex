@@ -20,6 +20,23 @@ namespace DevSitesIndex
         }
 
 
+        
+        // 09/26/2019 08:12 pm - SSN - [20190926-1242] - [017] - Search projects
+        // Update Timelog detail form.
+        public static DateTime? StopTime(this int? duration_In_Seconds, DateTime startTime)
+        {
+            if (!duration_In_Seconds.HasValue) return null;
+            return startTime.AddSeconds(duration_In_Seconds.Value);
+        }
+
+
+        public static string StopTime_AsString(this int? duration_In_Seconds , DateTime startTime )
+        {
+            if (!duration_In_Seconds.HasValue) return "";
+            return StopTime(duration_In_Seconds, startTime).Value.ToString("{0:hh:mm:ss tt}");
+
+        }
+
 
         public static DateTime lastDate(DateTime? timelogDate, DateTime jobDate)
         {

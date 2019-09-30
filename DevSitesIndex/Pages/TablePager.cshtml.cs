@@ -19,8 +19,10 @@ namespace DevSitesIndex.Pages
 
         string Path;
 
+        // 09/27/2019 03:07 pm - SSN - [20190927-0634] - [026] - Testing
+        // sortOrder to columnName
 
-        public void SetupButtons<T>(PaginatedList<T> source, string _path, string sortOrder, string sortDirectionDescRequested, UrlMaker urlMaker = null)
+        public void SetupButtons<T>(PaginatedList<T> source, string _path, string columnName, string sortDirectionDescRequested, UrlMaker urlMaker = null)
         {
             if (urlMaker == null) return;
 
@@ -31,7 +33,7 @@ namespace DevSitesIndex.Pages
             string previousDisabled = source.HasPreviousPage ? "" : "disabled";
             string nextDisabled = source.HasNextPage ? "" : "disabled";
 
-            string url = urlMaker.MakeUrl(Path, sortOrder, sortDirectionDescRequested);
+            string url = urlMaker.MakeUrl(Path, columnName, sortDirectionDescRequested);
 
             sb.Append($"<a class=\"btn btn-default {previousDisabled}\" href=\"{url}&pageIndex={source.PageIndex - 1}\" >");
             sb.Append("Previous");

@@ -47,23 +47,45 @@ namespace DevSitesIndex.Models
 
         public static async Task<PaginatedList<T>> CreateAsync(IQueryable<T> source, int pageIndex, int pageSize)
         {
-            var count = await source.CountAsync();
+            // 09/27/2019 09:19 am - SSN - [20190927-0634] - [012] - Testing
+            // Does not work for List (from stored procedures)
+
+            Type type = source.GetType();
+
+            if (type.Name == "EntityQueryable`1")
+            {
+
+                var count = await source.CountAsync();
 
 
-            var items = await source.Skip(
-                (pageIndex - 1) * pageSize)
-                .Take(pageSize).ToListAsync();
-            return new PaginatedList<T>(items, count, pageIndex, pageSize);
+                var items = await source.Skip(
+                    (pageIndex - 1) * pageSize)
+                    .Take(pageSize).ToListAsync();
+                return new PaginatedList<T>(items, count, pageIndex, pageSize);
+            }
+            else
+            {
+                // 09/27/2019 09:21 am - SSN - [20190927-0634] - [013] - Testing
+
+                var count = source.Count();
+
+
+                var items = source.Skip(
+                    (pageIndex - 1) * pageSize)
+                    .Take(pageSize).ToList();
+                return new PaginatedList<T>(items, count, pageIndex, pageSize);
+
+            }
         }
 
 
         // 08/28/2019 04:39 am - SSN - [20190828-0427] - [005] - Apply sorting and paging to timelogs index
         // Refactor
-        public static async Task<PaginatedList<T>> GetSourcePage<T>(IQueryable<T> source, string sortOrder, string desc, int? pageIndex, int pageSize) where T : class
+        public static async Task<PaginatedList<T>> GetSourcePage<T>(IQueryable<T> source, string columnName, string desc, int? pageIndex, int pageSize) where T : class
         {
             desc = desc ?? "";
 
-            source = Util.Reflection_Util.SourceSetOrder<T>(source, sortOrder, desc.ToLower() == "true");
+            source = Util.Reflection_Util.SourceSetOrder<T>(source, columnName, desc.ToLower() == "true");
 
             return await PaginatedList<T>.CreateAsync(source.AsNoTracking(), pageIndex ?? 1, pageSize);
         }

@@ -31,6 +31,12 @@ namespace DevSitesIndex.Util
 
             try
             {
+                if (propertyOrFieldName_string.ToLower() == "desc")
+                {
+
+                    string test = "Test";
+                }
+
 
                 string[] propertyOrFieldName = propertyOrFieldName_string.Split('.').ToArray();
 

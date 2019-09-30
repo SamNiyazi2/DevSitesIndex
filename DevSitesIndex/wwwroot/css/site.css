@@ -3,6 +3,7 @@
 body {
     padding-top: 50px;
     padding-bottom: 20px;
+    overflow-y: scroll;
 }
 
 h1 {
@@ -243,6 +244,13 @@ alarm {
     padding: 0px 20px 20px 20px;
     background: rgba(255,255,255,0.5);
 }
+/* 09/28/2019 04:28 pm - SSN - [20190928-1256] - [013] - Adding Entity Framework model attribute */
+.rounded {
+    border-radius: 6px;
+}
+.margined{
+    margin:10px;
+}
 
 .evenRow {
     background-color: #eee;
@@ -280,4 +288,8 @@ alarm {
 
 .job_status_Cancelled_4 {
     background-color:goldenrod;
+}
+
+.site_alert_css_name{
+    background-color:yellow;
 }

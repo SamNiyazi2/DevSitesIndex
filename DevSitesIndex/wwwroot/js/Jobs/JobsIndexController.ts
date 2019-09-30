@@ -9,9 +9,9 @@ import * as angular from 'angular'
 import IColumnBag from '../IColumnBag';
 import * as ssn_globals from "../globals";
 
-import { jobStatusDisplayDirective_instance  } from "../Util/JobStatusDisplayDirective";
+import { jobStatusDisplayDirective_instance } from "../Util/JobStatusDisplayDirective";
 
-jobStatusDisplayDirective_instance ;
+jobStatusDisplayDirective_instance;
 
 
 // 09/21/2019 04:42 am - SSN - [20190921-0357] - [003] - Creating multiple entry for Webpack
@@ -140,11 +140,11 @@ var jobsIndexController_instance = function () {
                 getJobsList(columnBag);
             }
 
-            
+
 
             // 09/22/2019 05:20 am - SSN - [20190921-1129] - [007] - Plug in job status filter on job's index
- 
- 
+
+
             $scope.job_statuses_checkAll = function (enable) {
 
                 if (enable) {
@@ -154,34 +154,37 @@ var jobsIndexController_instance = function () {
                     $scope.job_statuses_selected = [];
                 }
 
-                columnBag.job_statuses_selected = $scope.job_statuses_selected 
+                columnBag.job_statuses_selected = $scope.job_statuses_selected
 
 
                 getJobsList(columnBag);
             }
 
 
-            $scope.showCreateTimesheetForm = function (jobID) {
+            // 09/28/2019 04:06 pm - SSN - [20190928-1256] - [011] - Adding Entity Framework model attribute
+            // Duplicate - Wrong way to go!
 
-                if (isNaN(jobID)) {
-                    jobID = 0;
-                }
+            //$scope.showCreateTimesheetForm = function (jobID) {
 
-                $uibModal.open({
-                    templateUrl: '/js/timesheet/timesheetTemplate.html',
-                    controller: 'TimesheetController',
+            //    if (isNaN(jobID)) {
+            //        jobID = 0;
+            //    }
+
+            //    $uibModal.open({
+            //        templateUrl: '/js/timesheet/timesheetTemplate.html',
+            //        controller: 'TimesheetController',
 
 
-                    backdrop: false,
+            //        backdrop: false,
 
-                    resolve: {
-                        jobId: function () {
-                            return jobID;
-                        }
-                    }
-                });
+            //        resolve: {
+            //            jobId: function () {
+            //                return jobID;
+            //            }
+            //        }
+            //    });
 
-            };
+            //};
 
 
 

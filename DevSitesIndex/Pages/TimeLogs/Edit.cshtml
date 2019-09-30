@@ -21,7 +21,12 @@
     <div class="col-md-4" ng-controller="utilityController" form-name="timesheetForm">
         <form method="post" name="timesheetForm" ng-submit="submitForm_1($event,timesheetForm)" action="">
 
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="TimeLog.TimeLogId" />
+
+
             @*// 09/21/2019 11:08 am - SSN - Added include job and project to display titles on form.*@
+
 
             <dt>
                 @Html.DisplayNameFor(model => model.TimeLog.job.project)
@@ -32,31 +37,44 @@
                 </a>
             </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.TimeLog.job.JobTitle)
-            </dt>
-            <dd>
-                <a asp-page="/jobs/Details" asp-route-id="@Model.TimeLog.JobId">
-                    @Html.DisplayFor(model => model.TimeLog.job.JobTitle)
-                </a>
-            </dd>
+            <hr />
+
+
 
 
 
             @*
-                // 09/13/2019 02:01 pm - SSN - [20190913-0548] - [010] - Crate generic dropdown list directive
-                // Do we need this to post from directive???
-                // Todo:
+        // 09/13/2019 02:01 pm - SSN - [20190913-0548] - [010] - Crate generic dropdown list directive
+        // Do we need this to post from directive???
+        // Todo:
             *@
 
-            @Html.AntiForgeryToken()
-            <input type="hidden" asp-for="TimeLog.TimeLogId" />
+
+
+
+            <dt>
+                @Html.DisplayNameFor(model => model.TimeLog.DateAdded)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.TimeLog.DateAdded)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.TimeLog.DateModified)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.TimeLog.DateModified)
+            </dd>
+
+
+            <hr />
+
+
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
 
 
             @*
-                09/16/2019 03:41 am - SSN - Remove "Please select..." from JobId and DisciplineId
+        09/16/2019 03:41 am - SSN - Remove "Please select..." from JobId and DisciplineId
             *@
 
             @if (!Model.Timesheet_Dropdown_20190913_0624)
@@ -73,7 +91,7 @@
             }
             else
             {
-
+                <label asp-for="TimeLog.JobId" class="control-label"></label>
                 <input asp-for="TimeLog.JobId" type="hidden" />
                 <dropdown-list-directive key="TimeLog.JobId" form-name="timesheetForm"></dropdown-list-directive>
             }
@@ -81,7 +99,7 @@
 
 
             @*
-                09/16/2019 03:44 am - SSN - Replaced disciplineID wiht dropdown-list-directive and hidden field
+        09/16/2019 03:44 am - SSN - Replaced disciplineID wiht dropdown-list-directive and hidden field
             *@
 
             @if (!Model.Timesheet_Dropdown_20190913_0624)
@@ -98,13 +116,9 @@
             }
             else
             {
-
-
+                <label asp-for="TimeLog.DisciplineID" class="control-label"></label>
                 <input asp-for="TimeLog.DisciplineID" type="hidden" />
-
-
                 <dropdown-list-directive key="TimeLog.DisciplineID" form-name="timesheetForm"></dropdown-list-directive>
-
 
             }
 
@@ -130,16 +144,8 @@
 
                 <span asp-validation-for="TimeLog.TotalSeconds" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="TimeLog.DateAdded" class="control-label"></label>
-                <input asp-for="TimeLog.DateAdded" class="form-control" />
-                <span asp-validation-for="TimeLog.DateAdded" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TimeLog.DateModified" class="control-label"></label>
-                <input asp-for="TimeLog.DateModified" class="form-control" />
-                <span asp-validation-for="TimeLog.DateModified" class="text-danger"></span>
-            </div>
+
+
             <div class="form-group">
                 <label asp-for="TimeLog.WorkDetail" class="control-label"></label>
 

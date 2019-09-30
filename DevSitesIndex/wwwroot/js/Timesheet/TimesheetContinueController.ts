@@ -4,7 +4,7 @@
 // 05/19/2019 09:45 am - SSN - [20190519-0837] - [005] - Adding timesheet "Continue" option
 // Copied from Clockout.
 
- 
+
 
 import * as ssn_globals from "../globals";
 import * as angular from 'angular'
@@ -28,6 +28,27 @@ var timesheetContinueController_instance = function () {
 
 
             $scope.pageTitle = "Continue / Line Item";
+
+
+            // 09/28/2019 03:59 pm - SSN - [20190928-1256] - [010] - Adding Entity Framework model attribute
+            $scope.feedbackToUserText = "";
+            $scope.feedbackToUserClassNameCase = "";
+
+
+            $scope.versionForHTMLRefresh = "15";
+
+            $scope.feedbackToUserClassNameSet = function () {
+
+                switch ($scope.feedbackToUserClassNameCase) {
+                    case 1:
+                        return "rounded margined info_good";
+                    case 2:
+                        return "rounded margined info_bad";
+                    default:
+                        return "";
+                }
+
+            }
 
 
             function getTimelogSuccess(data) {
@@ -76,7 +97,7 @@ var timesheetContinueController_instance = function () {
 
             }
 
-              
+
             $scope.submitForm = function () {
 
 
@@ -119,8 +140,13 @@ var timesheetContinueController_instance = function () {
 
                             console.log(error);
 
-                            $uibModalInstance.close();
+                            // 09/28/2019 03:57 pm - SSN - [20190928-1256] - [009] - Adding Entity Framework model attribute
+                            // $uibModalInstance.close();
+
                             toastr.error("Failed to add record. See console log.");
+
+                            $scope.feedbackToUserClassNameCase = 2;
+                            $scope.feedbackToUserText = error.data;
 
                         });
                 }
@@ -137,7 +163,7 @@ var timesheetContinueController_instance = function () {
 
             };
 
- 
+
 
             $scope.getDisciplines = function (lookupValue) {
 
@@ -190,6 +216,6 @@ var timesheetContinueController_instance = function () {
 
 }();
 
-  
+
 
 export { timesheetContinueController_instance };
