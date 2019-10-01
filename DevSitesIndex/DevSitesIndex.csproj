@@ -29,6 +29,7 @@
     <Content Remove="wwwroot\js\DemoSites_index_p1.ts" />
     <Content Remove="wwwroot\js\demoSites_index_p3.ts" />
     <Content Remove="wwwroot\js\DropdownList\DropdownListDirective.ts" />
+    <Content Remove="wwwroot\js\environment.ts" />
     <Content Remove="wwwroot\js\fil11e.ts" />
     <Content Remove="wwwroot\js\globals.ts" />
     <Content Remove="wwwroot\js\HeaderWithSort.ts" />
@@ -42,6 +43,7 @@
     <Content Remove="wwwroot\js\SSN_Notes.txt" />
     <Content Remove="wwwroot\js\Timesheet\Timelog.ts" />
     <Content Remove="wwwroot\js\Timesheet\timesheet_main.ts" />
+    <Content Remove="wwwroot\js\Util\ApplicationInsights_Monitor.ts" />
     <Content Remove="wwwroot\js\Util\JobStatusDisplayDirective.ts" />
     <Content Remove="wwwroot\js\Util\pagingDirective.ts" />
     <Content Remove="wwwroot\js\____________________________ts.txt" />
@@ -115,20 +117,20 @@
     <Folder Include="wwwroot\js\Timesheet\Templates\" />
   </ItemGroup>
   <ItemGroup>
-  </ItemGroup>
-  <ItemGroup>
     <TypeScriptCompile Include="node_modules_hack\SSN_jquery_modal.d.ts" />
     <TypeScriptCompile Include="wwwroot\js\CodeReference\Typeahead_Discipline.ts" />
     <TypeScriptCompile Include="wwwroot\js\DemoSites_Index_main.ts" />
     <TypeScriptCompile Include="wwwroot\js\DemoSites_index_p1.ts" />
     <TypeScriptCompile Include="wwwroot\js\demoSites_index_p3.ts" />
     <TypeScriptCompile Include="wwwroot\js\DropdownList\DropdownListDirective.ts" />
+    <TypeScriptCompile Include="wwwroot\js\environment.ts" />
     <TypeScriptCompile Include="wwwroot\js\globals.ts" />
     <TypeScriptCompile Include="wwwroot\js\IAngularApp.ts" />
     <TypeScriptCompile Include="wwwroot\js\IColumnBag.ts" />
     <TypeScriptCompile Include="wwwroot\js\Jobs\jobsIndex_main.ts" />
     <TypeScriptCompile Include="wwwroot\js\Projects\ProjectsIndex.ts" />
     <TypeScriptCompile Include="wwwroot\js\Timesheet\timesheet_main.ts" />
+    <TypeScriptCompile Include="wwwroot\js\Util\ApplicationInsights_Monitor.ts" />
     <TypeScriptCompile Include="wwwroot\js\Util\HeaderWithSort.ts" />
     <TypeScriptCompile Include="wwwroot\js\Jobs\JobsIndexController.ts" />
     <TypeScriptCompile Include="wwwroot\js\site.ts" />

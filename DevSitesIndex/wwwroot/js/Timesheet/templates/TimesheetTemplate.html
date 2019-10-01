@@ -3,7 +3,7 @@
 <form name="timesheetForm" novalidate>
 
     <div class="modal-header">
-        <h2>{{pageTitle}}  <span style="font-size:16px;">(Ver. {{versionForHTMLRefresh}})</span></h2>
+        <h2>{{pageTitle}}  <span style="font-size:16px;" ng-if="versionForHTMLRefresh" >(Ver. {{versionForHTMLRefresh}})</span></h2>
         <table>
             <tr>
                 <td>Project </td>
