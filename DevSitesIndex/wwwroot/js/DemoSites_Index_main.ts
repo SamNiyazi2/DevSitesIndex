@@ -23,7 +23,8 @@ import { AppInsights_Util } from './Util/ApplicationInsights_Monitor';
 
 AppInsights_Util.doSetup();
 
-AppInsights_Util.doTest();
+AppInsights_Util.logEvent("DemoSites_Index_Main", { SourceCode: "20191001-1132-C", Message: "Loading DemoSites_Index_Main" });
+
 
 
 
