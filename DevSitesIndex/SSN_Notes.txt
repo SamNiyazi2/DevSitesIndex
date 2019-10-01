@@ -175,3 +175,20 @@ npm install --save @babel/runtime
       }
     ]
   ]
+
+
+
+
+  09/30/2019 09:44 pm - SSN - For JavaScript debugging
+
+  npm i --save @microsoft/applicationinsights-web
+
+  https://github.com/Microsoft/ApplicationInsights-JS
+
+  https://github.com/Microsoft/ApplicationInsights-JS#getting-started
+
+  "Cannot find module".
+
+  Drop it
+
+  --------------------------------------------------------------------

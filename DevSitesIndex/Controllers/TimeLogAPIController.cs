@@ -22,11 +22,10 @@ namespace DevSitesIndex.Controllers
         // 09/26/2019 11:02 am - SSN - [20190926-1047] - [005] - Debugging: timelog not posting
         // Add logger
 
-        public TimeLogAPIController(DevSitesIndexContext context, ILogger_SSN logger)
+        // 09/30/2019 07:47 pm - SSN - Adding logger and call to base
+        public TimeLogAPIController(DevSitesIndexContext context, ILogger_SSN logger) : base(context, logger)
         {
             _entityRepository = new TimeLogRepository(context, logger);
-            _context = context;
-
         }
 
 
@@ -35,7 +34,7 @@ namespace DevSitesIndex.Controllers
         [HttpGet("get_custom/{id}")]
         public TimeLog Get_custom(int id)
         {
-            JobRepository jobRepository = new JobRepository(_context);
+            JobRepository jobRepository = new JobRepository(context);
             TimeLog entity = _entityRepository.GetRecord(id);
             entity.job.timelogs = null;
 

@@ -16,7 +16,8 @@ namespace DevSitesIndex.Controllers
     public class DisciplineAPIController : EntityAPIController<Discipline>
     {
 
-        public DisciplineAPIController(DevSitesIndexContext context)
+        // 09/30/2019 07:47 pm - SSN - Adding logger and call to base
+        public DisciplineAPIController(DevSitesIndexContext context, Util.ILogger_SSN logger) : base(context, logger)
         {
             _entityRepository = new DisciplineRepository(context);
 

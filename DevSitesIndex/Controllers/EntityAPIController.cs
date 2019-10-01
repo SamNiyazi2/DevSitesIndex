@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using DevSitesIndex.Entities;
 using DevSitesIndex.Services;
+using DevSitesIndex.Util;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
@@ -25,7 +26,20 @@ namespace DevSitesIndex.Controllers
 
         // 09/24/2019 05:48 am - SSN - [20190924-0401] - [006] - Quick timelog entry
         // Add _context
-        public DevSitesIndexContext _context;
+        // public DevSitesIndexContext _context;
+        // 09/30/2019 10:04 pm - SSN - Replaced _context
+
+        protected readonly DevSitesIndexContext context;
+        protected readonly Util.ILogger_SSN logger;
+
+
+        public EntityAPIController(DevSitesIndexContext context, ILogger_SSN logger)
+        {
+            this.context = context;
+            this.logger = logger;
+
+        }
+
 
         // GET: api/<controller>
         [HttpGet]
@@ -106,6 +120,8 @@ namespace DevSitesIndex.Controllers
 
 
     }
+
+
     public class x123
     {
         public string DisciplineID { get; set; }

@@ -16,14 +16,13 @@ namespace DevSitesIndex.Controllers
     public class Job_StatusAPIController : EntityAPIController<Job_Status>
     {
         // 09/21/2019 01:32 pm - SSN - [20190921-1129] - [005] - Plug in job status filter on job's index
-        private readonly DevSitesIndexContext context;
-        private readonly Util.ILogger_SSN logger;
 
-        public Job_StatusAPIController(DevSitesIndexContext context, Util.ILogger_SSN logger)
+        // 09/30/2019 07:47 pm - SSN - Adding logger and call to base
+
+
+        public Job_StatusAPIController(DevSitesIndexContext context, Util.ILogger_SSN logger) : base(context, logger)
         {
             _entityRepository = new Services.Job_StatusRepository(context);
-            this.context = context;
-            this.logger = logger;
         }
 
 

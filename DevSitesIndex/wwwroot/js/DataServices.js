@@ -91,6 +91,18 @@ var dataService_instance = function () {
                     });
                     return deferred.promise;
                 };
+                // 09/30/2019 07:06 pm - SSN - Adding
+                var _getJob = function (id) {
+                    console.log("DataServices - 20190930-1907 - getJob [" + id + "]");
+                    var deferred = $q.defer();
+                    $http.get('/api/jobapi/get_custom/' + id)
+                        .then(function (result) {
+                        deferred.resolve(result.data);
+                    }, function (errorMessage) {
+                        deferred.reject({ Error: 'Failed call to get job [20190930-1908]' });
+                    });
+                    return deferred.promise;
+                };
                 // 09/21/2019 01:25 pm - SSN - [20190921-1129] - [003] - Plug in job status filter on job's index
                 var _getJob_Statuses = function () {
                     var deferred = $q.defer();
@@ -112,7 +124,8 @@ var dataService_instance = function () {
                     getTimelog: _getTimelog,
                     updateTimeLog: _addOrUpdateTimeLog,
                     getJobs: _getJobs,
-                    getJob_Statuses: _getJob_Statuses
+                    getJob_Statuses: _getJob_Statuses,
+                    getJob: _getJob
                 };
             }]);
     };

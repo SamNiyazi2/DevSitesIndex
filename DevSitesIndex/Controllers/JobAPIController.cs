@@ -22,14 +22,10 @@ namespace DevSitesIndex.Controllers
     //  [ApiController]
     public class JobAPIController : EntityAPIController<Job>
     {
-        private readonly DevSitesIndexContext context;
-        private readonly Util.ILogger_SSN logger;
 
-        public JobAPIController(DevSitesIndexContext context, Util.ILogger_SSN logger)
+        public JobAPIController(DevSitesIndexContext context, Util.ILogger_SSN logger):base( context, logger)
         {
             _entityRepository = new JobRepository(context);
-            this.context = context;
-            this.logger = logger;
         }
 
 
@@ -132,6 +128,26 @@ namespace DevSitesIndex.Controllers
             DataBag<Job> databag = new DataBag<Job> { dataList = result1_data, sqlStatsRecord = sqlStatsRecord };
 
             return databag;
+        }
+
+
+
+        // 09/30/2019 07:01 pm - SSN - Added
+        [Route("get_custom/{id}")]
+        //[HttpGet("get_custom/{id}")]
+        [HttpGet]
+        public Job get_custom(int? id)
+        {
+
+            try
+            {
+                return context.Jobs.Include(r=>r.project).Where(r => r.JobID == id).FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+                logger.PostException(ex, "20190918-0057-B", "Procedure did not return a second result set of table/page stats.");
+                throw new Exception($"20190930-1905 - Failed call to get job record [{id}]");
+            }
         }
 
 
