@@ -8,12 +8,8 @@ var timesheetController_instance = function () {
     // 09/30/2019 06:56 pm - SSN - (Inject jobId)
     timesheetApp.controller('TimesheetController', ['$scope', '$uibModalInstance', '$http', '$q', 'dataService', 'jobId',
         function TimesheetController($scope, $uibModalInstance, $http, $q, dataService, jobId) {
-            console.log("TimesheetController - 20190930-1836 - Controller top - Look for bottom!!");
-            console.log(jobId);
             dataService.getJob(jobId).then(getJobSuccess, getJobError).catch(getJobCatch);
             function getJobSuccess(data) {
-                console.log('TimeshetController - getJobSuccess  -  20190930-2106-A  ');
-                console.log(data);
                 $scope.editableTimeLog.job = {};
                 $scope.editableTimeLog.job.jobTitle = data.jobTitle;
                 $scope.editableTimeLog.job.project = {};
@@ -43,8 +39,6 @@ var timesheetController_instance = function () {
                 jobId: jobId
             };
             $scope.editableTimeLog = angular.copy($scope.timeLog);
-            console.log("TimesheetController - 20190930-1836 - Controller bottom");
-            console.log("jobId [" + jobId + "]");
             $scope.submitForm = function () {
                 var test = $scope.editableTimeLog;
                 var promise = null;
@@ -57,10 +51,8 @@ var timesheetController_instance = function () {
                 }
                 if (promise) {
                     promise.then(function (data) {
-                        var test1 = data;
                         $scope.timeLog = angular.copy($scope.editableTimeLog);
                     }, function (error) {
-                        var test2 = error;
                         console.log("TimesheetController - 20190921-0640 - promise > error");
                         console.log(error);
                     });

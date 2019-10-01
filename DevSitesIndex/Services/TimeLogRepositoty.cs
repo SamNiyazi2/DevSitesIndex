@@ -53,7 +53,7 @@ namespace DevSitesIndex.Services
             catch (Exception ex)
             {
                 // 09/26/2019 11:01 am - SSN - [20190926-1047] - [003] - Debugging: timelog not posting
-                 
+
                 logger.PostException(ex, "20190926-1057", $"Failed to get timelog record {timeLogId}");
                 throw;
             }
@@ -63,37 +63,25 @@ namespace DevSitesIndex.Services
         public TimeLog Update(TimeLog timeLog)
         {
 
-            // 09/28/2019 03:48 pm - SSN - [20190928-1256] - [008] - Adding Entity Framework model attribute
-            //////////////////////////////////////////
-           Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<TimeLog> r = null;
-
-            // 05/21/2019 10:35 am - SSN - Take out try/catch block
-
             // 04/20/2019 06:56 pm - SSN - Convert time passed by javaScript as Utc 
             timeLog.StartTime = timeLog.StartTime.ToLocalTime();
 
             if (timeLog.TimeLogId == 0)
             {
-                int DisciplineID = timeLog.DisciplineID;
+
                 timeLog.discipline = null;
 
                 // We "include"d projects for displaying titles. We need to exclude them from inserts.
                 timeLog.job = null;
 
-
-                timeLog.DateAdded = DateTime.Now;
-                r = _context.TimeLog.Add(timeLog);
-
+                _context.TimeLog.Add(timeLog);
 
             }
             else
             {
-                _context.Entry(timeLog).State = EntityState.Modified;
-                //////////////////////////////////////////    _context.Entry(timeLog).Property(p => p.DateAdded).IsModified = false;
-                //////////////////////////////////////////timeLog.DateModified = DateTime.Now;
-                r = _context.TimeLog.Update(timeLog);
+                _context.TimeLog.Update(timeLog);
             }
-             
+
             return timeLog;
         }
 
