@@ -58,10 +58,11 @@ namespace DevSitesIndex.Pages.DevSites
 
         public async Task<IActionResult> OnPostAsync()
         {
+            Populate_softwareCodesSL(_context, DevSite.SoftwareCodeID);
 
             if (!ModelState.IsValid)
             {
-                return Page();
+                  return Page();
             }
 
             // 09/06/2019 06:35 pm - SSN - [20190906-0518] - [005] - Angular - edit div content
