@@ -83,12 +83,23 @@ var dataService_instance = function () {
                     var deferred = $q.defer();
                     // 09/22/2019 08:23 am - SSN - [20190922-0822] - [001] - Plug in job status filter on job's index - update data source
                     var job_statuses_selected = ((columnBag.job_statuses_selected.length == 0) ? "nothing-201909221117" : columnBag.job_statuses_selected.join(','));
-                    console.log(job_statuses_selected);
                     $http.get('/api/jobapi/list/' + columnBag.currentPageNo + "/" + columnBag.recordsPerPage + "/" + columnBag.columnName + "/" + columnBag.desc + "/" + job_statuses_selected)
                         .then(function (result) {
                         deferred.resolve(result.data);
                     }, function (errorMessage) {
                         deferred.reject({ Error: 'Failed call to get jobs [20190917-0057]' });
+                    });
+                    return deferred.promise;
+                };
+                // 09/30/2019 07:06 pm - SSN - Adding
+                var _getJob = function (id) {
+                    console.log("DataServices - 20190930-1907 - getJob [" + id + "]");
+                    var deferred = $q.defer();
+                    $http.get('/api/jobapi/get_custom/' + id)
+                        .then(function (result) {
+                        deferred.resolve(result.data);
+                    }, function (errorMessage) {
+                        deferred.reject({ Error: 'Failed call to get job [20190930-1908]' });
                     });
                     return deferred.promise;
                 };
@@ -113,7 +124,8 @@ var dataService_instance = function () {
                     getTimelog: _getTimelog,
                     updateTimeLog: _addOrUpdateTimeLog,
                     getJobs: _getJobs,
-                    getJob_Statuses: _getJob_Statuses
+                    getJob_Statuses: _getJob_Statuses,
+                    getJob: _getJob
                 };
             }]);
     };

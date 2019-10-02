@@ -8,41 +8,172 @@
 
 <h2>@ViewData["Title"]</h2>
 
+@*
+    // 09/26/2019 12:52 pm - SSN - [20190926-1242] - [002] - Search projects
+*@
+<div class="row">
+    <div class="form-group col-md-8">
+        <form method="post">
+            <input type="search" asp-for="searchText" class="form-control" autofocus placeholder="Enter your search words.." />
+            <span asp-validation-for="searchText" class="text-danger"></span>
+
+            <br />  Search in: &nbsp;
+
+            @for (int idx = 0; idx < Model.searchTables.Count; idx++)
+            {
+                <tr>
+                    <td>
+                        @Html.HiddenFor(x => Model.searchTables[idx].Id)
+                        @Html.CheckBoxFor(x => Model.searchTables[idx].IsSelected)
+                        @Html.DisplayFor(x => Model.searchTables[idx].TableName)
+                        @Html.HiddenFor(x => Model.searchTables[idx].TableName)
+                        &nbsp; &nbsp;
+                    </td>
+                </tr>
+            }
+            <br />
+            <span asp-validation-for="searchTables" class="text-danger"></span>
+            <br />
+
+            <button class="btn btn-default">Search</button> &nbsp; <a asp-page="./index">Clear Search</a>
+        </form>
+    </div>
+</div>
+<hr />
+
+
+
 <p>
-    <a asp-page="Create">Create New</a>
+    <a asp-page="Create">Create New Project Record</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            @{await Html.RenderPartialAsync("HeaderWithSortLinks", Model.pageUtil.headerWithSortLinks);}
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Project)
+
+
+@{
+
+    if (Model.searchResults != null)
+    {
+
+        if (Model.searchResults.Count == 0)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProjectTitle)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.company.CompanyName)
-                </td>
-                <td class="indexNowrapCol">
-                    @Html.DisplayFor(modelItem => item.DateAdded)
-                </td>
-                <td class="indexNowrapCol">
-                    @Html.DisplayFor(modelItem => item.DateModified)
-                </td>
-                <td class="indexNowrapCol">
-                    <a asp-page="./Edit" asp-route-id="@item.ProjectID">Edit</a> |
-                    <a asp-page="./Details" asp-route-id="@item.ProjectID">Details</a> |
-                    <a asp-page="./Delete" asp-route-id="@item.ProjectID">Delete</a>
-                </td>
-            </tr>
+            <p class="info_bad">No records we found.</p>
         }
-    </tbody>
-</table>
+        else
+        {
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        @{await Html.RenderPartialAsync("HeaderWithSortLinks", Model.pageUtil_SearchResults.headerWithSortLinks);}
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @{
+
+                        string _url = "";
+
+                        foreach (Services.Project_Search_Record r in Model.searchResults)
+                        {
+
+                            if (r.TableID == 1) { _url = $"/Projects/details?id={r.ProjectID}"; }
+                            if (r.TableID == 3) { _url = $"/timelogs/details?id={r.TimelogId}"; }
+                            if (r.TableID == 2) { _url = $"/jobs/details?id={r.JobId}"; }
+
+                    <tr>
+                        <td width="120">
+                            @Html.Linkfor_SSN(r.SourceTable, _url)
+                        </td>
+                        <td width="200">
+                            @Html.DisplayFor(modelItem => r.LastActivity)
+                        </td>
+                        <td width="300">
+                            @Html.DisplayFor(modelItem => r.Description)
+                        </td>
+
+                        <td class="indexNowrapCol">
+
+                            @{
+                                string pageName = "projects";
+                                int keyId = r.ProjectID;
+
+                                if (r.TableID == 2)
+                                {
+                                    pageName = "jobs";
+                                    keyId = r.JobId;
+
+                                }
+                                if (r.TableID == 3)
+                                {
+                                    pageName = "timelogs";
+                                    keyId = r.TimelogId;
+
+                                }
+                            }
+
+                            <a asp-page="/@pageName/Edit" asp-route-id="@keyId">Edit</a> |
+                            <a asp-page="/@pageName/Details" asp-route-id="@keyId">Details</a> |
+                            <a asp-page="/@pageName/Delete" asp-route-id="@keyId">Delete</a>
+
+                        </td>
+
+                    </tr>
+                        }
+                    }
+
+                </tbody>
+            </table>
+
+            await Html.RenderPartialAsync("TablePager", Model.pageUtil_SearchResults.tablePager);
+        }
+
+    }
+}
 
 
-@{await Html.RenderPartialAsync("TablePager", Model.pageUtil.tablePager);}
+
+
+@{ if (Model.Projects != null)
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    @{await Html.RenderPartialAsync("HeaderWithSortLinks", Model.pageUtil_Projects.headerWithSortLinks);}
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Projects)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProjectTitle)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.company.CompanyName)
+                        </td>
+                        <td class="indexNowrapCol">
+                            @Html.DisplayFor(modelItem => item.DateAdded)
+                        </td>
+                        <td class="indexNowrapCol">
+                            @Html.DisplayFor(modelItem => item.DateModified)
+                        </td>
+                        <td class="indexNowrapCol">
+                            <a asp-page="./Edit" asp-route-id="@item.ProjectID">Edit</a> |
+                            <a asp-page="./Details" asp-route-id="@item.ProjectID">Details</a> |
+                            <a asp-page="./Delete" asp-route-id="@item.ProjectID">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        await Html.RenderPartialAsync("TablePager", Model.pageUtil_Projects.tablePager);
+
+
+    }
+}
+
+
+

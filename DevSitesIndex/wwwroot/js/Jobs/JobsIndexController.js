@@ -38,7 +38,7 @@ var jobsIndexController_instance = function () {
                 __assign({}, columnBag, { columnName: 'projectTitle_ForActivity', caption: 'Project Title' }),
                 __assign({}, columnBag, { columnName: 'jobTitle', caption: 'Job Title' }),
                 __assign({}, columnBag, { columnName: 'dateAdded', caption: 'Date Added' }),
-                __assign({}, columnBag, { columnName: 'lastActivityDate', caption: 'Last Activity' }),
+                __assign({}, columnBag, { columnName: 'dateUpdated', caption: 'Date Updated' }),
                 __assign({}, columnBag, { columnName: 'activityAge', caption: 'Activity Age' }),
             ];
             $scope.fieldsList = _fieldList;
@@ -97,12 +97,14 @@ var jobsIndexController_instance = function () {
                 columnBag.job_statuses_selected = $scope.job_statuses_selected;
                 getJobsList(columnBag);
             };
+            // 09/28/2019 04:06 pm - SSN - [20190928-1256] - [011] - Adding Entity Framework model attribute
+            // Duplicate - Wrong way to go!
             $scope.showCreateTimesheetForm = function (jobID) {
                 if (isNaN(jobID)) {
                     jobID = 0;
                 }
                 $uibModal.open({
-                    templateUrl: '/js/timesheet/timesheetTemplate.html',
+                    templateUrl: '/js/timesheet/templates/timesheetTemplate.html',
                     controller: 'TimesheetController',
                     backdrop: false,
                     resolve: {

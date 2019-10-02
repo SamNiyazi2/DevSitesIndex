@@ -35,9 +35,10 @@ namespace DevSitesIndex.Pages.TimeLogs
 
 
         // 08/28/2019 04:32 am - SSN - [20190828-0427] - [003] - Apply sorting and paging to timelogs index
-        public async Task OnGetAsync(string sortOrder, string desc, int? pageIndex)
+        public async Task OnGetAsync(string columnName, string desc, int? pageIndex)
         {
 
+            Microsoft.AspNetCore.Http.HttpRequest r = Request;
 
 
             // 08/28/2019 08:19 am - SSN - [20190828-0819] - [001] - Adding Application Insights
@@ -48,7 +49,7 @@ namespace DevSitesIndex.Pages.TimeLogs
 
 
 
-            sortOrder = sortOrder ?? "StartTime";
+            columnName = columnName ?? "StartTime";
             desc = desc ?? "true";
 
             pageUtil = new PageUtil();
@@ -58,7 +59,7 @@ namespace DevSitesIndex.Pages.TimeLogs
             pageUtil.AddColumns("discipline");
             pageUtil.AddColumns("DateAdded");
             pageUtil.AddColumns("DateModified");
-            pageUtil.SetupHeaders<TimeLog>("/timelogs/", sortOrder, desc);
+            pageUtil.SetupHeaders<TimeLog>("/timelogs/", columnName, desc);
 
 
 
@@ -73,9 +74,9 @@ namespace DevSitesIndex.Pages.TimeLogs
                 .Include(t => t.discipline)
                 .Include(t => t.job);
 
-            TimeLog = await PaginatedList<TimeLog>.GetSourcePage(_timelog, sortOrder, desc, pageIndex, 10);
+            TimeLog = await PaginatedList<TimeLog>.GetSourcePage(_timelog, columnName, desc, pageIndex, 10);
 
-            pageUtil.SetupButtons<TimeLog>(TimeLog, "/timelogs", sortOrder, desc);
+            pageUtil.SetupButtons<TimeLog>(TimeLog, "/timelogs", columnName, desc);
 
 
 

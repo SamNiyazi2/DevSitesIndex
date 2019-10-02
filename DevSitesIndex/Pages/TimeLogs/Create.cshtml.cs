@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using DevSitesIndex.Entities;
 using Microsoft.AspNetCore.Authorization;
+using SSN_GenUtil_StandardLib;
+using System.ComponentModel.DataAnnotations;
 
 // 04/08/2019 12:43 am - SSN - [20190407-2345] - TimeLog
 
@@ -19,10 +21,14 @@ namespace DevSitesIndex.Pages.TimeLogs
     public class CreateModel : PageModel
     {
         private readonly DevSitesIndex.Entities.DevSitesIndexContext _context;
+        private readonly ILogger_SSN logger;
 
-        public CreateModel(DevSitesIndex.Entities.DevSitesIndexContext context)
+        // 09/27/2019 02:48 pm - SSN - [20190927-0634] - [025] - Testing
+        // Added SSN_GenUtil_StandardLib.logger
+        public CreateModel(DevSitesIndex.Entities.DevSitesIndexContext context, ILogger_SSN logger)
         {
             _context = context;
+            this.logger = logger;
         }
 
         public IActionResult OnGet()
@@ -33,6 +39,7 @@ namespace DevSitesIndex.Pages.TimeLogs
             DateTime d = DateTime.Now;
 
             TimeLog.DateAdded = new DateTime(d.Year, d.Month, d.Day, d.Hour, d.Minute, 0);
+            TimeLog.StartTime = new DateTime(d.Year, d.Month, d.Day, d.Hour, d.Minute, 0);
 
 
             return Page();
@@ -60,12 +67,40 @@ namespace DevSitesIndex.Pages.TimeLogs
                 return Page();
             }
 
+
+
+            // 09/27/2019 02:47 pm - SSN - [20190927-0634] - [024] - Testing
+            // Replaced
+            //_context.TimeLog.Add(TimeLog);
+            //await _context.SaveChangesAsync();
+
+
+            //  Exception ex = await SharedUtil.save_v02(_context, TimeLog, logger);
+
+            //if (ex != null)
+            //{
+            //    ModelState.AddModelError("", "Failed to save record.");
+            //    ModelState.AddModelError("", ex.Message);
+            //    Exception iex = ex.InnerException;
+            //    while (iex != null)
+            //    {
+            //        ModelState.AddModelError("", iex.Message);
+            //        iex = iex.InnerException;
+            //    }
+            //    return Page();
+            //}
+
+            // 09/28/2019 02:37 pm - SSN - [20190928-1256] - [004] - Adding Entity Framework model attribute
+
             _context.TimeLog.Add(TimeLog);
             await _context.SaveChangesAsync();
+
 
             return RedirectToPage("./Index");
         }
 
 
     }
+
+
 }

@@ -7,7 +7,8 @@ import * as angular from 'angular';
 import * as globals from './globals';
 var ssn_devsite_angular_module_instance = function () {
     var ssn_devsite_angular_module = globals.globals_instance.getInstance("demoSites_Index", ['ngRoute']);
-    ssn_devsite_angular_module.config(["$routeProvider", function ($routeProvider) {
+    // 09/26/2019 05:51 am - SSN - [20190926-0551] Add $locationProvider
+    ssn_devsite_angular_module.config(["$routeProvider", "$locationProvider", function ($routeProvider, $locationProvider) {
             $routeProvider.when("/", {
                 controller: "demoSiteIndexController_101",
                 templateUrl: "/templates/SitesIndex.html"
@@ -19,7 +20,12 @@ var ssn_devsite_angular_module_instance = function () {
             //    // templateUrl: "/templates/SiteDetail.html"
             //    templateUrl: "/DevSites/Create_partial"
             //});
-            $routeProvider.otherwise({ redirectTo: "/" });
+            // 09/26/2019 05:51 am - SSN - [20190926-0551] Add $locationProvider
+            // Use the HTML5 history API
+            //  $routeProvider.otherwise({ redirectTo: "/" });
+            $routeProvider.otherwise({});
+            $locationProvider.html5Mode({ enabled: true, rewriteLinks: false }).hashPrefix('!');
+            console.log("setting routes [20190926-0556]");
         }]);
     // 09/21/2019 08:23 am - SSN - [20190921-0357] - [012] - Creating multiple entry for Webpack
     // = function

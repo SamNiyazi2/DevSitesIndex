@@ -9,10 +9,38 @@
 
 
 @*03/19/2019 10:48 pm - SSN - Added*@
-<div asp-validation-summary="All"></div>
+@*
+    // 09/24/2019 09:26 am - SSN - [20190924-0731] - [007] - Project search option
+    // ModelOnly from All
+*@
+<div asp-validation-summary="ModelOnly"></div>
 <hr />
 <div class="row">
     <div class="col-md-4">
+        @*
+            // 09/24/2019 01:34 pm - SSN - [20190924-1134] - [023] - Removing date add/updated from create/edit pages
+        *@
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.DevSite.DateAdded)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DevSite.DateAdded)
+            </dd>
+            @{
+                if (Model.DevSite.DateUpdated != null)
+                {
+                    <dt>
+                        @Html.DisplayNameFor(model => model.DevSite.DateUpdated)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.DevSite.DateUpdated)
+                    </dd>
+                }
+            }
+        </dl>
+
+
         <form method="post" id="devSiteForm">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
@@ -40,7 +68,7 @@
                 <label asp-for="DevSite.SoftwareCodeID" class="control-label"></label>
                 <select asp-for="DevSite.SoftwareCodeID" class="form-control"
                         asp-items="@Model.softwareCodesSL">
-                    <option>Please select...</option>
+                    <option></option>
                 </select>
 
                 <span asp-validation-for="DevSite.SoftwareCodeID" class="text-danger"></span>
@@ -57,21 +85,6 @@
             </div>
 
 
-
-
-            <div class="form-group">
-                <label asp-for="DevSite.DateAdded" class="control-label"></label>
-                <input asp-for="DevSite.DateAdded" class="form-control" />
-                <span asp-validation-for="DevSite.DateAdded" class="text-danger"></span>
-            </div>
-
-
-            @*10/12/2018 03:58 pm - SSN - Added*@
-            <div class="form-group">
-                <label asp-for="DevSite.DateUpdated" class="control-label"></label>
-                <input asp-for="DevSite.DateUpdated" class="form-control " data-ng-model="devSiteRecord.DateUpdated" />
-                <span asp-validation-for="DevSite.DateUpdated" class="text-danger"></span>
-            </div>
 
 
             @*// 03/19/2019 09:17 pm - SSN - [20190319-2117] Added ForDemo*@
@@ -96,8 +109,8 @@
 
 
             @*
-        09/13/2019 04:30 am - SSN - [20190913-0421] - [001]
-        Moved down
+                09/13/2019 04:30 am - SSN - [20190913-0421] - [001]
+                Moved down
             *@
 
 

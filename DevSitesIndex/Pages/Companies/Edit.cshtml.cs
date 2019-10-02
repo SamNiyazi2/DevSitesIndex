@@ -27,6 +27,8 @@ namespace DevSitesIndex.Pages.Companies
         [BindProperty]
         public Company Company { get; set; }
 
+  
+        
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -51,6 +53,9 @@ namespace DevSitesIndex.Pages.Companies
             }
 
             _context.Attach(Company).State = EntityState.Modified;
+
+            // 09/24/2019 11:44 am - SSN - [20190924-1134] - [006] - Removing date add/updated from create/edit pages
+            _context.Entry(Company).Property(x => x.DateAdded).IsModified = false;
 
             try
             {

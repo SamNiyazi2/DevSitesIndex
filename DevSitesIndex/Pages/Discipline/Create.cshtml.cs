@@ -45,6 +45,11 @@ namespace DevSitesIndex
             }
 
             _context.Disciplines.Add(Discipline);
+
+            // 09/24/2019 12:31 pm - SSN - [20190924-1134] - [009] - Removing date add/updated from create/edit pages
+            Discipline.DateAdded = DateTime.Now;
+
+
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

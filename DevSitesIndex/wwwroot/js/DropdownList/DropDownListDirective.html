@@ -1,8 +1,8 @@
 ﻿
 <div class="form-group">
-
-    <label class="control-label">
-        {{typeahead_label}}
+ 
+    <label ng-if="typeahead_label" class="control-label">
+        {{typeahead_label}}  
     </label>
 
     <!--uib-typeahead="discipline as discipline.title for discipline in vm101.getDisciplines($viewValue) "-->

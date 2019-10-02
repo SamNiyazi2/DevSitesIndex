@@ -10,6 +10,7 @@ using System.Linq.Expressions;
 
 
 // 08/08/2018 12:46 pm - SSN 
+// 09/30/2019 06:05 pm - SSN - Added dateadded/dateupdated attributes to entity models
 
 namespace DevSitesIndex.Entities
 {
@@ -30,10 +31,16 @@ namespace DevSitesIndex.Entities
         // 03/13/2019 09:29 am - SSN
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy hh:mm tt}")]
         [Display(Name = "Date Added")]
+        [EFCoreShadowProperty.Models.DateAdded]
         public DateTime DateAdded { get; set; }
 
+
+        // 09/24/2019 01:11 pm - SSN - [20190924-1134] - [017] - Removing date add/updated from create/edit pages
+// Was on added but not on updated.  Noticed the differene when working with Jobs. 
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy hh:mm tt}")]
         // 04/08/2019 12:53 am - SSN - [20190407-2345] - TimeLog - Added
         [Display(Name = "Date Updated")]
+        [EFCoreShadowProperty.Models.DateUpdated]
         public DateTime? DateUpdated { get; set; }
 
         [Display(Name = "Project Title", Prompt = "Select a project")] // 09/14/2019 12:40 am - SSN - Added prompt (PlaceHolder?)

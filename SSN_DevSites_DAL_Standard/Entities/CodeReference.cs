@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 // 09/04/2018 05:29 am - SSN
+// 09/30/2019 08:20 am - SSN - [20190930-0818] - [001] - Added dateadded/dateupdated attributes to entity models
 
 namespace DevSitesIndex.Entities
 {
@@ -23,13 +24,15 @@ namespace DevSitesIndex.Entities
 
         // 03/13/2019 09:29 am - SSN
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy hh:mm tt}")]
-        [DisplayName("Date Added")]
+        [DisplayName("Date Added")] 
+        [EFCoreShadowProperty.Models.DateAdded]
         public DateTime DateAdded { get; set; }
 
         // 03/13/2019 09:29 am - SSN
         // 04/16/2019 05:59 pm - SSN - [20190416-1759] Nullify - NOT - We need it for order.  Very slow otherwise.
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy hh:mm tt}")]
         [DisplayName("Date Updated")]
+        [EFCoreShadowProperty.Models.DateUpdated]
         public DateTime DateModified { get; set; }
 
         // 02/24/2019 05:16 - SSN - Added

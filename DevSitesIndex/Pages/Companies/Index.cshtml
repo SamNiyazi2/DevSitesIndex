@@ -9,7 +9,7 @@
 <h2>@ViewData["Title"]</h2>
 
 <p>
-    <a asp-page="Create">Create New</a>
+    <a asp-page="Create">Create New Company Record</a>
 </p>
 <table class="table">
     <thead>
@@ -19,6 +19,9 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Company[0].DateAdded)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Company[0].DateUpdated)
             </th>
             <th></th>
         </tr>
@@ -33,6 +36,10 @@
 
                 <td class="indexNowrapCol">
                     @Html.DisplayFor(modelItem => item.DateAdded)
+                </td>
+
+                <td class="indexNowrapCol">
+                    @Html.DisplayFor(modelItem => item.DateUpdated)
                 </td>
 
                 <td class="indexNowrapCol">

@@ -52,6 +52,16 @@ namespace DevSitesIndex
 
             _context.Attach(Discipline).State = EntityState.Modified;
 
+
+            // 09/24/2019 12:45 pm - SSN - [20190924-1134] - [013] - Removing date add/updated from create/edit pages
+            if (Discipline.DisciplineId>0)
+            {
+                Discipline.DateModified = DateTime.Now;
+            }
+
+            // 09/24/2019 12:45 pm - SSN - [20190924-1134] - [013] - Removing date add/updated from create/edit pages
+            _context.Entry(Discipline).Property(x => x.DateAdded).IsModified = false;
+
             try
             {
                 await _context.SaveChangesAsync();

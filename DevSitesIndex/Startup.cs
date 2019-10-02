@@ -43,6 +43,12 @@ namespace DevSitesIndex
         public static string SITE_NAME_STRING = "";
         public static HtmlString SITE_NAME_HTML => new HtmlString(SITE_NAME_STRING.Replace(".", "<span>.<span>"));// For email to prevent email client vendors from hyperlinking the domain name.
 
+        // 09/27/2019 06:34 am - SSN - [20190927-0634] - [001] - Testing
+        // Adding to flag out work envionment - local vs Azure
+        public static string SITE_ALERT_CSS_NAME { get; set; }
+
+
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -116,10 +122,23 @@ namespace DevSitesIndex
 
 
 
+          
+            
+            
+            
+            
             // 09/06/2019 11:45 pm - SSN - [20190906-2040] - [002] - Logger
 
             //services.AddSingleton<Util.ILogger_SSN, Util.SSN_Logger>();
             services.AddTransient<Util.ILogger_SSN, Util.SSN_Logger>();
+
+            // 09/27/2019 02:08 pm - SSN - [20190927-0634] - [020] - Testing
+            // Made a copy in SSN_GenUtil_StandardLib
+            services.AddTransient<SSN_GenUtil_StandardLib.ILogger_SSN, SSN_GenUtil_StandardLib.SSN_Logger>();
+
+
+
+
 
 
 
@@ -242,6 +261,11 @@ namespace DevSitesIndex
                 if (firstRequest)
                 {
                     SITE_NAME_STRING = context.Request.Host.Host.ToString();
+
+                    if (!SITE_NAME_STRING.ToLower().Contains("testsam"))
+                    {
+                        SITE_ALERT_CSS_NAME = "site_alert_css_name";
+                    }
                     firstRequest = false;
                 }
                 await next();

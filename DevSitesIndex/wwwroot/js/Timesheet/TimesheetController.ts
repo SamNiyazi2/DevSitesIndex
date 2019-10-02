@@ -1,9 +1,8 @@
-﻿ 
+﻿
 
 import * as globals from "../globals";
 import * as angular from "angular";
 import * as tostr from "toastr";
-
 
 
 /// <reference path="../../../../node_modules/@types/toastr/index.d.ts" />
@@ -18,9 +17,35 @@ var timesheetController_instance = function () {
     var timesheetApp = globals.globals_instance.getInstance("timesheetApp");
 
 
-    timesheetApp.controller('TimesheetController', ['$scope', '$uibModalInstance', '$http', '$q, dataService',
+    // 09/30/2019 06:56 pm - SSN - (Inject jobId)
+    timesheetApp.controller('TimesheetController', ['$scope', '$uibModalInstance', '$http', '$q', 'dataService', 'jobId',
         function TimesheetController($scope, $uibModalInstance, $http, $q, dataService, jobId) {
 
+
+            dataService.getJob(jobId).then(getJobSuccess, getJobError).catch(getJobCatch);
+
+            function getJobSuccess(data) {
+
+                $scope.editableTimeLog.job = {};
+                $scope.editableTimeLog.job.jobTitle = data.jobTitle;
+                $scope.editableTimeLog.job.project = {};
+                $scope.editableTimeLog.job.project.projectTitle = data.project.projectTitle;
+
+            }
+
+            function getJobError(data) {
+
+                console.log('TimeshetController - getJobSuccess  -  20190930-2106-B ');
+                console.log(data);
+
+            }
+
+            function getJobCatch(data) {
+
+                console.log('TimeshetController - getJobSuccess  -  20190930-2106-C ');
+                console.log(data);
+
+            }
 
 
             $scope.disciplineSelected = { id: 0, title: '' };
@@ -43,14 +68,12 @@ var timesheetController_instance = function () {
                 jobId: jobId
             };
 
- 
+
             $scope.editableTimeLog = angular.copy($scope.timeLog);
 
 
-
-
             $scope.submitForm = function () {
- 
+
                 var test = $scope.editableTimeLog;
 
                 var promise = null;
@@ -69,13 +92,10 @@ var timesheetController_instance = function () {
                     promise.then(
                         function (data) {
 
-                            var test1 = data;
- 
                             $scope.timeLog = angular.copy($scope.editableTimeLog);
                         },
                         function (error) {
-
-                            var test2 = error;
+                            
                             console.log("TimesheetController - 20190921-0640 - promise > error");
                             console.log(error);
 
@@ -161,6 +181,6 @@ var timesheetController_instance = function () {
 
 }();
 
- 
+
 export { timesheetController_instance };
 

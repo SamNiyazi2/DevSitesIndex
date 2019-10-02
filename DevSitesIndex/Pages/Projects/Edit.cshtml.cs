@@ -64,6 +64,9 @@ namespace DevSitesIndex.Pages.Projects
             _context.Attach(Project).State = EntityState.Modified;
 
 
+            // 09/24/2019 01:19 pm - SSN - [20190924-1134] - [018] - Removing date add/updated from create/edit pages
+            _context.Entry(Project).Property(x => x.DateAdded).IsModified = false;
+
             // 04/19/2019 12:59 pm - SSN - Add sort
             if (Project.ProjectID > 0)
             {

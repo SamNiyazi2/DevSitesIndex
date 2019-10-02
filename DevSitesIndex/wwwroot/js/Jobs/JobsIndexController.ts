@@ -9,9 +9,9 @@ import * as angular from 'angular'
 import IColumnBag from '../IColumnBag';
 import * as ssn_globals from "../globals";
 
-import { jobStatusDisplayDirective_instance  } from "../Util/JobStatusDisplayDirective";
+import { jobStatusDisplayDirective_instance } from "../Util/JobStatusDisplayDirective";
 
-jobStatusDisplayDirective_instance ;
+jobStatusDisplayDirective_instance;
 
 
 // 09/21/2019 04:42 am - SSN - [20190921-0357] - [003] - Creating multiple entry for Webpack
@@ -50,7 +50,7 @@ var jobsIndexController_instance = function () {
                 { ...columnBag, columnName: 'projectTitle_ForActivity', caption: 'Project Title' },
                 { ...columnBag, columnName: 'jobTitle', caption: 'Job Title' },
                 { ...columnBag, columnName: 'dateAdded', caption: 'Date Added' },
-                { ...columnBag, columnName: 'lastActivityDate', caption: 'Last Activity' },
+                { ...columnBag, columnName: 'dateUpdated', caption: 'Date Updated' },
                 { ...columnBag, columnName: 'activityAge', caption: 'Activity Age', },
             ];
 
@@ -140,11 +140,11 @@ var jobsIndexController_instance = function () {
                 getJobsList(columnBag);
             }
 
-            
+
 
             // 09/22/2019 05:20 am - SSN - [20190921-1129] - [007] - Plug in job status filter on job's index
- 
- 
+
+
             $scope.job_statuses_checkAll = function (enable) {
 
                 if (enable) {
@@ -154,12 +154,15 @@ var jobsIndexController_instance = function () {
                     $scope.job_statuses_selected = [];
                 }
 
-                columnBag.job_statuses_selected = $scope.job_statuses_selected 
+                columnBag.job_statuses_selected = $scope.job_statuses_selected
 
 
                 getJobsList(columnBag);
             }
 
+
+            // 09/28/2019 04:06 pm - SSN - [20190928-1256] - [011] - Adding Entity Framework model attribute
+            // Duplicate - Wrong way to go!
 
             $scope.showCreateTimesheetForm = function (jobID) {
 
@@ -168,7 +171,7 @@ var jobsIndexController_instance = function () {
                 }
 
                 $uibModal.open({
-                    templateUrl: '/js/timesheet/timesheetTemplate.html',
+                    templateUrl: '/js/timesheet/templates/timesheetTemplate.html',
                     controller: 'TimesheetController',
 
 

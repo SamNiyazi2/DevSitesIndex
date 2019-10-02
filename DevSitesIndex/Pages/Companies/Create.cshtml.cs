@@ -45,6 +45,10 @@ namespace DevSitesIndex.Pages.Companies
             }
 
             _context.Companies.Add(Company);
+
+            // 09/24/2019 11:42 am - SSN - [20190924-1134] - [004] - Removing date add/updated from create/edit pages
+            Company.DateAdded = DateTime.Now;
+
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

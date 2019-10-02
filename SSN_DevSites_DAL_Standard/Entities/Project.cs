@@ -10,10 +10,12 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
 // 08/08/2018 02:34 pm - SSN
+// 09/30/2019 08:28 am - SSN - [20190930-0818] - [002] - Added dateadded/dateupdated attributes to entity models
 
 namespace DevSitesIndex.Entities
 {
@@ -22,6 +24,13 @@ namespace DevSitesIndex.Entities
     {
 
         public int ProjectID { get; set; }
+
+
+        // 09/27/2019 03:26 pm - SSN - [20190927-0634] - [1003] - Testing
+        // Added
+        [NotMapped]
+        public int? Id_Temp { get => ProjectID; set { } }
+
 
         [DisplayName("Project Title")]
         [Required(ErrorMessage = "Title is required")]
@@ -36,16 +45,19 @@ namespace DevSitesIndex.Entities
         // 03/13/2019 09:29 am - SSN
         [DisplayName("Date Added")]
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy hh:mm tt}")]
+        [EFCoreShadowProperty.Models.DateAdded]
         public DateTime DateAdded { get; set; }
 
         // 04/19/2019 11:58 am - SSN - Add sort
         [DisplayName("Date Updated")]
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy hh:mm tt}")]
+        [EFCoreShadowProperty.Models.DateUpdated]
         public DateTime? DateModified { get; set; }
 
 
         [DisplayName("Company")]
         public Company company { get; set; }
+
 
     }
 }

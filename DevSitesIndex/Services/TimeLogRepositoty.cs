@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DevSitesIndex.Entities;
+using DevSitesIndex.Util;
 using Microsoft.EntityFrameworkCore;
 
 // 04/12/2019 11:51 am - SSN - [20190412-1126] - Timelog - save data - Copied from DevSitesIndexRepository
@@ -12,10 +13,15 @@ namespace DevSitesIndex.Services
     public class TimeLogRepository : IEntityRepository<TimeLog>
     {
         private readonly DevSitesIndexContext _context;
+        private readonly ILogger_SSN logger;
 
-        public TimeLogRepository(DevSitesIndexContext context)
+        // 09/26/2019 10:56 am - SSN - [20190926-1047] - [002] - Debugging: timelog not posting
+        // Add logged to post error messages.
+
+        public TimeLogRepository(DevSitesIndexContext context, ILogger_SSN logger)
         {
             this._context = context;
+            this.logger = logger;
         }
 
 
@@ -46,7 +52,9 @@ namespace DevSitesIndex.Services
             }
             catch (Exception ex)
             {
-                string errorMessage = ex.Message;
+                // 09/26/2019 11:01 am - SSN - [20190926-1047] - [003] - Debugging: timelog not posting
+
+                logger.PostException(ex, "20190926-1057", $"Failed to get timelog record {timeLogId}");
                 throw;
             }
         }
@@ -55,46 +63,50 @@ namespace DevSitesIndex.Services
         public TimeLog Update(TimeLog timeLog)
         {
 
-
-            Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<TimeLog> r = null;
-
-            // 05/21/2019 10:35 am - SSN - Take out try/catch block
-
             // 04/20/2019 06:56 pm - SSN - Convert time passed by javaScript as Utc 
             timeLog.StartTime = timeLog.StartTime.ToLocalTime();
 
             if (timeLog.TimeLogId == 0)
             {
-                int DisciplineID = timeLog.DisciplineID;
+
                 timeLog.discipline = null;
 
-                timeLog.DateAdded = DateTime.Now;
-                r = _context.TimeLog.Add(timeLog);
+                // We "include"d projects for displaying titles. We need to exclude them from inserts.
+                timeLog.job = null;
+
+                _context.TimeLog.Add(timeLog);
+
             }
             else
             {
-                _context.Entry(timeLog).State = EntityState.Modified;
-                _context.Entry(timeLog).Property(p => p.DateAdded).IsModified = false;
-                timeLog.DateModified = DateTime.Now;
-                r = _context.TimeLog.Update(timeLog);
+                _context.TimeLog.Update(timeLog);
             }
-
-
 
             return timeLog;
         }
 
 
-        public bool Save()
+        // 09/29/2019 09:47 am - SSN - [20190928-1256] - [014] - Adding Entity Framework model attribute
+        // public bool Save()
+        public Exception Save()
         {
             try
             {
-                return _context.SaveChanges() > 0;
+                if (_context.SaveChanges() > 0)
+                    return default(Exception);
+                else
+                    return new Exception("20190929-0948 - Failed to save record.");
             }
             catch (Exception ex)
             {
-                string message = ex.Message;
-                return false;
+
+                // 09/26/2019 11:01 am - SSN - [20190926-1047] - [004] - Debugging: timelog not posting
+
+                logger.PostException(ex, "20190926-1059", "Failed to save timelog record");
+
+                // 09/29/2019 09:48 am - SSN - [20190928-1256] - [015] - Adding Entity Framework model attribute
+                // return false;
+                throw;
             }
         }
 

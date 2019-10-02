@@ -23,12 +23,15 @@
         <dd>
             @Html.DisplayFor(model => model.Discipline.DateAdded)
         </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Discipline.DateModified)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Discipline.DateModified)
-        </dd>
+        @if (Model.Discipline.DateModified.HasValue)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Discipline.DateModified)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Discipline.DateModified)
+            </dd>
+        }
     </dl>
     
     <form method="post">

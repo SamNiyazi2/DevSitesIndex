@@ -22,3 +22,11 @@ timesheetClockoutController_instance.timesheetApp;
 
 timesheetApp_instance.timesheetApp;
 
+// 10/01/2019 11:09 am - SSN - [20191001-0944] - [007] - Adding Application Insights for JavaScript
+console.log("Timesheet_main - 20191001-1110");
+
+import { AppInsights_Util } from '../Util/ApplicationInsights_Monitor';
+
+AppInsights_Util.doSetup();
+
+AppInsights_Util.logEvent("Timesheet_main", { SourceCode: "20191001-1112-C", Message: "Loading timesheet_main" });

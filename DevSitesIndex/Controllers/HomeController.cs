@@ -34,7 +34,12 @@ namespace DevSitesIndex.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("index", "demosites");
+        }
+
+        public IActionResult Index_was()
+        {
+            return View("index");
         }
 
         public IActionResult About()

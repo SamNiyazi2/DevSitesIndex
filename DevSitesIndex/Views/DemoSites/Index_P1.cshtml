@@ -14,6 +14,10 @@
 @*
     08/12/2019 05:15 am - SSN - [20190812-0515] - [001] - Apply fulltext search
 *@
+@{await Html.RenderPartialAsync("Index_Option_Select");}
+<br />
+<br />
+<br />
 
 <form data-bind="submit: onSubmit">
 
@@ -39,7 +43,6 @@
 
 
 
-@{await Html.RenderPartialAsync("Index_Option_Select");}
 @*// 09/08/2019 06:10 pm - SSN - [20190908-0001] - [003] - Concurrency - Applying to devSite*@
 
 <div id="show-job" class="modal" tabindex="-1" role="dialog">

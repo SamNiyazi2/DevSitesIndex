@@ -18,8 +18,11 @@
     "@babel/preset-env": "^7.6.0",
     "@babel/preset-typescript": "^7.6.0",
     "@babel/runtime": "^7.6.0",
+    "@types/angular": "^1.6.56",
+    "@types/applicationinsights-js": "^1.0.9",
     "@types/jquery": "^3.3.31",
     "@types/knockout": "^3.4.66",
+    "@types/toastr": "^2.1.37",
     "babel-core": "^6.26.3",
     "babel-loader": "^8.0.6",
     "babel-polyfill": "^6.26.0",
@@ -28,9 +31,9 @@
     "ts-loader": "^6.1.0",
     "typescript": "^3.6.3",
     "webpack": "^4.40.2",
-    "webpack-cli": "^3.3.9",
-    "@types/angular": "^1.6.56",
-    "@types/toastr": "^2.1.37"
+    "webpack-cli": "^3.3.9"
   },
-  "dependencies": {}
+  "dependencies": {
+    "applicationinsights-js": "^1.0.20"
+  }
 }

@@ -5,8 +5,24 @@ import * as angular from "angular";
 // 09/18/2019 11:13 am - SSN - [20190918-0943] - [008] - Adding job status option to index
 var timesheetController_instance = function () {
     var timesheetApp = globals.globals_instance.getInstance("timesheetApp");
-    timesheetApp.controller('TimesheetController', ['$scope', '$uibModalInstance', '$http', '$q, dataService',
+    // 09/30/2019 06:56 pm - SSN - (Inject jobId)
+    timesheetApp.controller('TimesheetController', ['$scope', '$uibModalInstance', '$http', '$q', 'dataService', 'jobId',
         function TimesheetController($scope, $uibModalInstance, $http, $q, dataService, jobId) {
+            dataService.getJob(jobId).then(getJobSuccess, getJobError).catch(getJobCatch);
+            function getJobSuccess(data) {
+                $scope.editableTimeLog.job = {};
+                $scope.editableTimeLog.job.jobTitle = data.jobTitle;
+                $scope.editableTimeLog.job.project = {};
+                $scope.editableTimeLog.job.project.projectTitle = data.project.projectTitle;
+            }
+            function getJobError(data) {
+                console.log('TimeshetController - getJobSuccess  -  20190930-2106-B ');
+                console.log(data);
+            }
+            function getJobCatch(data) {
+                console.log('TimeshetController - getJobSuccess  -  20190930-2106-C ');
+                console.log(data);
+            }
             $scope.disciplineSelected = { id: 0, title: '' };
             // 05/03/2019 05:54 pm - SSN - [20190503-1539] - [012] - Add link to create timelog 
             // Add pageTitle
@@ -35,10 +51,8 @@ var timesheetController_instance = function () {
                 }
                 if (promise) {
                     promise.then(function (data) {
-                        var test1 = data;
                         $scope.timeLog = angular.copy($scope.editableTimeLog);
                     }, function (error) {
-                        var test2 = error;
                         console.log("TimesheetController - 20190921-0640 - promise > error");
                         console.log(error);
                     });

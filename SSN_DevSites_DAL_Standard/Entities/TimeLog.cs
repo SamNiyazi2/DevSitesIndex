@@ -12,6 +12,9 @@ namespace DevSitesIndex.Entities
 {
     public class TimeLog : IBaseEntity
     {
+        // 09/28/2019 11:18 am - SSN - [20190927-0634] - [1005] - Testing
+        // Adding key for save method lookup
+        [Key]
         public int TimeLogId { get; set; }
 
         [Display(Name = "Job Title")]
@@ -24,16 +27,30 @@ namespace DevSitesIndex.Entities
 
         [Display(Name = "Start Time")]
         [Required] // 09/13/2019 11:26 pm - SSN - Forgotten
+        // 09/28/2019 11:18 am - SSN - [20190927-0634] - [1005] - Testing
+        // Adding key for save method lookup
         public DateTime StartTime { get; set; }
+
 
         [Display(Name = "Duration (Seconds)")]
         public int? TotalSeconds { get; set; }
 
+
+        // 09/26/2019 10:15 pm - SSN - [20190926-1242] - [019] - Search projects
+        // Added DateFormatString         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy hh:mm tt}")] to DateAdded and DateModified
+        // 09/28/2019 12:57 pm - SSN - [20190928-1256] - [002] - Adding Entity Framework model attribute
+        [EFCoreShadowProperty.Models.DateAdded]
         [Display(Name = "Date Added")]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy hh:mm tt}")]
         public DateTime DateAdded { get; set; }
 
+
+        // 09/28/2019 12:57 pm - SSN - [20190928-1256] - [002] - Adding Entity Framework model attribute
+        [EFCoreShadowProperty.Models.DateUpdated]
         [Display(Name = "Date Updated")]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy hh:mm tt}")]
         public DateTime? DateModified { get; set; }
+
 
         [Display(Name = "Work Detail")]
         public string WorkDetail { get; set; }
@@ -53,5 +70,31 @@ namespace DevSitesIndex.Entities
                 return TotalSeconds.SecondsToTimeDuration();
             }
         }
+
+
+        // 09/26/2019 09:27 pm - SSN - [20190926-1242] - [018] - Search projects
+
+        [NotMapped]
+        [Display(Name = "Stop Time")]
+        public DateTime? StopTime
+        {
+            get
+            {
+                return TotalSeconds.StopTime(StartTime);
+            }
+        }
+
+        [NotMapped]
+        [Display(Name = "Stop Time")]
+        public string StopTime_AsString
+        {
+            get
+            {
+                return TotalSeconds.StopTime_AsString(StartTime);
+            }
+        }
+
+
+
     }
 }

@@ -175,3 +175,61 @@ npm install --save @babel/runtime
       }
     ]
   ]
+
+
+
+
+  09/30/2019 09:44 pm - SSN - For JavaScript debugging
+
+  npm i --save @microsoft/applicationinsights-web
+
+  https://github.com/Microsoft/ApplicationInsights-JS
+
+  https://github.com/Microsoft/ApplicationInsights-JS#getting-started
+
+  "Cannot find module".
+
+  Drop it
+
+  Uninstalled.
+
+  --------------------------------------------------------------------
+
+  09/30/2019 11:38 pm - SSN - Another try at Application Insight monitoring JavaScript
+
+  https://github.com/microsoft/ApplicationInsights-JS/tree/f42f662bcb1669c791552382a395d5e2451b69b7
+  npm install applicationinsights-js
+
+
+  /* import AppInsights */
+import {AppInsights} from "applicationinsights-js"
+
+/* Call downloadAndSetup to download full ApplicationInsights script from CDN and initialize it with instrumentation key */
+AppInsights.downloadAndSetup({ instrumentationKey: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxx" });
+
+/* example: track page view */
+AppInsights.trackPageView(
+    "FirstPage", /* (optional) page name */
+    null, /* (optional) page url if available */
+    { prop1: "prop1", prop2: "prop2" }, /* (optional) dimension dictionary */
+    { measurement1: 1 }, /* (optional) metric dictionary */
+    123 /* page view duration in milliseconds */
+);
+
+/* example: track event */
+AppInsights.trackEvent("TestEvent", { prop1: "prop1", prop2: "prop2" }, { measurement1: 1 });
+
+
+UNDO.
+  --------------------------------------------------------------------
+
+
+  // 10/01/2019 10:11 am - SSN - [20191001-0944] - [005] - Adding Application Insights for JavaScript
+
+  https://devblogs.microsoft.com/premier-developer/add-application-insights-to-an-angular-spa/
+
+  npm install applicationinsights-js
+  ver 1.0.20
+
+  npm install @types/applicationinsights-js --save-dev
+

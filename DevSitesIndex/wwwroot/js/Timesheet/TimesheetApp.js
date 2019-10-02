@@ -30,7 +30,7 @@ var timesheetApp_instance = function () {
             $scope.timesheetForm_ClockContinue = function (timelogId) {
                 // 05/19/2019 09:37 am - SSN - [20190519-0837] - [003] - Adding timesheet "Continue" option
                 $uibModal.open({
-                    templateUrl: '/js/timesheet/templates//timesheetTemplate.html',
+                    templateUrl: '/js/timesheet/templates//timesheetTemplate.html?v=' + $scope.versionForHTMLRefresh,
                     controller: 'TimesheetContinueController',
                     windowClass: 'ssn-mobile-modal',
                     size: 'md',
@@ -43,7 +43,6 @@ var timesheetApp_instance = function () {
                 });
             };
             $scope.showCreateTimesheetForm = function (jobID) {
-                console.log("TimesheetApp - showCreateTimesheetForm - 20190921-0632");
                 if (isNaN(jobID)) {
                     jobID = 0;
                 }

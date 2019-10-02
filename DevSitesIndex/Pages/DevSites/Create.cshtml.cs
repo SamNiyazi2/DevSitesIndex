@@ -16,14 +16,14 @@ namespace DevSitesIndex.Pages.DevSites
     [Authorize]
     public class CreateModel : DevSite_BasePageModel
     {
-        private readonly  DevSitesIndexContext _context;
+        private readonly DevSitesIndexContext _context;
 
-        public CreateModel( DevSitesIndexContext context)
+        public CreateModel(DevSitesIndexContext context)
         {
             _context = context;
         }
 
-    
+
         public IActionResult OnGet()
         {
             // 08/24/2018 02:04 am - SSN - Added SelectList and default date.
@@ -47,6 +47,10 @@ namespace DevSitesIndex.Pages.DevSites
             }
 
             _context.DevSites.Add(DevSite);
+
+            // 09/24/2019 01:30 pm - SSN - [20190924-1134] - [022] - Removing date add/updated from create/edit pages
+            DevSite.DateAdded = DateTime.Now;
+
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
