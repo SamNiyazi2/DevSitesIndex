@@ -8,7 +8,7 @@
 </environment>
 
 
- 
+
 
 <script src="~/lib/Angular_1_7/angular.js"></script>
 <script src="~/lib/Angular_1_7/angular-route.js"></script>
@@ -71,3 +71,18 @@
 
 
 }
+
+
+
+@{
+
+    if (User.Identity.IsAuthenticated)
+    {
+
+        // 10/02/2019 11:27 am - SSN - [20191002-1118] - [002] - Adding Angular 7 test app
+        <script type="module" src="~/js/timesheetsSupport7.min.js" asp -append-version="true"></script>
+
+    }
+}
+
+
