@@ -27,6 +27,14 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using DevSitesIndex.Email;
 using Microsoft.AspNetCore.Html;
 
+
+using Microsoft.AspNetCore.SpaServices.AngularCli;
+
+
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Routing;
+
+
 namespace DevSitesIndex
 {
     public class Startup
@@ -122,11 +130,11 @@ namespace DevSitesIndex
 
 
 
-          
-            
-            
-            
-            
+
+
+
+
+
             // 09/06/2019 11:45 pm - SSN - [20190906-2040] - [002] - Logger
 
             //services.AddSingleton<Util.ILogger_SSN, Util.SSN_Logger>();
@@ -222,7 +230,22 @@ namespace DevSitesIndex
             Configuration.GetSection("ApprovedRemoteSites").Bind(approvedRemoteSites);
 
 
+
+
+
+            // 10/02/2019 01:45 pm - SSN - [20191002-1118] - [008] - Adding Angular 7 test app
+
+
+            // In production, the Angular files will be served from this directory
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "wwwroot/dist/timesheetsSupport7";
+            });
+
+
         }
+
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
@@ -277,6 +300,16 @@ namespace DevSitesIndex
             app.UseStaticFiles();
 
 
+
+
+
+            // 10/02/2019 01:44 pm - SSN - [20191002-1118] - [007] - Adding Angular 7 test app
+
+            app.UseSpaStaticFiles();
+
+
+
+
             // 08/12/2019 11:24 am - SSN - [20190812-0945] - [007] - Add identity
 
             app.UseAuthentication();
@@ -285,17 +318,78 @@ namespace DevSitesIndex
 
             app.UseMvc(routes =>
             {
+
+
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=demosites}/{action=Index}/{id?}");
 
-                // 04/12/2019 05:31 pm - SSN - [20190412-1126] - Timelog - save data - TESTING
 
-                //routes.MapRoute(
-                //        name: "API Default",
-                //        template: "api/{controller}/{id?}");
+
+
+                #region Testing
+
+                // 10/03/2019 10:01 am - SSN - [20191002-1118] - [017] - Adding Angular 7 test app
+                // https://stackoverflow.com/questions/35527842/mvc6-routing-to-single-page-application-without-losing-404
+
+                //            routes.MapRoute("app", "{*anything}",
+                //new { controller = "Home", action = "Index" },
+                //new { anything = new Microsoft.AspNetCore.Routing.Constraints.RegexRouteConstraint("^(?!test\\/).+") });
+
+
+
+                //////// 10/02/2019 03:51 pm - SSN - [20191002-1118] - [010] - Adding Angular 7 test app
+                //////// Testing
+                //////routes.MapRoute(
+                //////    name: "default2",
+
+                //////    template: "{controller}/{action}/{id?}",
+                //////    defaults: new { Controller = "demosites", Action = "index" }, //, id = UrlParameter.Optional},
+                //////    constraints: new { name = new Util.ServerRouteConstraint(uri => !uri.PathAndQuery.ToLower().StartsWith("/test")) });
+
+
+                ////////////////////////routes.MapSpaFallbackRoute(
+                ////////////////////////        name: "spa-fallback",
+                ////////////////////////        defaults: new { controller = "timesheetssupport7", action = "test3" });
+
+
+                // 10/02/2019 11:55 am - SSN - [20191002-1118] - [003] - Adding Angular 7 test app
+                // Testing
+                //routes.MapSpaFallbackRoute(
+                //        name: "spa-fallback",
+                //        defaults: new { controller = "Home", action = "Index", });
+
+
+                // 10/03/2019 10:59 am - SSN - [20191002-1118] - [018] - Adding Angular 7 test app
+                // This does serve SPA and MVC requests
+                routes.MapRoute(
+                   "Default_angx", // Route name
+                   "{*catchall}", // URL with parameters
+                   new { controller = "timesheetssupport7", action = "test2" });
+
+
+                #endregion Testing
+
 
             });
+
+
+            // 10/02/2019 01:40 pm - SSN - [20191002-1118] - [006] - Adding Angular 7 test app
+
+            // This allows to display AppComponent when using route 'test2'
+            app.UseSpa(spa =>
+            {
+                // To learn more about options for serving an Angular SPA from ASP.NET Core,
+                // see https://go.microsoft.com/fwlink/?linkid=864501
+
+               spa.Options.SourcePath = "timesheetsSupport7";
+
+                if (env.IsDevelopment())
+                {
+                    //     spa.UseAngularCliServer(npmScript: "start");
+                }
+            });
+
 
 
 
