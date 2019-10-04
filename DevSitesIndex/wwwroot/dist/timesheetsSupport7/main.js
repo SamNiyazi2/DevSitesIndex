@@ -37,6 +37,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _test_component_test_component_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./test-component/test-component.component */ "./src/app/test-component/test-component.component.ts");
+/* harmony import */ var _timesheet_timesheet_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./timesheet/timesheet.component */ "./src/app/timesheet/timesheet.component.ts");
+
 
 
 
@@ -48,6 +50,8 @@ var routes = [
     { path: 'test1', redirectTo: 'search' },
     // 10/02/2019 05:51 pm - SSN - [20191002-1118] - [013] - Adding Angular 7 test app
     { path: 'test3', component: _test_component_test_component_component__WEBPACK_IMPORTED_MODULE_3__["TestComponentComponent"] },
+    // 10/03/2019 12:19 pm - SSN - [20191003-1219] - [001] - Adding timesheet to Angular7
+    { path: 'timesheet', component: _timesheet_timesheet_component__WEBPACK_IMPORTED_MODULE_4__["TimesheetComponent"] },
     //{ path: '**', component: AppComponent, outlet: "main101" },
     { path: '**', redirectTo: 'test3' },
 ];
@@ -96,7 +100,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!--The content below is only a placeholder and can be replaced.-->\r\n<div style=\"text-align:center\">\r\n  <h1>\r\n    Welcome to {{ title }}! (v-015)\r\n  </h1>\r\n</div>\r\n\r\n<h3>app.component.html - router-outlet - top </h3>\r\n<router-outlet></router-outlet>\r\n<h3>app.component.html - router-outlet - bottom </h3>\r\n"
+module.exports = "<!--The content below is only a placeholder and can be replaced.-->\r\n<div style=\"text-align:center\">\r\n  <h3>\r\n     {{ title }} <span style=\"font-size:14px\">(v-015)</span>\r\n  </h3>\r\n</div>\r\n\r\n<router-outlet></router-outlet>\r\n"
 
 /***/ }),
 
@@ -116,8 +120,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var AppComponent = /** @class */ (function () {
     function AppComponent() {
-        this.title1 = 'timesheetsSupport7';
-        this.title = '<<<timesheetsSupport7>>>';
+        this.title = 'timesheetsSupport7';
     }
     AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -146,14 +149,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
-/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
-/* harmony import */ var _test_component_test_component_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./test-component/test-component.component */ "./src/app/test-component/test-component.component.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
+/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
+/* harmony import */ var _test_component_test_component_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./test-component/test-component.component */ "./src/app/test-component/test-component.component.ts");
+/* harmony import */ var _timesheet_timesheet_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./timesheet/timesheet.component */ "./src/app/timesheet/timesheet.component.ts");
+/* harmony import */ var _shared_data_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./shared/data.service */ "./src/app/shared/data.service.ts");
+
+
+
+// 10/03/2019 04:59 pm - SSN - [20191003-1557] - [005] - Adding data service to Angular7
 
 
 
 
 
+// 10/03/2019 03:57 pm - SSN - [20191003-1557] - [002] - Adding data service to Angular7
 
 console.log('app.module.ts - 20191002-2007');
 var AppModule = /** @class */ (function () {
@@ -162,21 +173,65 @@ var AppModule = /** @class */ (function () {
     AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["NgModule"])({
             declarations: [
-                _app_component__WEBPACK_IMPORTED_MODULE_4__["AppComponent"],
-                _test_component_test_component_component__WEBPACK_IMPORTED_MODULE_5__["TestComponentComponent"]
+                _app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"],
+                _test_component_test_component_component__WEBPACK_IMPORTED_MODULE_6__["TestComponentComponent"],
+                _timesheet_timesheet_component__WEBPACK_IMPORTED_MODULE_7__["TimesheetComponent"]
             ],
             imports: [
                 // 10/02/2019 05:47 pm - SSN - [20191002-1118] - [012] - Adding Angular 7 test app
                 // Did this solve problem with "ERROR Error: The selector "app-root" did not match any elements"  - Removed app-root from _layout.cshtml
                 // putting back in
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
-                _app_routing_module__WEBPACK_IMPORTED_MODULE_3__["AppRoutingModule"]
+                // 10/03/2019 05:00 pm - SSN - [20191003-1557] - [006] - Adding data service to Angular7
+                _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClientModule"],
+                _app_routing_module__WEBPACK_IMPORTED_MODULE_4__["AppRoutingModule"]
             ],
-            providers: [],
-            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_4__["AppComponent"]]
+            // 10/03/2019 04:03 pm - SSN - [20191003-1557] - [003] - Adding data service to Angular7
+            providers: [_shared_data_service__WEBPACK_IMPORTED_MODULE_8__["DataService"]],
+            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]]
         })
     ], AppModule);
     return AppModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/shared/data.service.ts":
+/*!****************************************!*\
+  !*** ./src/app/shared/data.service.ts ***!
+  \****************************************/
+/*! exports provided: DataService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DataService", function() { return DataService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+// 10/03/2019 03:45 pm - SSN - [20191003-1557] - [001] - Adding data service to Angular7
+
+
+
+var DataService = /** @class */ (function () {
+    // 10/03/2019 05:01 pm - SSN - [20191003-1557] - [007] - Adding data service to Angular7
+    // Inject httpClient
+    function DataService(http) {
+        this.http = http;
+    }
+    DataService.prototype.getTimesheets = function () {
+        console.log('dataservice - getTimesheets - 20191003-1707');
+        return this.http.get("/api/timelogapi");
+    };
+    DataService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
+    ], DataService);
+    return DataService;
 }());
 
 
@@ -233,6 +288,78 @@ var TestComponentComponent = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
     ], TestComponentComponent);
     return TestComponentComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/timesheet/timesheet.component.css":
+/*!***************************************************!*\
+  !*** ./src/app/timesheet/timesheet.component.css ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3RpbWVzaGVldC90aW1lc2hlZXQuY29tcG9uZW50LmNzcyJ9 */"
+
+/***/ }),
+
+/***/ "./src/app/timesheet/timesheet.component.html":
+/*!****************************************************!*\
+  !*** ./src/app/timesheet/timesheet.component.html ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<p>\r\n  timesheet works (v11)\r\n</p>\r\n\r\n<div *ngFor=\"let timesheet of timesheets\">\r\n  [{{timesheet.timeLogId}}]  [{{timesheet.job.project.projectTitle}}] [{{timesheet.job.jobTitle}}] [{{timesheet.discipline.disciplineShort}}]\r\n\r\n\r\n</div>\r\n"
+
+/***/ }),
+
+/***/ "./src/app/timesheet/timesheet.component.ts":
+/*!**************************************************!*\
+  !*** ./src/app/timesheet/timesheet.component.ts ***!
+  \**************************************************/
+/*! exports provided: TimesheetComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TimesheetComponent", function() { return TimesheetComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _shared_data_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../shared/data.service */ "./src/app/shared/data.service.ts");
+
+
+
+console.log('timesheet.component.ts - 20191003-1618');
+var TimesheetComponent = /** @class */ (function () {
+    function TimesheetComponent(dataService) {
+        this.dataService = dataService;
+    }
+    TimesheetComponent.prototype.ngOnInit = function () {
+        console.log("timesheet.component.ts - ngOnInit - 20191003-1607");
+        this.timesheets = [];
+        this.dataService.getTimesheets().toPromise().then(this.getTimesheetSuccess.bind(this), this.getTimesheetError);
+    };
+    TimesheetComponent.prototype.getTimesheetSuccess = function (response) {
+        console.log('timesheetComponent  20191003-1715 - success');
+        console.log(response);
+        this.timesheets = response;
+    };
+    TimesheetComponent.prototype.getTimesheetError = function (response) {
+        console.log('timesheetComponent  20191003-1715 - Error');
+        console.log(response);
+    };
+    TimesheetComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-timesheet',
+            template: __webpack_require__(/*! ./timesheet.component.html */ "./src/app/timesheet/timesheet.component.html"),
+            styles: [__webpack_require__(/*! ./timesheet.component.css */ "./src/app/timesheet/timesheet.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_shared_data_service__WEBPACK_IMPORTED_MODULE_2__["DataService"]])
+    ], TimesheetComponent);
+    return TimesheetComponent;
 }());
 
 

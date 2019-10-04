@@ -92,23 +92,7 @@
         </nav>
         <div class="container body-content">
 
-            @{
-                if (User.Identity.IsAuthenticated)
-                {
-
-                    <app-root>
-
-                        @RenderBody()
-
-                    </app-root>
-                    @*<router-outlet id="main101"></router-outlet>*@
-
-                }
-                else
-                {
-                    @RenderBody()
-                }
-            }
+            @RenderBody()
 
             <hr />
 

@@ -332,9 +332,9 @@ namespace DevSitesIndex
                 // 10/03/2019 10:01 am - SSN - [20191002-1118] - [017] - Adding Angular 7 test app
                 // https://stackoverflow.com/questions/35527842/mvc6-routing-to-single-page-application-without-losing-404
 
-    //            routes.MapRoute("app", "{*anything}",
-    //new { controller = "Home", action = "Index" },
-    //new { anything = new Microsoft.AspNetCore.Routing.Constraints.RegexRouteConstraint("^(?!test\\/).+") });
+                //            routes.MapRoute("app", "{*anything}",
+                //new { controller = "Home", action = "Index" },
+                //new { anything = new Microsoft.AspNetCore.Routing.Constraints.RegexRouteConstraint("^(?!test\\/).+") });
 
 
 
@@ -348,9 +348,9 @@ namespace DevSitesIndex
                 //////    constraints: new { name = new Util.ServerRouteConstraint(uri => !uri.PathAndQuery.ToLower().StartsWith("/test")) });
 
 
-                routes.MapSpaFallbackRoute(
-                        name: "spa-fallback",
-                        defaults: new { controller = "test2", action = "" });
+                ////////////////////////routes.MapSpaFallbackRoute(
+                ////////////////////////        name: "spa-fallback",
+                ////////////////////////        defaults: new { controller = "timesheetssupport7", action = "test3" });
 
 
                 // 10/02/2019 11:55 am - SSN - [20191002-1118] - [003] - Adding Angular 7 test app
@@ -359,10 +359,13 @@ namespace DevSitesIndex
                 //        name: "spa-fallback",
                 //        defaults: new { controller = "Home", action = "Index", });
 
+
+                // 10/03/2019 10:59 am - SSN - [20191002-1118] - [018] - Adding Angular 7 test app
+                // This does serve SPA and MVC requests
                 routes.MapRoute(
                    "Default_angx", // Route name
                    "{*catchall}", // URL with parameters
-                   new { controller = "Home", action = "Index" });
+                   new { controller = "timesheetssupport7", action = "test2" });
 
 
                 #endregion Testing
@@ -379,7 +382,7 @@ namespace DevSitesIndex
                 // To learn more about options for serving an Angular SPA from ASP.NET Core,
                 // see https://go.microsoft.com/fwlink/?linkid=864501
 
-                spa.Options.SourcePath = "timesheetsSupport7";
+               spa.Options.SourcePath = "timesheetsSupport7";
 
                 if (env.IsDevelopment())
                 {

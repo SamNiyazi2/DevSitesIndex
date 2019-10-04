@@ -6,6 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title1 = 'timesheetsSupport7';
-  title = '<<<timesheetsSupport7>>>';
+  title = 'timesheetsSupport7';
+ 
 }
