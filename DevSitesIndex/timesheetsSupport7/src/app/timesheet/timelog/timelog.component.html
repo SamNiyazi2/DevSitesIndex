@@ -1,0 +1,87 @@
+<app-timesheet-menu></app-timesheet-menu>
+
+
+<div *ngIf="!timelog" class="container info_bad">
+  Failed to retrieve record.
+</div>
+
+<div *ngIf="timelog" class="container">
+
+
+  <h1>[{{timelog.timeLogId}}]</h1>
+  <hr />
+  <dl class="dl-horizontal">
+
+    <dt>
+      Project Title:
+    </dt>
+    <dd>
+      {{timelog?.job.project.projectTitle}}
+
+    </dd>
+
+    <dt>
+      JobTitle
+    </dt>
+    <dd>
+      <a href="/jobs/Details" asp-route-id="@Model.TimeLog.JobId">
+        {{timelog?.job?.jobTitle}}
+      </a>
+    </dd>
+
+    <dt>
+      Discipline
+    </dt>
+    <dd>
+      {{timelog?.discipline?.disciplineShort}}
+    </dd>
+
+
+    <dt>
+      StartTime
+    </dt>
+    <dd>
+      {{timelog.startTime}}
+    </dd>
+
+
+    <dt>
+      StopTime_AsString
+    </dt>
+    <dd>
+      {{timelog.stopTime_AsString}}
+    </dd>
+
+
+    <dt>
+      TotalSeconds_ToTimeSpanFormat_T
+    </dt>
+    <dd>
+      {{timelog.totalSeconds_ToTimeSpanFormat_T}}
+    </dd>
+
+
+
+
+
+    <dt>
+      Date Added
+    </dt>
+    <dd>
+      {{timelog.dateAdded}}
+    </dd>
+    <dt>
+      Date Modified
+    </dt>
+    <dd>
+      {{timelog.dateModified}}
+    </dd>
+    <dt>
+      Work Detail
+    </dt>
+    <dd>
+      {{timelog.workDetail}}
+    </dd>
+
+  </dl>
+</div>

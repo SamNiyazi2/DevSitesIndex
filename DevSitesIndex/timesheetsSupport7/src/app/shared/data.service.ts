@@ -25,6 +25,16 @@ export class DataService {
 
   }
 
+  // 10/05/2019 02:52 pm - SSN - [20191003-1557] - [014] - Adding data service to Angular7
+
+  getTimesheet(id: number) {
+
+    console.log('dataservice - getTimesheet - 20191005-1451');
+
+    return this.http.get("/api/timelogapi/get_custom/" + id);
+
+  }
+
 
 }
 

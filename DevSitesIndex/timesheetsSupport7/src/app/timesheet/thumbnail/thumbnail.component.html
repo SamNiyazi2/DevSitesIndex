@@ -1,0 +1,21 @@
+
+<div class="well hoverwell thumbnail customThumbnail">
+
+  <h3><a [routerLink]="['/timelog',timesheet.timeLogId]">[{{timesheet.timeLogId}}] - {{timesheet.job.project.projectTitle}}</a></h3>
+  <hr />
+  <div>
+
+    {{timesheet.discipline.disciplineShort}}<br />
+    {{timesheet.job.jobTitle}}<br />
+
+
+    <span [ngClass]="setTotalSecondsClass()">
+
+      {{timesheet.totalSeconds}}
+    </span>
+
+  </div>
+
+
+</div>
+<button class="btn btn-primary" (click)="handleClickMe101(timesheet)">Click Me!</button> &nbsp; 

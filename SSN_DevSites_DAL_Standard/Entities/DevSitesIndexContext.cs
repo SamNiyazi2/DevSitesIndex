@@ -120,7 +120,8 @@ namespace DevSitesIndex.Entities
                 }
 
                 if (entry.State == EntityState.Modified && property_DateUpdated != null)
-                {
+                { 
+                    entry.Property(property_DateAdded.Name).IsModified = false;
                     entry.Property(property_DateUpdated.Name).CurrentValue = timestamp;
                 }
 

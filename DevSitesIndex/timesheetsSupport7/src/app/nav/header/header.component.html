@@ -1,0 +1,52 @@
+
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">@Startup.SITE_NAME_STRING</a>
+    </div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+
+
+
+        <li><a href="/DemoSites/Index">Sites</a></li>
+        <li><a href="/home/about">About</a></li>
+        <li><a href="/Home/Contact">Contact</a></li>
+
+        <li class="dropdown-submenu">
+
+          <a class="dropdown-toggle" data-toggle="dropdown">Jobs  <span class="caret"></span></a>
+
+          <ul class="dropdown-menu">
+
+            <li><a href="/Companies">Companies</a></li>
+            <li><a href="/Discipline">Disciplines</a></li>
+            <li><a href="/Projects">Projects</a></li>
+            <li><a href="/jobs">Jobs</a></li>
+            <li><a href="/TimeLogs">Timelog</a></li>
+            <li><a href="/timesheet">Timelog (Angular 7)</a></li>
+            <li><a href="/ReferenceSites">Reference Sites</a></li>
+            <li><a href="/CodeReferences">Code</a></li>
+            <li><a href="/CommandLine">Command Line</a></li>
+            <li><a href="/DevSites">Demo Sites</a></li>
+
+
+          </ul>
+
+        </li>
+
+      </ul>
+
+       
+
+
+    </div>
+  </div>
+</nav>

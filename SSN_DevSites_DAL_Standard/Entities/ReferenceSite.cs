@@ -41,11 +41,18 @@ namespace DevSitesIndex.Entities
         public string SiteURL { get; set; }
 
 
+        // 10/05/2019 10:58 am - SSN - Added DateUpdated and EFCoreShadowProperty
 
         // 03/13/2019 09:29 am - SSN
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy hh:mm tt}")]
         [DisplayName("Date Added")]
+        [EFCoreShadowProperty.Models.DateAdded]
         public DateTime DateAdded { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy hh:mm tt}")]
+        [DisplayName("Date Updated")]
+        [EFCoreShadowProperty.Models.DateUpdated]
+        public DateTime? DateUpdated { get; set; }
 
     }
 }

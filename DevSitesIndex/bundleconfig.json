@@ -24,27 +24,7 @@
     },
     // Optionally generate .map file
     "sourceMap": true
-  },
-
-
-  // 10/02/2019 11:19 am - SSN - [20191002-1118] - [001] - Adding Angular 7 test app
-
-  {
-    "outputFileName": "wwwroot/js/timesheetsSupport7.min.js",
-    "inputFiles": [ 
-      "wwwroot/dist/timesheetsSupport7/runtime.js",
-      "wwwroot/dist/timesheetsSupport7/polyfills.js",
-      "wwwroot/dist/timesheetsSupport7/styles.js",
-      "wwwroot/dist/timesheetsSupport7/vendor.js",
-      "wwwroot/dist/timesheetsSupport7/main.js"
-    ],
-    // Optionally specify minification options
-    "minify": {
-      "enabled": false,
-      "renameLocals": false
-    },
-    // Optionally generate .map file
-    "sourceMap": true
   }
+
 
 ]
