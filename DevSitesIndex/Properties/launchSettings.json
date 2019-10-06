@@ -3,7 +3,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iis": {
-      "applicationUrl": "http://p3013.nonbs.org:3013",
+      "applicationUrl": "http://p3013.nonbs.net:3013",
       "sslPort": 0
     },
     "iisExpress": {
@@ -31,7 +31,7 @@
       "commandName": "IIS",
       "launchBrowser": true,
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "production"
+        "ASPNETCORE_ENVIRONMENT": "development"
       }
     }
   }

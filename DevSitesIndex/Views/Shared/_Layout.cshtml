@@ -1,19 +1,12 @@
 ﻿@inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
- 
+
 <!DOCTYPE html>
 
-@*<html data-ng-app="@ViewBag.InitModule">*@
-@*// 09/10/2019 02:37 am - SSN - [20190910-0147] - [003] - WARNING: Tried to load angular more than once.*@
-@*<html @Html.Raw(ViewBag.InitModule_Full)>*@
 <html>
-
-
 
 <head>
 
-    @*
-        // 09/26/2019 06:17 am - SSN - [20190926-0551] Add $locationProvider
-    *@
+
     <base href="/">
 
     <meta charset="utf-8" />
@@ -27,9 +20,10 @@
     <title>@ViewData["Title"] - @Startup.SITE_NAME_STRING</title>
 
 
-    @*03/27/2019 03:26 pm - SSN - Having problem with date field - Using same files for production*@
-
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+
+    <link href="~/lib/toastr/content/toastr.css" rel="stylesheet" />
+
 
     <environment names="Development">
         <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
@@ -40,28 +34,17 @@
     </environment>
 
 
-    @*<environment exclude="Development">
-            <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
-                  asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
-                  asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
-
-            <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
-
-        </environment>*@
 
 
-    @*// 04/20/2019 11:28 am - SSN - [20190420-1128] Added toastr *@
+    @RenderSection("Styles", required: false)
 
-    <link href="~/js/toastr/content/toastr.css" rel="stylesheet" />
 
-     
     @Html.Raw(JavaScriptSnippet.FullScript)
+
 </head>
 
 <body>
 
-
-    @*// 09/10/2019 02:37 am - SSN - [20190910-0147] - [003] - WARNING: Tried to load angular more than once.*@
 
 
     <div @Html.Raw(ViewBag.InitModule_Full)>
@@ -84,7 +67,6 @@
                         *@
 
                         <li><a asp-area="" asp-controller="DemoSites" asp-action="Index">Sites</a></li>
-                         
                         <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                         <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
 
@@ -98,13 +80,10 @@
                             </ul>
 
                         </li>
+
                     </ul>
 
 
-                    @*
-                        // 08/12/2019 12:03 pm - SSN - [20190812-0945] - [012] - Add identity
-
-                    *@
                     <partial name="_LoginPartial" />
 
 
@@ -113,9 +92,8 @@
         </nav>
         <div class="container body-content">
 
-
-
             @RenderBody()
+
             <hr />
 
         </div>
@@ -126,10 +104,6 @@
     </div>
 
 
-    @*
-                // 09/19/2019 01:25 am - SSN - [20190919-0114] - [002] - Adding requirejs - Clean up scripts between views and pages
-        Using ong file for views and pages
-    *@
 
     @await Html.PartialAsync("JavaScriptFiles")
 

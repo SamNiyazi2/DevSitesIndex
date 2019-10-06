@@ -134,7 +134,7 @@ var config = [
 
 
         entry: [
-            './DemoSites_index_main.ts',
+            './DemoSites_index_main.ts'
         ]
 
     }
@@ -165,6 +165,32 @@ var config = [
 
     }
 
+
+
+
+
+
+    ,
+
+
+
+
+
+    // 10/04/2019 04:45 pm - SSN - Not sure if we need this.  Angular 7.
+    {
+        ...d_master,
+
+        output: {
+            path: path.resolve(__dirname, './wwwroot/webpack_build'),
+            filename: 'bundle_Site_only.js'
+        },
+
+
+        entry: [
+            './site_only_main.ts'
+        ]
+
+    }
 
 
 

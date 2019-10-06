@@ -28,8 +28,20 @@ namespace DevSitesIndex.Services
         public IEnumerable<TimeLog> GetAll()
         {
             // 04/20/2019 11:12 am - SSN - [20190420-1109] - Add AsNoTracking to index pages
+            // 10/03/2019 05:33 pm - SSN - [20191003-1557] - [008] - Adding data service to Angular7
+            // Include discipline, job and project titles.
+            // return _context.TimeLog.OrderByDescending(r => r.DateModified ?? r.DateAdded).AsNoTracking().ToList();
+            IList<TimeLog> result = _context.TimeLog
+                .Include(r => r.job).ThenInclude(r => r.project)
+                .Include(r => r.discipline)
+                .OrderByDescending(r => r.DateModified ?? r.DateAdded).AsNoTracking().ToList();
 
-            return _context.TimeLog.OrderByDescending(r => r.DateModified ?? r.DateAdded).AsNoTracking().ToList();
+            foreach (TimeLog r in result)
+            {
+                r.job.timelogs = null;
+            }
+
+            return result;
         }
 
 

@@ -270,6 +270,8 @@ namespace DevSitesIndex.Migrations
                     b.Property<DateTime>("DateAdded")
                         .HasColumnType("datetime2(0)");
 
+                    b.Property<DateTime?>("DateUpdated");
+
                     b.Property<string>("SiteTitle")
                         .IsRequired();
 
