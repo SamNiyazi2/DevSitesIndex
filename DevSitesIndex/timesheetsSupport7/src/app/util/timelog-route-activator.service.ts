@@ -3,7 +3,7 @@
 
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, Router } from '@angular/router';
-import { DataService } from '../shared/data.service';
+import { DataService } from '../shared/data.service'; 
 
 console.log('timelogroute-activator.service - 20191006-1343');
 
@@ -23,9 +23,9 @@ export class TimelogRouteActivatorService implements CanActivate {
     console.log('timelogroute-activator.service - 20191006-1345 - canActivate ');
 
     let id = +this.dataService.getTimesheet(route.params['id']);
-
  
-   let result =  this.dataService.getTimesheet(route.params['id']).toPromise().then((r) => {
+
+    let result = this.dataService.getTimesheet(route.params['id']).toPromise().then((r) => {
 
       let recordExists = !!r;
 
@@ -40,9 +40,7 @@ export class TimelogRouteActivatorService implements CanActivate {
         return false;
       });
 
-
-    console.log("result  [" + result + "]");
-
+    
     return result;
   }
 }

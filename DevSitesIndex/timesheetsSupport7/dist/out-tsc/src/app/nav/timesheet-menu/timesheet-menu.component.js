@@ -9,7 +9,9 @@ var TimesheetMenuComponent = /** @class */ (function () {
         Component({
             selector: 'app-timesheet-menu',
             templateUrl: './timesheet-menu.component.html',
-            styleUrls: ['./timesheet-menu.component.css']
+            styleUrls: [
+                './timesheet-menu.component.css'
+            ]
         }),
         tslib_1.__metadata("design:paramtypes", [])
     ], TimesheetMenuComponent);

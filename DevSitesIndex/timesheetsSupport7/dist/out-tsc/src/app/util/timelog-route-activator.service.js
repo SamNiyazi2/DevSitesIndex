@@ -23,7 +23,6 @@ var TimelogRouteActivatorService = /** @class */ (function () {
             _this.route.navigate(['e404']);
             return false;
         });
-        console.log("result  [" + result + "]");
         return result;
     };
     TimelogRouteActivatorService = tslib_1.__decorate([

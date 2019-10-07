@@ -1,5 +1,7 @@
-<p>
-  timesheet-menu works!
-</p>
-<a [routerLink]="['/timesheet']">Timelog List</a> &nbsp; | &nbsp;
-<a [routerLink]="['/timesheet/create']">Create New Entry</a>
+
+<div class="menu">
+
+  <a [routerLink]="['/timesheet']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Timelog List</a>  
+  <a [routerLink]="['/timesheet/create']" routerLinkActive="active">Create New Entry</a>
+
+</div>

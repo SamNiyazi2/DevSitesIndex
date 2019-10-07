@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 var CreateTimelogComponent = /** @class */ (function () {
     function CreateTimelogComponent(router) {
         this.router = router;
+        this.isDirty = true;
     }
     CreateTimelogComponent.prototype.ngOnInit = function () {
     };

@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Connected Services\" />
+    <Folder Include="node_modules\" />
     <Folder Include="Pages\Discipline\" />
     <Folder Include="wwwroot\js\Timesheet\Templates\" />
   </ItemGroup>

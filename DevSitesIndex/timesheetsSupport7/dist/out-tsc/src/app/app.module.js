@@ -18,6 +18,7 @@ import { CreateTimelogComponent } from './timesheet/create-timelog/create-timelo
 import { TimesheetMenuComponent } from './nav/timesheet-menu/timesheet-menu.component';
 import { E404Component } from './shared/e404/e404.component';
 import { TimelogRouteActivatorService } from './util/timelog-route-activator.service';
+import { TimesheetResolverService } from './resolvers/timesheet-resolver.service';
 console.log('app.module.ts - 20191002-2007');
 var AppModule = /** @class */ (function () {
     function AppModule() {
@@ -46,11 +47,28 @@ var AppModule = /** @class */ (function () {
             ],
             // 10/03/2019 04:03 pm - SSN - [20191003-1557] - [003] - Adding data service to Angular7
             // 10/06/2019 01:39 pm - SSN - [20191006-1211] - [007] - Adding Angular 7 - TimelogRouteActivatorService
-            providers: [DataService, ToastrService, TimelogRouteActivatorService],
+            // 10/06/2019 05:05 pm - SSN - [20191006-1643] - [003] - Adding Angular 7 - Observables and resolvers - TimesheetResolverService
+            providers: [DataService, ToastrService, TimelogRouteActivatorService, TimesheetResolverService,
+                {
+                    provide: 'canDeactivateCreateTimelog',
+                    useValue: checkDirtyState
+                }
+            ],
             bootstrap: [AppComponent]
         })
     ], AppModule);
     return AppModule;
 }());
 export { AppModule };
+export function checkDirtyState(component) {
+    if (typeof (component.isDirty) != 'boolean') {
+        console.error("property isDirty does not exists on component:");
+        console.error(component);
+        return true;
+    }
+    if (component.isDirty) {
+        return window.confirm("You have not saved your changes. Do you really want to cancel?");
+    }
+    return true;
+}
 //# sourceMappingURL=app.module.js.map

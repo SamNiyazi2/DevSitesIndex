@@ -5,21 +5,33 @@
   !*** ./src/$$_lazy_route_resource lazy namespace object ***!
   \**********************************************************/
 /*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-function webpackEmptyAsyncContext(req) {
-	// Here Promise.resolve().then() is used instead of new Promise() to prevent
-	// uncaught exception popping up in devtools
-	return Promise.resolve().then(function() {
-		var e = new Error("Cannot find module '" + req + "'");
-		e.code = 'MODULE_NOT_FOUND';
-		throw e;
+var map = {
+	"./users/user.module": [
+		"./src/app/users/user.module.ts",
+		"users-user-module"
+	]
+};
+function webpackAsyncContext(req) {
+	var ids = map[req];
+	if(!ids) {
+		return Promise.resolve().then(function() {
+			var e = new Error("Cannot find module '" + req + "'");
+			e.code = 'MODULE_NOT_FOUND';
+			throw e;
+		});
+	}
+	return __webpack_require__.e(ids[1]).then(function() {
+		var id = ids[0];
+		return __webpack_require__(id);
 	});
 }
-webpackEmptyAsyncContext.keys = function() { return []; };
-webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
-module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
+webpackAsyncContext.keys = function webpackAsyncContextKeys() {
+	return Object.keys(map);
+};
+webpackAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
+module.exports = webpackAsyncContext;
 
 /***/ }),
 
@@ -42,6 +54,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _timesheet_create_timelog_create_timelog_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./timesheet/create-timelog/create-timelog.component */ "./src/app/timesheet/create-timelog/create-timelog.component.ts");
 /* harmony import */ var _shared_e404_e404_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./shared/e404/e404.component */ "./src/app/shared/e404/e404.component.ts");
 /* harmony import */ var _util_timelog_route_activator_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./util/timelog-route-activator.service */ "./src/app/util/timelog-route-activator.service.ts");
+/* harmony import */ var _resolvers_timesheet_resolver_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./resolvers/timesheet-resolver.service */ "./src/app/resolvers/timesheet-resolver.service.ts");
+
 
 
 
@@ -59,16 +73,19 @@ var routes = [
     // 10/02/2019 05:51 pm - SSN - [20191002-1118] - [013] - Adding Angular 7 test app
     { path: 'test3', component: _test_component_test_component_component__WEBPACK_IMPORTED_MODULE_3__["TestComponentComponent"] },
     // 10/06/2019 12:49 pm - SSN - [20191006-1211] - [002] - Adding Angular 7
-    { path: 'timesheet/create', component: _timesheet_create_timelog_create_timelog_component__WEBPACK_IMPORTED_MODULE_6__["CreateTimelogComponent"], pathMatch: 'full' },
+    { path: 'timesheet/create', component: _timesheet_create_timelog_create_timelog_component__WEBPACK_IMPORTED_MODULE_6__["CreateTimelogComponent"], pathMatch: 'full', canDeactivate: ['canDeactivateCreateTimelog'] },
     //{ path: 'create', component: CreateTimelogComponent },
     // 10/03/2019 12:19 pm - SSN - [20191003-1219] - [001] - Adding timesheet to Angular7
-    { path: 'timesheet', component: _timesheet_timesheet_component__WEBPACK_IMPORTED_MODULE_4__["TimesheetComponent"] },
+    // 10/06/2019 05:06 pm - SSN - [20191006-1643] - [004] - Adding Angular 7 - Observables and resolvers - TimesheetResolverService
+    { path: 'timesheet', component: _timesheet_timesheet_component__WEBPACK_IMPORTED_MODULE_4__["TimesheetComponent"], resolve: { timesheets_resolver: _resolvers_timesheet_resolver_service__WEBPACK_IMPORTED_MODULE_9__["TimesheetResolverService"] } },
     // 10/05/2019 03:10 pm - SSN - [20191003-1557] - [015] - Adding data service to Angular7
     // 10/06/2019 01:41 pm - SSN - [20191006-1211] - [008] - Adding Angular 7 - TimelogRouteActivatorService
     { path: 'timelog/:id', component: _timesheet_timelog_timelog_component__WEBPACK_IMPORTED_MODULE_5__["TimelogComponent"], canActivate: [_util_timelog_route_activator_service__WEBPACK_IMPORTED_MODULE_8__["TimelogRouteActivatorService"]] },
     // 10/06/2019 01:28 pm - SSN - [20191006-1211] - [005] - Adding Angular 7
     { path: 'e404', component: _shared_e404_e404_component__WEBPACK_IMPORTED_MODULE_7__["E404Component"] },
     { path: '', redirectTo: 'test3', pathMatch: 'full' },
+    // 10/06/2019 09:09 pm - SSN - [20191006-2058] - [003] - Adding Angular 7 - Lazily loading feature modules
+    { path: 'user', loadChildren: './users/user.module#UserModule' },
     //{ path: '**', component: AppComponent, outlet: "main101" },
     { path: '**', redirectTo: 'test3' },
 ];
@@ -157,12 +174,13 @@ var AppComponent = /** @class */ (function () {
 /*!*******************************!*\
   !*** ./src/app/app.module.ts ***!
   \*******************************/
-/*! exports provided: AppModule */
+/*! exports provided: AppModule, checkDirtyState */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppModule", function() { return AppModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "checkDirtyState", function() { return checkDirtyState; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
@@ -180,6 +198,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _nav_timesheet_menu_timesheet_menu_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./nav/timesheet-menu/timesheet-menu.component */ "./src/app/nav/timesheet-menu/timesheet-menu.component.ts");
 /* harmony import */ var _shared_e404_e404_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./shared/e404/e404.component */ "./src/app/shared/e404/e404.component.ts");
 /* harmony import */ var _util_timelog_route_activator_service__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./util/timelog-route-activator.service */ "./src/app/util/timelog-route-activator.service.ts");
+/* harmony import */ var _resolvers_timesheet_resolver_service__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./resolvers/timesheet-resolver.service */ "./src/app/resolvers/timesheet-resolver.service.ts");
 
 
 
@@ -192,6 +211,7 @@ __webpack_require__.r(__webpack_exports__);
 // 10/03/2019 03:57 pm - SSN - [20191003-1557] - [002] - Adding data service to Angular7
 
 // 10/04/2019 11:22 pm - SSN - [20191003-1557] - [011] - Adding data service to Angular7
+
 
 
 
@@ -228,13 +248,30 @@ var AppModule = /** @class */ (function () {
             ],
             // 10/03/2019 04:03 pm - SSN - [20191003-1557] - [003] - Adding data service to Angular7
             // 10/06/2019 01:39 pm - SSN - [20191006-1211] - [007] - Adding Angular 7 - TimelogRouteActivatorService
-            providers: [_shared_data_service__WEBPACK_IMPORTED_MODULE_8__["DataService"], _shared_toastr_service__WEBPACK_IMPORTED_MODULE_9__["ToastrService"], _util_timelog_route_activator_service__WEBPACK_IMPORTED_MODULE_16__["TimelogRouteActivatorService"]],
+            // 10/06/2019 05:05 pm - SSN - [20191006-1643] - [003] - Adding Angular 7 - Observables and resolvers - TimesheetResolverService
+            providers: [_shared_data_service__WEBPACK_IMPORTED_MODULE_8__["DataService"], _shared_toastr_service__WEBPACK_IMPORTED_MODULE_9__["ToastrService"], _util_timelog_route_activator_service__WEBPACK_IMPORTED_MODULE_16__["TimelogRouteActivatorService"], _resolvers_timesheet_resolver_service__WEBPACK_IMPORTED_MODULE_17__["TimesheetResolverService"],
+                {
+                    provide: 'canDeactivateCreateTimelog',
+                    useValue: checkDirtyState
+                }
+            ],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]]
         })
     ], AppModule);
     return AppModule;
 }());
 
+function checkDirtyState(component) {
+    if (typeof (component.isDirty) != 'boolean') {
+        console.error("property isDirty does not exists on component:");
+        console.error(component);
+        return true;
+    }
+    if (component.isDirty) {
+        return window.confirm("You have not saved your changes. Do you really want to cancel?");
+    }
+    return true;
+}
 
 
 /***/ }),
@@ -302,7 +339,7 @@ var HeaderComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL25hdi90aW1lc2hlZXQtbWVudS90aW1lc2hlZXQtbWVudS5jb21wb25lbnQuY3NzIn0= */"
+module.exports = "\r\n.menu {\r\n  padding: 8px;\r\n  background-color: black;\r\n  color: white;\r\n}\r\n\r\n  .menu a {\r\n    color: #9d9d9d;\r\n    margin-right: 20px;\r\n  }\r\n\r\n  .menu a:hover {\r\n      color: white;\r\n      text-decoration: none;\r\n    }\r\n\r\n  .menu a.active {\r\n      color: red!important;\r\n    }\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvbmF2L3RpbWVzaGVldC1tZW51L3RpbWVzaGVldC1tZW51LmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IjtBQUNBO0VBQ0UsWUFBWTtFQUNaLHVCQUF1QjtFQUN2QixZQUFZO0FBQ2Q7O0VBRUU7SUFDRSxjQUFjO0lBQ2Qsa0JBQWtCO0VBQ3BCOztFQUVFO01BQ0UsWUFBWTtNQUNaLHFCQUFxQjtJQUN2Qjs7RUFHQTtNQUNFLG9CQUFvQjtJQUN0QiIsImZpbGUiOiJzcmMvYXBwL25hdi90aW1lc2hlZXQtbWVudS90aW1lc2hlZXQtbWVudS5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiXHJcbi5tZW51IHtcclxuICBwYWRkaW5nOiA4cHg7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogYmxhY2s7XHJcbiAgY29sb3I6IHdoaXRlO1xyXG59XHJcblxyXG4gIC5tZW51IGEge1xyXG4gICAgY29sb3I6ICM5ZDlkOWQ7XHJcbiAgICBtYXJnaW4tcmlnaHQ6IDIwcHg7XHJcbiAgfVxyXG5cclxuICAgIC5tZW51IGE6aG92ZXIge1xyXG4gICAgICBjb2xvcjogd2hpdGU7XHJcbiAgICAgIHRleHQtZGVjb3JhdGlvbjogbm9uZTtcclxuICAgIH1cclxuXHJcblxyXG4gICAgLm1lbnUgYS5hY3RpdmUge1xyXG4gICAgICBjb2xvcjogcmVkIWltcG9ydGFudDtcclxuICAgIH1cclxuIl19 */"
 
 /***/ }),
 
@@ -313,7 +350,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\r\n  timesheet-menu works!\r\n</p>\r\n<a [routerLink]=\"['/timesheet']\">Timelog List</a> &nbsp; | &nbsp;\r\n<a [routerLink]=\"['/timesheet/create']\">Create New Entry</a>\r\n"
+module.exports = "\r\n<div class=\"menu\">\r\n\r\n  <a [routerLink]=\"['/timesheet']\" routerLinkActive=\"active\" [routerLinkActiveOptions]=\"{exact:true}\">Timelog List</a>  \r\n  <a [routerLink]=\"['/timesheet/create']\" routerLinkActive=\"active\">Create New Entry</a>\r\n\r\n</div>\r\n"
 
 /***/ }),
 
@@ -345,6 +382,52 @@ var TimesheetMenuComponent = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
     ], TimesheetMenuComponent);
     return TimesheetMenuComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/resolvers/timesheet-resolver.service.ts":
+/*!*********************************************************!*\
+  !*** ./src/app/resolvers/timesheet-resolver.service.ts ***!
+  \*********************************************************/
+/*! exports provided: TimesheetResolverService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TimesheetResolverService", function() { return TimesheetResolverService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _shared_data_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../shared/data.service */ "./src/app/shared/data.service.ts");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+// 10/06/2019 05:00 pm - SSN - [20191006-1643] - [002] - Adding Angular 7 - Observables and resolvers
+
+
+
+
+console.log('timesheet-resolver.service - 20191006-1721');
+var TimesheetResolverService = /** @class */ (function () {
+    function TimesheetResolverService(dataService) {
+        this.dataService = dataService;
+        console.log('timesheet-resolver.service - 20191006-1722 - constructor');
+    }
+    TimesheetResolverService.prototype.resolve = function () {
+        console.log('timesheet-resolver.service - 20191006-1723 - resolve');
+        var obj1 = this.dataService.getTimesheets();
+        var obj2 = this.dataService.getTimesheets().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (timesheets) { return timesheets; }));
+        console.log(obj1);
+        console.log(obj2);
+        return obj2;
+    };
+    TimesheetResolverService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_shared_data_service__WEBPACK_IMPORTED_MODULE_2__["DataService"]])
+    ], TimesheetResolverService);
+    return TimesheetResolverService;
 }());
 
 
@@ -570,7 +653,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\r\n  create-timelog works!\r\n</p>\r\n<div class=\"container\">\r\n  <h3>Create new timelog</h3>\r\n  <button type=\"submit\" class=\"btn btn-primary\">Save</button> &nbsp;\r\n  <button type=\"button\" class=\"btn btn-default\" (click)=\"cancel()\">Cancel</button>\r\n</div>\r\n"
+module.exports = "\r\n<app-timesheet-menu></app-timesheet-menu>\r\n\r\n<div class=\"container\">\r\n  <h3>Create new timelog</h3>\r\n  <button type=\"submit\" class=\"btn btn-primary\">Save</button> &nbsp;\r\n  <button type=\"button\" class=\"btn btn-default\" (click)=\"cancel()\">Cancel</button>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -594,6 +677,7 @@ __webpack_require__.r(__webpack_exports__);
 var CreateTimelogComponent = /** @class */ (function () {
     function CreateTimelogComponent(router) {
         this.router = router;
+        this.isDirty = true;
     }
     CreateTimelogComponent.prototype.ngOnInit = function () {
     };
@@ -718,7 +802,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<app-timesheet-menu></app-timesheet-menu>\r\n\r\n\r\n<div *ngIf=\"!timelog\" class=\"container info_bad\">\r\n  Failed to retrieve record.\r\n</div>\r\n\r\n<div *ngIf=\"timelog\" class=\"container\">\r\n\r\n\r\n  <h1>[{{timelog.timeLogId}}]</h1>\r\n  <hr />\r\n  <dl class=\"dl-horizontal\">\r\n\r\n    <dt>\r\n      Project Title:\r\n    </dt>\r\n    <dd>\r\n      {{timelog?.job.project.projectTitle}}\r\n\r\n    </dd>\r\n\r\n    <dt>\r\n      JobTitle\r\n    </dt>\r\n    <dd>\r\n      <a href=\"/jobs/Details\" asp-route-id=\"@Model.TimeLog.JobId\">\r\n        {{timelog?.job?.jobTitle}}\r\n      </a>\r\n    </dd>\r\n\r\n    <dt>\r\n      Discipline\r\n    </dt>\r\n    <dd>\r\n      {{timelog?.discipline?.disciplineShort}}\r\n    </dd>\r\n\r\n\r\n    <dt>\r\n      StartTime\r\n    </dt>\r\n    <dd>\r\n      {{timelog.startTime}}\r\n    </dd>\r\n\r\n\r\n    <dt>\r\n      StopTime_AsString\r\n    </dt>\r\n    <dd>\r\n      {{timelog.stopTime_AsString}}\r\n    </dd>\r\n\r\n\r\n    <dt>\r\n      TotalSeconds_ToTimeSpanFormat_T\r\n    </dt>\r\n    <dd>\r\n      {{timelog.totalSeconds_ToTimeSpanFormat_T}}\r\n    </dd>\r\n\r\n\r\n\r\n\r\n\r\n    <dt>\r\n      Date Added\r\n    </dt>\r\n    <dd>\r\n      {{timelog.dateAdded}}\r\n    </dd>\r\n    <dt>\r\n      Date Modified\r\n    </dt>\r\n    <dd>\r\n      {{timelog.dateModified}}\r\n    </dd>\r\n    <dt>\r\n      Work Detail\r\n    </dt>\r\n    <dd>\r\n      {{timelog.workDetail}}\r\n    </dd>\r\n\r\n  </dl>\r\n</div>\r\n"
+module.exports = "<app-timesheet-menu></app-timesheet-menu>\r\n\r\n\r\n<div *ngIf=\"!timelog\" class=\"container info_bad\">\r\n  Failed to retrieve record.\r\n</div>\r\n\r\n<div *ngIf=\"timelog\" class=\"container\">\r\n\r\n\r\n  <h1>[{{timelog.timeLogId}}]</h1>\r\n  <hr />\r\n  <dl class=\"dl-horizontal\">\r\n\r\n    <dt>\r\n      Project Title:\r\n    </dt>\r\n    <dd>\r\n      {{timelog?.job?.project.projectTitle}}\r\n\r\n    </dd>\r\n\r\n    <dt>\r\n      JobTitle\r\n    </dt>\r\n    <dd>\r\n      <a href=\"/jobs/Details\" asp-route-id=\"@Model.TimeLog.JobId\">\r\n        {{timelog?.job?.jobTitle}}\r\n      </a>\r\n    </dd>\r\n\r\n    <dt>\r\n      Discipline\r\n    </dt>\r\n    <dd>\r\n      {{timelog?.discipline?.disciplineShort}}\r\n    </dd>\r\n\r\n\r\n    <dt>\r\n      StartTime\r\n    </dt>\r\n    <dd>\r\n      {{timelog.startTime}}\r\n    </dd>\r\n\r\n\r\n    <dt>\r\n      StopTime_AsString\r\n    </dt>\r\n    <dd>\r\n      {{timelog.stopTime_AsString}}\r\n    </dd>\r\n\r\n\r\n    <dt>\r\n      TotalSeconds_ToTimeSpanFormat_T\r\n    </dt>\r\n    <dd>\r\n      {{timelog.totalSeconds_ToTimeSpanFormat_T}}\r\n    </dd>\r\n\r\n\r\n\r\n\r\n\r\n    <dt>\r\n      Date Added\r\n    </dt>\r\n    <dd>\r\n      {{timelog.dateAdded}}\r\n    </dd>\r\n    <dt>\r\n      Date Modified\r\n    </dt>\r\n    <dd>\r\n      {{timelog.dateModified}}\r\n    </dd>\r\n    <dt>\r\n      Work Detail\r\n    </dt>\r\n    <dd>\r\n      {{timelog.workDetail}}\r\n    </dd>\r\n\r\n  </dl>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -819,6 +903,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _shared_data_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../shared/data.service */ "./src/app/shared/data.service.ts");
 /* harmony import */ var _shared_toastr_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../shared/toastr.service */ "./src/app/shared/toastr.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+
 
 
 
@@ -827,15 +913,20 @@ console.log('timesheet.component.ts - 20191003-1618');
 var TimesheetComponent = /** @class */ (function () {
     // 10/04/2019 11:24 pm - SSN - [20191003-1557] - [012] - Adding data service to Angular7
     // Add toastrService
-    function TimesheetComponent(dataService, toastrService) {
+    // 10/06/2019 05:11 pm - SSN - [20191006-1643] - [006] - Adding Angular 7 - Observables and resolvers - Adding ActivatedRoute
+    function TimesheetComponent(dataService, toastrService, route) {
         this.dataService = dataService;
         this.toastrService = toastrService;
+        this.route = route;
     }
     TimesheetComponent.prototype.ngOnInit = function () {
         console.log("timesheet.component.ts - ngOnInit - 20191003-1607");
         this.timesheets = [];
-        var promise = this.dataService.getTimesheets().toPromise();
-        promise.then(this.getTimesheetSuccess.bind(this), this.getTimesheetError);
+        //let promise = this.dataService.getTimesheets().toPromise();
+        //promise.then(this.getTimesheetSuccess.bind(this), this.getTimesheetError);
+        // 10/06/2019 05:10 pm - SSN - [20191006-1643] - [005] - Adding Angular 7 - Observables and resolvers - Pickup data from resolver
+        var temp1 = this.route.snapshot.data['timesheets_resolver'];
+        this.timesheets = this.route.snapshot.data['timesheets_resolver'];
     };
     TimesheetComponent.prototype.getTimesheetSuccess = function (response) {
         console.log('timesheetComponent  20191003-1715 - success');
@@ -850,9 +941,6 @@ var TimesheetComponent = /** @class */ (function () {
         console.log('timesheet.component handleThumbnail click');
         console.log('Date received [' + data + ']');
         this.toastrService.success('Loaded [' + data + ']...', 'some title');
-        this.toastrService.info('Loaded [' + data + ']...', 'some title');
-        this.toastrService.warning('Loaded [' + data + ']...', 'some title');
-        this.toastrService.error('Loaded [' + data + ']...', 'some title');
     };
     TimesheetComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -860,7 +948,7 @@ var TimesheetComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./timesheet.component.html */ "./src/app/timesheet/timesheet.component.html"),
             styles: [__webpack_require__(/*! ./timesheet.component.css */ "./src/app/timesheet/timesheet.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_shared_data_service__WEBPACK_IMPORTED_MODULE_2__["DataService"], _shared_toastr_service__WEBPACK_IMPORTED_MODULE_3__["ToastrService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_shared_data_service__WEBPACK_IMPORTED_MODULE_2__["DataService"], _shared_toastr_service__WEBPACK_IMPORTED_MODULE_3__["ToastrService"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"]])
     ], TimesheetComponent);
     return TimesheetComponent;
 }());
@@ -908,7 +996,6 @@ var TimelogRouteActivatorService = /** @class */ (function () {
             _this.route.navigate(['e404']);
             return false;
         });
-        console.log("result  [" + result + "]");
         return result;
     };
     TimelogRouteActivatorService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
