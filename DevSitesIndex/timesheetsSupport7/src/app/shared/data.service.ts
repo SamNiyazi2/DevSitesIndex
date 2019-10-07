@@ -5,6 +5,7 @@
 
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { IUser } from '../users/iuser';
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +33,19 @@ export class DataService {
     console.log('dataservice - getTimesheet - 20191005-1451');
 
     return this.http.get("/api/timelogapi/get_custom/" + id);
+
+  }
+
+
+  // 10/07/2019 10:58 am - SSN - [20191007-1020] - [005] - Adding Angular 7 - Collecting data with Angular forms and validations - Authenticate user
+
+  authenticateUser(userObject: IUser) {
+
+    console.log('dataservice - authenticateUser - 20191007-1112');
+    console.log(userObject);
+
+    return this.http.post("/api/authenticateUserAPI/", userObject);
+
 
   }
 

@@ -23,13 +23,15 @@ export class TimesheetResolverService implements Resolve<any>{  // <<<<<<<<<<<<<
 
   resolve() {
 
-    console.log('timesheet-resolver.service - 20191006-1723 - resolve');
+    console.log('timesheet-resolver.service - 20191006-1723-A - resolve');
 
     let obj1 = this.dataService.getTimesheets();
     let obj2 = this.dataService.getTimesheets().pipe(map(timesheets => timesheets));
 
     console.log(obj1);
     console.log(obj2);
+
+    console.log('timesheet-resolver.service - 20191006-1723-Z - resolve');
 
     return obj2;
   }

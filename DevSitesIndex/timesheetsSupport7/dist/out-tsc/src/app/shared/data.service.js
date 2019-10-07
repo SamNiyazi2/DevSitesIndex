@@ -17,6 +17,12 @@ var DataService = /** @class */ (function () {
         console.log('dataservice - getTimesheet - 20191005-1451');
         return this.http.get("/api/timelogapi/get_custom/" + id);
     };
+    // 10/07/2019 10:58 am - SSN - [20191007-1020] - [005] - Adding Angular 7 - Collecting data with Angular forms and validations - Authenticate user
+    DataService.prototype.authenticateUser = function (userObject) {
+        console.log('dataservice - authenticateUser - 20191007-1112');
+        console.log(userObject);
+        return this.http.post("/api/authenticateUserAPI/", userObject);
+    };
     DataService = tslib_1.__decorate([
         Injectable({
             providedIn: 'root'

@@ -81,7 +81,14 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
             // 09/01/2019 03:26 pm - SSN - [20190901-1225] - [006] - Add Job_DevSite table - Adding usernamex and password
 
             Input = new InputModel();
-            if (env.IsDevelopment())
+
+            // 10/07/2019 10:28 am - SSN - [20191007-1020] - [003] - Adding Angular 7 - Collecting data with Angular forms and validations - Authenticate user
+            // Limit access to Usernamex to local development
+
+            string webRootpath = env.WebRootPath;
+
+
+            if (env.IsDevelopment() && webRootpath.ToLower().StartsWith("c:\\sams"))
             {
                 Input.Email = configuration["UserNamex"]; ;
                 Input.Password_Temp = configuration["Password"];
