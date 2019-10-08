@@ -8,25 +8,24 @@ import { AuthenticateService } from 'src/app/users/authenticate.service';
 })
 export class HeaderComponent implements OnInit {
 
-  greetingMessage: string;
-
   constructor(private authenticateService: AuthenticateService) { }
 
   ngOnInit() {
+  }
 
-    console.log('header.component - ngOnInit - 20191007-1418');
-
-    console.log(this.authenticateService);
+  getGreetingMessage() {
 
 
     if (this.authenticateService) {
       if (this.authenticateService.isAuthenticated()) {
-        this.greetingMessage = "Hello [" + this.authenticateService.currentUser.email + "]";
+        return "Hello " + this.authenticateService.currentUser.firstName;
       }
       else {
-        this.greetingMessage = "Not Authenticated"
+        return "Not Authenticated"
       }
     }
+
+    return "No greeting message!";
   }
 
 }

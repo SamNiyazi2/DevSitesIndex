@@ -13,7 +13,7 @@ using Microsoft.Extensions.Configuration;
 namespace DevSitesIndex.Controllers
 {
     [Route("api/[controller]")]
-   
+
     public class AuthenticateUserAPIController : Controller
     {
         private IConfiguration configuration;
@@ -39,13 +39,15 @@ namespace DevSitesIndex.Controllers
         {
             public bool isAuthenticated { get; set; }
             public string email { get; set; }
+            public string firstName { get; set; }
+            public string lastName { get; set; }
 
 
             public List<String> FeedbackMessages { get; set; }
 
             public void addMessage(string message)
             {
-                if ( FeedbackMessages == null ) FeedbackMessages = new List<string>();
+                if (FeedbackMessages == null) FeedbackMessages = new List<string>();
                 FeedbackMessages.Add(message);
             }
 
@@ -74,7 +76,7 @@ namespace DevSitesIndex.Controllers
             public string Password { get; set; }
         }
 
-        public  AuthResult OnPost( [FromBody] TempUser Input) // Input replaces form Input variable from code copied here
+        public AuthResult OnPost([FromBody] TempUser Input) // Input replaces form Input variable from code copied here
         {
             string temp = "Tesint";
 
@@ -154,7 +156,7 @@ namespace DevSitesIndex.Controllers
             }
 
             bool rememberMe = false; //Input.RememberMe
-            var result2 = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, rememberMe , lockoutOnFailure: true);
+            var result2 = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, rememberMe, lockoutOnFailure: true);
             if (result2.Succeeded)
             {
 
@@ -162,6 +164,25 @@ namespace DevSitesIndex.Controllers
 
                 result.isAuthenticated = true;
                 result.email = Input.Email;
+
+                try
+                {
+
+                    if (Input.Email.IndexOf("@") > 0)
+                    {
+                        result.firstName = Input.Email.Substring(0, Input.Email.IndexOf("@") - 1);
+                        result.lastName = Input.Email.Substring(Input.Email.IndexOf("@") + 1);
+                    }
+                    else
+                    {
+                        result.firstName = "no @";
+                    }
+                }
+                catch (Exception ex)
+                {
+                    result.firstName = ex.Message;
+                }
+
                 return result;
             }
 

@@ -6915,7 +6915,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\r\n  profile works!\r\n</p>\r\n<h1>Edit Profile</h1>\r\n<hr />\r\n<div class=\"col-md-6\">\r\n\r\n  <button type=\"submit\" class=\"btn btn-primary\">Save</button>\r\n  <button type=\"button\" class=\"btn btn-default\">Cancel</button>\r\n</div>\r\n"
+module.exports = "<p>\r\n  profile works!\r\n</p>\r\n<h1>Edit Profile</h1>\r\n<hr />\r\n<div class=\"col-md-6\">\r\n\r\n\r\n  <form [formGroup]=\"profileForm\" autocomplete=\"off\" novalidate (ngSubmit)=\"saveProfile(profileForm.value)\">\r\n\r\n    <div class=\"form-group\">\r\n      <label for=\"firstName\">First Name:</label>\r\n      <input formControlName=\"firstName\" id=\"firstName\" type=\"text\" class=\"form-control\" placeholder=\"First name...\" autofocus/>\r\n    </div>\r\n\r\n    <div class=\"form-group\">\r\n      <label for=\"lastName\">Last Name:</label>\r\n      <input formControlName=\"lastName\" id=\"lastName\" type=\"text\" class=\"form-control\" placeholder=\"Last name...\" />\r\n    </div>\r\n\r\n    <button type=\"submit\" class=\"btn btn-primary\">Save</button>\r\n    <button type=\"button\" class=\"btn btn-default\" (click)=\"cancel()\">Cancel</button>\r\n\r\n  </form>\r\n\r\n</div>\r\n\r\n"
 
 /***/ }),
 
@@ -6931,12 +6931,42 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ProfileComponent", function() { return ProfileComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _authenticate_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../authenticate.service */ "./src/app/users/authenticate.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+
+
+
 
 
 var ProfileComponent = /** @class */ (function () {
-    function ProfileComponent() {
+    function ProfileComponent(authenticateService, router) {
+        this.authenticateService = authenticateService;
+        this.router = router;
     }
     ProfileComponent.prototype.ngOnInit = function () {
+        // 10/07/2019 07:20 pm - SSN - [20191007-1857] - [001] - M07-06 - Reactive forms
+        var first = "notset";
+        var last = "NotSet";
+        if (this.authenticateService) {
+            if (this.authenticateService.currentUser) {
+                first = this.authenticateService.currentUser.firstName;
+                last = this.authenticateService.currentUser.lastName;
+            }
+        }
+        var firstName = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](first);
+        var lastName = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](last);
+        this.profileForm = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({ firstName: firstName, lastName: lastName });
+    };
+    // 10/07/2019 07:57 pm - SSN - [20191007-1857] - [003] - M07-06 - Reactive forms
+    ProfileComponent.prototype.cancel = function () {
+        this.router.navigate(['/timesheet']);
+    };
+    ProfileComponent.prototype.saveProfile = function (formValue) {
+        console.log(formValue);
+        this.authenticateService.currentUser.firstName = formValue.firstName;
+        this.authenticateService.currentUser.lastName = formValue.lastName;
+        this.router.navigate(['/timesheet']);
     };
     ProfileComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -6944,7 +6974,7 @@ var ProfileComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./profile.component.html */ "./src/app/users/profile/profile.component.html"),
             styles: [__webpack_require__(/*! ./profile.component.css */ "./src/app/users/profile/profile.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_authenticate_service__WEBPACK_IMPORTED_MODULE_3__["AuthenticateService"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]])
     ], ProfileComponent);
     return ProfileComponent;
 }());
@@ -6980,7 +7010,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-console.log("user.module.ts - 20191006-2121");
 var UserModule = /** @class */ (function () {
     function UserModule() {
     }
@@ -6990,6 +7019,8 @@ var UserModule = /** @class */ (function () {
                 _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
                 // 10/07/2019 09:57 am - SSN - [20191007-0947] - [003] - Adding Angular 7 - Collecting data with Angular forms and validations - Login form
                 _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormsModule"],
+                // 10/07/2019 07:28 pm - SSN - [20191007-1857] - [002] - M07-06 - Reactive forms
+                _angular_forms__WEBPACK_IMPORTED_MODULE_4__["ReactiveFormsModule"],
                 _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouterModule"].forChild(_user_routes__WEBPACK_IMPORTED_MODULE_5__["userRoutes"]),
             ],
             declarations: [

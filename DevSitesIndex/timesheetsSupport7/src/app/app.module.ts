@@ -26,9 +26,6 @@ import { TimesheetResolverService } from './resolvers/timesheet-resolver.service
 import { AuthenticateService } from './users/authenticate.service';
 
 
-console.log('app.module.ts - 20191002-2007');
-
-
 @NgModule({
   declarations: [
     AppComponent,

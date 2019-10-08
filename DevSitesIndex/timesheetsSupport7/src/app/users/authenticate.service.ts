@@ -11,7 +11,7 @@ import { DataService } from '../shared/data.service';
 })
 export class AuthenticateService {
 
-  currentUser: IUser;
+  currentUser: IUser = null;
   counter: number = 0;
 
   constructor(private dataService: DataService) {
@@ -27,11 +27,6 @@ export class AuthenticateService {
   isAuthenticated() {
 
     this.counter += 1;
-
-    console.log("***************** authenticate.service - isAuthenticated() ");
-    console.log(this.counter);
-    console.log(this.currentUser);
-
 
     if (!this.currentUser) return false;
 

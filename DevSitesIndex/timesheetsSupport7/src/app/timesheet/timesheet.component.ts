@@ -3,11 +3,7 @@ import { DataService } from '../shared/data.service';
 import { ToastrService } from '../shared/toastr.service';
 import { ActivatedRoute } from '@angular/router';
 import { ITimelog } from '../interfaces/ITimelog';
-
-
-
-console.log('timesheet.component.ts - 20191003-1618');
-
+ 
 
 @Component({
   selector: 'app-timesheet',
@@ -35,9 +31,7 @@ export class TimesheetComponent implements OnInit {
 
 
   ngOnInit() {
-
-    console.log("timesheet.component.ts - ngOnInit - 20191003-1607");
-
+      
     this.timesheets = [];
 
     //let promise = this.dataService.getTimesheets().toPromise();
@@ -45,10 +39,7 @@ export class TimesheetComponent implements OnInit {
     //promise.then(this.getTimesheetSuccess.bind(this), this.getTimesheetError);
 
     // 10/06/2019 05:10 pm - SSN - [20191006-1643] - [005] - Adding Angular 7 - Observables and resolvers - Pickup data from resolver
-
-    let temp1 = this.route.snapshot.data['timesheets_resolver'];
-
-
+      
     this.timesheets = this.route.snapshot.data['timesheets_resolver'];
 
 
@@ -56,10 +47,7 @@ export class TimesheetComponent implements OnInit {
 
 
   getTimesheetSuccess(response) {
-
-    console.log('timesheetComponent  20191003-1715 - success');
-    console.log(response);
-
+      
     this.timesheets = response;
 
   }

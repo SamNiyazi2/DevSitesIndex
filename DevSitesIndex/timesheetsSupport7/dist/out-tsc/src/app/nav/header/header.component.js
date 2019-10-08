@@ -6,16 +6,19 @@ var HeaderComponent = /** @class */ (function () {
         this.authenticateService = authenticateService;
     }
     HeaderComponent.prototype.ngOnInit = function () {
+    };
+    HeaderComponent.prototype.getGreetingMessage = function () {
         console.log('header.component - ngOnInit - 20191007-1418');
         console.log(this.authenticateService);
         if (this.authenticateService) {
             if (this.authenticateService.isAuthenticated()) {
-                this.greetingMessage = "Hello [" + this.authenticateService.currentUser.email + "]";
+                return "Hello " + this.authenticateService.currentUser.email;
             }
             else {
-                this.greetingMessage = "Not Authenticated";
+                return "Not Authenticated";
             }
         }
+        return "No greeting message!";
     };
     HeaderComponent = tslib_1.__decorate([
         Component({

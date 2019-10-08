@@ -19,9 +19,7 @@ export class DataService {
 
 
   getTimesheets() {
-
-    console.log('dataservice - getTimesheets - 20191003-1707');
-
+      
     return this.http.get("/api/timelogapi");
 
   }
@@ -29,9 +27,7 @@ export class DataService {
   // 10/05/2019 02:52 pm - SSN - [20191003-1557] - [014] - Adding data service to Angular7
 
   getTimesheet(id: number) {
-
-    console.log('dataservice - getTimesheet - 20191005-1451');
-
+      
     return this.http.get("/api/timelogapi/get_custom/" + id);
 
   }
@@ -40,13 +36,9 @@ export class DataService {
   // 10/07/2019 10:58 am - SSN - [20191007-1020] - [005] - Adding Angular 7 - Collecting data with Angular forms and validations - Authenticate user
 
   authenticateUser(userObject: IUser) {
-
-    console.log('dataservice - authenticateUser - 20191007-1112');
-    console.log(userObject);
-
+ 
     return this.http.post("/api/authenticateUserAPI/", userObject);
-
-
+     
   }
 
 
