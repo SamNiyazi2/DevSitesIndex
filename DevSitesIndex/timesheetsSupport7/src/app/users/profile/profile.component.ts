@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthenticateService } from '../authenticate.service';
 import { Router } from '@angular/router';
 
@@ -32,8 +32,10 @@ export class ProfileComponent implements OnInit {
       }
     }
 
-    let firstName = new FormControl(first);
-    let lastName = new FormControl(last);
+    // 10/08/2019 12:03 pm - SSN - [20191008-1202] - [001] - M07-07 - Validating Reactive forms
+    // Validators.required
+    let firstName = new FormControl(first, Validators.required);
+    let lastName = new FormControl(last, Validators.required);
 
     this.profileForm = new FormGroup({ firstName: firstName, lastName: lastName });
 
@@ -51,10 +53,15 @@ export class ProfileComponent implements OnInit {
   saveProfile(formValue) {
 
     console.log(formValue);
-    this.authenticateService.currentUser.firstName = formValue.firstName;
-    this.authenticateService.currentUser.lastName = formValue.lastName;
-    this.router.navigate(['/timesheet']);
+    if (this.profileForm.valid) {
 
+      this.authenticateService.currentUser.firstName = formValue.firstName;
+      this.authenticateService.currentUser.lastName = formValue.lastName;
+      this.router.navigate(['/timesheet']);
+    }
+    else {
+
+    }
 
   }
 

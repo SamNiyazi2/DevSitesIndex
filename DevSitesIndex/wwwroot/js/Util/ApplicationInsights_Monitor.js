@@ -13,6 +13,7 @@ var AppInsights_Util = function () {
             console.log("ApplicationInsights_Monitor - doSetup - config - 20191001-1029-AAA XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             console.log("ApplicationInsights_Monitor - doSetup - config - 20191001-1029-AAA XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             console.log("ApplicationInsights_Monitor - doSetup - config - 20191001-1029-AAA XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+            console.log(config);
             AppInsights.downloadAndSetup(config);
         }
     };

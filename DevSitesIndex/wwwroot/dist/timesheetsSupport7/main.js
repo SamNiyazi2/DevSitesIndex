@@ -65,7 +65,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-console.log('app.routing.module.ts - 20191002-2005');
 var routes = [
     // 10/02/2019 12:20 pm - SSN - [20191002-1118] - [004] - Adding Angular 7 test app
     // Testing excluding .Net paths
@@ -134,7 +133,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<app-header></app-header>\r\n\r\n<div style=\"text-align:center\">\r\n  <h3>\r\n     {{ title }} <span style=\"font-size:14px\">(v-015)</span>\r\n  </h3>\r\n</div>\r\n\r\n<router-outlet></router-outlet>\r\n"
+module.exports = "<app-header></app-header>\r\n\r\n<router-outlet></router-outlet>\r\n"
 
 /***/ }),
 
@@ -154,7 +153,6 @@ __webpack_require__.r(__webpack_exports__);
 
 var AppComponent = /** @class */ (function () {
     function AppComponent() {
-        this.title = 'timesheetsSupport7';
     }
     AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -296,7 +294,7 @@ module.exports = " \r\n\r\n.menu_button {\r\n  margin: 8px 0px 0px 0px;\r\n}\r\n
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\r\n\r\n<nav class=\"navbar navbar-inverse navbar-fixed-top\">\r\n  <div class=\"container\">\r\n    <div class=\"navbar-header\">\r\n      <button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\".navbar-collapse\">\r\n        <span class=\"sr-only\">Toggle navigation</span>\r\n        <span class=\"icon-bar\"></span>\r\n        <span class=\"icon-bar\"></span>\r\n        <span class=\"icon-bar\"></span>\r\n      </button>\r\n      <a asp-area=\"\" asp-controller=\"Home\" asp-action=\"Index\" class=\"navbar-brand\">@Startup.SITE_NAME_STRING</a>\r\n    </div>\r\n    <div class=\"navbar-collapse collapse\">\r\n      <ul class=\"nav navbar-nav\">\r\n\r\n\r\n\r\n        <li><a href=\"/DemoSites/Index\">Sites</a></li>\r\n        <li><a href=\"/home/about\">About</a></li>\r\n        <li><a href=\"/Home/Contact\">Contact</a></li>\r\n\r\n        <li class=\"dropdown-submenu\">\r\n\r\n          <a class=\"dropdown-toggle\" data-toggle=\"dropdown\">Jobs  <span class=\"caret\"></span></a>\r\n\r\n          <ul class=\"dropdown-menu\">\r\n\r\n            <li><a href=\"/Companies\">Companies</a></li>\r\n            <li><a href=\"/Discipline\">Disciplines</a></li>\r\n            <li><a href=\"/Projects\">Projects</a></li>\r\n            <li><a href=\"/jobs\">Jobs</a></li>\r\n            <li><a href=\"/TimeLogs\">Timelog</a></li>\r\n            <li><a href=\"/timesheet\">Timelog (Angular 7)</a></li>\r\n            <li><a href=\"/ReferenceSites\">Reference Sites</a></li>\r\n            <li><a href=\"/CodeReferences\">Code</a></li>\r\n            <li><a href=\"/CommandLine\">Command Line</a></li>\r\n            <li><a href=\"/DevSites\">Demo Sites</a></li>\r\n\r\n\r\n          </ul>\r\n\r\n        </li>\r\n\r\n      </ul>\r\n\r\n      <ul class=\"nav navbar-nav \" style=\"float:right;\">\r\n        <li *ngIf=\"!authenticateService.isAuthenticated()\">\r\n          <a [routerLink]=\"['/user/login']\">Login</a>\r\n        </li>\r\n        <li class=\"nav-item\" *ngIf=\"authenticateService.isAuthenticated()\">\r\n          <a id=\"manage\" class=\"nav-link text-dark\" title=\"Manage\" [routerLink]=\"['/user/profile']\"><span [innerText]=\"getGreetingMessage()\"></span></a>\r\n        </li>\r\n        <li class=\"nav-item\" *ngIf=\"authenticateService.isAuthenticated()\">\r\n          <form id=\"logoutForm\" class=\"form-inline\" action=\"/Identity/Account/Logout?returnUrl=%2F%3Fpage%3D%252FIndex\" method=\"post\">\r\n            <button id=\"logout\" type=\"submit\" class=\"nav-link btn btn-link text-dark menu_button\">Logout</button>\r\n          </form>\r\n        </li>\r\n      </ul>\r\n\r\n\r\n\r\n    </div>\r\n  </div>\r\n</nav>\r\n"
+module.exports = "\r\n\r\n<nav class=\"navbar navbar-inverse navbar-fixed-top\">\r\n  <div class=\"container\">\r\n    <div class=\"navbar-header\">\r\n      <button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\".navbar-collapse\">\r\n        <span class=\"sr-only\">Toggle navigation</span>\r\n        <span class=\"icon-bar\"></span>\r\n        <span class=\"icon-bar\"></span>\r\n        <span class=\"icon-bar\"></span>\r\n      </button>\r\n      <a asp-area=\"\" asp-controller=\"Home\" asp-action=\"Index\" class=\"navbar-brand\">@Startup.SITE_NAME_STRING</a>\r\n    </div>\r\n    <div class=\"navbar-collapse collapse\">\r\n      <ul class=\"nav navbar-nav\">\r\n\r\n\r\n\r\n        <li><a href=\"/DemoSites/Index\">Sites</a></li>\r\n        <li><a href=\"/home/about\">About</a></li>\r\n        <li><a href=\"/Home/Contact\">Contact</a></li>\r\n\r\n        <li class=\"dropdown-submenu\">\r\n\r\n          <a class=\"dropdown-toggle\" data-toggle=\"dropdown\">Jobs  <span class=\"caret\"></span></a>\r\n\r\n          <ul class=\"dropdown-menu\">\r\n\r\n            <li><a href=\"/Companies\">Companies</a></li>\r\n            <li><a href=\"/Discipline\">Disciplines</a></li>\r\n            <li><a href=\"/Projects\">Projects</a></li>\r\n            <li><a href=\"/jobs\">Jobs</a></li>\r\n            <li><a href=\"/TimeLogs\">Timelog</a></li>\r\n            <li><a href=\"/timesheet\">Timelog (Angular 7)</a></li>\r\n            <li><a href=\"/ReferenceSites\">Reference Sites</a></li>\r\n            <li><a href=\"/CodeReferences\">Code</a></li>\r\n            <li><a href=\"/CommandLine\">Command Line</a></li>\r\n            <li><a href=\"/DevSites\">Demo Sites</a></li>\r\n\r\n\r\n          </ul>\r\n\r\n        </li>\r\n\r\n      </ul>\r\n\r\n      <ul class=\"nav navbar-nav \" style=\"float:right;\">\r\n        <li *ngIf=\"!authenticateService.isAuthenticated()\">\r\n          <a [routerLink]=\"['/user/login']\">Login</a>\r\n        </li>\r\n        <li class=\"nav-item\" *ngIf=\"authenticateService.isAuthenticated()\">\r\n          <a id=\"manage\" class=\"nav-link text-dark\" title=\"Manage\" [routerLink]=\"['/user/profile']\"><span [innerText]=\"getGreetingMessage()\"></span></a>\r\n        </li>\r\n        <li class=\"nav-item\" *ngIf=\"authenticateService.isAuthenticated()\">\r\n          <!--<form id=\"logoutForm\" class=\"form-inline\" action=\"/Identity/Account/Logout?returnUrl=%2F%3Fpage%3D%252FIndex\" method=\"post\">\r\n            <button id=\"logout\" type=\"submit\" class=\"nav-link btn btn-link text-dark menu_button\">Logout</button>\r\n          </form>-->\r\n\r\n          <a id=\"logout\" class=\"nav-link text-dark\" title=\"Logout\" [routerLink]=\"['/user/logout']\">Logout</a>\r\n\r\n        </li>\r\n      </ul>\r\n\r\n\r\n\r\n    </div>\r\n  </div>\r\n</nav>\r\n\r\n\r\n<div id=\"forgeryToken\" [innerHtml]=\"forgeryToken\">\r\n</div>\r\n"
 
 /***/ }),
 
@@ -313,14 +311,40 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var src_app_users_authenticate_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/users/authenticate.service */ "./src/app/users/authenticate.service.ts");
+/* harmony import */ var src_app_shared_data_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/shared/data.service */ "./src/app/shared/data.service.ts");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
+
+
 
 
 
 var HeaderComponent = /** @class */ (function () {
-    function HeaderComponent(authenticateService) {
+    // 10/08/2019 10:39 pm - SSN - [20191008-1232] - [017] - X-XSRF-TOKEN
+    // https://angular.io/guide/security#xss
+    function HeaderComponent(authenticateService, dataService, sanitizer) {
         this.authenticateService = authenticateService;
+        this.dataService = dataService;
+        this.sanitizer = sanitizer;
     }
     HeaderComponent.prototype.ngOnInit = function () {
+        // 10/08/2019 06:41 pm - SSN - [20191008-1232] - [010] - X-XSRF-TOKEN
+        this.authenticateService.isLoggedIn().then(this.isLoggedInSuccess.bind(this), this.isLoggedInError.bind(this));
+        this.dataService.getForgeryToken().then(this.forgeryTokenSuccess.bind(this), this.forgeryTokenError.bind(this));
+    };
+    HeaderComponent.prototype.forgeryTokenSuccess = function (response) {
+        this.forgeryToken = this.sanitizer.bypassSecurityTrustHtml(response);
+    };
+    HeaderComponent.prototype.forgeryTokenError = function (response) {
+        console.log('header.component.ts - forgeryTokenError - 20191009-0014');
+        console.log(response);
+        this.forgeryToken = "";
+    };
+    HeaderComponent.prototype.isLoggedInSuccess = function (response) {
+        this.authenticateService.currentUser = response;
+    };
+    HeaderComponent.prototype.isLoggedInError = function (response) {
+        console.log('header.component.ts isLoggedInError');
+        console.log(response);
     };
     HeaderComponent.prototype.getGreetingMessage = function () {
         if (this.authenticateService) {
@@ -331,7 +355,7 @@ var HeaderComponent = /** @class */ (function () {
                 return "Not Authenticated";
             }
         }
-        return "No greeting message!";
+        return "";
     };
     HeaderComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -339,7 +363,7 @@ var HeaderComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./header.component.html */ "./src/app/nav/header/header.component.html"),
             styles: [__webpack_require__(/*! ./header.component.css */ "./src/app/nav/header/header.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [src_app_users_authenticate_service__WEBPACK_IMPORTED_MODULE_2__["AuthenticateService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [src_app_users_authenticate_service__WEBPACK_IMPORTED_MODULE_2__["AuthenticateService"], src_app_shared_data_service__WEBPACK_IMPORTED_MODULE_3__["DataService"], _angular_platform_browser__WEBPACK_IMPORTED_MODULE_4__["DomSanitizer"]])
     ], HeaderComponent);
     return HeaderComponent;
 }());
@@ -423,19 +447,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-console.log('timesheet-resolver.service - 20191006-1721');
 var TimesheetResolverService = /** @class */ (function () {
     function TimesheetResolverService(dataService) {
         this.dataService = dataService;
-        console.log('timesheet-resolver.service - 20191006-1722 - constructor');
     }
     TimesheetResolverService.prototype.resolve = function () {
-        console.log('timesheet-resolver.service - 20191006-1723-A - resolve');
-        var obj1 = this.dataService.getTimesheets();
         var obj2 = this.dataService.getTimesheets().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (timesheets) { return timesheets; }));
-        console.log(obj1);
-        console.log(obj2);
-        console.log('timesheet-resolver.service - 20191006-1723-Z - resolve');
         return obj2;
     };
     TimesheetResolverService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -484,6 +501,24 @@ var DataService = /** @class */ (function () {
     // 10/07/2019 10:58 am - SSN - [20191007-1020] - [005] - Adding Angular 7 - Collecting data with Angular forms and validations - Authenticate user
     DataService.prototype.authenticateUser = function (userObject) {
         return this.http.post("/api/authenticateUserAPI/", userObject);
+    };
+    // 10/08/2019 02:09 pm - SSN - [20191008-1232] - [007] - X-XSRF-TOKEN
+    DataService.prototype.logoutUser = function (token) {
+        var requestOptions = {
+            headers: {
+                'RequestVerificationToken': token,
+                'X-XSRF-Token': token
+            }
+        };
+        return this.http.post("/api/authenticateUserAPI/logout", {}, requestOptions);
+    };
+    // 10/08/2019 06:45 pm - SSN - [20191008-1232] - [012] - X-XSRF-TOKEN
+    DataService.prototype.isLoggedIn = function () {
+        return this.http.get("/api/authenticateUserAPI/isLoggedIn");
+    };
+    // 10/08/2019 08:13 pm - SSN - [20191008-1232] - [016] - X-XSRF-TOKEN
+    DataService.prototype.getForgeryToken = function () {
+        return this.http.get("/api/authenticateUserAPI/ForgeryToken", { responseType: 'text' }).toPromise();
     };
     DataService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
@@ -758,7 +793,6 @@ __webpack_require__.r(__webpack_exports__);
 var ThumbnailComponent = /** @class */ (function () {
     function ThumbnailComponent() {
         this.eventClick = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        this.somePropertyInThumnail = "Some value for someProperty";
     }
     ThumbnailComponent.prototype.ngOnInit = function () {
     };
@@ -850,7 +884,6 @@ var TimelogComponent = /** @class */ (function () {
         this.route = route;
     }
     TimelogComponent.prototype.ngOnInit = function () {
-        console.log("timelog.component - 20191005-1521");
         this.timelog = {};
         this.timelog.timeLogId = -999;
         // 10/06/2019 12:12 pm - SSN - [20191006-1211] - [001] - Adding Angular 7
@@ -859,8 +892,6 @@ var TimelogComponent = /** @class */ (function () {
         promise.then(this.getTimesheetSuccess.bind(this), this.getTimesheetError).catch(this.getTimesheetCatch);
     };
     TimelogComponent.prototype.getTimesheetSuccess = function (response) {
-        console.log('timelog.component - getTimehseetSuccess - 20191005-1523');
-        console.log(response);
         this.timelog = response;
     };
     TimelogComponent.prototype.getTimesheetError = function (response) {
@@ -904,7 +935,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\r\n<app-timesheet-menu></app-timesheet-menu>\r\n\r\n<div class=\"row\">\r\n\r\n  <div *ngFor=\"let timesheet of timesheets\" class=\"col-md-5\">\r\n\r\n    <!-- timesheetThumnail: template variable -->\r\n    <app-thumbnail #timesheetThumbnail [timesheet]=\"timesheet\" (eventClick)=\"handleThumbnailClick($event)\"></app-thumbnail>\r\n    <button class=\"btn btn-info\" (click)=\"timesheetThumbnail.testFunction()\">Call thumbnail test</button>\r\n    <br />\r\n    Thumbnail somePropertyInThumnail [{{timesheetThumbnail.somePropertyInThumnail}}]\r\n    <br />\r\n    <br />\r\n  </div>\r\n\r\n</div>\r\n"
+module.exports = "\r\n<app-timesheet-menu></app-timesheet-menu>\r\n\r\n<div class=\"row\">\r\n\r\n  <div *ngFor=\"let timesheet of timesheets\" class=\"col-md-5\">\r\n\r\n    <!-- timesheetThumnail: template variable -->\r\n    <app-thumbnail #timesheetThumbnail [timesheet]=\"timesheet\" (eventClick)=\"handleThumbnailClick($event)\"></app-thumbnail>\r\n    <button class=\"btn btn-info\" (click)=\"timesheetThumbnail.testFunction()\">Call thumbnail test</button>\r\n    <br />\r\n    <br />\r\n    <br />\r\n  </div>\r\n\r\n</div>\r\n"
 
 /***/ }),
 
@@ -1003,6 +1034,14 @@ var AuthenticateService = /** @class */ (function () {
             return false;
         return this.currentUser.isAuthenticated;
     };
+    // 10/08/2019 06:44 pm - SSN - [20191008-1232] - [011] - X-XSRF-TOKEN
+    AuthenticateService.prototype.isLoggedIn = function () {
+        return this.dataService.isLoggedIn().toPromise();
+    };
+    // 10/08/2019 02:09 pm - SSN - [20191008-1232] - [006] - X-XSRF-TOKEN
+    AuthenticateService.prototype.logoutUser = function (token) {
+        return this.dataService.logoutUser(token).toPromise();
+    };
     AuthenticateService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
             providedIn: 'root'
@@ -1035,21 +1074,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-console.log('timelogroute-activator.service - 20191006-1343');
 var TimelogRouteActivatorService = /** @class */ (function () {
     function TimelogRouteActivatorService(dataService, route) {
         this.dataService = dataService;
         this.route = route;
-        console.log('timelogroute-activator.service - 20191006-1344 - constructor ');
     }
     TimelogRouteActivatorService.prototype.canActivate = function (route) {
         var _this = this;
-        console.log('timelogroute-activator.service - 20191006-1345 - canActivate ');
-        var id = +this.dataService.getTimesheet(route.params['id']);
         var result = this.dataService.getTimesheet(route.params['id']).toPromise().then(function (r) {
             var recordExists = !!r;
-            console.log(r);
-            console.log("id [" + id + "] recordexists [" + recordExists + "]");
             return recordExists;
         }, function (r) {
             _this.route.navigate(['e404']);

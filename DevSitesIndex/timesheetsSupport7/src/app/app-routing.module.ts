@@ -10,9 +10,6 @@ import { TimelogRouteActivatorService } from './util/timelog-route-activator.ser
 import { TimesheetResolverService } from './resolvers/timesheet-resolver.service';
 
 
-
-console.log('app.routing.module.ts - 20191002-2005');
-
 const routes: Routes = [
 
   // 10/02/2019 12:20 pm - SSN - [20191002-1118] - [004] - Adding Angular 7 test app
@@ -25,7 +22,7 @@ const routes: Routes = [
 
 
   // 10/06/2019 12:49 pm - SSN - [20191006-1211] - [002] - Adding Angular 7
-  { path: 'timesheet/create', component: CreateTimelogComponent, pathMatch: 'full', canDeactivate:['canDeactivateCreateTimelog'] },
+  { path: 'timesheet/create', component: CreateTimelogComponent, pathMatch: 'full', canDeactivate: ['canDeactivateCreateTimelog'] },
   //{ path: 'create', component: CreateTimelogComponent },
 
 
@@ -33,8 +30,6 @@ const routes: Routes = [
   // 10/06/2019 05:06 pm - SSN - [20191006-1643] - [004] - Adding Angular 7 - Observables and resolvers - TimesheetResolverService
 
   { path: 'timesheet', component: TimesheetComponent, resolve: { timesheets_resolver: TimesheetResolverService } },
-
-
 
 
   // 10/05/2019 03:10 pm - SSN - [20191003-1557] - [015] - Adding data service to Angular7
@@ -50,17 +45,14 @@ const routes: Routes = [
   { path: '', redirectTo: 'test3', pathMatch: 'full' },
 
 
-
   // 10/06/2019 09:09 pm - SSN - [20191006-2058] - [003] - Adding Angular 7 - Lazily loading feature modules
   { path: 'user', loadChildren: './users/user.module#UserModule' },
 
 
-
-
-//{ path: '**', component: AppComponent, outlet: "main101" },
+  //{ path: '**', component: AppComponent, outlet: "main101" },
   { path: '**', redirectTo: 'test3' },
 
-  
+
 ];
 
 @NgModule({

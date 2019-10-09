@@ -8,7 +8,6 @@ import { CreateTimelogComponent } from './timesheet/create-timelog/create-timelo
 import { E404Component } from './shared/e404/e404.component';
 import { TimelogRouteActivatorService } from './util/timelog-route-activator.service';
 import { TimesheetResolverService } from './resolvers/timesheet-resolver.service';
-console.log('app.routing.module.ts - 20191002-2005');
 var routes = [
     // 10/02/2019 12:20 pm - SSN - [20191002-1118] - [004] - Adding Angular 7 test app
     // Testing excluding .Net paths

@@ -20,7 +20,6 @@ import { E404Component } from './shared/e404/e404.component';
 import { TimelogRouteActivatorService } from './util/timelog-route-activator.service';
 import { TimesheetResolverService } from './resolvers/timesheet-resolver.service';
 import { AuthenticateService } from './users/authenticate.service';
-console.log('app.module.ts - 20191002-2007');
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }

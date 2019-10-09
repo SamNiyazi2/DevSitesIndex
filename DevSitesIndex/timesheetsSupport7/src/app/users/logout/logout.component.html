@@ -1,0 +1,10 @@
+<p>
+  logout works!
+</p>
+
+
+<app-child [data]="foods" (removeTag_call)="removeTag($event)"></app-child>
+
+<input #newTag type="text" placeholder="Enter a new tag" autofocus>
+<button (click)="addTag(newTag)">Add tag</button>
+

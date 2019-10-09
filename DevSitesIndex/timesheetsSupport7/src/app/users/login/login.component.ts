@@ -14,9 +14,10 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
 
 
-  currentUser: IUser;
 
-  constructor(private authenticateService: AuthenticateService, private route:Router) { }
+  currentUser: IUser;
+  feedbackMessage: string = "";
+  constructor(private authenticateService: AuthenticateService, private route: Router) { }
 
   ngOnInit() {
   }
@@ -42,7 +43,7 @@ export class LoginComponent implements OnInit {
   loginUserSuccess(response) {
 
     console.log("login.component.ts - success ");
-    
+
     console.log(response);
 
     this.authenticateService.currentUser = response;
@@ -52,7 +53,9 @@ export class LoginComponent implements OnInit {
     if (this.authenticateService.currentUser.isAuthenticated) {
       this.route.navigate(['/timesheet']);
     }
-
+    else {
+      this.feedbackMessage = response.feedbackMessages;
+    }
   }
 
 

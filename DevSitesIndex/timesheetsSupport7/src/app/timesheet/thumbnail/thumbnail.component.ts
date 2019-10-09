@@ -15,21 +15,23 @@ export class ThumbnailComponent implements OnInit {
   @Input() timesheet: ITimelog;
   @Output() eventClick = new EventEmitter();
 
-  somePropertyInThumnail: string = "Some value for someProperty";
 
   constructor() { }
 
   ngOnInit() {
   }
 
+
   handleClickMe101(timesheet) {
     console.log("Clicked me!");
     this.eventClick.emit(timesheet.job.jobTitle);
   }
 
+
   testFunction() {
     console.log("Output from testFunction");
   }
+
 
   setTotalSecondsClass() {
 

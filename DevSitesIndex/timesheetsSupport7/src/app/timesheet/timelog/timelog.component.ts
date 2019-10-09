@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/shared/data.service';
 import { ActivatedRoute } from '@angular/router';
 
+
 @Component({
   selector: 'app-timelog',
   templateUrl: './timelog.component.html',
@@ -15,12 +16,10 @@ export class TimelogComponent implements OnInit {
   timelog: any;
 
 
-
   constructor(private dataService: DataService, private route: ActivatedRoute) { }
 
-  ngOnInit() {
 
-    console.log("timelog.component - 20191005-1521");
+  ngOnInit() {
 
     this.timelog = {};
 
@@ -38,9 +37,6 @@ export class TimelogComponent implements OnInit {
 
   getTimesheetSuccess(response) {
 
-    console.log('timelog.component - getTimehseetSuccess - 20191005-1523');
-
-    console.log(response);
     this.timelog = response;
 
   }
