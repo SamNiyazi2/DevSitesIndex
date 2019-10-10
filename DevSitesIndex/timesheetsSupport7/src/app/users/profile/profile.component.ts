@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 //import * as $ from 'jquery';
 
 import * as customValidatorsX from '../../util/customValidators';
+import { ToastrService } from 'src/app/shared/toastr.service';
 
 
 @Component({
@@ -19,7 +20,7 @@ export class ProfileComponent implements OnInit {
   lastName: FormControl;
 
 
-  constructor(private authenticateService: AuthenticateService, private router: Router) { }
+  constructor(private authenticateService: AuthenticateService, private router: Router, private toastr:ToastrService) { }
 
 
   ngOnInit() {
@@ -66,9 +67,7 @@ export class ProfileComponent implements OnInit {
       this.authenticateService.currentUser.firstName = formValue.firstName;
       this.authenticateService.currentUser.lastName = formValue.lastName;
       this.router.navigate(['/timesheet']);
-    }
-    else {
-
+      this.toastr.info("Saved record.");
     }
 
   }
