@@ -80,7 +80,4 @@
   </ItemGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
   </PropertyGroup>
-  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="&#xD;&#xA;$(ProjectDir)\timesheetsSupport7\ssn_build.cmd" />
-  </Target>
 </Project>
