@@ -26,12 +26,6 @@ namespace DevSitesIndex.Entities
         public int ProjectID { get; set; }
 
 
-        // 09/27/2019 03:26 pm - SSN - [20190927-0634] - [1003] - Testing
-        // Added
-        [NotMapped]
-        public int? Id_Temp { get => ProjectID; set { } }
-
-
         [DisplayName("Project Title")]
         [Required(ErrorMessage = "Title is required")]
         public string ProjectTitle { get; set; }
@@ -58,6 +52,10 @@ namespace DevSitesIndex.Entities
         [DisplayName("Company")]
         public Company company { get; set; }
 
+
+        // 10/09/2019 01:49 pm - SSN - [20191009-1302] - [006] - M09 - Reusing components with content projection
+
+        public virtual ICollection<Job> jobs{ get; set; }
 
     }
 }

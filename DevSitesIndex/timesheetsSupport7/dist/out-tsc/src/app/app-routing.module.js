@@ -8,7 +8,7 @@ import { CreateTimelogComponent } from './timesheet/create-timelog/create-timelo
 import { E404Component } from './shared/e404/e404.component';
 import { TimelogRouteActivatorService } from './util/timelog-route-activator.service';
 import { TimesheetResolverService } from './resolvers/timesheet-resolver.service';
-console.log('app.routing.module.ts - 20191002-2005');
+import { ProjectsListComponent } from './projects/projects-list/projects-list.component';
 var routes = [
     // 10/02/2019 12:20 pm - SSN - [20191002-1118] - [004] - Adding Angular 7 test app
     // Testing excluding .Net paths
@@ -21,6 +21,8 @@ var routes = [
     // 10/03/2019 12:19 pm - SSN - [20191003-1219] - [001] - Adding timesheet to Angular7
     // 10/06/2019 05:06 pm - SSN - [20191006-1643] - [004] - Adding Angular 7 - Observables and resolvers - TimesheetResolverService
     { path: 'timesheet', component: TimesheetComponent, resolve: { timesheets_resolver: TimesheetResolverService } },
+    // 10/09/2019 01:07 pm - SSN - [20191009-1302] - [001] - M09 - Reusing components with content projection
+    { path: 'ProjectsA7', component: ProjectsListComponent },
     // 10/05/2019 03:10 pm - SSN - [20191003-1557] - [015] - Adding data service to Angular7
     // 10/06/2019 01:41 pm - SSN - [20191006-1211] - [008] - Adding Angular 7 - TimelogRouteActivatorService
     { path: 'timelog/:id', component: TimelogComponent, canActivate: [TimelogRouteActivatorService] },

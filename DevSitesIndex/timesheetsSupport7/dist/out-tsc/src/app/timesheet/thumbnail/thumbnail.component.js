@@ -4,7 +4,6 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 var ThumbnailComponent = /** @class */ (function () {
     function ThumbnailComponent() {
         this.eventClick = new EventEmitter();
-        this.somePropertyInThumnail = "Some value for someProperty";
     }
     ThumbnailComponent.prototype.ngOnInit = function () {
     };

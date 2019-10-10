@@ -37,7 +37,31 @@ namespace DevSitesIndex
             // While moving some code to SSN_GenUtil_StandardLib, we had to replace some packages with version 3.0.0 with 2.2.0
             // it may have impacted this.  Comment out
             // 09/29/2019 09:26 pm - SSN - Adding back in.    
-            .UseApplicationInsights()
+
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+
+
+
+            .include_UseApplicationInsights()
+
+
+
+
+
+
+
+
+
 
 
                 .UseStartup<Startup>()
@@ -98,5 +122,15 @@ namespace DevSitesIndex
     }
 
 
+    public static class ext101
+    {
+        public static IWebHostBuilder include_UseApplicationInsights( this IWebHostBuilder x){
+
+
+            //////////////////////////////////////////////////////////////.UseApplicationInsights()
+     
+            return x;
+        }
+    }
 }
 

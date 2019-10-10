@@ -9,7 +9,6 @@ var TimelogComponent = /** @class */ (function () {
         this.route = route;
     }
     TimelogComponent.prototype.ngOnInit = function () {
-        console.log("timelog.component - 20191005-1521");
         this.timelog = {};
         this.timelog.timeLogId = -999;
         // 10/06/2019 12:12 pm - SSN - [20191006-1211] - [001] - Adding Angular 7
@@ -18,8 +17,6 @@ var TimelogComponent = /** @class */ (function () {
         promise.then(this.getTimesheetSuccess.bind(this), this.getTimesheetError).catch(this.getTimesheetCatch);
     };
     TimelogComponent.prototype.getTimesheetSuccess = function (response) {
-        console.log('timelog.component - getTimehseetSuccess - 20191005-1523');
-        console.log(response);
         this.timelog = response;
     };
     TimelogComponent.prototype.getTimesheetError = function (response) {

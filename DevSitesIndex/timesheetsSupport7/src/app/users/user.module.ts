@@ -9,7 +9,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { userRoutes } from './user.routes';
 import { ProfileComponent } from './profile/profile.component';
 import { LoginComponent } from './login/login.component';
- 
+import { LogoutComponent, ChildComponent} from './logout/logout.component';
+
+
 
 @NgModule(
   {
@@ -33,7 +35,9 @@ import { LoginComponent } from './login/login.component';
     declarations: [
 
       ProfileComponent,
-      LoginComponent
+      LoginComponent,
+      LogoutComponent,
+      ChildComponent
     ]
 
     ,

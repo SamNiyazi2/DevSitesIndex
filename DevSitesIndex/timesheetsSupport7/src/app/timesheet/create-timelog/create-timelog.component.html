@@ -1,8 +1,40 @@
 
-<app-timesheet-menu></app-timesheet-menu>
+<!--// Tempalte-based form
+    // 10/09/2019 09:53 am - SSN - [20191009-0144] - [002] - M07-09 - Template-based form validation
+-->
 
-<div class="container">
+
+<div class="container col-md-6">
   <h3>Create new timelog</h3>
-  <button type="submit" class="btn btn-primary">Save</button> &nbsp;
-  <button type="button" class="btn btn-default" (click)="cancel()">Cancel</button>
+
+  <form #newTimelogForm="ngForm" (ngSubmit)="saveTimelog(newTimelogForm.value)" autocomplete="off" novalidate>
+
+    <div class="form-group" [ngClass]="{'error':!isValidControl( newTimelogForm , 'projectTitle')}">
+      <label for="projectTitle">Project Title</label>
+      <em *ngIf="!isValidControl( newTimelogForm , 'projectTitle')">Required</em>
+      <input (ngModel)="timelog.job.project.projectTitle" name="projectTitle" id="projectTitle" class="form-control" placeholder="Project title..." required />
+
+    </div>
+
+
+    <div class="form-group" [ngClass]="{'error':!isValidControl( newTimelogForm , 'jobTitle')}">
+      <label for="timelog.job.jobTitle">Job Title</label>
+      <em *ngIf="!isValidControl( newTimelogForm , 'jobTitle')">Required</em>
+      <input [(ngModel)]="timelog.job.jobTitle" name="jobTitle"  id="jobTitle" class="form-control" placeholder="Job title..." required />
+    </div>
+
+
+    <div class="form-group" [ngClass]="{'error':!isValidControl( newTimelogForm , 'workDetail2')}">
+      <label for="workDetail">workDetail</label>
+      <em *ngIf="!isValidControl( newTimelogForm , 'workDetail2')">Required</em>
+      <input [(ngModel)]="timelog.workDetail" name="workDetail2"   id="workDetail" class="form-control" placeholder="Work detail..." required/>
+    </div>
+
+
+    <button type="submit" class="btn btn-primary">Save</button> &nbsp;
+    <button type="button" class="btn btn-default" (click)="cancel()">Cancel</button>
+
+
+  </form>
+
 </div>

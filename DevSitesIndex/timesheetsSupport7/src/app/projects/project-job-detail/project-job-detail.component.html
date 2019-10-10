@@ -1,0 +1,11 @@
+
+<div  (click)="toggleContent()" class="well mainDiv" title="Click to toggle content.">
+
+  <h5>
+    <ng-content select="[div-title]"></ng-content>
+
+  </h5>
+
+  <ng-content *ngIf="visible" select="[div-body]" ></ng-content>
+
+</div>

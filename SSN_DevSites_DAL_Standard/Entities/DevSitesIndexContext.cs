@@ -238,6 +238,11 @@ namespace DevSitesIndex.Entities
 
         private static void setup_Job(ModelBuilder modelBuilder)
         {
+            // 10/09/2019 10:01 pm - SSN - [20191009-1302] - [010] - M09 - Reusing components with content projection
+
+            modelBuilder.Entity<Job>().HasMany(s => s.timelogs).WithOne(s => s.job);
+
+
             modelBuilder.Entity<Job>()
                 .Property(x => x.JobTitle)
                 .IsRequired()

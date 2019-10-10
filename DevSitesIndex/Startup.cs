@@ -243,6 +243,17 @@ namespace DevSitesIndex
             });
 
 
+            // 10/09/2019 02:27 pm - SSN - [20191009-1302] - [008] - M09 - Reusing components with content projection
+
+            services
+                       .AddMvc()
+                       .AddJsonOptions(opt =>
+                       {
+                           //opt.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.Objects;
+                           opt.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.None;
+                           opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                       });
+
         }
 
 
@@ -382,7 +393,7 @@ namespace DevSitesIndex
                 // To learn more about options for serving an Angular SPA from ASP.NET Core,
                 // see https://go.microsoft.com/fwlink/?linkid=864501
 
-               spa.Options.SourcePath = "timesheetsSupport7";
+                spa.Options.SourcePath = "timesheetsSupport7";
 
                 if (env.IsDevelopment())
                 {

@@ -9,19 +9,41 @@ var DataService = /** @class */ (function () {
         this.http = http;
     }
     DataService.prototype.getTimesheets = function () {
-        console.log('dataservice - getTimesheets - 20191003-1707');
         return this.http.get("/api/timelogapi");
     };
     // 10/05/2019 02:52 pm - SSN - [20191003-1557] - [014] - Adding data service to Angular7
     DataService.prototype.getTimesheet = function (id) {
-        console.log('dataservice - getTimesheet - 20191005-1451');
         return this.http.get("/api/timelogapi/get_custom/" + id);
     };
     // 10/07/2019 10:58 am - SSN - [20191007-1020] - [005] - Adding Angular 7 - Collecting data with Angular forms and validations - Authenticate user
     DataService.prototype.authenticateUser = function (userObject) {
-        console.log('dataservice - authenticateUser - 20191007-1112');
-        console.log(userObject);
         return this.http.post("/api/authenticateUserAPI/", userObject);
+    };
+    // 10/08/2019 02:09 pm - SSN - [20191008-1232] - [007] - X-XSRF-TOKEN
+    DataService.prototype.logoutUser = function (token) {
+        var requestOptions = {
+            headers: {
+                'RequestVerificationToken': token,
+                'X-XSRF-Token': token
+            }
+        };
+        return this.http.post("/api/authenticateUserAPI/logout", {}, requestOptions);
+    };
+    // 10/08/2019 06:45 pm - SSN - [20191008-1232] - [012] - X-XSRF-TOKEN
+    DataService.prototype.isLoggedIn = function () {
+        return this.http.get("/api/authenticateUserAPI/isLoggedIn");
+    };
+    // 10/08/2019 08:13 pm - SSN - [20191008-1232] - [016] - X-XSRF-TOKEN
+    DataService.prototype.getForgeryToken = function () {
+        return this.http.get("/api/authenticateUserAPI/ForgeryToken", { responseType: 'text' }).toPromise();
+    };
+    // 10/09/2019 01:15 pm - SSN - [20191009-1302] - [003] - M09 - Reusing components with content projection
+    DataService.prototype.getProjects = function () {
+        return this.http.get("/api/projectAPI").toPromise();
+    };
+    // 10/10/2019 10:59 am - SSN - [20191010-1059] - [001] - M10-05 - Creating filtering display
+    DataService.prototype.getJobStatuses = function () {
+        return this.http.get('/api/job_StatusAPI').toPromise();
     };
     DataService = tslib_1.__decorate([
         Injectable({

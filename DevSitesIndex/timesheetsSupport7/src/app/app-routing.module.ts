@@ -7,11 +7,9 @@ import { TimelogComponent } from './timesheet/timelog/timelog.component';
 import { CreateTimelogComponent } from './timesheet/create-timelog/create-timelog.component';
 import { E404Component } from './shared/e404/e404.component';
 import { TimelogRouteActivatorService } from './util/timelog-route-activator.service';
-import { TimesheetResolverService } from './resolvers/timesheet-resolver.service';
+import { TimesheetResolverService } from './resolvers/timesheet-resolver.service'; 
+import { ProjectsListComponent } from './projects/projects-list/projects-list.component';
 
-
-
-console.log('app.routing.module.ts - 20191002-2005');
 
 const routes: Routes = [
 
@@ -25,7 +23,7 @@ const routes: Routes = [
 
 
   // 10/06/2019 12:49 pm - SSN - [20191006-1211] - [002] - Adding Angular 7
-  { path: 'timesheet/create', component: CreateTimelogComponent, pathMatch: 'full', canDeactivate:['canDeactivateCreateTimelog'] },
+  { path: 'timesheet/create', component: CreateTimelogComponent, pathMatch: 'full', canDeactivate: ['canDeactivateCreateTimelog'] },
   //{ path: 'create', component: CreateTimelogComponent },
 
 
@@ -34,8 +32,8 @@ const routes: Routes = [
 
   { path: 'timesheet', component: TimesheetComponent, resolve: { timesheets_resolver: TimesheetResolverService } },
 
-
-
+  // 10/09/2019 01:07 pm - SSN - [20191009-1302] - [001] - M09 - Reusing components with content projection
+  { path: 'ProjectsA7', component: ProjectsListComponent  },
 
   // 10/05/2019 03:10 pm - SSN - [20191003-1557] - [015] - Adding data service to Angular7
   // 10/06/2019 01:41 pm - SSN - [20191006-1211] - [008] - Adding Angular 7 - TimelogRouteActivatorService
@@ -50,17 +48,14 @@ const routes: Routes = [
   { path: '', redirectTo: 'test3', pathMatch: 'full' },
 
 
-
   // 10/06/2019 09:09 pm - SSN - [20191006-2058] - [003] - Adding Angular 7 - Lazily loading feature modules
   { path: 'user', loadChildren: './users/user.module#UserModule' },
 
 
-
-
-//{ path: '**', component: AppComponent, outlet: "main101" },
+  //{ path: '**', component: AppComponent, outlet: "main101" },
   { path: '**', redirectTo: 'test3' },
 
-  
+
 ];
 
 @NgModule({
