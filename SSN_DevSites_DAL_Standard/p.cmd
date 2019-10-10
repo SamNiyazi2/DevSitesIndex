@@ -1,4 +1,7 @@
 @echo off
+
+cd %~dp0
+
 prompt SSN_Dev_DAL $g 
 title SSN_Dev_DAL
 

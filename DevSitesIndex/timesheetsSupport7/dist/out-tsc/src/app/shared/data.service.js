@@ -41,6 +41,10 @@ var DataService = /** @class */ (function () {
     DataService.prototype.getProjects = function () {
         return this.http.get("/api/projectAPI").toPromise();
     };
+    // 10/10/2019 10:59 am - SSN - [20191010-1059] - [001] - M10-05 - Creating filtering display
+    DataService.prototype.getJobStatuses = function () {
+        return this.http.get('/api/job_StatusAPI').toPromise();
+    };
     DataService = tslib_1.__decorate([
         Injectable({
             providedIn: 'root'

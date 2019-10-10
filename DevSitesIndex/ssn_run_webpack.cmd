@@ -1,3 +1,5 @@
+@echo off
+
 cd %~dp0
 
 rem 09/21/2019 05:27 am - SSN - Revise

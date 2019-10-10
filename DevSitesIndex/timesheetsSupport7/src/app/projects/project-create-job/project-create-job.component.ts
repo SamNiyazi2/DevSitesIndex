@@ -20,7 +20,11 @@ export class ProjectCreateJobComponent implements OnInit {
 
   ngOnInit() {
 
+    setTimeout(this.doSetfocus, 700);
+  }
 
+  doSetfocus() {
+    $('[autofocus]').focus();
   }
 
 

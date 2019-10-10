@@ -31,13 +31,11 @@ namespace DevSitesIndex.Services
 
         public IEnumerable<Project> GetAll()
         {
+
             IList<Project> result = context.Projects
                 .Include(r=>r.jobs)
                 .OrderByDescending(r => r.DateModified ?? r.DateAdded).AsNoTracking().ToList();
-            foreach ( Project p in result)
-            {
-                
-            }
+            
             return result;
         }
 

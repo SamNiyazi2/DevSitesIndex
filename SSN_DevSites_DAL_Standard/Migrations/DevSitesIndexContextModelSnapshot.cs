@@ -383,7 +383,7 @@ namespace DevSitesIndex.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("DevSitesIndex.Entities.Project", "project")
-                        .WithMany()
+                        .WithMany("jobs")
                         .HasForeignKey("ProjectID")
                         .OnDelete(DeleteBehavior.Restrict);
                 });

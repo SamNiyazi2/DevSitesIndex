@@ -1,7 +1,15 @@
 @echo off
 : 10/02/2019 12:35 pm - SSN
 
+cd %~dp0
+
+
 :for /?
+
+
+goto build
+
+
 
 set ask=
 set /p ask=Rebuild timesheetsSupport7? (Y/N)

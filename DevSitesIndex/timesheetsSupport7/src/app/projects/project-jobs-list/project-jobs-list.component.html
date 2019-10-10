@@ -1,6 +1,3 @@
-<p>
-  project-jobs-list works!
-</p>
 
 
 <div class="col-md-2">
@@ -15,21 +12,33 @@
 
 
 <div *ngIf="!addMode">
-  <div class="container row" *ngFor="let job of jobs">
+  <div class="container row" *ngFor="let job of filteredJobs">
 
-    <div class="col-md-10 col-md-offset-2 well">
+    <div class="col-md-10 col-md-offset-2 ">
 
-      <dl class="dl-horizontal">
-        <dt>Age</dt>
-        <dd>{{job.activityAge_ToString}}</dd>
-        <dt>Date Added</dt>
-        <dd>{{job.dateAdded}}</dd>
-        <dt>Date Updated</dt>
-        <dd>{{job.dateUpdated}}</dd>
-        <dt>Job Title</dt>
-        <dd>{{job.jobTitle}}</dd>
-      </dl>
+      <app-project-job-detail>
 
+        <div div-title>
+          {{job.jobTitle}} 
+        </div>
+
+        <div div-body>
+
+          <dl class="dl-horizontal">
+            <dt>Job Status</dt>
+            <dd>{{job.job_StatusID | jobStatus}} </dd>
+            <dt>Age</dt>
+            <dd>{{job.activityAge_ToString}}</dd>
+            <dt>Date Added</dt>
+            <dd>{{job.dateAdded | date:'MM/dd/yyyy hh:mm a'}}</dd>
+            <dt>Date Updated</dt>
+            <dd>{{job.dateUpdated | date:'MM/dd/yyyy hh:mm a'}}</dd>
+
+          </dl>
+
+        </div>
+
+      </app-project-job-detail>
 
     </div>
   </div>

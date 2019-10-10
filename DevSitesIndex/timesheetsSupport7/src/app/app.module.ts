@@ -28,6 +28,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProjectsListComponent } from './projects/projects-list/projects-list.component'; 
 import { ProjectJobsListComponent } from './projects/project-jobs-list/project-jobs-list.component';
 import { ProjectCreateJobComponent } from './projects/project-create-job/project-create-job.component';
+import { ProjectJobDetailComponent } from './projects/project-job-detail/project-job-detail.component';
+ 
+import { JobStatusPipe } from './util/job-status.pipe';
 
 
 @NgModule({
@@ -49,7 +52,11 @@ import { ProjectCreateJobComponent } from './projects/project-create-job/project
        
     ProjectJobsListComponent,
        
-    ProjectCreateJobComponent
+    ProjectCreateJobComponent,
+       
+    ProjectJobDetailComponent,
+         
+    JobStatusPipe
   ],
   imports: [
 

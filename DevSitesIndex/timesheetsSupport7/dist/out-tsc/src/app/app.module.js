@@ -24,6 +24,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProjectsListComponent } from './projects/projects-list/projects-list.component';
 import { ProjectJobsListComponent } from './projects/project-jobs-list/project-jobs-list.component';
 import { ProjectCreateJobComponent } from './projects/project-create-job/project-create-job.component';
+import { ProjectJobDetailComponent } from './projects/project-job-detail/project-job-detail.component';
+import { JobStatusPipe } from './util/job-status.pipe';
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -41,7 +43,9 @@ var AppModule = /** @class */ (function () {
                 E404Component,
                 ProjectsListComponent,
                 ProjectJobsListComponent,
-                ProjectCreateJobComponent
+                ProjectCreateJobComponent,
+                ProjectJobDetailComponent,
+                JobStatusPipe
             ],
             imports: [
                 // 10/02/2019 05:47 pm - SSN - [20191002-1118] - [012] - Adding Angular 7 test app
