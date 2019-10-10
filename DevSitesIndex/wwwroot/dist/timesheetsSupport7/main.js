@@ -557,7 +557,7 @@ module.exports = "\r\nh5 {\r\n  margin: 5px;\r\n  padding: 0px;\r\n}\r\n\r\n.mai
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n<div  (click)=\"toggleContent()\" class=\"well mainDiv\" title=\"Click to toggle content.\">\n\n  <h5>\n    <ng-content select=\"[div-title]\"></ng-content>\n\n  </h5>\n\n  <ng-content *ngIf=\"visible\" select=\"[div-body]\" ></ng-content>\n\n</div>\n"
+module.exports = "\r\n<div  (click)=\"toggleContent()\" class=\"well mainDiv\" title=\"Click to toggle content.\">\r\n\r\n  <h5>\r\n    <ng-content select=\"[div-title]\"></ng-content>\r\n\r\n  </h5>\r\n\r\n  <ng-content *ngIf=\"visible\" select=\"[div-body]\" ></ng-content>\r\n\r\n</div>\r\n"
 
 /***/ }),
 
