@@ -26,36 +26,6 @@ var CreateTimelogComponent = /** @class */ (function () {
             totalSeconds: null,
             workDetail: "From db"
         };
-        var level = 0;
-        // this.getList(this.timelog, null, level);
-    };
-    CreateTimelogComponent.prototype.getList = function (obj, alias, level) {
-        for (var e in obj) {
-            this.getType(obj, e, alias, level);
-            if (level > 0) {
-                console.log('alias: ');
-                for (var ndx = 0; ndx < alias.length; ndx++) {
-                    console.log('--------- ' + alias[ndx]);
-                }
-            }
-        }
-    };
-    CreateTimelogComponent.prototype.getType = function (obj, e, alias, level) {
-        var firstEntry = true;
-        console.log(e + " " + (Object.prototype.toString.call(obj[e])));
-        if (Object.prototype.toString.call(obj[e]) === "[object Object]") {
-            if (firstEntry) {
-                if (level == 0)
-                    alias = [];
-                alias[alias.length] = e;
-                firstEntry = false;
-            }
-            console.log(">>>>>>>>>>>>>>>>>>>>>>");
-            level++;
-            this.getList(obj[e], alias, level);
-            console.log("<<<<<<<<<<<<<<<<<<<<<<");
-            level--;
-        }
     };
     CreateTimelogComponent.prototype.isValidControl = function (formControl, theControlName) {
         if (!formControl.controls[theControlName]) {

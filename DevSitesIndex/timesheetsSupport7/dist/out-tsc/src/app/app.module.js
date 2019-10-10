@@ -23,6 +23,7 @@ import { AuthenticateService } from './users/authenticate.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProjectsListComponent } from './projects/projects-list/projects-list.component';
 import { ProjectJobsListComponent } from './projects/project-jobs-list/project-jobs-list.component';
+import { ProjectCreateJobComponent } from './projects/project-create-job/project-create-job.component';
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -39,7 +40,8 @@ var AppModule = /** @class */ (function () {
                 TimesheetMenuComponent,
                 E404Component,
                 ProjectsListComponent,
-                ProjectJobsListComponent
+                ProjectJobsListComponent,
+                ProjectCreateJobComponent
             ],
             imports: [
                 // 10/02/2019 05:47 pm - SSN - [20191002-1118] - [012] - Adding Angular 7 test app
