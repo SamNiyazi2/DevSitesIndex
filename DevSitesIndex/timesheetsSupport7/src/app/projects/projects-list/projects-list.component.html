@@ -1,0 +1,15 @@
+
+<div class="container">
+
+  <div class="row">
+
+    <div class="projectDiv" *ngFor="let project of projects">
+
+      <h3>{{project.projectTitle}}</h3>
+      <hr />
+
+      <app-project-jobs-list [jobs]="project?.jobs"></app-project-jobs-list>
+
+    </div>
+  </div>
+</div>

@@ -20,6 +20,9 @@ import { E404Component } from './shared/e404/e404.component';
 import { TimelogRouteActivatorService } from './util/timelog-route-activator.service';
 import { TimesheetResolverService } from './resolvers/timesheet-resolver.service';
 import { AuthenticateService } from './users/authenticate.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ProjectsListComponent } from './projects/projects-list/projects-list.component';
+import { ProjectJobsListComponent } from './projects/project-jobs-list/project-jobs-list.component';
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -34,7 +37,9 @@ var AppModule = /** @class */ (function () {
                 TimelogComponent,
                 CreateTimelogComponent,
                 TimesheetMenuComponent,
-                E404Component
+                E404Component,
+                ProjectsListComponent,
+                ProjectJobsListComponent
             ],
             imports: [
                 // 10/02/2019 05:47 pm - SSN - [20191002-1118] - [012] - Adding Angular 7 test app
@@ -43,7 +48,9 @@ var AppModule = /** @class */ (function () {
                 BrowserModule,
                 // 10/03/2019 05:00 pm - SSN - [20191003-1557] - [006] - Adding data service to Angular7
                 HttpClientModule,
-                AppRoutingModule
+                AppRoutingModule,
+                // 10/09/2019 01:45 am - SSN - [20191009-0144] - [001] - M07-09 - Template-based form validation
+                FormsModule, ReactiveFormsModule
             ],
             // 10/03/2019 04:03 pm - SSN - [20191003-1557] - [003] - Adding data service to Angular7
             // 10/06/2019 01:39 pm - SSN - [20191006-1211] - [007] - Adding Angular 7 - TimelogRouteActivatorService

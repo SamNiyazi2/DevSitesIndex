@@ -69,5 +69,10 @@ export class DataService {
   }
 
 
+  // 10/09/2019 01:15 pm - SSN - [20191009-1302] - [003] - M09 - Reusing components with content projection
+  getProjects() {
+    return this.http.get("/api/projectAPI").toPromise();
+  }
+
 }
 

@@ -42,6 +42,8 @@ export class TimesheetComponent implements OnInit {
       
     this.timesheets = this.route.snapshot.data['timesheets_resolver'];
 
+    console.log('timesheet.component - 20191009-1502');
+    console.log(this.timesheets);
 
   }
 

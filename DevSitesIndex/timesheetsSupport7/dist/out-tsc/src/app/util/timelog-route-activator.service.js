@@ -10,11 +10,8 @@ var TimelogRouteActivatorService = /** @class */ (function () {
     }
     TimelogRouteActivatorService.prototype.canActivate = function (route) {
         var _this = this;
-        var id = +this.dataService.getTimesheet(route.params['id']);
         var result = this.dataService.getTimesheet(route.params['id']).toPromise().then(function (r) {
             var recordExists = !!r;
-            console.log(r);
-            console.log("id [" + id + "] recordexists [" + recordExists + "]");
             return recordExists;
         }, function (r) {
             _this.route.navigate(['e404']);

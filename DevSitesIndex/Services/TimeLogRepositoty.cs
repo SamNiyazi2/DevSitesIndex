@@ -36,10 +36,10 @@ namespace DevSitesIndex.Services
                 .Include(r => r.discipline)
                 .OrderByDescending(r => r.DateModified ?? r.DateAdded).AsNoTracking().ToList();
 
-            foreach (TimeLog r in result)
-            {
-                r.job.timelogs = null;
-            }
+            //foreach (TimeLog r in result)
+            //{
+            //    r.job.timelogs = null;
+            //}
 
             return result;
         }

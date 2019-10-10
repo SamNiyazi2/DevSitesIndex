@@ -37,6 +37,10 @@ var DataService = /** @class */ (function () {
     DataService.prototype.getForgeryToken = function () {
         return this.http.get("/api/authenticateUserAPI/ForgeryToken", { responseType: 'text' }).toPromise();
     };
+    // 10/09/2019 01:15 pm - SSN - [20191009-1302] - [003] - M09 - Reusing components with content projection
+    DataService.prototype.getProjects = function () {
+        return this.http.get("/api/projectAPI").toPromise();
+    };
     DataService = tslib_1.__decorate([
         Injectable({
             providedIn: 'root'

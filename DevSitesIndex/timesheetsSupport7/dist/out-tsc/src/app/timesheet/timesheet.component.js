@@ -18,6 +18,8 @@ var TimesheetComponent = /** @class */ (function () {
         //promise.then(this.getTimesheetSuccess.bind(this), this.getTimesheetError);
         // 10/06/2019 05:10 pm - SSN - [20191006-1643] - [005] - Adding Angular 7 - Observables and resolvers - Pickup data from resolver
         this.timesheets = this.route.snapshot.data['timesheets_resolver'];
+        console.log('timesheet.component - 20191009-1502');
+        console.log(this.timesheets);
     };
     TimesheetComponent.prototype.getTimesheetSuccess = function (response) {
         this.timesheets = response;

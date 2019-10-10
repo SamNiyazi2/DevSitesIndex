@@ -9,9 +9,11 @@ using System.Threading.Tasks;
 
 // 09/26/2019 03:18 pm - SSN - [20190926-1242] - [010] - Search projects
 
+using Microsoft.EntityFrameworkCore;
+
 namespace DevSitesIndex.Services
 {
-    public class ProjectRepository
+    public class ProjectRepository : IEntityRepository<Project>
     {
         private readonly DevSitesIndexContext context;
         private readonly ILogger_SSN logger;
@@ -22,6 +24,27 @@ namespace DevSitesIndex.Services
             this.logger = logger;
         }
 
+        public void Dispose()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Project> GetAll()
+        {
+            IList<Project> result = context.Projects
+                .Include(r=>r.jobs)
+                .OrderByDescending(r => r.DateModified ?? r.DateAdded).AsNoTracking().ToList();
+            foreach ( Project p in result)
+            {
+                
+            }
+            return result;
+        }
+
+        public Project GetRecord(int id)
+        {
+            throw new NotImplementedException();
+        }
 
         public async Task<DataBag<Project_Search_Record>> getSerachResults(string searchText, string selectedTablesIDs, int _recordsPerPage, int _pageNo, string columnName, string desc)
 
@@ -76,6 +99,16 @@ namespace DevSitesIndex.Services
             databag = new DataBag<Project_Search_Record> { dataList = result1_data, sqlStatsRecord = sqlStatsRecord };
 
             return databag;
+        }
+
+        public Exception Save()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Project Update(Project dbSet)
+        {
+            throw new NotImplementedException();
         }
     }
 
