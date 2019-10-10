@@ -10856,6 +10856,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _authenticate_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../authenticate.service */ "./src/app/users/authenticate.service.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _util_customValidators__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../util/customValidators */ "./src/app/util/customValidators.ts");
+/* harmony import */ var src_app_shared_toastr_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/shared/toastr.service */ "./src/app/shared/toastr.service.ts");
 
 
 
@@ -10863,10 +10864,12 @@ __webpack_require__.r(__webpack_exports__);
 
 //import * as $ from 'jquery';
 
+
 var ProfileComponent = /** @class */ (function () {
-    function ProfileComponent(authenticateService, router) {
+    function ProfileComponent(authenticateService, router, toastr) {
         this.authenticateService = authenticateService;
         this.router = router;
+        this.toastr = toastr;
     }
     ProfileComponent.prototype.ngOnInit = function () {
         // 10/07/2019 07:20 pm - SSN - [20191007-1857] - [001] - M07-06 - Reactive forms
@@ -10894,8 +10897,7 @@ var ProfileComponent = /** @class */ (function () {
             this.authenticateService.currentUser.firstName = formValue.firstName;
             this.authenticateService.currentUser.lastName = formValue.lastName;
             this.router.navigate(['/timesheet']);
-        }
-        else {
+            this.toastr.info("Saved record.");
         }
     };
     ProfileComponent.prototype.validFirstName = function () {
@@ -10911,7 +10913,7 @@ var ProfileComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./profile.component.html */ "./src/app/users/profile/profile.component.html"),
             styles: [__webpack_require__(/*! ./profile.component.css */ "./src/app/users/profile/profile.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_authenticate_service__WEBPACK_IMPORTED_MODULE_3__["AuthenticateService"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_authenticate_service__WEBPACK_IMPORTED_MODULE_3__["AuthenticateService"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"], src_app_shared_toastr_service__WEBPACK_IMPORTED_MODULE_6__["ToastrService"]])
     ], ProfileComponent);
     return ProfileComponent;
 }());
