@@ -2,6 +2,7 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { AuthenticateService } from '../authenticate.service';
 import { Router } from '@angular/router';
 import * as $ from 'jquery';
+import { BroadcasterUtilService } from 'src/app/broadcaster-util.service';
 
 
 @Component({
@@ -11,13 +12,13 @@ import * as $ from 'jquery';
 })
 export class LogoutComponent implements OnInit {
 
-  constructor(private authenticateService: AuthenticateService, private router: Router) { }
+  constructor(private authenticateService: AuthenticateService, private router: Router, private broadcasterUtil: BroadcasterUtilService) { }
 
   ngOnInit() {
 
     // 10/08/2019 02:09 pm - SSN - [20191008-1232] - [005] - X-XSRF-TOKEN
     let token = $("[name=__RequestVerificationToken]").val();
-
+ 
     this.authenticateService.logoutUser(token).then(this.logoutUserSuccess.bind(this), this.logoutUserError.bind(this));
 
   }
@@ -25,6 +26,12 @@ export class LogoutComponent implements OnInit {
 
   logoutUserSuccess() {
     console.log("logout.component - success - 20191008-1407");
+
+
+    // 10/11/2019 06:30 pm - SSN - [20191011-1804] - [004] - Adding broadcastutil
+    this.broadcasterUtil.broadcast('login', '******************* logout component');
+
+
     this.router.navigate(['/timesheet']);
   }
 

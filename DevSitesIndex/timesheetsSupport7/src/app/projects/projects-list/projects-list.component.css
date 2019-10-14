@@ -6,3 +6,29 @@
 hr{
   margin:0px 0px 10px 0px;
 }
+
+
+.filterOptions {
+  position: fixed;
+  background-color: white;
+  z-index: 1;
+  margin: 0px;
+  padding: 0px;
+
+}
+
+  .filterOptions button {
+    margin-left: 5px;
+    border: 1px solid #eee;
+  }
+
+@media screen and (min-width: 480px) {
+  .filterOptions button {
+    margin-left: 10px;
+    border: 1px solid #eee;
+  }
+}
+
+  .filterOptions + .container {
+    margin-top: 100px;
+  }

@@ -10646,35 +10646,42 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _authenticate_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../authenticate.service */ "./src/app/users/authenticate.service.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var src_app_broadcaster_util_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/broadcaster-util.service */ "./src/app/broadcaster-util.service.ts");
 // 10/07/2019 09:47 am - SSN - [20191007-0947] - [001] - Adding Angular 7 - Collecting data with Angular forms and validations - Login form
 
 
 
 
+
 var LoginComponent = /** @class */ (function () {
-    function LoginComponent(authenticateService, route) {
+    function LoginComponent(authenticateService, route, broadcasterUtil) {
         this.authenticateService = authenticateService;
         this.route = route;
+        this.broadcasterUtil = broadcasterUtil;
         this.feedbackMessage = "";
     }
     LoginComponent.prototype.ngOnInit = function () {
+        setTimeout(this.doSetfocus, 700);
+    };
+    // 10/11/2019 08:22 pm - SSN
+    LoginComponent.prototype.doSetfocus = function () {
+        $('[autofocus]').focus();
     };
     // 10/07/2019 10:07 am - SSN - [20191007-0947] - [004] - Adding Angular 7 - Collecting data with Angular forms and validations - Login form
     LoginComponent.prototype.login = function (formValues) {
-        console.log('login.component.ts - 20191007-1008');
-        console.log(formValues);
-        this.authenticateService.loginUser(formValues.email, formValues.password).then(this.loginUserSuccess.bind(this), this.loginUserError.bind(this));
+        var forgeryToken = $("[name=__RequestVerificationToken]").val();
+        this.authenticateService.loginUser(forgeryToken, formValues.email, formValues.password).then(this.loginUserSuccess.bind(this), this.loginUserError.bind(this));
     };
     LoginComponent.prototype.cancel = function () {
         this.route.navigate(['/timesheet']);
     };
     LoginComponent.prototype.loginUserSuccess = function (response) {
-        console.log("login.component.ts - success ");
-        console.log(response);
         this.authenticateService.currentUser = response;
         console.log(this.authenticateService.currentUser);
         if (this.authenticateService.currentUser.isAuthenticated) {
             this.route.navigate(['/timesheet']);
+            // 10/11/2019 06:07 pm - SSN - [20191011-1804] - [002] - Adding broadcastutil
+            this.broadcasterUtil.broadcast('login', '*******************  login component');
         }
         else {
             this.feedbackMessage = response.feedbackMessages;
@@ -10690,7 +10697,7 @@ var LoginComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./login.component.html */ "./src/app/users/login/login.component.html"),
             styles: [__webpack_require__(/*! ./login.component.css */ "./src/app/users/login/login.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_authenticate_service__WEBPACK_IMPORTED_MODULE_2__["AuthenticateService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_authenticate_service__WEBPACK_IMPORTED_MODULE_2__["AuthenticateService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"], src_app_broadcaster_util_service__WEBPACK_IMPORTED_MODULE_4__["BroadcasterUtilService"]])
     ], LoginComponent);
     return LoginComponent;
 }());
@@ -10738,15 +10745,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var src_app_broadcaster_util_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/broadcaster-util.service */ "./src/app/broadcaster-util.service.ts");
+
 
 
 
 
 
 var LogoutComponent = /** @class */ (function () {
-    function LogoutComponent(authenticateService, router) {
+    function LogoutComponent(authenticateService, router, broadcasterUtil) {
         this.authenticateService = authenticateService;
         this.router = router;
+        this.broadcasterUtil = broadcasterUtil;
         // 10/08/2019 03:45 pm - SSN - [20191008-1232] - [009] - X-XSRF-TOKEN
         this.foods = ['Bacon', 'Lettuce', 'Tomatoes'];
     }
@@ -10757,6 +10767,8 @@ var LogoutComponent = /** @class */ (function () {
     };
     LogoutComponent.prototype.logoutUserSuccess = function () {
         console.log("logout.component - success - 20191008-1407");
+        // 10/11/2019 06:30 pm - SSN - [20191011-1804] - [004] - Adding broadcastutil
+        this.broadcasterUtil.broadcast('login', '******************* logout component');
         this.router.navigate(['/timesheet']);
     };
     LogoutComponent.prototype.logoutUserError = function () {
@@ -10782,7 +10794,7 @@ var LogoutComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./logout.component.html */ "./src/app/users/logout/logout.component.html"),
             styles: [__webpack_require__(/*! ./logout.component.css */ "./src/app/users/logout/logout.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_authenticate_service__WEBPACK_IMPORTED_MODULE_2__["AuthenticateService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_authenticate_service__WEBPACK_IMPORTED_MODULE_2__["AuthenticateService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"], src_app_broadcaster_util_service__WEBPACK_IMPORTED_MODULE_5__["BroadcasterUtilService"]])
     ], LogoutComponent);
     return LogoutComponent;
 }());
@@ -10866,7 +10878,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var ProfileComponent = /** @class */ (function () {
-    function ProfileComponent(authenticateService, router, toastr) {
+    function ProfileComponent(authenticateService, router, 
+    // 10/10/2019 11:54 pm - SSN - [20191010-1354] - [005] - M11 - Understanding Angular's Dependency Injection
+    toastr) {
         this.authenticateService = authenticateService;
         this.router = router;
         this.toastr = toastr;
@@ -10913,7 +10927,9 @@ var ProfileComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./profile.component.html */ "./src/app/users/profile/profile.component.html"),
             styles: [__webpack_require__(/*! ./profile.component.css */ "./src/app/users/profile/profile.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_authenticate_service__WEBPACK_IMPORTED_MODULE_3__["AuthenticateService"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"], src_app_shared_toastr_service__WEBPACK_IMPORTED_MODULE_6__["ToastrService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(src_app_shared_toastr_service__WEBPACK_IMPORTED_MODULE_6__["TOASTR_TOKEN"])),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_authenticate_service__WEBPACK_IMPORTED_MODULE_3__["AuthenticateService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"], Object])
     ], ProfileComponent);
     return ProfileComponent;
 }());
@@ -10951,6 +10967,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+console.log('user.module - 20191011-1628');
 var UserModule = /** @class */ (function () {
     function UserModule() {
     }

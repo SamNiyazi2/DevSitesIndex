@@ -81,6 +81,9 @@ namespace DevSitesIndex.Controllers
             public string Password { get; set; }
         }
 
+
+        // 10/11/2019 06:56 pm - SSN - Testing     [ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
         public AuthResult OnPost([FromBody] TempUser Input) // Input replaces form Input variable from code copied here
         {
             string temp = "Tesint";

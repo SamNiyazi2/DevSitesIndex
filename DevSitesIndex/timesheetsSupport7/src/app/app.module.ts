@@ -11,8 +11,13 @@ import { TimesheetComponent } from './timesheet/timesheet.component';
 
 // 10/03/2019 03:57 pm - SSN - [20191003-1557] - [002] - Adding data service to Angular7
 import { DataService } from './shared/data.service';
+
+
 // 10/04/2019 11:22 pm - SSN - [20191003-1557] - [011] - Adding data service to Angular7
-import { ToastrService } from './shared/toastr.service';
+// 10/10/2019 11:43 pm - SSN - [20191010-1354] - [002] - M11 - Understanding Angular's Dependency Injection
+
+// import { ToastrService } from './shared/toastr.service';
+import { TOASTR_TOKEN, Toastr } from './shared/toastr.service';
 
 import { ThumbnailComponent } from './timesheet/thumbnail/thumbnail.component';
 import { HeaderComponent } from './nav/header/header.component';
@@ -24,14 +29,16 @@ import { E404Component } from './shared/e404/e404.component';
 import { TimelogRouteActivatorService } from './util/timelog-route-activator.service';
 import { TimesheetResolverService } from './resolvers/timesheet-resolver.service';
 import { AuthenticateService } from './users/authenticate.service';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms'; 
-import { ProjectsListComponent } from './projects/projects-list/projects-list.component'; 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ProjectsListComponent } from './projects/projects-list/projects-list.component';
 import { ProjectJobsListComponent } from './projects/project-jobs-list/project-jobs-list.component';
 import { ProjectCreateJobComponent } from './projects/project-create-job/project-create-job.component';
 import { ProjectJobDetailComponent } from './projects/project-job-detail/project-job-detail.component';
- 
+
 import { JobStatusPipe } from './util/job-status.pipe';
 
+// 10/10/2019 11:45 pm - SSN - [20191010-1354] - [003] - M11 - Understanding Angular's Dependency Injection
+declare let toastr: Toastr;
 
 @NgModule({
   declarations: [
@@ -47,15 +54,15 @@ import { JobStatusPipe } from './util/job-status.pipe';
     TimesheetMenuComponent,
 
     E404Component,
-     
+
     ProjectsListComponent,
-       
+
     ProjectJobsListComponent,
-       
+
     ProjectCreateJobComponent,
-       
+
     ProjectJobDetailComponent,
-         
+
     JobStatusPipe
   ],
   imports: [
@@ -79,7 +86,17 @@ import { JobStatusPipe } from './util/job-status.pipe';
   // 10/06/2019 01:39 pm - SSN - [20191006-1211] - [007] - Adding Angular 7 - TimelogRouteActivatorService
   // 10/06/2019 05:05 pm - SSN - [20191006-1643] - [003] - Adding Angular 7 - Observables and resolvers - TimesheetResolverService
 
-  providers: [DataService, ToastrService, TimelogRouteActivatorService, TimesheetResolverService,
+  providers: [DataService,
+
+    // 10/10/2019 11:46 pm - SSN - [20191010-1354] - [004] - M11 - Understanding Angular's Dependency Injection
+    //ToastrService,
+    {
+      provide: TOASTR_TOKEN,
+      useValue: toastr
+    },
+
+    TimelogRouteActivatorService,
+    TimesheetResolverService,
 
     {
       provide: 'canDeactivateCreateTimelog',

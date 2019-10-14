@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticateService } from '../authenticate.service';
 import { IUser } from '../iuser';
 import { Router } from '@angular/router';
+import { BroadcasterUtilService } from 'src/app/broadcaster-util.service';
 
 @Component({
   selector: 'app-login',
@@ -17,20 +18,24 @@ export class LoginComponent implements OnInit {
 
   currentUser: IUser;
   feedbackMessage: string = "";
-  constructor(private authenticateService: AuthenticateService, private route: Router) { }
+  constructor(private authenticateService: AuthenticateService, private route: Router, private broadcasterUtil: BroadcasterUtilService) { }
 
   ngOnInit() {
+    setTimeout(this.doSetfocus, 700);
+  }
+
+  // 10/11/2019 08:22 pm - SSN
+  doSetfocus() {
+    $('[autofocus]').focus();
   }
 
 
   // 10/07/2019 10:07 am - SSN - [20191007-0947] - [004] - Adding Angular 7 - Collecting data with Angular forms and validations - Login form
   login(formValues) {
 
-    console.log('login.component.ts - 20191007-1008');
+    let forgeryToken: any = $("[name=__RequestVerificationToken]").val();
 
-    console.log(formValues);
-
-    this.authenticateService.loginUser(formValues.email, formValues.password).then(this.loginUserSuccess.bind(this), this.loginUserError.bind(this));
+    this.authenticateService.loginUser(forgeryToken, formValues.email, formValues.password).then(this.loginUserSuccess.bind(this), this.loginUserError.bind(this));
 
   }
 
@@ -42,16 +47,18 @@ export class LoginComponent implements OnInit {
 
   loginUserSuccess(response) {
 
-    console.log("login.component.ts - success ");
-
-    console.log(response);
-
     this.authenticateService.currentUser = response;
 
     console.log(this.authenticateService.currentUser);
 
     if (this.authenticateService.currentUser.isAuthenticated) {
+
       this.route.navigate(['/timesheet']);
+
+      // 10/11/2019 06:07 pm - SSN - [20191011-1804] - [002] - Adding broadcastutil
+
+      this.broadcasterUtil.broadcast('login', '*******************  login component');
+
     }
     else {
       this.feedbackMessage = response.feedbackMessages;

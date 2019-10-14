@@ -18,9 +18,9 @@ export class AuthenticateService {
 
   }
 
-  loginUser(email: string, password: string) {
+  loginUser(forgeryToken: string, email: string, password: string) {
 
-    return this.dataService.authenticateUser({ email: email, password: password }).toPromise();
+    return this.dataService.authenticateUser({ forgeryToken: forgeryToken, email: email, password: password }).toPromise();
 
   }
 

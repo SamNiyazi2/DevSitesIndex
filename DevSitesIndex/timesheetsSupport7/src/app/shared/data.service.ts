@@ -37,7 +37,16 @@ export class DataService {
 
   authenticateUser(userObject: IUser) {
 
-    return this.http.post("/api/authenticateUserAPI/", userObject);
+    // 10/11/2019 07:38 pm - SSN - [20191011-1804] - [005] - Adding broadcastutil
+ 
+      let requestOptions = {
+        headers: {
+          'RequestVerificationToken': userObject.forgeryToken,
+          'X-XSRF-Token': userObject.forgeryToken
+        }
+    };
+
+    return this.http.post("/api/authenticateUserAPI/", userObject, requestOptions );
 
   }
 
@@ -73,6 +82,39 @@ export class DataService {
   getProjects() {
     return this.http.get("/api/projectAPI").toPromise();
   }
+
+
+
+
+
+
+
+  // 10/11/2019 02:20 pm - SSN - [20191011-0027] - [004] - M12 - Creating directives and advanced components in Angular
+
+  getProjectsWithStatus(data) {
+
+
+
+    console.log('data.service.ts - getProjectWithStatus - 20191011-2043');
+    console.log(data);
+
+
+    return this.http.post("/api/projectAPI/search", data).toPromise();
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   // 10/10/2019 10:59 am - SSN - [20191010-1059] - [001] - M10-05 - Creating filtering display
   getJobStatuses() {

@@ -1,4 +1,7 @@
 @echo off
+
+cd %~dp0
+
 title "timesheetSupport7"
 prompt timesheetsSupport7 $g 
 

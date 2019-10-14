@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthenticateService } from '../authenticate.service';
 import { Router } from '@angular/router';
 //import * as $ from 'jquery';
 
 import * as customValidatorsX from '../../util/customValidators';
-import { ToastrService } from 'src/app/shared/toastr.service';
+import { TOASTR_TOKEN, Toastr } from 'src/app/shared/toastr.service';
 
 
 @Component({
@@ -20,7 +20,12 @@ export class ProfileComponent implements OnInit {
   lastName: FormControl;
 
 
-  constructor(private authenticateService: AuthenticateService, private router: Router, private toastr:ToastrService) { }
+  constructor(
+    private authenticateService: AuthenticateService,
+    private router: Router,
+
+    // 10/10/2019 11:54 pm - SSN - [20191010-1354] - [005] - M11 - Understanding Angular's Dependency Injection
+    @Inject(TOASTR_TOKEN) private toastr: Toastr) { }
 
 
   ngOnInit() {
@@ -45,10 +50,10 @@ export class ProfileComponent implements OnInit {
     this.lastName = new FormControl(last, [Validators.required, customValidatorsX.customValidator, customValidatorsX.customValidator_v02(['aaa', 'bbb'])]);
 
     this.profileForm = new FormGroup({ firstName: this.firstName, lastName: this.lastName });
-     
+
   }
 
- 
+
 
 
   // 10/07/2019 07:57 pm - SSN - [20191007-1857] - [003] - M07-06 - Reactive forms
@@ -86,7 +91,7 @@ export class ProfileComponent implements OnInit {
     return this.lastName.valid || this.lastName.untouched;
 
   }
-   
+
 
 }
 

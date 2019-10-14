@@ -54,8 +54,8 @@
         </li>
         <li class="nav-item" *ngIf="authenticateService.isAuthenticated()">
           <!--<form id="logoutForm" class="form-inline" action="/Identity/Account/Logout?returnUrl=%2F%3Fpage%3D%252FIndex" method="post">
-          <button id="logout" type="submit" class="nav-link btn btn-link text-dark menu_button">Logout</button>
-        </form>-->
+            <button id="logout" type="submit" class="nav-link btn btn-link text-dark menu_button">Logout</button>
+          </form>-->
 
           <a id="logout" class="nav-link text-dark" title="Logout" [routerLink]="['/user/logout']">Logout</a>
 
@@ -71,5 +71,6 @@
 </nav>
 
 
-<div id="forgeryToken" [innerHtml]="forgeryToken">
+<div  [innerHtml]="forgeryToken">
 </div>
+ 

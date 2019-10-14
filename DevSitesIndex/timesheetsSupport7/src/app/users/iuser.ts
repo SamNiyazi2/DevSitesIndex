@@ -7,6 +7,7 @@ export interface IUser {
   password?: string,  // So we can pass back null from API.
   firstName?: string,
   lastName?: string,
-  isAuthenticated?: boolean
+  isAuthenticated?: boolean,
+  forgeryToken?:string
 
 }

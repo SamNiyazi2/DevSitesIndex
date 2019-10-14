@@ -4,6 +4,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/shared/data.service';
 
+import * as ehu from '../../util/ErrorHandlingHelpers';
+
 @Component({
   selector: 'app-projects-list',
   templateUrl: './projects-list.component.html',
@@ -21,6 +23,10 @@ export class ProjectsListComponent implements OnInit {
   job_statuses: any;
   filterBy: number = 0;
   ProjectWithJobsOnly: boolean = false;
+
+  // 10/11/2019 12:27 am - SSN - [20191011-0027] - [001] - M12 - Creating directives and advanced components in Angular
+  searchTerm: string = "";
+  projectRecordsFound: any;
 
 
   constructor(private dataService: DataService) { }
@@ -93,6 +99,41 @@ export class ProjectsListComponent implements OnInit {
   inAddMode(setting) {
     this.childInAddMode = setting;
   }
+
+
+
+  // 10/11/2019 12:28 am - SSN - [20191011-0027] - [002] - M12 - Creating directives and advanced components in Angular
+
+  searchProjects() {
+
+    console.log("projects-list.components - 20191011-0028");
+    console.log(this.searchTerm);
+    let data = {
+      searchText: this.searchTerm,
+      selectedTablesIDs: "12"
+    }
+
+    this.dataService.getProjectsWithStatus(data).then(this.searchResultSuccess.bind(this), this.searchResultError.bind(this));
+
+
+  }
+
+  searchResultSuccess(response) {
+    console.log('projects-list.component - searchresult Success - 20191011-1422');
+    console.log(response);
+  }
+
+
+  searchResultError(response) {
+    console.log('projects-list.component - searchresult Error - 20191011-1423');
+    console.log(response);
+
+    ehu.ErrorHandlingHelpers.showHtmlErrorResponse(response);
+
+
+  }
+
+
 
 
 }

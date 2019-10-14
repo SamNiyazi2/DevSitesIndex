@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { DataService } from '../shared/data.service';
-import { ToastrService } from '../shared/toastr.service';
 import { ActivatedRoute } from '@angular/router';
 import { ITimelog } from '../interfaces/ITimelog';
- 
+import { TOASTR_TOKEN, Toastr } from '../shared/toastr.service';
+
 
 @Component({
   selector: 'app-timesheet',
@@ -24,14 +24,20 @@ export class TimesheetComponent implements OnInit {
   // Add toastrService
   // 10/06/2019 05:11 pm - SSN - [20191006-1643] - [006] - Adding Angular 7 - Observables and resolvers - Adding ActivatedRoute
 
-  constructor(private dataService: DataService, private toastrService: ToastrService, private route: ActivatedRoute) {
+  constructor(
+    private dataService: DataService,
+
+    // 10/10/2019 11:56 pm - SSN - [20191010-1354] - [006] - M11 - Understanding Angular's Dependency Injection
+    @Inject(TOASTR_TOKEN) private toastrService: Toastr,
+
+    private route: ActivatedRoute) {
 
   }
 
 
 
   ngOnInit() {
-      
+
     this.timesheets = [];
 
     //let promise = this.dataService.getTimesheets().toPromise();
@@ -39,7 +45,7 @@ export class TimesheetComponent implements OnInit {
     //promise.then(this.getTimesheetSuccess.bind(this), this.getTimesheetError);
 
     // 10/06/2019 05:10 pm - SSN - [20191006-1643] - [005] - Adding Angular 7 - Observables and resolvers - Pickup data from resolver
-      
+
     this.timesheets = this.route.snapshot.data['timesheets_resolver'];
 
     console.log('timesheet.component - 20191009-1502');
@@ -49,7 +55,7 @@ export class TimesheetComponent implements OnInit {
 
 
   getTimesheetSuccess(response) {
-      
+
     this.timesheets = response;
 
   }

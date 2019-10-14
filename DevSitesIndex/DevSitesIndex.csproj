@@ -19,11 +19,16 @@
   <ItemGroup>
     <Compile Remove="Migrations\DevSitesIndexContextModelSnapshot_Hold_20190419a.cs" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <Content Remove="wwwroot\js\____________________________ts.txt" />
+  </ItemGroup>
  
   <ItemGroup>
     <None Remove="file.ts" />
     <None Remove="node_modules_hack\SSN_jquery_modal.d.ts" />
     <None Remove="timesheetsSupport7\src\app\util\customValidators.ts" />
+    <None Remove="timesheetsSupport7\src\app\util\ErrorHandlingHelpers.ts" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="angularjs.TypeScript.DefinitelyTyped" Version="6.5.6" />
@@ -58,10 +63,14 @@
     <Folder Include="wwwroot\js\Timesheet\Templates\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="wwwroot\js\____________________________ts.txt" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\SSN_DevSites_DAL_Standard\SSN_DevSites_DAL_Standard.csproj" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="timesheetsSupport7\src\app\util\customValidators.ts" />
+    <TypeScriptCompile Include="timesheetsSupport7\src\app\util\ErrorHandlingHelpers.ts" />
   </ItemGroup>
  
   <ItemGroup>

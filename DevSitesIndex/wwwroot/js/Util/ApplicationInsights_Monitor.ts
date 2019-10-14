@@ -27,6 +27,11 @@ var AppInsights_Util = function () {
 
     };
 
+    var haveInstrumentationKey = function () {
+
+        return config.instrumentationKey;
+    }
+
 
     var doSetup = function () {
 
@@ -36,9 +41,14 @@ var AppInsights_Util = function () {
             console.log("ApplicationInsights_Monitor - doSetup - config - 20191001-1029-AAA XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             console.log("ApplicationInsights_Monitor - doSetup - config - 20191001-1029-AAA XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             console.log("ApplicationInsights_Monitor - doSetup - config - 20191001-1029-AAA XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            console.log(config);
-            AppInsights.downloadAndSetup(config);
 
+            // 10/11/2019 04:54 pm - SSN - Added check
+            if (haveInstrumentationKey()) {
+                console.log(config);
+                AppInsights.downloadAndSetup(config);
+            } else {
+                console.log('instrumentationKey is not set  -  20191011-1654');
+            }
         }
 
 
@@ -55,7 +65,7 @@ var AppInsights_Util = function () {
             { measurement1: 1 }, /* (optional) metric dictionary */
             123 /* page view duration in milliseconds */
         );
-        
+
         /* example: track event */
         AppInsights.trackEvent("TestEvent-20191001-1016", { prop1: "prop1", prop2: "prop2" }, { measurement1: 1 });
 
@@ -74,7 +84,7 @@ var AppInsights_Util = function () {
 
     }
 
-    var logException = function (exception: Error, props?: any, handledAt?: string){
+    var logException = function (exception: Error, props?: any, handledAt?: string) {
 
         AppInsights.trackException(exception, handledAt, props);
 
