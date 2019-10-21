@@ -122,14 +122,14 @@ namespace DevSitesIndex.Controllers
     }
 
 
-    public class x123
-    {
-        public string DisciplineID { get; set; }
-        public DateTime StartTime { get; set; }
-        public int TimeLogId { get; set; }
-        public string WorkDetail { get; set; }
+    //public class x123
+    //{
+    //    public string DisciplineID { get; set; }
+    //    public DateTime StartTime { get; set; }
+    //    public int TimeLogId { get; set; }
+    //    public string WorkDetail { get; set; }
 
-    }
+    //}
 
 
 
@@ -184,11 +184,55 @@ namespace DevSitesIndex.Controllers
     }
 
     // 09/17/2019 11:55 am - SSN - [20190917-0929] - [006] - Adding paging for angular lists
+    // 10/21/2019 09:19 am - SSN - [20191021-0444] - [011] - M12 - Creating directives and advanced components in Angular.
+    // Revised for validation and defaults;
 
     public class SqlStatsRecord
     {
-        public int RecordsPerPage { get; set; }
-        public int CurrentPageNo { get; set; }
+
+        readonly int recordsPerPage_Default;
+
+        public SqlStatsRecord() : this(_recordPerPage_Default: 10)
+        {
+        }
+
+        public SqlStatsRecord(int _recordPerPage_Default)
+        {
+            recordsPerPage_Default = _recordPerPage_Default;
+        }
+
+
+        private int recordsPerPage;
+        public int RecordsPerPage
+        {
+            get
+            {
+                return recordsPerPage <= 0 ? recordsPerPage_Default : recordsPerPage;
+
+            }
+            set
+            {
+                recordsPerPage = value;
+            }
+        }
+
+        private int currentPageNo;
+        public int CurrentPageNo
+        {
+            get
+            {
+                if (TotalRecordCount > 0 && currentPageNo > TotalRecordCount)
+                    return 1;
+
+                return currentPageNo <= 0 ? 1 : currentPageNo;
+
+            }
+            set
+            {
+                currentPageNo = value;
+            }
+        }
+
         public int TotalRecordCount { get; set; }
         public string columnName { get; set; }
         public string columnNameSelected { get; set; }
@@ -196,6 +240,9 @@ namespace DevSitesIndex.Controllers
 
         // 09/22/2019 08:25 am - SSN - [20190922-0822] - [002] - Plug in job status filter on job's index - update data source
         public string job_statuses_selected { get; set; }
+
+
+
     }
 
 

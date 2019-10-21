@@ -23,7 +23,7 @@ namespace DevSitesIndex.Controllers
     public class JobAPIController : EntityAPIController<Job>
     {
 
-        public JobAPIController(DevSitesIndexContext context, Util.ILogger_SSN logger):base( context, logger)
+        public JobAPIController(DevSitesIndexContext context, Util.ILogger_SSN logger) : base(context, logger)
         {
             _entityRepository = new JobRepository(context);
         }
@@ -82,11 +82,10 @@ namespace DevSitesIndex.Controllers
         [HttpGet]
         public async Task<DataBag<Job>> Get_Jobs(int? pageNo, int? recordsPerPage, string columnName, string desc, string job_statuses_selected)
         {
-            int _recordsPerPage = recordsPerPage ?? 10;
-            _recordsPerPage = (_recordsPerPage > 50) ? 50 : _recordsPerPage;
+            // 10/21/2019 09:22 am - SSN - [20191021-0444] - [012] - M12 - Creating directives and advanced components in Angular.
+            // Update with SqlStatsRecord_temp 
 
-            int _pageNo = pageNo ?? 1;
-
+            SqlStatsRecord SqlStatsRecord_temp = new SqlStatsRecord(_recordPerPage_Default: 10);
 
             // 09/18/2019 12:40 am - SSN - [20190917-0929] - [009] - Adding paging for angular lists
 
@@ -95,8 +94,8 @@ namespace DevSitesIndex.Controllers
 
             exec.LoadStoredProc("demosites.Jobs_Index_WithLastActivityDate");
 
-            exec.WithSqlParam("@recordsPerPage", _recordsPerPage);
-            exec.WithSqlParam("@pageNo", _pageNo);
+            exec.WithSqlParam("@recordsPerPage", SqlStatsRecord_temp.RecordsPerPage);
+            exec.WithSqlParam("@pageNo", SqlStatsRecord_temp.CurrentPageNo);
             exec.WithSqlParam("@sortColumn", columnName);
             exec.WithSqlParam("@desc", desc.ToLower() == "true");
 
@@ -113,7 +112,7 @@ namespace DevSitesIndex.Controllers
             if (result2_Stats.Count() == 0)
             {
                 await logger.PostException(new Exception { Source = "JobAPIController" }, "20190918-0057", "Procedure did not return a second result set of table/page stats.");
-                sqlStatsRecord = new SqlStatsRecord { };
+                sqlStatsRecord = new SqlStatsRecord(_recordPerPage_Default: 50);
             }
             else
             {
@@ -141,7 +140,7 @@ namespace DevSitesIndex.Controllers
 
             try
             {
-                return context.Jobs.Include(r=>r.project).Where(r => r.JobID == id).FirstOrDefault();
+                return context.Jobs.Include(r => r.project).Where(r => r.JobID == id).FirstOrDefault();
             }
             catch (Exception ex)
             {

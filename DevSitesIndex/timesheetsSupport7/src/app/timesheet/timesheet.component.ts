@@ -5,6 +5,9 @@ import { ITimelog } from '../interfaces/ITimelog';
 import { TOASTR_TOKEN, Toastr } from '../shared/toastr.service';
 
 
+import * as ehu from '../util/ErrorHandlingHelpers';
+
+
 @Component({
   selector: 'app-timesheet',
   templateUrl: './timesheet.component.html',
@@ -18,6 +21,13 @@ export class TimesheetComponent implements OnInit {
   // 10/07/2019 09:24 am - SSN - [20191007-0914] - [002] - Adding Angular 7 - Collecting data with Angular forms and validations
   // Add ITimeLog
   timesheets: ITimelog[];
+
+
+  timesheets_for_modal: ITimelog[];
+
+
+  searchTerm: string = "";
+
 
 
   // 10/04/2019 11:24 pm - SSN - [20191003-1557] - [012] - Adding data service to Angular7
@@ -49,7 +59,7 @@ export class TimesheetComponent implements OnInit {
     this.timesheets = this.route.snapshot.data['timesheets_resolver'];
 
     console.log('timesheet.component - 20191009-1502');
-    console.log(this.timesheets);
+    //console.log(this.timesheets);
 
   }
 
@@ -66,7 +76,12 @@ export class TimesheetComponent implements OnInit {
     console.log('timesheetComponent  20191003-1715 - Error');
     console.log(response);
 
+    ehu.ErrorHandlingHelpers.showHtmlErrorResponse(response);
   }
+
+
+
+
 
 
   handleThumbnailClick(data) {
@@ -76,5 +91,41 @@ export class TimesheetComponent implements OnInit {
     console.log('Date received [' + data + ']');
     this.toastrService.success('Loaded [' + data + ']...', 'some title');
   }
+
+
+
+  // 10/21/2019 04:48 am - SSN - [20191021-0444] - [001] - M12 - Creating directives and advanced components in Angular.
+
+  searchTimesheets() {
+
+    console.log("timesheet.components - 20191021-0449");
+    console.log(this.searchTerm);
+    let data = {
+      searchTerm: this.searchTerm
+    }
+
+    this.dataService.getTimelogSearch(data).then(this.getTimelogSearchSuccess.bind(this), this.getTimelogSearchError.bind(this));
+
+
+  }
+
+
+  getTimelogSearchSuccess(result) {
+
+    this.timesheets_for_modal = result.dataList;
+
+  }
+
+
+  getTimelogSearchError(response) {
+
+    console.log('timesheet.Component - 20191021-0824  - Error ');
+    console.log(response);
+
+    ehu.ErrorHandlingHelpers.showHtmlErrorResponse(response);
+
+  }
+
+
 
 }

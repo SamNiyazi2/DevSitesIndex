@@ -1,5 +1,34 @@
 
 <div class="row">
+  <div class="col-md-6">
+
+    <!-- 10/21/2019 04:51 am - SSN - [20191021-0444] - [002] - M12 - Creating directives and advanced components in Angular. -->
+
+    <form id="serachForm" (ngSubmit)="searchTimesheets()" autocomplete="off" novalidate>
+      <div class="form-group">
+        <input [(ngModel)]="searchTerm" name="searchTerm" type="search" class="form-control" placeholder="Search timelog entries..." />
+        <button class="btn btn-default" app-modal-trigger >Search</button>
+      </div>
+    </form>
+
+  </div>
+</div>
+
+
+<!-- 10/21/2019 05:47 am - SSN - [20191021-0444] - [005] - M12 - Creating directives and advanced components in Angular. -->
+<app-timelog-modal title="Matching Timelog Entries">
+  <div class="list-group">
+    <a class="list-group-item" *ngFor="let timesheet_modal of timesheets_for_modal" [routerLink]="['/timelog',timesheet_modal.timelogId]">
+      [{{timesheet_modal.projectTitle}}] - [{{timesheet_modal.jobTitle}}] - [{{timesheet_modal.disciplineShort}}]
+    </a>
+  </div>
+</app-timelog-modal>
+
+
+
+
+
+<div class="row">
 
   <div *ngFor="let timesheet of timesheets" class="col-md-5">
 

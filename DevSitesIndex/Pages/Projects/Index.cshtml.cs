@@ -144,7 +144,7 @@ namespace DevSitesIndex.Pages.Projects
             ProjectRepository projectRepository = new ProjectRepository(_context, logger);
 
             if (!pageIndex.HasValue) pageIndex = 1;
-            int recordsPerPage = 5;
+            int recordsPerPage = 25;
             int _pageIndex = pageIndex.HasValue ? pageIndex.Value : 1;
 
             DataBag<Project_Search_Record> databag = await projectRepository.getSerachResults(searchText, selectedTablesIDs, recordsPerPage, _pageIndex, "LastActivity", "false");

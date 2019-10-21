@@ -38,15 +38,15 @@ export class DataService {
   authenticateUser(userObject: IUser) {
 
     // 10/11/2019 07:38 pm - SSN - [20191011-1804] - [005] - Adding broadcastutil
- 
-      let requestOptions = {
-        headers: {
-          'RequestVerificationToken': userObject.forgeryToken,
-          'X-XSRF-Token': userObject.forgeryToken
-        }
+
+    let requestOptions = {
+      headers: {
+        'RequestVerificationToken': userObject.forgeryToken,
+        'X-XSRF-Token': userObject.forgeryToken
+      }
     };
 
-    return this.http.post("/api/authenticateUserAPI/", userObject, requestOptions );
+    return this.http.post("/api/authenticateUserAPI/", userObject, requestOptions);
 
   }
 
@@ -120,6 +120,20 @@ export class DataService {
   getJobStatuses() {
     return this.http.get('/api/job_StatusAPI').toPromise();
   }
+
+
+
+
+  // 10/21/2019 08:18 am - SSN - [20191021-0444] - [010] - M12 - Creating directives and advanced components in Angular.
+  getTimelogSearch(data) {
+    console.log ( 'data.service - 20191021-0908 - getTimelogSearch')
+
+    console.log(data);
+
+    return this.http.post('/api/timelogapi/search', data).toPromise();
+  }
+
+
 
 
 }

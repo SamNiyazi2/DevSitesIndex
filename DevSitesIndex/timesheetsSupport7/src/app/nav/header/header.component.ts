@@ -27,9 +27,7 @@ export class HeaderComponent implements OnInit {
 
 
   ngOnInit(): void {
-
-    console.log("header.components.ts - ngOnInit - 20191011-1701");
-
+ 
 
     this.setupControl();
 

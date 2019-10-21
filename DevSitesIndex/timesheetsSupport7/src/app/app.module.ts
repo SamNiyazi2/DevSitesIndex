@@ -18,6 +18,7 @@ import { DataService } from './shared/data.service';
 
 // import { ToastrService } from './shared/toastr.service';
 import { TOASTR_TOKEN, Toastr } from './shared/toastr.service';
+import { JQ_TOKEN } from './shared/j-query.service';
 
 import { ThumbnailComponent } from './timesheet/thumbnail/thumbnail.component';
 import { HeaderComponent } from './nav/header/header.component';
@@ -36,9 +37,23 @@ import { ProjectCreateJobComponent } from './projects/project-create-job/project
 import { ProjectJobDetailComponent } from './projects/project-job-detail/project-job-detail.component';
 
 import { JobStatusPipe } from './util/job-status.pipe';
+import { TimelogModalComponent } from './shared/timelog-modal/timelog-modal.component';
+
+import { ModalTriggerDirective } from './shared/modal-trigger.directive';
+
+
+
 
 // 10/10/2019 11:45 pm - SSN - [20191010-1354] - [003] - M11 - Understanding Angular's Dependency Injection
 declare let toastr: Toastr;
+
+// 10/21/2019 09:58 am - SSN - [20191021-0444] - [013] - M12 - Creating directives and advanced components in Angular.
+// let toastr: Toastr = window['toastr'];
+// let jQuery = window['$'];
+
+
+
+
 
 @NgModule({
   declarations: [
@@ -63,7 +78,11 @@ declare let toastr: Toastr;
 
     ProjectJobDetailComponent,
 
-    JobStatusPipe
+    JobStatusPipe,
+
+    TimelogModalComponent,
+
+    ModalTriggerDirective
   ],
   imports: [
 
@@ -93,6 +112,12 @@ declare let toastr: Toastr;
     {
       provide: TOASTR_TOKEN,
       useValue: toastr
+    },
+
+    // 10/21/2019 06:11 am - SSN - [20191021-0444] - [006] - M12 - Creating directives and advanced components in Angular.
+    {
+      provide: JQ_TOKEN,
+      useValue: jQuery
     },
 
     TimelogRouteActivatorService,
