@@ -7,7 +7,10 @@
     <form id="serachForm" (ngSubmit)="searchTimesheets()" autocomplete="off" novalidate>
       <div class="form-group">
         <input [(ngModel)]="searchTerm" name="searchTerm" type="search" class="form-control" placeholder="Search timelog entries..." />
-        <button class="btn btn-default" app-modal-trigger >Search</button>
+
+        <!--app-modal-trigger="timelogSearchResults"-->
+
+        <button class="btn btn-default">Search</button>
       </div>
     </form>
 
@@ -16,8 +19,12 @@
 
 
 <!-- 10/21/2019 05:47 am - SSN - [20191021-0444] - [005] - M12 - Creating directives and advanced components in Angular. -->
-<app-timelog-modal title="Matching Timelog Entries">
+<app-timelog-modal elementId="timelogSearchResults" title="Matching Timelog Entries" closeOnClick="true">
   <div class="list-group">
+<!--
+          [routerLink]="['/timelog',timesheet_modal.timelogId]"
+          app-modal-trigger="timelogShowSelected"
+-->
     <a class="list-group-item" *ngFor="let timesheet_modal of timesheets_for_modal" [routerLink]="['/timelog',timesheet_modal.timelogId]">
       [{{timesheet_modal.projectTitle}}] - [{{timesheet_modal.jobTitle}}] - [{{timesheet_modal.disciplineShort}}]
     </a>
@@ -25,8 +32,10 @@
 </app-timelog-modal>
 
 
-
-
+<!-- // 10/21/2019 12:30 pm - SSN - [20191021-1230] - [001] - Modal for displaying selectd entry -->
+<app-timelog-modal elementId="timelogShowSelected" title="Selected Entry">
+  <h1>Show-1232</h1>
+</app-timelog-modal>
 
 <div class="row">
 

@@ -58,8 +58,8 @@ export class TimesheetComponent implements OnInit {
 
     this.timesheets = this.route.snapshot.data['timesheets_resolver'];
 
-    console.log('timesheet.component - 20191009-1502');
-    //console.log(this.timesheets);
+    console.log('timesheet.component - 20191009-1502 - AAAA');
+    console.log(this.timesheets);
 
   }
 
@@ -112,7 +112,11 @@ export class TimesheetComponent implements OnInit {
 
   getTimelogSearchSuccess(result) {
 
-    this.timesheets_for_modal = result.dataList;
+    // this.timesheets_for_modal = result.dataList;
+    this.timesheets = result.dataList;
+    console.log('timesheet.component - 20191021-2029');
+    console.log(result.dataList);
+
 
   }
 

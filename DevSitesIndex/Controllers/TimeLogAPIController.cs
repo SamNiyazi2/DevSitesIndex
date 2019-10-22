@@ -42,7 +42,7 @@ namespace DevSitesIndex.Controllers
         }
 
         [Route("search")]
-        public async Task<DataBag<Timelog_Search_Record>> search([FromBody] Tempparam options)
+        public async Task<DataBag<TimeLog>> search([FromBody] Tempparam options)
         {
 
             if (options == null) options = new Tempparam();
@@ -82,8 +82,9 @@ namespace DevSitesIndex.Controllers
 
             exec.CloseConnection();
 
+            IQueryable<TimeLog> finalResult =  geta.Where(r => result1_data.Any(r2=>r2.TimelogId == r.TimeLogId));
 
-            DataBag<Timelog_Search_Record> databag = new DataBag<Timelog_Search_Record> { dataList = result1_data, sqlStatsRecord = sqlStatsRecord };
+            DataBag<TimeLog> databag = new DataBag<TimeLog> { dataList = finalResult, sqlStatsRecord = sqlStatsRecord };
 
             return databag;
         }

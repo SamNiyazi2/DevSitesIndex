@@ -5,21 +5,33 @@
   !*** ./src/$$_lazy_route_resource lazy namespace object ***!
   \**********************************************************/
 /*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-function webpackEmptyAsyncContext(req) {
-	// Here Promise.resolve().then() is used instead of new Promise() to prevent
-	// uncaught exception popping up in devtools
-	return Promise.resolve().then(function() {
-		var e = new Error("Cannot find module '" + req + "'");
-		e.code = 'MODULE_NOT_FOUND';
-		throw e;
+var map = {
+	"./users/user.module": [
+		"./src/app/users/user.module.ts",
+		"users-user-module"
+	]
+};
+function webpackAsyncContext(req) {
+	var ids = map[req];
+	if(!ids) {
+		return Promise.resolve().then(function() {
+			var e = new Error("Cannot find module '" + req + "'");
+			e.code = 'MODULE_NOT_FOUND';
+			throw e;
+		});
+	}
+	return __webpack_require__.e(ids[1]).then(function() {
+		var id = ids[0];
+		return __webpack_require__(id);
 	});
 }
-webpackEmptyAsyncContext.keys = function() { return []; };
-webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
-module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
+webpackAsyncContext.keys = function webpackAsyncContextKeys() {
+	return Object.keys(map);
+};
+webpackAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
+module.exports = webpackAsyncContext;
 
 /***/ }),
 
@@ -1148,9 +1160,13 @@ var ModalTriggerDirective = /** @class */ (function () {
         var _this = this;
         this.el.addEventListener('click', function (e) {
             console.log('modal-trigger.directive - 20191021-0638');
-            _this.$('#timelogModal').modal({});
+            _this.$("#" + _this.app_modal_trigger_container_ID).modal({});
         });
     };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])('app-modal-trigger'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
+    ], ModalTriggerDirective.prototype, "app_modal_trigger_container_ID", void 0);
     ModalTriggerDirective = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({
             selector: '[app-modal-trigger]'
@@ -1183,7 +1199,7 @@ module.exports = "\r\n.modal-body{\r\n\r\n  height: 250px;\r\n  overflow-y:scrol
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"timelogModal\" class=\"modal fade\" tabindex=\"-1\">\r\n\r\n  <div class=\"modal-dialog\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n\r\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\">\r\n          <span >&times;</span>\r\n        </button>\r\n\r\n        <h4 class=\"modal-title\">{{title}}</h4>\r\n      </div>\r\n      <div class=\"modal-body\">\r\n        <ng-content></ng-content>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+module.exports = "\r\n\r\n<div id=\"{{elementId}}\" #modalContainer class=\"modal fade\" tabindex=\"-1\">\r\n\r\n  <div class=\"modal-dialog\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n\r\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\">\r\n          <span >&times;</span>\r\n        </button>\r\n\r\n        <h4 class=\"modal-title\">{{title}}</h4>\r\n      </div>\r\n      <div class=\"modal-body\" (click)=\"closeModal()\">\r\n        <ng-content></ng-content>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -1199,24 +1215,51 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TimelogModalComponent", function() { return TimelogModalComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _j_query_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../j-query.service */ "./src/app/shared/j-query.service.ts");
+
 
 
 var TimelogModalComponent = /** @class */ (function () {
-    function TimelogModalComponent() {
+    function TimelogModalComponent($) {
+        this.$ = $;
     }
     TimelogModalComponent.prototype.ngOnInit = function () {
+    };
+    TimelogModalComponent.prototype.closeModal = function () {
+        var _closeOnClick = true;
+        console.log('timelog-modal.compoent - 20191021-1315');
+        console.log(typeof (this.closeOnClick));
+        if (typeof (this.closeOnClick) === "string" && this.closeOnClick.toLowerCase() !== "true") {
+            _closeOnClick = false;
+        }
+        if (_closeOnClick) {
+            this.$(this.containerEl.nativeElement).modal('hide');
+        }
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
     ], TimelogModalComponent.prototype, "title", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
+    ], TimelogModalComponent.prototype, "elementId", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
+    ], TimelogModalComponent.prototype, "closeOnClick", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('modalContainer'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"])
+    ], TimelogModalComponent.prototype, "containerEl", void 0);
     TimelogModalComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-timelog-modal',
             template: __webpack_require__(/*! ./timelog-modal.component.html */ "./src/app/shared/timelog-modal/timelog-modal.component.html"),
             styles: [__webpack_require__(/*! ./timelog-modal.component.css */ "./src/app/shared/timelog-modal/timelog-modal.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_j_query_service__WEBPACK_IMPORTED_MODULE_2__["JQ_TOKEN"])),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object])
     ], TimelogModalComponent);
     return TimelogModalComponent;
 }());
@@ -1526,8 +1569,19 @@ var TimelogComponent = /** @class */ (function () {
         this.timelog = {};
         this.timelog.timeLogId = -999;
         // 10/06/2019 12:12 pm - SSN - [20191006-1211] - [001] - Adding Angular 7
-        var id = +this.route.snapshot.params['id'];
-        var promise = this.dataService.getTimesheet(id).toPromise();
+        // 10/21/2019 11:58 am - SSN - [20191021-0444] - [014] - M12 - Creating directives and advanced components in Angular.
+        var id = 0;
+        var promise;
+        var useOriginalVersion = true;
+        if (useOriginalVersion) {
+            id = +this.route.snapshot.params['id'];
+        }
+        else {
+            this.route.params.forEach(function (params) {
+                id = +params['id'];
+            });
+        }
+        promise = this.dataService.getTimesheet(id).toPromise();
         promise.then(this.getTimesheetSuccess.bind(this), this.getTimesheetError).catch(this.getTimesheetCatch);
     };
     TimelogComponent.prototype.getTimesheetSuccess = function (response) {
@@ -1574,7 +1628,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\r\n<div class=\"row\">\r\n  <div class=\"col-md-6\">\r\n\r\n    <!-- 10/21/2019 04:51 am - SSN - [20191021-0444] - [002] - M12 - Creating directives and advanced components in Angular. -->\r\n\r\n    <form id=\"serachForm\" (ngSubmit)=\"searchTimesheets()\" autocomplete=\"off\" novalidate>\r\n      <div class=\"form-group\">\r\n        <input [(ngModel)]=\"searchTerm\" name=\"searchTerm\" type=\"search\" class=\"form-control\" placeholder=\"Search timelog entries...\" />\r\n        <button class=\"btn btn-default\" app-modal-trigger >Search</button>\r\n      </div>\r\n    </form>\r\n\r\n  </div>\r\n</div>\r\n\r\n\r\n<!-- 10/21/2019 05:47 am - SSN - [20191021-0444] - [005] - M12 - Creating directives and advanced components in Angular. -->\r\n<app-timelog-modal title=\"Matching Timelog Entries\">\r\n  <div class=\"list-group\">\r\n    <a class=\"list-group-item\" *ngFor=\"let timesheet_modal of timesheets_for_modal\" [routerLink]=\"['/timelog',timesheet_modal.timelogId]\">\r\n      [{{timesheet_modal.projectTitle}}] - [{{timesheet_modal.jobTitle}}] - [{{timesheet_modal.disciplineShort}}]\r\n    </a>\r\n  </div>\r\n</app-timelog-modal>\r\n\r\n\r\n\r\n\r\n\r\n<div class=\"row\">\r\n\r\n  <div *ngFor=\"let timesheet of timesheets\" class=\"col-md-5\">\r\n\r\n    <!-- timesheetThumnail: template variable -->\r\n    <app-thumbnail #timesheetThumbnail [timesheet]=\"timesheet\" (eventClick)=\"handleThumbnailClick($event)\"></app-thumbnail>\r\n    <button class=\"btn btn-info\" (click)=\"timesheetThumbnail.testFunction()\">Call thumbnail test</button>\r\n    <br />\r\n    <br />\r\n    <br />\r\n  </div>\r\n\r\n</div>\r\n"
+module.exports = "\r\n<div class=\"row\">\r\n  <div class=\"col-md-6\">\r\n\r\n    <!-- 10/21/2019 04:51 am - SSN - [20191021-0444] - [002] - M12 - Creating directives and advanced components in Angular. -->\r\n\r\n    <form id=\"serachForm\" (ngSubmit)=\"searchTimesheets()\" autocomplete=\"off\" novalidate>\r\n      <div class=\"form-group\">\r\n        <input [(ngModel)]=\"searchTerm\" name=\"searchTerm\" type=\"search\" class=\"form-control\" placeholder=\"Search timelog entries...\" />\r\n\r\n        <!--app-modal-trigger=\"timelogSearchResults\"-->\r\n\r\n        <button class=\"btn btn-default\">Search</button>\r\n      </div>\r\n    </form>\r\n\r\n  </div>\r\n</div>\r\n\r\n\r\n<!-- 10/21/2019 05:47 am - SSN - [20191021-0444] - [005] - M12 - Creating directives and advanced components in Angular. -->\r\n<app-timelog-modal elementId=\"timelogSearchResults\" title=\"Matching Timelog Entries\" closeOnClick=\"true\">\r\n  <div class=\"list-group\">\r\n<!--\r\n          [routerLink]=\"['/timelog',timesheet_modal.timelogId]\"\r\n          app-modal-trigger=\"timelogShowSelected\"\r\n-->\r\n    <a class=\"list-group-item\" *ngFor=\"let timesheet_modal of timesheets_for_modal\" [routerLink]=\"['/timelog',timesheet_modal.timelogId]\">\r\n      [{{timesheet_modal.projectTitle}}] - [{{timesheet_modal.jobTitle}}] - [{{timesheet_modal.disciplineShort}}]\r\n    </a>\r\n  </div>\r\n</app-timelog-modal>\r\n\r\n\r\n<!-- // 10/21/2019 12:30 pm - SSN - [20191021-1230] - [001] - Modal for displaying selectd entry -->\r\n<app-timelog-modal elementId=\"timelogShowSelected\" title=\"Selected Entry\">\r\n  <h1>Show-1232</h1>\r\n</app-timelog-modal>\r\n\r\n<div class=\"row\">\r\n\r\n  <div *ngFor=\"let timesheet of timesheets\" class=\"col-md-5\">\r\n\r\n    <!-- timesheetThumnail: template variable -->\r\n    <app-thumbnail #timesheetThumbnail [timesheet]=\"timesheet\" (eventClick)=\"handleThumbnailClick($event)\"></app-thumbnail>\r\n    <button class=\"btn btn-info\" (click)=\"timesheetThumbnail.testFunction()\">Call thumbnail test</button>\r\n    <br />\r\n    <br />\r\n    <br />\r\n  </div>\r\n\r\n</div>\r\n"
 
 /***/ }),
 
@@ -1618,8 +1672,8 @@ var TimesheetComponent = /** @class */ (function () {
         //promise.then(this.getTimesheetSuccess.bind(this), this.getTimesheetError);
         // 10/06/2019 05:10 pm - SSN - [20191006-1643] - [005] - Adding Angular 7 - Observables and resolvers - Pickup data from resolver
         this.timesheets = this.route.snapshot.data['timesheets_resolver'];
-        console.log('timesheet.component - 20191009-1502');
-        //console.log(this.timesheets);
+        console.log('timesheet.component - 20191009-1502 - AAAA');
+        console.log(this.timesheets);
     };
     TimesheetComponent.prototype.getTimesheetSuccess = function (response) {
         this.timesheets = response;
@@ -1644,7 +1698,10 @@ var TimesheetComponent = /** @class */ (function () {
         this.dataService.getTimelogSearch(data).then(this.getTimelogSearchSuccess.bind(this), this.getTimelogSearchError.bind(this));
     };
     TimesheetComponent.prototype.getTimelogSearchSuccess = function (result) {
-        this.timesheets_for_modal = result.dataList;
+        // this.timesheets_for_modal = result.dataList;
+        this.timesheets = result.dataList;
+        console.log('timesheet.component - 20191021-2029');
+        console.log(result.dataList);
     };
     TimesheetComponent.prototype.getTimelogSearchError = function (response) {
         console.log('timesheet.Component - 20191021-0824  - Error ');

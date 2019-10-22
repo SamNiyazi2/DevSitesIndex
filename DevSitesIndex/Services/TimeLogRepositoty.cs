@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DevSitesIndex.Services
 {
-    public class TimeLogRepository : IEntityRepository<TimeLog>
+    public class TimeLogRepository : IEntityRepository_v02<TimeLog>
     {
         private readonly DevSitesIndexContext _context;
         private readonly ILogger_SSN logger;
@@ -25,21 +25,21 @@ namespace DevSitesIndex.Services
         }
 
 
-        public IEnumerable<TimeLog> GetAll()
+        //public IEnumerable<TimeLog> GetAll()
+        public IQueryable<TimeLog> GetAll()
         {
             // 04/20/2019 11:12 am - SSN - [20190420-1109] - Add AsNoTracking to index pages
             // 10/03/2019 05:33 pm - SSN - [20191003-1557] - [008] - Adding data service to Angular7
             // Include discipline, job and project titles.
             // return _context.TimeLog.OrderByDescending(r => r.DateModified ?? r.DateAdded).AsNoTracking().ToList();
-            IList<TimeLog> result = _context.TimeLog
+            IQueryable<TimeLog> result = _context.TimeLog
                 .Include(r => r.job).ThenInclude(r => r.project)
                 .Include(r => r.discipline)
-                .OrderByDescending(r => r.DateModified ?? r.DateAdded).AsNoTracking().ToList();
 
-            //foreach (TimeLog r in result)
-            //{
-            //    r.job.timelogs = null;
-            //}
+                // 10/21/2019 08:33 pm - SSN - [20191021-2033] - [001] - Revise timelog search returned result
+
+                // .OrderByDescending(r => r.DateModified ?? r.DateAdded).AsNoTracking().ToList();
+                .OrderByDescending(r => r.DateModified ?? r.DateAdded).AsNoTracking();
 
             return result;
         }

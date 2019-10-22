@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DevSitesIndex.Services
 {
-    public class DisciplineRepository : IEntityRepository<Discipline>
+    public class DisciplineRepository : IEntityRepository_v01<Discipline>
     {
         private readonly DevSitesIndexContext _context;
 

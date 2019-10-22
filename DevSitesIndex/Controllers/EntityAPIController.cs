@@ -22,7 +22,7 @@ namespace DevSitesIndex.Controllers
     abstract public class EntityAPIController<T> : Controller
     {
 
-        public IEntityRepository<T> _entityRepository;
+        public IEntityRepository_v01<T> _entityRepository;
 
         // 09/24/2019 05:48 am - SSN - [20190924-0401] - [006] - Quick timelog entry
         // Add _context

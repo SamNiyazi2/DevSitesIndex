@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DevSitesIndex.Services
 {
-    public class Job_StatusRepository : IEntityRepository<Job_Status>
+    public class Job_StatusRepository : IEntityRepository_v01<Job_Status>
     {
         private readonly DevSitesIndexContext context;
 

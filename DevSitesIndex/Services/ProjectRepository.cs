@@ -13,7 +13,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DevSitesIndex.Services
 {
-    public class ProjectRepository : IEntityRepository<Project>
+    public class ProjectRepository : IEntityRepository_v01<Project>
     {
         private readonly DevSitesIndexContext context;
         private readonly ILogger_SSN logger;
