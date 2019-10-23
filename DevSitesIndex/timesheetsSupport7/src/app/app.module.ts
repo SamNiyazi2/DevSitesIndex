@@ -40,6 +40,8 @@ import { JobStatusPipe } from './util/job-status.pipe';
 import { TimelogModalComponent } from './shared/timelog-modal/timelog-modal.component';
 
 import { ModalTriggerDirective } from './shared/modal-trigger.directive';
+import { AppPageV02Custom } from './shared/pager-custom.component';
+import { DefaultPagePartsComponent } from './shared/default-page-parts/default-page-parts.component';
 
 
 
@@ -82,7 +84,12 @@ declare let toastr: Toastr;
 
     TimelogModalComponent,
 
-    ModalTriggerDirective
+    ModalTriggerDirective,
+     
+    AppPageV02Custom,
+     
+    DefaultPagePartsComponent
+
   ],
   imports: [
 

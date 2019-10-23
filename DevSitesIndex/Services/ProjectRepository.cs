@@ -13,7 +13,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DevSitesIndex.Services
 {
-    public class ProjectRepository : IEntityRepository_v01<Project>
+    public class ProjectRepository : IEntityRepository<Project>
     {
         private readonly DevSitesIndexContext context;
         private readonly ILogger_SSN logger;
@@ -29,12 +29,12 @@ namespace DevSitesIndex.Services
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Project> GetAll()
+        public IQueryable<Project> GetAll()
         {
 
-            IList<Project> result = context.Projects
+            IQueryable<Project> result = context.Projects
                 .Include(r=>r.jobs)
-                .OrderByDescending(r => r.DateModified ?? r.DateAdded).AsNoTracking().ToList();
+                .OrderByDescending(r => r.DateModified ?? r.DateAdded).AsNoTracking();
             
             return result;
         }

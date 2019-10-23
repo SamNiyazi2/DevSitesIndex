@@ -137,7 +137,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<app-header></app-header>\r\n\r\n<router-outlet></router-outlet>\r\n"
+module.exports = "\r\n\r\n<div>\r\n\r\n  <div class=\"container body-content\">\r\n\r\n    <app-header></app-header>\r\n\r\n    <router-outlet></router-outlet>\r\n\r\n    <hr />\r\n\r\n  </div>\r\n\r\n\r\n  <footer style=\"padding:20px;\">\r\n    <hr />\r\n\r\n    <app-default-page-parts requestedSection=\"showCopyright\"></app-default-page-parts>\r\n  \r\n  </footer>\r\n</div>\r\n\r\n"
 
 /***/ }),
 
@@ -211,6 +211,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _util_job_status_pipe__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./util/job-status.pipe */ "./src/app/util/job-status.pipe.ts");
 /* harmony import */ var _shared_timelog_modal_timelog_modal_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./shared/timelog-modal/timelog-modal.component */ "./src/app/shared/timelog-modal/timelog-modal.component.ts");
 /* harmony import */ var _shared_modal_trigger_directive__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./shared/modal-trigger.directive */ "./src/app/shared/modal-trigger.directive.ts");
+/* harmony import */ var _shared_pager_custom_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./shared/pager-custom.component */ "./src/app/shared/pager-custom.component.ts");
+/* harmony import */ var _shared_default_page_parts_default_page_parts_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./shared/default-page-parts/default-page-parts.component */ "./src/app/shared/default-page-parts/default-page-parts.component.ts");
 
 
 
@@ -225,6 +227,8 @@ __webpack_require__.r(__webpack_exports__);
 // 10/04/2019 11:22 pm - SSN - [20191003-1557] - [011] - Adding data service to Angular7
 // 10/10/2019 11:43 pm - SSN - [20191010-1354] - [002] - M11 - Understanding Angular's Dependency Injection
 // import { ToastrService } from './shared/toastr.service';
+
+
 
 
 
@@ -268,7 +272,9 @@ var AppModule = /** @class */ (function () {
                 _projects_project_job_detail_project_job_detail_component__WEBPACK_IMPORTED_MODULE_24__["ProjectJobDetailComponent"],
                 _util_job_status_pipe__WEBPACK_IMPORTED_MODULE_25__["JobStatusPipe"],
                 _shared_timelog_modal_timelog_modal_component__WEBPACK_IMPORTED_MODULE_26__["TimelogModalComponent"],
-                _shared_modal_trigger_directive__WEBPACK_IMPORTED_MODULE_27__["ModalTriggerDirective"]
+                _shared_modal_trigger_directive__WEBPACK_IMPORTED_MODULE_27__["ModalTriggerDirective"],
+                _shared_pager_custom_component__WEBPACK_IMPORTED_MODULE_28__["AppPageV02Custom"],
+                _shared_default_page_parts_default_page_parts_component__WEBPACK_IMPORTED_MODULE_29__["DefaultPagePartsComponent"]
             ],
             imports: [
                 // 10/02/2019 05:47 pm - SSN - [20191002-1118] - [012] - Adding Angular 7 test app
@@ -392,7 +398,7 @@ module.exports = " \r\n\r\n.menu_button {\r\n  margin: 8px 0px 0px 0px;\r\n}\r\n
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\r\n\r\n<nav class=\"navbar navbar-inverse navbar-fixed-top\">\r\n  <div class=\"container\">\r\n    <div class=\"navbar-header\">\r\n      <button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\".navbar-collapse\">\r\n        <span class=\"sr-only\">Toggle navigation</span>\r\n        <span class=\"icon-bar\"></span>\r\n        <span class=\"icon-bar\"></span>\r\n        <span class=\"icon-bar\"></span>\r\n      </button>\r\n      <a asp-area=\"\" asp-controller=\"Home\" asp-action=\"Index\" class=\"navbar-brand\">@Startup.SITE_NAME_STRING</a>\r\n    </div>\r\n    <div class=\"navbar-collapse collapse\">\r\n      <ul class=\"nav navbar-nav\">\r\n\r\n\r\n\r\n        <li><a href=\"/DemoSites/Index\">Sites</a></li>\r\n        <li><a href=\"/home/about\">About</a></li>\r\n        <li><a href=\"/Home/Contact\">Contact</a></li>\r\n\r\n        <li class=\"dropdown-submenu\">\r\n\r\n          <a class=\"dropdown-toggle\" data-toggle=\"dropdown\">Jobs  <span class=\"caret\"></span></a>\r\n\r\n          <ul class=\"dropdown-menu\">\r\n\r\n            <li><a href=\"/Companies\">Companies</a></li>\r\n            <li><a href=\"/Discipline\">Disciplines</a></li>\r\n            <li><a href=\"/Projects\">Projects</a></li>\r\n            <li><a href=\"/ProjectsA7\">Projects (Angular 7)</a></li>\r\n            <li><a href=\"/jobs\">Jobs</a></li>\r\n            <li><a href=\"/TimeLogs\">Timelog</a></li>\r\n            <li><a href=\"/timesheet\">Timelog (Angular 7)</a></li>\r\n            <li><a href=\"/ReferenceSites\">Reference Sites</a></li>\r\n            <li><a href=\"/CodeReferences\">Code</a></li>\r\n            <li><a href=\"/CommandLine\">Command Line</a></li>\r\n            <li><a href=\"/DevSites\">Demo Sites</a></li>\r\n\r\n\r\n          </ul>\r\n\r\n        </li>\r\n\r\n      </ul>\r\n\r\n      <ul class=\"nav navbar-nav \" style=\"float:right;\">\r\n        <li *ngIf=\"!authenticateService.isAuthenticated()\">\r\n          <a [routerLink]=\"['/user/login']\">Login</a>\r\n        </li>\r\n        <li class=\"nav-item\" *ngIf=\"authenticateService.isAuthenticated()\">\r\n          <a id=\"manage\" class=\"nav-link text-dark\" title=\"Manage\" [routerLink]=\"['/user/profile']\"><span [innerText]=\"getGreetingMessage()\"></span></a>\r\n        </li>\r\n        <li class=\"nav-item\" *ngIf=\"authenticateService.isAuthenticated()\">\r\n          <!--<form id=\"logoutForm\" class=\"form-inline\" action=\"/Identity/Account/Logout?returnUrl=%2F%3Fpage%3D%252FIndex\" method=\"post\">\r\n            <button id=\"logout\" type=\"submit\" class=\"nav-link btn btn-link text-dark menu_button\">Logout</button>\r\n          </form>-->\r\n\r\n          <a id=\"logout\" class=\"nav-link text-dark\" title=\"Logout\" [routerLink]=\"['/user/logout']\">Logout</a>\r\n\r\n        </li>\r\n      </ul>\r\n\r\n\r\n\r\n    </div>\r\n    <app-timesheet-menu></app-timesheet-menu>\r\n\r\n  </div>\r\n</nav>\r\n\r\n\r\n<div  [innerHtml]=\"forgeryToken\">\r\n</div>\r\n \r\n"
+module.exports = "\r\n\r\n<nav class=\"navbar navbar-inverse navbar-fixed-top\">\r\n  <div class=\"container\">\r\n    <div class=\"navbar-header\">\r\n      <button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\".navbar-collapse\">\r\n        <span class=\"sr-only\">Toggle navigation</span>\r\n        <span class=\"icon-bar\"></span>\r\n        <span class=\"icon-bar\"></span>\r\n        <span class=\"icon-bar\"></span>\r\n      </button>\r\n      <a [routerLink]=\"['/']\" class=\"navbar-brand\">\r\n        <app-default-page-parts requestedSection=\"showDomainNameOnMainPage\"></app-default-page-parts>\r\n      </a>\r\n    </div>\r\n    <div class=\"navbar-collapse collapse\">\r\n      <ul class=\"nav navbar-nav\">\r\n\r\n\r\n\r\n        <li><a href=\"/DemoSites/Index\">Sites</a></li>\r\n        <li><a href=\"/home/about\">About</a></li>\r\n        <li><a href=\"/Home/Contact\">Contact</a></li>\r\n\r\n        <li class=\"dropdown-submenu\">\r\n\r\n          <a class=\"dropdown-toggle\" data-toggle=\"dropdown\">Jobs  <span class=\"caret\"></span></a>\r\n\r\n          <ul class=\"dropdown-menu\">\r\n\r\n            <li><a href=\"/Companies\">Companies</a></li>\r\n            <li><a href=\"/Discipline\">Disciplines</a></li>\r\n            <li><a href=\"/Projects\">Projects</a></li>\r\n            <li><a href=\"/ProjectsA7\">Projects (Angular 7)</a></li>\r\n            <li><a href=\"/jobs\">Jobs</a></li>\r\n            <li><a href=\"/TimeLogs\">Timelog</a></li>\r\n            <li><a href=\"/timesheet\">Timelog (Angular 7)</a></li>\r\n            <li><a href=\"/ReferenceSites\">Reference Sites</a></li>\r\n            <li><a href=\"/CodeReferences\">Code</a></li>\r\n            <li><a href=\"/CommandLine\">Command Line</a></li>\r\n            <li><a href=\"/DevSites\">Demo Sites</a></li>\r\n\r\n\r\n          </ul>\r\n\r\n        </li>\r\n\r\n      </ul>\r\n\r\n      <ul class=\"nav navbar-nav \" style=\"float:right;\">\r\n        <li *ngIf=\"!authenticateService.isAuthenticated()\">\r\n          <a [routerLink]=\"['/user/login']\">Login</a>\r\n        </li>\r\n        <li class=\"nav-item\" *ngIf=\"authenticateService.isAuthenticated()\">\r\n          <a id=\"manage\" class=\"nav-link text-dark\" title=\"Manage\" [routerLink]=\"['/user/profile']\"><span [innerText]=\"getGreetingMessage()\"></span></a>\r\n        </li>\r\n        <li class=\"nav-item\" *ngIf=\"authenticateService.isAuthenticated()\">\r\n          <!--<form id=\"logoutForm\" class=\"form-inline\" action=\"/Identity/Account/Logout?returnUrl=%2F%3Fpage%3D%252FIndex\" method=\"post\">\r\n            <button id=\"logout\" type=\"submit\" class=\"nav-link btn btn-link text-dark menu_button\">Logout</button>\r\n          </form>-->\r\n\r\n          <a id=\"logout\" class=\"nav-link text-dark\" title=\"Logout\" [routerLink]=\"['/user/logout']\">Logout</a>\r\n\r\n        </li>\r\n      </ul>\r\n\r\n\r\n\r\n    </div>\r\n    <app-timesheet-menu></app-timesheet-menu>\r\n\r\n  </div>\r\n</nav>\r\n\r\n\r\n<div  [innerHtml]=\"forgeryToken\">\r\n</div>\r\n \r\n"
 
 /***/ }),
 
@@ -990,6 +996,14 @@ var DataService = /** @class */ (function () {
     DataService.prototype.getTimesheets = function () {
         return this.http.get("/api/timelogapi");
     };
+    // 10/21/2019 10:18 pm - SSN - [20191021-2033] - [004] - Revise timelog search returned result
+    DataService.prototype.getTimesheets_search = function (data) {
+        return this.http.post("/api/timelogapi/search", data);
+    };
+    // 10/21/2019 08:18 am - SSN - [20191021-0444] - [010] - M12 - Creating directives and advanced components in Angular.
+    DataService.prototype.getTimelogSearch = function (data) {
+        return this.http.post('/api/timelogapi/search', data).toPromise();
+    };
     // 10/05/2019 02:52 pm - SSN - [20191003-1557] - [014] - Adding data service to Angular7
     DataService.prototype.getTimesheet = function (id) {
         return this.http.get("/api/timelogapi/get_custom/" + id);
@@ -1037,12 +1051,6 @@ var DataService = /** @class */ (function () {
     DataService.prototype.getJobStatuses = function () {
         return this.http.get('/api/job_StatusAPI').toPromise();
     };
-    // 10/21/2019 08:18 am - SSN - [20191021-0444] - [010] - M12 - Creating directives and advanced components in Angular.
-    DataService.prototype.getTimelogSearch = function (data) {
-        console.log('data.service - 20191021-0908 - getTimelogSearch');
-        console.log(data);
-        return this.http.post('/api/timelogapi/search', data).toPromise();
-    };
     DataService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
             providedIn: 'root'
@@ -1050,6 +1058,100 @@ var DataService = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
     ], DataService);
     return DataService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/shared/default-page-parts/default-page-parts.component.css":
+/*!****************************************************************************!*\
+  !*** ./src/app/shared/default-page-parts/default-page-parts.component.css ***!
+  \****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NoYXJlZC9kZWZhdWx0LXBhZ2UtcGFydHMvZGVmYXVsdC1wYWdlLXBhcnRzLmNvbXBvbmVudC5jc3MifQ== */"
+
+/***/ }),
+
+/***/ "./src/app/shared/default-page-parts/default-page-parts.component.html":
+/*!*****************************************************************************!*\
+  !*** ./src/app/shared/default-page-parts/default-page-parts.component.html ***!
+  \*****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<span *ngIf=\"showDomainNameOnMainPage\" [ngClass]=\"SITE_ALERT_CSS_NAME\" [innerText]=\"locationHostName\"></span>\r\n<span *ngIf=\"showCopyright\" [innerHtml]=\"showCopyright_String\"></span>\r\n"
+
+/***/ }),
+
+/***/ "./src/app/shared/default-page-parts/default-page-parts.component.ts":
+/*!***************************************************************************!*\
+  !*** ./src/app/shared/default-page-parts/default-page-parts.component.ts ***!
+  \***************************************************************************/
+/*! exports provided: DefaultPagePartsComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DefaultPagePartsComponent", function() { return DefaultPagePartsComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+// 10/22/2019 09:47 pm - SSN - [20191022-2147] - [001] - Adding DefaultPagePartsComponent
+
+
+
+var DefaultPagePartsComponent = /** @class */ (function () {
+    function DefaultPagePartsComponent(location) {
+        this.location = location;
+        this.locationHostName = "";
+        this.showDomainNameOnMainPage = false;
+        this.showCopyright = false;
+        this.showCopyright_String = "";
+        this.currentPageTitle = "";
+        this.SITE_ALERT_CSS_NAME = "";
+    }
+    DefaultPagePartsComponent.prototype.ngOnInit = function () {
+        this.locationHostName = location.hostname;
+        if (this.requestedSection === "showDomainNameOnMainPage") {
+            this.showDomainNameOnMainPage = true;
+        }
+        if (this.requestedSection === "showCopyright") {
+            this.showCopyright = true;
+            this.setCopyright();
+        }
+        this.setPageTitle();
+        if (location.hostname.toLocaleLowerCase().indexOf("testsam") === -1) {
+            this.SITE_ALERT_CSS_NAME = "site_alert_css_name";
+        }
+    };
+    DefaultPagePartsComponent.prototype.setPageTitle = function () {
+        if (this.currentPageTitle) {
+            document.title = this.currentPageTitle + " - " + this.locationHostName;
+        }
+        else {
+            document.title = this.locationHostName;
+        }
+    };
+    DefaultPagePartsComponent.prototype.setCopyright = function () {
+        var currentYear = (new Date()).getFullYear();
+        this.showCopyright_String = "<p>&copy; 2018 - " + this.locationHostName + "</p>";
+    };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
+    ], DefaultPagePartsComponent.prototype, "requestedSection", void 0);
+    DefaultPagePartsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-default-page-parts',
+            template: __webpack_require__(/*! ./default-page-parts.component.html */ "./src/app/shared/default-page-parts/default-page-parts.component.html"),
+            styles: [__webpack_require__(/*! ./default-page-parts.component.css */ "./src/app/shared/default-page-parts/default-page-parts.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common__WEBPACK_IMPORTED_MODULE_2__["Location"]])
+    ], DefaultPagePartsComponent);
+    return DefaultPagePartsComponent;
 }());
 
 
@@ -1175,6 +1277,80 @@ var ModalTriggerDirective = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"], Object])
     ], ModalTriggerDirective);
     return ModalTriggerDirective;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/shared/pager-custom.component.ts":
+/*!**************************************************!*\
+  !*** ./src/app/shared/pager-custom.component.ts ***!
+  \**************************************************/
+/*! exports provided: AppPageV02Custom */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppPageV02Custom", function() { return AppPageV02Custom; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+
+
+//<span  * ngFor="let item of data" > <span>{{ item }}</span> &nbsp; &nbsp; <span (click)='removeTag_local(\"" +   item + "\")'>X</span > & nbsp;  & nbsp; </span> 
+var AppPageV02Custom = /** @class */ (function () {
+    function AppPageV02Custom() {
+        this.skipActionOwner = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
+        this.previousButtonEnabled = false;
+        this.nextButtonEnabled = true;
+        this.haveRecords = false;
+    }
+    AppPageV02Custom.prototype.ngOnChanges = function (changes) {
+        this.haveRecords = false;
+        if (this.sqlStatsRecord) {
+            if (this.sqlStatsRecord.currentPageNo > 0 && this.sqlStatsRecord.totalRecordCount > 0) {
+                var totalPageCount = Math.ceil(this.sqlStatsRecord.totalRecordCount / this.sqlStatsRecord.recordsPerPage);
+                this.sayWhatpageWeAreon = "Page " + this.sqlStatsRecord.currentPageNo + " of " + totalPageCount;
+                this.previousButtonEnabled = this.sqlStatsRecord.currentPageNo > 1 && totalPageCount > 1;
+                this.nextButtonEnabled = this.sqlStatsRecord.currentPageNo < totalPageCount;
+                this.haveRecords = this.sqlStatsRecord.totalRecordCount > 0;
+                this.CSSClasses = [];
+            }
+            else {
+                this.sayWhatpageWeAreon = "No records available.";
+                this.CSSClasses = ['info_bad', 'padded_v02'];
+            }
+        }
+    };
+    AppPageV02Custom.prototype.doSkip = function (value) {
+        this.skipActionOwner.emit({ value: value, sqlStatsRecord: this.sqlStatsRecord });
+        if (this.scrollIntoViewSelector) {
+            var obj1 = document.querySelector(this.scrollIntoViewSelector);
+            if (obj1) {
+                obj1.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], AppPageV02Custom.prototype, "sqlStatsRecord", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
+    ], AppPageV02Custom.prototype, "scrollIntoViewSelector", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], AppPageV02Custom.prototype, "skipActionOwner", void 0);
+    AppPageV02Custom = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-page-v02-custom',
+            template: "\n<p><span [ngClass]=\"CSSClasses\">{{sayWhatpageWeAreon}}</span></p>\n<div *ngIf=\"haveRecords\">\n  <button cmd-name=\"smooth-scroll\" jQueryObjectName=\"[ssnobject]\" [disabled]=\"!previousButtonEnabled\" appPagerCustom class=\"btn btn-default\" (click)=\"doSkip(-1)\" >Previous</button> &nbsp; \n  <button cmd-name=\"smooth-scroll\" jQueryObjectName=\"[ssnobject]\" [disabled]=\"!nextButtonEnabled\" appPagerCustom class=\"btn btn-default\" (click)=\"doSkip(1)\" >Next</button>\n</div>\n \n"
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], AppPageV02Custom);
+    return AppPageV02Custom;
 }());
 
 
@@ -1628,7 +1804,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\r\n<div class=\"row\">\r\n  <div class=\"col-md-6\">\r\n\r\n    <!-- 10/21/2019 04:51 am - SSN - [20191021-0444] - [002] - M12 - Creating directives and advanced components in Angular. -->\r\n\r\n    <form id=\"serachForm\" (ngSubmit)=\"searchTimesheets()\" autocomplete=\"off\" novalidate>\r\n      <div class=\"form-group\">\r\n        <input [(ngModel)]=\"searchTerm\" name=\"searchTerm\" type=\"search\" class=\"form-control\" placeholder=\"Search timelog entries...\" />\r\n\r\n        <!--app-modal-trigger=\"timelogSearchResults\"-->\r\n\r\n        <button class=\"btn btn-default\">Search</button>\r\n      </div>\r\n    </form>\r\n\r\n  </div>\r\n</div>\r\n\r\n\r\n<!-- 10/21/2019 05:47 am - SSN - [20191021-0444] - [005] - M12 - Creating directives and advanced components in Angular. -->\r\n<app-timelog-modal elementId=\"timelogSearchResults\" title=\"Matching Timelog Entries\" closeOnClick=\"true\">\r\n  <div class=\"list-group\">\r\n<!--\r\n          [routerLink]=\"['/timelog',timesheet_modal.timelogId]\"\r\n          app-modal-trigger=\"timelogShowSelected\"\r\n-->\r\n    <a class=\"list-group-item\" *ngFor=\"let timesheet_modal of timesheets_for_modal\" [routerLink]=\"['/timelog',timesheet_modal.timelogId]\">\r\n      [{{timesheet_modal.projectTitle}}] - [{{timesheet_modal.jobTitle}}] - [{{timesheet_modal.disciplineShort}}]\r\n    </a>\r\n  </div>\r\n</app-timelog-modal>\r\n\r\n\r\n<!-- // 10/21/2019 12:30 pm - SSN - [20191021-1230] - [001] - Modal for displaying selectd entry -->\r\n<app-timelog-modal elementId=\"timelogShowSelected\" title=\"Selected Entry\">\r\n  <h1>Show-1232</h1>\r\n</app-timelog-modal>\r\n\r\n<div class=\"row\">\r\n\r\n  <div *ngFor=\"let timesheet of timesheets\" class=\"col-md-5\">\r\n\r\n    <!-- timesheetThumnail: template variable -->\r\n    <app-thumbnail #timesheetThumbnail [timesheet]=\"timesheet\" (eventClick)=\"handleThumbnailClick($event)\"></app-thumbnail>\r\n    <button class=\"btn btn-info\" (click)=\"timesheetThumbnail.testFunction()\">Call thumbnail test</button>\r\n    <br />\r\n    <br />\r\n    <br />\r\n  </div>\r\n\r\n</div>\r\n"
+module.exports = "\r\n\r\n\r\n<a ssnobject2=\"topOfThePage2\"></a>\r\n\r\n<div class=\"row\">\r\n  <div class=\"col-md-6\">\r\n\r\n    <!-- 10/21/2019 04:51 am - SSN - [20191021-0444] - [002] - M12 - Creating directives and advanced components in Angular. -->\r\n\r\n    <form id=\"serachForm\" (ngSubmit)=\"searchTimesheets()\" autocomplete=\"off\" novalidate>\r\n      <div class=\"form-group\">\r\n        <input [(ngModel)]=\"searchTerm\" name=\"searchTerm\" type=\"search\" class=\"form-control\" placeholder=\"Search timelog entries...\" />\r\n\r\n        <!--app-modal-trigger=\"timelogSearchResults\"-->\r\n\r\n        <button class=\"btn btn-default\">Search</button>\r\n        <button class=\"btn btn-default\" (click)=\"resetSearch()\">Reset</button>\r\n      </div>\r\n    </form>\r\n\r\n  </div>\r\n</div>\r\n\r\n\r\n<!-- 10/21/2019 05:47 am - SSN - [20191021-0444] - [005] - M12 - Creating directives and advanced components in Angular. -->\r\n<app-timelog-modal elementId=\"timelogSearchResults\" title=\"Matching Timelog Entries\" closeOnClick=\"true\">\r\n  <div class=\"list-group\">\r\n    <!--\r\n              [routerLink]=\"['/timelog',timesheet_modal.timelogId]\"\r\n              app-modal-trigger=\"timelogShowSelected\"\r\n    -->\r\n    <a class=\"list-group-item\" *ngFor=\"let timesheet_modal of timesheets_for_modal\" [routerLink]=\"['/timelog',timesheet_modal.timelogId]\">\r\n      [{{timesheet_modal.projectTitle}}] - [{{timesheet_modal.jobTitle}}] - [{{timesheet_modal.disciplineShort}}]\r\n    </a>\r\n  </div>\r\n</app-timelog-modal>\r\n\r\n\r\n<!-- // 10/21/2019 12:30 pm - SSN - [20191021-1230] - [001] - Modal for displaying selectd entry -->\r\n<app-timelog-modal elementId=\"timelogShowSelected\" title=\"Selected Entry\">\r\n  <h1>Show-1232</h1>\r\n</app-timelog-modal>\r\n\r\n<div class=\"row\">\r\n\r\n  <div *ngFor=\"let timesheet of timesheets\" class=\"col-md-5\">\r\n\r\n    <!-- timesheetThumnail: template variable -->\r\n    <app-thumbnail #timesheetThumbnail [timesheet]=\"timesheet\" (eventClick)=\"handleThumbnailClick($event)\"></app-thumbnail>\r\n    <button class=\"btn btn-info\" (click)=\"timesheetThumbnail.testFunction()\">Call thumbnail test</button>\r\n    <br />\r\n    <br />\r\n    <br />\r\n  </div>\r\n\r\n</div>\r\n\r\n\r\n\r\n<app-page-v02-custom (skipActionOwner)=\"skipTimelog($event)\" [sqlStatsRecord]=\"sqlStatsRecord\" [scrollIntoViewSelector]=\"'[ssnobject2=topOfThePage2]'\"></app-page-v02-custom>\r\n"
 
 /***/ }),
 
@@ -1668,15 +1844,15 @@ var TimesheetComponent = /** @class */ (function () {
     }
     TimesheetComponent.prototype.ngOnInit = function () {
         this.timesheets = [];
+        this.sqlStatsRecord = null;
         //let promise = this.dataService.getTimesheets().toPromise();
         //promise.then(this.getTimesheetSuccess.bind(this), this.getTimesheetError);
         // 10/06/2019 05:10 pm - SSN - [20191006-1643] - [005] - Adding Angular 7 - Observables and resolvers - Pickup data from resolver
         this.timesheets = this.route.snapshot.data['timesheets_resolver'];
-        console.log('timesheet.component - 20191009-1502 - AAAA');
-        console.log(this.timesheets);
     };
     TimesheetComponent.prototype.getTimesheetSuccess = function (response) {
         this.timesheets = response;
+        this.sqlStatsRecord = null;
     };
     TimesheetComponent.prototype.getTimesheetError = function (response) {
         console.log('timesheetComponent  20191003-1715 - Error');
@@ -1684,29 +1860,35 @@ var TimesheetComponent = /** @class */ (function () {
         _util_ErrorHandlingHelpers__WEBPACK_IMPORTED_MODULE_5__["ErrorHandlingHelpers"].showHtmlErrorResponse(response);
     };
     TimesheetComponent.prototype.handleThumbnailClick = function (data) {
-        console.log('timesheet.component handleThumbnail click');
-        console.log('Date received [' + data + ']');
         this.toastrService.success('Loaded [' + data + ']...', 'some title');
     };
     // 10/21/2019 04:48 am - SSN - [20191021-0444] - [001] - M12 - Creating directives and advanced components in Angular.
     TimesheetComponent.prototype.searchTimesheets = function () {
-        console.log("timesheet.components - 20191021-0449");
-        console.log(this.searchTerm);
         var data = {
             searchTerm: this.searchTerm
+        };
+        this.dataService.getTimelogSearch(data).then(this.getTimelogSearchSuccess.bind(this), this.getTimelogSearchError.bind(this));
+    };
+    TimesheetComponent.prototype.resetSearch = function () {
+        var data = {
+            searchTerm: ""
         };
         this.dataService.getTimelogSearch(data).then(this.getTimelogSearchSuccess.bind(this), this.getTimelogSearchError.bind(this));
     };
     TimesheetComponent.prototype.getTimelogSearchSuccess = function (result) {
         // this.timesheets_for_modal = result.dataList;
         this.timesheets = result.dataList;
-        console.log('timesheet.component - 20191021-2029');
-        console.log(result.dataList);
+        this.sqlStatsRecord = result.sqlStatsRecord;
     };
     TimesheetComponent.prototype.getTimelogSearchError = function (response) {
         console.log('timesheet.Component - 20191021-0824  - Error ');
         console.log(response);
         _util_ErrorHandlingHelpers__WEBPACK_IMPORTED_MODULE_5__["ErrorHandlingHelpers"].showHtmlErrorResponse(response);
+    };
+    TimesheetComponent.prototype.skipTimelog = function (data) {
+        data.sqlStatsRecord.currentPageNo = data.sqlStatsRecord.currentPageNo + data.value;
+        console.log(data.sqlStatsRecord);
+        this.dataService.getTimelogSearch(data.sqlStatsRecord).then(this.getTimelogSearchSuccess.bind(this), this.getTimelogSearchError.bind(this));
     };
     TimesheetComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({

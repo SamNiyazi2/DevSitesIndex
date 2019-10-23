@@ -29,47 +29,37 @@ namespace DevSitesIndex.Controllers
         }
 
 
-
-
+      
 
 
         // 10/21/2019 08:15 am - SSN - [20191021-0444] - [009] - M12 - Creating directives and advanced components in Angular.
         // Partial copy of JobApiController
 
-        public class Tempparam
-        {
-            public string searchTerm { get; set; }
-        }
+
 
         [Route("search")]
-        public async Task<DataBag<TimeLog>> search([FromBody] Tempparam options)
+        public async Task<DataBag<TimeLog>> search([FromBody] SqlStatsRecord sqlStatsRecord)
         {
 
-            if (options == null) options = new Tempparam();
-
-            options.searchTerm = string.IsNullOrWhiteSpace(options.searchTerm) ? "" : options.searchTerm;
-
-            int _recordPerPage_Default = 10;
-
-            SqlStatsRecord sqlStatsRecord_Temp = new SqlStatsRecord(_recordPerPage_Default: _recordPerPage_Default);
-
+            // if (options == null) options = new Tempparam();
+            if (sqlStatsRecord == null) sqlStatsRecord = new SqlStatsRecord();
+            sqlStatsRecord.RecordsPerPage_Default = 3;
 
             Util.ExecuteStoredProcedure exec = new Util.ExecuteStoredProcedure(context, logger);
 
             exec.LoadStoredProc("demosites.Timelogs_Search");
 
 
-            exec.WithSqlParam("@searchTerm", options.searchTerm);
-            exec.WithSqlParam("@recordsPerPage", sqlStatsRecord_Temp.RecordsPerPage);
-            exec.WithSqlParam("@pageNo", sqlStatsRecord_Temp.CurrentPageNo);
-            exec.WithSqlParam("@sortColumn", sqlStatsRecord_Temp.columnName);
-            exec.WithSqlParam("@desc", sqlStatsRecord_Temp.desc);
+            exec.WithSqlParam("@searchTerm", sqlStatsRecord.searchTerm);
+            exec.WithSqlParam("@recordsPerPage", sqlStatsRecord.RecordsPerPage);
+            exec.WithSqlParam("@pageNo", sqlStatsRecord.CurrentPageNo);
+            exec.WithSqlParam("@sortColumn", sqlStatsRecord.columnName);
+            exec.WithSqlParam("@desc", sqlStatsRecord.desc);
 
 
             IEnumerable<Timelog_Search_Record> result1_data = await exec.GetResultSet_v02<Timelog_Search_Record>();
             IList<SqlStatsRecord> result2_Stats = await exec.GetResultSet_v02<SqlStatsRecord>();
-
-            SqlStatsRecord sqlStatsRecord = new SqlStatsRecord(_recordPerPage_Default: _recordPerPage_Default);
+             
 
             if (result2_Stats.Count() == 0)
             {
@@ -82,7 +72,7 @@ namespace DevSitesIndex.Controllers
 
             exec.CloseConnection();
 
-            IQueryable<TimeLog> finalResult =  geta.Where(r => result1_data.Any(r2=>r2.TimelogId == r.TimeLogId));
+            IQueryable<TimeLog> finalResult = _entityRepository.GetAll().Where(r => result1_data.Any(r2 => r2.TimelogId == r.TimeLogId));
 
             DataBag<TimeLog> databag = new DataBag<TimeLog> { dataList = finalResult, sqlStatsRecord = sqlStatsRecord };
 

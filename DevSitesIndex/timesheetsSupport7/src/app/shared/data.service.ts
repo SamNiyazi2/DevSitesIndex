@@ -6,6 +6,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { IUser } from '../users/iuser';
+import { ISqlStatsRecord } from '../interfaces/ISqlStatusRecord';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,25 @@ export class DataService {
     return this.http.get("/api/timelogapi");
 
   }
+
+  // 10/21/2019 10:18 pm - SSN - [20191021-2033] - [004] - Revise timelog search returned result
+
+  getTimesheets_search(data: ISqlStatsRecord) {
+
+    return this.http.post("/api/timelogapi/search", data);
+
+  }
+
+
+
+  // 10/21/2019 08:18 am - SSN - [20191021-0444] - [010] - M12 - Creating directives and advanced components in Angular.
+  getTimelogSearch(data) {
+
+    return this.http.post('/api/timelogapi/search', data).toPromise();
+
+  }
+
+
 
   // 10/05/2019 02:52 pm - SSN - [20191003-1557] - [014] - Adding data service to Angular7
 
@@ -121,17 +141,6 @@ export class DataService {
     return this.http.get('/api/job_StatusAPI').toPromise();
   }
 
-
-
-
-  // 10/21/2019 08:18 am - SSN - [20191021-0444] - [010] - M12 - Creating directives and advanced components in Angular.
-  getTimelogSearch(data) {
-    console.log ( 'data.service - 20191021-0908 - getTimelogSearch')
-
-    console.log(data);
-
-    return this.http.post('/api/timelogapi/search', data).toPromise();
-  }
 
 
 

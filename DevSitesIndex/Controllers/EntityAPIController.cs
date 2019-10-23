@@ -22,7 +22,7 @@ namespace DevSitesIndex.Controllers
     abstract public class EntityAPIController<T> : Controller
     {
 
-        public IEntityRepository_v01<T> _entityRepository;
+        public IEntityRepository<T> _entityRepository;
 
         // 09/24/2019 05:48 am - SSN - [20190924-0401] - [006] - Quick timelog entry
         // Add _context
@@ -43,10 +43,10 @@ namespace DevSitesIndex.Controllers
 
         // GET: api/<controller>
         [HttpGet]
-        public IEnumerable<T> Get()
+        public IQueryable<T> Get()
         {
 
-            IEnumerable<T> entity = _entityRepository.GetAll();
+            IQueryable<T> entity = _entityRepository.GetAll();
 
             return entity;
 
@@ -190,24 +190,15 @@ namespace DevSitesIndex.Controllers
     public class SqlStatsRecord
     {
 
-        readonly int recordsPerPage_Default;
 
-        public SqlStatsRecord() : this(_recordPerPage_Default: 10)
-        {
-        }
-
-        public SqlStatsRecord(int _recordPerPage_Default)
-        {
-            recordsPerPage_Default = _recordPerPage_Default;
-        }
-
+        public int RecordsPerPage_Default = 10;
 
         private int recordsPerPage;
         public int RecordsPerPage
         {
             get
             {
-                return recordsPerPage <= 0 ? recordsPerPage_Default : recordsPerPage;
+                return recordsPerPage <= 0 ? RecordsPerPage_Default : recordsPerPage;
 
             }
             set
@@ -242,6 +233,19 @@ namespace DevSitesIndex.Controllers
         public string job_statuses_selected { get; set; }
 
 
+        // 10/21/2019 10:35 pm - SSN - [20191021-2033] - [006] - Revise timelog search returned result
+        private string _searchTerm;
+        public string searchTerm
+        {
+            get
+            {
+                return string.IsNullOrWhiteSpace(_searchTerm) ? "" : _searchTerm;
+            }
+            set
+            {
+                _searchTerm = value;
+            }
+        }
 
     }
 

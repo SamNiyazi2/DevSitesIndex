@@ -9,7 +9,9 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">@Startup.SITE_NAME_STRING</a>
+      <a [routerLink]="['/']" class="navbar-brand">
+        <app-default-page-parts requestedSection="showDomainNameOnMainPage"></app-default-page-parts>
+      </a>
     </div>
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav">

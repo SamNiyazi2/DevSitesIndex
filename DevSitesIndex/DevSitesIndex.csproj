@@ -27,6 +27,7 @@
   <ItemGroup>
     <None Remove="file.ts" />
     <None Remove="node_modules_hack\SSN_jquery_modal.d.ts" />
+    <None Remove="timesheetsSupport7\src\app\interfaces\ISqlStatusRecord.ts" />
     <None Remove="timesheetsSupport7\src\app\util\customValidators.ts" />
     <None Remove="timesheetsSupport7\src\app\util\ErrorHandlingHelpers.ts" />
   </ItemGroup>
@@ -60,7 +61,9 @@
     <Folder Include="Connected Services\" />
     <Folder Include="node_modules\" />
     <Folder Include="Pages\Discipline\" />
+    <Folder Include="wwwroot\dist\" />
     <Folder Include="wwwroot\js\Timesheet\Templates\" />
+    <Folder Include="wwwroot\webpack_build\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="wwwroot\js\____________________________ts.txt" />
@@ -69,6 +72,7 @@
     <ProjectReference Include="..\SSN_DevSites_DAL_Standard\SSN_DevSites_DAL_Standard.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="timesheetsSupport7\src\app\interfaces\ISqlStatusRecord.ts" />
     <TypeScriptCompile Include="timesheetsSupport7\src\app\util\customValidators.ts" />
     <TypeScriptCompile Include="timesheetsSupport7\src\app\util\ErrorHandlingHelpers.ts" />
   </ItemGroup>

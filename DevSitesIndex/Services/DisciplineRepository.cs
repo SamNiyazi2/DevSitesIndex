@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DevSitesIndex.Services
 {
-    public class DisciplineRepository : IEntityRepository_v01<Discipline>
+    public class DisciplineRepository : IEntityRepository<Discipline>
     {
         private readonly DevSitesIndexContext _context;
 
@@ -19,11 +19,11 @@ namespace DevSitesIndex.Services
         }
          
 
-        public IEnumerable<Discipline> GetAll()
+        public IQueryable<Discipline> GetAll()
         {
             // 04/20/2019 11:09 am - SSN - [20190420-1109] - Add AsNoTracking to index pages
 
-            return _context.Disciplines.OrderBy(r=>r.DisciplineShort).AsNoTracking().ToList();
+            return _context.Disciplines.OrderBy(r=>r.DisciplineShort).AsNoTracking();
         }
 
 

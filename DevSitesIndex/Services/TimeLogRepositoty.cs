@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DevSitesIndex.Services
 {
-    public class TimeLogRepository : IEntityRepository_v02<TimeLog>
+    public class TimeLogRepository : IEntityRepository<TimeLog>
     {
         private readonly DevSitesIndexContext _context;
         private readonly ILogger_SSN logger;

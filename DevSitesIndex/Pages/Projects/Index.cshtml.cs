@@ -100,8 +100,15 @@ namespace DevSitesIndex.Pages.Projects
         public async Task OnPostAsync(string searchText, List<SearchTableRecord> searchTables, string columnName, string desc)
         {
             searchTablesOptions_Fill(null);
-
-            await searchResults_Fill(searchText, searchTables, columnName, desc, null, null);
+            try
+            {
+                await searchResults_Fill(searchText, searchTables, columnName, desc, null, null);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("searchText", ex.Message);
+                await logger.PostException(ex, "DemoSite-20191022-0644", $"Failed search call. Text [{searchText}]");
+            }
 
         }
 

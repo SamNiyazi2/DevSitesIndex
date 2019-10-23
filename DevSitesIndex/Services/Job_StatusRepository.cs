@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DevSitesIndex.Services
 {
-    public class Job_StatusRepository : IEntityRepository_v01<Job_Status>
+    public class Job_StatusRepository : IEntityRepository<Job_Status>
     {
         private readonly DevSitesIndexContext context;
 
@@ -19,9 +19,9 @@ namespace DevSitesIndex.Services
             this.context = context;
         }
 
-        public IEnumerable<Job_Status> GetAll()
+        public IQueryable<Job_Status> GetAll()
         {
-            return context.Job_Statuses.AsNoTracking().ToList();
+            return context.Job_Statuses.AsNoTracking();
         }
 
         public Job_Status GetRecord(int id)

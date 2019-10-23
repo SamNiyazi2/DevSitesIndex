@@ -1,4 +1,8 @@
 
+
+
+<a ssnobject2="topOfThePage2"></a>
+
 <div class="row">
   <div class="col-md-6">
 
@@ -11,6 +15,7 @@
         <!--app-modal-trigger="timelogSearchResults"-->
 
         <button class="btn btn-default">Search</button>
+        <button class="btn btn-default" (click)="resetSearch()">Reset</button>
       </div>
     </form>
 
@@ -21,10 +26,10 @@
 <!-- 10/21/2019 05:47 am - SSN - [20191021-0444] - [005] - M12 - Creating directives and advanced components in Angular. -->
 <app-timelog-modal elementId="timelogSearchResults" title="Matching Timelog Entries" closeOnClick="true">
   <div class="list-group">
-<!--
-          [routerLink]="['/timelog',timesheet_modal.timelogId]"
-          app-modal-trigger="timelogShowSelected"
--->
+    <!--
+              [routerLink]="['/timelog',timesheet_modal.timelogId]"
+              app-modal-trigger="timelogShowSelected"
+    -->
     <a class="list-group-item" *ngFor="let timesheet_modal of timesheets_for_modal" [routerLink]="['/timelog',timesheet_modal.timelogId]">
       [{{timesheet_modal.projectTitle}}] - [{{timesheet_modal.jobTitle}}] - [{{timesheet_modal.disciplineShort}}]
     </a>
@@ -50,3 +55,7 @@
   </div>
 
 </div>
+
+
+
+<app-page-v02-custom (skipActionOwner)="skipTimelog($event)" [sqlStatsRecord]="sqlStatsRecord" [scrollIntoViewSelector]="'[ssnobject2=topOfThePage2]'"></app-page-v02-custom>

@@ -85,7 +85,8 @@ namespace DevSitesIndex.Controllers
             // 10/21/2019 09:22 am - SSN - [20191021-0444] - [012] - M12 - Creating directives and advanced components in Angular.
             // Update with SqlStatsRecord_temp 
 
-            SqlStatsRecord SqlStatsRecord_temp = new SqlStatsRecord(_recordPerPage_Default: 10);
+            SqlStatsRecord SqlStatsRecord_temp = new SqlStatsRecord();
+            SqlStatsRecord_temp.RecordsPerPage_Default = 10;
 
             // 09/18/2019 12:40 am - SSN - [20190917-0929] - [009] - Adding paging for angular lists
 
@@ -112,7 +113,7 @@ namespace DevSitesIndex.Controllers
             if (result2_Stats.Count() == 0)
             {
                 await logger.PostException(new Exception { Source = "JobAPIController" }, "20190918-0057", "Procedure did not return a second result set of table/page stats.");
-                sqlStatsRecord = new SqlStatsRecord(_recordPerPage_Default: 50);
+                sqlStatsRecord = new SqlStatsRecord();
             }
             else
             {

@@ -5,7 +5,9 @@ import { ITimelog } from '../interfaces/ITimelog';
 import { TOASTR_TOKEN, Toastr } from '../shared/toastr.service';
 
 
-import * as ehu from '../util/ErrorHandlingHelpers';
+import * as ehu from '../util/ErrorHandlingHelpers'; 
+
+
 
 
 @Component({
@@ -22,6 +24,7 @@ export class TimesheetComponent implements OnInit {
   // Add ITimeLog
   timesheets: ITimelog[];
 
+  sqlStatsRecord: any;
 
   timesheets_for_modal: ITimelog[];
 
@@ -49,6 +52,8 @@ export class TimesheetComponent implements OnInit {
   ngOnInit() {
 
     this.timesheets = [];
+    this.sqlStatsRecord = null;
+
 
     //let promise = this.dataService.getTimesheets().toPromise();
 
@@ -58,15 +63,13 @@ export class TimesheetComponent implements OnInit {
 
     this.timesheets = this.route.snapshot.data['timesheets_resolver'];
 
-    console.log('timesheet.component - 20191009-1502 - AAAA');
-    console.log(this.timesheets);
-
   }
 
 
   getTimesheetSuccess(response) {
 
     this.timesheets = response;
+    this.sqlStatsRecord = null;
 
   }
 
@@ -86,9 +89,6 @@ export class TimesheetComponent implements OnInit {
 
   handleThumbnailClick(data) {
 
-    console.log('timesheet.component handleThumbnail click');
-
-    console.log('Date received [' + data + ']');
     this.toastrService.success('Loaded [' + data + ']...', 'some title');
   }
 
@@ -98,26 +98,30 @@ export class TimesheetComponent implements OnInit {
 
   searchTimesheets() {
 
-    console.log("timesheet.components - 20191021-0449");
-    console.log(this.searchTerm);
     let data = {
       searchTerm: this.searchTerm
     }
 
     this.dataService.getTimelogSearch(data).then(this.getTimelogSearchSuccess.bind(this), this.getTimelogSearchError.bind(this));
-
-
+     
   }
 
+  resetSearch() {
+
+    let data = {
+      searchTerm: ""
+    }
+
+    this.dataService.getTimelogSearch(data).then(this.getTimelogSearchSuccess.bind(this), this.getTimelogSearchError.bind(this));
+
+  }
 
   getTimelogSearchSuccess(result) {
 
     // this.timesheets_for_modal = result.dataList;
     this.timesheets = result.dataList;
-    console.log('timesheet.component - 20191021-2029');
-    console.log(result.dataList);
-
-
+    this.sqlStatsRecord = result.sqlStatsRecord;
+      
   }
 
 
@@ -130,6 +134,14 @@ export class TimesheetComponent implements OnInit {
 
   }
 
+
+  skipTimelog(data) {
+ 
+    data.sqlStatsRecord.currentPageNo = data.sqlStatsRecord.currentPageNo + data.value; 
+    console.log(data.sqlStatsRecord);
+    this.dataService.getTimelogSearch(data.sqlStatsRecord).then(this.getTimelogSearchSuccess.bind(this), this.getTimelogSearchError.bind(this));
+
+  }
 
 
 }

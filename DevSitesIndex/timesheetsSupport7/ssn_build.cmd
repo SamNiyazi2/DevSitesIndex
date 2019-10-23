@@ -25,17 +25,8 @@ goto end
 
 :build
 
-set currentPath=%cd%
+ng build --watch
 
-cd %~dp0
-
-:start /WAIT ng build --watch
-start ng build --watch
-
-
-cd %currentPath%
-
-set currentPath=
 
 :end
  

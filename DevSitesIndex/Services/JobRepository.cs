@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DevSitesIndex.Services
 {
-    public class JobRepository : IEntityRepository_v01<Job>
+    public class JobRepository : IEntityRepository<Job>
     {
         private readonly DevSitesIndexContext _context;
 
@@ -20,10 +20,10 @@ namespace DevSitesIndex.Services
         }
 
 
-        public IEnumerable<Job> GetAll()
+        public IQueryable<Job> GetAll()
         {
 
-            return _context.Jobs.OrderBy(r => r.JobTitle).AsNoTracking().ToList();
+            return _context.Jobs.OrderBy(r => r.JobTitle).AsNoTracking();
         }
 
 
