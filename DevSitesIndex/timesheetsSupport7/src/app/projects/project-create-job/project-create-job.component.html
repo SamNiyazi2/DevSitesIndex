@@ -7,7 +7,7 @@
       <div class="form-group" [ngClass]="{'error':!validControl('jobTitle')}">
         <label for="jobTitle">Job Title</label>
         <em *ngIf="!validControl('jobTitle') && newJobForm.controls.jobTitle.errors.required">Required</em>
-        <input type="text" formControlName="jobTitle" name="jobTitle" class="form-control" required autofocus/>
+        <input type="text" formControlName="jobTitle" name="jobTitle" class="form-control" required autofocus />
       </div>
 
 

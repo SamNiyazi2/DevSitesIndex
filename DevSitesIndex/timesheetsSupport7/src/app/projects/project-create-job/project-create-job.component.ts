@@ -44,8 +44,10 @@ export class ProjectCreateJobComponent implements OnInit {
 
   }
 
-
-  cancelNewJob_local(formValue) {
+  // 10/28/2019 05:39 am - SSN - [20191028-0456] - [007] - Timesheet dashboard
+  // ng build --aot=true - child route fix
+  //cancelNewJob_local(formValue) {
+  cancelNewJob_local() {
 
     this.cancelNewJob.emit();
 

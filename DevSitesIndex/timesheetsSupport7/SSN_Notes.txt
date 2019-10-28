@@ -3,3 +3,9 @@
 // 10/21/2019 07:55 am - SSN - [20191021-0444] - [008] - M12 - Creating directives and advanced components in Angular.
 
 npm install bootstrap@3.3.7
+
+
+// 10/28/2019 06:50 am - SSN - [20191028-0558] - [006] - Timesheet dashboard
+
+npm install ng2-charts@2.2.3
+npm install charts

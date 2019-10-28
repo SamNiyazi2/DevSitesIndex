@@ -42,6 +42,14 @@ export class DataService {
 
   }
 
+// 10/28/2019 09:10 am - SSN - [20191028-0909] - [001] - Timesheet dashboard - Summary by discipline
+
+  getTimelog_SummaryByDiscipline() {
+
+    return this.http.get("/api/timelogapi/summaryByDiscipline/" );
+
+  }
+
 
 
   // 10/05/2019 02:52 pm - SSN - [20191003-1557] - [014] - Adding data service to Angular7
@@ -51,6 +59,8 @@ export class DataService {
     return this.http.get("/api/timelogapi/get_custom/" + id);
 
   }
+
+
 
 
   // 10/07/2019 10:58 am - SSN - [20191007-1020] - [005] - Adding Angular 7 - Collecting data with Angular forms and validations - Authenticate user

@@ -25,7 +25,8 @@ goto end
 
 :build
 
-ng build --watch
+ng build --watch   --aot=true  
+
 
 
 :end

@@ -29,7 +29,7 @@ namespace DevSitesIndex.Controllers
         }
 
 
-      
+
 
 
         // 10/21/2019 08:15 am - SSN - [20191021-0444] - [009] - M12 - Creating directives and advanced components in Angular.
@@ -43,7 +43,7 @@ namespace DevSitesIndex.Controllers
 
             // if (options == null) options = new Tempparam();
             if (sqlStatsRecord == null) sqlStatsRecord = new SqlStatsRecord();
-            sqlStatsRecord.RecordsPerPage_Default = 3;
+            sqlStatsRecord.RecordsPerPage_Default = 20;
 
             Util.ExecuteStoredProcedure exec = new Util.ExecuteStoredProcedure(context, logger);
 
@@ -59,7 +59,7 @@ namespace DevSitesIndex.Controllers
 
             IEnumerable<Timelog_Search_Record> result1_data = await exec.GetResultSet_v02<Timelog_Search_Record>();
             IList<SqlStatsRecord> result2_Stats = await exec.GetResultSet_v02<SqlStatsRecord>();
-             
+
 
             if (result2_Stats.Count() == 0)
             {
@@ -81,8 +81,28 @@ namespace DevSitesIndex.Controllers
 
 
 
+        // 10/28/2019 09:11 am - SSN - [20191028-0909] - [002] - Timesheet dashboard - Summary by discipline
+        [HttpGet("summaryByDiscipline")]
+        public async Task<List<SummaryByDiscipline>> summaryByDiscipline()
+        {
 
+            Util.ExecuteStoredProcedure exec = new Util.ExecuteStoredProcedure(context, logger);
 
+            exec.LoadStoredProc("demosites.TimeLog_ByDiscipline");
+
+            IEnumerable<SummaryByDiscipline> results = await exec.GetResultSet_v02<SummaryByDiscipline>();
+
+            exec.CloseConnection();
+
+            return results.ToList();
+        }
+
+        public class SummaryByDiscipline
+        {
+            public DateTime FirstDate { get; set; }
+            public string DisciplineShort { get; set; }
+            public decimal TotalHours { get; set; }
+        }
 
 
 

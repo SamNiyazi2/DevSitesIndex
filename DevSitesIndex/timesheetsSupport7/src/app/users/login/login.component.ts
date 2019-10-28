@@ -15,6 +15,13 @@ import { BroadcasterUtilService } from 'src/app/broadcaster-util.service';
 export class LoginComponent implements OnInit {
 
 
+  // 10/28/2019 05:41 am - SSN - [20191028-0456] - [008] - Timesheet dashboard
+  // ng build --aot=true - child route fix
+  mouseoverLogin: boolean;
+  displayProps: boolean;
+  email: string;
+  password: string;
+
 
   currentUser: IUser;
   feedbackMessage: string = "";

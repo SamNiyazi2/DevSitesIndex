@@ -20,14 +20,17 @@ export class HeaderComponent implements OnInit {
   // 10/08/2019 10:39 pm - SSN - [20191008-1232] - [017] - X-XSRF-TOKEN
   // https://angular.io/guide/security#xss
 
-  constructor(private authenticateService: AuthenticateService, private dataService: DataService, private sanitizer: DomSanitizer, private broadcasterUtil: BroadcasterUtilService) {
+  // 10/28/2019 05:37 am - SSN - [20191028-0456] - [006] - Timesheet dashboard
+  // ng build --aot=true - child route fix
+  // public authenticateService from private
+  constructor(public authenticateService: AuthenticateService, private dataService: DataService, private sanitizer: DomSanitizer, private broadcasterUtil: BroadcasterUtilService) {
 
   }
 
 
 
   ngOnInit(): void {
- 
+
 
     this.setupControl();
 
@@ -59,7 +62,7 @@ export class HeaderComponent implements OnInit {
   forgeryTokenSuccess(response) {
 
     this.forgeryToken = this.sanitizer.bypassSecurityTrustHtml(response);
-   
+
   }
 
 

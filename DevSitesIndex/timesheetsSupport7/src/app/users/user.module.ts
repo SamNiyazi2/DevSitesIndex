@@ -6,10 +6,14 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { userRoutes } from './user.routes';
+// 10/28/2019 05:12 am - SSN - [20191028-0456] - [004] - Timesheet dashboard
+// ng build --aot=true - child route fix
+// import { userRoutes } from './user.routes';
+import { UserRoutesModule } from './user.routes';
+
 import { ProfileComponent } from './profile/profile.component';
 import { LoginComponent } from './login/login.component';
-import { LogoutComponent, ChildComponent} from './logout/logout.component';
+import { LogoutComponent, ChildComponent } from './logout/logout.component';
 
 
 console.log('user.module - 20191011-1628');
@@ -28,8 +32,8 @@ console.log('user.module - 20191011-1628');
       // 10/07/2019 07:28 pm - SSN - [20191007-1857] - [002] - M07-06 - Reactive forms
       ReactiveFormsModule,
 
-      RouterModule.forChild(userRoutes),
-
+      // RouterModule.forChild(userRoutes),
+      UserRoutesModule,
     ]
 
     ,

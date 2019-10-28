@@ -5,7 +5,7 @@ import { ITimelog } from 'src/app/interfaces/ITimelog';
 
 @Component({
   selector: 'app-thumbnail',
-  templateUrl: './thumbnail.component.html?v=1',
+  templateUrl: './thumbnail.component.html',
   styleUrls: ['./thumbnail.component.css']
 })
 export class ThumbnailComponent implements OnInit {
