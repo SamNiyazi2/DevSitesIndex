@@ -38,6 +38,7 @@ namespace DevSitesIndex.MSTests.Timelog
 
 
         [TestMethod]
+        [Ignore]
         public async Task TestMethod1()
         {
 
