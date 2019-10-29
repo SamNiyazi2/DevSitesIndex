@@ -26,8 +26,9 @@ export class DashboardComponent implements OnInit {
 
   // 10/28/2019 09:54 am - SSN - [20191028-0909] - [004] - Timesheet dashboard - Summary by discipline
 
-  pie_labels: any = [['Development-a'], ['Maintenance-a'], 'Modifications-c'];
+  pie_labels: any = [['Development-a'], ['Maintenance-a'], 'Modifications-c', 'aaaa','ddadsafsadfasf','asfdafeqer','asdfasfdsadfsaf','qww','aewtrytrue','fgkhkfkk','safsafa'];
   pie_data: any = [40.1, 50.25, 349.15];
+
 
 
   //public pieChartLabels_Test102: Label[] = [['Development-a'], ['Maintenance-a'], 'Modifications-c'];
@@ -45,6 +46,17 @@ export class DashboardComponent implements OnInit {
   constructor(private dataService: DataService) { }
 
   ngOnInit() {
+
+
+
+
+    for (var i = 0; i < 8; i++) {
+      var r = Math.floor(Math.random() * 100);
+      this.pie_data.push(r);
+    }
+
+
+
 
 
     this.dataService.getTimelog_SummaryByDiscipline().subscribe((data: any[]) => {
