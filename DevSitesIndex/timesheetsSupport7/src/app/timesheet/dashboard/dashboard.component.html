@@ -10,8 +10,9 @@
 </div>
 
 <div class="col-md-6 timeChart">
-  <app-bar-chart [barChartData_input]="barChartData_Test101" ></app-bar-chart>
+  <app-bar-chart [barChartData_input]="barChartData_Test101"></app-bar-chart>
 </div>
+
 
 
 <div class="col-md-6 timeChart">
@@ -26,9 +27,13 @@
 </div>
 
 <div class="col-md-6 timeChart">
-  <app-pie-chart [pieChartLabels_input]="pieChartLabels_Test102" [pieChartData_input]="pieChartData_Test102" [pieCharTitle_input]="pieCharTitle_Test102"></app-pie-chart>
+  <app-pie-chart [pieChartData_input]="pieChartData_SummaryByDiscipline"></app-pie-chart>
 </div>
 
+
+<div class="col-md-6 timeChart">
+  <app-pie-chart [pieChartData_input]="pieChartData_SummaryByProject"></app-pie-chart>
+</div>
 
 
 

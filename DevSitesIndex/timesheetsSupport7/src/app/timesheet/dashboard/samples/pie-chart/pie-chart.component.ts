@@ -4,6 +4,7 @@ import { Component, OnInit, Input, OnChanges } from '@angular/core';
 
 import { ChartType, ChartOptions, ChartTitleOptions } from 'chart.js';
 import { SingleDataSet, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip } from 'ng2-charts';
+import { IPieChartData } from '../Interaces/IPieChartData';
 
 
 
@@ -21,6 +22,7 @@ export class PieChartComponent implements OnInit, OnChanges {
 
   public pieChartOptions: ChartOptions = {
     responsive: true,
+    title: { display: false }
   };
 
   public pieChartLabels: Label[] = [['Download', 'Sales'], ['In', 'Store', 'Sales'], 'Mail Sales'];
@@ -59,7 +61,7 @@ export class PieChartComponent implements OnInit, OnChanges {
         'rgba(123,104,238, 0.9)',
         'rgba(255,0,255, 0.9)',
         'rgba(199,21,133, 0.9)',
-      
+
       ]
     }
   ]
@@ -67,10 +69,13 @@ export class PieChartComponent implements OnInit, OnChanges {
 
 
   // 10/28/2019 09:56 am - SSN - [20191028-0909] - [005] - Timesheet dashboard - Summary by discipline
-  @Input() pieChartLabels_input: Label[];
-  @Input() pieChartData_input: SingleDataSet;
-  @Input() pieCharTitle_input;
+  // 10/29/2019 04:40 am - SSN - [20191029-0124] - [004] - Timesheet dashboard - Summary by project
 
+  //@Input() pieChartLabels_input: Label[];
+  //@Input() pieChartData_input: SingleDataSet;
+  //@Input() pieCharTitle_input;
+
+  @Input() pieChartData_input: IPieChartData;
 
 
 
@@ -83,18 +88,49 @@ export class PieChartComponent implements OnInit, OnChanges {
   // 10/28/2019 09:56 am - SSN - [20191028-0909] - [005] - Timesheet dashboard - Summary by discipline
   ngOnChanges(): void {
 
+    console.log('20191029-0452 - pie-chart.component - ngOnChanges');
+
     if (!this.pieChartData_input) return;
 
-    this.pieChartData = this.pieChartData_input;
-    this.pieChartLabels = this.pieChartLabels_input;
+    console.log('20191029-0452 - pie-chart.component - ngOnChanges - have object');
+
+    // 10/29/2019 04:57 am - SSN - [20191029-0124] - [005] - Timesheet dashboard - Summary by project
+
+    this.pieChartData = this.pieChartData_input.pieChartData_Test102;
+    this.pieChartLabels = this.pieChartData_input.pieChartLabels_Test102;
 
     this.pieChartOptions = {
       responsive: true,
-      title: { text: this.pieCharTitle_input, display: true }
+      title: { text: this.pieChartData_input.pieCharTitle_Test102, display: true }
 
     };
 
 
+  }
+
+
+
+
+  // 10/29/2019 05:37 am - SSN - [20191029-0536] - [001] - Timesheet dashboard - Summary by project - Add click event
+  // https://stackoverflow.com/questions/38378984/chart-js-angular-2-ng2-charts-custom-on-click-event
+
+  chartClicked(e: any): void {
+
+    debugger;
+
+    if (e.active.length > 0) {
+
+      const chart = e.active[0]._chart;
+      const activePoints = chart.getElementAtEvent(e.event);
+      if (activePoints.length > 0) {
+        // get the internal index of slice in pie chart
+        const clickedElementIndex = activePoints[0]._index;
+        const label = chart.data.labels[clickedElementIndex];
+        // get value by index
+        const value = chart.data.datasets[0].data[clickedElementIndex];
+        console.log(clickedElementIndex, label, value)
+      }
+    }
   }
 
 

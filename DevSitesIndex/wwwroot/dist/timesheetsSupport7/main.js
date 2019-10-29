@@ -1824,6 +1824,10 @@ var DataService = /** @class */ (function () {
     DataService.prototype.getTimelog_SummaryByDiscipline = function () {
         return this.http.get("/api/timelogapi/summaryByDiscipline/");
     };
+    // 10/29/2019 05:24 am - SSN - [20191029-0124] - [009] - Timesheet dashboard - Summary by project
+    DataService.prototype.getTimelog_SummaryByProject = function () {
+        return this.http.get("/api/timelogapi/summaryByProject/");
+    };
     // 10/05/2019 02:52 pm - SSN - [20191003-1557] - [014] - Adding data service to Angular7
     DataService.prototype.getTimesheet = function (id) {
         return this.http.get("/api/timelogapi/get_custom/" + id);
@@ -2701,7 +2705,7 @@ __webpack_require__.r(__webpack_exports__);
 var styles_DashboardComponent = [_dashboard_component_css_shim_ngstyle__WEBPACK_IMPORTED_MODULE_0__["styles"]];
 var RenderType_DashboardComponent = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵcrt"]({ encapsulation: 0, styles: styles_DashboardComponent, data: {} });
 
-function View_DashboardComponent_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](0, 0, null, null, 1, "p", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, [" dashboard works! (2)\n"])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](2, 0, null, null, 2, "div", [["class", "col-md-6 timeChart"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](3, 0, null, null, 1, "app-bar-chart", [], null, null, null, _samples_bar_chart_bar_chart_component_ngfactory__WEBPACK_IMPORTED_MODULE_2__["View_BarChartComponent_0"], _samples_bar_chart_bar_chart_component_ngfactory__WEBPACK_IMPORTED_MODULE_2__["RenderType_BarChartComponent"])), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](4, 638976, null, 0, _samples_bar_chart_bar_chart_component__WEBPACK_IMPORTED_MODULE_3__["BarChartComponent"], [], null, null), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](5, 0, null, null, 2, "div", [["class", "col-md-6 timeChart"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](6, 0, null, null, 1, "app-bar-chart", [], null, null, null, _samples_bar_chart_bar_chart_component_ngfactory__WEBPACK_IMPORTED_MODULE_2__["View_BarChartComponent_0"], _samples_bar_chart_bar_chart_component_ngfactory__WEBPACK_IMPORTED_MODULE_2__["RenderType_BarChartComponent"])), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](7, 638976, null, 0, _samples_bar_chart_bar_chart_component__WEBPACK_IMPORTED_MODULE_3__["BarChartComponent"], [], { barChartData_input: [0, "barChartData_input"] }, null), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](8, 0, null, null, 2, "div", [["class", "col-md-6 timeChart"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](9, 0, null, null, 1, "app-line-chart", [], null, null, null, _samples_line_chart_line_chart_component_ngfactory__WEBPACK_IMPORTED_MODULE_4__["View_LineChartComponent_0"], _samples_line_chart_line_chart_component_ngfactory__WEBPACK_IMPORTED_MODULE_4__["RenderType_LineChartComponent"])), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](10, 114688, null, 0, _samples_line_chart_line_chart_component__WEBPACK_IMPORTED_MODULE_5__["LineChartComponent"], [], null, null), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](11, 0, null, null, 2, "div", [["class", "col-md-6 timeChart"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](12, 0, null, null, 1, "app-pie-chart", [], null, null, null, _samples_pie_chart_pie_chart_component_ngfactory__WEBPACK_IMPORTED_MODULE_6__["View_PieChartComponent_0"], _samples_pie_chart_pie_chart_component_ngfactory__WEBPACK_IMPORTED_MODULE_6__["RenderType_PieChartComponent"])), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](13, 638976, null, 0, _samples_pie_chart_pie_chart_component__WEBPACK_IMPORTED_MODULE_7__["PieChartComponent"], [], null, null), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](14, 0, null, null, 2, "div", [["class", "col-md-6 timeChart"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](15, 0, null, null, 1, "app-pie-chart", [], null, null, null, _samples_pie_chart_pie_chart_component_ngfactory__WEBPACK_IMPORTED_MODULE_6__["View_PieChartComponent_0"], _samples_pie_chart_pie_chart_component_ngfactory__WEBPACK_IMPORTED_MODULE_6__["RenderType_PieChartComponent"])), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](16, 638976, null, 0, _samples_pie_chart_pie_chart_component__WEBPACK_IMPORTED_MODULE_7__["PieChartComponent"], [], { pieChartLabels_input: [0, "pieChartLabels_input"], pieChartData_input: [1, "pieChartData_input"], pieCharTitle_input: [2, "pieCharTitle_input"] }, null), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](17, 0, null, null, 2, "div", [["class", "col-md-6 timeChart"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](18, 0, null, null, 1, "app-bubble-chart", [], null, null, null, _samples_bubble_chart_bubble_chart_component_ngfactory__WEBPACK_IMPORTED_MODULE_8__["View_BubbleChartComponent_0"], _samples_bubble_chart_bubble_chart_component_ngfactory__WEBPACK_IMPORTED_MODULE_8__["RenderType_BubbleChartComponent"])), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](19, 114688, null, 0, _samples_bubble_chart_bubble_chart_component__WEBPACK_IMPORTED_MODULE_9__["BubbleChartComponent"], [], null, null)], function (_ck, _v) { var _co = _v.component; _ck(_v, 4, 0); var currVal_0 = _co.barChartData_Test101; _ck(_v, 7, 0, currVal_0); _ck(_v, 10, 0); _ck(_v, 13, 0); var currVal_1 = _co.pieChartLabels_Test102; var currVal_2 = _co.pieChartData_Test102; var currVal_3 = _co.pieCharTitle_Test102; _ck(_v, 16, 0, currVal_1, currVal_2, currVal_3); _ck(_v, 19, 0); }, null); }
+function View_DashboardComponent_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](0, 0, null, null, 1, "p", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, [" dashboard works! (2)\n"])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](2, 0, null, null, 2, "div", [["class", "col-md-6 timeChart"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](3, 0, null, null, 1, "app-bar-chart", [], null, null, null, _samples_bar_chart_bar_chart_component_ngfactory__WEBPACK_IMPORTED_MODULE_2__["View_BarChartComponent_0"], _samples_bar_chart_bar_chart_component_ngfactory__WEBPACK_IMPORTED_MODULE_2__["RenderType_BarChartComponent"])), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](4, 638976, null, 0, _samples_bar_chart_bar_chart_component__WEBPACK_IMPORTED_MODULE_3__["BarChartComponent"], [], null, null), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](5, 0, null, null, 2, "div", [["class", "col-md-6 timeChart"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](6, 0, null, null, 1, "app-bar-chart", [], null, null, null, _samples_bar_chart_bar_chart_component_ngfactory__WEBPACK_IMPORTED_MODULE_2__["View_BarChartComponent_0"], _samples_bar_chart_bar_chart_component_ngfactory__WEBPACK_IMPORTED_MODULE_2__["RenderType_BarChartComponent"])), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](7, 638976, null, 0, _samples_bar_chart_bar_chart_component__WEBPACK_IMPORTED_MODULE_3__["BarChartComponent"], [], { barChartData_input: [0, "barChartData_input"] }, null), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](8, 0, null, null, 2, "div", [["class", "col-md-6 timeChart"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](9, 0, null, null, 1, "app-line-chart", [], null, null, null, _samples_line_chart_line_chart_component_ngfactory__WEBPACK_IMPORTED_MODULE_4__["View_LineChartComponent_0"], _samples_line_chart_line_chart_component_ngfactory__WEBPACK_IMPORTED_MODULE_4__["RenderType_LineChartComponent"])), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](10, 114688, null, 0, _samples_line_chart_line_chart_component__WEBPACK_IMPORTED_MODULE_5__["LineChartComponent"], [], null, null), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](11, 0, null, null, 2, "div", [["class", "col-md-6 timeChart"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](12, 0, null, null, 1, "app-pie-chart", [], null, null, null, _samples_pie_chart_pie_chart_component_ngfactory__WEBPACK_IMPORTED_MODULE_6__["View_PieChartComponent_0"], _samples_pie_chart_pie_chart_component_ngfactory__WEBPACK_IMPORTED_MODULE_6__["RenderType_PieChartComponent"])), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](13, 638976, null, 0, _samples_pie_chart_pie_chart_component__WEBPACK_IMPORTED_MODULE_7__["PieChartComponent"], [], null, null), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](14, 0, null, null, 2, "div", [["class", "col-md-6 timeChart"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](15, 0, null, null, 1, "app-pie-chart", [], null, null, null, _samples_pie_chart_pie_chart_component_ngfactory__WEBPACK_IMPORTED_MODULE_6__["View_PieChartComponent_0"], _samples_pie_chart_pie_chart_component_ngfactory__WEBPACK_IMPORTED_MODULE_6__["RenderType_PieChartComponent"])), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](16, 638976, null, 0, _samples_pie_chart_pie_chart_component__WEBPACK_IMPORTED_MODULE_7__["PieChartComponent"], [], { pieChartData_input: [0, "pieChartData_input"] }, null), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](17, 0, null, null, 2, "div", [["class", "col-md-6 timeChart"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](18, 0, null, null, 1, "app-pie-chart", [], null, null, null, _samples_pie_chart_pie_chart_component_ngfactory__WEBPACK_IMPORTED_MODULE_6__["View_PieChartComponent_0"], _samples_pie_chart_pie_chart_component_ngfactory__WEBPACK_IMPORTED_MODULE_6__["RenderType_PieChartComponent"])), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](19, 638976, null, 0, _samples_pie_chart_pie_chart_component__WEBPACK_IMPORTED_MODULE_7__["PieChartComponent"], [], { pieChartData_input: [0, "pieChartData_input"] }, null), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](20, 0, null, null, 2, "div", [["class", "col-md-6 timeChart"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](21, 0, null, null, 1, "app-bubble-chart", [], null, null, null, _samples_bubble_chart_bubble_chart_component_ngfactory__WEBPACK_IMPORTED_MODULE_8__["View_BubbleChartComponent_0"], _samples_bubble_chart_bubble_chart_component_ngfactory__WEBPACK_IMPORTED_MODULE_8__["RenderType_BubbleChartComponent"])), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](22, 114688, null, 0, _samples_bubble_chart_bubble_chart_component__WEBPACK_IMPORTED_MODULE_9__["BubbleChartComponent"], [], null, null)], function (_ck, _v) { var _co = _v.component; _ck(_v, 4, 0); var currVal_0 = _co.barChartData_Test101; _ck(_v, 7, 0, currVal_0); _ck(_v, 10, 0); _ck(_v, 13, 0); var currVal_1 = _co.pieChartData_SummaryByDiscipline; _ck(_v, 16, 0, currVal_1); var currVal_2 = _co.pieChartData_SummaryByProject; _ck(_v, 19, 0, currVal_2); _ck(_v, 22, 0); }, null); }
 function View_DashboardComponent_Host_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](0, 0, null, null, 1, "app-dashboard", [], null, null, null, View_DashboardComponent_0, RenderType_DashboardComponent)), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](1, 114688, null, 0, _dashboard_component__WEBPACK_IMPORTED_MODULE_10__["DashboardComponent"], [_shared_data_service__WEBPACK_IMPORTED_MODULE_11__["DataService"]], null, null)], function (_ck, _v) { _ck(_v, 1, 0); }, null); }
 var DashboardComponentNgFactory = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵccf"]("app-dashboard", _dashboard_component__WEBPACK_IMPORTED_MODULE_10__["DashboardComponent"], View_DashboardComponent_Host_0, {}, {}, []);
 
@@ -2721,12 +2725,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DashboardComponent", function() { return DashboardComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var src_app_shared_data_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/shared/data.service */ "./src/app/shared/data.service.ts");
+/* harmony import */ var _util_ErrorHandlingHelpers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../util/ErrorHandlingHelpers */ "./src/app/util/ErrorHandlingHelpers.ts");
 // 10/28/2019 06:00 am - SSN - [20191028-0558] - [001] - Timesheet dashboard
 
 
+
 var DashboardComponent = /** @class */ (function () {
-    //public pieChartLabels_Test102: Label[] = null;
-    //public pieChartData_Test102: SingleDataSet = null;
     function DashboardComponent(dataService) {
         this.dataService = dataService;
         // 10/28/2019 09:54 am - SSN - [20191028-0909] - [004] - Timesheet dashboard - Summary by discipline
@@ -2737,19 +2741,18 @@ var DashboardComponent = /** @class */ (function () {
         // 10/28/2019 09:54 am - SSN - [20191028-0909] - [004] - Timesheet dashboard - Summary by discipline
         this.pie_labels = [['Development-a'], ['Maintenance-a'], 'Modifications-c', 'aaaa', 'ddadsafsadfasf', 'asfdafeqer', 'asdfasfdsadfsaf', 'qww', 'aewtrytrue', 'fgkhkfkk', 'safsafa'];
         this.pie_data = [40.1, 50.25, 349.15];
-        //public pieChartLabels_Test102: Label[] = [['Development-a'], ['Maintenance-a'], 'Modifications-c'];
-        //public pieChartData_Test102: SingleDataSet = [40.1, 50.25, 349.15];
-        this.pieChartLabels_Test102 = this.pie_labels;
-        this.pieChartData_Test102 = this.pie_data;
     }
     DashboardComponent.prototype.ngOnInit = function () {
-        var _this = this;
         for (var i = 0; i < 8; i++) {
             var r = Math.floor(Math.random() * 100);
             this.pie_data.push(r);
         }
+        this.setup_SummaryByDiscipline();
+        this.setup_SummaryByProject();
+    };
+    DashboardComponent.prototype.setup_SummaryByDiscipline = function () {
+        var _this = this;
         this.dataService.getTimelog_SummaryByDiscipline().subscribe(function (data) {
-            var results = data;
             _this.pie_labels = [];
             _this.pie_data = [];
             var firstDate = null;
@@ -2763,14 +2766,50 @@ var DashboardComponent = /** @class */ (function () {
                 _this.pie_data.push(data[x].totalHours);
             }
             ;
-            _this.pieChartLabels_Test102 = _this.pie_labels;
-            _this.pieChartData_Test102 = _this.pie_data;
+            // 10/29/2019 04:39 am - SSN - [20191029-0124] - [003] - Timesheet dashboard - Summary by project
+            // Revise to allow for multiple use
+            _this.pieChartData_SummaryByDiscipline = {
+                pieChartLabels_Test102: _this.pie_labels,
+                pieChartData_Test102: _this.pie_data,
+                pieCharTitle_Test102: "NotSet_201910290451"
+            };
             if (firstDate) {
-                _this.pieCharTitle_Test102 = "Work Hours by Discipline - " + firstDate.toLocaleDateString() + " to date";
+                _this.pieChartData_SummaryByDiscipline.pieCharTitle_Test102 = "Work Hours by Discipline - " + firstDate.toLocaleDateString() + " to date";
             }
         }, function (e) {
             console.log("20191029-0137 - dashboard.component - subscribe exception");
             console.log(e);
+        });
+    };
+    // 10/29/2019 05:18 am - SSN - [20191029-0124] - [008] - Timesheet dashboard - Summary by project
+    DashboardComponent.prototype.setup_SummaryByProject = function () {
+        var _this = this;
+        this.dataService.getTimelog_SummaryByProject().subscribe(function (data) {
+            _this.pie_labels = [];
+            _this.pie_data = [];
+            var firstDate = null;
+            for (var x = 0; x < data.length; x++) {
+                var thisDate = new Date(data[x].firstDate);
+                if (!firstDate)
+                    firstDate = thisDate;
+                if (firstDate > thisDate)
+                    firstDate = thisDate;
+                _this.pie_labels.push(data[x].projectTitle);
+                _this.pie_data.push(data[x].totalHours);
+            }
+            ;
+            _this.pieChartData_SummaryByProject = {
+                pieChartLabels_Test102: _this.pie_labels,
+                pieChartData_Test102: _this.pie_data,
+                pieCharTitle_Test102: "NotSet_20191029059"
+            };
+            if (firstDate) {
+                _this.pieChartData_SummaryByDiscipline.pieCharTitle_Test102 = "Project Work - " + firstDate.toLocaleDateString() + " to date";
+            }
+        }, function (e) {
+            console.log("20191029-0519 - dashboard.component - subscribe exception - Summary by project");
+            console.log(e);
+            _util_ErrorHandlingHelpers__WEBPACK_IMPORTED_MODULE_2__["ErrorHandlingHelpers"].showHtmlErrorResponse(e);
         });
     };
     return DashboardComponent;
@@ -3162,9 +3201,12 @@ __webpack_require__.r(__webpack_exports__);
 var styles_PieChartComponent = [_pie_chart_component_css_shim_ngstyle__WEBPACK_IMPORTED_MODULE_1__["styles"]];
 var RenderType_PieChartComponent = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵcrt"]({ encapsulation: 0, styles: styles_PieChartComponent, data: {} });
 
-function View_PieChartComponent_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵeld"](0, 0, null, null, 1, "p", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵted"](-1, null, [" pie-chart works!\n"])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵeld"](2, 0, null, null, 2, "div", [["style", "display: block;"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵeld"](3, 0, null, null, 1, "canvas", [["baseChart", ""]], null, null, null, null, null)), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵdid"](4, 999424, null, 0, ng2_charts__WEBPACK_IMPORTED_MODULE_2__["BaseChartDirective"], [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"], ng2_charts__WEBPACK_IMPORTED_MODULE_2__["ThemeService"]], { data: [0, "data"], labels: [1, "labels"], options: [2, "options"], chartType: [3, "chartType"], colors: [4, "colors"], legend: [5, "legend"], plugins: [6, "plugins"] }, null)], function (_ck, _v) { var _co = _v.component; var currVal_0 = _co.pieChartData; var currVal_1 = _co.pieChartLabels; var currVal_2 = _co.pieChartOptions; var currVal_3 = _co.pieChartType; var currVal_4 = _co.pieChartColor; var currVal_5 = _co.pieChartLegend; var currVal_6 = _co.pieChartPlugins; _ck(_v, 4, 0, currVal_0, currVal_1, currVal_2, currVal_3, currVal_4, currVal_5, currVal_6); }, null); }
+function View_PieChartComponent_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵeld"](0, 0, null, null, 1, "p", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵted"](-1, null, [" pie-chart works!\n"])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵeld"](2, 0, null, null, 2, "div", [["style", "display: block;"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵeld"](3, 0, null, null, 1, "canvas", [["baseChart", ""]], null, [[null, "chartClick"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("chartClick" === en)) {
+        var pd_0 = (_co.chartClicked($event) !== false);
+        ad = (pd_0 && ad);
+    } return ad; }, null, null)), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵdid"](4, 999424, null, 0, ng2_charts__WEBPACK_IMPORTED_MODULE_2__["BaseChartDirective"], [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"], ng2_charts__WEBPACK_IMPORTED_MODULE_2__["ThemeService"]], { data: [0, "data"], labels: [1, "labels"], options: [2, "options"], chartType: [3, "chartType"], colors: [4, "colors"], legend: [5, "legend"], plugins: [6, "plugins"] }, { chartClick: "chartClick" })], function (_ck, _v) { var _co = _v.component; var currVal_0 = _co.pieChartData; var currVal_1 = _co.pieChartLabels; var currVal_2 = _co.pieChartOptions; var currVal_3 = _co.pieChartType; var currVal_4 = _co.pieChartColor; var currVal_5 = _co.pieChartLegend; var currVal_6 = _co.pieChartPlugins; _ck(_v, 4, 0, currVal_0, currVal_1, currVal_2, currVal_3, currVal_4, currVal_5, currVal_6); }, null); }
 function View_PieChartComponent_Host_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵeld"](0, 0, null, null, 1, "app-pie-chart", [], null, null, null, View_PieChartComponent_0, RenderType_PieChartComponent)), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵdid"](1, 638976, null, 0, _pie_chart_component__WEBPACK_IMPORTED_MODULE_3__["PieChartComponent"], [], null, null)], function (_ck, _v) { _ck(_v, 1, 0); }, null); }
-var PieChartComponentNgFactory = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵccf"]("app-pie-chart", _pie_chart_component__WEBPACK_IMPORTED_MODULE_3__["PieChartComponent"], View_PieChartComponent_Host_0, { pieChartLabels_input: "pieChartLabels_input", pieChartData_input: "pieChartData_input", pieCharTitle_input: "pieCharTitle_input" }, {}, []);
+var PieChartComponentNgFactory = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵccf"]("app-pie-chart", _pie_chart_component__WEBPACK_IMPORTED_MODULE_3__["PieChartComponent"], View_PieChartComponent_Host_0, { pieChartData_input: "pieChartData_input" }, {}, []);
 
 
 
@@ -3193,6 +3235,7 @@ var PieChartComponent = /** @class */ (function () {
         // 10/28/2019 07:49 am - SSN - [20191028-0732] - [003] - Timesheet dashboard - Add available chart options samples
         this.pieChartOptions = {
             responsive: true,
+            title: { display: false }
         };
         this.pieChartLabels = [['Download', 'Sales'], ['In', 'Store', 'Sales'], 'Mail Sales'];
         this.pieChartData = [300, 500, 100];
@@ -3236,14 +3279,34 @@ var PieChartComponent = /** @class */ (function () {
     PieChartComponent.prototype.ngOnInit = function () { };
     // 10/28/2019 09:56 am - SSN - [20191028-0909] - [005] - Timesheet dashboard - Summary by discipline
     PieChartComponent.prototype.ngOnChanges = function () {
+        console.log('20191029-0452 - pie-chart.component - ngOnChanges');
         if (!this.pieChartData_input)
             return;
-        this.pieChartData = this.pieChartData_input;
-        this.pieChartLabels = this.pieChartLabels_input;
+        console.log('20191029-0452 - pie-chart.component - ngOnChanges - have object');
+        // 10/29/2019 04:57 am - SSN - [20191029-0124] - [005] - Timesheet dashboard - Summary by project
+        this.pieChartData = this.pieChartData_input.pieChartData_Test102;
+        this.pieChartLabels = this.pieChartData_input.pieChartLabels_Test102;
         this.pieChartOptions = {
             responsive: true,
-            title: { text: this.pieCharTitle_input, display: true }
+            title: { text: this.pieChartData_input.pieCharTitle_Test102, display: true }
         };
+    };
+    // 10/29/2019 05:37 am - SSN - [20191029-0536] - [001] - Timesheet dashboard - Summary by project - Add click event
+    // https://stackoverflow.com/questions/38378984/chart-js-angular-2-ng2-charts-custom-on-click-event
+    PieChartComponent.prototype.chartClicked = function (e) {
+        debugger;
+        if (e.active.length > 0) {
+            var chart = e.active[0]._chart;
+            var activePoints = chart.getElementAtEvent(e.event);
+            if (activePoints.length > 0) {
+                // get the internal index of slice in pie chart
+                var clickedElementIndex = activePoints[0]._index;
+                var label = chart.data.labels[clickedElementIndex];
+                // get value by index
+                var value = chart.data.datasets[0].data[clickedElementIndex];
+                console.log(clickedElementIndex, label, value);
+            }
+        }
     };
     return PieChartComponent;
 }());

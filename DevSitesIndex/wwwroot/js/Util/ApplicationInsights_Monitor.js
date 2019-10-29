@@ -45,7 +45,8 @@ var AppInsights_Util = function () {
         doSetup: doSetup,
         doTest: doTest,
         logPageView: logPageView,
-        logEvent: logEvent
+        logEvent: logEvent,
+        logException: logException
     };
 }();
 console.log('ApplicationInsights_monitor - 20191001-0951 - ZZZ - bottom file OOOOOOOOOOOOOOOOOOOOOOOOOOOOO ');

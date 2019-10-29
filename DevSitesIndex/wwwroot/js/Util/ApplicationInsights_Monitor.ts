@@ -95,7 +95,8 @@ var AppInsights_Util = function () {
         doSetup: doSetup,
         doTest: doTest,
         logPageView: logPageView,
-        logEvent: logEvent
+        logEvent: logEvent,
+        logException: logException
     }
 
 }();

@@ -10,5 +10,6 @@
           [options]="pieChartOptions"
           [plugins]="pieChartPlugins"
           [colors]="pieChartColor"
-          [legend]="pieChartLegend"></canvas>
+          [legend]="pieChartLegend"
+          (chartClick)="chartClicked($event)"></canvas>
 </div>

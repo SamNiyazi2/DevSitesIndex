@@ -50,6 +50,13 @@ export class DataService {
 
   }
 
+  // 10/29/2019 05:24 am - SSN - [20191029-0124] - [009] - Timesheet dashboard - Summary by project
+
+  getTimelog_SummaryByProject() {
+
+    return this.http.get("/api/timelogapi/summaryByProject/");
+
+  }
 
 
   // 10/05/2019 02:52 pm - SSN - [20191003-1557] - [014] - Adding data service to Angular7

@@ -109,6 +109,35 @@ namespace DevSitesIndex.Controllers
 
 
 
+        // 10/29/2019 05:25 am - SSN - [20191029-0124] - [010] - Timesheet dashboard - Summary by project
+
+        [HttpGet("summaryByProject")]
+        public async Task<List<SummaryByProject>> summaryByProject()
+        {
+
+            Util.ExecuteStoredProcedure exec = new Util.ExecuteStoredProcedure(context, logger);
+
+            exec.LoadStoredProc("demosites.TimeLog_ByProject");
+
+            IEnumerable<SummaryByProject> results = await exec.GetResultSet_v02<SummaryByProject>();
+
+            exec.CloseConnection();
+
+            return results.ToList();
+        }
+
+        public class SummaryByProject
+        {
+            public DateTime FirstDate { get; set; }
+            public string ProjectTitle { get; set; }
+            public decimal TotalHours { get; set; }
+        }
+
+
+
+
+
+
 
 
         // 09/24/2019 05:10 am - SSN - [20190924-0401] - [003] - Quick timelog entry
