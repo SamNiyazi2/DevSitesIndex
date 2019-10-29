@@ -2764,6 +2764,9 @@ var DashboardComponent = /** @class */ (function () {
             if (firstDate) {
                 _this.pieCharTitle_Test102 = "Work Hours by Discipline - " + firstDate.toLocaleDateString() + " to date";
             }
+        }, function (e) {
+            console.log("20191029-0137 - dashboard.component - subscribe exception");
+            console.log(e);
         });
     };
     return DashboardComponent;

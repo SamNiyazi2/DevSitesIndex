@@ -81,7 +81,11 @@ export class DashboardComponent implements OnInit {
       }
        
 
-    });
+    },
+      (e) => {
+        console.log("20191029-0137 - dashboard.component - subscribe exception");
+        console.log(e);
+      });
 
   }
 
