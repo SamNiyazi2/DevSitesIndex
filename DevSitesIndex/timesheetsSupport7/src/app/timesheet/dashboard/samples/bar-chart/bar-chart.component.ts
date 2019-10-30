@@ -6,9 +6,6 @@ import { Component, OnInit, OnChanges, Input } from '@angular/core';
 // 10/30/2019 06:13 am - SSN - [20191030-0613] - [001] - Revise chart creation - Use scripts
 
 
-import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
-import { Label } from 'ng2-charts';
-
 import { IBarChartData } from '../Interaces/IBarChartData';
 import { ColorsList } from "../ColorsList";
 import * as Chart from 'chart.js';
@@ -45,6 +42,10 @@ export class BarChartComponent implements OnInit, OnChanges {
   processRequest() {
 
 
+
+    if (!this.barChartData) {
+      return;
+    }
 
 
     let ndx = 0;

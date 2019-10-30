@@ -88,13 +88,7 @@ export class PieChartComponent implements OnInit, OnChanges {
   // 10/28/2019 09:56 am - SSN - [20191028-0909] - [005] - Timesheet dashboard - Summary by discipline
   ngOnChanges(): void {
 
-
-    console.log("pie chart - nfOnChanges");
-
     if (!this.pieChartData_input) return;
-
-    console.log("pie chart - nfOnChanges - Have data");
-
 
     // 10/29/2019 04:57 am - SSN - [20191029-0124] - [005] - Timesheet dashboard - Summary by project
 

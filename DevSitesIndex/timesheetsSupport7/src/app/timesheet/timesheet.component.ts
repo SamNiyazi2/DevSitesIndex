@@ -5,7 +5,7 @@ import { ITimelog } from '../interfaces/ITimelog';
 import { TOASTR_TOKEN, Toastr } from '../shared/toastr.service';
 
 
-import * as ehu from '../util/ErrorHandlingHelpers'; 
+import * as ehu from '../util/ErrorHandlingHelpers';  
 
 
 
@@ -50,6 +50,7 @@ export class TimesheetComponent implements OnInit {
 
 
   ngOnInit() {
+
 
     this.timesheets = [];
     this.sqlStatsRecord = null;

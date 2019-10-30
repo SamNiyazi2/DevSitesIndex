@@ -173,6 +173,46 @@ namespace DevSitesIndex.Controllers
 
 
 
+        // 10/30/2019 02:59 pm - SSN - [20191030-1054] - [005] - Timesheet dashboard - Weekly work hours summary
+
+        [HttpGet("SummaryByWeekAndDiscipline")]
+        public async Task<List<SummaryByWeekAndDiscipline>> summaryByWeekAndDiscipline()
+        {
+
+            Util.ExecuteStoredProcedure exec = new Util.ExecuteStoredProcedure(context, logger);
+
+            exec.LoadStoredProc("demosites.Timelog_SummaryByWeekAndDiscipline");
+
+            IEnumerable<SummaryByWeekAndDiscipline> results = await exec.GetResultSet_v02<SummaryByWeekAndDiscipline>();
+
+            exec.CloseConnection();
+
+            return results.ToList();
+        }
+
+        public class SummaryByWeekAndDiscipline
+        {
+
+            public string WeekEnding { get; set; }
+            public int nYear { get; set; }
+            public int wk{ get; set; } // Week number
+            public int RowNo { get; set; }
+            public int DisciplineID { get; set; }
+            public string DisciplineShort { get; set; }
+            public decimal? TotalHours { get; set; }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
 
         // 09/24/2019 05:10 am - SSN - [20190924-0401] - [003] - Quick timelog entry
 

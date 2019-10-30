@@ -63,8 +63,16 @@ export class DataService {
   // 10/29/2019 12:03 pm - SSN - [20191029-0747] - [008] - Timesheet dashboard - Daily work hour summary
 
   getTimelog_SummaryByDailyWorkHours() {
- 
+
     return this.http.get("/api/timelogapi/SummaryByDailyWorkHours/");
+
+  }
+
+
+  // 10/30/2019 02:47 pm - SSN - [20191030-1054] - [004] - Timesheet dashboard - Weekly work hours summary
+  getTimelog_SummaryByWeekAndDiscipline() {
+
+    return this.http.get("/api/timelogapi/SummaryByWeekAndDiscipline/");
 
   }
 

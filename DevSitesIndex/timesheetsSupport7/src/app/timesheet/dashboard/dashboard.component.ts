@@ -14,6 +14,7 @@ import * as ehu from '../../util/ErrorHandlingHelpers';
 import { IBarChartData } from './samples/Interaces/IBarChartData';
 import { ColorsList } from './samples/ColorsList';
 import * as Chart from 'chart.js';
+import { GenUtilService } from 'src/app/shared/gen-util.service';
 
 
 
@@ -30,11 +31,14 @@ export class DashboardComponent implements OnInit {
   // 10/28/2019 09:54 am - SSN - [20191028-0909] - [004] - Timesheet dashboard - Summary by discipline
   // 10/29/2019 08:39 am - SSN - [20191029-0747] - [006] - Timesheet dashboard - Daily work hour summary
   // Prep for dynamic loading
-  public barChartData_Test102: IBarChartData;
-  public barChartData_Test103: IBarChartData;
+
+  //public barChartData_Test102: IBarChartData;
+  //public barChartData_Test103: IBarChartData;
 
   public barChartData_201: IBarChartData
   public barChartData_202: IBarChartData;
+  public barChartData_Timelog_SummaryByWeekAndDiscipline: IBarChartData;
+
 
 
   // 10/28/2019 09:54 am - SSN - [20191028-0909] - [004] - Timesheet dashboard - Summary by discipline
@@ -62,15 +66,108 @@ export class DashboardComponent implements OnInit {
 
 
 
-  constructor(private dataService: DataService) { }
+  constructor(private dataService: DataService, private genUtil: GenUtilService) { }
 
   ngOnInit() {
+
+
+    this.genUtil.setPageTitle("Timelog Dashboard");
 
 
     this.setup_SummaryByDiscipline();
     this.setup_SummaryByProject();
 
-    this.setup_barCharData_test();
+    this.setup_Timelog_SummaryByDailyWorkHours();
+    this.setup_Timelog_SummaryByWeekAndDiscipline();
+
+  }
+
+
+
+
+  // 10/30/2019 02:39 pm - SSN - [20191030-1054] - [002] - Timesheet dashboard - Weekly work hours summary
+
+  setup_Timelog_SummaryByWeekAndDiscipline() {
+
+
+
+
+
+
+    let dataSets = [];
+
+    //interface disciplineListRecord {
+    //  disciplineShort: string,
+    //   disciplineID :number
+    //}
+
+    this.dataService.getTimelog_SummaryByWeekAndDiscipline().subscribe((data: any[]) => {
+
+
+      let weekEndingList = new Set(data.map(r => r.weekEnding));
+      let disciplineList = new Set(data.map(r => r.disciplineShort));
+
+      let weekendingArray = []
+
+      weekEndingList.forEach(r => weekendingArray.push(r));
+
+
+      disciplineList.forEach((r0) => {
+
+        dataSets.push(
+          {
+            label: r0,
+            data: data.filter(r2 => r2.disciplineShort == r0).map(r3 => r3.totalHours)
+          }
+        );
+      });
+
+
+      console.log("20191030-1821");
+      console.log(disciplineList);
+      console.log(dataSets);
+
+
+      this.barChartData_Timelog_SummaryByWeekAndDiscipline = {
+
+        Master_Canvas_ID: "canvas_20191001443",
+        Master_barChartType: 'horizontalBar',
+        Master_barChartTitle: "Weekly Summary by Descipline to date",
+        Master_barChartHeight: 400,
+
+        Master_barChartData: {
+          labels: weekendingArray,
+          datasets: dataSets,
+
+        }
+      }
+
+
+
+
+
+
+
+
+
+
+
+
+
+      console.log('subscribe 0303');
+
+      console.log(data);
+    },
+      (e) => {
+
+        console.log("20191030-1512 - dashboard.component - subscribe exception - Summary by daily work hours");
+        console.log(e);
+
+        ehu.ErrorHandlingHelpers.showHtmlErrorResponse(e);
+      });
+
+
+
 
   }
 
@@ -78,8 +175,8 @@ export class DashboardComponent implements OnInit {
 
 
 
-  setup_barCharData_test() {
 
+  setup_Timelog_SummaryByDailyWorkHours() {
 
 
 
@@ -106,7 +203,6 @@ export class DashboardComponent implements OnInit {
     }
 
 
-   
 
 
 
@@ -116,12 +212,6 @@ export class DashboardComponent implements OnInit {
 
 
 
-    function compareDates(d1, d2) {
-
-      if (d1 > d2) return -1;
-      if (d1 < d2) return 1;
-      return 0;
-    }
 
     let dataSets = [];
     let disciplineRecords = [];
@@ -129,7 +219,6 @@ export class DashboardComponent implements OnInit {
 
     this.dataService.getTimelog_SummaryByDailyWorkHours().subscribe((data: any[]) => {
 
-      console.log("20191029-1213")
 
       let lastDiscipline: string = null;
       let lastDate: Date = null;
@@ -138,19 +227,19 @@ export class DashboardComponent implements OnInit {
       let counter = 0;
       let recordCount = data.length;
 
+
       data.forEach((r) => {
 
         counter += 1;
 
 
         if (!lastDiscipline) {
-          console.log("Discipline " + r.discipline);
+
           lastDiscipline = r.discipline;
 
         }
 
         if (lastDiscipline != r.discipline || recordCount == counter) {
-          console.log("Change Discipline ", lastDiscipline, r.discipline);
 
           dataSets.push({ label: lastDiscipline, data: disciplineRecords.slice() });
           disciplineRecords = []
@@ -159,21 +248,20 @@ export class DashboardComponent implements OnInit {
 
         if (!lastDate) {
           lastDate = new Date(r.nYear, r.nMonth - 1, r.nDay);
-          console.log("date ", lastDate);
-          labelsRecords_dates.push(lastDate );
+          labelsRecords_dates.push(lastDate);
         }
 
         currentDate = new Date(r.nYear, r.nMonth - 1, r.nDay);
 
-        if (compareDates(currentDate, lastDate) != 0) {
-          console.log("Date change", currentDate, lastDate);
-          let dateIndex = labelsRecords_dates.findIndex((r)=>compareDates( r,currentDate) == 0);
+        if (this.genUtil.compareDates(currentDate, lastDate) != 0) {
+
+          let dateIndex = labelsRecords_dates.findIndex((r) => this.genUtil.compareDates(r, currentDate) == 0);
+
           if (dateIndex == -1) {
             labelsRecords_dates.push(currentDate);
           }
         }
 
-        console.log("Dates: ", compareDates(currentDate, lastDate));
 
         let hours = r.totalHours;
         if (!hours) hours = 0;
@@ -182,15 +270,9 @@ export class DashboardComponent implements OnInit {
 
       });
 
-      console.log("Final datasets");
 
-      console.log(dataSets);
-      console.log(labelsRecords_dates);
 
-      let d1 = new Date();
-       
-
-      let dateLabels = labelsRecords_dates.map(d1 => d1.getFullYear().toString() + "/" + (d1.getMonth() + 1).toString() + "/" + d1.getDate().toString()  );
+      let dateLabels = labelsRecords_dates.map(d1 => d1.getFullYear().toString() + "/" + (d1.getMonth() + 1).toString() + "/" + d1.getDate().toString());
 
 
 
@@ -202,20 +284,8 @@ export class DashboardComponent implements OnInit {
         Master_barChartHeight: 400,
 
         Master_barChartData: {
-          labels: dateLabels , //['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+          labels: dateLabels,
           datasets: dataSets,
-          //[
-          //  {
-          //    label: '# of Votes (202)',
-          //    data: [12, 19, 3, 5, 2, 3],
-          //  },
-          //  {
-          //    label: '# of Tests (202)',
-          //    data: [5, 10, 10, 5, 7, 9],
-
-          //  }
-          //]
-
 
         }
       }
@@ -301,8 +371,6 @@ export class DashboardComponent implements OnInit {
 
       }
 
-
-      console.log("pie chart setup");
 
     },
       (e) => {
