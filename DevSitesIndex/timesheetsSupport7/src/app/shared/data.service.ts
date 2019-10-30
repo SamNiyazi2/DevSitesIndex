@@ -42,11 +42,11 @@ export class DataService {
 
   }
 
-// 10/28/2019 09:10 am - SSN - [20191028-0909] - [001] - Timesheet dashboard - Summary by discipline
+  // 10/28/2019 09:10 am - SSN - [20191028-0909] - [001] - Timesheet dashboard - Summary by discipline
 
   getTimelog_SummaryByDiscipline() {
 
-    return this.http.get("/api/timelogapi/summaryByDiscipline/" );
+    return this.http.get("/api/timelogapi/summaryByDiscipline/");
 
   }
 
@@ -59,7 +59,16 @@ export class DataService {
   }
 
 
-  // 10/05/2019 02:52 pm - SSN - [20191003-1557] - [014] - Adding data service to Angular7
+
+  // 10/29/2019 12:03 pm - SSN - [20191029-0747] - [008] - Timesheet dashboard - Daily work hour summary
+
+  getTimelog_SummaryByDailyWorkHours() {
+ 
+    return this.http.get("/api/timelogapi/SummaryByDailyWorkHours/");
+
+  }
+
+
 
   getTimesheet(id: number) {
 

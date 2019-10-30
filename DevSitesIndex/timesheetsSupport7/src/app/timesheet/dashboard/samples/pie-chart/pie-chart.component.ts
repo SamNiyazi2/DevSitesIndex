@@ -25,8 +25,8 @@ export class PieChartComponent implements OnInit, OnChanges {
     title: { display: false }
   };
 
-  public pieChartLabels: Label[] = [['Download', 'Sales'], ['In', 'Store', 'Sales'], 'Mail Sales'];
-  public pieChartData: SingleDataSet = [300, 500, 100];
+  public pieChartLabels: Label[]; // = [['Download', 'Sales'], ['In', 'Store', 'Sales'], 'Mail Sales'];
+  public pieChartData: SingleDataSet = []; // = [300, 500, 100];
   public pieChartType: ChartType = 'pie';
   public pieChartLegend = true;
   public pieChartPlugins = [];
@@ -88,11 +88,13 @@ export class PieChartComponent implements OnInit, OnChanges {
   // 10/28/2019 09:56 am - SSN - [20191028-0909] - [005] - Timesheet dashboard - Summary by discipline
   ngOnChanges(): void {
 
-    console.log('20191029-0452 - pie-chart.component - ngOnChanges');
+
+    console.log("pie chart - nfOnChanges");
 
     if (!this.pieChartData_input) return;
 
-    console.log('20191029-0452 - pie-chart.component - ngOnChanges - have object');
+    console.log("pie chart - nfOnChanges - Have data");
+
 
     // 10/29/2019 04:57 am - SSN - [20191029-0124] - [005] - Timesheet dashboard - Summary by project
 
@@ -101,7 +103,7 @@ export class PieChartComponent implements OnInit, OnChanges {
 
     this.pieChartOptions = {
       responsive: true,
-      title: { text: this.pieChartData_input.pieCharTitle_Test102, display: true }
+      title: { text: this.pieChartData_input.pieChartTitle_Test102, display: true }
 
     };
 
@@ -116,7 +118,6 @@ export class PieChartComponent implements OnInit, OnChanges {
 
   chartClicked(e: any): void {
 
-    debugger;
 
     if (e.active.length > 0) {
 

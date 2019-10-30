@@ -1,16 +1,10 @@
 <!-- 10/28/2019 06:01 am - SSN - [20191028-0558] - [003] - Timesheet dashboard -->
 
-<p>
-  dashboard works! (2)
-</p>
 
 
 <div class="col-md-6 timeChart">
-  <app-bar-chart></app-bar-chart>
-</div>
-
-<div class="col-md-6 timeChart">
-  <app-bar-chart [barChartData_input]="barChartData_Test101"></app-bar-chart>
+  <!--<app-bar-chart [barChartData_input]="barChartData_Test102"></app-bar-chart>-->
+  <app-bar-chart [barChartData]="barChartData_201"></app-bar-chart>
 </div>
 
 
@@ -20,11 +14,6 @@
 </div>
 
 
-
-
-<div class="col-md-6 timeChart">
-  <app-pie-chart></app-pie-chart>
-</div>
 
 <div class="col-md-6 timeChart">
   <app-pie-chart [pieChartData_input]="pieChartData_SummaryByDiscipline"></app-pie-chart>
@@ -39,6 +28,16 @@
 
 <div class="col-md-6 timeChart">
   <app-bubble-chart></app-bubble-chart>
+</div>
+
+
+
+
+<div class="row">
+
+  <div class="col-md-12 ">
+    <app-bar-chart [barChartData]="barChartData_202"></app-bar-chart>
+  </div>
 </div>
 
 

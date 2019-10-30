@@ -138,6 +138,40 @@ namespace DevSitesIndex.Controllers
 
 
 
+        [HttpGet("SummaryByDailyWorkHours")]
+        public async Task<List<SummaryByDailyWorkHour>> SummaryByDailyWorkHours()
+        {
+
+            Util.ExecuteStoredProcedure exec = new Util.ExecuteStoredProcedure(context, logger);
+
+            exec.LoadStoredProc("demosites.timelog_SummaryByDailyWorkHours");
+
+            IEnumerable<SummaryByDailyWorkHour> results = await exec.GetResultSet_v02<SummaryByDailyWorkHour>();
+
+            exec.CloseConnection();
+
+            return results.ToList();
+        }
+
+        public class SummaryByDailyWorkHour
+        {
+
+            public int RowNo { get; set; }
+            public string Discipline { get; set; }
+            public int nYear { get; set; }
+            public int nMonth { get; set; }
+            public int nDay { get; set; }
+
+            public decimal? TotalHours { get; set; }
+        }
+
+
+
+
+
+
+
+
 
 
         // 09/24/2019 05:10 am - SSN - [20190924-0401] - [003] - Quick timelog entry

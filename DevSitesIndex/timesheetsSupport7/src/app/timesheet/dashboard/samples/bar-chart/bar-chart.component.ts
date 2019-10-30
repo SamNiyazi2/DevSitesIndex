@@ -3,8 +3,15 @@ import { Component, OnInit, OnChanges, Input } from '@angular/core';
 
 // 10/28/2019 08:35 am - SSN - [20191028-0732] - [004] - Timesheet dashboard - Add available chart options samples
 
+// 10/30/2019 06:13 am - SSN - [20191030-0613] - [001] - Revise chart creation - Use scripts
+
+
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import { Label } from 'ng2-charts';
+
+import { IBarChartData } from '../Interaces/IBarChartData';
+import { ColorsList } from "../ColorsList";
+import * as Chart from 'chart.js';
 
 
 @Component({
@@ -14,47 +21,107 @@ import { Label } from 'ng2-charts';
 })
 export class BarChartComponent implements OnInit, OnChanges {
 
-
-
-  // 10/28/2019 08:35 am - SSN - [20191028-0732] - [004] - Timesheet dashboard - Add available chart options samples
-
-  public barChartOptions: ChartOptions = {
-    responsive: true,
-  };
-  public barChartLabels: Label[] = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
-  public barChartType: ChartType = 'bar';
-  public barChartLegend = true;
-  public barChartPlugins = [];
-
-  public barChartData: ChartDataSets[] = [
-    { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
-    { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' }
-  ];
-
-
-
-
-
   constructor() { }
 
   ngOnInit() {
+
+
   }
 
 
-  // 10/28/2019 09:45 am - SSN - [20191028-0909] - [003] - Timesheet dashboard - Summary by discipline
+  @Input() barChartData: IBarChartData;
 
-  @Input() barChartData_input: any;
 
   ngOnChanges(): void {
 
-
-    if (this.barChartData_input) {
-
-      this.barChartData = this.barChartData_input;
-
-    }
+    setTimeout(() => { this.processRequest(); }, 500);
 
   }
+
+
+
+
+
+  processRequest() {
+
+
+
+
+    let ndx = 0;
+
+    this.barChartData.Master_barChartData.datasets.forEach((r) => {
+
+      r.backgroundColor = ColorsList[ndx];
+      r.borderColor = ColorsList[ndx];
+      r.borderWidth = 1;
+
+      ndx += 1;
+
+    });
+
+
+
+
+    let selectedType = 'bar';
+
+    if (this.barChartData.Master_barChartType) {
+      selectedType = this.barChartData.Master_barChartType;
+    }
+
+    let definedHeight: number = null;
+
+    if (this.barChartData.Master_barChartHeight) {
+      definedHeight = this.barChartData.Master_barChartHeight;
+    }
+
+
+
+    let ref2: HTMLCanvasElement = document.getElementById(this.barChartData.Master_Canvas_ID) as HTMLCanvasElement;
+
+    let ctx = ref2.getContext('2d');
+
+
+    if (definedHeight) ctx.canvas.height = definedHeight;
+
+
+
+    var myChart = new Chart(ctx, {
+
+      type: selectedType,
+
+      data: this.barChartData.Master_barChartData,
+
+
+
+      options: {
+
+        title: {
+          display: true,
+          text: this.barChartData.Master_barChartTitle,
+          //position: "left"
+
+        },
+
+        responsive: true, // true is the default https://www.chartjs.org/docs/latest/general/responsive.html?h=size
+
+        maintainAspectRatio: true,
+
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+        }
+      }
+    });
+
+
+
+
+  }
+
+
 
 
 

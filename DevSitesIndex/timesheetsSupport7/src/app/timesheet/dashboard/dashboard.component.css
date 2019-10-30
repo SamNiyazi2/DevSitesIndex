@@ -1,6 +1,6 @@
 
-.timeChart
-{
-  max-height:400px;
+.timeChart {
+  height: 340px;
+  max-height: 500px;
+  vertical-align:bottom;
 }
-

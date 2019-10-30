@@ -7,7 +7,7 @@ export interface IPieChartData {
 
   pieChartLabels_Test102: Label[];
   pieChartData_Test102: SingleDataSet;
-  pieCharTitle_Test102: string;
+  pieChartTitle_Test102: string;
 
 }
 
