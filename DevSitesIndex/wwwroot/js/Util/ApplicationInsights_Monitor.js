@@ -4,6 +4,8 @@ import { environment } from '../environment';
 import { AppInsights } from 'applicationinsights-js';
 var AppInsights_Util = function () {
     console.log('ApplicationInsights_monitor - 20191001-0951 - 001 - top instance');
+    console.log("20191031-0547-001");
+    console.log(environment);
     var config = {
         instrumentationKey: environment.appInsights.instrumentationKey
     };
@@ -27,18 +29,29 @@ var AppInsights_Util = function () {
         }
     };
     var doTest = function () {
+        // 10/1/2019 03:45 am - SSN 
+        console.log('ApplictionInsights_Monitor - doTest');
         /* example: track page view */
         AppInsights.trackPageView("FirstPage-20191001-1015", /* (optional) page name */ null, /* (optional) page url if available */ { prop1: "prop1", prop2: "prop2" }, /* (optional) dimension dictionary */ { measurement1: 1 }, /* (optional) metric dictionary */ 123 /* page view duration in milliseconds */);
         /* example: track event */
         AppInsights.trackEvent("TestEvent-20191001-1016", { prop1: "prop1", prop2: "prop2" }, { measurement1: 1 });
     };
     var logPageView = function (name, url, properties, measurements, duration) {
+        // 10/1/2019 03:45 am - SSN 
+        console.log('ApplictionInsights_Monitor - logPageView');
+        console.log(name, url, properties);
         AppInsights.trackPageView(name, url, properties); //, measurements, duration);
     };
     var logEvent = function (name, properties, measurements) {
+        // 10/1/2019 03:45 am - SSN 
+        console.log('ApplictionInsights_Monitor - logEvent');
+        console.log(name, properties, measurements);
         AppInsights.trackEvent(name, properties, measurements);
     };
     var logException = function (exception, props, handledAt) {
+        // 10/1/2019 03:45 am - SSN 
+        console.log('ApplictionInsights_Monitor - logException ');
+        console.log(props);
         AppInsights.trackException(exception, handledAt, props);
     };
     return {
