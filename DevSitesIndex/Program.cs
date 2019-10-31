@@ -75,22 +75,24 @@ namespace DevSitesIndex
                     #region Moving a copy to SSN_GenUtil_StandardLib 
 
 
-                    logging.AddProvider(
-                        new Util.SSN_LoggerProvider_ov_01(
-                                                    new Util.SSN_LoggerProviderConfiguration_ov_01
-                                                    {
-                                                        Color = ConsoleColor.Yellow,
-                                                        LogLevel = LogLevel.Information
+                    // 10/31/2019 10:55 - SSN - Take out.
 
-                                                    }
-                                            ));
+                    //logging.AddProvider(
+                    //    new Util.SSN_LoggerProvider_ov_01(
+                    //                                new Util.SSN_LoggerProviderConfiguration_ov_01
+                    //                                {
+                    //                                    Color = ConsoleColor.Yellow,
+                    //                                    LogLevel = LogLevel.Information
 
-                    logging.AddSSN_Logger_ov_01((r) =>
-                    {
-                        r.Color = ConsoleColor.Red;
-                        r.LogLevel = LogLevel.Debug;
+                    //                                }
+                    //                        ));
 
-                    });
+                    //logging.AddSSN_Logger_ov_01((r) =>
+                    //{
+                    //    r.Color = ConsoleColor.Red;
+                    //    r.LogLevel = LogLevel.Debug;
+
+                    //});
 
 
 

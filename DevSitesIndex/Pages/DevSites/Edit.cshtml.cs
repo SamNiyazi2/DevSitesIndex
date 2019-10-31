@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using DevSitesIndex.Entities;
 using Microsoft.AspNetCore.Authorization;
 using DevSitesIndex.Services;
+using SSN_GenUtil_StandardLib;
 
 namespace DevSitesIndex.Pages.DevSites
 {
@@ -22,9 +23,9 @@ namespace DevSitesIndex.Pages.DevSites
 
         // 09/06/2019 06:47 pm - SSN - [20190906-0518] - [007] - Angular - edit div content - Adding _devSitesIndexRepository
         private readonly IDevSitesIndexRepository _devSitesIndexRepository;
-        private readonly Util.ILogger_SSN _logger;
+        private readonly ILogger_SSN _logger;
 
-        public EditModel(DevSitesIndex.Entities.DevSitesIndexContext context, IDevSitesIndexRepository devSitesIndexRepository, Util.ILogger_SSN logger)
+        public EditModel(DevSitesIndex.Entities.DevSitesIndexContext context, IDevSitesIndexRepository devSitesIndexRepository, ILogger_SSN logger)
         {
             _context = context;
             _devSitesIndexRepository = devSitesIndexRepository;

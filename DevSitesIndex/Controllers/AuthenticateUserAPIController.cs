@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
+using SSN_GenUtil_StandardLib;
 
 namespace DevSitesIndex.Controllers
 {
@@ -31,7 +32,7 @@ namespace DevSitesIndex.Controllers
         //     public async Task<IActionResult> OnPostAsync(string returnUrl = null)
 
 
-        public AuthenticateUserAPIController(SignInManager<IdentityUser> signInManager, Util.ILogger_SSN logger, IConfiguration configuration, IHostingEnvironment env)
+        public AuthenticateUserAPIController(SignInManager<IdentityUser> signInManager, ILogger_SSN logger, IConfiguration configuration, IHostingEnvironment env)
         {
             this.configuration = configuration;
             this.env = env;

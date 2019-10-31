@@ -138,10 +138,14 @@ namespace DevSitesIndex
             // 09/06/2019 11:45 pm - SSN - [20190906-2040] - [002] - Logger
 
             //services.AddSingleton<Util.ILogger_SSN, Util.SSN_Logger>();
-            services.AddTransient<Util.ILogger_SSN, Util.SSN_Logger>();
+
+            // 10/31/2019 10:56 am - SSN - Take out
+            //services.AddTransient<Util.ILogger_SSN, Util.SSN_Logger>();
+
 
             // 09/27/2019 02:08 pm - SSN - [20190927-0634] - [020] - Testing
             // Made a copy in SSN_GenUtil_StandardLib
+            // Todo - Singleton ????
             services.AddTransient<SSN_GenUtil_StandardLib.ILogger_SSN, SSN_GenUtil_StandardLib.SSN_Logger>();
 
 

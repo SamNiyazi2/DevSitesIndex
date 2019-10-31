@@ -14,7 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 
 
 using Microsoft.EntityFrameworkCore;
-
+using SSN_GenUtil_StandardLib;
 
 namespace DevSitesIndex.Controllers
 {
@@ -23,7 +23,7 @@ namespace DevSitesIndex.Controllers
     public class JobAPIController : EntityAPIController<Job>
     {
 
-        public JobAPIController(DevSitesIndexContext context, Util.ILogger_SSN logger) : base(context, logger)
+        public JobAPIController(DevSitesIndexContext context, ILogger_SSN logger) : base(context, logger)
         {
             _entityRepository = new JobRepository(context);
         }

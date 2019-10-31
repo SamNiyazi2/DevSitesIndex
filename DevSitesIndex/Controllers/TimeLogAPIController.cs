@@ -6,6 +6,7 @@ using DevSitesIndex.Entities;
 using DevSitesIndex.Services;
 using DevSitesIndex.Util;
 using Microsoft.AspNetCore.Mvc;
+using SSN_GenUtil_StandardLib;
 
 // 04/12/2019 02:24 pm - SSN - [20190412-1126] - Timelog - save data
 
@@ -187,12 +188,15 @@ namespace DevSitesIndex.Controllers
 
             exec.CloseConnection();
 
-            return results.ToList();
+            if (results != null) return results.ToList();
+
+            return null;
+
         }
 
         public class SummaryByWeekAndDiscipline
         {
-
+            public Int64 SeqNo { get; set; }
             public string WeekEnding { get; set; }
             public int nYear { get; set; }
             public int wk{ get; set; } // Week number

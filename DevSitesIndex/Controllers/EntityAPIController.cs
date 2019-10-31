@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using SSN_GenUtil_StandardLib;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 // 04/12/2019 11:44 am - SSN - [20190412-1126] - Timelog - save data - Copying from DemoSitesAPIController
@@ -30,7 +31,7 @@ namespace DevSitesIndex.Controllers
         // 09/30/2019 10:04 pm - SSN - Replaced _context
 
         protected readonly DevSitesIndexContext context;
-        protected readonly Util.ILogger_SSN logger;
+        protected readonly ILogger_SSN logger;
 
 
         public EntityAPIController(DevSitesIndexContext context, ILogger_SSN logger)

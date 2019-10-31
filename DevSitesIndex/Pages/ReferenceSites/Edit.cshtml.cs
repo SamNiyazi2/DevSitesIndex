@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using DevSitesIndex.Entities;
 using Microsoft.AspNetCore.Authorization;
 using System.ComponentModel.DataAnnotations;
-
+using SSN_GenUtil_StandardLib;
 
 namespace DevSitesIndex.Pages.ReferenceSites
 {
@@ -76,7 +76,7 @@ namespace DevSitesIndex.Pages.ReferenceSites
                 }
                 else
                 {
-                    await Util.ExceptionHandler_SSN.writeExcelptionToConsole(ex);
+                    await ExceptionHandler_SSN.writeExcelptionToConsole_v02(ex);
                     throw;
                 }
             }
@@ -84,7 +84,7 @@ namespace DevSitesIndex.Pages.ReferenceSites
             {
                 string message = ex.Message;
 
-                await Util.ExceptionHandler_SSN.writeExcelptionToConsole(ex);
+                await ExceptionHandler_SSN.writeExcelptionToConsole_v02(ex);
 
                 return Page();
 

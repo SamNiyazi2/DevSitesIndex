@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.ApplicationInsights;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Hosting;
+using SSN_GenUtil_StandardLib;
 
 namespace DevSitesIndex.Areas.Identity.Pages.Account
 {
@@ -19,7 +20,7 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
     public class LoginModel : PageModel
     {
         private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly Util.ILogger_SSN _logger;
+        private readonly ILogger_SSN _logger;
         private readonly IConfiguration configuration;
         private readonly IHostingEnvironment env;
 
@@ -29,7 +30,7 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
 
         // 09/01/2019 03:26 pm - SSN - [20190901-1225] - [006] - Add Job_DevSite table - Adding username_temp and pass
 
-        public LoginModel(SignInManager<IdentityUser> signInManager, Util.ILogger_SSN logger, IConfiguration configuration, IHostingEnvironment env)
+        public LoginModel(SignInManager<IdentityUser> signInManager, ILogger_SSN logger, IConfiguration configuration, IHostingEnvironment env)
         {
             this.configuration = configuration;
             this.env = env;

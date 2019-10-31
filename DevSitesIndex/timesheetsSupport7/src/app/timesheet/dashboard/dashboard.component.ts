@@ -19,7 +19,6 @@ import { GenUtilService } from 'src/app/shared/gen-util.service';
 
 
 
-
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -103,29 +102,54 @@ export class DashboardComponent implements OnInit {
 
     this.dataService.getTimelog_SummaryByWeekAndDiscipline().subscribe((data: any[]) => {
 
+      if (data == null) {
 
-      let weekEndingList = new Set(data.map(r => r.weekEnding));
+        this.barChartData_Timelog_SummaryByWeekAndDiscipline = {
+
+          Master_Canvas_ID: "canvas_20191001443",
+          Master_barChartType: 'horizontalBar',
+          Master_barChartTitle: "(System Error) - Weekly Summary by Descipline to date",
+          Master_barChartData: { datasets: [], labels: ["System Error"] }
+
+        }
+        return;
+      }
+
+      let weekEndingList = new Set(data.sort(r => r.SeqNo).map(r => r.weekEnding));
       let disciplineList = new Set(data.map(r => r.disciplineShort));
+
+   
 
       let weekendingArray = []
 
-      weekEndingList.forEach(r => weekendingArray.push(r));
+      weekEndingList.forEach((r11) => {
+
+
+        let dataSource = data.filter(r2 => r2.weekEnding === r11);
+        let weekTotalHours = dataSource.reduce((previousValue: number, currentObj: any, ndx: number) => {
+          return previousValue + currentObj.totalHours;
+        }, 0);
+
+        weekendingArray.push(weekTotalHours.toFixed(2) + " - " + r11);
+
+      });
 
 
       disciplineList.forEach((r0) => {
 
+        let dataSource = data.filter(r2 => r2.disciplineShort == r0);
+        let disciplineTotalHours = dataSource.reduce(function (previousValue: number, currentObj: any, ndx: number) {
+          return previousValue + currentObj.totalHours;
+        }, 0);
+
+
         dataSets.push(
           {
-            label: r0,
-            data: data.filter(r2 => r2.disciplineShort == r0).map(r3 => r3.totalHours)
+            label: disciplineTotalHours.toFixed(2) + " " + r0 ,
+            data: data.filter(r2 => r2.disciplineShort == r0).map(r3 => (r3.totalHours == null) ? 0 : r3.totalHours)
           }
         );
       });
-
-
-      console.log("20191030-1821");
-      console.log(disciplineList);
-      console.log(dataSets);
 
 
       this.barChartData_Timelog_SummaryByWeekAndDiscipline = {
@@ -145,18 +169,6 @@ export class DashboardComponent implements OnInit {
 
 
 
-
-
-
-
-
-
-
-
-
-      console.log('subscribe 0303');
-
-      console.log(data);
     },
       (e) => {
 
@@ -376,6 +388,9 @@ export class DashboardComponent implements OnInit {
       (e) => {
         console.log("20191029-0137 - dashboard.component - subscribe exception");
         console.log(e);
+
+        ehu.ErrorHandlingHelpers.showHtmlErrorResponse(e);
+
       });
 
   }
@@ -439,6 +454,7 @@ export class DashboardComponent implements OnInit {
         console.log(e);
 
         ehu.ErrorHandlingHelpers.showHtmlErrorResponse(e);
+
       });
 
   }

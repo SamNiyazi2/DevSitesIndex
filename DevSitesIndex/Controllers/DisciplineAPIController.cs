@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using DevSitesIndex.Entities;
 using DevSitesIndex.Services;
 using Microsoft.AspNetCore.Mvc;
+using SSN_GenUtil_StandardLib;
 
 // 04/13/2019 10:37 am - SSN - [20190413-1037] - Add discipline lookup
 
@@ -17,7 +18,7 @@ namespace DevSitesIndex.Controllers
     {
 
         // 09/30/2019 07:47 pm - SSN - Adding logger and call to base
-        public DisciplineAPIController(DevSitesIndexContext context, Util.ILogger_SSN logger) : base(context, logger)
+        public DisciplineAPIController(DevSitesIndexContext context, ILogger_SSN logger) : base(context, logger)
         {
             _entityRepository = new DisciplineRepository(context);
 
