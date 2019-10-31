@@ -25,7 +25,7 @@ var d_master = {
 
     watch: true,
     watchOptions: {
-        ignored: ['wwwroot/js/Angular_1_2', 'wwwroot/js/Angular_1_7', 'wwwroot/js/Angular_x', 'wwwroot/js/Angular_ui', 'wwwroot/js/tostr', 'node_modules'],
+        ignored: ['wwwroot/js/Angular_1_2', 'wwwroot/js/Angular_1_7', 'wwwroot/js/Angular_x', 'wwwroot/js/Angular_ui', 'wwwroot/js/tostr', 'node_modules', 'timesheetsSupport7'],
         aggregateTimeout: 300,
         poll: 1000
     }
@@ -52,7 +52,8 @@ var d_master = {
                 path.resolve(__dirname, 'wwwroot/js/Angular_1_7'),
                 path.resolve(__dirname, 'wwwroot/js/Angular_x'),
                 path.resolve(__dirname, 'wwwroot/js/Angular_ui'),
-                path.resolve(__dirname, 'wwwroot/js/tostr')
+                path.resolve(__dirname, 'wwwroot/js/tostr'),
+                path.resolve(__dirname, 'timesheetsSupport7')
             ]
         }
         ]

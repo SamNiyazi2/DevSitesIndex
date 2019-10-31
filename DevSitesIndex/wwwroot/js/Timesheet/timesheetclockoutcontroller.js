@@ -103,4 +103,4 @@ var timesheetClockoutController_instance = function () {
     };
 }();
 export { timesheetClockoutController_instance };
-//# sourceMappingURL=timesheetclockoutcontroller.js.map
+//# sourceMappingURL=TimesheetClockOutController.js.map

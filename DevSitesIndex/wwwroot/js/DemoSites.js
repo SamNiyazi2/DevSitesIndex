@@ -3,6 +3,7 @@
 // Convert to TypeScript
 /// <reference path="../../node_modules/@types/jquery/index.d.ts" />
 /// <reference path="../../node_modules/@types/angular/index.d.ts" />
+console.log("demosites - 20191031-0637");
 $('[cmd_name]').on('click', function (e) {
     var cmd_name = $(this).attr('cmd_name');
     // cmd_name = openSolution

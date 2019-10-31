@@ -9,5 +9,5 @@ demosites_index_p1_instance;
 console.log("DemoSites_Index_main - 20191001-1017");
 import { AppInsights_Util } from './Util/ApplicationInsights_Monitor';
 AppInsights_Util.doSetup();
-AppInsights_Util.logEvent("DemoSites_Index_Main", { SourceCode: "20191001-1132-C", Message: "Loading DemoSites_Index_Main" });
+AppInsights_Util.logEvent("DemoSites_Index_Main", { SourceCode: "20191001-1132-C2", Message: "Loading DemoSites_Index_Main" });
 //# sourceMappingURL=DemoSites_Index_main.js.map

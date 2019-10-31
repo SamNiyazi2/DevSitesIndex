@@ -6,6 +6,7 @@
 /// <reference path="../../node_modules/@types/angular/index.d.ts" />
 
 
+console.log("demosites - 20191031-0637");
 
 
 $('[cmd_name]').on('click', function (e) {

@@ -3,8 +3,8 @@
 import { environment } from '../environment';
 import { AppInsights } from 'applicationinsights-js';
 var AppInsights_Util = function () {
-    console.log('ApplicationInsights_monitor - 20191001-0951 - 001 - top instance');
-    console.log("20191031-0547-001");
+    console.log('ApplicationInsights_monitor - 20191001-0951 - 001-B - top instance');
+    console.log("20191031-0547-001-002");
     console.log(environment);
     var config = {
         instrumentationKey: environment.appInsights.instrumentationKey
