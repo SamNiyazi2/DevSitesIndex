@@ -157,12 +157,9 @@ namespace DevSitesIndex.Controllers
         public class SummaryByDailyWorkHour
         {
 
-            public int RowNo { get; set; }
+            public Int64 SeqNo { get; set; }
             public string Discipline { get; set; }
-            public int nYear { get; set; }
-            public int nMonth { get; set; }
-            public int nDay { get; set; }
-
+            public DateTime WorkDate { get; set; }
             public decimal? TotalHours { get; set; }
         }
 
@@ -199,7 +196,7 @@ namespace DevSitesIndex.Controllers
             public Int64 SeqNo { get; set; }
             public string WeekEnding { get; set; }
             public int nYear { get; set; }
-            public int wk{ get; set; } // Week number
+            public int wk { get; set; } // Week number
             public int RowNo { get; set; }
             public int DisciplineID { get; set; }
             public string DisciplineShort { get; set; }

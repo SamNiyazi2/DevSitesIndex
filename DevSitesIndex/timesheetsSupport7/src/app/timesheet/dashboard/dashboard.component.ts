@@ -16,6 +16,7 @@ import { ColorsList } from './samples/ColorsList';
 import * as Chart from 'chart.js';
 import { GenUtilService } from 'src/app/shared/gen-util.service';
 
+import { site_instance } from '../../../../../wwwroot/js/site';
 
 
 
@@ -118,7 +119,7 @@ export class DashboardComponent implements OnInit {
       let weekEndingList = new Set(data.sort(r => r.SeqNo).map(r => r.weekEnding));
       let disciplineList = new Set(data.map(r => r.disciplineShort));
 
-   
+
 
       let weekendingArray = []
 
@@ -145,7 +146,7 @@ export class DashboardComponent implements OnInit {
 
         dataSets.push(
           {
-            label: disciplineTotalHours.toFixed(2) + " " + r0 ,
+            label: disciplineTotalHours.toFixed(2) + " " + r0,
             data: data.filter(r2 => r2.disciplineShort == r0).map(r3 => (r3.totalHours == null) ? 0 : r3.totalHours)
           }
         );
@@ -226,67 +227,43 @@ export class DashboardComponent implements OnInit {
 
 
     let dataSets = [];
-    let disciplineRecords = [];
-    let labelsRecords_dates = [];
+
 
     this.dataService.getTimelog_SummaryByDailyWorkHours().subscribe((data: any[]) => {
 
+  
+      
+      let workDateList = new Set(data.sort(r => r.seqNo).map(r2 => this.genUtil.dateToString(r2.workDate)));
+      let disciplineList = new Set(data.map(r => r.discipline));
 
-      let lastDiscipline: string = null;
-      let lastDate: Date = null;
-      let currentDate: Date = null;
+      let workDateArray = []
 
-      let counter = 0;
-      let recordCount = data.length;
-
-
-      data.forEach((r) => {
-
-        counter += 1;
-
-
-        if (!lastDiscipline) {
-
-          lastDiscipline = r.discipline;
-
-        }
-
-        if (lastDiscipline != r.discipline || recordCount == counter) {
-
-          dataSets.push({ label: lastDiscipline, data: disciplineRecords.slice() });
-          disciplineRecords = []
-          lastDiscipline = r.discipline;
-        }
-
-        if (!lastDate) {
-          lastDate = new Date(r.nYear, r.nMonth - 1, r.nDay);
-          labelsRecords_dates.push(lastDate);
-        }
-
-        currentDate = new Date(r.nYear, r.nMonth - 1, r.nDay);
-
-        if (this.genUtil.compareDates(currentDate, lastDate) != 0) {
-
-          let dateIndex = labelsRecords_dates.findIndex((r) => this.genUtil.compareDates(r, currentDate) == 0);
-
-          if (dateIndex == -1) {
-            labelsRecords_dates.push(currentDate);
-          }
-        }
-
-
-        let hours = r.totalHours;
-        if (!hours) hours = 0;
-
-        disciplineRecords.push(hours);
-
+      workDateList.forEach(r => {
+        workDateArray.push(r);
       });
 
 
+      disciplineList.forEach(r => {
 
-      let dateLabels = labelsRecords_dates.map(d1 => d1.getFullYear().toString() + "/" + (d1.getMonth() + 1).toString() + "/" + d1.getDate().toString());
+        let dataSource = data.filter(r2 => r2.discipline == r);
+
+        dataSets.push({
+          label: r,
+          data: data.filter(r2 => r2.discipline == r).map(r3 => (r3.totalHours == null) ? 0 : r3.totalHours)
+        });
 
 
+
+      },
+        (e) => {
+
+          console.log("20191031-16433 - dashboard.component - subscribe exception - Summary by daily work hours");
+          console.log(e);
+
+          ehu.ErrorHandlingHelpers.showHtmlErrorResponse(e);
+        });
+
+       
 
       this.barChartData_202 = {
 
@@ -296,7 +273,7 @@ export class DashboardComponent implements OnInit {
         Master_barChartHeight: 400,
 
         Master_barChartData: {
-          labels: dateLabels,
+          labels: workDateArray,
           datasets: dataSets,
 
         }

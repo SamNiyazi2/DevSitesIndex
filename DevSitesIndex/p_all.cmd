@@ -5,7 +5,7 @@ start "DAL" C:\Sams\DevSitesIndex\SSN_DevSites_DAL_Standard\p.cmd
 
 start "DevSitesIndex" C:\Sams\DevSitesIndex\DevSitesIndex\p.cmd
  
-call  C:\Sams\DevSitesIndex\DevSitesIndex\ssn_run_webpack.cmd
+start  "ssn_run_webpack" C:\Sams\DevSitesIndex\DevSitesIndex\ssn_run_webpack.cmd
 
 
 
