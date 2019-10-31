@@ -2585,8 +2585,6 @@ var DashboardComponent = /** @class */ (function () {
         };
         var dataSets = [];
         this.dataService.getTimelog_SummaryByDailyWorkHours().subscribe(function (data) {
-            console.log("20191031-1640");
-            console.log(data);
             var workDateList = new Set(data.sort(function (r) { return r.seqNo; }).map(function (r2) { return _this.genUtil.dateToString(r2.workDate); }));
             var disciplineList = new Set(data.map(function (r) { return r.discipline; }));
             var workDateArray = [];
@@ -2604,9 +2602,6 @@ var DashboardComponent = /** @class */ (function () {
                 console.log(e);
                 _util_ErrorHandlingHelpers__WEBPACK_IMPORTED_MODULE_2__["ErrorHandlingHelpers"].showHtmlErrorResponse(e);
             });
-            //if (this.genUtil.compareDates(currentDate, lastDate) != 0) {
-            //labelsRecords_dates.push(currentDate);
-            //disciplineRecords.push(hours);
             _this.barChartData_202 = {
                 Master_Canvas_ID: "testCanvas_202",
                 Master_barChartType: 'horizontalBar',
