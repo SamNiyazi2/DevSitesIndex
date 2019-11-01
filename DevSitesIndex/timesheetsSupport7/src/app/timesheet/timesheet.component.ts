@@ -5,9 +5,14 @@ import { ITimelog } from '../interfaces/ITimelog';
 import { TOASTR_TOKEN, Toastr } from '../shared/toastr.service';
 
 
-import * as ehu from '../util/ErrorHandlingHelpers';  
+import * as ehu from '../util/ErrorHandlingHelpers';
 
 
+
+enum feedbackMessageNumber {
+  Good,
+  Bad
+}
 
 
 @Component({
@@ -30,7 +35,8 @@ export class TimesheetComponent implements OnInit {
 
 
   searchTerm: string = "";
-
+  feedbackMessage: string = "";
+  feedbackMessage_ClassName: feedbackMessageNumber = feedbackMessageNumber.Good;
 
 
   // 10/04/2019 11:24 pm - SSN - [20191003-1557] - [012] - Adding data service to Angular7
@@ -99,12 +105,14 @@ export class TimesheetComponent implements OnInit {
 
   searchTimesheets() {
 
+    this.feedbackMessage = "Searching...";
+
     let data = {
       searchTerm: this.searchTerm
     }
 
     this.dataService.getTimelogSearch(data).then(this.getTimelogSearchSuccess.bind(this), this.getTimelogSearchError.bind(this));
-     
+
   }
 
   resetSearch() {
@@ -112,6 +120,9 @@ export class TimesheetComponent implements OnInit {
     let data = {
       searchTerm: ""
     }
+
+    this.feedbackMessage = "";
+    this.searchTerm = "";
 
     this.dataService.getTimelogSearch(data).then(this.getTimelogSearchSuccess.bind(this), this.getTimelogSearchError.bind(this));
 
@@ -122,11 +133,18 @@ export class TimesheetComponent implements OnInit {
     // this.timesheets_for_modal = result.dataList;
     this.timesheets = result.dataList;
     this.sqlStatsRecord = result.sqlStatsRecord;
-      
+
+    this.feedbackMessage = "";
+
   }
 
 
   getTimelogSearchError(response) {
+
+
+    this.feedbackMessage = "Returned no resuls";
+    this.feedbackMessage_ClassName = feedbackMessageNumber.Bad;
+
 
     console.log('timesheet.Component - 20191021-0824  - Error ');
     console.log(response);
@@ -136,9 +154,19 @@ export class TimesheetComponent implements OnInit {
   }
 
 
+
+  getfeedbackMessage_ClassName() {
+
+    if (this.feedbackMessage_ClassName === feedbackMessageNumber.Good) return ["info_good"];
+    if (this.feedbackMessage_ClassName === feedbackMessageNumber.Bad) return ["info_bad"];
+    return null;
+
+  }
+
+
   skipTimelog(data) {
- 
-    data.sqlStatsRecord.currentPageNo = data.sqlStatsRecord.currentPageNo + data.value; 
+
+    data.sqlStatsRecord.currentPageNo = data.sqlStatsRecord.currentPageNo + data.value;
     console.log(data.sqlStatsRecord);
     this.dataService.getTimelogSearch(data.sqlStatsRecord).then(this.getTimelogSearchSuccess.bind(this), this.getTimelogSearchError.bind(this));
 

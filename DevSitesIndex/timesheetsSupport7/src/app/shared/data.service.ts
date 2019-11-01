@@ -27,11 +27,12 @@ export class DataService {
 
   // 10/21/2019 10:18 pm - SSN - [20191021-2033] - [004] - Revise timelog search returned result
 
-  getTimesheets_search(data: ISqlStatsRecord) {
+  // 11/01/2019 04:26 pm - SSN - Duplicate 
+  //getTimesheets_search(data: ISqlStatsRecord) {
 
-    return this.http.post("/api/timelogapi/search", data);
+  //  return this.http.post("/api/timelogapi/search", data);
 
-  }
+  //}
 
 
 

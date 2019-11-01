@@ -16,8 +16,6 @@ import { ColorsList } from './samples/ColorsList';
 import * as Chart from 'chart.js';
 import { GenUtilService } from 'src/app/shared/gen-util.service';
 
-import { site_instance } from '../../../../../wwwroot/js/site';
-
 
 
 @Component({

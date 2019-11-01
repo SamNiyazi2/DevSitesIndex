@@ -18,6 +18,9 @@
         <button class="btn btn-default" (click)="resetSearch()">Reset</button>
       </div>
     </form>
+    <div *ngIf="feedbackMessage">
+      <span [innerText]="feedbackMessage" [ngClass]="getfeedbackMessage_ClassName()"></span>
+    </div>
 
   </div>
 </div>
