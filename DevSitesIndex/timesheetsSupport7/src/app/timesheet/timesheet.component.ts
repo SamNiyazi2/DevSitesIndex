@@ -6,6 +6,9 @@ import { TOASTR_TOKEN, Toastr } from '../shared/toastr.service';
 
 
 import * as ehu from '../util/ErrorHandlingHelpers';
+import { ISqlStatsRecord } from '../interfaces/ISqlStatusRecord';
+import { AuthenticateService } from '../users/authenticate.service';
+import { BroadcasterUtilService } from '../broadcaster-util.service';
 
 
 
@@ -30,8 +33,7 @@ export class TimesheetComponent implements OnInit {
   timesheets: ITimelog[];
 
   sqlStatsRecord: any;
-
-  timesheets_for_modal: ITimelog[];
+  recordsPerPage_default: number = 25;
 
 
   searchTerm: string = "";
@@ -43,7 +45,9 @@ export class TimesheetComponent implements OnInit {
   // Add toastrService
   // 10/06/2019 05:11 pm - SSN - [20191006-1643] - [006] - Adding Angular 7 - Observables and resolvers - Adding ActivatedRoute
 
-  constructor(
+  // 11/03/2019 08:24 am - SSN - [20191101-0526] - [020] - Check login status
+  // broadcasterUtilService
+  constructor(private authenticateService: AuthenticateService, private broadcasterUtil: BroadcasterUtilService,
     private dataService: DataService,
 
     // 10/10/2019 11:56 pm - SSN - [20191010-1354] - [006] - M11 - Understanding Angular's Dependency Injection
@@ -58,6 +62,22 @@ export class TimesheetComponent implements OnInit {
   ngOnInit() {
 
 
+    console.log("*************** timesheet.conponent");
+
+    this.authenticateService.isLoggedIn_promise();
+    //.then(data => {
+
+
+    //  if (!this.authenticateService.isAuthenticated()) {
+
+    //    console.log("*************** timesheet.conponent XXXXXXXXXX returning");
+    //    console.log(this.route.snapshot.routeConfig.path);
+
+    //    this.broadcasterUtil.broadcast('doLogin', { controlId: 'appLoginPopup', message: 'Sent from timesett.component - 20191103-0824', returnUrl: this.route.snapshot.routeConfig.path });
+
+    //    return;
+    //  }
+
     this.timesheets = [];
     this.sqlStatsRecord = null;
 
@@ -68,7 +88,31 @@ export class TimesheetComponent implements OnInit {
 
     // 10/06/2019 05:10 pm - SSN - [20191006-1643] - [005] - Adding Angular 7 - Observables and resolvers - Pickup data from resolver
 
-    this.timesheets = this.route.snapshot.data['timesheets_resolver'];
+    // 11/01/2019 11:30 am - SSN - Update to use paging
+    let dataTemp1 = this.route.snapshot.data['timesheets_resolver'];
+
+    let dataTemp;
+
+    if (dataTemp1.obj1) {
+      console.log ( "Using dataTemp1.obj1")
+      dataTemp = dataTemp1.obj1;
+
+    }
+    else {
+      console.log("Using dataTemp1 NOT .obj1")
+      dataTemp = dataTemp1;
+    }
+
+    console.log("*************** timesheet.conponent --- dataTemp");
+
+    console.log(dataTemp);
+
+
+    //    this.timesheets = this.route.snapshot.data['timesheets_resolver'];
+    this.timesheets = dataTemp.dataList;
+    this.sqlStatsRecord = dataTemp.sqlStatsRecord;
+
+
 
   }
 
@@ -107,8 +151,11 @@ export class TimesheetComponent implements OnInit {
 
     this.feedbackMessage = "Searching...";
 
-    let data = {
-      searchTerm: this.searchTerm
+    // 11/01/2019 10:18 am - SSN - [20191101-1018] Added ISqlStatsRecord
+
+    let data: ISqlStatsRecord = {
+      searchTerm: this.searchTerm,
+      recordsPerPage: this.recordsPerPage_default,
     }
 
     this.dataService.getTimelogSearch(data).then(this.getTimelogSearchSuccess.bind(this), this.getTimelogSearchError.bind(this));
@@ -117,9 +164,13 @@ export class TimesheetComponent implements OnInit {
 
   resetSearch() {
 
-    let data = {
-      searchTerm: ""
+    // 11/01/2019 10:18 am - SSN - [20191101-1018] Added ISqlStatsRecord
+
+    let data: ISqlStatsRecord = {
+      searchTerm: "",
+      recordsPerPage: this.recordsPerPage_default,
     }
+
 
     this.feedbackMessage = "";
     this.searchTerm = "";
@@ -130,7 +181,7 @@ export class TimesheetComponent implements OnInit {
 
   getTimelogSearchSuccess(result) {
 
-    // this.timesheets_for_modal = result.dataList;
+
     this.timesheets = result.dataList;
     this.sqlStatsRecord = result.sqlStatsRecord;
 

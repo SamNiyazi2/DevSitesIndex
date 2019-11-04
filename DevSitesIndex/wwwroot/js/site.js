@@ -67,6 +67,15 @@ var site_instance = function () {
                 $('.fixed_anchor').fadeOut('slow');
             }
         });
+        // 11/02/2019 07:25 pm - SSN - [20191101-0526] - [013] - Check login status
+        // Did not finish.
+        // Todo-SSN
+        $('.modal').on('show', function () {
+            console.log('site.ts  -  20191102-1930 - Setting draggable.');
+            $(this).draggable({
+                handle: ".modal-header"
+            });
+        });
     };
     // 08/21/2019 01:48 pm 
     // 09/21/2019 12:27 pm - SSN - [201909-1227] Revise to accommodate Babel/Webpack

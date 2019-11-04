@@ -77,3 +77,10 @@
 <div [innerHtml]="forgeryToken">
 </div>
 
+<!-- 11/01/2019 11:45 am - SSN - [20191101-0526] - [003] - Check login status -->
+<!-- Moved from timesheet.components-->
+<!-- // 10/21/2019 12:30 pm - SSN - [20191021-1230] - [001] - Modal for displaying selectd entry --> 
+<app-timelog-modal elementId="appLoginPopup"  #appLoginPopupTEMP closeOnClick="false">
+ <app-login (closePopupCaller)="appLoginPopupTEMP.closeModal()" [customObject]="appLoginPopupTEMP.customObject"></app-login>
+</app-timelog-modal>
+ 

@@ -5,22 +5,52 @@ import { Injectable } from '@angular/core';
 import { DataService } from '../shared/data.service';
 import { Resolve } from '@angular/router';
 
-import { map } from 'rxjs/operators';
- 
+import { map, withLatestFrom } from 'rxjs/operators';
+import { ISqlStatsRecord } from '../interfaces/ISqlStatusRecord';
+import { AuthenticateService } from '../users/authenticate.service';
+import { promise } from 'protractor';
+import { Subject } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class TimesheetResolverService implements Resolve<any>{  // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-  constructor(private dataService: DataService) {
- 
+
+  isDone: boolean = false;
+
+  // 11/03/2019 08:15 am - SSN - [20191101-0526] - [019] - Check login status
+  // authenticateService 
+  constructor(private dataService: DataService, private authenticateService: AuthenticateService) {
+
   }
 
   resolve() {
+
+
+ 
+
+    this.authenticateService.isLoggedIn_promise();
+
+ 
+
+    // if (!this.authenticateService.isAuthenticated()) {
+    // 
+    this.authenticateService.isLoggedIn_subscribe()
+
+
+
+    // 11/01/2019 10:18 am - SSN - [20191101-1018] Added passing in data for default recordsPerPage
+
     
-    let obj2 = this.dataService.getTimesheets().pipe(map(timesheets => timesheets));
+    let data: ISqlStatsRecord = {
+      recordsPerPage: 20
+    }
+
+    return this.dataService.getTimesheets(data).pipe(map(data => data));
     
-    return obj2;
   }
+
+
 }

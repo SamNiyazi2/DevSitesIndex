@@ -5,6 +5,10 @@ import { Injectable } from '@angular/core';
 import { IUser } from './iuser';
 import { DataService } from '../shared/data.service';
 
+import * as ehu from '../util/ErrorHandlingHelpers';
+import { promise } from 'protractor';
+import { Observable } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
@@ -18,11 +22,13 @@ export class AuthenticateService {
 
   }
 
+
   loginUser(forgeryToken: string, email: string, password: string) {
 
     return this.dataService.authenticateUser({ forgeryToken: forgeryToken, email: email, password: password }).toPromise();
 
   }
+
 
   isAuthenticated() {
 
@@ -37,9 +43,60 @@ export class AuthenticateService {
 
   // 10/08/2019 06:44 pm - SSN - [20191008-1232] - [011] - X-XSRF-TOKEN
 
-  isLoggedIn() {
+  // 11/03/2019 05:44 am - SSN - [20191101-0526] - [015] - Check login status
+  // Moved processing from header.component
 
-    return this.dataService.isLoggedIn().toPromise();
+  isLoggedIn_subscribe(): void {
+
+    this.dataService.isLoggedIn().subscribe(data => {
+
+      if (this.isAuthenticated()) {
+        console.log("Already done ***********************");
+        return;
+      }
+
+
+      console.log("authenticate.service - 20191103-0541");
+
+      console.log(data);
+
+      this.currentUser = data as IUser;
+    }
+      ,
+
+      (e) => {
+        console.log("20191103-0542 - authenticate.service - subscribe exception - isLoggedIn ");
+        console.log(e);
+
+        ehu.ErrorHandlingHelpers.showHtmlErrorResponse(e);
+      }
+    );
+
+  }
+
+
+  isLoggedIn_promise(): Promise<object> {
+
+    console.log("authenticate srevice - 20191103-0918 - Begin xxxx 2");
+
+    if (this.isAuthenticated()) {
+      return new Promise((resolve,reject) => { resolve()});
+    }
+
+    return this.dataService.isLoggedIn().toPromise().then(this.isLoggedInSuccess.bind(this), this.isLoggedInError.bind(this));
+  }
+
+
+  isLoggedInSuccess(response) {
+
+    this.currentUser = response;
+
+  }
+
+
+  isLoggedInError(response) {
+    console.log('EEEEEEEEEEEEEEEEEE authenticate.service.ts isLoggedInError');
+    console.log(response);
   }
 
 

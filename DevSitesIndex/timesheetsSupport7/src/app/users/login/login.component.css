@@ -1,9 +1,12 @@
+.loginDiv{
+ 
+}
 
-.col2 dt{
-  width:180px;
-  padding:0px 20px 0px 0px;
-  text-align:left;
-  font-size:12px;
+.col2 dt {
+  width: 180px;
+  padding: 0px 20px 0px 0px;
+  text-align: left;
+  font-size: 12px;
 }
 
 .col3 dt {

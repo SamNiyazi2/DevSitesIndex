@@ -1,7 +1,6 @@
+ 
 
-.modal-body{
-
-  height: 250px;
-  overflow-y:scroll;
-
+.modal-dialog {
+  height: auto;
+  background-color: green;
 }

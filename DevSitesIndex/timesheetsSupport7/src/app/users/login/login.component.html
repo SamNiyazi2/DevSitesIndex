@@ -4,7 +4,7 @@
 
 <hr />
 
-<div class="col-md-4">
+<div class="loginDiv" [ngClass]="{'col-md-4':!isOpenAsModal(),'col-md-12':isOpenAsModal()}">
 
   <form #loginForm="ngForm" autocomplete="off" (ngSubmit)="login(loginForm.value)" novalidate>
 

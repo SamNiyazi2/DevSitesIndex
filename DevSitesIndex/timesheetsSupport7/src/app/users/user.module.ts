@@ -41,7 +41,12 @@ console.log('user.module - 20191011-1628');
     declarations: [
 
       ProfileComponent,
-      LoginComponent,
+
+
+      // 11/02/2019 04:51 pm - SSN - [20191101-0526] - [008] - Check login status
+      // Moved to main module since we need to call it automatically from intercepter.
+      //LoginComponent,
+
       LogoutComponent,
       ChildComponent
     ]

@@ -18,12 +18,15 @@ export class DataService {
   constructor(private http: HttpClient) {
   }
 
+  // 11/01/2019 10:18 am - SSN - [20191101-1018] Added passing in data for default recordsPerPage
+  // Using search for listing all data so we can page results withot having to create another query
+  getTimesheets(data) {
 
-  getTimesheets() {
-
-    return this.http.get("/api/timelogapi");
+    //    return this.http.get("/api/timelogapi", data);
+    return this.http.post("/api/timelogapi/search", data);
 
   }
+
 
   // 10/21/2019 10:18 pm - SSN - [20191021-2033] - [004] - Revise timelog search returned result
 

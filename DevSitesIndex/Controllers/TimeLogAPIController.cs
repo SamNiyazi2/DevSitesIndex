@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using DevSitesIndex.Entities;
 using DevSitesIndex.Services;
 using DevSitesIndex.Util;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SSN_GenUtil_StandardLib;
 
@@ -17,6 +18,7 @@ using SSN_GenUtil_StandardLib;
 namespace DevSitesIndex.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     public class TimeLogAPIController : EntityAPIController<TimeLog>
     {
 

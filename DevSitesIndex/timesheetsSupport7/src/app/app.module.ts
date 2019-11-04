@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 // 10/03/2019 04:59 pm - SSN - [20191003-1557] - [005] - Adding data service to Angular7
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 
 // 10/28/2019 06:23 am - SSN - [20191028-0558] - [005] - Timesheet dashboard
@@ -52,8 +52,13 @@ import { BubbleChartComponent } from './timesheet/dashboard/samples/bubble-chart
 import { LineChartComponent } from './timesheet/dashboard/samples/line-chart/line-chart.component';
 import { PieChartComponent } from './timesheet/dashboard/samples/pie-chart/pie-chart.component';
 import { BarChartComponent } from './timesheet/dashboard/samples/bar-chart/bar-chart.component';
+import { CheckLoginService } from './interceptors/check-login.service';
 
 
+
+// 11/02/2019 04:48 pm - SSN - [20191101-0526] - [007] - Check login status
+
+import { LoginComponent } from './users/login/login.component'
 
 
 // 10/10/2019 11:45 pm - SSN - [20191010-1354] - [003] - M11 - Understanding Angular's Dependency Injection
@@ -109,7 +114,9 @@ const toastr: Toastr = window['toastr'];
 
     PieChartComponent,
 
-    BarChartComponent
+    BarChartComponent,
+
+    LoginComponent
 
   ],
   imports: [
@@ -127,7 +134,7 @@ const toastr: Toastr = window['toastr'];
     // 10/09/2019 01:45 am - SSN - [20191009-0144] - [001] - M07-09 - Template-based form validation
     FormsModule, ReactiveFormsModule,
 
-    ChartsModule  
+    ChartsModule
 
   ],
 
@@ -158,7 +165,13 @@ const toastr: Toastr = window['toastr'];
       useValue: checkDirtyState
     },
 
-    AuthenticateService
+    AuthenticateService,
+
+    // 11/01/2019 05:47 am - SSN - [20191101-0526] - [002] - Check login status
+
+    { provide: HTTP_INTERCEPTORS, useClass: CheckLoginService, multi: true }
+
+
   ],
 
 

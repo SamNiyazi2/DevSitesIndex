@@ -125,6 +125,20 @@ var site_instance = function () {
 
 
 
+
+
+    
+        // 11/02/2019 07:25 pm - SSN - [20191101-0526] - [013] - Check login status
+        // Did not finish.
+        // Todo-SSN
+        $('.modal').on('show', function () {
+            console.log ( 'site.ts  -  20191102-1930 - Setting draggable.')
+            $(this).draggable({
+                handle: ".modal-header"
+            });
+        })
+
+
     };
 
 

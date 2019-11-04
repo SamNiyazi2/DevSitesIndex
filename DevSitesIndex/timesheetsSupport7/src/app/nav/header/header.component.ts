@@ -52,7 +52,10 @@ export class HeaderComponent implements OnInit {
   setupControl() {
 
     // 10/08/2019 06:41 pm - SSN - [20191008-1232] - [010] - X-XSRF-TOKEN
-    this.authenticateService.isLoggedIn().then(this.isLoggedInSuccess.bind(this), this.isLoggedInError.bind(this));
+
+    // 11/03/2019 05:44 am - SSN - [20191101-0526] - [015] - Check login status
+    // Moved processing code to AuthenticateService
+    this.authenticateService.isLoggedIn_subscribe();
 
     this.dataService.getForgeryToken().then(this.forgeryTokenSuccess.bind(this), this.forgeryTokenError.bind(this));
 
@@ -74,20 +77,6 @@ export class HeaderComponent implements OnInit {
     this.forgeryToken = "";
 
   }
-
-
-  isLoggedInSuccess(response) {
-
-    this.authenticateService.currentUser = response;
-
-  }
-
-
-  isLoggedInError(response) {
-    console.log('header.component.ts isLoggedInError');
-    console.log(response);
-  }
-
 
 
   getGreetingMessage() {

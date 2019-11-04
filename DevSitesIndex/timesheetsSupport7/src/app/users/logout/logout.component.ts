@@ -18,7 +18,7 @@ export class LogoutComponent implements OnInit {
 
     // 10/08/2019 02:09 pm - SSN - [20191008-1232] - [005] - X-XSRF-TOKEN
     let token = $("[name=__RequestVerificationToken]").val();
- 
+
     this.authenticateService.logoutUser(token).then(this.logoutUserSuccess.bind(this), this.logoutUserError.bind(this));
 
   }
@@ -32,7 +32,9 @@ export class LogoutComponent implements OnInit {
     this.broadcasterUtil.broadcast('login', '******************* logout component');
 
 
-    this.router.navigate(['/timesheet']);
+    //    this.router.navigate(['/timesheet']);
+    document.location.href = "/";
+
   }
 
 

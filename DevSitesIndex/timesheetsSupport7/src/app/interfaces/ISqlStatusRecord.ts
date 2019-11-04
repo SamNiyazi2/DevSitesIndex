@@ -2,12 +2,13 @@
 
 export interface ISqlStatsRecord {
 
-  recordsPerPage: number;
-  currentPageNo: number;
-  totalRecordCount: number;
-  columnName: string;
-  columnNameSelected: string;
-  desc: boolean;
+  searchTerm?:string, // 11/01/2019 10:18 am - SSN - [20191101-1018] Added
+  recordsPerPage?: number;
+  currentPageNo?: number;
+  totalRecordCount?: number;
+  columnName?: string;
+  columnNameSelected?: string;
+  desc?: boolean;
 
 }
 

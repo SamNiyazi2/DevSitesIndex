@@ -33,18 +33,15 @@ export class BroadcasterUtilService {
   }
 
   broadcast(key: any, data?: any) {
+      
     this.broadcastEvents.next({ key, data });
 
   }
 
   on<T>(key: any): Observable<T> {
-
-    console.log('broadcastUtil - 20191011-1757');
-
+  
     let result = this.broadcastEvents.asObservable().pipe(filter(event => event.key === key)).pipe(map(event => <T>event.data));
-
-    console.log(result);
-    console.log('------------------------------');
+ 
     return result;
 
   }

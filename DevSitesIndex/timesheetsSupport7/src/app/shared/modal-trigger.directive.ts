@@ -4,7 +4,7 @@
 
 import { Directive, OnInit, Inject, ElementRef, Input } from '@angular/core';
 import { JQ_TOKEN } from './j-query.service';
-import 'bootstrap';
+// import 'bootstrap';
 
 
 @Directive({
