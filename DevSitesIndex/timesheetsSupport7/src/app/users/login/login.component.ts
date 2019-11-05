@@ -1,11 +1,17 @@
 
 // 10/07/2019 09:47 am - SSN - [20191007-0947] - [001] - Adding Angular 7 - Collecting data with Angular forms and validations - Login form
 
+
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 import { AuthenticateService } from '../authenticate.service';
 import { IUser } from '../iuser';
 import { Router } from '@angular/router';
 import { BroadcasterUtilService } from 'src/app/broadcaster-util.service';
+
+import * as ehu from '../../util/ErrorHandlingHelpers';
+
+
+
 
 @Component({
   selector: 'app-login',
@@ -46,8 +52,8 @@ export class LoginComponent implements OnInit, OnChanges {
   // To pass in returnUrl
   ngOnChanges(): void {
 
-    console.log('login.component - 20191103-0726 XXXXXXXXX');
-    console.log(this.customObject);
+    //console.log('login.component - 20191103-0726 XXXXXXXXX');
+    //console.log(this.customObject);
 
   }
 
@@ -70,9 +76,11 @@ export class LoginComponent implements OnInit, OnChanges {
 
   cancel() {
 
-    if (!this.closePopupCaller_check()) {
-      this.route.navigate(['/timesheet']);
-    }
+    // this.route.navigate(['/timesheet']);
+    // We need to redirect regardless, in case the current selected page requires login.
+    console.log("cancel - login.component - 20191104-0512-B");
+
+    document.location.href = "/";
 
   }
 
@@ -82,16 +90,10 @@ export class LoginComponent implements OnInit, OnChanges {
 
     // If we are calling form a popup, we will not do anything here other than close the popup.  No redirect.
 
-    console.log("login.components - 20191103-0343-B");
-
-    console.log(this.closePopupCaller);
-
-
     if (!this.isOpenAsModal()) {
       return false;
     }
 
-    console.log("return true;");
     this.closePopupCaller.emit();
     return true;
 
@@ -108,11 +110,7 @@ export class LoginComponent implements OnInit, OnChanges {
 
     this.authenticateService.currentUser = response;
 
-    console.log(this.authenticateService.currentUser);
-
     if (this.authenticateService.isAuthenticated()) {
-
-      console.log("login.compoent - loginUserSuccess");
 
       if (!this.closePopupCaller_check()) {
 
@@ -121,15 +119,9 @@ export class LoginComponent implements OnInit, OnChanges {
       }
       else {
 
-        console.log("login.compoent - loginUserSuccess - isPopup ");
-        console.log(this.customObject);
-
         if (this.customObject) {
-          console.log("=========== Check 1");
           if (this.customObject.returnUrl) {
-            console.log("=========== Check 2");
-            let returnUrl: string =   unescape(this.customObject.returnUrl);
-            console.log(returnUrl);
+            let returnUrl: string = unescape(this.customObject.returnUrl);
             this.route.navigate([returnUrl]);
           }
         }
@@ -151,6 +143,14 @@ export class LoginComponent implements OnInit, OnChanges {
     console.log("login.component.ts - error ");
     console.log(response);
 
+    ehu.ErrorHandlingHelpers.showHtmlErrorResponse(response);
+
+  }
+
+  // 11/04/2019 06:30 am - SSN - [20191104-0607] - [003] - Registration - Client 
+  register() {
+    this.closePopupCaller_check();
+    this.route.navigate(['/user/register']);
   }
 
 }

@@ -48,7 +48,7 @@ console.log('user.module - 20191011-1628');
       //LoginComponent,
 
       LogoutComponent,
-      ChildComponent
+      ChildComponent 
     ]
 
     ,

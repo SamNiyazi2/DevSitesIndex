@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using DevSitesIndex.Entities;
 using Microsoft.AspNetCore.Authorization;
+using DevSitesIndex.Util;
 
 namespace DevSitesIndex.Pages.TimeLogs
 {
@@ -17,6 +18,11 @@ namespace DevSitesIndex.Pages.TimeLogs
     public class DetailsModel : PageModel
     {
         private readonly DevSitesIndex.Entities.DevSitesIndexContext _context;
+
+        // 11/04/2019 12:43 pm - SSN - [20191104-0844] - [013] - Prevent delete option on timesheet related forms 
+        // Return to caller
+        public ReturnToCaller returnToCaller = new ReturnToCaller();
+
 
         public DetailsModel(DevSitesIndex.Entities.DevSitesIndexContext context)
         {
@@ -32,10 +38,15 @@ namespace DevSitesIndex.Pages.TimeLogs
                 return NotFound();
             }
 
+
+
+            returnToCaller.setup(Request, "./Index");
+
+
             // 09/21/2019 11:06 am - SSN - Included projct and updated form to display project and job titles.
             TimeLog = await _context.TimeLog
                 .Include(t => t.discipline)
-                .Include(t => t.job).ThenInclude(r=>r.project)
+                .Include(t => t.job).ThenInclude(r => r.project)
                 .SingleOrDefaultAsync(m => m.TimeLogId == id);
 
             if (TimeLog == null)

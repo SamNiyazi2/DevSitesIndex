@@ -11,9 +11,16 @@ import { TimesheetResolverService } from './resolvers/timesheet-resolver.service
 import { ProjectsListComponent } from './projects/projects-list/projects-list.component';
 import { DashboardComponent } from './timesheet/dashboard/dashboard.component';
 import { AuthenticatedGuard } from './shared/RouteGuards/AuthenticatedGuard.service';
+import { MainSiteMenuComponent } from './nav/main-site-menu/main-site-menu.component';
 
 
 const routes: Routes = [
+
+
+  // 11/05/2019 09:38 am - SSN - [20191105-0938] - [001] - Add routes for all menu options
+  { path: 'MainSiteMenu/:option/:option2', component: MainSiteMenuComponent  },
+  { path: 'MainSiteMenu/:option', component: MainSiteMenuComponent },
+
 
   // 10/02/2019 12:20 pm - SSN - [20191002-1118] - [004] - Adding Angular 7 test app
   // Testing excluding .Net paths
@@ -47,7 +54,6 @@ const routes: Routes = [
   { path: 'e404', component: E404Component },
 
 
-  { path: '', redirectTo: 'test3', pathMatch: 'full' },
 
 
   // 10/06/2019 09:09 pm - SSN - [20191006-2058] - [003] - Adding Angular 7 - Lazily loading feature modules
@@ -55,11 +61,26 @@ const routes: Routes = [
 
   // 10/28/2019 04:56 am - SSN - [20191028-0456] - [001] - Timesheet dashboard
   // ng build --aot=true - child route fix
-  { path: 'dashboard', component: DashboardComponent },
+  { path: 'dashboard', component: DashboardComponent  },
+  
 
+
+  //<li><a[routerLink]="['/Discipline_ng']" > Disciplines < /a></li >
+  //<li><a[routerLink]="['/Projects_ng']" > Projects < /a></li >
+  //<li><a[routerLink]="['/ProjectsA7_ng']" > Projects(Angular 7) < /a></li >
+  //<li><a[routerLink]="['/jobs_ng']" > Jobs < /a></li >
+  //<li><a[routerLink]="['/TimeLogs_ng']" > Timelog < /a></li >
+  //<li><a[routerLink]="['/timesheet_ng']" > Timelog(Angular 7) < /a></li >
+  //<li><a[routerLink]="['/ReferenceSites_ng']" > Reference Sites < /a></li >
+  //<li><a[routerLink]="['/CodeReferences_ng']" > Code < /a></li >
+  //<li><a[routerLink]="['/CommandLine_ng']" > Command Line < /a></li >
+  //<li><a[routerLink]="['/DevSites_ng']" > Demo Sites < /a></li >
+
+
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
 
   //{ path: '**', component: AppComponent, outlet: "main101" },
-  { path: '**', redirectTo: 'test3' },
+  { path: '**', redirectTo: 'dashboardtest3' },
 
 
 ];

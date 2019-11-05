@@ -188,6 +188,8 @@ var config = [
 
 
         entry: [
+// ERROR in Debug Failure. False expression: Host should not return a redirect source file from `getSourceFile`
+           // './site.ts'
             './site_only_main.ts'
         ]
 

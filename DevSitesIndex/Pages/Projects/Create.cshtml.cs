@@ -21,6 +21,11 @@ namespace DevSitesIndex.Pages.Projects
     {
         private readonly DevSitesIndex.Entities.DevSitesIndexContext _context;
 
+
+        // 11/04/2019 02:00 pm - SSN - [20191104-0844] - [022] - Prevent delete option on timesheet related forms 
+        // Return to caller
+        public ReturnToCaller returnToCaller = new ReturnToCaller();
+
         public SelectList companiesSL { get; set; }
 
         public CreateModel(DevSitesIndex.Entities.DevSitesIndexContext context)
@@ -31,6 +36,9 @@ namespace DevSitesIndex.Pages.Projects
 
         public IActionResult OnGet()
         {
+
+            returnToCaller.setup(Request, "./Index");
+
             setupPageRequirements();
 
             return Page();
@@ -57,6 +65,7 @@ namespace DevSitesIndex.Pages.Projects
             {
                 return Page();
             }
+             
 
             //_context.Projects.Add(Project);
             //await _context.SaveChangesAsync();

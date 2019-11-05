@@ -18,7 +18,7 @@ using SSN_GenUtil_StandardLib;
 namespace DevSitesIndex.Controllers
 {
     [Route("api/[controller]")]
-    [Authorize]
+    // [Authorize]
     public class TimeLogAPIController : EntityAPIController<TimeLog>
     {
 

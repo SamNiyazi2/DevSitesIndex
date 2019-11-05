@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using DevSitesIndex.Entities;
 using Microsoft.AspNetCore.Authorization;
+using DevSitesIndex.Util;
 
 namespace DevSitesIndex.Pages.Projects
 {
@@ -18,6 +19,13 @@ namespace DevSitesIndex.Pages.Projects
     {
         private readonly DevSitesIndex.Entities.DevSitesIndexContext _context;
 
+
+        // 11/04/2019 09:57 am - SSN - [20191104-0844] - [007] - Prevent delete option on timesheet related forms 
+        // Return to caller
+        public ReturnToCaller returnToCaller = new ReturnToCaller();
+
+
+
         public DetailsModel(DevSitesIndex.Entities.DevSitesIndexContext context)
         {
             _context = context;
@@ -25,9 +33,11 @@ namespace DevSitesIndex.Pages.Projects
 
         public Project Project { get; set; }
 
-        // 04/19/2019 02:05 pm - SSN - [20190419-1405] - Move to Project detail - Correct as we move job_timesheet to project_jobs
+        // 11/04/2019 11:44 am - SSN - [20191104-0844] - [012] - Prevent delete option on timesheet related forms 
+        // Refactor while addressing preventing delete and ReturnToCaller
+        public Project_Jobs project_Jobs { get; set; }
 
-        public List<Job> project_Jobs { get; set; }
+        // 04/19/2019 02:05 pm - SSN - [20190419-1405] - Move to Project detail - Correct as we move job_timesheet to project_jobs
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -36,28 +46,16 @@ namespace DevSitesIndex.Pages.Projects
                 return NotFound();
             }
 
+
+            returnToCaller.setup(Request, "./Index");
+
+
             Project = await _context.Projects
                 .Include(p => p.company).SingleOrDefaultAsync(m => m.ProjectID == id);
 
-            // 04/19/2019 02:05 pm - SSN - [20190419-1405] - Move to Project detail
-
-            project_Jobs = _context.Jobs.Where(r => r.ProjectID == id).ToList();
+            project_Jobs = new Project_Jobs(_context, id);
 
 
-            // 08/20/2019 01:10 pm - SSN - [20190820-1252] - [002] - Added
-
-            var Jobs_Timesheet_Totals = _context.Jobs.Where(r => r.ProjectID == id)
-                            .GroupJoin(_context.TimeLog, m => m.JobID, c => c.JobId, (j, t) =>
-                              new
-                              {
-                                  JobId = j.JobID,
-                                  TotalSeconds = t.Sum(r => r.TotalSeconds)
-                              }).ToList();
-
-            foreach (var r in project_Jobs)
-            {
-                r.TotalSeconds = Jobs_Timesheet_Totals.Where(r2 => r2.JobId == r.JobID).Sum(r3 => r3.TotalSeconds);
-            }
 
 
             if (Project == null)

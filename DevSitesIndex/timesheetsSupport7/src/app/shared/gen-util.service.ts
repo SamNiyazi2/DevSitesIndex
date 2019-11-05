@@ -29,14 +29,23 @@ export class GenUtilService {
   }
 
 
-  dateToString(d1:Date) {
+  dateToString(d1: Date) {
 
     if (typeof (d1) === "string") {
       d1 = new Date(d1);
     }
 
     return (d1.getMonth() + 1).toString().padStart(2, '0') + "/" + d1.getDate().toString().padStart(2, '0') + "/" + d1.getFullYear().toString();
-    
+
+  }
+
+
+  doSetfocus_withTimeout(selector: string) {
+    setTimeout(() => this.doSetfocus(selector), 700);
+  }
+
+  doSetfocus(selector: string) {
+    $(selector).focus();
   }
 
 

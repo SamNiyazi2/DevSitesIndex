@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, HostListener } from '@angular/core';
 
 // 10/03/2019 04:59 pm - SSN - [20191003-1557] - [005] - Adding data service to Angular7
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -60,6 +60,11 @@ import { CheckLoginService } from './interceptors/check-login.service';
 
 import { LoginComponent } from './users/login/login.component'
 
+// 11/04/2019 06:07 am - SSN - [20191104-0607] - [001] - Registration - Client
+import { RegisterComponent } from './users/register/register.component';
+import { ComponentBase } from './interfaces/ComponentBase';
+import { MainSiteMenuComponent } from './nav/main-site-menu/main-site-menu.component';
+
 
 // 10/10/2019 11:45 pm - SSN - [20191010-1354] - [003] - M11 - Understanding Angular's Dependency Injection
 /////////////////////////////////// declare let toastr: Toastr;
@@ -116,7 +121,11 @@ const toastr: Toastr = window['toastr'];
 
     BarChartComponent,
 
-    LoginComponent
+    LoginComponent,
+
+    RegisterComponent,
+
+    MainSiteMenuComponent
 
   ],
   imports: [
@@ -172,6 +181,7 @@ const toastr: Toastr = window['toastr'];
     { provide: HTTP_INTERCEPTORS, useClass: CheckLoginService, multi: true }
 
 
+
   ],
 
 
@@ -180,8 +190,11 @@ const toastr: Toastr = window['toastr'];
 })
 export class AppModule { }
 
+// 11/04/2019 04:59 pm - SSN - [20191104-0607] - [007] - Registration - Client 
+// Testing if we can use base class.
+// export function checkDirtyState(component: CreateTimelogComponent) {
 
-export function checkDirtyState(component: CreateTimelogComponent) {
+export function checkDirtyState(component: ComponentBase) {
 
   if (typeof (component.isDirty) != 'boolean') {
     console.error("property isDirty does not exists on component:");

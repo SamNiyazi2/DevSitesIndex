@@ -27,20 +27,11 @@ export class TimesheetResolverService implements Resolve<any>{  // <<<<<<<<<<<<<
   }
 
   resolve() {
-
-
- 
-
+     
     this.authenticateService.isLoggedIn_promise();
-
- 
-
-    // if (!this.authenticateService.isAuthenticated()) {
-    // 
+     
     this.authenticateService.isLoggedIn_subscribe()
-
-
-
+     
     // 11/01/2019 10:18 am - SSN - [20191101-1018] Added passing in data for default recordsPerPage
 
     

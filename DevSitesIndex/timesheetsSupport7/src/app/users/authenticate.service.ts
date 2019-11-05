@@ -51,16 +51,11 @@ export class AuthenticateService {
     this.dataService.isLoggedIn().subscribe(data => {
 
       if (this.isAuthenticated()) {
-        console.log("Already done ***********************");
         return;
       }
 
-
-      console.log("authenticate.service - 20191103-0541");
-
-      console.log(data);
-
       this.currentUser = data as IUser;
+
     }
       ,
 
@@ -76,8 +71,6 @@ export class AuthenticateService {
 
 
   isLoggedIn_promise(): Promise<object> {
-
-    console.log("authenticate srevice - 20191103-0918 - Begin xxxx 2");
 
     if (this.isAuthenticated()) {
       return new Promise((resolve,reject) => { resolve()});
@@ -97,6 +90,7 @@ export class AuthenticateService {
   isLoggedInError(response) {
     console.log('EEEEEEEEEEEEEEEEEE authenticate.service.ts isLoggedInError');
     console.log(response);
+    ehu.ErrorHandlingHelpers.showHtmlErrorResponse(response);
   }
 
 

@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Diagnostics;
 using System.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DevSitesIndex.Controllers
 {
@@ -44,14 +45,15 @@ namespace DevSitesIndex.Controllers
 
         public IActionResult About()
         {
-            ViewData["Message"] = "Demonstration Site.";
+            ViewData["Message"] = "Demonstration Site";
 
             return View();
         }
 
+        [Authorize]
         public IActionResult Contact()
         {
-            ViewData["Message"] = "Your contact page.";
+            ViewData["Message"] = "Contact Information";
 
             return View();
         }

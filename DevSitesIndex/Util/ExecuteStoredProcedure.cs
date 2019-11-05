@@ -115,7 +115,7 @@ namespace DevSitesIndex.Util
             }
             catch (Exception ex)
             {
-                logger.PostException(ex, "20190926-1544-A-DOUBLE-LOG", "Task failed");
+                await logger.PostException(ex, "20190926-1544-A-DOUBLE-LOG", "Task failed");
                 logger.TrackEvent("DemoSite-20190926-1544-B-DOUBLE-LOG - Do we see (EXCEPTION A)");
 
             }

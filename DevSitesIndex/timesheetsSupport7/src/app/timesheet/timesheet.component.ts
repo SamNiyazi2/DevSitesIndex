@@ -62,58 +62,22 @@ export class TimesheetComponent implements OnInit {
   ngOnInit() {
 
 
-    console.log("*************** timesheet.conponent");
-
     this.authenticateService.isLoggedIn_promise();
-    //.then(data => {
-
-
-    //  if (!this.authenticateService.isAuthenticated()) {
-
-    //    console.log("*************** timesheet.conponent XXXXXXXXXX returning");
-    //    console.log(this.route.snapshot.routeConfig.path);
-
-    //    this.broadcasterUtil.broadcast('doLogin', { controlId: 'appLoginPopup', message: 'Sent from timesett.component - 20191103-0824', returnUrl: this.route.snapshot.routeConfig.path });
-
-    //    return;
-    //  }
 
     this.timesheets = [];
     this.sqlStatsRecord = null;
 
 
-    //let promise = this.dataService.getTimesheets().toPromise();
-
-    //promise.then(this.getTimesheetSuccess.bind(this), this.getTimesheetError);
-
     // 10/06/2019 05:10 pm - SSN - [20191006-1643] - [005] - Adding Angular 7 - Observables and resolvers - Pickup data from resolver
 
     // 11/01/2019 11:30 am - SSN - Update to use paging
-    let dataTemp1 = this.route.snapshot.data['timesheets_resolver'];
+    let dataTemp = this.route.snapshot.data['timesheets_resolver'];
 
-    let dataTemp;
-
-    if (dataTemp1.obj1) {
-      console.log ( "Using dataTemp1.obj1")
-      dataTemp = dataTemp1.obj1;
-
-    }
-    else {
-      console.log("Using dataTemp1 NOT .obj1")
-      dataTemp = dataTemp1;
-    }
-
-    console.log("*************** timesheet.conponent --- dataTemp");
-
-    console.log(dataTemp);
-
-
+ 
     //    this.timesheets = this.route.snapshot.data['timesheets_resolver'];
     this.timesheets = dataTemp.dataList;
     this.sqlStatsRecord = dataTemp.sqlStatsRecord;
-
-
-
+    
   }
 
 
@@ -132,10 +96,6 @@ export class TimesheetComponent implements OnInit {
 
     ehu.ErrorHandlingHelpers.showHtmlErrorResponse(response);
   }
-
-
-
-
 
 
   handleThumbnailClick(data) {
@@ -162,6 +122,7 @@ export class TimesheetComponent implements OnInit {
 
   }
 
+
   resetSearch() {
 
     // 11/01/2019 10:18 am - SSN - [20191101-1018] Added ISqlStatsRecord
@@ -179,8 +140,8 @@ export class TimesheetComponent implements OnInit {
 
   }
 
-  getTimelogSearchSuccess(result) {
 
+  getTimelogSearchSuccess(result) {
 
     this.timesheets = result.dataList;
     this.sqlStatsRecord = result.sqlStatsRecord;
@@ -192,10 +153,8 @@ export class TimesheetComponent implements OnInit {
 
   getTimelogSearchError(response) {
 
-
     this.feedbackMessage = "Returned no resuls";
     this.feedbackMessage_ClassName = feedbackMessageNumber.Bad;
-
 
     console.log('timesheet.Component - 20191021-0824  - Error ');
     console.log(response);

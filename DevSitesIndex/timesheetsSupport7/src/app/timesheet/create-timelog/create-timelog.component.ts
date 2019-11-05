@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ITimelog } from 'src/app/interfaces/ITimelog';
 import { FormControl } from '@angular/forms';
+import { ComponentBase } from 'src/app/interfaces/ComponentBase';
+
 
 // 10/06/2019 01:20 pm - SSN - [20191006-1211] - [003] - Adding Angular 7
 
@@ -12,17 +14,20 @@ import { FormControl } from '@angular/forms';
   templateUrl: './create-timelog.component.html',
   styleUrls: ['./create-timelog.component.css']
 })
-export class CreateTimelogComponent implements OnInit {
+export class CreateTimelogComponent extends ComponentBase implements OnInit {
 
-  isDirty: boolean = true;
+  // isDirty: boolean = true;
   timelog: ITimelog;
 
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {
+    super()
+  }
 
   ngOnInit() {
 
     console.log('create-timelog.component - 20191009-0154');
+    console.log('isDirty', this.isDirty);
 
     this.timelog = {
       dateAdded: null,

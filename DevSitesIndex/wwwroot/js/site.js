@@ -178,11 +178,60 @@ var site_instance = function () {
         //    prefixPreWithShowHideAnchor();
         //});
     });
+    // 11/05/20191 04:53 am - SSN 
+    // Need to prevent users from navigating away from Angular based pages with pending changes.
+    // https://stackoverflow.com/questions/48182912/how-to-detect-browser-with-angular
+    var getBrowserName = function () {
+        var agent = window.navigator.userAgent.toLowerCase();
+        switch (true) {
+            case agent.indexOf('edge') > -1:
+                return 'edge';
+            case agent.indexOf('opr') > -1 && !!window.opr:
+                return 'opera';
+            case agent.indexOf('chrome') > -1 && !!window.chrome:
+                return 'chrome';
+            case agent.indexOf('trident') > -1:
+                return 'ie';
+            case agent.indexOf('firefox') > -1:
+                return 'firefox';
+            case agent.indexOf('safari') > -1:
+                return 'safari';
+            default:
+                return 'other';
+        }
+    };
+    var haveChanges_v03 = false;
     return {
         fnConverDate: fnConverDate,
         showCollapsedDivs: showCollapsedDivs,
-        prefixPreWithShowHideAnchor: prefixPreWithShowHideAnchor
+        prefixPreWithShowHideAnchor: prefixPreWithShowHideAnchor,
+        getBrowserName: getBrowserName,
+        haveChanges_v03: haveChanges_v03
     };
 }();
 export { site_instance };
+console.log('site - 20191104-1750');
+console.log("Browser:", site_instance.getBrowserName());
+// 5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36
+var isChrome = site_instance.getBrowserName() === 'chrome';
+if (false) {
+    if (isChrome) {
+        window.addEventListener("beforeunload", function (e) {
+            // if (!haveChanges) return;
+            var confirmationMessage = "\o/";
+            (e || window.event).returnValue = confirmationMessage; //Gecko + IE
+            return "You will lose all pending changes if you leave this page"; //Webkit, Safari, Chrome etc.
+        });
+    }
+    // Cannot use with Chrome
+    if (!isChrome) {
+        window.onbeforeunload = function (e) {
+            // if (!haveChanges) return;
+            var confirmationMessage = "\o/";
+            (e || window.event).returnValue = confirmationMessage; //Gecko + IE
+            return "(2) You will lose all pending changes if you leave this page"; //Webkit, Safari, Chrome etc.
+        };
+    }
+}
+console.log('site - 20191104-1750-ZZZ');
 //# sourceMappingURL=site.js.map

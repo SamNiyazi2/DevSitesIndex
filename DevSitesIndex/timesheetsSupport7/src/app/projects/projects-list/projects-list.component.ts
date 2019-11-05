@@ -41,8 +41,7 @@ export class ProjectsListComponent implements OnInit {
 
 
   getProjectsSuccess(response) {
-    console.log('project-list - success - 20191009-1316');
-    console.log(response);
+
     this.projects = response;
     this.filteredProjects = response;
 
@@ -50,27 +49,36 @@ export class ProjectsListComponent implements OnInit {
 
 
   getProjectsError(response) {
+
     console.log('project-list - Error - 20191009-1317');
     console.log(response);
+
+    ehu.ErrorHandlingHelpers.showHtmlErrorResponse(response);
+
   }
 
 
-
   getJobStatusesSuccess(response) {
-    console.log('project-list - jobStatus success - 20191010-1102');
-    console.log(response);
+
+    //console.log('project-list - jobStatus success - 20191010-1102');
+    //console.log(response);
+
     this.job_statuses = response;
+
   }
 
 
   getJobStatusesError(response) {
+
     console.log('project-list - jobStatus Error - 20191010-1103');
     console.log(response);
+
+    ehu.ErrorHandlingHelpers.showHtmlErrorResponse(response);
   }
 
+
   setProjectWithJobsOnly(projectsWithJobsOnly, _filterBy) {
-
-
+    
     if (_filterBy == null) {
       _filterBy = this.filterBy;
     }
@@ -86,10 +94,10 @@ export class ProjectsListComponent implements OnInit {
     }
 
     if (_filterBy != this.filterBy) {
-      console.log('set filter');
       this.filterBy = _filterBy;
     }
   }
+
 
   setFilter(_filterBy) {
     this.setProjectWithJobsOnly(this.ProjectWithJobsOnly, _filterBy);
@@ -106,8 +114,6 @@ export class ProjectsListComponent implements OnInit {
 
   searchProjects() {
 
-    console.log("projects-list.components - 20191011-0028");
-    console.log(this.searchTerm);
     let data = {
       searchText: this.searchTerm,
       selectedTablesIDs: "12"
@@ -115,21 +121,23 @@ export class ProjectsListComponent implements OnInit {
 
     this.dataService.getProjectsWithStatus(data).then(this.searchResultSuccess.bind(this), this.searchResultError.bind(this));
 
-
   }
 
+
   searchResultSuccess(response) {
-    console.log('projects-list.component - searchresult Success - 20191011-1422');
-    console.log(response);
+
+    //console.log('projects-list.component - searchresult Success - 20191011-1422');
+    //console.log(response);
+
   }
 
 
   searchResultError(response) {
+
     console.log('projects-list.component - searchresult Error - 20191011-1423');
     console.log(response);
 
     ehu.ErrorHandlingHelpers.showHtmlErrorResponse(response);
-
 
   }
 

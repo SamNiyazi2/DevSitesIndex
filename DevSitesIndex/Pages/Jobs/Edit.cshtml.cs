@@ -25,6 +25,12 @@ namespace DevSitesIndex.Pages.Jobs
         private readonly DevSitesIndex.Entities.DevSitesIndexContext _context;
         private readonly ILogger_SSN logger;
 
+        // 11/04/2019 09:41 am - SSN - [20191104-0844] - [005] - Prevent delete option on timesheet related forms 
+        // Return to caller
+
+        public ReturnToCaller returnToCaller = new ReturnToCaller();
+
+
         public EditModel(DevSitesIndex.Entities.DevSitesIndexContext context, ILogger_SSN logger)
         {
             _context = context;
@@ -52,6 +58,10 @@ namespace DevSitesIndex.Pages.Jobs
             {
                 return NotFound();
             }
+
+
+            returnToCaller.setup(Request, "./Index");
+
 
             Job = await _context.Jobs
                 .Include(j => j.project).SingleOrDefaultAsync(m => m.JobID == id);
@@ -112,15 +122,15 @@ namespace DevSitesIndex.Pages.Jobs
             }
 
 
-            
-            
+
+
 
             _context.Attach(Job).State = EntityState.Modified;
 
             // 09/24/2019 12:53 pm - SSN - [20190924-1134] - [015] - Removing date add/updated from create/edit pages
             _context.Entry(Job).Property(x => x.DateAdded).IsModified = false;
 
-            
+
 
             // 04/19/2019 01:35 pm - SSN - Update date modified
             if (Job.JobID > 0)

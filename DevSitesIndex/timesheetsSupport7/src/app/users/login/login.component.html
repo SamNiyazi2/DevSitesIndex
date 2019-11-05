@@ -4,9 +4,9 @@
 
 <hr />
 
-<div class="loginDiv" [ngClass]="{'col-md-4':!isOpenAsModal(),'col-md-12':isOpenAsModal()}">
+<div  [ngClass]="{'col-md-4':!isOpenAsModal(),'':isOpenAsModal()}">
 
-  <form #loginForm="ngForm" autocomplete="off" (ngSubmit)="login(loginForm.value)" novalidate>
+  <form #loginForm="ngForm" autocomplete="off" (ngSubmit)="login(loginForm.value)" novalidate >
 
     <div class="form-group">
       <label for="userName">Email: </label>
@@ -40,7 +40,7 @@
     <br />
     <input type="checkbox" [(ngModel)]="displayProps" name="displayProps" value="true" />
   </form>
-
+  <a (click)="register()" >Register as a new user</a>
 </div>
 
 <div *ngIf="displayProps">

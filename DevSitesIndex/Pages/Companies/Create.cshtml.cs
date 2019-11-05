@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using DevSitesIndex.Entities;
 using Microsoft.AspNetCore.Authorization;
+using DevSitesIndex.Util;
 
 namespace DevSitesIndex.Pages.Companies
 {
@@ -18,6 +19,11 @@ namespace DevSitesIndex.Pages.Companies
     {
         private readonly DevSitesIndex.Entities.DevSitesIndexContext _context;
 
+
+        // 11/04/2019 01:35 pm - SSN - [20191104-0844] - [015] - Prevent delete option on timesheet related forms 
+        // Return to caller
+        public ReturnToCaller returnToCaller = new ReturnToCaller();
+
         public CreateModel(DevSitesIndex.Entities.DevSitesIndexContext context)
         {
             _context = context;
@@ -25,6 +31,10 @@ namespace DevSitesIndex.Pages.Companies
 
         public IActionResult OnGet()
         {
+            
+            returnToCaller.setup(Request, "./Index");
+
+
             // 03/13/2019 10:55 am - SSN - Init dateadded.
             Company = new Company
             {

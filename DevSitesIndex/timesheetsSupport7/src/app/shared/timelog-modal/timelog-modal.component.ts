@@ -30,41 +30,26 @@ export class TimelogModalComponent implements OnInit {
 
   ngOnInit() {
 
-
-
     this.broadcasterUtil.on<string>('doLogin')
       .subscribe((message: any) => {
 
         this.counter++;
 
-        console.log('***************8 Timelog modal 20191101-1524 [' + this.counter + ']');
-
-        console.log(message);
-
         if (message.controlId) {
-
-          console.log(message.controlId);
-          console.log(this.containerEl.nativeElement.id);
-
 
           if (message.controlId === this.containerEl.nativeElement.id) {
             this.customObject = message;
-            console.log('OPEN MODAL');
             this.openModal();
 
           }
         }
 
-
       });
-
-
 
   }
 
 
   closeModalOnBodyClick() {
-
 
     let _closeOnClick = true;
 
@@ -87,20 +72,9 @@ export class TimelogModalComponent implements OnInit {
 
   openModal() {
 
-
-    console.log('timelog-modal.compoent - openModal  20191101-1321');
-
-    console.log('modalContainer object ref', this.containerEl);
-
-
     this.$(this.containerEl.nativeElement).modal({ backdrop: 'static', keyboard: false });
-    this.$(this.containerEl.nativeElement).css('height:', 'auto');
-    this.$(this.containerEl.nativeElement).css('background-color:', 'blue');
-
-
-
+      
   }
-
-
+   
 
 }

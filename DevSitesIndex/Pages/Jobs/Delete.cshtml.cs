@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using DevSitesIndex.Entities;
 using Microsoft.AspNetCore.Authorization;
+using DevSitesIndex.Util;
 
 namespace DevSitesIndex.Pages.Jobs
 {
@@ -17,6 +18,16 @@ namespace DevSitesIndex.Pages.Jobs
     public class DeleteModel : PageModel
     {
         private readonly DevSitesIndex.Entities.DevSitesIndexContext _context;
+
+        // 11/04/2019 08:53 am - SSN - [20191104-0844] - [003] - Prevent delete option on timesheet related forms 
+        // Added
+        public ReturnToCaller returnToCaller { get; set; } = new ReturnToCaller();
+
+        // 11/04/2019 01:50 pm - SSN - [20191104-0844] - [021] - Prevent delete option on timesheet related forms 
+        public int timelogCount { get; set; }
+        
+
+
 
         public DeleteModel(DevSitesIndex.Entities.DevSitesIndexContext context)
         {
@@ -33,13 +44,20 @@ namespace DevSitesIndex.Pages.Jobs
                 return NotFound();
             }
 
+            returnToCaller.setup(Request, "./index");
+
+            // 11/04/2019 10:02 am - SSN - Added company
             Job = await _context.Jobs
-                .Include(j => j.project).SingleOrDefaultAsync(m => m.JobID == id);
+                .Include(j => j.project).ThenInclude(r => r.company).SingleOrDefaultAsync(m => m.JobID == id);
 
             if (Job == null)
             {
                 return NotFound();
             }
+
+            this.timelogCount = _context.TimeLog.Count(r => r.JobId == id);
+
+
             return Page();
         }
 

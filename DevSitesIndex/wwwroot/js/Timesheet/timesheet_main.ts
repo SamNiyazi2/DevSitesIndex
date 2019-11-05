@@ -29,4 +29,7 @@ import { AppInsights_Util } from '../Util/ApplicationInsights_Monitor';
 
 AppInsights_Util.doSetup();
 
+
+
 AppInsights_Util.logEvent("Timesheet_main", { SourceCode: "20191001-1112-C", Message: "Loading timesheet_main" });
+AppInsights_Util.logEvent(document.location.hostname, { SourceCode: "20191105-0503", Message: "Loading timesheet_main" });

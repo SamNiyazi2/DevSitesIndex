@@ -20,8 +20,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="file.ts" />
+    <None Remove="node_modules_hack\GlobalVariables.d.ts" />
     <None Remove="node_modules_hack\SSN_jquery_modal.d.ts" />
     <None Remove="timesheetsSupport7\src\app\interfaces\ISqlStatusRecord.ts" />
+    <None Remove="timesheetsSupport7\src\app\interfaces\PopupComponentSupport.ts" />
     <None Remove="timesheetsSupport7\src\app\timesheet\dashboard\samples\ColorsList.ts" />
     <None Remove="timesheetsSupport7\src\app\timesheet\dashboard\samples\IPieChartData.ts" />
     <None Remove="timesheetsSupport7\src\app\util\customValidators.ts" />
@@ -56,6 +58,7 @@
   <ItemGroup>
     <Folder Include="Connected Services\" />
     <Folder Include="node_modules\" />
+    <Folder Include="node_modules_hack\" />
     <Folder Include="Pages\Discipline\" />
     <Folder Include="wwwroot\dist\" />
     <Folder Include="wwwroot\js\Timesheet\Templates\" />
@@ -65,6 +68,7 @@
     <None Include="wwwroot\js\____________________________ts.txt" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="timesheetsSupport7\src\app\interfaces\PopupComponentSupport.ts" />
     <TypeScriptCompile Include="timesheetsSupport7\src\app\interfaces\ISqlStatusRecord.ts" />
     <TypeScriptCompile Include="timesheetsSupport7\src\app\timesheet\dashboard\samples\ColorsList.ts" />
     <TypeScriptCompile Include="timesheetsSupport7\src\app\timesheet\dashboard\samples\Interaces\IPieChartData.ts" />

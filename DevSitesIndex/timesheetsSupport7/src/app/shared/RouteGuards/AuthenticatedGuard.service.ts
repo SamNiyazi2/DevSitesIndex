@@ -17,16 +17,12 @@ export class AuthenticatedGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-
-    console.log("AuthenticatedGuard - 20191103-1202");
+     
 
     return this.authenticateService.isLoggedIn_promise().then(data => {
       
       if (this.authenticateService.isAuthenticated()) return true;
-
-      console.log(route.url);
-      console.log(state.url);
-
+       
       this.broadcasterUtil.broadcast('doLogin', { controlId: 'appLoginPopup', message: 'Sent from AuthenticatedGuard - 20191103-1201', returnUrl: state.url });
 
       return false;

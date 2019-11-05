@@ -24,10 +24,24 @@
             @Html.DisplayFor(model => model.Company.DateAdded)
         </dd>
     </dl>
-    
-    <form method="post">
-        <input type="hidden" asp-for="Company.CompanyID" />
-        <input type="submit" value="Delete" class="btn btn-default" /> |
-        <a asp-page="./Index">Back to List</a>
-    </form>
+
+    @{ if (Model.projcetCount == 0)
+
+        {
+            <form method="post">
+                <input type="hidden" asp-for="Company.CompanyID" />
+                <input type="submit" value="Delete" class="btn btn-default" /> |
+                <a asp-page="./Index">Back to List</a>
+            </form>
+        }
+        else
+        {
+            <div class="info_bad">
+                <p>Companies with project records cannot be deleted.</p>
+                <p>Project count: @Model.projcetCount</p>
+            </div>
+            @*<a asp-page="./Index">Back to List</a>*@
+            @await Html.PartialAsync("ReturnToCallerLink", Model.returnToCaller)
+        }
+    }
 </div>

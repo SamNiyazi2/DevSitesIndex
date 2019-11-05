@@ -31,7 +31,6 @@ using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 
 
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 
 
@@ -337,7 +336,7 @@ namespace DevSitesIndex
 
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=demosites}/{action=Index}/{id?}");
+                    template: "{controller=home}/{action=about}/{id?}");
 
 
 

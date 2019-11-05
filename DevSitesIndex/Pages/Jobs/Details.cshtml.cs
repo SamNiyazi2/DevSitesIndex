@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using DevSitesIndex.Entities;
 using Microsoft.AspNetCore.Authorization;
+using DevSitesIndex.Util;
 
 namespace DevSitesIndex.Pages.Jobs
 {
@@ -18,17 +19,21 @@ namespace DevSitesIndex.Pages.Jobs
     {
         private readonly DevSitesIndex.Entities.DevSitesIndexContext _context;
 
+        // 11/04/2019 09:36 am - SSN - [20191104-0844] - [004] - Prevent delete option on timesheet related forms 
+        // Return to caller
+
+        public ReturnToCaller returnToCaller = new ReturnToCaller();
+
         public DetailsModel(DevSitesIndex.Entities.DevSitesIndexContext context)
         {
             _context = context;
         }
 
         public Job Job { get; set; }
+         
+        public Job_Timesheet job_Timesheet { get; set; }
 
-        public List<TimeLog> job_Timesheet { get; set; }
-
-        // 08/14/2019 05:00 am - SSN - [20190814-0433] - [003] - Add timesheet totals
-        public int? TotalJobSeconds { get; set; }
+         
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -37,24 +42,20 @@ namespace DevSitesIndex.Pages.Jobs
                 return NotFound();
             }
 
+            returnToCaller.setup(Request, "./Index");
+
             Job = await _context.Jobs
                 .Include(j => j.project).SingleOrDefaultAsync(m => m.JobID == id);
 
-            // 04/19/2019 04:28 pm - SSN - Filter on jobid
-
-            job_Timesheet = _context.TimeLog.Where(r => r.JobId == id)
-                                    .OrderByDescending(r2 => r2.StartTime)
-                                    .Include(r => r.discipline)
-                                    .ToList();
-
-            // 08/14/2019 05:02 am - SSN - [20190814-0433] - [004] - Add timesheet totals
-
-            TotalJobSeconds = job_Timesheet.Where(r => r.TotalSeconds.HasValue).Sum(r => r.TotalSeconds);
+         
 
             if (Job == null)
             {
                 return NotFound();
             }
+
+            job_Timesheet = new Job_Timesheet(_context, id);
+
             return Page();
         }
     }

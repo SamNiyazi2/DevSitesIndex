@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DevSitesIndex.Entities;
 using Microsoft.AspNetCore.Authorization;
+using DevSitesIndex.Util;
 
 namespace DevSitesIndex.Pages.Projects
 {
@@ -18,6 +19,10 @@ namespace DevSitesIndex.Pages.Projects
     public class EditModel : PageModel
     {
         private readonly DevSitesIndex.Entities.DevSitesIndexContext _context;
+
+        // 11/04/2019 11:29 am - SSN - [20191104-0844] - [010] - Prevent delete option on timesheet related forms 
+        // Return to caller
+        public ReturnToCaller returnToCaller = new ReturnToCaller();
 
         public EditModel(DevSitesIndex.Entities.DevSitesIndexContext context)
         {
@@ -38,6 +43,9 @@ namespace DevSitesIndex.Pages.Projects
             {
                 return NotFound();
             }
+
+
+            returnToCaller.setup(Request, "./Index");
 
             Project = await _context.Projects
                 .Include(p => p.company).SingleOrDefaultAsync(m => m.ProjectID == id);

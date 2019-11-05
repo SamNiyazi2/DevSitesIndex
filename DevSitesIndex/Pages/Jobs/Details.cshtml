@@ -51,7 +51,10 @@
         <div>
             <a asp-page="./Edit" asp-route-id="@Model.Job.JobID">Edit</a> |
             <a cmd-name="open-popup" popup-name="#addSite">Add site</a> |
-            <a asp-page="./Index">Back to List</a>
+
+            @*<a asp-page="./Index">Back to List</a>*@
+            @await Html.PartialAsync("ReturnToCallerLink", Model.returnToCaller)
+
         </div>
 
 
@@ -80,7 +83,7 @@
 
         @{
 
-            @Html.Partial("Job_Timesheet")
+            @await Html.PartialAsync("Job_Timesheet", Model.job_Timesheet)
         }
 
     </div>

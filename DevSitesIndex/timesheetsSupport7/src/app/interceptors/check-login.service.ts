@@ -27,64 +27,14 @@ export class CheckLoginService implements HttpInterceptor {
   // https://alligator.io/angular/httpclient-interceptors/
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-
-    let counter: number = 0;
-    let requestCount: number = 0;
-
-    let isAuthenticated_checkedAlready: boolean = false;
-
-    let doPromptToLogin: boolean = false; // !this.authenticateService.isAuthenticated();
-
+    
     let returnResult = next.handle(req).pipe(
       tap(evt => {
-
-        counter += 1;
-
-
-     //   console.log("check-login - 20191101-0534 - Authenticated", this.authenticateService.isAuthenticated());
-
+        
         if (evt.type != 0) {
-
-          if (evt.type != 0) {
-            requestCount += 1;
-          }
-
-          //console.log(evt);
-          //console.log('---------------------------------- [' + counter + "] [" + requestCount + "]");
-
-          // "http://p3013.nonbs.net:3013/api/authenticateUserAPI/ForgeryToken"
-
-          //console.log(req.url.toLowerCase().indexOf('api/authenticateUserAPI'.toLowerCase()));
-          //console.log(req.url);
-
-          if (req.url.toLowerCase().indexOf('api/authenticateUserAPI'.toLowerCase()) !== -1) {
-            isAuthenticated_checkedAlready = true;
-          }
-
-          if (req.url.toLowerCase().indexOf('api/authenticateUserAPI'.toLowerCase()) === -1) {
-
-            //if (evt instanceof HttpResponse) {
-
-            //  console.log('check-login - 20191101-0534 - is HttpResponse ');
-
-            //}
-
-
-          }
-
+          
         }
-
-
-       // doPromptToLogin = !this.authenticateService.isAuthenticated();
-
-        //console.log('8888888888888888888 [' + counter + "]");
-        //console.log('Authenticated ', this.authenticateService.isAuthenticated());
-
-        //if (requestCount > 0 && !isAuthenticated_checkedAlready && doPromptToLogin) {
-        //  console.log('****************** [' + counter + "]  [" + requestCount + "]");
-        /////////////////////////////////  this.broadcasterUtil.broadcast('doLogin', { controlId: 'appLoginPopup', message: 'Sent from check-loing - 20191101-1601' });
-        //  // return;
-        //}
+        
 
       })
     ).pipe(catchError(error => {
@@ -110,26 +60,14 @@ export class CheckLoginService implements HttpInterceptor {
       const match = myRegexp.exec(error.url);
       let returnUrl = match[3];
 
-      console.log("===============================================");
-      console.log("===============================================");
-      console.log("===============================================");
-      console.log("===============================================");
-      console.log("===============================================");
-      console.log("===============================================");
-
-  /////////////////////    this.broadcasterUtil.broadcast('doLogin', { controlId: 'appLoginPopup', message: 'Sent from check-loing - 20191101-1601', returnUrl });
-
       ehu.ErrorHandlingHelpers.showHtmlErrorResponse(error);
-
-
+      
       return new Observable<HttpEvent<any>>();
 
     }));
-
-
+    
     return returnResult;
-
-
+    
 
   }
 
