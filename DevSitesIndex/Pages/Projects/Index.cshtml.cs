@@ -157,7 +157,7 @@ namespace DevSitesIndex.Pages.Projects
 
             DataBag<Project_Search_Record> databag = await projectRepository.getSerachResults(searchText, selectedTablesIDs, recordsPerPage, _pageIndex, "LastActivity", "false");
 
-            databag.copyModelError(ModelState);
+            databag.copyFromBagModelError(ModelState);
 
             if (databag.dataList != null)
 

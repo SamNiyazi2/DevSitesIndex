@@ -119,8 +119,10 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
                     ////////////////////geturl(user);
 
                     Email.EmailSenders es = new Email.EmailSenders(_userManager, _emailSender, env);
-                    
-                    await es.SendEmailConfirmationRequest( this.Url ,Request,  user);
+
+                    // 11/05/2019 06:59 pm - SSN - [20191104-0607] - [017] - Registration - Client 
+                    // await es.SendEmailConfirmationRequest( this.Url ,Request,  user);
+                    await es.SendEmailConfirmationRequest(this.Url, user);
 
                     return RedirectToPage("/Feedbackv", new { ErrorModelIndex = pageContent.PageID });
 
@@ -140,20 +142,20 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
         }
 
 
-            ////////////////////////private   void geturl( IUrlHelper urlHelper, string Email, string token)
-            ////////////////////////{
-            ////////////////////////string xxx = Request;
+        ////////////////////////private   void geturl( IUrlHelper urlHelper, string Email, string token)
+        ////////////////////////{
+        ////////////////////////string xxx = Request;
 
-            ////////////////////////    string confirmationEmail_1 = urlHelper.Page("", "", new { code = token, email = Email }, Request.Scheme);
-            ////////////////////////    string confirmationEmail_2 = urlHelper.Page("");
+        ////////////////////////    string confirmationEmail_1 = urlHelper.Page("", "", new { code = token, email = Email }, Request.Scheme);
+        ////////////////////////    string confirmationEmail_2 = urlHelper.Page("");
 
-            ////////////////////////    string confirmationEmail = confirmationEmail_1.Replace(confirmationEmail_2, "/identity/account/ConfirmEmail");
+        ////////////////////////    string confirmationEmail = confirmationEmail_1.Replace(confirmationEmail_2, "/identity/account/ConfirmEmail");
 
-            ////////////////////////    if (env.IsDevelopment())
-            ////////////////////////    {
-            ////////////////////////        System.IO.File.WriteAllText("ConfirmationLink_20190825a.txt", confirmationEmail);
-            ////////////////////////    }
-            ////////////////////////}
+        ////////////////////////    if (env.IsDevelopment())
+        ////////////////////////    {
+        ////////////////////////        System.IO.File.WriteAllText("ConfirmationLink_20190825a.txt", confirmationEmail);
+        ////////////////////////    }
+        ////////////////////////}
 
 
 

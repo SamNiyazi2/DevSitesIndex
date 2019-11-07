@@ -257,6 +257,17 @@ namespace DevSitesIndex
                            opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
                        });
 
+
+
+            // 11/06/2019 08:22 am - SSN - [20191104-0607] - [020] - Registration - Client 
+            // https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.apibehavioroptions?view=aspnetcore-3.0
+            // Gets or sets a value that determines if the filter that returns an BadRequestObjectResult when ModelState is invalid is suppressed.
+            services.Configure<ApiBehaviorOptions>(options =>
+                {
+                    options.SuppressModelStateInvalidFilter = true;
+                });
+
+
         }
 
 

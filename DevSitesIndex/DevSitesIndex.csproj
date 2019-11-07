@@ -22,6 +22,7 @@
     <None Remove="file.ts" />
     <None Remove="node_modules_hack\GlobalVariables.d.ts" />
     <None Remove="node_modules_hack\SSN_jquery_modal.d.ts" />
+    <None Remove="timesheetsSupport7\src\app\interfaces\IDataBag.ts" />
     <None Remove="timesheetsSupport7\src\app\interfaces\ISqlStatusRecord.ts" />
     <None Remove="timesheetsSupport7\src\app\interfaces\PopupComponentSupport.ts" />
     <None Remove="timesheetsSupport7\src\app\timesheet\dashboard\samples\ColorsList.ts" />
@@ -68,6 +69,7 @@
     <None Include="wwwroot\js\____________________________ts.txt" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="timesheetsSupport7\src\app\interfaces\IDataBag.ts" />
     <TypeScriptCompile Include="timesheetsSupport7\src\app\interfaces\PopupComponentSupport.ts" />
     <TypeScriptCompile Include="timesheetsSupport7\src\app\interfaces\ISqlStatusRecord.ts" />
     <TypeScriptCompile Include="timesheetsSupport7\src\app\timesheet\dashboard\samples\ColorsList.ts" />

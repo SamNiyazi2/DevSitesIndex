@@ -16,9 +16,6 @@ import { LoginComponent } from './login/login.component';
 import { LogoutComponent, ChildComponent } from './logout/logout.component';
 
 
-console.log('user.module - 20191011-1628');
-
-
 @NgModule(
   {
     imports: [

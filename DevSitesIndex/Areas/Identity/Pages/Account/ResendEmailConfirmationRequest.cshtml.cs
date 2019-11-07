@@ -37,7 +37,7 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
         }
 
 
-        
+
         public async Task<IActionResult> OnGetAsync()
         {
             await RunProcess();
@@ -62,11 +62,14 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
 
                         pageContent = Feedbackw_util.PageContent.GetPageData(pageID);
 
-                        IdentityUser user = await _userManager.FindByIdAsync(pageContent.TheKey.ToString());
+                        // IdentityUser user = await _userManager.FindByIdAsync(pageContent.TheKey.ToString());
+                        IdentityUser user = await _userManager.FindByIdAsync(pageContent.UserID.ToString());
 
                         Email.EmailSenders es = new Email.EmailSenders(_userManager, _emailSender, _env);
 
-                        await es.SendEmailConfirmationRequest(this.Url, Request, user);
+                        // 11/05/2019 06:59 pm - SSN - [20191104-0607] - [018] - Registration - Client 
+                        // await es.SendEmailConfirmationRequest(this.Url, Request, user);
+                        await es.SendEmailConfirmationRequest(this.Url, user);
 
 
                     }

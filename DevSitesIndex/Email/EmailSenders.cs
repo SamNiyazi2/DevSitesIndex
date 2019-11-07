@@ -36,7 +36,10 @@ namespace DevSitesIndex.Email
         }
 
 
-        public async Task SendEmailConfirmationRequest(IUrlHelper urlHelper, HttpRequest request, IdentityUser user)
+        // 11/05/2019 06:58 pm - SSN - [20191104-0607] - [016] - Registration - Client 
+        // public async Task SendEmailConfirmationRequest(IUrlHelper urlHelper, HttpRequest request, IdentityUser user)
+        // Remove request
+        public async Task SendEmailConfirmationRequest(IUrlHelper urlHelper, IdentityUser user)
         {
 
             if (user == null || string.IsNullOrWhiteSpace(user.Email))
@@ -48,7 +51,10 @@ namespace DevSitesIndex.Email
 
             var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
 
-            string confirmationEmail = CreateEmailLink(urlHelper, request, user.Email, token);
+            // 11/05/2019 06:58 pm - SSN - [20191104-0607] - [016] - Registration - Client 
+            // Remove request
+            //    string confirmationEmail = CreateEmailLink(urlHelper, request, user.Email, token);
+            string confirmationEmail = CreateEmailLink(urlHelper, user.Email, token);
 
             if (_env.IsDevelopment())
             {
@@ -58,7 +64,7 @@ namespace DevSitesIndex.Email
             string emailSubject = "Email Confirmation Request";
 
             string emailBodyText = System.IO.File.ReadAllText("./EmailTemplates/RegistrationConfirmationMessage_20190828_2357.html");
-        
+
             emailBodyText = emailBodyText.Replace("{{EMAIL_LINK}}", confirmationEmail);
 
             emailBodyText = ReplaceGenericVariables(emailBodyText);
@@ -68,12 +74,15 @@ namespace DevSitesIndex.Email
             await _emailSender.SendEmailAsync(user.Email, emailSubject, emailBodyText);
         }
 
-
-        private string CreateEmailLink(IUrlHelper urlHelper, HttpRequest request, string Email, string token)
+        // 11/05/2019 06:55 pm - SSN - [20191104-0607] - [015] - Registration - Client 
+        // Remove requesst
+        // private string CreateEmailLink(IUrlHelper urlHelper, HttpRequest request, string Email, string token)
+        private string CreateEmailLink(IUrlHelper urlHelper, string Email, string token)
         {
 
 
-            string confirmationEmail_1 = urlHelper.Page("", "", new { code = token, email = Email }, request.Scheme);
+            // string confirmationEmail_1 = urlHelper.Page("", "", new { code = token, email = Email }, request.Scheme);
+            string confirmationEmail_1 = urlHelper.Page("", "", new { code = token, email = Email });
             string confirmationEmail_2 = urlHelper.Page("");
 
             string confirmationEmail = confirmationEmail_1.Replace(confirmationEmail_2, "/identity/account/ConfirmEmail");
@@ -121,7 +130,7 @@ namespace DevSitesIndex.Email
 
         #region Shared Utilities
 
-        
+
         private static string ReplaceGenericVariables(string emailBodyText)
         {
             emailBodyText = emailBodyText.Replace("{{SITE_TITLE}}", Startup.SITE_NAME_HTML.ToString());
@@ -145,13 +154,13 @@ namespace DevSitesIndex.Email
         static string CSS_TITLEBLOCK => myCssHelper.GetDefinitionFor(ENUM_CSS_CLASS_NAMES.CSS_TITLEBLOCK);
 
         static string CSS_CONTAINER => myCssHelper.GetDefinitionFor(ENUM_CSS_CLASS_NAMES.CSS_CONTAINER);
-        
+
 
 
         static CSS_Helper myCssHelper = new CSS_Helper();
 
 
-        
+
         internal enum ENUM_CSS_CLASS_NAMES
         {
             CSS_BODY,

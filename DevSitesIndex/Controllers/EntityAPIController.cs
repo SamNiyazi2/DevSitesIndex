@@ -65,6 +65,7 @@ namespace DevSitesIndex.Controllers
             return entity;
         }
 
+
         // POST api/<controller>
         //   [HttpPost]
         public ActionResult Post([FromBody]  T value)
@@ -107,30 +108,25 @@ namespace DevSitesIndex.Controllers
 
         }
 
-        // PUT api/<controller>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
 
-        // DELETE api/<controller>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+        //// PUT api/<controller>/5
+        //[HttpPut("{id}")]
+        //public void Put(int id, [FromBody]string value)
+        //{
+        //}
+
+        //// DELETE api/<controller>/5
+        //[HttpDelete("{id}")]
+        //public void Delete(int id)
+        //{
+        //}
 
 
     }
 
 
-    //public class x123
-    //{
-    //    public string DisciplineID { get; set; }
-    //    public DateTime StartTime { get; set; }
-    //    public int TimeLogId { get; set; }
-    //    public string WorkDetail { get; set; }
 
-    //}
+
 
 
 
@@ -148,41 +144,117 @@ namespace DevSitesIndex.Controllers
     }
 
 
+
+
+
+
+
     // 09/17/2019 08:04 am - SSN - [20190916-1123] - [020] - Adding job status
 
     public class DataBag<T>
     {
+
+
+        public class FeedbackMessage
+        {
+            public string Key { get; set; }
+            public List<string> ErrorMessages { get; set; } = new List<string>();
+
+        }
+
+
+
+        // 11/06/2019 04:31 pm - SSN - [20191104-0607] - [026] - Registration - Client 
+        // Use to display feedback to user after submitting a form.
+        public class PageContent_duplicate
+        {
+            public string Title { get; set; }
+            public string Body { get; set; }
+        }
+        public PageContent_duplicate pageContent { get; set; }
+
+        public void pageContent_Title_Add(string title)
+        {
+            if (pageContent == null) pageContent = new PageContent_duplicate();
+            pageContent.Title = title;
+        }
+
+        public void pageContent_Body_Add(string body)
+        {
+            if (pageContent == null) pageContent = new PageContent_duplicate();
+            pageContent.Body = body;
+        }
+
+
         public IEnumerable<T> dataList { get; set; }
         public SqlStatsRecord sqlStatsRecord { get; set; }
 
-        public ModelStateDictionary modelState { get; set; }
 
-        public void addModelError(string key, string errorMessage)
+        // 11/06/2019 10:07 am - SSN - [20191104-0607] - [022] - Registration - Client 
+        // public ModelStateDictionary modelState { get; set; }
+        public List<FeedbackMessage> FeedbackMessages { get; set; }
+
+
+        public void addToBagModelError(string key, string errorMessage)
         {
-            if (modelState == null) modelState = new ModelStateDictionary();
-            modelState.AddModelError(key, errorMessage);
+
+            //if (modelState == null) modelState = new ModelStateDictionary();
+            //modelState.AddModelError(key, errorMessage);
+
+            if (FeedbackMessages == null) FeedbackMessages = new List<FeedbackMessage>();
+            FeedbackMessage fbm = FeedbackMessages.FirstOrDefault(r => r.Key == key);
+            if (fbm == null)
+            {
+                fbm = new FeedbackMessage { Key = key };
+                FeedbackMessages.Add(fbm);
+            }
+            fbm.ErrorMessages.Add(errorMessage);
+
         }
-        public bool hasErrors => modelState != null && modelState.ErrorCount > 0;
 
-        public void copyModelError(ModelStateDictionary pageModelState)
+
+        // public bool hasErrors => modelState != null && modelState.ErrorCount > 0;
+        public bool hasErrors => FeedbackMessages != null && FeedbackMessages.Count > 0;
+
+        public void copyFromBagModelError(ModelStateDictionary pageModelState)
         {
-            if (modelState == null) return;
+            if (FeedbackMessages == null) return;
 
-            foreach (KeyValuePair<string, ModelStateEntry> e in modelState)
+            //foreach (KeyValuePair<string, ModelStateEntry> e in modelState)
+            foreach (FeedbackMessage e in FeedbackMessages)
             {
                 string key = e.Key;
-                foreach (ModelError me in e.Value.Errors)
+                //foreach (ModelError me in e.Value.Errors)
+                foreach (string message in e.ErrorMessages)
                 {
-                    string em = me.ErrorMessage;
-                    pageModelState.AddModelError(key, em);
-                    pageModelState.AddModelError(key, em);
+                    // string em = me.ErrorMessage;
+                    // pageModelState.AddModelError(key, em);
+                    pageModelState.AddModelError(e.Key, message);
                 }
 
             }
 
         }
 
+        internal void copyToBadModelError(ModelStateDictionary modelState)
+        {
+
+            foreach (KeyValuePair<string, ModelStateEntry> e in modelState)
+            {
+                foreach (ModelError me in e.Value.Errors)
+                {
+                    addToBagModelError(e.Key, me.ErrorMessage);
+                }
+            }
+        }
+
     }
+
+
+
+
+
+
 
     // 09/17/2019 11:55 am - SSN - [20190917-0929] - [006] - Adding paging for angular lists
     // 10/21/2019 09:19 am - SSN - [20191021-0444] - [011] - M12 - Creating directives and advanced components in Angular.

@@ -167,7 +167,8 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
                 #region  Message to user when they click the link to resend their confirmation email
                 Feedbackw_util.PageContent pageContent2 = new Feedbackw_util.PageContent();
 
-                pageContent2.AddTheKey(identityUser.Id.ToString());
+                // pageContent2.AddTheKey(identityUser.Id.ToString());
+                pageContent2.AddUserID(identityUser.Id.ToString());
 
                 pageContent2.AddTitle("Confirmation Email Request Sent");
                 pageContent2.AddMessage(@"<p>Confirmation email was sent.&nbsp;  Please check your email</p>");

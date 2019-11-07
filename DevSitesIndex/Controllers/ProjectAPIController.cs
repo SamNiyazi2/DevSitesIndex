@@ -81,7 +81,7 @@ namespace DevSitesIndex.Controllers
 
                 DataBag<Project_Search_Record> databag = await projectRepository.getSerachResults(options.searchText, options.selectedTablesIDs, recordsPerPage, _pageIndex, "LastActivity", "false");
 
-                databag.copyModelError(ModelState);
+                databag.copyFromBagModelError(ModelState);
 
                 return databag;
 

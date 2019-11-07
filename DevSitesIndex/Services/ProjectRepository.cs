@@ -54,12 +54,12 @@ namespace DevSitesIndex.Services
 
             if (string.IsNullOrWhiteSpace(searchText))
             {
-                databag.addModelError("searchText", "You need to provide at least one word.");
+                databag.addToBagModelError("searchText", "You need to provide at least one word.");
             }
 
             if (string.IsNullOrWhiteSpace(selectedTablesIDs))
             {
-                databag.addModelError("searchTables", "You need to select at least one table.");
+                databag.addToBagModelError("searchTables", "You need to select at least one table.");
             }
 
             if (databag.hasErrors) return databag;

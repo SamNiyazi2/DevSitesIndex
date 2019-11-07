@@ -49,4 +49,11 @@ export class GenUtilService {
   }
 
 
+  ToLowerCaseFirstChar(theString: string) {
+
+    if (theString == null) return theString;
+    const tempString = theString.substr(0, 1).toLowerCase() + theString.substring(1);
+    return tempString;
+
+  }
 }

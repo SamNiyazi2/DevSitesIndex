@@ -15,6 +15,14 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using SSN_GenUtil_StandardLib;
 
+// C:\Sams\DevSitesIndex\DevSitesIndex\Controllers\IdentitySupportController.cs
+// C:\Sams\DevSitesIndex\DevSitesIndex\Controllers\IdentitySupportController.cs
+// C:\Sams\DevSitesIndex\DevSitesIndex\Controllers\IdentitySupportController.cs
+// C:\Sams\DevSitesIndex\DevSitesIndex\Controllers\IdentitySupportController.cs
+// C:\Sams\DevSitesIndex\DevSitesIndex\Controllers\IdentitySupportController.cs
+// C:\Sams\DevSitesIndex\DevSitesIndex\Controllers\IdentitySupportController.cs
+// C:\Sams\DevSitesIndex\DevSitesIndex\Controllers\IdentitySupportController.cs
+
 namespace DevSitesIndex.Controllers
 {
     [Route("api/[controller]")]

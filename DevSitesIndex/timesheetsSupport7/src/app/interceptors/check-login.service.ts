@@ -48,18 +48,9 @@ export class CheckLoginService implements HttpInterceptor {
       console.log("===============================================");
 
 
-      console.log('check-login-service - catchError');
+      console.log('(Interceptor) check-login-service - catchError');
       console.log(error);
-
-
-
-      console.log(error.url);
-
-      // Get returnUrl
-      const myRegexp = /(\/Account\/login\??)(ReturnUrl=)(.*)/ig;
-      const match = myRegexp.exec(error.url);
-      let returnUrl = match[3];
-
+        
       ehu.ErrorHandlingHelpers.showHtmlErrorResponse(error);
       
       return new Observable<HttpEvent<any>>();

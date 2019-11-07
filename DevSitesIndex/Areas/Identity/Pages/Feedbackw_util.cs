@@ -20,22 +20,41 @@ namespace DevSitesIndex.Areas.Identity
         static TelemetryClient telemetry = new TelemetryClient();
 
 
+        /// <summary>
+        /// Creates content to deliver as HTML.
+        /// </summary>
         public class PageContent
         {
             // 09/05/2019 07:01 pm - SSN - [20190905-1835] - [005] - Resetting password process
             // MessageTitle_ViewBag - We don't want the HTML - Shows in Application Insights
 
             public string MessageTitle_ViewBag { get; set; }
-            public HtmlString MessageTitle { get; set; }
 
-            public HtmlString MessageBody { get; set; }
+            /// <summary>
+            /// Contains all entries added with the AddTitle method, after the static GetPageData is called.
+            /// </summary>
+            public HtmlString MessageTitle { get; private set; }
+
+            /// <summary>
+            /// Contains all entries added with the AddMessage method, after the static GetPageData is called.
+            /// </summary>
+            public HtmlString MessageBody { get; private set; }
 
 
-            public Guid PageID { get; set; }
-            internal List<MessageRecord> MessageList { get; set; }
+            /// <summary>
+            /// Automatically assigned to current instance.  Used to reacall current content. 
+            /// </summary>
+            // public Guid PageID { get; set; }
+            public Guid PageID { get; }
+
+            private List<MessageRecord> MessageList { get; set; }
 
 
-            public Guid TheKey { get; set; }
+            /// <summary>
+            /// Used to assign current user ID.  Used for authentication.
+            /// </summary>
+            // public Guid TheKey { get; set; }
+            public Guid UserID { get; set; }
 
 
             public PageContent() : this(Guid.NewGuid())
@@ -51,26 +70,46 @@ namespace DevSitesIndex.Areas.Identity
             }
 
 
+
+            /// <summary>
+            /// Add page title.  Can have more than one entry.
+            /// </summary>
+            /// <param name="title"></param>
             internal void AddTitle(string title)
             {
                 AddEntry(MessageType.Title, title);
             }
 
-
+            /// <summary>
+            /// Add body content.  Can have multiple entries.
+            /// </summary>
+            /// <param name="title"></param>
             internal void AddMessage(string title)
             {
                 AddEntry(MessageType.Body, title);
             }
 
 
-            internal void AddTheKey(string theKey)
+            /// <summary>
+            /// Add current user ID. Used to authenticate calling user.
+            /// </summary>
+            /// <param name="theKey"></param>
+            // internal void AddTheKey(string theKey)
+            internal void AddUserID(string userID)
             {
                 Guid temp = Guid.Empty;
-                Guid.TryParse(theKey, out temp);
-                TheKey = temp;
+                Guid.TryParse(userID, out temp);
+                // TheKey = temp;
+                UserID = temp;
             }
 
 
+            /// <summary>
+            /// Called by other shortcut functions.
+            /// </summary>
+            /// <param name="messageType"></param>
+            /// <param name="message"></param>
+            /// <returns></returns>
             private int AddEntry(MessageType messageType, string message)
             {
                 try
@@ -92,7 +131,11 @@ namespace DevSitesIndex.Areas.Identity
             }
 
 
-
+            /// <summary>
+            /// Static function: Populates Title and Body HTML variables.  
+            /// </summary>
+            /// <param name="pageID"></param>
+            /// <returns></returns>
             public static PageContent GetPageData(Guid pageID)
             {
 
@@ -110,7 +153,7 @@ namespace DevSitesIndex.Areas.Identity
             {
                 if (pageContent == null)
                 {
-                    telemetry.TrackEvent($"DemoSite-20190905-0012 - Calling Error page with null pageContent]");
+                    telemetry.TrackEvent($"DemoSite-20190905-0012 - Calling Feedbackw_util page with null pageContent]");
 
                     return;
                 }
@@ -144,26 +187,23 @@ namespace DevSitesIndex.Areas.Identity
         }
 
 
-        internal enum MessageType
+        private enum MessageType
         {
             NotSet,
             Title,
             Body
         }
 
-        internal class MessageRecord
+        private class MessageRecord
         {
             public MessageType messageType { get; set; }
             public string messageText { get; set; }
         }
 
 
-        internal static PageContent AddPage()
+        private static PageContent AddPage()
         {
-            PageContent pageContent = new PageContent
-            {
-                PageID = Guid.NewGuid()
-            };
+            PageContent pageContent = new PageContent(Guid.NewGuid());
 
             PageCnetentList.Add(pageContent);
             return pageContent;

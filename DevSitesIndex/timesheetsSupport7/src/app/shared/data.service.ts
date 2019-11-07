@@ -18,6 +18,22 @@ export class DataService {
   constructor(private http: HttpClient) {
   }
 
+
+
+  // 10/08/2019 08:13 pm - SSN - [20191008-1232] - [016] - X-XSRF-TOKEN
+  getForgeryToken() {
+
+    return this.http.get("/api/authenticateUserAPI/ForgeryToken", { responseType: 'text' }).toPromise();
+
+  }
+
+
+
+  ///////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
   // 11/01/2019 10:18 am - SSN - [20191101-1018] Added passing in data for default recordsPerPage
   // Using search for listing all data so we can page results withot having to create another query
   getTimesheets(data) {
@@ -91,6 +107,10 @@ export class DataService {
 
 
 
+
+  ///////////////////////////////////////////////////////////////////////////////////////////////////
+  // Authentication and users
+
   // 10/07/2019 10:58 am - SSN - [20191007-1020] - [005] - Adding Angular 7 - Collecting data with Angular forms and validations - Authenticate user
 
   authenticateUser(userObject: IUser) {
@@ -108,6 +128,7 @@ export class DataService {
 
   }
 
+
   // 10/08/2019 02:09 pm - SSN - [20191008-1232] - [007] - X-XSRF-TOKEN
   logoutUser(token) {
 
@@ -122,6 +143,7 @@ export class DataService {
 
   }
 
+
   // 10/08/2019 06:45 pm - SSN - [20191008-1232] - [012] - X-XSRF-TOKEN
   isLoggedIn() {
 
@@ -129,11 +151,30 @@ export class DataService {
 
   }
 
-  // 10/08/2019 08:13 pm - SSN - [20191008-1232] - [016] - X-XSRF-TOKEN
-  getForgeryToken() {
 
-    return this.http.get("/api/authenticateUserAPI/ForgeryToken", { responseType: 'text' }).toPromise();
+
+  // 11/05/2019 06:19 pm - SSN - [20191104-0607] - [012] - Registration - Client 
+
+  registerUser(data) {
+
+    return this.http.post("/api/identitySupport/registerUser", data).toPromise();
+
   }
+
+
+  // 11/06/2019 02:06 pm - SSN - [20191104-0607] - [023] - Registration - Client
+
+  isEmailOnFile(data) {
+
+    return this.http.post("/api/identitySupport/IsEmailOnFile", data).toPromise();
+
+  }
+
+
+
+  ///////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 
 
   // 10/09/2019 01:15 pm - SSN - [20191009-1302] - [003] - M09 - Reusing components with content projection
@@ -142,36 +183,11 @@ export class DataService {
   }
 
 
-
-
-
-
-
   // 10/11/2019 02:20 pm - SSN - [20191011-0027] - [004] - M12 - Creating directives and advanced components in Angular
-
   getProjectsWithStatus(data) {
-
-
-
-    console.log('data.service.ts - getProjectWithStatus - 20191011-2043');
-    console.log(data);
-
 
     return this.http.post("/api/projectAPI/search", data).toPromise();
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   // 10/10/2019 10:59 am - SSN - [20191010-1059] - [001] - M10-05 - Creating filtering display
