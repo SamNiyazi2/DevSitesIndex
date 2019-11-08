@@ -144,6 +144,14 @@ var site_instance = function () {
                 }
             }
         });
+        // 11/08/2019 01:04 pm - SSN - [20191108-1043] - [008] - Persisting search on return to index
+        // 
+        $('[ssn-cmd=returnToCallerLink]').click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var returnToCallerKey = $("#returnToCallerKey").val();
+            document.location.href = e.target.href + "&returnToCallerKey=" + returnToCallerKey;
+        });
     };
     // 04/29/2019 07:36 pm - SSN - [20190429-1748] - [006] - Angular clock out popup  - Begin
     // Source https://www.c-sharpcorner.com/UploadFile/1d3119/date-serialization-with-angular-js-web-api/

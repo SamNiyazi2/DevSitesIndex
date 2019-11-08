@@ -254,6 +254,26 @@ var site_instance = function () {
 
 
 
+
+        // 11/08/2019 01:04 pm - SSN - [20191108-1043] - [008] - Persisting search on return to index
+        // 
+         
+
+        $('[ssn-cmd=returnToCallerLink]').click((e) => {
+             
+            e.preventDefault();
+            e.stopPropagation();
+
+            var returnToCallerKey = $("#returnToCallerKey").val();
+
+            document.location.href = (<HTMLAnchorElement>e.target).href + "&returnToCallerKey=" + returnToCallerKey;
+
+        });
+
+
+
+
+
     }
 
 

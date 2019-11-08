@@ -37,6 +37,8 @@ namespace DevSitesIndex.Pages.Projects
         }
 
 
+        const int RECORDS_PER_PAGE = 25;
+
 
         // 08/26/2019 11:08 am - SSN - [20190826-1108] - [001] - Add paging and sort
         // https://docs.microsoft.com/en-us/aspnet/core/data/ef-rp/sort-filter-page?view=aspnetcore-2.2
@@ -58,6 +60,10 @@ namespace DevSitesIndex.Pages.Projects
 
         // 09/26/2019 12:45 pm - SSN - [20190926-1242] - [001] - Search projects
         public string searchText { get; set; }
+
+
+        // 11/08/2019 10:59 am - SSN - [20191108-1043] - [004] - Persisting search on return to index
+        public string returnToCallerKey { get; set; }
 
 
         // 09/26/2019 02:15 pm - SSN - [20190926-1242] - [005] - Search projects
@@ -82,6 +88,7 @@ namespace DevSitesIndex.Pages.Projects
                 searchText = searchText_Param;
 
                 await searchResults_Fill(searchText, searchTables, columnName, desc, pageIndex, selectedTablesIDs);
+
             }
             else
             {
@@ -91,6 +98,9 @@ namespace DevSitesIndex.Pages.Projects
 
                 await defaultProjects_Fill(columnName, desc, pageIndex);
             }
+
+            // 11/08/2019 10:43 am - SSN - [20191108-1043] - [001] - Persisting search on return to index
+            setReturnToCallerRecord(searchText, searchTables, columnName, desc, pageIndex);
 
 
         }
@@ -104,6 +114,10 @@ namespace DevSitesIndex.Pages.Projects
             try
             {
                 await searchResults_Fill(searchText, searchTables, columnName, desc, null, null);
+
+                // 11/08/2019 10:43 am - SSN - [20191108-1043] - [001] - Persisting search on return to index
+                setReturnToCallerRecord(searchText, searchTables, columnName, desc, 0);
+
             }
             catch (Exception ex)
             {
@@ -113,6 +127,21 @@ namespace DevSitesIndex.Pages.Projects
 
         }
 
+
+        // 11/08/2019 10:43 am - SSN - [20191108-1043] - [001] - Persisting search on return to index
+        private void setReturnToCallerRecord(string searchText, List<SearchTableRecord> searchTables, string columnName, string desc, int? pageIndex)
+        {
+            
+            returnToCallerKey = Guid.NewGuid().ToString();
+            ReturnToCaller.QueryStringParts queryStringParts = ReturnToCaller.CreateQueryStringParts();
+            queryStringParts.add("searchText_Param", searchText);
+            queryStringParts.add("selectedTablesIDs", SearchTableRecord.toQueryStringVariable(searchTables));
+            queryStringParts.add("columnName", columnName);
+            queryStringParts.add("desc", desc);
+            queryStringParts.add("pageIndex", (pageIndex??0).ToString());
+
+            ReturnToCaller.postReturnToCallerRecord(returnToCallerKey, Request, queryStringParts);
+        }
 
         async Task defaultProjects_Fill(string columnName, string desc, int? pageIndex)
         {
@@ -131,7 +160,7 @@ namespace DevSitesIndex.Pages.Projects
 
             IQueryable<Project> _Project = _context.Projects.Include(r => r.company);
 
-            Projects = await PaginatedList<Project>.GetSourcePage(_Project, columnName, desc, pageIndex, 20);
+            Projects = await PaginatedList<Project>.GetSourcePage(_Project, columnName, desc, pageIndex, RECORDS_PER_PAGE);
 
             pageUtil_Projects.SetupButtons<Project>(Projects, "/projects", columnName, desc);
 
@@ -152,10 +181,10 @@ namespace DevSitesIndex.Pages.Projects
             ProjectRepository projectRepository = new ProjectRepository(_context, logger);
 
             if (!pageIndex.HasValue) pageIndex = 1;
-            int recordsPerPage = 25;
+
             int _pageIndex = pageIndex.HasValue ? pageIndex.Value : 1;
 
-            DataBag<Project_Search_Record> databag = await projectRepository.getSerachResults(searchText, selectedTablesIDs, recordsPerPage, _pageIndex, "LastActivity", "false");
+            DataBag<Project_Search_Record> databag = await projectRepository.getSerachResults(searchText, selectedTablesIDs, RECORDS_PER_PAGE, _pageIndex, "LastActivity", "false");
 
             databag.copyFromBagModelError(ModelState);
 
@@ -184,7 +213,7 @@ namespace DevSitesIndex.Pages.Projects
 
                 IQueryable<Project_Search_Record> _searchResults = databag.dataList.AsQueryable();
 
-                searchResults = await PaginatedList<Project_Search_Record>.GetSourcePage(_searchResults, columnName, desc, pageIndex, recordsPerPage);
+                searchResults = await PaginatedList<Project_Search_Record>.GetSourcePage(_searchResults, columnName, desc, pageIndex, RECORDS_PER_PAGE);
 
                 pageUtil_SearchResults.SetupButtons<Project_Search_Record>(searchResults, "/projects", columnName, desc);
 
@@ -212,6 +241,8 @@ namespace DevSitesIndex.Pages.Projects
 
     }
 
+
+
     public class SearchTableRecord
     {
         public int Id { get; set; }
@@ -225,6 +256,18 @@ namespace DevSitesIndex.Pages.Projects
             this.Id = id;
             this.TableName = tableName;
             this.IsSelected = isSelected;
+        }
+
+        public static string toQueryStringVariable(IList<SearchTableRecord> list)
+        {
+            string returnValue = "";
+            foreach (SearchTableRecord r in list)
+            {
+                if (r.IsSelected) returnValue += r.Id;
+            }
+
+            return returnValue;
+
         }
     }
 
