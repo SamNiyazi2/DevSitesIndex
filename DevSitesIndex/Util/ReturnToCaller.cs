@@ -213,7 +213,7 @@ namespace DevSitesIndex.Util
 
             if (!string.IsNullOrWhiteSpace(additionalQueryString))
             {
-                queryString = (string.IsNullOrWhiteSpace(queryString) ? "?" : "&") + additionalQueryString;
+                queryString += (string.IsNullOrWhiteSpace(queryString) ? "?" : "&") + additionalQueryString;
             }
 
 
