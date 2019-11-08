@@ -1,106 +1,117 @@
 
+<ng-container *ngIf="display_Login">
 
-<h3>Login</h3>
 
-<hr />
+  <h3>Login</h3>
 
-<div  [ngClass]="{'col-md-4':!isOpenAsModal(),'':isOpenAsModal()}">
+  <hr />
 
-  <form #loginForm="ngForm" autocomplete="off" (ngSubmit)="login(loginForm.value)" novalidate >
+  <div [ngClass]="{'col-md-4':!isOpenAsModal(),'':isOpenAsModal()}">
 
-    <div class="form-group">
-      <label for="userName">Email: </label>
+    <form #loginForm="ngForm" autocomplete="off" (ngSubmit)="login(loginForm.value)" novalidate>
 
-      <!--(input)="userName=$event.target.value"-->
-      <em *ngIf="(loginForm.controls.email?.touched || mouseoverLogin) && loginForm.controls.email?.invalid">Required</em>
-      <input (ngModel)="email" name="email"
-             id="userName"
-             type="text" class="form-control" placeholder="Email..." autofocus required />
+      <div class="form-group">
+        <label for="userName">Email: </label>
+
+        <!--(input)="userName=$event.target.value"-->
+        <em *ngIf="(loginForm.controls.email?.touched || mouseoverLogin) && loginForm.controls.email?.invalid">Required</em>
+        <input (ngModel)="email" name="email"
+               id="userName"
+               type="text" class="form-control" placeholder="Email..." autofocus required />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password: </label>
+
+        <em *ngIf="(loginForm.controls.password?.touched || mouseoverLogin) && loginForm.controls.password?.invalid">Required</em>
+
+        <input (ngModel)="password" name="password"
+               id="password" type="password" class="form-control" placeholder="Password..." required />
+
+      </div>
+      <span (mouseenter)="mouseoverLogin=true" (mouseleave)="mouseoverLogin=false">
+        <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Login</button> &nbsp;
+      </span>
+
+      <button type="button" class="btn btn-default" (click)="cancel()">Cancel</button>
+      <br />
+
+
+      <div *ngIf="global_errorMessage" class="error" [innerHtml]="global_errorMessage"></div>
+
+
+      <br />
+      <br />
+      <input *ngIf="false" type="checkbox" [(ngModel)]="displayProps" name="displayProps" value="true" />
+    </form>
+    <a (click)="register()">Register as a new user</a>
+  </div>
+
+  <div *ngIf="displayProps">
+
+    <div class="col-md-3 col2">
+      <dl class="dl-horizontal">
+
+        <dt>loginForm.valid</dt>
+        <dd>{{loginForm.valid}}</dd>
+
+        <dt>loginForm.invalid</dt>
+        <dd>{{loginForm.invalid}}</dd>
+
+        <dt>loginForm.dirty</dt>
+        <dd>{{loginForm.dirty}}</dd>
+
+        <dt>loginForm.pristine</dt>
+        <dd>{{loginForm.pristine}}</dd>
+
+        <dt>loginForm.submitted</dt>
+        <dd>{{loginForm.submitted}}</dd>
+
+        <dt>loginForm.touched</dt>
+        <dd>{{loginForm.touched}}</dd>
+
+        <dt>loginForm.untouched</dt>
+        <dd>{{loginForm.untouched}}</dd>
+
+
+
+      </dl>
+
     </div>
 
-    <div class="form-group">
-      <label for="password">Password: </label>
 
-      <em *ngIf="(loginForm.controls.password?.touched || mouseoverLogin) && loginForm.controls.password?.invalid">Required</em>
+    <div class="col-md-5 col3">
 
-      <input (ngModel)="password" name="password"
-             id="password" type="password" class="form-control" placeholder="Password..." required />
+      <dl class="dl-horizontal">
 
+        <dt>loginForm.controls.email.valid</dt>
+        <dd>{{loginForm.controls.email.valid}}</dd>
+
+        <dt>loginForm.controls.email.invalid</dt>
+        <dd>{{loginForm.controls.email.invalid}}</dd>
+
+        <dt>loginForm.controls.email.dirty</dt>
+        <dd>{{loginForm.controls.email.dirty}}</dd>
+
+        <dt>loginForm.controls.email.pristine</dt>
+        <dd>{{loginForm.controls.email.pristine}}</dd>
+
+        <dt>loginForm.controls.email.touched </dt>
+        <dd>{{loginForm.controls.email.touched}}</dd>
+
+        <dt>loginForm.controls.email.untouched </dt>
+        <dd>{{loginForm.controls  .email.untouched}}</dd>
+
+
+
+      </dl>
     </div>
-    <span (mouseenter)="mouseoverLogin=true" (mouseleave)="mouseoverLogin=false">
-      <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Login</button> &nbsp;
-    </span>
-
-    <button type="button" class="btn btn-default" (click)="cancel()">Cancel</button>
-    <br />
-    <div [ngClass]="{error:feedbackMessage}"
-         [innerHtml]="feedbackMessage">
-    </div>
-    <br />
-    <br />
-    <input *ngIf="false" type="checkbox" [(ngModel)]="displayProps" name="displayProps" value="true" />
-  </form>
-  <a (click)="register()" >Register as a new user</a>
-</div>
-
-<div *ngIf="displayProps">
-
-  <div class="col-md-3 col2">
-    <dl class="dl-horizontal">
-
-      <dt>loginForm.valid</dt>
-      <dd>{{loginForm.valid}}</dd>
-
-      <dt>loginForm.invalid</dt>
-      <dd>{{loginForm.invalid}}</dd>
-
-      <dt>loginForm.dirty</dt>
-      <dd>{{loginForm.dirty}}</dd>
-
-      <dt>loginForm.pristine</dt>
-      <dd>{{loginForm.pristine}}</dd>
-
-      <dt>loginForm.submitted</dt>
-      <dd>{{loginForm.submitted}}</dd>
-
-      <dt>loginForm.touched</dt>
-      <dd>{{loginForm.touched}}</dd>
-
-      <dt>loginForm.untouched</dt>
-      <dd>{{loginForm.untouched}}</dd>
-
-
-
-    </dl>
 
   </div>
 
+</ng-container>
 
-  <div class="col-md-5 col3">
-
-    <dl class="dl-horizontal">
-
-      <dt>loginForm.controls.email.valid</dt>
-      <dd>{{loginForm.controls.email.valid}}</dd>
-
-      <dt>loginForm.controls.email.invalid</dt>
-      <dd>{{loginForm.controls.email.invalid}}</dd>
-
-      <dt>loginForm.controls.email.dirty</dt>
-      <dd>{{loginForm.controls.email.dirty}}</dd>
-
-      <dt>loginForm.controls.email.pristine</dt>
-      <dd>{{loginForm.controls.email.pristine}}</dd>
-
-      <dt>loginForm.controls.email.touched </dt>
-      <dd>{{loginForm.controls.email.touched}}</dd>
-
-      <dt>loginForm.controls.email.untouched </dt>
-      <dd>{{loginForm.controls  .email.untouched}}</dd>
-
-
-
-    </dl>
-  </div>
-
-</div>
+<ng-container *ngIf="display_Feedback && !display_Login">
+  <div [innerHtml]="pageContent.title"></div>
+  <div [innerHtml]="pageContent.body"></div>
+</ng-container>

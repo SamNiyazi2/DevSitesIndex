@@ -48,6 +48,8 @@ namespace DevSitesIndex
         public static IConfiguration Configuration { get; private set; }
 
         public static string SITE_NAME_STRING = "";
+        public static string SITE_FULL_WEB_ADDRESS = ""; // 11/07/2019 04:31 pm - SSN
+
         public static HtmlString SITE_NAME_HTML => new HtmlString(SITE_NAME_STRING.Replace(".", "<span>.<span>"));// For email to prevent email client vendors from hyperlinking the domain name.
 
         // 09/27/2019 06:34 am - SSN - [20190927-0634] - [001] - Testing
@@ -55,6 +57,7 @@ namespace DevSitesIndex
         public static string SITE_ALERT_CSS_NAME { get; set; }
 
 
+        public const int PASSWORD_MINIMUM_LENGTH = 8;
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -114,7 +117,12 @@ namespace DevSitesIndex
 
             // 08/29/2019 12:25 pm - SSN - [20190829-1212] - [001] - Adding email confirmation 
             // Project didn't include email
-            services.AddTransient<IEmailSender, SSNEmailSender>();
+
+            // 11/07/2019 08:20 pm - SSN - make Singleton
+            // services.AddTransient<IEmailSender, SSNEmailSender>();
+            services.AddSingleton<IEmailSender, SSNEmailSender>();
+
+
             string SendGrid_APIKey = Configuration["SendGrid:API_Key"];
             SSNSendGridStandardUtil.SendGridUtil.APIKey = SendGrid_APIKey;
             SSNSendGridStandardUtil.SendGridUtil.BCC_Default = Configuration["SendGrid:BBC_Default"];
@@ -145,7 +153,12 @@ namespace DevSitesIndex
             // 09/27/2019 02:08 pm - SSN - [20190927-0634] - [020] - Testing
             // Made a copy in SSN_GenUtil_StandardLib
             // Todo - Singleton ????
-            services.AddTransient<SSN_GenUtil_StandardLib.ILogger_SSN, SSN_GenUtil_StandardLib.SSN_Logger>();
+
+
+
+            // 11/07/2019 08:20 pm - SSN - make Singleton
+            // services.AddTransient<SSN_GenUtil_StandardLib.ILogger_SSN, SSN_GenUtil_StandardLib.SSN_Logger>();
+            services.AddSingleton<SSN_GenUtil_StandardLib.ILogger_SSN, SSN_GenUtil_StandardLib.SSN_Logger>();
 
 
 
@@ -185,7 +198,7 @@ namespace DevSitesIndex
                 //options.Password.RequireLowercase = true;
                 //options.Password.RequireNonAlphanumeric = true;
                 //options.Password.RequireUppercase = true;
-                options.Password.RequiredLength = 8;
+                options.Password.RequiredLength = PASSWORD_MINIMUM_LENGTH;
                 //options.Password.RequiredUniqueChars = 1;
 
                 // 08/29/2019 12:06 pm - SSN - [20190829-1212] - [001] - Adding email confirmation 
@@ -309,6 +322,14 @@ namespace DevSitesIndex
                 if (firstRequest)
                 {
                     SITE_NAME_STRING = context.Request.Host.Host.ToString();
+
+                    string port = "";
+                    if (context.Request.Host.Port.HasValue)
+                    {
+                        port = ":" + context.Request.Host.Port.ToString();
+                    }
+
+                    SITE_FULL_WEB_ADDRESS = string.Format("{0}://{1}{2}", context.Request.Scheme, context.Request.Host.Host, port);
 
                     if (!SITE_NAME_STRING.ToLower().Contains("testsam"))
                     {

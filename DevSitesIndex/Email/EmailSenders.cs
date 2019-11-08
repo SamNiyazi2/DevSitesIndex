@@ -54,7 +54,7 @@ namespace DevSitesIndex.Email
             // 11/05/2019 06:58 pm - SSN - [20191104-0607] - [016] - Registration - Client 
             // Remove request
             //    string confirmationEmail = CreateEmailLink(urlHelper, request, user.Email, token);
-            string confirmationEmail = CreateEmailLink(urlHelper, user.Email, token);
+            string confirmationEmail = CreateEmailLink_v02(user.Email, token);
 
             if (_env.IsDevelopment())
             {
@@ -69,23 +69,20 @@ namespace DevSitesIndex.Email
 
             emailBodyText = ReplaceGenericVariables(emailBodyText);
 
-
-
             await _emailSender.SendEmailAsync(user.Email, emailSubject, emailBodyText);
+
         }
+
 
         // 11/05/2019 06:55 pm - SSN - [20191104-0607] - [015] - Registration - Client 
         // Remove requesst
         // private string CreateEmailLink(IUrlHelper urlHelper, HttpRequest request, string Email, string token)
-        private string CreateEmailLink(IUrlHelper urlHelper, string Email, string token)
+        private string CreateEmailLink_v02(string Email, string token)
         {
 
+            string token_Encoded = System.Web.HttpUtility.UrlEncode(token);
 
-            // string confirmationEmail_1 = urlHelper.Page("", "", new { code = token, email = Email }, request.Scheme);
-            string confirmationEmail_1 = urlHelper.Page("", "", new { code = token, email = Email });
-            string confirmationEmail_2 = urlHelper.Page("");
-
-            string confirmationEmail = confirmationEmail_1.Replace(confirmationEmail_2, "/identity/account/ConfirmEmail");
+            string confirmationEmail = string.Format("{0}{1}?code={2}&email={3}", Startup.SITE_FULL_WEB_ADDRESS, "/identity/account/ConfirmEmail", token_Encoded, Email);
 
             if (_env.IsDevelopment())
             {

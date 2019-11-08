@@ -9,12 +9,12 @@ export interface IDataBag {
 
   feedbackMessages: [{
     key: string,
-    errorMessages:[]
+    errorMessages: []
   }];
 
   pageContent: {
-    title: string,
-    body:string
+    messageTitle_AsString: string,
+    messageBody_AsString: string
   }
   sqlStatsRecord: ISqlStatsRecord;
 

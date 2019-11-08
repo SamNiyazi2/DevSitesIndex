@@ -13,6 +13,8 @@ using Microsoft.ApplicationInsights;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Hosting;
 using SSN_GenUtil_StandardLib;
+using DevSitesIndex.Util;
+using Newtonsoft.Json;
 
 namespace DevSitesIndex.Areas.Identity.Pages.Account
 {
@@ -165,7 +167,7 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
 
 
                 #region  Message to user when they click the link to resend their confirmation email
-                Feedbackw_util.PageContent pageContent2 = new Feedbackw_util.PageContent();
+                PageContent pageContent2 = new PageContent();
 
                 // pageContent2.AddTheKey(identityUser.Id.ToString());
                 pageContent2.AddUserID(identityUser.Id.ToString());
@@ -184,7 +186,7 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
                                 "<p>Thank you!</p>";
 
 
-                Feedbackw_util.PageContent pageContent = new Feedbackw_util.PageContent();
+                PageContent pageContent = new PageContent();
 
                 pageContent.AddTitle("Email Not Confirmed");
                 pageContent.AddMessage(message);

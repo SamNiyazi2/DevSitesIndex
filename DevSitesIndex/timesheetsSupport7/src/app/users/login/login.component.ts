@@ -9,6 +9,9 @@ import { Router } from '@angular/router';
 import { BroadcasterUtilService } from 'src/app/broadcaster-util.service';
 
 import * as ehu from '../../util/ErrorHandlingHelpers';
+import { IAuthResult_v02 } from 'src/app/interfaces/IAuthResult';
+import { GenUtilService } from 'src/app/shared/gen-util.service';
+import { PopupComponentSupport } from 'src/app/interfaces/PopupComponentSupport';
 
 
 
@@ -18,19 +21,24 @@ import * as ehu from '../../util/ErrorHandlingHelpers';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit, OnChanges {
+export class LoginComponent extends PopupComponentSupport implements OnInit, OnChanges {
 
 
   // 11/03/2019 07:25 am - SSN - [20191101-0526] - [017] - Check login status
   // To pass returnUrl
   @Input() customObject: any;
 
-
   // 11/02/2019 07:12 pm - SSN - [20191101-0526] - [011] - Check login status
   @Output() closePopupCaller = new EventEmitter();
 
+
+  display_Login: boolean = true;
+  display_Feedback: boolean = false;
+
+
   // 10/28/2019 05:41 am - SSN - [20191028-0456] - [008] - Timesheet dashboard
   // ng build --aot=true - child route fix
+
   mouseoverLogin: boolean;
   displayProps: boolean;
   email: string;
@@ -38,8 +46,13 @@ export class LoginComponent implements OnInit, OnChanges {
 
 
   currentUser: IUser;
-  feedbackMessage: string = "";
-  constructor(private authenticateService: AuthenticateService, private route: Router, private broadcasterUtil: BroadcasterUtilService) { }
+  global_errorMessage: string = "";
+
+
+  constructor(private authenticateService: AuthenticateService, private route: Router, private broadcasterUtil: BroadcasterUtilService, private genUtil: GenUtilService) {
+    super();
+  }
+
 
   ngOnInit() {
 
@@ -58,10 +71,6 @@ export class LoginComponent implements OnInit, OnChanges {
   }
 
 
-  // 10/11/2019 08:22 pm - SSN
-  doSetfocus() {
-    $('[autofocus]').focus();
-  }
 
 
   // 10/07/2019 10:07 am - SSN - [20191007-0947] - [004] - Adding Angular 7 - Collecting data with Angular forms and validations - Login form
@@ -105,8 +114,16 @@ export class LoginComponent implements OnInit, OnChanges {
 
   }
 
+  // 11/07/2019 12:13 pm - SSN - [20191107-1213] - [001] - Login -  Test run after working with newly added register option
 
-  loginUserSuccess(response) {
+  loginUserSuccess(response: IAuthResult_v02) {
+
+    console.log('login.component - 20191107-1537');
+    console.log('lognUserSuccess');
+
+    console.log(response);
+
+
 
     this.authenticateService.currentUser = response;
 
@@ -133,7 +150,37 @@ export class LoginComponent implements OnInit, OnChanges {
 
     }
     else {
-      this.feedbackMessage = response.feedbackMessages;
+
+      if (!response.dataBag.hasErrors) {
+
+        this.pageContent = {
+          title: response.dataBag.pageContent.messageTitle_AsString,
+          body: response.dataBag.pageContent.messageBody_AsString
+        }
+
+        this.display_Login = false;
+        this.display_Feedback = true;
+      }
+      else {
+
+        response.dataBag.feedbackMessages.forEach(entry => {
+
+          let key = "global";
+          if (entry.key != "") key = this.genUtil.ToLowerCaseFirstChar(entry.key);
+
+          this[key + "_errorMessage"] = "";
+
+          entry.errorMessages.forEach(m => {
+
+            this[key + "_errorMessage"] =
+              this[key + "_errorMessage"] + m + "<br/>";
+
+          });
+        });
+
+      }
+
+
     }
   }
 

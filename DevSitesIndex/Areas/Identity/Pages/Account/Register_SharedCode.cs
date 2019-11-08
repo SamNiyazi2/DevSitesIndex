@@ -1,4 +1,5 @@
-﻿using Microsoft.ApplicationInsights;
+﻿using DevSitesIndex.Util;
+using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -39,7 +40,7 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
         public class Regiseration_Result
         {
             public IdentityResult identityResult { get; set; }
-            public Feedbackw_util.PageContent pageContent { get; set; }
+            public PageContent pageContent { get; set; }
 
         }
 
@@ -56,11 +57,11 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
             if (regiseration_Result.identityResult.Succeeded)
             {
                 _logger.LogInformation("User created a new account with password.");
-                
+
                 telemetry.TrackEvent($"DemoSite-20191105-1913 - New registration [{Input.Email}]");
-                
+
                 //  Feedbackw_util.PageContent pageContent = new Feedbackw_util.PageContent();
-                regiseration_Result.pageContent = new Feedbackw_util.PageContent();
+                regiseration_Result.pageContent = new PageContent();
                 regiseration_Result.pageContent.AddTitle("Registration Confirmation");
                 regiseration_Result.pageContent.AddMessage("Please confirm your email address.&nbsp;  Check your email.");
                 regiseration_Result.pageContent.AddMessage("Thank you for taking the time to review the site.");

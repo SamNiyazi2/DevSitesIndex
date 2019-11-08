@@ -10610,41 +10610,6 @@ return jQuery;
 
 /***/ }),
 
-/***/ "./src/app/interfaces/PopupComponentSupport.ts":
-/*!*****************************************************!*\
-  !*** ./src/app/interfaces/PopupComponentSupport.ts ***!
-  \*****************************************************/
-/*! exports provided: PopupComponentSupport */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PopupComponentSupport", function() { return PopupComponentSupport; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _ComponentBase__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ComponentBase */ "./src/app/interfaces/ComponentBase.ts");
-
-
-
-// 11/04/2019 05:21 pm - SSN - [20191104-0607] - [009] - Registration - Client 
-// Moved outside 
-var PopupComponentSupport = /** @class */ (function (_super) {
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](PopupComponentSupport, _super);
-    function PopupComponentSupport() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.closePopupCaller = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        return _this;
-    }
-    PopupComponentSupport.prototype.isOpenAsModal = function () {
-        return this.closePopupCaller.observers.length !== 0;
-    };
-    return PopupComponentSupport;
-}(_ComponentBase__WEBPACK_IMPORTED_MODULE_2__["ComponentBase"]));
-
-
-
-/***/ }),
-
 /***/ "./src/app/users/logout/logout.component.css.shim.ngstyle.js":
 /*!*******************************************************************!*\
   !*** ./src/app/users/logout/logout.component.css.shim.ngstyle.js ***!
@@ -11231,9 +11196,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var src_app_shared_gen_util_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/shared/gen-util.service */ "./src/app/shared/gen-util.service.ts");
-/* harmony import */ var src_app_interfaces_PopupComponentSupport__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/interfaces/PopupComponentSupport */ "./src/app/interfaces/PopupComponentSupport.ts");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var src_app_shared_gen_util_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/shared/gen-util.service */ "./src/app/shared/gen-util.service.ts");
+/* harmony import */ var src_app_interfaces_PopupComponentSupport__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/interfaces/PopupComponentSupport */ "./src/app/interfaces/PopupComponentSupport.ts");
 /* harmony import */ var src_app_shared_data_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/shared/data.service */ "./src/app/shared/data.service.ts");
 /* harmony import */ var _util_ErrorHandlingHelpers__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../util/ErrorHandlingHelpers */ "./src/app/util/ErrorHandlingHelpers.ts");
 // 11/04/2019 06:51 am - SSN - [20191104-0607] - [004] - Registration - Client 
@@ -11247,8 +11212,6 @@ __webpack_require__.r(__webpack_exports__);
 
 var RegisterComponent = /** @class */ (function (_super) {
     tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](RegisterComponent, _super);
-    // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXx
-    // private   _runtimeCompiler: RuntimeCompiler
     function RegisterComponent(route, genUtil, dataService) {
         var _this = _super.call(this) || this;
         _this.route = route;
@@ -11262,27 +11225,18 @@ var RegisterComponent = /** @class */ (function (_super) {
     RegisterComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.isDirty = false;
-        this.email = new _angular_forms__WEBPACK_IMPORTED_MODULE_5__["FormControl"]('', [_angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].email]);
-        this.password = new _angular_forms__WEBPACK_IMPORTED_MODULE_5__["FormControl"]('', [_angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required]);
-        this.confirmPassword = new _angular_forms__WEBPACK_IMPORTED_MODULE_5__["FormControl"]('', [_angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required]);
-        this.registerForm = new _angular_forms__WEBPACK_IMPORTED_MODULE_5__["FormGroup"]({
+        this.email = new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"]('', [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].email]);
+        this.password = new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"]('', [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required]);
+        this.confirmPassword = new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"]('', [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required]);
+        this.registerForm = new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormGroup"]({
             email: this.email,
             password: this.password,
             confirmPassword: this.confirmPassword
         });
-        //this.registerForm = this.fb.group({
-        //  email: this.email,
-        //  password: this.password,
-        //  confirmPassword: this.confirmPassword
-        //})
-        //this.registerForm = this.fb.group({
-        ////  email: this.email,
-        //  password: this.password,
-        //  confirmPassword: this.confirmPassword
-        //  },
-        //    { Validator:  MatchPassword 
-        //});
-        this.registerForm.valueChanges.subscribe(function (data) { return _this.isDirty = true; });
+        this.registerForm.valueChanges.subscribe(function (data) {
+            console.log('regiser.components - valuechanges');
+            _this.isDirty = true;
+        });
         var emailChanges = this.registerForm.get('email').valueChanges;
         emailChanges.subscribe(function (data) {
             _this.email_errorMessage = "";
@@ -11300,10 +11254,9 @@ var RegisterComponent = /** @class */ (function (_super) {
             _this.confirmPassword_errorMessage = "";
             _this.comparePasswords();
         });
-        //this.registerForm.addControl('email', this.email);
-        //this.registerForm.addControl('password', this.password);
-        //this.registerForm.addControl('confirmPassword', this.confirmPassword);
-        this.genUtil.doSetfocus_withTimeout(".autofocus");
+        setTimeout(this.doSetfocus, 700);
+        console.log('register.component - 20191107-0858 - .autofocus length next');
+        console.log('Length:', $('[autofocus]').length);
     };
     RegisterComponent.prototype.isEmailOnFileSuccess = function (response) {
         if (response) {
@@ -11351,8 +11304,8 @@ var RegisterComponent = /** @class */ (function (_super) {
         console.log(response);
         if (!response.hasErrors) {
             this.pageContent = {
-                title: response.pageContent.title,
-                body: response.pageContent.body
+                title: response.pageContent.messageTitle_AsString,
+                body: response.pageContent.messageBody_AsString
             };
             this.Display_Registration = false;
             this.Display_EmailSentNotification = true;
@@ -11377,16 +11330,10 @@ var RegisterComponent = /** @class */ (function (_super) {
     };
     RegisterComponent.prototype.cancel = function () {
         this.isDirty = false;
-        console.log('20191105-1115 register.component - cancel');
-        console.log('redirect is disabled - Testing');
-        console.log('Form is valid ', this.registerForm.valid);
-        console.log(this.registerForm);
-        console.log(this.registerForm.get('password'));
-        console.log(this.registerForm.get('confirmPassword'));
-        //    this.route.navigate(['/']);
+        this.route.navigate(['/']);
     };
     return RegisterComponent;
-}(src_app_interfaces_PopupComponentSupport__WEBPACK_IMPORTED_MODULE_4__["PopupComponentSupport"]));
+}(src_app_interfaces_PopupComponentSupport__WEBPACK_IMPORTED_MODULE_5__["PopupComponentSupport"]));
 
 
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using DevSitesIndex.Util;
 using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
@@ -58,7 +59,7 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
             public string Email { get; set; }
 
             [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = Startup.PASSWORD_MINIMUM_LENGTH)]
             [DataType(DataType.Password)]
             [Display(Name = "Password")]
             public string Password { get; set; }
@@ -111,7 +112,7 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
 <p>Please confirm your email address.&nbsp;  Check your email.</p>
 <p>Thank you for joining in!</p>
 ";
-                    Feedbackw_util.PageContent pageContent = new Feedbackw_util.PageContent();
+                    PageContent pageContent = new PageContent();
 
                     pageContent.AddTitle("Registration Confirmation");
                     pageContent.AddMessage(message);
@@ -133,7 +134,10 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
                 }
                 foreach (var error in result.Errors)
                 {
-                    ModelState.AddModelError(string.Empty, error.Description);
+                    if (!error.Code.ToLower().Contains("username"))
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
                 }
             }
 
@@ -141,21 +145,6 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
             return Page();
         }
 
-
-        ////////////////////////private   void geturl( IUrlHelper urlHelper, string Email, string token)
-        ////////////////////////{
-        ////////////////////////string xxx = Request;
-
-        ////////////////////////    string confirmationEmail_1 = urlHelper.Page("", "", new { code = token, email = Email }, Request.Scheme);
-        ////////////////////////    string confirmationEmail_2 = urlHelper.Page("");
-
-        ////////////////////////    string confirmationEmail = confirmationEmail_1.Replace(confirmationEmail_2, "/identity/account/ConfirmEmail");
-
-        ////////////////////////    if (env.IsDevelopment())
-        ////////////////////////    {
-        ////////////////////////        System.IO.File.WriteAllText("ConfirmationLink_20190825a.txt", confirmationEmail);
-        ////////////////////////    }
-        ////////////////////////}
 
 
 

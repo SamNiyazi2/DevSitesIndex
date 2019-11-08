@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DevSitesIndex.Areas.Identity.Pages.Account;
 using DevSitesIndex.Entities;
+using DevSitesIndex.Util;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -73,9 +74,15 @@ namespace DevSitesIndex.Controllers
                     }
                 }
 
-                Areas.Identity.Feedbackw_util.PageContent pageContent_final = Areas.Identity.Feedbackw_util.PageContent.GetPageData(result.pageContent.PageID);
-                dataBag.pageContent_Title_Add(pageContent_final.MessageTitle.ToString());
-                dataBag.pageContent_Body_Add(pageContent_final.MessageBody.ToString());
+
+                if (result.pageContent != null)
+                {
+
+                    //PageContent pageContent_final = PageContent.GetPageData(result.pageContent.PageID);
+                    //dataBag.pageContent.AddTitle(pageContent_final.MessageTitle.ToString());
+                    //dataBag.pageContent.AddMessage(pageContent_final.MessageBody.ToString());
+                    dataBag.pageContent = PageContent.GetPageData(result.pageContent.PageID);
+                }
 
 
             }

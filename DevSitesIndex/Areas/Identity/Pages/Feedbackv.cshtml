@@ -4,9 +4,9 @@
     ViewData["Title"] = Model.pageContent?.MessageTitle_ViewBag;
 }
 
-@Html.Raw(Model?.pageContent?.MessageTitle)
+@Html.Raw(Model?.pageContent?.MessageTitle_AsHtml)
 
 <br />
 <br />
 
-@Html.Raw(Model?.pageContent?.MessageBody)
+@Html.Raw(Model?.pageContent?.MessageBody_AsHtml)

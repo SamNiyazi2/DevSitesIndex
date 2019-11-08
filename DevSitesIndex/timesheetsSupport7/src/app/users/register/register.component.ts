@@ -3,13 +3,14 @@
 
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { GenUtilService } from 'src/app/shared/gen-util.service';
-import { PopupComponentSupport } from 'src/app/interfaces/PopupComponentSupport';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
+import { GenUtilService } from 'src/app/shared/gen-util.service';
+
+import { PopupComponentSupport } from 'src/app/interfaces/PopupComponentSupport';
 import { DataService } from 'src/app/shared/data.service';
 import * as ehu from '../../util/ErrorHandlingHelpers';
 import { IDataBag } from 'src/app/interfaces/IDataBag';
-import { encode } from 'punycode';
+ 
 
 
 
@@ -39,13 +40,9 @@ export class RegisterComponent extends PopupComponentSupport implements OnInit {
   public confirmPassword_errorMessage: string;
   public global_errorMessage: string;
 
-  public pageContent: {
-    title: string,
-    body: string
-  }
+  numberOfEmailsMatched: string[] = [];
 
-  // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXx
-  // private   _runtimeCompiler: RuntimeCompiler
+
   constructor(private route: Router, private genUtil: GenUtilService, private dataService: DataService) {
     super();
 
@@ -68,25 +65,16 @@ export class RegisterComponent extends PopupComponentSupport implements OnInit {
 
     });
 
-    //this.registerForm = this.fb.group({
-    //  email: this.email,
-    //  password: this.password,
-    //  confirmPassword: this.confirmPassword
-
-    //})
-
-    //this.registerForm = this.fb.group({
-    ////  email: this.email,
-    //  password: this.password,
-    //  confirmPassword: this.confirmPassword
-
-    //  },
-    //    { Validator:  MatchPassword 
-
-    //});
 
 
-    this.registerForm.valueChanges.subscribe(data => this.isDirty = true);
+
+    this.registerForm.valueChanges.subscribe(data => {
+
+      console.log('regiser.components - valuechanges');
+
+      this.isDirty = true
+
+    });
 
     const emailChanges = this.registerForm.get('email').valueChanges;
     emailChanges.subscribe(data => {
@@ -97,10 +85,7 @@ export class RegisterComponent extends PopupComponentSupport implements OnInit {
 
     });
 
-
-
-
-
+    
     const passwordChanges = this.registerForm.get('password').valueChanges;
     passwordChanges.subscribe(data => {
       this.password_errorMessage = "";
@@ -114,20 +99,19 @@ export class RegisterComponent extends PopupComponentSupport implements OnInit {
       this.comparePasswords();
     });
 
+    
+    setTimeout(this.doSetfocus, 700);
+    
 
+    console.log('register.component - 20191107-0858 - .autofocus length next');
+    console.log('Length:', $('[autofocus]').length);
 
-    //this.registerForm.addControl('email', this.email);
-    //this.registerForm.addControl('password', this.password);
-    //this.registerForm.addControl('confirmPassword', this.confirmPassword);
-
-    this.genUtil.doSetfocus_withTimeout(".autofocus");
-
+     
 
 
   }
 
-
-  numberOfEmailsMatched: string[] = [];
+   
 
 
   isEmailOnFileSuccess(response) {
@@ -197,12 +181,14 @@ export class RegisterComponent extends PopupComponentSupport implements OnInit {
 
     console.log('registerUserSuccess - 20191105-1825');
     console.log(response);
+     
+
 
     if (!response.hasErrors) {
 
       this.pageContent = {
-        title: response.pageContent.title,
-        body: response.pageContent.body
+        title: response.pageContent.messageTitle_AsString,
+        body: response.pageContent.messageBody_AsString
       }
 
       this.Display_Registration = false;
@@ -227,6 +213,8 @@ export class RegisterComponent extends PopupComponentSupport implements OnInit {
       });
 
     }
+     
+
   }
 
 
@@ -243,14 +231,9 @@ export class RegisterComponent extends PopupComponentSupport implements OnInit {
 
     this.isDirty = false;
 
-    console.log('20191105-1115 register.component - cancel');
-    console.log('redirect is disabled - Testing');
-    console.log('Form is valid ', this.registerForm.valid);
-    console.log(this.registerForm);
-    console.log(this.registerForm.get('password'));
-    console.log(this.registerForm.get('confirmPassword'));
 
-    //    this.route.navigate(['/']);
+
+    this.route.navigate(['/']);
 
 
 

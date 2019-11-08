@@ -19,8 +19,6 @@ export class GenUtilService {
   }
 
 
-
-
   compareDates(d1, d2) {
 
     if (d1 > d2) return -1;
@@ -39,14 +37,6 @@ export class GenUtilService {
 
   }
 
-
-  doSetfocus_withTimeout(selector: string) {
-    setTimeout(() => this.doSetfocus(selector), 700);
-  }
-
-  doSetfocus(selector: string) {
-    $(selector).focus();
-  }
 
 
   ToLowerCaseFirstChar(theString: string) {

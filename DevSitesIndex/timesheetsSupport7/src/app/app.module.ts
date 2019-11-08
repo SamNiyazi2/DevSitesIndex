@@ -62,7 +62,7 @@ import { LoginComponent } from './users/login/login.component'
 
 // 11/04/2019 06:07 am - SSN - [20191104-0607] - [001] - Registration - Client
 import { RegisterComponent } from './users/register/register.component';
-import { ComponentBase } from './interfaces/ComponentBase';
+import { IComponentBase } from './interfaces/ComponentBase';
 import { MainSiteMenuComponent } from './nav/main-site-menu/main-site-menu.component';
 
 
@@ -194,7 +194,7 @@ export class AppModule { }
 // Testing if we can use base class.
 // export function checkDirtyState(component: CreateTimelogComponent) {
 
-export function checkDirtyState(component: ComponentBase) {
+export function checkDirtyState(component: IComponentBase) {
 
   if (typeof (component.isDirty) != 'boolean') {
     console.error("property isDirty does not exists on component:");
