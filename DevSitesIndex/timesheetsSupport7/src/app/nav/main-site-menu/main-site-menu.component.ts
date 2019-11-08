@@ -1,7 +1,7 @@
 
 // 11/05/2019 10:13 am - SSN - [20191105-0938] - [002] - Add routes for all menu options
 
-import { Component, OnInit, OnChanges, DoCheck } from '@angular/core';
+import { Component, OnInit, OnChanges, DoCheck, Compiler } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -13,18 +13,22 @@ export class MainSiteMenuComponent implements OnInit, DoCheck {
 
   ngDoCheck(): void {
 
+
+    this.compiler.clearCache();
+
+
     const targetUrl = this.router.url.replace('/MainSiteMenu', '');
 
-    console.log('main-site-menu - 20191105-1028 -change 2 ');
-    console.log(targetUrl);
     document.location.href = targetUrl;
 
   }
 
-  
-  constructor(private router: Router) { }
+
+  constructor(private router: Router, private compiler: Compiler) { }
 
   ngOnInit() {
+
+    this.compiler.clearCache();
 
   }
 

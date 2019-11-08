@@ -35,10 +35,10 @@ else
                     @Html.DisplayNameFor(modelItem => Model.job_Timesheet[0].TotalSeconds_ToTimeSpanFormat_T)
                 </td>
                 <td>
-                    @Html.DisplayNameFor(modelItem => Model.job_Timesheet[0].discipline.DisciplineShort)
+                    @Html.DisplayNameFor(modelItem => Model.job_Timesheet[0].job.JobTitle)
                 </td>
                 <td>
-                    @Html.DisplayNameFor(modelItem => Model.job_Timesheet[0].job.JobTitle)
+                    @Html.DisplayNameFor(modelItem => Model.job_Timesheet[0].discipline.DisciplineShort)
                 </td>
                 <td>
                     @Html.DisplayNameFor(modelItem => Model.job_Timesheet[0].DateAdded)
@@ -56,48 +56,48 @@ else
 
             @foreach (var item in Model.job_Timesheet)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.StartTime)
-                    </td>
-                    <td class="text-right">
-                        @Html.DisplayFor(modelItem => item.TotalSeconds_ToTimeSpanFormat_T)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.discipline.DisciplineShort)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.job.JobTitle)
-                    </td>
-                    <td class="indexNowrapCol">
-                        @Html.DisplayFor(modelItem => item.DateAdded)
-                    </td>
-                    <td class="indexNowrapCol">
-                        @Html.DisplayFor(modelItem => item.DateModified)
-                    </td>
-                    <td class="indexNowrapCol">
-                        @*06/01/2019 11:32 am - SSN - timelog to timelogs*@
-                        <a asp-page="/timelogs/Edit" asp-route-id="@item.TimeLogId">Edit</a> |
-                        <a asp-page="/timelogs/Details" asp-route-id="@item.TimeLogId">Details</a> |
-                        <a asp-page="/timelogs/Delete" asp-route-id="@item.TimeLogId">Delete</a> |
+            <tr>
+                <td class="indexNowrapCol">
+                    @Html.DisplayFor(modelItem => item.StartTime)
+                </td>
+                <td class="indexNowrapCol">
+                    @Html.DisplayFor(modelItem => item.TotalSeconds_ToTimeSpanFormat_T)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.job.JobTitle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.discipline.DisciplineShort)
+                </td>
+                <td class="indexNowrapCol">
+                    @Html.DisplayFor(modelItem => item.DateAdded)
+                </td>
+                <td class="indexNowrapCol">
+                    @Html.DisplayFor(modelItem => item.DateModified)
+                </td>
+                <td class="indexNowrapCol" style="min-width:210px;">
+                    @*06/01/2019 11:32 am - SSN - timelog to timelogs*@
+                    <a asp-page="/timelogs/Edit" asp-route-id="@item.TimeLogId">Edit</a> |
+                    <a asp-page="/timelogs/Details" asp-route-id="@item.TimeLogId">Details</a> |
+                    <a asp-page="/timelogs/Delete" asp-route-id="@item.TimeLogId">Delete</a> |
 
 
-                        @*06/05/2019 08:37 pm - SSN - [20190605-2037] - [001] - Copying timelog links from timelog index*@
+                    @*06/05/2019 08:37 pm - SSN - [20190605-2037] - [001] - Copying timelog links from timelog index*@
 
-                        <a ng-If="'@item.TotalSeconds' <= 0 " ng-click="timesheetForm_ClockOut(@item.TimeLogId)" class="alert-warning">Clock-out</a>
+                    <a ng-cloak ng-If="'@item.TotalSeconds' <= 0 " ng-click="timesheetForm_ClockOut(@item.TimeLogId)" class="alert-warning">Clock-out</a>
 
-                        <a ng-If="'@item.TotalSeconds' > 0 " ng-click="timesheetForm_ClockContinue(@item.TimeLogId)" class="alert-warning">Continue</a>
+                    <a ng-cloak ng-If="'@item.TotalSeconds' > 0 " ng-click="timesheetForm_ClockContinue(@item.TimeLogId)" class="alert-warning">Continue</a>
 
 
 
-                    </td>
-                </tr>
+                </td>
+            </tr>
                 @if (!string.IsNullOrWhiteSpace(item.WorkDetail))
                 {
 
                     <tr class="detail">
-                        <td colspan="3"></td>
-                        <td colspan="3">
+                        <td colspan="2"></td>
+                        <td colspan="5" class="workDetail">
                             @Html.DisplayFor(modelItem => item.WorkDetail)
                         </td>
 

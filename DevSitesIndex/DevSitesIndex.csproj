@@ -11,11 +11,7 @@
     - -
     0929
   </ApplicationInsightsResourceId>-->
-  <ItemGroup>
-    <Compile Remove="Migrations\DevSitesIndexContextModelSnapshot_Hold_20190419a.cs" />
-    <Compile Remove="Util\ExceptionHandler_SSN.cs" />
-    <Compile Remove="Util\SSN_Logger.cs" />
-  </ItemGroup>
+   
   <ItemGroup>
     <Content Remove="wwwroot\js\____________________________ts.txt" />
   </ItemGroup>
