@@ -69,9 +69,7 @@ export class RegisterComponent extends PopupComponentSupport implements OnInit {
 
 
     this.registerForm.valueChanges.subscribe(data => {
-
-      console.log('regiser.components - valuechanges');
-
+        
       this.isDirty = true
 
     });

@@ -11234,7 +11234,6 @@ var RegisterComponent = /** @class */ (function (_super) {
             confirmPassword: this.confirmPassword
         });
         this.registerForm.valueChanges.subscribe(function (data) {
-            console.log('regiser.components - valuechanges');
             _this.isDirty = true;
         });
         var emailChanges = this.registerForm.get('email').valueChanges;
