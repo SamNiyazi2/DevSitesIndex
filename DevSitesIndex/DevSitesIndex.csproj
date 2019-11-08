@@ -5,6 +5,12 @@
     <UserSecretsId>d333cece-1c61-46c9-bdce-fbf359723d24</UserSecretsId>
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="timesheetsSupport7\**" />
+    <Content Remove="timesheetsSupport7\**" />
+    <EmbeddedResource Remove="timesheetsSupport7\**" />
+    <None Remove="timesheetsSupport7\**" />
+  </ItemGroup>
   <!--<ApplicationInsightsResourceId>
     /subscriptions/d6723a94-6723-4e85-b988-03bf28d6ea51/resourcegroups/Default-ApplicationInsights-EastUS/providers/microsoft.insights/components/DevSitesIndex20190127
     - -
@@ -22,14 +28,6 @@
     <None Remove="file.ts" />
     <None Remove="node_modules_hack\GlobalVariables.d.ts" />
     <None Remove="node_modules_hack\SSN_jquery_modal.d.ts" />
-    <None Remove="timesheetsSupport7\src\app\interfaces\IAuthResult.ts" />
-    <None Remove="timesheetsSupport7\src\app\interfaces\IDataBag.ts" />
-    <None Remove="timesheetsSupport7\src\app\interfaces\ISqlStatusRecord.ts" />
-    <None Remove="timesheetsSupport7\src\app\interfaces\PopupComponentSupport.ts" />
-    <None Remove="timesheetsSupport7\src\app\timesheet\dashboard\samples\ColorsList.ts" />
-    <None Remove="timesheetsSupport7\src\app\timesheet\dashboard\samples\IPieChartData.ts" />
-    <None Remove="timesheetsSupport7\src\app\util\customValidators.ts" />
-    <None Remove="timesheetsSupport7\src\app\util\ErrorHandlingHelpers.ts" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="angularjs.TypeScript.DefinitelyTyped" Version="6.5.6" />
@@ -68,16 +66,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="wwwroot\js\____________________________ts.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <TypeScriptCompile Include="timesheetsSupport7\src\app\interfaces\IAuthResult.ts" />
-    <TypeScriptCompile Include="timesheetsSupport7\src\app\interfaces\IDataBag.ts" />
-    <TypeScriptCompile Include="timesheetsSupport7\src\app\interfaces\PopupComponentSupport.ts" />
-    <TypeScriptCompile Include="timesheetsSupport7\src\app\interfaces\ISqlStatusRecord.ts" />
-    <TypeScriptCompile Include="timesheetsSupport7\src\app\timesheet\dashboard\samples\ColorsList.ts" />
-    <TypeScriptCompile Include="timesheetsSupport7\src\app\timesheet\dashboard\samples\Interaces\IPieChartData.ts" />
-    <TypeScriptCompile Include="timesheetsSupport7\src\app\util\customValidators.ts" />
-    <TypeScriptCompile Include="timesheetsSupport7\src\app\util\ErrorHandlingHelpers.ts" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services" />
