@@ -1,10 +1,13 @@
 // 09/21/2019 03:57 am - SSN - [20190921-0357] - [001] - Creating multiple entry for Webpack
+// 11/09/2019 12:05 pm - SSN - Added ChangeMonitor
+import { ChangeMonitor_Util } from '../Util/ChangeMonitor';
 import { dataService_instance } from '../DataServices';
 import { timesheetApp_instance } from './TimesheetApp';
 import { timesheetController_instance } from './TimesheetController';
 import { timesheetContinueController_instance } from './timesheetcontinuecontroller';
 import { timesheetClockoutController_instance } from './timesheetclockoutcontroller';
 import { dropdownListDirective_instance } from '../DropdownList/DropdownListDirective';
+ChangeMonitor_Util;
 dropdownListDirective_instance;
 dataService_instance.doSetup('timesheetApp');
 timesheetController_instance.timesheetApp_TimesheetController;

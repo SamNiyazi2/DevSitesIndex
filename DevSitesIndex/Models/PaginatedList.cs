@@ -57,10 +57,14 @@ namespace DevSitesIndex.Models
 
                 var count = await source.CountAsync();
 
+                int skips = (pageIndex - 1) * pageSize;
+                if (skips > count || skips < 0)
+                {
+                    skips = 0;
+                }
 
-                var items = await source.Skip(
-                    (pageIndex - 1) * pageSize)
-                    .Take(pageSize).ToListAsync();
+                var items = await source.Skip(skips).Take(pageSize).ToListAsync();
+
                 return new PaginatedList<T>(items, count, pageIndex, pageSize);
             }
             else

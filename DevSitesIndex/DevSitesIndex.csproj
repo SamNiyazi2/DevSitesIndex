@@ -6,6 +6,9 @@
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
     <LangVersion>7.2</LangVersion>
   </PropertyGroup>
+  <ItemGroup>
+    <Content Remove="wwwroot\js\Util\ChangeMonitor.ts" />
+  </ItemGroup>
  
   <!--<ApplicationInsightsResourceId>
     /subscriptions/d6723a94-6723-4e85-b988-03bf28d6ea51/resourcegroups/Default-ApplicationInsights-EastUS/providers/microsoft.insights/components/DevSitesIndex20190127
@@ -50,11 +53,15 @@
     <Folder Include="node_modules_hack\" />
     <Folder Include="Pages\Discipline\" />
     <Folder Include="wwwroot\dist\" />
+    <Folder Include="wwwroot\js\CodeRederence\" />
     <Folder Include="wwwroot\js\Timesheet\Templates\" />
     <Folder Include="wwwroot\webpack_build\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="wwwroot\js\____________________________ts.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="wwwroot\js\Util\ChangeMonitor.ts" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services" />

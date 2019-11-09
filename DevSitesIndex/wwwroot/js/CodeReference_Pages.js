@@ -1,6 +1,6 @@
-// 11/08/2019 04:41 pm - SSN - prefixPreWithShowHideAnchor_execute
+// 11/08/2019 04:41 pm - SSN -
 // Convert to TypeScript
-prefixPreWithShowHideAnchor_execute = false;
+// import * as x111 from '../js/site';
 var CodeReference_Page;
 (function (CodeReference_Page) {
     var doSetup = function () {
@@ -43,8 +43,6 @@ var CodeReference_Page;
     });
 })(CodeReference_Page || (CodeReference_Page = {}));
 console.log('CodeReference_Pages - top ');
-//x111.GlobalVariables.prefixPreWithShowHideAnchor_execute = false;
-prefixPreWithShowHideAnchor_execute = false;
 console.log(Date());
 export { CodeReference_Page };
 //# sourceMappingURL=CodeReference_Pages.js.map
