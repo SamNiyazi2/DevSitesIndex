@@ -21,12 +21,8 @@
 
     <div class="searchOption @Model.searchOptionCustomClassName">
 
-        <form method="post" >
+        <form method="post">
 
-            @*02/07/2019 03:00 pm - SSN - Adding*@
-            <div class="form-group">
-                <input asp-for="doDecodeHtml" doRefreshForm="1" accesskey="d" /> Decode HTML
-            </div>
 
             <div>
                 @*02/07/2019 02:40 pm - SSN - Removed class="form-group" when adding doHighlight*@
@@ -41,8 +37,8 @@
                 Highlight matches
             </div>
             <div class="form-group">
-                <input type="submit" value="Search" class="btn btn-default" />
-                <a href="javascript:void(0)" class="btn btn-default " doRefreshForm="0">Clear search</a>
+                <input id="submitSearchCodeRef" type="submit" value="Search" class="btn btn-default" />
+                <a class="btn btn-default " doRefreshForm="0">Clear search</a>
                 <span cmd-name="showObject" jQueryObjectName="#searchOptionDiv"><a class="pull-right" cmd-name="hideObject" jQueryObjectName=".searchOption_Container">Hide</a></span>
             </div>
         </form>
@@ -111,19 +107,9 @@
                         <pre class="codeblock2">
      
 
-                            @if (Model.doDecodeHtml)
-                            {
-                                if (Model.doHeightlight_v02)
-                                {
-                                     @Html.Raw(System.Net.WebUtility.HtmlDecode(item.CodeBlock))
-                                }
-                                else
-                                {
-                                    @Html.Raw(System.Net.WebUtility.HtmlDecode(item.CodeBlock))
-                                }
-                            }
-                            else
-                            {
+                            @{ 
+
+
                                 if (Model.doHeightlight_v02)
                                 {
                                     // 02/08/2019 04:53 am - SSN - Encode
@@ -132,7 +118,7 @@
                                 }
                                 else
                                 {
-                                   @item.CodeBlock 
+                                   @item.CodeBlock_Encoded
                                 }
 
                             }
@@ -166,8 +152,17 @@
 @section Scripts {
 
 
+
+    @*
+        ///08/2019 04:27 pm - SSN - Needed for hiding search div.
+        // Remove codeReference_Pages.js.  Included in Bundle_Sites_only
+    *@
+    <script src="/webpack_build/bundle_Site_only.js"></script>
+
+
     @*// 04/05/2019 12:55 am - SSN - Extract script to file while attempting to address problem with copying text into serach field.*@
-    <script type="text/javascript" src="~/js/CodeReference_Pages.js"></script>
+
+    @*<script src="~/js/CodeReference_Pages.js"></script>*@
 }
 
 

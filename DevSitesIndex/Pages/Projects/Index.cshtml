@@ -89,6 +89,8 @@
                             if (r.TableID == 3) { _url = $"/timelogs/details?id={r.TimelogId}"; }
                             if (r.TableID == 2) { _url = $"/jobs/details?id={r.JobId}"; }
 
+
+
                             <tr>
                                 <td width="120">
                                     @Html.Linkfor_SSN(r.SourceTable, _url)
@@ -96,8 +98,18 @@
                                 <td width="200">
                                     @Html.DisplayFor(modelItem => r.LastActivity)
                                 </td>
+
+
+
                                 <td width="300">
-                                    @Html.DisplayFor(modelItem => r.Description)
+
+                                    @{
+                                        if (r.TableID != 3)
+                                        {
+                                            @Html.DisplayFor(modelItem => r.Description)
+
+                                        }
+                                    }
                                 </td>
 
                                 <td class="indexNowrapCol">
@@ -128,6 +140,23 @@
                                 </td>
 
                             </tr>
+
+
+                            if (r.TableID == 3)
+                            {
+
+
+
+                                <tr class="detail workDetail_2">
+                                    <td colspan="2"></td>
+                                    <td colspan="2" class="workDetail ">
+                                        @Html.DisplayFor(modelItem => r.Description)
+                                    </td>
+
+                                </tr>
+                            }
+
+
                         }
                     }
 
@@ -183,9 +212,9 @@
                             @Html.DisplayFor(modelItem => item.DateModified)
                         </td>
                         <td class="indexNowrapCol">
-                            <a asp-page="./Edit" asp-route-id="@item.ProjectID">Edit</a> |
-                            <a asp-page="./Details" asp-route-id="@item.ProjectID">Details</a> |
-                            <a asp-page="./Delete" asp-route-id="@item.ProjectID">Delete</a>
+                            <a ssn-cmd="returnToCallerLink" asp-page="./Edit" asp-route-id="@item.ProjectID">Edit</a> |
+                            <a ssn-cmd="returnToCallerLink" asp-page="./Details" asp-route-id="@item.ProjectID">Details</a> |
+                            <a ssn-cmd="returnToCallerLink" asp-page="./Delete" asp-route-id="@item.ProjectID">Delete</a>
                         </td>
                     </tr>
                 }

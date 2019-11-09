@@ -7,7 +7,7 @@ import { IComponentBase } from './ComponentBase';
 // export class PopupComponentSupport extends ComponentBase {
 export class PopupComponentSupport implements IComponentBase {
 
-  isDirty: boolean;
+  isDirty: boolean = false;
   pageContent: { title: string; body: string; };
 
 

@@ -2,7 +2,7 @@
 // 04/12/2019 01:42 am - SSN - [20190412-0142] - TimesheetApp
 
 
-import * as ssn_globals from "../globals.js";
+import * as ssn_globals from "../globals";
 
 
 var timesheetApp_instance = function () {

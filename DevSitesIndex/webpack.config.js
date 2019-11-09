@@ -186,11 +186,15 @@ var config = [
             filename: 'bundle_Site_only.js'
         },
 
+        
+
 
         entry: [
 // ERROR in Debug Failure. False expression: Host should not return a redirect source file from `getSourceFile`
            // './site.ts'
-            './site_only_main.ts'
+            './site_only_main.ts',
+
+            './CodeReference_Pages.ts'
         ]
 
     }

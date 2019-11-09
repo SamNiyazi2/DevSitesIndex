@@ -34,7 +34,6 @@ fieldset {
 /* Needed for padding */
 /* Needed for padding */
 .table > tbody > tr.detail > td, .detail {
-    
     font-size: 1.3rem;
     padding: 0px 20px 20px 20px;
     margin: 0px;
@@ -45,17 +44,17 @@ fieldset {
 .workDetail {
     white-space: pre-line;
     font-size: 1.3rem;
- 
-    background-color:aliceblue;
+    background-color: aliceblue;
+}
+/*  form when displaying workDetail on second row  */
+.workDetail_2 td {
+    border: none!important;
+
 }
 
 
 
 /* 11/08/20190 07:40 am - SSN - Take out min-height and height */
-
-.codeblock1 {
-    /*   min-height: 200px; */
-}
 
 
 .codeblock2 { /* Match maxWidthCol1 */

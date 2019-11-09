@@ -1,5 +1,5 @@
 // 04/12/2019 01:42 am - SSN - [20190412-0142] - TimesheetApp
-import * as ssn_globals from "../globals.js";
+import * as ssn_globals from "../globals";
 var timesheetApp_instance = function () {
     // 05/03/2019 06:33 pm - SSN - [20190503-1539] - [013] - Add link to create timelog
     // Convert to TS

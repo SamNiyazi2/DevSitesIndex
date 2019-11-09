@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,12 +13,22 @@ namespace DevSitesIndex.Entities
 {
     public class CodeReference
     {
+        // 11/08/2019 06:20 pm - SSN - Copied form DevSite
+        SSN_GenUtil_StandardLib.RegularExpression_Utility RE_Util = new SSN_GenUtil_StandardLib.RegularExpression_Utility();
+
 
         public int Id { get; set; }
 
         [DisplayName("Code Block")]
         [Required(ErrorMessage ="Input is required")]
         public string CodeBlock { get; set; }
+
+
+        // 11/08/2019 06:20 pm - SSN - Copied form DevSite
+        [NotMapped]
+        public string CodeBlock_Encoded => RE_Util.EncodeContentOfPreTag(CodeBlock);
+
+
 
         [DisplayName("Source Address")]
         public string SourceAddress { get; set; }

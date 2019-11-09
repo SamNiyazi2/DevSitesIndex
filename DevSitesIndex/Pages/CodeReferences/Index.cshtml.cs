@@ -25,7 +25,7 @@ namespace DevSitesIndex.Pages.CodeReferences
         [BindProperty]
         public string SearchText { get; set; }
 
-        // 02/07/2019 02:41 pm - SSN - Adding doHeightlight_v02  and doDecodeHtml 
+        // 02/07/2019 02:41 pm - SSN - Adding doHeightlight_v02
         [BindProperty]
         public bool doHeightlight_v02 { get; set; } = true;
 
@@ -35,10 +35,7 @@ namespace DevSitesIndex.Pages.CodeReferences
 
         public HtmlString searchOptionFeedbackMessage { get; set; }
 
-
-
-        [BindProperty]
-        public bool doDecodeHtml { get; set; }
+        
 
 
         public IndexModel(DevSitesIndex.Entities.DevSitesIndexContext context)
@@ -113,8 +110,7 @@ namespace DevSitesIndex.Pages.CodeReferences
             string tempSearchString = cleanseSearchString(SearchText);
             tempArray = tempSearchString.ToLower().Split().Where(r => includeWord(r)).Select(r => r.Trim().ToLower()).ToArray();
 
-
-            var x = (doDecodeHtml);
+            
 
             // 03/22/2019 09:32 pm - SSN - Replaced - ToListAsync<CodeReference>
             // 04/03/2019 08:55 pm - SSN - Adding validation

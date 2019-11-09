@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ITimelog } from 'src/app/interfaces/ITimelog';
 import { FormControl } from '@angular/forms';
 import { IComponentBase } from 'src/app/interfaces/ComponentBase';
+import { PopupComponentSupport } from 'src/app/interfaces/PopupComponentSupport';
 
 
 // 10/06/2019 01:20 pm - SSN - [20191006-1211] - [003] - Adding Angular 7
@@ -15,7 +16,7 @@ import { IComponentBase } from 'src/app/interfaces/ComponentBase';
   styleUrls: ['./create-timelog.component.css']
 })
 // export class CreateTimelogComponent extends ComponentBase implements OnInit {
-export class CreateTimelogComponent implements OnInit, IComponentBase {
+export class CreateTimelogComponent extends PopupComponentSupport implements OnInit, IComponentBase {
 
 
   isDirty: boolean;
@@ -26,7 +27,7 @@ export class CreateTimelogComponent implements OnInit, IComponentBase {
 
 
   constructor(private router: Router) {
-
+    super();
   }
 
   ngOnInit() {

@@ -12,15 +12,19 @@ var site_instance = function () {
             var jQueryObjectName = $(this).attr('jQueryObjectName');
             var jQueryObjectName2 = $(this).attr('jQueryObjectName2');
             //      alert('clicked me! cmdName [' + cmdName + "] popup-name  [" + popupName + "]");
+            console.log('cmd-name', cmdName, 'popupName', popupName, 'jQueryObjectName ', jQueryObjectName, 'jQueryObjectName2', jQueryObjectName2);
             if (cmdName === "open-popup") {
+                console.log('exec cmdName ', cmdName);
                 $(popupName).modal({ backdrop: 'static', keyboard: false });
                 $("#addSite_PageContent").load("/times/start");
             }
             // 03/14/2019 09:33 am - SSN - Adding hide and show
             if (cmdName === "hideObject") {
+                console.log('exec cmdName ', cmdName, 'jQueryObjectName', jQueryObjectName);
                 $(jQueryObjectName).hide();
             }
             if (cmdName === "showObject") {
+                console.log('exec cmdName ', cmdName, 'jQueryObjectName', jQueryObjectName);
                 $(jQueryObjectName).show();
             }
             if (cmdName === "smooth-scroll") {
@@ -181,10 +185,6 @@ var site_instance = function () {
         // 09/10/2019 08:53 pm - SSN - Replaced
         // 09/11/2019 07:08 am - SSN - DevSiteIndex p1 data is coming after document is ready.
         setTimeout(prefixPreWithShowHideAnchor, 2000);
-        //$(function () {
-        //    console.log('20190910-2054 - prefixPreWithShowHideAnchor timeout to jquery ready');
-        //    prefixPreWithShowHideAnchor();
-        //});
     });
     // 11/05/20191 04:53 am - SSN 
     // Need to prevent users from navigating away from Angular based pages with pending changes.

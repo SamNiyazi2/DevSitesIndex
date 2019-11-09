@@ -4,7 +4,7 @@
 /// <reference path="../../node_modules/@types/jquery/index.d.ts" />   
 /// <reference path="../../node_modules_hack/SSN_jquery_modal.d.ts" />
 
-
+  
 
 //08/23/2018 01:24 am - SSN
 
@@ -25,7 +25,12 @@ var site_instance = function () {
 
             //      alert('clicked me! cmdName [' + cmdName + "] popup-name  [" + popupName + "]");
 
+            console.log('cmd-name', cmdName, 'popupName', popupName, 'jQueryObjectName ', jQueryObjectName, 'jQueryObjectName2', jQueryObjectName2);
+
             if (cmdName === "open-popup") {
+
+                console.log('exec cmdName ', cmdName);
+
                 $(popupName).modal({ backdrop: 'static', keyboard: false });
 
                 $("#addSite_PageContent").load("/times/start");
@@ -34,11 +39,15 @@ var site_instance = function () {
             // 03/14/2019 09:33 am - SSN - Adding hide and show
             if (cmdName === "hideObject") {
 
+                console.log('exec cmdName ', cmdName, 'jQueryObjectName', jQueryObjectName);
+
                 $(jQueryObjectName).hide();
 
             }
 
             if (cmdName === "showObject") {
+
+                console.log('exec cmdName ', cmdName, 'jQueryObjectName', jQueryObjectName);
 
                 $(jQueryObjectName).show();
 
@@ -154,12 +163,12 @@ var site_instance = function () {
         $("[data-toggle='collapse']").trigger('click');
     }
 
-
+ 
     // 09/21/2019 12:27 pm - SSN - [201909-1227] Revise to accommodate Babel/Webpack
     // function prefixPreWithShowHideAnchor() {
     var prefixPreWithShowHideAnchor = function () {
 
-
+          
         // 04/26/2019 09:56 pm - SSN - [20190426-2156] - [001] - Hide pre and add a link to show.
         // 06/01/2019 08:07 pm - SSN - [20190601-2007] - Add title
 
@@ -257,10 +266,10 @@ var site_instance = function () {
 
         // 11/08/2019 01:04 pm - SSN - [20191108-1043] - [008] - Persisting search on return to index
         // 
-         
+
 
         $('[ssn-cmd=returnToCallerLink]').click((e) => {
-             
+
             e.preventDefault();
             e.stopPropagation();
 
@@ -318,12 +327,8 @@ var site_instance = function () {
         // 09/10/2019 08:53 pm - SSN - Replaced
         // 09/11/2019 07:08 am - SSN - DevSiteIndex p1 data is coming after document is ready.
         setTimeout(prefixPreWithShowHideAnchor, 2000);
-        //$(function () {
-        //    console.log('20190910-2054 - prefixPreWithShowHideAnchor timeout to jquery ready');
-        //    prefixPreWithShowHideAnchor();
-        //});
 
-
+      
     });
 
 
