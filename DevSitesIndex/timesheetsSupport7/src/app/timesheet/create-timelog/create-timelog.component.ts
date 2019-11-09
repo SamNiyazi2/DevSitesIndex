@@ -4,6 +4,7 @@ import { ITimelog } from 'src/app/interfaces/ITimelog';
 import { FormControl } from '@angular/forms';
 import { IComponentBase } from 'src/app/interfaces/ComponentBase';
 import { PopupComponentSupport } from 'src/app/interfaces/PopupComponentSupport';
+import { GenUtilService } from 'src/app/shared/gen-util.service';
 
 
 // 10/06/2019 01:20 pm - SSN - [20191006-1211] - [003] - Adding Angular 7
@@ -26,11 +27,14 @@ export class CreateTimelogComponent extends PopupComponentSupport implements OnI
   timelog: ITimelog;
 
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private genUtil : GenUtilService) {
     super();
   }
 
   ngOnInit() {
+
+
+    this.genUtil.setPageTitle("New Timelog Entry");
 
     console.log('create-timelog.component - 20191009-0154');
     console.log('isDirty', this.isDirty);

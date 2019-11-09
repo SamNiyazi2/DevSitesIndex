@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/shared/data.service';
 
 import * as ehu from '../../util/ErrorHandlingHelpers';
+import { GenUtilService } from 'src/app/shared/gen-util.service';
 
 @Component({
   selector: 'app-projects-list',
@@ -29,10 +30,14 @@ export class ProjectsListComponent implements OnInit {
   projectRecordsFound: any;
 
 
-  constructor(private dataService: DataService) { }
+  constructor(private dataService: DataService, private genUtil: GenUtilService) { }
 
 
   ngOnInit() {
+
+
+    this.genUtil.setPageTitle("Project List");
+
 
     this.dataService.getProjects().then(this.getProjectsSuccess.bind(this), this.getProjectsError.bind(this));
     this.dataService.getJobStatuses().then(this.getJobStatusesSuccess.bind(this), this.getJobStatusesError.bind(this));

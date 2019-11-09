@@ -4,6 +4,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/shared/data.service';
 import { ActivatedRoute, Params } from '@angular/router';
+import { GenUtilService } from 'src/app/shared/gen-util.service';
 
 
 @Component({
@@ -16,10 +17,14 @@ export class TimelogComponent implements OnInit {
   timelog: any;
 
 
-  constructor(private dataService: DataService, private route: ActivatedRoute) { }
+  constructor(private dataService: DataService, private route: ActivatedRoute, private genUtil: GenUtilService) { }
 
 
   ngOnInit() {
+
+
+
+    this.genUtil.setPageTitle("Timelog List");
 
     this.timelog = {};
 

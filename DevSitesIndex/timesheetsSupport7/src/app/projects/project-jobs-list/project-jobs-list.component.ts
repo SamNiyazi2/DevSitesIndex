@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
+import { GenUtilService } from 'src/app/shared/gen-util.service';
 
 @Component({
   selector: 'app-project-jobs-list',
@@ -17,9 +18,12 @@ export class ProjectJobsListComponent implements OnInit, OnChanges {
   // 10/10/2019 11:24 am - SSN - [20191010-1059] - [004] - M10-05 - Creating filtering display
   filteredJobs: any;
 
-  constructor() { }
+  constructor(private genUtil: GenUtilService) { }
 
   ngOnInit() {
+
+    this.genUtil.setPageTitle("Project Job List");
+
   }
 
 

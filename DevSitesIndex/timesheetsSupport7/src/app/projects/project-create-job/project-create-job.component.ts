@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { GenUtilService } from 'src/app/shared/gen-util.service';
 
 @Component({
   selector: 'app-project-create-job',
@@ -16,9 +17,13 @@ export class ProjectCreateJobComponent implements OnInit {
 
   job: any;
 
-  constructor() { }
+  constructor(private genUtil: GenUtilService) { }
 
   ngOnInit() {
+
+
+    this.genUtil.setPageTitle("New Job Entry");
+
 
     setTimeout(this.doSetfocus, 700);
   }
