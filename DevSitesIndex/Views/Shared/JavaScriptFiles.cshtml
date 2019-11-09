@@ -27,6 +27,28 @@
 
 <script src="~/lib/toastr/scripts/toastr.js"></script>
 
+@{
+    // 11/09/2019 10:42 am - SSN - Added
+    try
+    {
+
+        string path = Context.Request.Path.ToString().ToLower();
+        bool addSiteScript = false;
+
+        List<string> applicablePaths = new List<string>() { "/projects", "/companies","/Discipline","/jobs" ,"/ReferenceSites"};
+        addSiteScript = applicablePaths.Any(r => path.StartsWith(r.ToLower()));
+        if (addSiteScript)
+        {
+            <script src="/webpack_build/bundle_Site_only.js"></script>
+        }
+
+    }
+    catch (Exception)
+    {
+        // Todo: log error
+    }
+}
+
 
 @{
 
@@ -72,4 +94,3 @@
 
 }
 
- 

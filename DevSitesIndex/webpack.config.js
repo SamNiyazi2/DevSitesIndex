@@ -2,7 +2,7 @@ const path = require('path');
 
 var mode_local = "";
 
-var x = 2;
+var x = 1;
 
 switch (x) {
     case 1: mode_local = "development"; break;
@@ -191,17 +191,14 @@ var config = [
 
         entry: [
 // ERROR in Debug Failure. False expression: Host should not return a redirect source file from `getSourceFile`
-           // './site.ts'
-            './site_only_main.ts',
+            './site.ts',
+//            './site_only_main.ts',
 
-            './CodeReference_Pages.ts'
+            './CodeReference_Pages.ts',
+            './util/ChangeMonitor.ts'
         ]
 
     }
-
-
-
-
 
 
 

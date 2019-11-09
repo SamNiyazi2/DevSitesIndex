@@ -35,7 +35,10 @@
 
         <input type="checkbox" data-bind="checked: prefixPreWithShowHideAnchor_DontCall_KO" /> Don't collapse div<br />
         <input type="submit" value="Search" class="btn btn-default" />
-        <a href="/" class="btn btn-default">Clear Search</a>
+@{ 
+    string currentPage = Context.Request.Path;
+}
+        <a href="@currentPage" class="btn btn-default">Clear Search</a>
     </div>
 
 </form>
