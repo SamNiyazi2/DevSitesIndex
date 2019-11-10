@@ -12,6 +12,7 @@
 
 <script src="~/lib/Angular_1_7/angular.js"></script>
 <script src="~/lib/Angular_1_7/angular-route.js"></script>
+<script src="~/lib/Angular_1_7/angular-sanitize.min.js"></script>
 
 
 
@@ -35,7 +36,7 @@
         string path = Context.Request.Path.ToString().ToLower();
         bool addSiteScript = false;
 
-        List<string> applicablePaths = new List<string>() { "/projects", "/companies","/Discipline","/jobs" ,"/ReferenceSites"};
+        List<string> applicablePaths = new List<string>() { "/projects", "/companies", "/Discipline", "/jobs", "/ReferenceSites" };
         addSiteScript = applicablePaths.Any(r => path.StartsWith(r.ToLower()));
         if (addSiteScript)
         {

@@ -25,7 +25,7 @@
         </dd>
 
         @*
-        // 09/24/2019 01:24 pm - SSN - [20190924-1134] - [019] - Removing date add/updated from create/edit pages
+            // 09/24/2019 01:24 pm - SSN - [20190924-1134] - [019] - Removing date add/updated from create/edit pages
         *@
         @if (Model.Job.DateUpdated.HasValue)
         {
@@ -82,4 +82,12 @@
 
 
     </form>
+
+
+    @{
+
+        @await Html.PartialAsync("Job_Timesheet", Model.job_Timesheet)
+    }
+
+
 </div>

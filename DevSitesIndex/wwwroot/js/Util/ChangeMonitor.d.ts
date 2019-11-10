@@ -3,6 +3,7 @@ declare var ChangeMonitor_Util: {
     getBrowserName: () => "edge" | "opera" | "chrome" | "ie" | "firefox" | "safari" | "other";
     haveChanges: boolean;
     monitorChange_SSN: () => void;
-    itemChange_ssn: (this: HTMLInputElement, ev: Event) => void;
+    setItemChanged_ssn: (this: HTMLInputElement, ev: Event) => void;
+    setItemToResetChangedFlag_ssn: (this: HTMLInputElement, ev: Event) => void;
 };
 export { ChangeMonitor_Util };

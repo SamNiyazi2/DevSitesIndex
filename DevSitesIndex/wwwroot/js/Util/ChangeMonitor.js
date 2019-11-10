@@ -1,58 +1,46 @@
 // 11/09/2019 11:03 am - SSN - Created
 var ChangeMonitor_Util = function () {
     var haveChanges = false;
-    var itemChange_ssn = function (ev) {
-        console.log('site - itemChange_ssn');
+    var setItemChanged_ssn = function (ev) {
         ChangeMonitor_Util.haveChanges = true;
+    };
+    var setItemToResetChangedFlag_ssn = function (ev) {
+        console.log('changeMonitor - reset change flag');
+        ChangeMonitor_Util.haveChanges = false;
     };
     // 11/09/2019 08:08 am - SSN - Added monitorChange_SSN
     var monitorChange_SSN = function () {
         console.log('site - monitorChange - 20191109-0810 - 5');
-        console.log('site - monitorChange');
-        console.log('site - monitorChange');
-        console.log(document);
         var inputs = document.querySelectorAll('input');
-        console.log(inputs);
         inputs.forEach(function (x, y, z) {
-            console.log(y);
-            console.log(y);
             if (!bypassObject(z[y])) {
-                z[y].addEventListener('change', ChangeMonitor_Util.itemChange_ssn);
+                z[y].addEventListener('change', ChangeMonitor_Util.setItemChanged_ssn);
+            }
+            if (z[y].type) {
+                if (z[y].type.toLowerCase() === "submit") {
+                    z[y].addEventListener('click', ChangeMonitor_Util.setItemToResetChangedFlag_ssn);
+                }
             }
         });
         var selects = document.querySelectorAll('select');
-        console.log(selects);
         selects.forEach(function (x, y, z) {
-            console.log(y);
-            console.log("Before check");
             if (!bypassObject(z[y])) {
-                console.log("Passed check");
-                z[y].addEventListener('change', ChangeMonitor_Util.itemChange_ssn);
+                z[y].addEventListener('change', ChangeMonitor_Util.setItemChanged_ssn);
             }
         });
     };
     var bypassObject = function (obj1) {
-        console.log('bypassObject');
-        console.log("obj1.name ", obj1.name);
-        console.log("obj1.id ", obj1.id);
         if (obj1.type) {
-            if (obj1.type.toLowerCase() === 'hidden') {
-                console.log('HIDDEN');
-                console.log('HIDDEN');
-                console.log('HIDDEN');
-                console.log('HIDDEN');
+            if (obj1.type.toLowerCase() === 'hidden' || obj1.type.toLowerCase() === 'submit') {
                 return true;
             }
         }
         if (!obj1.id && !obj1.name)
             return true;
-        console.log("test 1");
         if (obj1.id.toLowerCase().indexOf('search') > -1)
             return true;
-        console.log("test 2");
         if (obj1.name.toLowerCase().indexOf('search') > -1)
             return true;
-        console.log("test 3");
         return false;
     };
     var setupMonitor = function () {
@@ -108,7 +96,8 @@ var ChangeMonitor_Util = function () {
         getBrowserName: getBrowserName,
         haveChanges: haveChanges,
         monitorChange_SSN: monitorChange_SSN,
-        itemChange_ssn: itemChange_ssn
+        setItemChanged_ssn: setItemChanged_ssn,
+        setItemToResetChangedFlag_ssn: setItemToResetChangedFlag_ssn
     };
 }();
 $(function () {

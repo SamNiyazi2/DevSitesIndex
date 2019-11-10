@@ -1,8 +1,9 @@
 ﻿
 
-<a ng-click="sort(columnlist)">{{columnlist.caption}}</a>
-[{{columnlist.desc}}] -
-{{columnlist.column}}
+<a ng-click="sort(columnlist)">
+    {{columnlist.caption}}
+    <span ng-bind-html="displayArrow()"></span>
+</a>
 
 
 

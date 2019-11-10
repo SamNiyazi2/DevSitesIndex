@@ -42,7 +42,8 @@ var globals_instance = function () {
                     case 'timesheetApp':
                         angularApp = {
                             name: applicationName,
-                            instance: angular.module('timesheetApp', ['ngRoute', 'ui.bootstrap'])
+                            // 11/10/2019 08:36 am - SSN - Adding 'ngSanitize' for ng-bind-html
+                            instance: angular.module('timesheetApp', ['ngRoute', 'ui.bootstrap', 'ngSanitize'])
                         };
                         SSN_Globals.ssn_devsite_angular_module.push(angularApp);
                         break;

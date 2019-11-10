@@ -21,6 +21,7 @@ namespace DevSitesIndex.Pages.Jobs
 
         // 11/04/2019 08:53 am - SSN - [20191104-0844] - [003] - Prevent delete option on timesheet related forms 
         // Added
+
         public ReturnToCaller returnToCaller { get; set; } = new ReturnToCaller();
 
         // 11/04/2019 01:50 pm - SSN - [20191104-0844] - [021] - Prevent delete option on timesheet related forms 
@@ -36,6 +37,11 @@ namespace DevSitesIndex.Pages.Jobs
 
         [BindProperty]
         public Job Job { get; set; }
+
+// 11/10/2019 07:30 am - SSN
+
+        public Job_Timesheet job_Timesheet { get; set; }
+
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -56,7 +62,8 @@ namespace DevSitesIndex.Pages.Jobs
             }
 
             this.timelogCount = _context.TimeLog.Count(r => r.JobId == id);
-
+            
+            job_Timesheet = new Job_Timesheet(_context, id);
 
             return Page();
         }

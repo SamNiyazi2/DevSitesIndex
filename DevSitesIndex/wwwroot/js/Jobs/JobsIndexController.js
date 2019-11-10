@@ -24,41 +24,70 @@ var jobsIndexController_instance = function () {
             //$scope.sqlStatsRecord = {};
             //  Setup intiail values for list
             $scope.job_statuses_selected = [1]; // open
-            var columnBag = {
-                columnName: 'dateAdded',
-                columnNameSelected: 'dateAdded',
+            var columnBag_defaults = {
+                columnName: '????',
+                columnNameSelected: '',
                 currentPageNo: 1,
-                desc: true,
                 recordsPerPage: 4,
+                desc: null,
                 totalRecordCount: 0,
-                caption: "Date Added",
+                caption: "???",
                 job_statuses_selected: [$scope.job_statuses_selected]
             };
             var _fieldList = [
-                __assign({}, columnBag, { columnName: 'projectTitle_ForActivity', caption: 'Project Title' }),
-                __assign({}, columnBag, { columnName: 'jobTitle', caption: 'Job Title' }),
-                __assign({}, columnBag, { columnName: 'dateAdded', caption: 'Date Added' }),
-                __assign({}, columnBag, { columnName: 'dateUpdated', caption: 'Date Updated' }),
-                __assign({}, columnBag, { columnName: 'activityAge', caption: 'Activity Age' }),
+                __assign({}, columnBag_defaults, { columnName: 'projectTitle_ForActivity', caption: 'Project Title' }),
+                __assign({}, columnBag_defaults, { columnName: 'jobTitle', caption: 'Job Title' }),
+                __assign({}, columnBag_defaults, { columnName: 'dateAdded', caption: 'Date Added', columnNameSelected: 'dateAdded', desc: true }),
+                __assign({}, columnBag_defaults, { columnName: 'dateUpdated', caption: 'Date Updated' }),
+                __assign({}, columnBag_defaults, { columnName: 'activityAge', caption: 'Activity Age' }),
             ];
+            var selectColumnEntries = _fieldList.filter(function (r) { return r.columnNameSelected.length > 0; });
+            console.log("selectColumnEntries");
+            console.log(selectColumnEntries);
+            var columnBag = null;
+            if (selectColumnEntries.length > 0) {
+                columnBag = selectColumnEntries[0];
+            }
             $scope.fieldsList = _fieldList;
             getJobsList(columnBag);
             function getJobsList(columnBag) {
+                console.log('JobsIndexConroller - 20191110-0903 ');
+                console.log(columnBag);
                 dataService.getJobs(columnBag).then(getJobsSuccess, getJobsError).catch(getTimelogCatch);
                 function getJobsSuccess(data) {
+                    $scope.fieldsList.forEach(function (r) {
+                        r.desc = null;
+                    });
+                    console.log('getJobsSuccess - JobsIndexController  -  20191110-0923 - AAA');
+                    console.log(data);
+                    console.log('data.sqlStatsRecord.columnName', data.sqlStatsRecord.columnName);
+                    console.log('desc: data.sqlStatsRecord.desc', data.sqlStatsRecord.desc);
                     $scope.databag = {
-                        jobs: data.dataList, column: data.columnName, desc: data.desc
+                        jobs: data.dataList, column: data.sqlStatsRecord.columnName, desc: data.sqlStatsRecord.desc
                     };
                     // We need to convert to an array. We don't have a setter on an interface.
                     data.sqlStatsRecord.job_statuses_selected = data.sqlStatsRecord.job_statuses_selected.split(',');
                     $scope.sqlStatsRecord = data.sqlStatsRecord;
-                    var currentColumnIndex = $scope.fieldsList.findIndex(function (r) { return r.column === data.columnName; });
+                    var currentColumnIndex = $scope.fieldsList.findIndex(function (r) { return r.columnName === data.sqlStatsRecord.columnName; });
+                    console.log('JobsIndexController.ts - currentColumnIndex  [', currentColumnIndex, ']');
+                    console.log('$scope.fieldsList (101)', $scope.fieldsList);
                     if (currentColumnIndex > -1) {
-                        $scope.fieldsList[currentColumnIndex].desc = data.desc;
+                        console.log('currentColumnIndex', currentColumnIndex);
+                        console.log('$scope.fieldsList', $scope.fieldsList);
+                        $scope.fieldsList[currentColumnIndex].desc = data.sqlStatsRecord.desc;
+                        console.log('$scope.fieldsList', $scope.fieldsList);
                     }
                 }
-                function getJobsError(data) { var temp = data; }
-                function getTimelogCatch(data) { var temp = data; }
+                function getJobsError(data) {
+                    var temp = data;
+                    console.log('20191110-0935 - JobsIndexController - getJobsError');
+                    console.log(data);
+                }
+                function getTimelogCatch(data) {
+                    var temp = data;
+                    console.log('20191110-0936 - JobsIndexController - getJobsCatch');
+                    console.log(data);
+                }
             }
             $scope.sortMethod101 = function (columnBag) {
                 if (columnBag.columnName != columnBag.columnNameSelected) {

@@ -1,0 +1,96 @@
+﻿@model DevSitesIndex.Entities.TimeLog
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+
+@{
+    if (Model != null)
+    {
+
+        <div>
+            <hr />
+            <dl class="dl-horizontal">
+
+
+                @*// 09/21/2019 11:08 am - SSN - Added include job and project to display titles on form.*@
+                <dt>
+                    @Html.DisplayNameFor(model => model.job.project)
+                </dt>
+                <dd>
+                    <a asp-page="/projects/Details" asp-route-id="@Model.job.ProjectID">
+                        @Html.DisplayFor(model => Model.job.project.ProjectTitle)
+                    </a>
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => Model.job.JobTitle)
+                </dt>
+                <dd>
+                    <a asp-page="/jobs/Details" asp-route-id="@Model.JobId">
+                        @Html.DisplayFor(model => Model.job.JobTitle)
+                    </a>
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => Model.discipline)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => Model.discipline.DisciplineShort)
+                </dd>
+
+
+                <dt>
+                    @Html.DisplayNameFor(model => Model.StartTime)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => Model.StartTime)
+                </dd>
+
+
+                <dt>
+                    @Html.DisplayNameFor(model => Model.StopTime_AsString)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => Model.StopTime_AsString)
+                </dd>
+
+
+                <dt>
+                    @Html.DisplayNameFor(model => Model.TotalSeconds_ToTimeSpanFormat_T)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => Model.TotalSeconds_ToTimeSpanFormat_T)
+                </dd>
+
+
+
+
+
+                <dt>
+                    @Html.DisplayNameFor(model => Model.DateAdded)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => Model.DateAdded)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => Model.DateModified)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => Model.DateModified)
+                </dd>
+
+
+
+                <dt>
+                    @Html.DisplayNameFor(model => Model.WorkDetail)
+                </dt>
+                <dd class="detail workDetail">
+                    @Html.DisplayFor(model => Model.WorkDetail)
+                </dd>
+
+            </dl>
+        </div>
+
+    }
+}

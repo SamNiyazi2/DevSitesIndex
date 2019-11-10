@@ -41,10 +41,12 @@ namespace DevSitesIndex.Pages.TimeLogs
             
             returnToCaller.setup(Request, "./Index");
 
-
+            
             TimeLog = await _context.TimeLog
-                .Include(t => t.discipline)
-                .Include(t => t.job).SingleOrDefaultAsync(m => m.TimeLogId == id);
+             .Include(t => t.discipline)
+             .Include(t => t.job).ThenInclude(r => r.project)
+             .SingleOrDefaultAsync(m => m.TimeLogId == id);
+
 
             if (TimeLog == null)
             {
