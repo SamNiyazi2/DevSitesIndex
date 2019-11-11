@@ -121,7 +121,8 @@ namespace DevSitesIndex.Pages.Projects
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("searchText", ex.Message);
+                // 11/11/2019 08:11 am - SSN - Update user's message
+                ModelState.AddModelError("searchText", "Invalid search request. Use SQL Server Fulltext syntax.");
                 await logger.PostException(ex, "DemoSite-20191022-0644", $"Failed search call. Text [{searchText}]");
             }
 

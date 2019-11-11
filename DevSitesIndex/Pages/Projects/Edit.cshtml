@@ -23,14 +23,20 @@
                 @Html.DisplayFor(model => model.Project.DateAdded)
             </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Project.DateModified)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Project.DateModified)
-            </dd>
+            @{
+                if (Model.Project.DateModified != null)
+                {
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Project.DateModified)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Project.DateModified)
+                    </dd>
 
+                }
+            }
         </dl>
+
 
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>

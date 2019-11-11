@@ -36,7 +36,7 @@
         string path = Context.Request.Path.ToString().ToLower();
         bool addSiteScript = false;
 
-        List<string> applicablePaths = new List<string>() { "/projects", "/companies", "/Discipline", "/jobs", "/ReferenceSites" };
+        List<string> applicablePaths = new List<string>() { "/projects", "/companies", "/Discipline", "/jobs", "/ReferenceSites", "/devsites" };
         addSiteScript = applicablePaths.Any(r => path.StartsWith(r.ToLower()));
         if (addSiteScript)
         {
