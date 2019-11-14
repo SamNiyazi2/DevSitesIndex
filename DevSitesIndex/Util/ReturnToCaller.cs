@@ -56,6 +56,9 @@ namespace DevSitesIndex.Util
 
         private static string getRequestFullUrl(HttpRequest request)
         {
+            // Todo: 11/13/2019 11:55 pm - SSN - Do we need to mock request?
+            if (request == null) return "NoRequestObject201911132356";
+
             string requestUrl = request.Path;
             string queryString = request.QueryString.ToString();
 
