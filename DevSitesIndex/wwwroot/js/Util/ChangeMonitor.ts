@@ -8,12 +8,12 @@ var ChangeMonitor_Util = function () {
 
 
     var setItemChanged_ssn = function (this: HTMLInputElement, ev: Event) {
-         
+
         ChangeMonitor_Util.haveChanges = true;
     }
 
     var setItemToResetChangedFlag_ssn = function (this: HTMLInputElement, ev: Event) {
-        console.log('changeMonitor - reset change flag');         
+        console.log('changeMonitor - reset change flag');
         ChangeMonitor_Util.haveChanges = false;
     }
 
@@ -21,19 +21,18 @@ var ChangeMonitor_Util = function () {
     // 11/09/2019 08:08 am - SSN - Added monitorChange_SSN
     var monitorChange_SSN = function () {
 
-        console.log('site - monitorChange - 20191109-0810 - 5');
+        console.log('site - monitorChangeXXXXX - 20191109-0810 - 5');
 
         let inputs = document.querySelectorAll('input');
-         
+
         inputs.forEach((x, y, z) => {
-  
+
             if (!bypassObject(z[y])) {
                 z[y].addEventListener('change', ChangeMonitor_Util.setItemChanged_ssn);
             }
 
             if (z[y].type) {
                 if (z[y].type.toLowerCase() === "submit") {
-
                     z[y].addEventListener('click', ChangeMonitor_Util.setItemToResetChangedFlag_ssn);
                 }
             }
@@ -82,8 +81,8 @@ var ChangeMonitor_Util = function () {
 
 
 
-
-    var setupMonitor = function () {
+    
+    var setupMonitor_v01 = function () {
 
         console.log('ChangeMonitor - setupMonitor');
 
@@ -161,14 +160,24 @@ var ChangeMonitor_Util = function () {
     }
 
 
+    // Needed so we can call from popups.
+    var setupMonitor_FullProcess = function () {
+
+        setTimeout(monitorChange_SSN, 2000);
+        setupMonitor_v01();
+
+    }
+
 
     return {
-        setupMonitor: setupMonitor,
+
+        setupMonitor_v01: setupMonitor_v01,
         getBrowserName: getBrowserName,
         haveChanges: haveChanges,
         monitorChange_SSN: monitorChange_SSN,
         setItemChanged_ssn: setItemChanged_ssn,
-        setItemToResetChangedFlag_ssn: setItemToResetChangedFlag_ssn
+        setItemToResetChangedFlag_ssn: setItemToResetChangedFlag_ssn,
+        setupMonitor_FullProcess: setupMonitor_FullProcess
     }
 
 }();
@@ -178,8 +187,7 @@ var ChangeMonitor_Util = function () {
 
 $(function () {
 
-    setTimeout(ChangeMonitor_Util.monitorChange_SSN, 2000);
-    ChangeMonitor_Util.setupMonitor();
+    ChangeMonitor_Util.setupMonitor_FullProcess();
 
 });
 

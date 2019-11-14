@@ -11,13 +11,23 @@ import * as angular from 'angular'
 import * as util from '../site';
 
 
+const ngApplicationName = "timesheetApp";
+
 var timesheetContinueController_instance = function () {
 
-    var timesheetApp = ssn_globals.globals_instance.getInstance("timesheetApp");
+    var timesheetApp = ssn_globals.globals_instance.getInstance(ngApplicationName );
 
-    timesheetApp.controller('TimesheetContinueController', ['$scope', '$uibModalInstance', '$http', '$q', 'dataService', '$timeout', 'timelogId',
 
-        function ($scope, $uibModalInstance, $http, $q, dataService, $timeout, timelogId) {
+    // 11/14/2019 03:07 pm - SSN - [20191114-1459] - [002] - ChangeMonitroService
+
+    console.log('Adding ChangeMonitorService');
+
+    timesheetApp.controller('TimesheetContinueController', ['$scope', '$uibModalInstance', '$http', '$q', 'dataService', '$timeout', 'timelogId', 'changeMonitorService' ,
+
+
+        function ($scope, $uibModalInstance, $http, $q, dataService, $timeout, timelogId, changeMonitorService) {
+
+            changeMonitorService.setupMonitor();
 
 
 
@@ -124,7 +134,7 @@ var timesheetContinueController_instance = function () {
 
                             $scope.timeLog = angular.copy($scope.editableTimeLog);
 
-                            $uibModalInstance.close();
+                            $uibModalInstance.close(true);
 
                             toastr.info("Record added.  Reloading page...");
 
@@ -159,7 +169,14 @@ var timesheetContinueController_instance = function () {
             $scope.cancelForm = function () {
 
 
-                $uibModalInstance.dismiss(); //same as cancel???
+              // 11/14/2019 05:09 pm - SSN - [20191114-1459] - [010] - ChangeMonitroService
+
+
+                // changeMonitorService
+                if (changeMonitorService.getHaveChanges()) {
+                    if (!confirm('You have unsaved changes? Are you sure you want to cancel?')) return;
+                }
+                $uibModalInstance.dismiss(false); //same as cancel???
 
             };
 

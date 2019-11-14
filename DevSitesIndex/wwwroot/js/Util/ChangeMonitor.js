@@ -10,7 +10,7 @@ var ChangeMonitor_Util = function () {
     };
     // 11/09/2019 08:08 am - SSN - Added monitorChange_SSN
     var monitorChange_SSN = function () {
-        console.log('site - monitorChange - 20191109-0810 - 5');
+        console.log('site - monitorChangeXXXXX - 20191109-0810 - 5');
         var inputs = document.querySelectorAll('input');
         inputs.forEach(function (x, y, z) {
             if (!bypassObject(z[y])) {
@@ -49,7 +49,7 @@ var ChangeMonitor_Util = function () {
             return true;
         return false;
     };
-    var setupMonitor = function () {
+    var setupMonitor_v01 = function () {
         console.log('ChangeMonitor - setupMonitor');
         var isChrome = getBrowserName() === 'chrome';
         if (true) {
@@ -97,18 +97,23 @@ var ChangeMonitor_Util = function () {
                 return 'other';
         }
     };
+    // Needed so we can call from popups.
+    var setupMonitor_FullProcess = function () {
+        setTimeout(monitorChange_SSN, 2000);
+        setupMonitor_v01();
+    };
     return {
-        setupMonitor: setupMonitor,
+        setupMonitor_v01: setupMonitor_v01,
         getBrowserName: getBrowserName,
         haveChanges: haveChanges,
         monitorChange_SSN: monitorChange_SSN,
         setItemChanged_ssn: setItemChanged_ssn,
-        setItemToResetChangedFlag_ssn: setItemToResetChangedFlag_ssn
+        setItemToResetChangedFlag_ssn: setItemToResetChangedFlag_ssn,
+        setupMonitor_FullProcess: setupMonitor_FullProcess
     };
 }();
 $(function () {
-    setTimeout(ChangeMonitor_Util.monitorChange_SSN, 2000);
-    ChangeMonitor_Util.setupMonitor();
+    ChangeMonitor_Util.setupMonitor_FullProcess();
 });
 console.log('ChangeMonitor - 20191109-1114-F');
 export { ChangeMonitor_Util };

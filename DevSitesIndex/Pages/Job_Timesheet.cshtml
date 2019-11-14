@@ -92,7 +92,12 @@ else
 
                         <a ng-cloak ng-If="'@item.TotalSeconds' <= 0 " ng-click="timesheetForm_ClockOut(@item.TimeLogId)" class="alert-warning">Clock-out</a>
 
-                        <a ng-cloak ng-If="'@item.TotalSeconds' > 0 " ng-click="timesheetForm_ClockContinue(@item.TimeLogId)" class="alert-warning">Continue</a>
+                        @{
+                            string caption = (item.TotalSeconds ?? 0) > 0 ? "Continue" : "Line Item";
+
+                        }
+                        <a ng-click="timesheetForm_ClockContinue(@item.TimeLogId)" class="alert-warning">@caption</a>
+                         
 
 
 
@@ -101,7 +106,7 @@ else
                 @if (!string.IsNullOrWhiteSpace(item.WorkDetail))
                 {
 
-                    <tr class="detail">
+                    <tr class="detail workDetail_2">
                         <td colspan="2"></td>
                         <td colspan="5" class="workDetail">
                             @Html.DisplayFor(modelItem => item.WorkDetail)

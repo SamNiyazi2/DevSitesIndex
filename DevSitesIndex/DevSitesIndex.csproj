@@ -8,6 +8,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Remove="wwwroot\js\Util\ChangeMonitor.ts" />
+    <Content Remove="wwwroot\js\Util\ChangeMonitorService.ts" />
   </ItemGroup>
  
   <!--<ApplicationInsightsResourceId>
@@ -62,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="wwwroot\js\Util\ChangeMonitor.ts" />
+    <TypeScriptCompile Include="wwwroot\js\Util\ChangeMonitorService.ts" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services" />

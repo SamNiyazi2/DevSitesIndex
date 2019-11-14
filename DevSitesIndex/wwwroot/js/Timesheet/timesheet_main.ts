@@ -3,8 +3,12 @@
 
 
 // 11/09/2019 12:05 pm - SSN - Added ChangeMonitor
+// 11/14/2019 03:20 pm - SSN - [20191114-1459] - [004] - ChangeMonitroService
 
-import { ChangeMonitor_Util } from '../Util/ChangeMonitor';
+//import { ChangeMonitor_Util } from '../Util/ChangeMonitor';
+import { changeMonitorService_instance } from '../Util/ChangeMonitorService';
+
+
 import { dataService_instance } from '../DataServices';
 import { timesheetApp_instance } from './TimesheetApp';
 import { timesheetController_instance } from './TimesheetController';
@@ -12,11 +16,17 @@ import { timesheetContinueController_instance } from './timesheetcontinuecontrol
 import { timesheetClockoutController_instance } from './timesheetclockoutcontroller';
 import { dropdownListDirective_instance } from '../DropdownList/DropdownListDirective';
 
-ChangeMonitor_Util
+
+const ngApplicationName = 'timesheetApp';
+
+
+//ChangeMonitor_Util
+changeMonitorService_instance.doSetup(ngApplicationName);
+
 
 dropdownListDirective_instance;
 
-dataService_instance.doSetup('timesheetApp');
+dataService_instance.doSetup(ngApplicationName);
 
 timesheetController_instance.timesheetApp_TimesheetController;
 
