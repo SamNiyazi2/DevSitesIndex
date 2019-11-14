@@ -44,7 +44,7 @@ namespace DevSitesIndex.Pages.Jobs
             // 05/03/2019 05:35 am - SSN - Add order
 
 
-            returnToCaller.setup(Request, "./Index");
+            returnToCaller.setup(Request, "/jobs/Index");
 
 
             setupPageRequirements();
@@ -89,7 +89,10 @@ namespace DevSitesIndex.Pages.Jobs
 
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+            // 11/13/2019 09:43 pm - SSN - [20191113-1946] - [008] - ReturnToCaller
+            // return RedirectToPage("./Index");
+            return Redirect(returnToCaller.getReturnToCallerUrl_Final(Request));
+
         }
     }
 }

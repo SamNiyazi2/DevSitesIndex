@@ -37,7 +37,7 @@ namespace DevSitesIndex.Pages.Projects
         public IActionResult OnGet()
         {
 
-            returnToCaller.setup(Request, "./Index");
+            returnToCaller.setup(Request, "/projects/Index");
 
             setupPageRequirements();
 
@@ -97,8 +97,10 @@ namespace DevSitesIndex.Pages.Projects
 
 
 
+            // 11/13/2019 09:43 pm - SSN - [20191113-1946] - [008] - ReturnToCaller
+            // return RedirectToPage("./Index");
+            return Redirect(returnToCaller.getReturnToCallerUrl_Final(Request));
 
-            return RedirectToPage("./Index");
         }
     }
 }

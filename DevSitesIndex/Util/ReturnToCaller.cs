@@ -12,13 +12,12 @@ using SSN_GenUtil_StandardLib;
 // Added
 namespace DevSitesIndex.Util
 {
+
     public class UrlRecord
     {
-        public string url { get; set; }
+        public string RequestUrl { get; set; }
         public string DefaultReturnUrl { get; set; }
-
         public int seqNo { get; set; }
-
     }
 
 
@@ -26,8 +25,8 @@ namespace DevSitesIndex.Util
     {
         private static readonly ILogger_SSN logger;
 
-        public string referrer { get; set; }
-        public string defaultUrl { get; set; }
+        //public string referrer { get; set; }
+        //public string defaultUrl { get; set; }
 
         private static List<UrlRecord> urlList { get; set; } = new List<UrlRecord>();
 
@@ -43,50 +42,33 @@ namespace DevSitesIndex.Util
             logger = new SSN_Logger();
         }
 
+
         internal void setup(HttpRequest request, string _defaultUrl)
         {
+            string requestUrl = getRequestFullUrl(request);
+
+            string referrer_v02 = getSelectedReferrer_v02(request);
+
+            setFinalReferrer(_defaultUrl, requestUrl, referrer_v02);
+
+        }
 
 
-            string url = request.Path;
+        private static string getRequestFullUrl(HttpRequest request)
+        {
+            string requestUrl = request.Path;
             string queryString = request.QueryString.ToString();
 
             if (request.QueryString.HasValue)
             {
-                url = url + queryString;
+                requestUrl = requestUrl + queryString;
             }
 
+            return requestUrl;
+        }
 
-            // 11/08/2019 10:44 am - SSN - [20191108-1043] - [002] - Persisting search on return to index
-
-            Microsoft.Extensions.Primitives.StringValues searchText_SSN = "";
-            request.Query.TryGetValue("returnToCallerKey", out searchText_SSN);
-
-            string referrer_From_ReturnToCallerList = string.Empty;
-
-            if (!string.IsNullOrWhiteSpace(searchText_SSN))
-            {
-                returnToCallerList.TryGetValue(searchText_SSN, out referrer_From_ReturnToCallerList);
-            }
-
-            if (!string.IsNullOrWhiteSpace(referrer_From_ReturnToCallerList))
-            {
-                referrer = referrer_From_ReturnToCallerList;
-            }
-            else
-            {
-
-                referrer = request.Headers["Referer"].ToString();
-
-                if (request.Host.Port.HasValue)
-                {
-                    string host = string.Format("{0}://{1}:{2}", request.Scheme, request.Host.Host, request.Host.Port);
-                    referrer = referrer.Replace(host, "");
-                }
-            }
-
-
-
-            defaultUrl = _defaultUrl;
+        private static void setFinalReferrer(string _defaultUrl, string requestUrl, string referrer)
+        {
 
             StringBuilder sb = new StringBuilder();
 
@@ -98,29 +80,34 @@ namespace DevSitesIndex.Util
             sb.AppendLine("urlList *************************************************");
             sb.AppendLine("urlList *************************************************");
 
-            sb.AppendLine(string.Format("{0,15} {1}", "url", url));
+            sb.AppendLine(string.Format("{0,15} {1}", "requestUrl ", requestUrl));
             sb.AppendLine(string.Format("{0,15} {1}", "referer ", referrer));
-            sb.AppendLine(string.Format("{0,15} {1}", "defaultUrl ", defaultUrl));
+            sb.AppendLine(string.Format("{0,15} {1}", "defaultUrl ", _defaultUrl));
             sb.AppendLine(" ");
             sb.AppendLine(" ");
 
 
-            UrlRecord foundRecord = urlList.OrderByDescending(r => r.seqNo).FirstOrDefault(r => r.url == url);
+            UrlRecord foundRecord = urlList.OrderByDescending(r => r.seqNo).FirstOrDefault(r => r.RequestUrl == requestUrl);
             if (foundRecord == null)
             {
                 sb.AppendLine("Adding record");
 
                 urlList.Add(new UrlRecord
                 {
-                    url = url,
+                    RequestUrl = requestUrl,
                     DefaultReturnUrl = string.IsNullOrWhiteSpace(referrer) ? _defaultUrl : referrer,
                     seqNo = urlList.Count
                 });
             }
             else
             {
-                sb.AppendLine(string.Format("Replacing [{0}] with [{1}]", referrer, foundRecord.DefaultReturnUrl));
+
+                // 11/13/2019 08:18 pm - SSN - [20191113-1946] - [004] - ReturnToCaller
+                // When we are doing edits, on post, we don't want to replace current entry.
+                //sb.AppendLine(string.Format("Replacing [{0}] with [{1}]", referrer, foundRecord.DefaultReturnUrl));
                 referrer = foundRecord.DefaultReturnUrl;
+
+
                 //  urlList.Remove(foundRecord);
             }
 
@@ -129,7 +116,7 @@ namespace DevSitesIndex.Util
 
             foreach (UrlRecord r in urlList)
             {
-                sb.AppendLine(string.Format("{0,5} - {1,-30} -> {2}", r.seqNo, r.url, r.DefaultReturnUrl));
+                sb.AppendLine(string.Format("{0,5} - {1,-30} -> {2}", r.seqNo, r.RequestUrl, r.DefaultReturnUrl));
 
             }
 
@@ -154,10 +141,49 @@ namespace DevSitesIndex.Util
             sb.AppendLine(" ");
 
             Debug.WriteLine(sb.ToString());
+        }
 
 
 
+        private string getSelectedReferrer_v02(HttpRequest request)
+        {
+            // 11/13/2019 09:00 pm - SSN - [20191113-1946] - [005] - ReturnToCaller
+            string referrer = null;
 
+
+            // 11/08/2019 10:44 am - SSN - [20191108-1043] - [002] - Persisting search on return to index
+
+
+            Microsoft.Extensions.Primitives.StringValues searchText_SSN = "";
+            request.Query.TryGetValue("returnToCallerKey", out searchText_SSN);
+
+            string referrer_From_ReturnToCallerList = string.Empty;
+
+            if (!string.IsNullOrWhiteSpace(searchText_SSN))
+            {
+                returnToCallerList.TryGetValue(searchText_SSN, out referrer_From_ReturnToCallerList);
+            }
+
+            if (!string.IsNullOrWhiteSpace(referrer_From_ReturnToCallerList))
+            {
+                referrer = referrer_From_ReturnToCallerList;
+            }
+            else
+            {
+
+                referrer = request.Headers["Referer"].ToString();
+                logger.PostException(new Exception("DemoSites-20191111-1129 - DemoSites to JobIndex Debug"), "20191111-1129", "Debugging returnign form Job index to demosites.");
+
+                if (request.Host.Port.HasValue)
+                {
+                    string host = string.Format("{0}://{1}:{2}", request.Scheme, request.Host.Host, request.Host.Port);
+                    logger.PostException(new Exception("DemoSites-20191111-1130 - DemoSites to JobIndex Debug - host"), "20191111-1130", "Debugging returnign form Job index to demosites. (host)");
+                    referrer = referrer.Replace(host, "");
+                }
+            }
+
+
+            return referrer;
 
         }
 
@@ -223,6 +249,23 @@ namespace DevSitesIndex.Util
             {
                 logger.PostException(new Exception("DemoSites-20191108-1120 - ReturnToCaller failure"), "20191108-1120", "Failed to add record to returnToCallerList");
             }
+
+        }
+
+
+
+        public string getReturnToCallerUrl_Final(HttpRequest request)
+        {
+            string requestUrl = getRequestFullUrl(request);
+
+            UrlRecord foundRecord = urlList.OrderByDescending(r => r.seqNo).FirstOrDefault(r => r.RequestUrl == requestUrl);
+            if (foundRecord != null && !string.IsNullOrWhiteSpace(foundRecord.DefaultReturnUrl))
+            {
+                return foundRecord.DefaultReturnUrl;
+            }
+
+            return "/";
+
 
         }
     }

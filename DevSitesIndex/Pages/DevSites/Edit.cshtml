@@ -149,7 +149,10 @@
 </div>
 
 <div>
-    <a asp-page="./Index">Back to List</a>
+
+    @*<a asp-page="./Index">Back to List</a>*@
+    @await Html.PartialAsync("ReturnToCallerLink", Model.returnToCaller)
+
 </div>
 
 

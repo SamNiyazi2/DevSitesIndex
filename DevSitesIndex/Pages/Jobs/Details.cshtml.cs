@@ -42,7 +42,7 @@ namespace DevSitesIndex.Pages.Jobs
                 return NotFound();
             }
 
-            returnToCaller.setup(Request, "./Index");
+            returnToCaller.setup(Request, "/jobs/Index");
 
             Job = await _context.Jobs
                 .Include(j => j.project).SingleOrDefaultAsync(m => m.JobID == id);

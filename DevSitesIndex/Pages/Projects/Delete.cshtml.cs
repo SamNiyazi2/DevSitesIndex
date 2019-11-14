@@ -49,7 +49,7 @@ namespace DevSitesIndex.Pages.Projects
             }
 
 
-            returnToCaller.setup(Request, "./Index");
+            returnToCaller.setup(Request, "/projects/Index");
 
 
             Project = await _context.Projects
@@ -85,7 +85,10 @@ namespace DevSitesIndex.Pages.Projects
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToPage("./Index");
+            // 11/13/2019 09:43 pm - SSN - [20191113-1946] - [008] - ReturnToCaller
+            // return RedirectToPage("./Index");
+            return Redirect(returnToCaller.getReturnToCallerUrl_Final(Request));
+
         }
 
 

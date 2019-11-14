@@ -12,6 +12,7 @@ using DevSitesIndex.Models;
 using Microsoft.ApplicationInsights;
 using System.Text;
 using System.Linq.Expressions;
+using DevSitesIndex.Util;
 
 namespace DevSitesIndex.Pages.Jobs
 {
@@ -33,6 +34,9 @@ namespace DevSitesIndex.Pages.Jobs
         public PaginatedList<Job> Job { get; set; }
         public PageUtil pageUtil { get; set; }
 
+
+        // 11/13/2019 09:59 pm - SSN - [20191113-1946] - [011] - ReturnToCaller
+        public string returnToCallerKey { get; set; }
 
 
         // 08/29/2019 12:57 pm - SSN - [20190829-1253] - [003] - Adding paging and sorting to jobs index
@@ -61,8 +65,27 @@ namespace DevSitesIndex.Pages.Jobs
             pageUtil.SetupHeaders<Job>("/jobs/", columnName, desc);
 
 
+            // 11/13/2019 10:03 pm - SSN - [20191113-1946] - [013] - ReturnToCaller
+            setReturnToCallerRecord(columnName, desc, pageIndex);
+
 
         }
+
+        // 11/13/2019 10:00 pm - SSN - [20191113-1946] - [012] - ReturnToCaller
+// Adding: Copied from projecs index.
+        private void setReturnToCallerRecord(string columnName, string desc, int? pageIndex)
+        {
+
+            returnToCallerKey = Guid.NewGuid().ToString();
+            ReturnToCaller.QueryStringParts queryStringParts = ReturnToCaller.CreateQueryStringParts(); 
+            queryStringParts.add("columnName", columnName);
+            queryStringParts.add("desc", desc);
+            queryStringParts.add("pageIndex", (pageIndex ?? 0).ToString());
+
+            ReturnToCaller.postReturnToCallerRecord(returnToCallerKey, Request, queryStringParts);
+        }
+
+
     }
 
 

@@ -51,17 +51,11 @@ var jobsIndexController_instance = function () {
             $scope.fieldsList = _fieldList;
             getJobsList(columnBag);
             function getJobsList(columnBag) {
-                console.log('JobsIndexConroller - 20191110-0903 ');
-                console.log(columnBag);
                 dataService.getJobs(columnBag).then(getJobsSuccess, getJobsError).catch(getTimelogCatch);
                 function getJobsSuccess(data) {
                     $scope.fieldsList.forEach(function (r) {
                         r.desc = null;
                     });
-                    console.log('getJobsSuccess - JobsIndexController  -  20191110-0923 - AAA');
-                    console.log(data);
-                    console.log('data.sqlStatsRecord.columnName', data.sqlStatsRecord.columnName);
-                    console.log('desc: data.sqlStatsRecord.desc', data.sqlStatsRecord.desc);
                     $scope.databag = {
                         jobs: data.dataList, column: data.sqlStatsRecord.columnName, desc: data.sqlStatsRecord.desc
                     };
@@ -69,13 +63,8 @@ var jobsIndexController_instance = function () {
                     data.sqlStatsRecord.job_statuses_selected = data.sqlStatsRecord.job_statuses_selected.split(',');
                     $scope.sqlStatsRecord = data.sqlStatsRecord;
                     var currentColumnIndex = $scope.fieldsList.findIndex(function (r) { return r.columnName === data.sqlStatsRecord.columnName; });
-                    console.log('JobsIndexController.ts - currentColumnIndex  [', currentColumnIndex, ']');
-                    console.log('$scope.fieldsList (101)', $scope.fieldsList);
                     if (currentColumnIndex > -1) {
-                        console.log('currentColumnIndex', currentColumnIndex);
-                        console.log('$scope.fieldsList', $scope.fieldsList);
                         $scope.fieldsList[currentColumnIndex].desc = data.sqlStatsRecord.desc;
-                        console.log('$scope.fieldsList', $scope.fieldsList);
                     }
                 }
                 function getJobsError(data) {

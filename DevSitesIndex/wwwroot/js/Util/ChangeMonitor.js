@@ -22,6 +22,12 @@ var ChangeMonitor_Util = function () {
                 }
             }
         });
+        var textareas = document.querySelectorAll('textarea');
+        textareas.forEach(function (x, y, z) {
+            if (!bypassObject(z[y])) {
+                z[y].addEventListener('change', ChangeMonitor_Util.setItemChanged_ssn);
+            }
+        });
         var selects = document.querySelectorAll('select');
         selects.forEach(function (x, y, z) {
             if (!bypassObject(z[y])) {

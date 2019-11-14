@@ -36,10 +36,15 @@ var ssn_devsite_angular_module_instance = function () {
         //});
 
 
+
         // 09/26/2019 05:51 am - SSN - [20190926-0551] Add $locationProvider
         // Use the HTML5 history API
         //  $routeProvider.otherwise({ redirectTo: "/" });
-        $routeProvider.otherwise({});
+
+        // Todo:  11/13/2019 10:19 pm - SSN - Testing
+        // Take out
+        // $routeProvider.otherwise({});
+
         $locationProvider.html5Mode({ enabled: true, rewriteLinks: false }).hashPrefix('!');
 
         console.log("setting routes [20190926-0556]");

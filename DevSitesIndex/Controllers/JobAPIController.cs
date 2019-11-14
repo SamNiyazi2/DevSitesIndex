@@ -89,6 +89,10 @@ namespace DevSitesIndex.Controllers
             SqlStatsRecord SqlStatsRecord_temp = new SqlStatsRecord();
             SqlStatsRecord_temp.RecordsPerPage_Default = 10;
 
+            // 11/13/2019 09:49 pm - SSN - [20191113-1946] - [009] - ReturnToCaller
+            // Left out???
+            SqlStatsRecord_temp.CurrentPageNo = pageNo??1;
+
             // 09/18/2019 12:40 am - SSN - [20190917-0929] - [009] - Adding paging for angular lists
 
 

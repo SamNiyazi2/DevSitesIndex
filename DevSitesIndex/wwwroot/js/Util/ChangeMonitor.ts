@@ -40,8 +40,18 @@ var ChangeMonitor_Util = function () {
 
         });
 
-        let selects = document.querySelectorAll('select');
 
+        let textareas = document.querySelectorAll('textarea');
+
+        textareas.forEach((x, y, z) => {
+
+            if (!bypassObject(z[y])) {
+                z[y].addEventListener('change', ChangeMonitor_Util.setItemChanged_ssn);
+            }
+        });
+
+
+        let selects = document.querySelectorAll('select');
 
         selects.forEach((x, y, z) => {
 
@@ -49,7 +59,6 @@ var ChangeMonitor_Util = function () {
                 z[y].addEventListener('change', ChangeMonitor_Util.setItemChanged_ssn);
             }
         });
-
 
     }
 

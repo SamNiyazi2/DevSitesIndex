@@ -10,6 +10,7 @@ using DevSitesIndex.Entities;
 using Microsoft.AspNetCore.Authorization;
 using DevSitesIndex.Services;
 using SSN_GenUtil_StandardLib;
+using DevSitesIndex.Util;
 
 namespace DevSitesIndex.Pages.DevSites
 {
@@ -24,6 +25,10 @@ namespace DevSitesIndex.Pages.DevSites
         // 09/06/2019 06:47 pm - SSN - [20190906-0518] - [007] - Angular - edit div content - Adding _devSitesIndexRepository
         private readonly IDevSitesIndexRepository _devSitesIndexRepository;
         private readonly ILogger_SSN _logger;
+
+        // 11/13/2019 07:46 pm - SSN - [20191113-1946] - [001] - ReturnToCaller
+        public ReturnToCaller returnToCaller = new ReturnToCaller();
+
 
         public EditModel(DevSitesIndex.Entities.DevSitesIndexContext context, IDevSitesIndexRepository devSitesIndexRepository, ILogger_SSN logger)
         {
@@ -54,6 +59,9 @@ namespace DevSitesIndex.Pages.DevSites
             {
                 return NotFound();
             }
+
+            returnToCaller.setup(Request, "/devsites/Index");
+
             return Page();
         }
 
@@ -63,7 +71,7 @@ namespace DevSitesIndex.Pages.DevSites
 
             if (!ModelState.IsValid)
             {
-                  return Page();
+                return Page();
             }
 
             // 09/06/2019 06:35 pm - SSN - [20190906-0518] - [005] - Angular - edit div content
@@ -82,7 +90,10 @@ namespace DevSitesIndex.Pages.DevSites
                 return Page();
             }
 
-            return RedirectToPage("./Index");
+
+            // 11/13/2019 08:10 pm - SSN - [20191113-1946] - [003] - ReturnToCaller
+            //return RedirectToPage("./Index");
+            return Redirect(returnToCaller.getReturnToCallerUrl_Final(Request));
         }
 
         // 09/06/2019 06:41 pm - SSN - [20190906-0518] - [006] - Angular - edit div content

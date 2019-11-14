@@ -50,7 +50,7 @@ namespace DevSitesIndex.Pages.Jobs
                 return NotFound();
             }
 
-            returnToCaller.setup(Request, "./index");
+            returnToCaller.setup(Request, "/jobs/index");
 
             // 11/04/2019 10:02 am - SSN - Added company
             Job = await _context.Jobs
@@ -83,7 +83,10 @@ namespace DevSitesIndex.Pages.Jobs
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToPage("./Index");
+            // 11/13/2019 09:43 pm - SSN - [20191113-1946] - [008] - ReturnToCaller
+            // return RedirectToPage("./Index");
+            return Redirect(returnToCaller.getReturnToCallerUrl_Final(Request));
+
         }
     }
 }
