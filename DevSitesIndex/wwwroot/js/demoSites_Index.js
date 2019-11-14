@@ -27,15 +27,6 @@ var ssn_devsite_angular_module_instance = function () {
             // Take out
             // $routeProvider.otherwise({});
             $locationProvider.html5Mode({ enabled: true, rewriteLinks: false }).hashPrefix('!');
-            console.log('demosites_index - adding $locationChangeStart - 20191114-1426');
-            // 11/14/2019 02:25 pm - SSN - Added
-            function locationChangeStartHandler(a, b, c) {
-                console.log('changeMonitor - locationChangeStartHandler - 20191114-1418');
-                console.log('a', a);
-                console.log('b', b);
-                console.log('c', c);
-            }
-            $rootScope.on('$locationChangeStart', locationChangeStartHandler);
             console.log("setting routes [20190926-0556]");
         }]);
     // 09/21/2019 08:23 am - SSN - [20190921-0357] - [012] - Creating multiple entry for Webpack
