@@ -20,7 +20,7 @@ var ssn_devsite_angular_module_instance = function () {
     var ssn_devsite_angular_module = globals.globals_instance.getInstance("demoSites_Index", ['ngRoute']);
 
     // 09/26/2019 05:51 am - SSN - [20190926-0551] Add $locationProvider
-    ssn_devsite_angular_module.config(["$routeProvider", "$locationProvider", "$rootScope", function ($routeProvider, $locationProvider) {
+    ssn_devsite_angular_module.config(["$routeProvider", "$locationProvider", function ($routeProvider, $locationProvider) {
 
         $routeProvider.when("/", {
             controller: "demoSiteIndexController_101",
