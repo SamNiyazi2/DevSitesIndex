@@ -18,7 +18,7 @@ const routes: Routes = [
 
 
   // 11/05/2019 09:38 am - SSN - [20191105-0938] - [001] - Add routes for all menu options
-  { path: 'MainSiteMenu/:option/:option2', component: MainSiteMenuComponent  },
+  { path: 'MainSiteMenu/:option/:option2', component: MainSiteMenuComponent },
   { path: 'MainSiteMenu/:option', component: MainSiteMenuComponent },
 
 
@@ -39,10 +39,12 @@ const routes: Routes = [
   // 10/03/2019 12:19 pm - SSN - [20191003-1219] - [001] - Adding timesheet to Angular7
   // 10/06/2019 05:06 pm - SSN - [20191006-1643] - [004] - Adding Angular 7 - Observables and resolvers - TimesheetResolverService
 
-  { path: 'timesheet', component: TimesheetComponent, canActivate: [AuthenticatedGuard] , resolve: { timesheets_resolver: TimesheetResolverService }},
+  { path: 'timesheet', component: TimesheetComponent, canActivate: [AuthenticatedGuard], resolve: { timesheets_resolver: TimesheetResolverService } },
 
   // 10/09/2019 01:07 pm - SSN - [20191009-1302] - [001] - M09 - Reusing components with content projection
-  { path: 'ProjectsA7', component: ProjectsListComponent, canActivate: [AuthenticatedGuard], resolve: { timesheets_resolver: TimesheetResolverService }},
+  // 11/14/2019 08:42 pm - SSN - [20191114-1931] - [007] - Job - option to change job status 
+  // Added   pathMatch: 'full',
+  { path: 'ProjectsA7', component: ProjectsListComponent, pathMatch: 'full', canActivate: [AuthenticatedGuard], resolve: { timesheets_resolver: TimesheetResolverService } },
 
   // 10/05/2019 03:10 pm - SSN - [20191003-1557] - [015] - Adding data service to Angular7
   // 10/06/2019 01:41 pm - SSN - [20191006-1211] - [008] - Adding Angular 7 - TimelogRouteActivatorService
@@ -61,8 +63,8 @@ const routes: Routes = [
 
   // 10/28/2019 04:56 am - SSN - [20191028-0456] - [001] - Timesheet dashboard
   // ng build --aot=true - child route fix
-  { path: 'dashboard', component: DashboardComponent  },
-  
+  { path: 'dashboard', component: DashboardComponent },
+
 
 
   //<li><a[routerLink]="['/Discipline_ng']" > Disciplines < /a></li >

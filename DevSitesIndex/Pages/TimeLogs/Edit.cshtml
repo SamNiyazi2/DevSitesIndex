@@ -23,7 +23,7 @@
 
             @Html.AntiForgeryToken()
             <input type="hidden" asp-for="TimeLog.TimeLogId" />
-
+            <input type="hidden" asp-for="TimeLog.RowVersion" />
 
             @*// 09/21/2019 11:08 am - SSN - Added include job and project to display titles on form.*@
 

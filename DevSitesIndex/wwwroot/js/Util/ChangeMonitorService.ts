@@ -24,6 +24,8 @@ var changeMonitorService_instance = function () {
 
         ssn_ChangeMonitorService_module.factory("changeMonitorService", ['$http', '$q', function ($http, $q) {
 
+            console.log('changeMonitorService factory - 20191116-1348 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
+
 
             var _setupMonitor = function () {
                 console.log("Inomplete Testing setupMonitor plugged in");

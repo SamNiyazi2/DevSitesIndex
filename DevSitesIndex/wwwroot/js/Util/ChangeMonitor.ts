@@ -3,6 +3,7 @@
 
 var ChangeMonitor_Util = function () {
 
+    console.log('ChangeMonitor_uril PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP');
 
     let haveChanges: boolean = false;
 

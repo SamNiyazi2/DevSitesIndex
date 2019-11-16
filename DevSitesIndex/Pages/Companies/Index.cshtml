@@ -38,9 +38,7 @@
                     @Html.DisplayFor(modelItem => item.DateAdded)
                 </td>
 
-                <td class="indexNowrapCol">
-                    @Html.DisplayFor(modelItem => item.DateUpdated)
-                </td>
+                <td class="indexNowrapCol">@Html.DisplayFor(modelItem => item.DateUpdated)</td>
 
                 <td class="indexNowrapCol">
                     <a asp-page="./Edit" asp-route-id="@item.CompanyID">Edit</a> |

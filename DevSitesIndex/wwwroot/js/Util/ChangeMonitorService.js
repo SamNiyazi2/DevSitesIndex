@@ -8,6 +8,7 @@ var changeMonitorService_instance = function () {
         console.log('ChangeMonitorService  - 20191114-1505 - top   IN    DOSETUP');
         var ssn_ChangeMonitorService_module = globals.globals_instance.getInstance(currentApplication);
         ssn_ChangeMonitorService_module.factory("changeMonitorService", ['$http', '$q', function ($http, $q) {
+                console.log('changeMonitorService factory - 20191116-1348 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
                 var _setupMonitor = function () {
                     console.log("Inomplete Testing setupMonitor plugged in");
                     ChangeMonitor_Util.setupMonitor_FullProcess();

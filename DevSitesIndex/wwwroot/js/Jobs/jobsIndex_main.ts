@@ -18,6 +18,11 @@ import { timesheetController_instance } from '../Timesheet/TimesheetController';
 //import { timesheetClockoutController_instance } from '../Timesheet/timesheetclockoutcontroller';
 
 
+// 11/14/2019 08:28 pm - SSN - [20191114-1931] - [006] - Job - option to change job status 
+// Adding jobStatusChangeRecord_instance 
+import { jobStatusChangeRecord_instance } from './JobStatusChangeRecord';
+
+
 dataService_instance.doSetup("timesheetApp");
 
 jobsIndexController_instance.Jobs_Angular_Module;
@@ -38,5 +43,7 @@ timesheetController_instance.timesheetApp_TimesheetController;
 //timesheetApp_instance.timesheetApp;
  
 
+
+jobStatusChangeRecord_instance.jobStatusChangeRecord_Module;
 
 

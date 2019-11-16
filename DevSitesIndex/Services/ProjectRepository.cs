@@ -120,6 +120,10 @@ namespace DevSitesIndex.Services
         public int TimelogId { get; set; }
         public DateTime LastActivity { get; set; }
         public string Description { get; set; }
+
+        // 11/15/2019 03:47 pm - SSN - Added project and job titles
+        public string ProjectTitle { get; set; }
+        public string JobTitle { get; set; }
     }
 
 

@@ -15,13 +15,11 @@ var timesheetApp_instance = function () {
                 //                   to templateUrl: '/js/timesheet/timesheetTemplate.html'
                 console.log('TimesheetApp - 20191114-1435 - modalClockout  - begin ');
                 var modalClockout = $uibModal.open({
-                    templateUrl: '/js/timesheet/templates/TimeLogEdit.html',
+                    templateUrl: '/js/timesheet/templates/TimelogClockout.html',
                     controller: 'TimesheetClockOutController',
                     windowClass: 'ssn-mobile-modal',
-                    size: 'md',
-                    //05/03/2019 05:50 pm - SSN - [20190503-1539] - [011] - Add link to create timelog 
-                    // Added backdrop
-                    backdrop: false,
+                    backdrop: 'static',
+                    keyboard: false,
                     resolve: {
                         timelogId: function () {
                             return timelogId;
@@ -53,8 +51,8 @@ var timesheetApp_instance = function () {
                     templateUrl: '/js/timesheet/templates//timesheetTemplate.html?v=' + $scope.versionForHTMLRefresh,
                     controller: 'TimesheetContinueController',
                     windowClass: 'ssn-mobile-modal',
-                    size: 'md',
-                    backdrop: false,
+                    backdrop: 'static',
+                    keyboard: false,
                     resolve: {
                         timelogId: function () {
                             return timelogId;
@@ -112,10 +110,8 @@ var timesheetApp_instance = function () {
                 $uibModal.open({
                     templateUrl: '/js/timesheet/templates/timesheetTemplate.html',
                     controller: 'TimesheetController',
-                    // 05/03/2019 04:29 pm - SSN - [20190503-1539] - [007] - Add link to create timelog - Prevent close (Testing)
-                    // windowClass: 'ssn-mobile-modal',
-                    // size: 'md',
-                    backdrop: false,
+                    backdrop: 'static',
+                    keyboard: false,
                     resolve: {
                         jobId: function () {
                             return jobID;

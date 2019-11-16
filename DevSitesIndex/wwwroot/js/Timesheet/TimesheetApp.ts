@@ -41,15 +41,12 @@ var timesheetApp_instance = function () {
             console.log('TimesheetApp - 20191114-1435 - modalClockout  - begin ');
 
             let modalClockout = $uibModal.open({
-                templateUrl: '/js/timesheet/templates/TimeLogEdit.html',
+                templateUrl: '/js/timesheet/templates/TimelogClockout.html',
                 controller: 'TimesheetClockOutController',
                 windowClass: 'ssn-mobile-modal',
-                size: 'md',
 
-                //05/03/2019 05:50 pm - SSN - [20190503-1539] - [011] - Add link to create timelog 
-                // Added backdrop
-                backdrop: false,
-
+                backdrop: 'static',
+                keyboard: false,
 
 
                 resolve: {
@@ -85,7 +82,7 @@ var timesheetApp_instance = function () {
                 console.log("changeMonitorService.getHaveChanges()", changeMonitorService.getHaveChanges());
             }
 
-   
+
 
 
             console.log('TimesheetApp - 20191114-1435 - modalClockout  - end ');
@@ -106,12 +103,14 @@ var timesheetApp_instance = function () {
             // 11/14/2019 02:44 pm - SSN - TimesheetContinueController_modal 
 
             let TimesheetContinueController_modal = $uibModal.open({
+
                 animation: 'slide-in-up',
                 templateUrl: '/js/timesheet/templates//timesheetTemplate.html?v=' + $scope.versionForHTMLRefresh,
                 controller: 'TimesheetContinueController',
                 windowClass: 'ssn-mobile-modal',
-                size: 'md',
-                backdrop: false,
+
+                backdrop: 'static',
+                keyboard: false,
 
                 resolve: {
                     timelogId: function () {
@@ -119,6 +118,7 @@ var timesheetApp_instance = function () {
                     }
                 }
             });
+
 
 
             modalClosingHook($scope);
@@ -144,23 +144,21 @@ var timesheetApp_instance = function () {
 
                 changeMonitorService.reset();
 
-
-
             }
 
-            
+
         };
 
 
         // 11/14/2019 04:41 pm - SSN - [20191114-1459] - [008] - ChangeMonitroService
         // Testing - Not working.
 
-          function modalClosingHook ($scope) {
+        function modalClosingHook($scope) {
 
             console.log('modal.closing - begin');
 
 
-              $scope.$on('modal.closing', function (event, reason, closed) {
+            $scope.$on('modal.closing', function (event, reason, closed) {
 
                 console.log('modal.closing: ' + (closed ? 'close' : 'dismiss') + '(' + reason + ')');
 
@@ -207,15 +205,11 @@ var timesheetApp_instance = function () {
 
 
             $uibModal.open({
+
                 templateUrl: '/js/timesheet/templates/timesheetTemplate.html',
-
                 controller: 'TimesheetController',
-
-                // 05/03/2019 04:29 pm - SSN - [20190503-1539] - [007] - Add link to create timelog - Prevent close (Testing)
-                // windowClass: 'ssn-mobile-modal',
-                // size: 'md',
-
-                backdrop: false,
+                backdrop: 'static',
+                keyboard: false,
 
                 resolve: {
                     jobId: function () {

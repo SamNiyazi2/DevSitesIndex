@@ -7,6 +7,8 @@
     <LangVersion>7.2</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Content Remove="wwwroot\js\Jobs\JobStatusChangeRecord.ts" />
+    <Content Remove="wwwroot\js\Timesheet\templates\TimelogClockout.html" />
     <Content Remove="wwwroot\js\Util\ChangeMonitor.ts" />
     <Content Remove="wwwroot\js\Util\ChangeMonitorService.ts" />
   </ItemGroup>
@@ -55,13 +57,17 @@
     <Folder Include="Pages\Discipline\" />
     <Folder Include="wwwroot\dist\" />
     <Folder Include="wwwroot\js\CodeRederence\" />
-    <Folder Include="wwwroot\js\Timesheet\Templates\" />
     <Folder Include="wwwroot\webpack_build\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="wwwroot\js\____________________________ts.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SSN_DevSites_DAL_Standard\SSN_DevSites_DAL_Standard.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="wwwroot\js\Jobs\JobStatusChangeRecord.ts" />
+    <TypeScriptCompile Include="wwwroot\js\Timesheet\templates\TimelogClockout.html" />
     <TypeScriptCompile Include="wwwroot\js\Util\ChangeMonitor.ts" />
     <TypeScriptCompile Include="wwwroot\js\Util\ChangeMonitorService.ts" />
   </ItemGroup>
