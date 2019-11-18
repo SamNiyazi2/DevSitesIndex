@@ -4,7 +4,7 @@
 
 -->
 
-<form name="timesheetForm" novalidate>
+<form name="timesheetForm" novalidate >
 
     <div class="modal-header">
         <h2>{{pageTitle}}  <span style="font-size:16px;" ng-if="versionForHTMLRefresh">(Ver. {{versionForHTMLRefresh}})</span></h2>
@@ -15,7 +15,12 @@
             </tr>
             <tr>
                 <td>Job</td>
-                <td>{{editableTimeLog.job.jobTitle}}</td>
+                <td>
+                    {{editableTimeLog.job.jobTitle}}
+                    <br />
+                    <div [innerHtml]="editableTimeLog.jobId"></div>
+
+                </td>
             </tr>
 
         </table>
@@ -30,33 +35,50 @@
 
         <fieldset>
 
+
+
+
+
+
+
+
             <div class="form-group">
 
                 <label for="discipline" class="col-sm-3 control-label">
+                    Project title
+                </label>
+
+                <div class="col-sm-9">
+
+                    <input type="hidden" name="jobId" ng-model="editableTimeLog.jobId" ng-required="true" />
+                    <dropdown-list-directive key="jobId" form-name="timesheetForm" aci="editableTimeLog.jobId"></dropdown-list-directive>
+
+                </div>
+            </div>
+
+
+
+
+
+
+            <div class="form-group">
+
+                <label for="jobId" class="col-sm-3 control-label">
                     Discipline
                 </label>
 
                 <div class="col-sm-9">
 
+                    <input type="hidden" name="disciplineID" ng-model="editableTimeLog.disciplineID" ng-required="true" />
+                    <dropdown-list-directive key="disciplineID" form-name="timesheetForm" aci="editableTimeLog.disciplineID"></dropdown-list-directive>
 
-                    <input type="text"
-                           ng-model="disciplineSelected"
-                           name="disciplineSelectedLocal"
-                           placeholder="Select discipline"
-                           uib-typeahead="discipline as discipline.title for discipline in getDisciplines($viewValue) "
-                           typeahead-loading="loadingLocations"
-                           typeahead-no-results="noResults"
-                           class="form-control" ng-required="true" autofocus>
-
-                    <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
-                    <div ng-show="noResults">
-                        <i class="glyphicon glyphicon-remove"></i> No Results Found
-                    </div>
-
-
-                    <p ng-show="timesheetForm.disciplineSelectedLocal.$invalid && !timesheetForm.disciplineSelectedLocal.$pristine" class="has-error">Selection is required</p>
                 </div>
             </div>
+
+
+
+
+             
 
 
 
@@ -75,7 +97,11 @@
 
 
             <div class="form-group">
-                <label for="StartTime" class="col-sm-3 control-label">Stop time</label>
+                <label for="StartTime" class="col-sm-3 control-label">
+                    Stop Time &nbsp;
+                    <a ng-click="setStopTime()">Now</a>
+
+                </label>
                 <div class="col-sm-9">
 
                     <input type="date" id="StopTime1" name="StopTime" class="form-control" ng-model="editableTimeLog.stopTime" />

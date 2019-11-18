@@ -1,52 +1,41 @@
 ﻿
-// 04/12/2019 03:57 am - SSN - [20190412-0142] - TimesheetApp
-// 05/19/2019 12:18 pm - SSN - [20190519-1132] - [003] - Address definitely typed errors
-// 09/21/2019 11:52 am  - SSN - Upgrading to use Babel/WWebpack
+// 11/16/2019 04:47 pm - SSN - [20191116-1516] - [003] - Timelog edit (AngularJS client version)
+// Copied from TimesheetClockoutController
 
 import * as ssn_globals from "../globals";
 import * as angular from 'angular'
 import * as util from '../site';
 
 
-var timesheetClockoutController_instance = function () {
+var timesheetEditController_instance = function () {
 
-
-    // 05/19/2019 10:06 am - SSN - [20190519-0837] - [006] - Adding timesheet "Continue" option
 
 
     var timesheetApp = ssn_globals.globals_instance.getInstance("timesheetApp");
 
-    // 11/16/2019 02:52 pm - SSN - [20191116-1419] - [003] - Add RowVersion  to Timelog.
-    // Inject changeMonitorService
-    timesheetApp.controller('TimesheetClockOutController', ['$scope', '$uibModalInstance', '$http', '$q', 'dataService', 'changeMonitorService', 'timelogId',
 
-        function TimesheetController($scope, $uibModalInstance, $http, $q, dataService, changeMonitorService, timelogId) {
+    timesheetApp.controller('TimesheetEditController', ['$scope', '$uibModalInstance', '$http', '$q', 'dataService', 'changeMonitorService', 'timelogId', '$timeout',
 
-
-            // 11/16/2019 03:08 pm - SSN - [20191116-1419] - [004] - Add RowVersion  to Timelog.
-            changeMonitorService.setupMonitor();
+        function TimesheetController($scope, $uibModalInstance, $http, $q, dataService, changeMonitorService, timelogId, $timeout) {
 
 
+            $timeout(() => {
+                changeMonitorService.setupMonitor();
+                util.site_instance.setDefaults();
+            }, 600);
 
-            // 04/29/2019 05:51 pm - SSN - [20190429-1748] - [002] - Angular clock out popup
-            // $scope.timeLog = dataService.getTimelog($routeParams.id);
-            // $scope.timeLog = dataService.getTimelog(timelogId);
+
+
             dataService.getTimelog(timelogId).then(getTimelogSuccess, getTimelogError)
                 .catch(getTimelogCatch);
 
 
+            $scope.pageTitle = "Edit";
 
-            // 05/03/2019 05:54 pm - SSN - [20190503-1539] - [012] - Add link to create timelog 
-            // Add pageTitle
-            $scope.pageTitle = "Clock-out";
-
-
-
-            // 11/16/2019 02:48 pm - SSN - [20191116-1419] - [002] - Add RowVersion  to Timelog.
-            // Copied from TimesheetContinueController
 
             $scope.feedbackToUserText = "";
             $scope.feedbackToUserClassNameCase = "";
+
 
             $scope.feedbackToUserClassNameSet = function () {
 
@@ -62,13 +51,20 @@ var timesheetClockoutController_instance = function () {
             }
 
 
+            $scope.setStopTime = function () {
+                
+                let timeNow = new Date();
 
+                timeNow.setMilliseconds(0);
+                //timeNow.setSeconds(0);
+
+
+                $scope.editableTimeLog.stopTime = timeNow;
+
+            }
 
 
             function getTimelogSuccess(data) {
-
-
-                //$scope.disciplineSelected = { id: 0, title: '' };
 
 
                 let timeNow = new Date();
@@ -76,21 +72,10 @@ var timesheetClockoutController_instance = function () {
                 timeNow.setMilliseconds(0);
                 timeNow.setSeconds(0);
 
-                //$scope.timeLog = {
-                //    timeLogId: 0,
-                //    id: 0,
-                //    startTime: timeNow,
-                //    workDetail: "",
-                //    disciplineId: '2',
-                //    jobId: jobId
-                //};
-
-                data.stopTime = timeNow;
-
                 let data2 = data;
-
-                console.log("timesheetClockoutController - current record");
+                console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
                 console.log(data2);
+
 
 
                 util.site_instance.fnConverDate(data2);
@@ -99,29 +84,33 @@ var timesheetClockoutController_instance = function () {
 
                 $scope.editableTimeLog = angular.copy($scope.timeLog);
 
-                //setTimeout(() => {
-                //    $scope.getDisciplines(data2.discipline.disciplineShort);
-                //    $scope.disciplineSelected = { id: data2.discipline.disciplineId, title: data2.discipline.disciplineShort };
-                //}
-                //    , 500);
+
+                $timeout(() => {
+                  //  $scope.getDisciplines(data2.discipline.disciplineShort);
+                    $scope.disciplineSelected = { id: data2.discipline.disciplineId, title: data2.discipline.disciplineShort };
+                }
+                    , 500);
 
 
             }
+
 
             function getTimelogError(data) {
-                console.log('timesheetClockOutController - 20190922-1426');
+
+                console.log('timesheetEditController - 20191116-1648');
                 console.log(data);
 
-                toastr.warning("Error posted to console. (0307)");
+                toastr.warning("Error posted to console. (1648)");
 
             }
 
+
             function getTimelogCatch(data) {
-                console.log('timesheetClockOutController - 20190922-1427');
+
+                console.log('timesheetEditController - 20191116-1649');
                 console.log(data);
 
-
-                toastr.warning("Error posted to console. (0306)");
+                toastr.warning("Error posted to console. (1649)");
 
             }
 
@@ -136,11 +125,11 @@ var timesheetClockoutController_instance = function () {
 
                 var promise = null;
 
-                ///////////////////////////////        $scope.editableTimeLog.disciplineId = $scope.disciplineSelected.id;
+                $scope.editableTimeLog.disciplineId = $scope.disciplineSelected.id;
 
+                console.log('TimesheetEditController - Test stopTime');
+                console.log($scope.editableTimeLog.stopTime);
 
-                console.log('timesheetClockoutController - submitForm - check disciplineID , stop time (when null), totalSeconds ');
-                console.log($scope.editableTimeLog);
 
                 if ($scope.editableTimeLog.stopTime) {
                     $scope.editableTimeLog.totalSeconds = ($scope.editableTimeLog.stopTime - $scope.editableTimeLog.startTime) / 1000;
@@ -165,7 +154,7 @@ var timesheetClockoutController_instance = function () {
 
 
                             $uibModalInstance.close();
-                            toastr.info("Clocked-out");
+                            toastr.info("Record saved.");
 
                         },
                         function (error) {
@@ -180,9 +169,6 @@ var timesheetClockoutController_instance = function () {
                             $scope.feedbackToUserClassNameCase = 2;
                             $scope.feedbackToUserText = error.data;
 
-
-                            return;
-
                         });
                 }
 
@@ -196,9 +182,22 @@ var timesheetClockoutController_instance = function () {
                     if (!confirm('You have unsaved changes? Are you sure you want to cancel?')) return;
                 }
 
-                $uibModalInstance.dismiss(); //same as cancel???
+                $uibModalInstance.dismiss();
 
             };
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
             $scope.getDisciplines = function (lookupValue) {
@@ -243,6 +242,20 @@ var timesheetClockoutController_instance = function () {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         }]);
 
 
@@ -253,4 +266,5 @@ var timesheetClockoutController_instance = function () {
 }();
 
 
-export { timesheetClockoutController_instance };
+export { timesheetEditController_instance };
+

@@ -47,6 +47,7 @@ namespace DevSitesIndex.Entities
         public DateTime DateModified { get; set; }
 
         // 02/24/2019 05:16 - SSN - Added
+        [Required(ErrorMessage ="Title is required")]
         public string Title { get; set; }
 
 

@@ -23,27 +23,30 @@ var jobStatusChangeRecord_instance = function () {
 
 
     jobStatusChangeRecord_Module.directive('jobStatusChangeRecord', function () {
-          
+
 
         let parentTable = null;
 
         return {
 
-            templateUrl: '/js/Jobs/jobStatusChangeRecord.html', 
+            templateUrl: '/js/Jobs/jobStatusChangeRecord.html',
 
-            scope: {},
+            scope: {
+                actionLink: '@',
+                optionLabel: '@'
+            },
 
 
             link: function (scope, el, attrs) {
 
-          
-                    if (parentTable == null) {
-                        parentTable = el.parents('table');
-                    }
 
-                    let parentWidth = parentTable.width() - 20; //  jobStatusChangeRecord_on padding
+                if (parentTable == null) {
+                    parentTable = el.parents('table');
+                }
 
-                    el.find('.jobStatusChangeRecord_on').css({ 'width': parentWidth  + 'px' });
+                let parentWidth = parentTable.width() - 20; //  jobStatusChangeRecord_on padding
+
+                el.find('.jobStatusChangeRecord_on').css({ 'width': parentWidth + 'px' });
 
             },
 
@@ -53,7 +56,7 @@ var jobStatusChangeRecord_instance = function () {
                 $scope.displayContent = false;
 
                 $scope.showContent = function () {
-                      
+
                     $scope.displayContent = !$scope.displayContent;
                 }
 

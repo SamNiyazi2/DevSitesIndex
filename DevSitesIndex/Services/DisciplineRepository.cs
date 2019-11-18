@@ -17,13 +17,13 @@ namespace DevSitesIndex.Services
         {
             this._context = context;
         }
-         
+
 
         public IQueryable<Discipline> GetAll()
         {
             // 04/20/2019 11:09 am - SSN - [20190420-1109] - Add AsNoTracking to index pages
 
-            return _context.Disciplines.OrderBy(r=>r.DisciplineShort).AsNoTracking();
+            return _context.Disciplines.OrderBy(r => r.DisciplineShort).AsNoTracking();
         }
 
 
@@ -35,12 +35,12 @@ namespace DevSitesIndex.Services
         }
 
 
-        public Discipline  Update(Discipline discipline)
+        public Discipline Update(Discipline discipline)
         {
             Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<Discipline> r = null;
             try
             {
-                if (discipline.DisciplineId== 0)
+                if (discipline.DisciplineId == 0)
                 {
                     r = _context.Disciplines.Add(discipline);
                 }
@@ -61,21 +61,15 @@ namespace DevSitesIndex.Services
 
         // 09/29/2019 09:56 am - SSN - [20190928-1256] - [020] - Adding Entity Framework model attribute
         // public bool Save()
-        public Exception Save()
-        {
-            try
-            {
-                //return _context.SaveChanges() > 0;
-                if (_context.SaveChanges() > 0) return default(Exception);
 
-                return new Exception("20190929-0957 - Failed to save record.");
-            }
-            catch (Exception ex)
-            {
-                string message = ex.Message;
-                // return false;
-                throw;
-            }
+        // 11/16/2019 08:05 pm - SSN - [20191116-1516] - [011] - Timelog edit (AngularJS client version)
+        // Leave exeption handling to SaveChanges
+
+        public void Save()
+        {
+            //return _context.SaveChanges() > 0;
+            _context.SaveChanges();
+
         }
 
 

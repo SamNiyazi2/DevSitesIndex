@@ -16,6 +16,9 @@ import { timesheetContinueController_instance } from './timesheetcontinuecontrol
 import { timesheetClockoutController_instance } from './timesheetclockoutcontroller';
 import { dropdownListDirective_instance } from '../DropdownList/DropdownListDirective';
 
+// 11/16/2019 04:57 pm - SSN - [20191116-1516] - [004] - Timelog edit (AngularJS client version)
+import { timesheetEditController_instance } from '../Timesheet/TimesheetEditController';
+
 
 const ngApplicationName = 'timesheetApp';
 
@@ -24,7 +27,9 @@ const ngApplicationName = 'timesheetApp';
 changeMonitorService_instance.doSetup(ngApplicationName);
 
 
-dropdownListDirective_instance;
+// 11/16/2019 06:27 pm - SSN - [20191116-1516] - [006] - Timelog edit (AngularJS client version)
+dropdownListDirective_instance.doSetup(null); // Original entry for timelog edit
+dropdownListDirective_instance.doSetup(ngApplicationName);
 
 dataService_instance.doSetup(ngApplicationName);
 
@@ -42,6 +47,9 @@ console.log("Timesheet_main - 20191001-1110");
 import { AppInsights_Util } from '../Util/ApplicationInsights_Monitor';
 
 AppInsights_Util.doSetup();
+
+
+timesheetEditController_instance.timesheetApp;
 
 
 

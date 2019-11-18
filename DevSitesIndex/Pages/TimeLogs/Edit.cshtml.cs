@@ -42,14 +42,6 @@ namespace DevSitesIndex.Pages.TimeLogs
             this.logger = logger;
             _context = context;
 
-
-            // 09/13/2019 06:22 am - SSN - [20190913-0548] - [007] - Crate generic dropdown list directive
-
-            bool _Timesheet_Dropdown_20190913_0624 = false;
-            bool.TryParse(configuration["Timesheet_Dropdown_20190913_0624"], out _Timesheet_Dropdown_20190913_0624);
-            Timesheet_Dropdown_20190913_0624 = _Timesheet_Dropdown_20190913_0624;
-
-
         }
 
         [BindProperty]

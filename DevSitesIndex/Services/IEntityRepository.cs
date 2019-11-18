@@ -23,8 +23,9 @@ namespace DevSitesIndex.Services
         T Update(T dbSet);
 
 
-        // bool Save();
-        Exception Save();
+        // 11/16/2019 08:02 pm - SSN - [20191116-1516] - [009] - Timelog edit (AngularJS client version)
+        // from exception to void
+        void Save();
 
 
         void Dispose();

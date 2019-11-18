@@ -49,7 +49,15 @@ namespace DevSitesIndex.Util
 
             string referrer_v02 = getSelectedReferrer_v02(request);
 
+            // 11/16/2019 08:16 pm - SSN - [20191116-1516] - [013] - Timelog edit (AngularJS client version)
+            // Added check
+            if (referrer_v02.ToLower().Contains("/identity"))
+            {
+                referrer_v02 = "";
+            }
+
             setFinalReferrer(_defaultUrl, requestUrl, referrer_v02);
+
 
         }
 
@@ -72,6 +80,7 @@ namespace DevSitesIndex.Util
 
         private static void setFinalReferrer(string _defaultUrl, string requestUrl, string referrer)
         {
+
 
             StringBuilder sb = new StringBuilder();
 
@@ -175,7 +184,8 @@ namespace DevSitesIndex.Util
             {
 
                 referrer = request.Headers["Referer"].ToString();
-                logger.PostException(new Exception("DemoSites-20191111-1129 - DemoSites to JobIndex Debug"), "20191111-1129", "Debugging returnign form Job index to demosites.");
+                logger.PostException(new Exception("DemoSites-20191111-1129 - DemoSites to JobIndex Debug"), "20191111-1129-A", "(1 of 2) Debugging returnign form Job index to demosites.");
+                logger.PostException(new Exception("DemoSites-20191111-1129 - DemoSites to JobIndex Debug"), "20191111-1129-B", "(2 of 2) Debugging returnign form Job index to demosites.");
 
                 if (request.Host.Port.HasValue)
                 {
@@ -228,6 +238,13 @@ namespace DevSitesIndex.Util
 
 
         // 11/08/2019 11:14 am - SSN - [20191108-1043] - [006] - Persisting search on return to index
+        /// <summary>
+        /// Allows posting URLs for paged or sorted pages with a key that can be used to recall the URL. 
+        /// Requires a hidden field for the key on the page.
+        /// </summary>
+        /// <param name="returnToCallerKey"></param>
+        /// <param name="request"></param>
+        /// <param name="queryStringParts"></param>
         internal static void postReturnToCallerRecord(string returnToCallerKey, HttpRequest request, QueryStringParts queryStringParts)
         {
             string port = "";

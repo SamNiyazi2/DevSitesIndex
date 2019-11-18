@@ -353,18 +353,20 @@ alarm {
     position: absolute;
     padding: 10px;
     /*box-shadow: 1px 5px 7px ;*/
-    background-color: antiquewhite;
+    background-color: rgb(216, 220, 241);
 }
 
 .jobStatusChangeRecord_on {
     position: absolute;
-    /*box-shadow: 1px 5px 7px ;*/
-    background-color: antiquewhite;
     z-index: 1000;
-    padding: 10px;
     margin: auto;
 }
 
+.jobStatusChangeRecord_on div {
+    /*box-shadow: 1px 5px 7px ;*/
+    background-color: rgb(151, 157, 174);
+    padding: 10px;
+}
 
 
 

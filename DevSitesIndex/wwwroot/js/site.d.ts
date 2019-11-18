@@ -1,5 +1,4 @@
 /// <reference path="../../node_modules_hack/SSN_jquery_modal.d.ts" />
-/// <reference types="jquery" />
 declare namespace site_instance_NS {
     class site_Class {
         static loadCounter: number;

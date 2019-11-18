@@ -30,10 +30,10 @@
                 @foreach (var item in Model.TimeLog)
                 {
                     <tr>
-                        <td>
+                        <td class="indexNowrapCol">
                             @Html.DisplayFor(modelItem => item.StartTime)
                         </td>
-                        <td>
+                        <td class="indexNowrapCol">
                             @Html.DisplayFor(modelItem => item.TotalSeconds_ToTimeSpanFormat_T)
                         </td>
                         <td>
@@ -69,13 +69,18 @@
                                 ||
                             </strong>
 
-                            <a asp-page="./Delete" asp-route-id="@item.TimeLogId">Delete</a> |
+                            <a asp-page="./Delete" asp-route-id="@item.TimeLogId">Delete</a>
 
-                            <br/>
+                            <br />
+
 
                             @*
-                                <!-- Todo-SSN - 09/26/2019 11:31 am - SSN - [20190926-1047] - [008] - Debugging: timelog not posting -->
+                                // 11/16/2019 04:30 pm - SSN - [20191116-1516] - [001] - Timelog edit (AngularJS client version)
                             *@
+                            <a ng-click="timesheetForm_Edit(@item.TimeLogId)">Edit (A)</a> |
+
+
+
                             <span ng-If="'@item.TotalSeconds' <= 0 ">
                                 <a ng-click="timesheetForm_ClockOut(@item.TimeLogId)" class="alert-warning">Clock-out</a>
                                 |

@@ -9,10 +9,14 @@ import { timesheetController_instance } from './TimesheetController';
 import { timesheetContinueController_instance } from './timesheetcontinuecontroller';
 import { timesheetClockoutController_instance } from './timesheetclockoutcontroller';
 import { dropdownListDirective_instance } from '../DropdownList/DropdownListDirective';
+// 11/16/2019 04:57 pm - SSN - [20191116-1516] - [004] - Timelog edit (AngularJS client version)
+import { timesheetEditController_instance } from '../Timesheet/TimesheetEditController';
 var ngApplicationName = 'timesheetApp';
 //ChangeMonitor_Util
 changeMonitorService_instance.doSetup(ngApplicationName);
-dropdownListDirective_instance;
+// 11/16/2019 06:27 pm - SSN - [20191116-1516] - [006] - Timelog edit (AngularJS client version)
+dropdownListDirective_instance.doSetup(null); // Original entry for timelog edit
+dropdownListDirective_instance.doSetup(ngApplicationName);
 dataService_instance.doSetup(ngApplicationName);
 timesheetController_instance.timesheetApp_TimesheetController;
 timesheetContinueController_instance.timesheetApp;
@@ -22,6 +26,7 @@ timesheetApp_instance.timesheetApp;
 console.log("Timesheet_main - 20191001-1110");
 import { AppInsights_Util } from '../Util/ApplicationInsights_Monitor';
 AppInsights_Util.doSetup();
+timesheetEditController_instance.timesheetApp;
 AppInsights_Util.logEvent("Timesheet_main", { SourceCode: "20191001-1112-C", Message: "Loading timesheet_main" });
 AppInsights_Util.logEvent(document.location.hostname, { SourceCode: "20191105-0503", Message: "Loading timesheet_main" });
 //# sourceMappingURL=timesheet_main.js.map

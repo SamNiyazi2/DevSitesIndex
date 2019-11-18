@@ -100,23 +100,30 @@
 
 
                                     <tr>
-
-
-                                        @*
-                    // 11/14/2019 07:56 pm - SSN - [20191114-1931] - [003] - Job - option to change job status
-                                        *@
-                                        <td colspan="4">
-                                            <job-status-change-record></job-status-change-record>
-                                        </td>
-
-
-                                    </tr>
-
-
-                                    <tr>
                                         <td width="120">
-                                            @Html.Linkfor_SSN(r.SourceTable, _url)
+
+
+                                            @*
+                                                            // 11/14/2019 07:56 pm - SSN - [20191114-1931] - [003] - Job - option to change job status
+                                                // Temp
+                                                        @Html.Linkfor_SSN(r.SourceTable, _url)
+
+                                            *@
+
+                                            @{
+                                                System.Text.StringBuilder sb = new System.Text.StringBuilder();
+
+                                                System.IO.TextWriter textWriter = new System.IO.StringWriter(sb);
+
+                                                Html.Linkfor_SSN(r.SourceTable, _url).WriteTo(textWriter, System.Text.Encodings.Web.HtmlEncoder.Default);
+                                            }
+                                            <job-status-change-record action-link="@textWriter" option-label="@r.SourceTable"></job-status-change-record>
+
+
                                         </td>
+
+
+
                                         <td width="200">
                                             @Html.DisplayFor(modelItem => r.LastActivity)
                                         </td>
@@ -131,6 +138,7 @@
                                                 if (r.TableID != 3)
                                                 {
                                                     @Html.DisplayFor(modelItem => r.Description)
+
 
                                                 }
                                             }
@@ -231,7 +239,7 @@
                                     <a ssn-cmd="returnToCallerLink" asp-page="./Details" asp-route-id="@item.ProjectID">Details</a> |
                                     <a ssn-cmd="returnToCallerLink" asp-page="./Delete" asp-route-id="@item.ProjectID">Delete</a>
                                 </td>
-                            </tr>                         
+                            </tr>
                         }
                     </tbody>
                 </table>

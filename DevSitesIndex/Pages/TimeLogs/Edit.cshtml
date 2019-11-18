@@ -24,6 +24,7 @@
             @Html.AntiForgeryToken()
             <input type="hidden" asp-for="TimeLog.TimeLogId" />
             <input type="hidden" asp-for="TimeLog.RowVersion" />
+            <input type="hidden" asp-for="TimeLog.DateAdded" />
 
             @*// 09/21/2019 11:08 am - SSN - Added include job and project to display titles on form.*@
 
@@ -44,9 +45,9 @@
 
 
             @*
-        // 09/13/2019 02:01 pm - SSN - [20190913-0548] - [010] - Crate generic dropdown list directive
-        // Do we need this to post from directive???
-        // Todo:
+                // 09/13/2019 02:01 pm - SSN - [20190913-0548] - [010] - Crate generic dropdown list directive
+                // Do we need this to post from directive???
+                // Todo:
             *@
 
 
@@ -74,53 +75,27 @@
 
 
             @*
-        09/16/2019 03:41 am - SSN - Remove "Please select..." from JobId and DisciplineId
+                09/16/2019 03:41 am - SSN - Remove "Please select..." from JobId and DisciplineId
             *@
 
-            @if (!Model.Timesheet_Dropdown_20190913_0624)
-            {
-
-                <div class="form-group">
-                    <label asp-for="TimeLog.JobId" class="control-label"></label>
-                    <select asp-for="TimeLog.JobId" class="form-control" asp-items="ViewBag.JobId" autofocus>
-                        <option></option>
-                    </select>
-                    <span asp-validation-for="TimeLog.JobId" class="text-danger"></span>
-                </div>
-
-            }
-            else
-            {
+            <div class="form-group">
                 <label asp-for="TimeLog.JobId" class="control-label"></label>
-                <input asp-for="TimeLog.JobId" type="hidden" />
-                <dropdown-list-directive key="TimeLog.JobId" form-name="timesheetForm"></dropdown-list-directive>
-            }
+                <input asp-for="TimeLog.JobId" type="hidden"  />
+                <dropdown-list-directive key="TimeLog.JobId" form-name="timesheetForm"  ></dropdown-list-directive>
+            </div>
 
 
 
             @*
-        09/16/2019 03:44 am - SSN - Replaced disciplineID wiht dropdown-list-directive and hidden field
+                09/16/2019 03:44 am - SSN - Replaced disciplineID wiht dropdown-list-directive and hidden field
             *@
 
-            @if (!Model.Timesheet_Dropdown_20190913_0624)
-            {
-
-                <div class="form-group">
-                    <label asp-for="TimeLog.DisciplineID" class="control-label"></label>
-                    <select asp-for="TimeLog.DisciplineID" class="form-control" asp-items="ViewBag.DisciplineID">
-                        <option></option>
-                    </select>
-                    <span asp-validation-for="TimeLog.DisciplineID" class="text-danger"></span>
-                </div>
-
-            }
-            else
-            {
+            <div class="form-group">
                 <label asp-for="TimeLog.DisciplineID" class="control-label"></label>
                 <input asp-for="TimeLog.DisciplineID" type="hidden" />
-                <dropdown-list-directive key="TimeLog.DisciplineID" form-name="timesheetForm"></dropdown-list-directive>
+                <dropdown-list-directive key="TimeLog.DisciplineID" form-name="timesheetForm"  ></dropdown-list-directive>
+            </div>
 
-            }
 
 
 

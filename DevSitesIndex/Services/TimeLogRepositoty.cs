@@ -79,49 +79,63 @@ namespace DevSitesIndex.Services
             // 04/20/2019 06:56 pm - SSN - Convert time passed by javaScript as Utc 
             timeLog.StartTime = timeLog.StartTime.ToLocalTime();
 
+
+
+            // 11/16/2019 08:33 pm - SSN - [20191116-1516] - [014] - Timelog edit (AngularJS client version)
+
+            // Replace logic
+            // Todo Todo Todo Todo Todo Todo Todo Todo 
+            // Todo Todo Todo Todo Todo Todo Todo Todo 
+            // Todo Todo Todo Todo Todo Todo Todo Todo 
+            // Todo Todo Todo Todo Todo Todo Todo Todo 
+            // Todo Todo Todo Todo Todo Todo Todo Todo 
+            // Todo Todo Todo Todo Todo Todo Todo Todo 
+            // Todo Todo Todo Todo Todo Todo Todo Todo
+            
+
+
+            //////////////////if (timeLog.TimeLogId == 0)
+            //////////////////{
+
+              timeLog.discipline = null;
+
+            //////////////////    // We "include"d projects for displaying titles. We need to exclude them from inserts.
+             timeLog.job = null;
+
+            //////////////////    _context.TimeLog.Add(timeLog);
+
+            //////////////////}
+            //////////////////else
+            //////////////////{
+            //////////////////    _context.TimeLog.Update(timeLog);
+            //////////////////}
+
             if (timeLog.TimeLogId == 0)
             {
-
-                timeLog.discipline = null;
-
-                // We "include"d projects for displaying titles. We need to exclude them from inserts.
-                timeLog.job = null;
-
                 _context.TimeLog.Add(timeLog);
-
             }
             else
             {
-                _context.TimeLog.Update(timeLog);
+                _context.Attach(timeLog).State = EntityState.Modified;
             }
 
             return timeLog;
+
         }
 
 
         // 09/29/2019 09:47 am - SSN - [20190928-1256] - [014] - Adding Entity Framework model attribute
         // public bool Save()
-        public Exception Save()
+        // 11/16/2019 08:00 pm - SSN - [20191116-1516] - [008] - Timelog edit (AngularJS client version)
+        // Leave error handling to SaveChanges
+
+        public void Save()
         {
-            try
-            {
-                if (_context.SaveChanges() > 0)
-                    return default(Exception);
-                else
-                    return new Exception("20190929-0948 - Failed to save record.");
-            }
-            catch (Exception ex)
-            {
 
-                // 09/26/2019 11:01 am - SSN - [20190926-1047] - [004] - Debugging: timelog not posting
+            _context.SaveChanges();
 
-                logger.PostException(ex, "20190926-1059", "Failed to save timelog record");
-
-                // 09/29/2019 09:48 am - SSN - [20190928-1256] - [015] - Adding Entity Framework model attribute
-                // return false;
-                throw;
-            }
         }
+
 
         public void Dispose()
         {

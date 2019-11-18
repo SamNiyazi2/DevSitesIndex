@@ -119,6 +119,35 @@ var timesheetApp_instance = function () {
                     }
                 });
             };
+            // 11/16/2019 04:35 pm - SSN - [20191116-1516] - [002] - Timelog edit (AngularJS client version)
+            $scope.timesheetForm_Edit = function (timelogId) {
+                console.log('TimesheetApp - 20191116-1637 - timesheetForm_Edit ');
+                var modalEdit = $uibModal.open({
+                    templateUrl: '/js/timesheet/templates/TimelogClockout.html',
+                    controller: 'TimesheetEditController',
+                    backdrop: 'static',
+                    keyboard: false,
+                    resolve: {
+                        timelogId: function () {
+                            return timelogId;
+                        }
+                    }
+                });
+                modalEdit.result.then(modalEdit_save, modalEdit_cancel);
+                function modalEdit_save(result) {
+                    console.log('TimesheetApp - 20191116-1640 - modalEdit_save');
+                    console.log(result);
+                    changeMonitorService.reset();
+                    console.log("changeMonitorService.getHaveChanges()", changeMonitorService.getHaveChanges());
+                }
+                function modalEdit_cancel(result) {
+                    console.log('TimesheetApp - 20191116-1641 - modalEdit_cancel');
+                    console.log(result);
+                    changeMonitorService.reset();
+                    console.log("changeMonitorService.getHaveChanges()", changeMonitorService.getHaveChanges());
+                }
+                console.log('TimesheetApp - 20191116-1643 - timesheetForm_Edit - end ');
+            };
         }]);
     return {
         timesheetApp: timesheetApp

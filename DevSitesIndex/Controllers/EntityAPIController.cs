@@ -75,21 +75,31 @@ namespace DevSitesIndex.Controllers
 
             // 05/19/2019 03:06 pm - SSN - [20190519-1412] - [005] - Continue work on adding continue option for timesheet record
             // Testing save on update
+
             try
             {
-                _entityRepository.Update(value);
 
-                // 09/29/2019 09:50 am - SSN - [20190928-1256] - [017] - Adding Entity Framework model attribute
-                // if (!_entityRepository.Save())
-                Exception ex = _entityRepository.Save();
-                if (ex != null)
-                {
-                    return BadRequest(string.Format("Failed to save record .  (DemoSite-20190521-1150-AAA) {0}", ex.Message));
-                }
+
+            _entityRepository.Update(value);
+
+            // 09/29/2019 09:50 am - SSN - [20190928-1256] - [017] - Adding Entity Framework model attribute
+            // if (!_entityRepository.Save())
+            // 11/16/2019 08:03 pm - SSN - [20191116-1516] - [010] - Timelog edit (AngularJS client version)
+            // Leave exception handling to repository
+            // Exception ex = _entityRepository.Save();
+            _entityRepository.Save();
+
+
 
             }
             catch (Exception ex)
             {
+
+                // Todo Todo Todo Todo Todo Todo Todo 
+                // Todo Todo Todo Todo Todo Todo Todo 
+                // Todo Todo Todo Todo Todo Todo Todo 
+                // Todo Todo Todo Todo Todo Todo Todo 
+                // Todo Todo Todo Todo Todo Todo Todo 
 
                 // 09/29/2019 11:43 am - SSN - [20190928-1256] - [022] - Adding Entity Framework model attribute
                 //string message = ex.Message;
@@ -97,10 +107,9 @@ namespace DevSitesIndex.Controllers
 
                 SSN_GenUtil_StandardLib.ExceptionsList el = eh.HandleException_GetExAsSB_v02(ex);
 
-
-
                 string message = el.Message_ToStringBuilder().ToString();
                 return BadRequest(string.Format("Failed to save record.  (DemoSite-20190521-1150-ZZZ)  {0}", message));
+
             }
 
             return Ok();
@@ -142,6 +151,6 @@ namespace DevSitesIndex.Controllers
         public string ta_id { get; set; }
         public string ta_description { get; set; }
     }
-     
+
 
 }

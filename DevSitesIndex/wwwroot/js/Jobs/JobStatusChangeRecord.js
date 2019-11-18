@@ -13,7 +13,10 @@ var jobStatusChangeRecord_instance = function () {
         var parentTable = null;
         return {
             templateUrl: '/js/Jobs/jobStatusChangeRecord.html',
-            scope: {},
+            scope: {
+                actionLink: '@',
+                optionLabel: '@'
+            },
             link: function (scope, el, attrs) {
                 if (parentTable == null) {
                     parentTable = el.parents('table');

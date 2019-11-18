@@ -34,9 +34,9 @@ namespace DevSitesIndex.Services
         {
 
             IQueryable<Project> result = context.Projects
-                .Include(r=>r.jobs)
+                .Include(r => r.jobs)
                 .OrderByDescending(r => r.DateModified ?? r.DateAdded).AsNoTracking();
-            
+
             return result;
         }
 
@@ -100,7 +100,7 @@ namespace DevSitesIndex.Services
             return databag;
         }
 
-        public Exception Save()
+        public void Save()
         {
             throw new NotImplementedException();
         }
