@@ -12,7 +12,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.6" />
     <PackageReference Include="microsoft.extensions.identity.core" Version="2.2.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
-    <PackageReference Include="ssn_genutil_standardlib" Version="1.0.12" />
+    <PackageReference Include="ssn_genutil_standardlib" Version="1.0.13" />
   </ItemGroup>
   <ItemGroup>
   </ItemGroup>

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
@@ -12,13 +12,11 @@
     <Content Remove="wwwroot\js\Util\ChangeMonitor.ts" />
     <Content Remove="wwwroot\js\Util\ChangeMonitorService.ts" />
   </ItemGroup>
- 
   <!--<ApplicationInsightsResourceId>
     /subscriptions/d6723a94-6723-4e85-b988-03bf28d6ea51/resourcegroups/Default-ApplicationInsights-EastUS/providers/microsoft.insights/components/DevSitesIndex20190127
     - -
     0929
   </ApplicationInsightsResourceId>-->
-   
   <ItemGroup>
     <None Remove="file.ts" />
     <None Remove="node_modules_hack\GlobalVariables.d.ts" />
@@ -37,8 +35,8 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="SSNSendGridStandardUtil" Version="1.0.2" />
-    <PackageReference Include="SSN_DevSites_DAL_Standard" Version="1.0.115" />
-    <PackageReference Include="ssn_genutil_standardlib" Version="1.0.12" />
+    <PackageReference Include="SSN_DevSites_DAL_Standard" Version="1.0.116" />
+    <PackageReference Include="ssn_genutil_standardlib" Version="1.0.13" />
     <PackageReference Include="toastr" Version="2.1.1" />
     <PackageReference Include="underscore.js" Version="1.8.3" />
   </ItemGroup>
@@ -63,7 +61,6 @@
     <None Include="wwwroot\js\____________________________ts.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SSN_DevSites_DAL_Standard\SSN_DevSites_DAL_Standard.csproj" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="wwwroot\js\Jobs\JobStatusChangeRecord.ts" />
