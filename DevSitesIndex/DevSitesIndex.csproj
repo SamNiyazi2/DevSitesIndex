@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
@@ -6,13 +6,6 @@
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
     <LangVersion>7.2</LangVersion>
   </PropertyGroup>
-  <ItemGroup>
-    <Content Remove="wwwroot\js\Jobs\JobStatusChangeRecord.ts" />
-    <Content Remove="wwwroot\js\Timesheet\templates\TimelogClockout.html" />
-    <Content Remove="wwwroot\js\Util\ChangeMonitor.ts" />
-    <Content Remove="wwwroot\js\Util\ChangeMonitorFlag.ts" />
-    <Content Remove="wwwroot\js\Util\ChangeMonitorService.ts" />
-  </ItemGroup>
   <!--<ApplicationInsightsResourceId>
     /subscriptions/d6723a94-6723-4e85-b988-03bf28d6ea51/resourcegroups/Default-ApplicationInsights-EastUS/providers/microsoft.insights/components/DevSitesIndex20190127
     - -
@@ -54,22 +47,9 @@
     <Folder Include="Connected Services\" />
     <Folder Include="node_modules\" />
     <Folder Include="node_modules_hack\" />
-    <Folder Include="Pages\Discipline\" />
     <Folder Include="wwwroot\dist\" />
     <Folder Include="wwwroot\js\CodeRederence\" />
     <Folder Include="wwwroot\webpack_build\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="wwwroot\js\____________________________ts.txt" />
-  </ItemGroup>
-  <ItemGroup>
-  </ItemGroup>
-  <ItemGroup>
-    <TypeScriptCompile Include="wwwroot\js\Jobs\JobStatusChangeRecord.ts" />
-    <TypeScriptCompile Include="wwwroot\js\Timesheet\templates\TimelogClockout.html" />
-    <TypeScriptCompile Include="wwwroot\js\Util\ChangeMonitor.ts" />
-    <TypeScriptCompile Include="wwwroot\js\Util\ChangeMonitorFlag.ts" />
-    <TypeScriptCompile Include="wwwroot\js\Util\ChangeMonitorService.ts" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services" />
