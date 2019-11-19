@@ -63,6 +63,27 @@ var dataService_instance = function () {
                     },
                         function (errorMessage) {
                             deferred.reject({ Error: 'Failed call to get timelog [20190829-1819]' });
+                            console.error(errorMessage);
+                        });
+
+                return deferred.promise;
+            };
+
+
+
+            // 11/19/2019 02:00 am - SSN - [20191119-0048] Created    
+            var _TimelogRefreshRecord = function (id) {
+
+                var deferred = $q.defer();
+
+                $http.get('/api/timelogapi/RefreshRecord/' + id)
+                    .then(function (result) {
+
+                        deferred.resolve(result.data);
+                    },
+                        function (errorMessage) {
+                            deferred.reject({ Error: 'Failed call to get timelog [20191119-0201]' });
+                            console.error(errorMessage);
                         });
 
                 return deferred.promise;
@@ -237,7 +258,9 @@ var dataService_instance = function () {
                 updateTimeLog: _addOrUpdateTimeLog,
                 getJobs: _getJobs,
                 getJob_Statuses: _getJob_Statuses,
-                getJob: _getJob
+                getJob: _getJob,
+                timelogRefreshRecord: _TimelogRefreshRecord
+
             };
 
 

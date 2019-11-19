@@ -1,6 +1,7 @@
 ﻿
 // 11/14/2019 02:59 pm - SSN - [20191114-1459] - [001] - ChangeMonitroService
 
+import { ChangeMonitorFlag } from '../Util/ChangeMonitorFlag';
 import { ChangeMonitor_Util } from '../Util/ChangeMonitor';
 
 import * as   globals from '../globals';
@@ -36,12 +37,15 @@ var changeMonitorService_instance = function () {
 
             var _getHaveChanges = function () {
 
-                return ChangeMonitor_Util.haveChanges;
+                return ChangeMonitorFlag.haveChanges;
+
             }
 
 
             var _reset = function () {
-                ChangeMonitor_Util.haveChanges = false;
+
+                ChangeMonitorFlag.haveChanges = false;
+
             }
 
 

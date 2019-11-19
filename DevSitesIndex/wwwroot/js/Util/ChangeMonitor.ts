@@ -1,28 +1,26 @@
 ﻿
 // 11/09/2019 11:03 am - SSN - Created
 
+// 11/18/2019 02:26 pm - SSN - Create class for haveChanges
+
+import { ChangeMonitorFlag } from '../Util/ChangeMonitorFlag';
+
 var ChangeMonitor_Util = function () {
-
-    console.log('ChangeMonitor_uril PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP');
-
-    let haveChanges: boolean = false;
-
 
     var setItemChanged_ssn = function (this: HTMLInputElement, ev: Event) {
 
-        ChangeMonitor_Util.haveChanges = true;
+        ChangeMonitorFlag.haveChanges = true;
     }
 
+
     var setItemToResetChangedFlag_ssn = function (this: HTMLInputElement, ev: Event) {
-        console.log('changeMonitor - reset change flag');
-        ChangeMonitor_Util.haveChanges = false;
+
+        ChangeMonitorFlag.haveChanges = false;
     }
 
 
     // 11/09/2019 08:08 am - SSN - Added monitorChange_SSN
     var monitorChange_SSN = function () {
-
-        console.log('site - monitorChangeXXXXX - 20191109-0810 - 5');
 
         let inputs = document.querySelectorAll('input');
 
@@ -82,7 +80,7 @@ var ChangeMonitor_Util = function () {
 
 
 
-    
+
     var setupMonitor_v01 = function () {
 
         console.log('ChangeMonitor - setupMonitor');
@@ -98,8 +96,7 @@ var ChangeMonitor_Util = function () {
 
                 window.addEventListener("beforeunload", function (e) {
 
-
-                    if (!ChangeMonitor_Util.haveChanges) return;
+                    if (!ChangeMonitorFlag.haveChanges) return;
 
                     var confirmationMessage = "\o/";
 
@@ -115,8 +112,7 @@ var ChangeMonitor_Util = function () {
 
                 window.onbeforeunload = function (e) {
 
-
-                    if (!ChangeMonitor_Util.haveChanges) return;
+                    if (!ChangeMonitorFlag.haveChanges) return;
 
                     var confirmationMessage = "\o/";
 
@@ -174,7 +170,6 @@ var ChangeMonitor_Util = function () {
 
         setupMonitor_v01: setupMonitor_v01,
         getBrowserName: getBrowserName,
-        haveChanges: haveChanges,
         monitorChange_SSN: monitorChange_SSN,
         setItemChanged_ssn: setItemChanged_ssn,
         setItemToResetChangedFlag_ssn: setItemToResetChangedFlag_ssn,

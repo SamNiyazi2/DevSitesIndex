@@ -83,7 +83,6 @@ var dropdownListDirective_instance = function () {
                     console.log("************ Cleanup");
                     console.log("************ Cleanup");
                     console.log("************ Cleanup");
-                    alert("DO watch clean up");
                 });
                 $scope.$watch('vm101.formName.$error', function (newValue, oldValue) {
                     console.log('dropdownListDirective - watching vm.formName.$error.invalidUsername (1841)');

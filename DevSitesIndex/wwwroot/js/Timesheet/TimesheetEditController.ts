@@ -14,9 +14,11 @@ var timesheetEditController_instance = function () {
     var timesheetApp = ssn_globals.globals_instance.getInstance("timesheetApp");
 
 
-    timesheetApp.controller('TimesheetEditController', ['$scope', '$uibModalInstance', '$http', '$q', 'dataService', 'changeMonitorService', 'timelogId', '$timeout',
+    // 11/19/2019 12:48 am - SSN - [20191119-0048] Adding $compile for dynamically loaded view
 
-        function TimesheetController($scope, $uibModalInstance, $http, $q, dataService, changeMonitorService, timelogId, $timeout) {
+    timesheetApp.controller('TimesheetEditController', ['$scope', '$uibModalInstance', '$http', '$q', 'dataService', 'changeMonitorService', 'timelogId', '$timeout', '$rootScope',
+
+        function TimesheetController($scope, $uibModalInstance, $http, $q, dataService, changeMonitorService, timelogId, $timeout, $rootScope) {
 
 
             $timeout(() => {
@@ -52,7 +54,7 @@ var timesheetEditController_instance = function () {
 
 
             $scope.setStopTime = function () {
-                
+
                 let timeNow = new Date();
 
                 timeNow.setMilliseconds(0);
@@ -73,10 +75,6 @@ var timesheetEditController_instance = function () {
                 timeNow.setSeconds(0);
 
                 let data2 = data;
-                console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
-                console.log(data2);
-
-
 
                 util.site_instance.fnConverDate(data2);
                 $scope.timeLog = data2;
@@ -86,7 +84,7 @@ var timesheetEditController_instance = function () {
 
 
                 $timeout(() => {
-                  //  $scope.getDisciplines(data2.discipline.disciplineShort);
+                    //  $scope.getDisciplines(data2.discipline.disciplineShort);
                     $scope.disciplineSelected = { id: data2.discipline.disciplineId, title: data2.discipline.disciplineShort };
                 }
                     , 500);
@@ -125,18 +123,12 @@ var timesheetEditController_instance = function () {
 
                 var promise = null;
 
-                $scope.editableTimeLog.disciplineId = $scope.disciplineSelected.id;
-
-                console.log('TimesheetEditController - Test stopTime');
-                console.log($scope.editableTimeLog.stopTime);
-
-
                 if ($scope.editableTimeLog.stopTime) {
                     $scope.editableTimeLog.totalSeconds = ($scope.editableTimeLog.stopTime - $scope.editableTimeLog.startTime) / 1000;
                 }
 
 
-                if ($scope.editableTimeLog.id === 0) {
+                if ($scope.editableTimeLog.timeLogId === 0) {
                     promise = dataService.insertTimeLog($scope.editableTimeLog);
                 }
                 else {
@@ -155,6 +147,31 @@ var timesheetEditController_instance = function () {
 
                             $uibModalInstance.close();
                             toastr.info("Record saved.");
+
+
+                            let id_temp = $scope.editableTimeLog.timeLogId;
+
+                            dataService.timelogRefreshRecord(id_temp).then(refreshRecord_Sucess, refreshRecord_Error);
+
+                            function refreshRecord_Sucess(result) {
+
+                                let tr_1_id_jq = "#model_" + id_temp + "_a";
+                                let tr_2_id_jq = "#model_" + id_temp + "_b";
+
+                                $(tr_2_id_jq).remove();
+
+                                $(tr_1_id_jq).replaceWith(result);
+                                
+                                $rootScope.$broadcast('TimeLog_Index_Refresh', id_temp);
+
+                            }
+
+                            function refreshRecord_Error(result) {
+
+                                console.error(result);
+
+                            }
+
 
                         },
                         function (error) {

@@ -5,8 +5,9 @@ import * as angular from 'angular';
 import * as util from '../site';
 var timesheetEditController_instance = function () {
     var timesheetApp = ssn_globals.globals_instance.getInstance("timesheetApp");
-    timesheetApp.controller('TimesheetEditController', ['$scope', '$uibModalInstance', '$http', '$q', 'dataService', 'changeMonitorService', 'timelogId', '$timeout',
-        function TimesheetController($scope, $uibModalInstance, $http, $q, dataService, changeMonitorService, timelogId, $timeout) {
+    // 11/19/2019 12:48 am - SSN - [20191119-0048] Adding $compile for dynamically loaded view
+    timesheetApp.controller('TimesheetEditController', ['$scope', '$uibModalInstance', '$http', '$q', 'dataService', 'changeMonitorService', 'timelogId', '$timeout', '$rootScope',
+        function TimesheetController($scope, $uibModalInstance, $http, $q, dataService, changeMonitorService, timelogId, $timeout, $rootScope) {
             $timeout(function () {
                 changeMonitorService.setupMonitor();
                 util.site_instance.setDefaults();
@@ -37,8 +38,6 @@ var timesheetEditController_instance = function () {
                 timeNow.setMilliseconds(0);
                 timeNow.setSeconds(0);
                 var data2 = data;
-                console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
-                console.log(data2);
                 util.site_instance.fnConverDate(data2);
                 $scope.timeLog = data2;
                 $scope.editableTimeLog = angular.copy($scope.timeLog);
@@ -62,13 +61,10 @@ var timesheetEditController_instance = function () {
                 $scope.feedbackToUserClassNameCase = "";
                 var test = $scope.editableTimeLog;
                 var promise = null;
-                $scope.editableTimeLog.disciplineId = $scope.disciplineSelected.id;
-                console.log('TimesheetEditController - Test stopTime');
-                console.log($scope.editableTimeLog.stopTime);
                 if ($scope.editableTimeLog.stopTime) {
                     $scope.editableTimeLog.totalSeconds = ($scope.editableTimeLog.stopTime - $scope.editableTimeLog.startTime) / 1000;
                 }
-                if ($scope.editableTimeLog.id === 0) {
+                if ($scope.editableTimeLog.timeLogId === 0) {
                     promise = dataService.insertTimeLog($scope.editableTimeLog);
                 }
                 else {
@@ -80,6 +76,18 @@ var timesheetEditController_instance = function () {
                         $scope.timeLog = angular.copy($scope.editableTimeLog);
                         $uibModalInstance.close();
                         toastr.info("Record saved.");
+                        var id_temp = $scope.editableTimeLog.timeLogId;
+                        dataService.timelogRefreshRecord(id_temp).then(refreshRecord_Sucess, refreshRecord_Error);
+                        function refreshRecord_Sucess(result) {
+                            var tr_1_id_jq = "#model_" + id_temp + "_a";
+                            var tr_2_id_jq = "#model_" + id_temp + "_b";
+                            $(tr_2_id_jq).remove();
+                            $(tr_1_id_jq).replaceWith(result);
+                            $rootScope.$broadcast('TimeLog_Index_Refresh', id_temp);
+                        }
+                        function refreshRecord_Error(result) {
+                            console.error(result);
+                        }
                     }, function (error) {
                         var test2 = error;
                         console.log(error);

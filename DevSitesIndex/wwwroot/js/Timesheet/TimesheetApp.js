@@ -7,7 +7,11 @@ var timesheetApp_instance = function () {
     // 04/12/2019 02:35 pm - SSN - [20190412-1126] - Timelog - save data - ssn_devsite_angular_module is in use by DataServices.js
     // 11/14/2019 03:35 pm - SSN - [20191114-1459] - [005] - ChangeMonitroService
     // Inject changeMonitorService
-    timesheetApp.controller("timesheetController", ['$scope', '$uibModal', 'changeMonitorService', function ($scope, $uibModal, changeMonitorService) {
+    timesheetApp.controller("timesheetController", ['$scope', '$uibModal', 'changeMonitorService', '$compile', function ($scope, $uibModal, changeMonitorService, $compile) {
+            // 11/19/2019 06:43 am - SSN - [20191119-0048] Added to re-bind ng-click
+            $scope.$on('TimeLog_Index_Refresh', function (event, item) {
+                $compile($("#model_" + item + "_a").contents())($scope);
+            });
             $scope.timesheetForm_ClockOut = function (timelogId) {
                 // 04/29/2019 04:16 pm - SSN - [20190429-1616] - [001] - Timesheet - stop / continue
                 // 05/03/2019 03:54 pm - SSN - [20190503-1539] - [004] - Add link to create timelog

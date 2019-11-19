@@ -198,7 +198,33 @@ var config = [
             './util/ChangeMonitor.ts'
         ]
 
+    },
+
+
+
+
+    // 11/18/2019 01:34 pm - SSN - [20191118-1316]  Added
+
+    {
+        ...d_master,
+
+        output: {
+            path: path.resolve(__dirname, './wwwroot/webpack_build'),
+            filename: 'bundle_DemoSites_Pages.js'
+        },
+
+
+
+
+        entry: [
+            './DemoSites_Pages.ts',
+        ]
+
     }
+
+
+
+
 
 
 

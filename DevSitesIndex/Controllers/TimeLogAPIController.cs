@@ -1,22 +1,22 @@
-﻿using System;
+﻿using DevSitesIndex.Entities;
+using DevSitesIndex.Services;
+using DevSitesIndex.Util;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
+using SSN_GenUtil_StandardLib;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DevSitesIndex.Entities;
-using DevSitesIndex.Services;
-using DevSitesIndex.Util;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using SSN_GenUtil_StandardLib;
 
 // 04/12/2019 02:24 pm - SSN - [20190412-1126] - Timelog - save data
-
 
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace DevSitesIndex.Controllers
 {
+
     [Route("api/[controller]")]
     // [Authorize]
     public class TimeLogAPIController : EntityAPIController<TimeLog>
@@ -31,15 +31,12 @@ namespace DevSitesIndex.Controllers
             _entityRepository = new TimeLogRepository(context, logger);
         }
 
-
-
-
+         
 
         // 10/21/2019 08:15 am - SSN - [20191021-0444] - [009] - M12 - Creating directives and advanced components in Angular.
         // Partial copy of JobApiController
 
-
-
+             
         [Route("search")]
         public async Task<DataBag<TimeLog>> search([FromBody] SqlStatsRecord sqlStatsRecord)
         {
@@ -228,6 +225,34 @@ namespace DevSitesIndex.Controllers
 
             return entity;
         }
+
+
+
+        // 11/19/2019 12:48 am - SSN - [20191119-0048] Created    
+
+        [HttpGet("RefreshRecord/{id}")]
+        public string RefreshRecord(int id)
+        {
+            TimeLog timelog = _entityRepository.GetRecord(id);
+
+            string html = "NotSet";
+
+            try
+            {
+                var view = View("Timelog_index_record", timelog);
+                html = view.ToHtml(HttpContext);
+
+            }
+            catch (Exception ex)
+            {
+                html = string.Format("**** [20191119-0233] Error: {0}", ex.Message);
+                logger.PostException(ex, "20191119-0234", "Failed call to return view for Timelog index record refresh.");
+            }
+
+            return html;
+        }
+
+
 
     }
 

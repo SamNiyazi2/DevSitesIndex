@@ -27,6 +27,7 @@
     "babel-loader": "^8.0.6",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.7.0",
+    "mocha": "^6.2.2",
     "source-map-loader": "^0.2.4",
     "ts-loader": "^6.1.0",
     "typescript": "^3.6.3",
