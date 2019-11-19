@@ -1,17 +1,15 @@
 // 11/09/2019 11:03 am - SSN - Created
+// 11/18/2019 02:26 pm - SSN - Create class for haveChanges
+import { ChangeMonitorFlag } from '../Util/ChangeMonitorFlag';
 var ChangeMonitor_Util = function () {
-    console.log('ChangeMonitor_uril PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP');
-    var haveChanges = false;
     var setItemChanged_ssn = function (ev) {
-        ChangeMonitor_Util.haveChanges = true;
+        ChangeMonitorFlag.haveChanges = true;
     };
     var setItemToResetChangedFlag_ssn = function (ev) {
-        console.log('changeMonitor - reset change flag');
-        ChangeMonitor_Util.haveChanges = false;
+        ChangeMonitorFlag.haveChanges = false;
     };
     // 11/09/2019 08:08 am - SSN - Added monitorChange_SSN
     var monitorChange_SSN = function () {
-        console.log('site - monitorChangeXXXXX - 20191109-0810 - 5');
         var inputs = document.querySelectorAll('input');
         inputs.forEach(function (x, y, z) {
             if (!bypassObject(z[y])) {
@@ -57,7 +55,7 @@ var ChangeMonitor_Util = function () {
             console.log('site - beforeUnload on');
             if (isChrome) {
                 window.addEventListener("beforeunload", function (e) {
-                    if (!ChangeMonitor_Util.haveChanges)
+                    if (!ChangeMonitorFlag.haveChanges)
                         return;
                     var confirmationMessage = "\o/";
                     (e || window.event).returnValue = confirmationMessage; //Gecko + IE
@@ -67,7 +65,7 @@ var ChangeMonitor_Util = function () {
             // Cannot use with Chrome
             if (!isChrome) {
                 window.onbeforeunload = function (e) {
-                    if (!ChangeMonitor_Util.haveChanges)
+                    if (!ChangeMonitorFlag.haveChanges)
                         return;
                     var confirmationMessage = "\o/";
                     (e || window.event).returnValue = confirmationMessage; //Gecko + IE
@@ -106,7 +104,6 @@ var ChangeMonitor_Util = function () {
     return {
         setupMonitor_v01: setupMonitor_v01,
         getBrowserName: getBrowserName,
-        haveChanges: haveChanges,
         monitorChange_SSN: monitorChange_SSN,
         setItemChanged_ssn: setItemChanged_ssn,
         setItemToResetChangedFlag_ssn: setItemToResetChangedFlag_ssn,

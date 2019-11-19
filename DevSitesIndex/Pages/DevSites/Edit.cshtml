@@ -160,8 +160,16 @@
 
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
-    <script type="text/javascript" src="~/js/DevSite_Pages.js" asp-append-version="true"></script>
 
+    @*
+
+        // 11/18/2019 01:25 pm - SSN - [20191118-1316] Renamed from DevSite_Pages.js to DemoSites_Pages.ts (TypeScript)
+
+        <script type="text/javascript" src="~/js/DevSite_Pages.js" asp-append-version="true"></script>
+    *@
+
+    <script   src="/webpack_build/bundle_DemoSites_Pages.js" asp-append-version="true"></script>
+     
 }
 
 <style>

@@ -1,0 +1,99 @@
+﻿@*
+    // 11/19/2019 12:48 am - SSN - [20191119-0048] Created
+*@
+
+@{
+    Layout = null;
+
+    string tr_1_id = $"model_{Model.TimeLogId}_a";
+    string tr_2_id = $"model_{Model.TimeLogId}_b";
+}
+
+@model DevSitesIndex.Entities.TimeLog
+
+<tr id="@tr_1_id">
+    <td class="indexNowrapCol">
+        @Html.DisplayFor(modelItem => Model.StartTime)
+    </td>
+    <td class="indexNowrapCol">
+        @Html.DisplayFor(modelItem => Model.TotalSeconds_ToTimeSpanFormat_T)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.job.JobTitle)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.discipline.DisciplineShort)
+    </td>
+
+
+
+    <td class="indexNowrapCol">
+        @Html.DisplayFor(modelItem => Model.DateAdded)
+    </td>
+
+    <td class="indexNowrapCol">
+        @Html.DisplayFor(modelItem => Model.DateModified)
+    </td>
+
+    <td class="indexNowrapCol">
+
+        <a asp-page="/timelogs/Edit" asp-route-id="@Model.TimeLogId">Edit</a>
+
+
+        <strong>
+
+            ||
+            <a asp-page="/timelogs/Details" asp-route-id="@Model.TimeLogId">Entry's Details</a>
+            |
+            <a asp-page="/jobs/details" asp-route-id="@Model.JobId">Job's Details</a>
+            |
+            <a asp-page="/projects/details" asp-route-id="@Model.job.ProjectID">Project's Details</a>
+            ||
+        </strong>
+
+        <a asp-page="/timelogs/Delete" asp-route-id="@Model.TimeLogId">Delete</a>
+
+        <br />
+
+
+        @*
+            // 11/16/2019 04:30 pm - SSN - [20191116-1516] - [001] - Timelog edit (AngularJS client version)
+        *@
+        <a ng-click="timesheetForm_Edit(@Model.TimeLogId)">Edit (A)</a> |
+
+
+
+        <span ng-If="'@Model.TotalSeconds' <= 0 ">
+            <a ng-click="timesheetForm_ClockOut(@Model.TimeLogId)" class="alert-warning">Clock-out</a>
+            |
+        </span>
+
+        <!-- 05/19/2019 08:38 am - SSN - [20190519-0837] - [001] - Adding timesheet "Continue" option -->
+        <!-- 09/24/2019 04:16 am - SSN - [20190924-0401] - [002] - Quick timelog entry -->
+        <!-- Allow to resue link for a quick entry-->
+        @{
+            string caption = (Model.TotalSeconds ?? 0) > 0 ? "Continue" : "Line Model";
+
+        }
+        <a ng-click="timesheetForm_ClockContinue(@Model.TimeLogId)" class="alert-warning">@caption</a>
+
+
+    </td>
+</tr>
+
+@if (!string.IsNullOrWhiteSpace(Model.WorkDetail))
+{
+
+    @* 11/08/2019 07:55 am - SSN - Removed class="detail" *@
+
+
+    <tr id="@tr_2_id" class="detail workDetail_2">
+        <td colspan="2"></td>
+        @*06/01/2019 02:59 pm - SSN - Added class codeblock2*@
+        @* 11/08/2019 07:53 am - SSN - Replaced codeblock2 with workDetail *@
+        <td colspan="5" class="workDetail">
+            @Html.DisplayFor(modelItem => Model.WorkDetail)
+        </td>
+
+    </tr>
+}

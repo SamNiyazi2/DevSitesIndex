@@ -168,7 +168,7 @@ var dropdownListDirective_instance = function () {
                     console.log("************ Cleanup");
                     console.log("************ Cleanup");
                     console.log("************ Cleanup");
-                    alert("DO watch clean up");
+             
                 });
 
 
