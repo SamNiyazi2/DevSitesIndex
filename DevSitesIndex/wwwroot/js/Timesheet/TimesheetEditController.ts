@@ -148,6 +148,7 @@ var timesheetEditController_instance = function () {
                             $uibModalInstance.close();
                             toastr.info("Record saved.");
 
+                            // Refactor [20191120-0438] - Begin
 
                             let id_temp = $scope.editableTimeLog.timeLogId;
 
@@ -161,7 +162,7 @@ var timesheetEditController_instance = function () {
                                 $(tr_2_id_jq).remove();
 
                                 $(tr_1_id_jq).replaceWith(result);
-                                
+
                                 $rootScope.$broadcast('TimeLog_Index_Refresh', id_temp);
 
                             }
@@ -172,6 +173,7 @@ var timesheetEditController_instance = function () {
 
                             }
 
+                            // Refactor [20191120-0438] - End
 
                         },
                         function (error) {

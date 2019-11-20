@@ -111,6 +111,8 @@ var timesheetContinueController_instance = function () {
             $scope.submitForm = function () {
 
 
+                console.log('timesheetContinueController - submitForm - (101)');
+
                 var test = $scope.editableTimeLog;
 
                 var promise = null;

@@ -60,7 +60,7 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
             {
                 //ModelState.AddModelError(string.Empty, "Invalid email or password.");
                 Login_Result.dataBag.addToBagModelError(string.Empty, "Invalid email or password.");
-                _logger.TrackEvent($"DemoSite-20190905-0517 - Invalid email [{Input.Email}]");
+                _logger.TrackEvent($"DemoSite-20190905-0517 - Invalid email  ");
                 return Login_Result;
 
             }
@@ -73,7 +73,7 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
             {
                 // ModelState.AddModelError(string.Empty, "Invalid email  or password.");
                 Login_Result.dataBag.addToBagModelError(string.Empty, "Invalid email or password.");
-                _logger.TrackEvent($"DemoSite-20190905-0539 - Invalid email or password [{Input.Email}]");
+                _logger.TrackEvent($"DemoSite-20190905-0539 - Invalid email or password ");
                 return Login_Result;
 
             }
@@ -134,7 +134,7 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
             {
 
                 //_logger.LogInformation("User logged in.");
-                //_logger.TrackEvent($"DemoSite-20190828-0821: Login successful (2) {Input.Email} [{returnUrl}]");
+                //_logger.TrackEvent($"DemoSite-20190828-0821-SA: Login successful (2)   [{returnUrl}]");
 
                 // return LocalRedirect(returnUrl);
                 return Login_Result;
@@ -155,7 +155,7 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
 
             if (Login_Result.signInResult.IsLockedOut)
             {
-                _logger.TrackEvent($"DemoSite-20190828-0821: Login failure.  Lockedout {Input.Email}");
+                _logger.TrackEvent($"DemoSite-20190828-0821-SB: Login failure.  Lockedout  ");
 
                 //_logger.LogWarning("User account locked out.");
 
@@ -165,7 +165,7 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
             }
             else
             {
-                _logger.TrackEvent($"DemoSite-20190828-0821: Login failure.  Invalid login. {Input.Email}");
+                _logger.TrackEvent($"DemoSite-20190828-0821-SC: Login failure.  Invalid login.  ");
 
                 // ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                 Login_Result.dataBag.addToBagModelError(string.Empty, "Invalid login attempt.");

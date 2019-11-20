@@ -117,7 +117,7 @@
 
                                                 Html.Linkfor_SSN(r.SourceTable, _url).WriteTo(textWriter, System.Text.Encodings.Web.HtmlEncoder.Default);
                                             }
-                                            <job-status-change-record action-link="@textWriter" option-label="@r.SourceTable"></job-status-change-record>
+                                            <job-status-change-record action-link="@_url" option-label="@r.SourceTable"></job-status-change-record>
 
 
                                         </td>

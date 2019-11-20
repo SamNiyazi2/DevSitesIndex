@@ -184,8 +184,8 @@ namespace DevSitesIndex.Util
             {
 
                 referrer = request.Headers["Referer"].ToString();
-                logger.PostException(new Exception("DemoSites-20191111-1129 - DemoSites to JobIndex Debug"), "20191111-1129-A", "(1 of 2) Debugging returnign form Job index to demosites.");
-                logger.PostException(new Exception("DemoSites-20191111-1129 - DemoSites to JobIndex Debug"), "20191111-1129-B", "(2 of 2) Debugging returnign form Job index to demosites.");
+                logger.PostException(new Exception("DemoSites-20191111-1129 - DemoSites to JobIndex Debug"), "20191111-1129-A-2", "(1 of 2) Debugging returnign form Job index to demosites.");
+                logger.PostException(new Exception("DemoSites-20191111-1129 - DemoSites to JobIndex Debug"), "20191111-1129-B-2", $"(2 of 2) Debugging returnign form Job index to demosites. [{searchText_SSN}] [{referrer_From_ReturnToCallerList}]");
 
                 if (request.Host.Port.HasValue)
                 {

@@ -1,0 +1,89 @@
+﻿@*
+    11/20/2019 05:33 am - SSN - [20191120-0532] - [001] - Job Timelog index - update on change
+*@
+
+@{
+    Layout = null;
+
+    string tr_1_id = $"model_{Model.timelog.TimeLogId}_a";
+    string tr_2_id = $"model_{Model.timelog.TimeLogId}_b";
+}
+
+@model Timelog_index_record
+
+<tr id="@tr_1_id">
+    <td class="indexNowrapCol">
+        @Html.DisplayFor(modelItem => Model.timelog.StartTime)
+    </td>
+    <td class="indexNowrapCol">
+        @Html.DisplayFor(modelItem => Model.timelog.TotalSeconds_ToTimeSpanFormat_T)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.timelog.job.JobTitle)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.timelog.discipline.DisciplineShort)
+    </td>
+
+
+
+    <td class="indexNowrapCol">
+        @Html.DisplayFor(modelItem => Model.timelog.DateAdded)
+    </td>
+
+    <td class="indexNowrapCol">
+        @Html.DisplayFor(modelItem => Model.timelog.DateModified)
+    </td>
+
+    <td class="indexNowrapCol" style="min-width:210px;">
+
+        <a asp-page="/timelogs/Edit" asp-route-id="@Model.timelog.TimeLogId">Edit</a> |
+        <a asp-page="/timelogs/Details" asp-route-id="@Model.timelog.TimeLogId">Details</a> |
+        <a asp-page="/timelogs/Delete" asp-route-id="@Model.timelog.TimeLogId">Delete</a> |
+
+
+        @*06/05/2019 08:37 pm - SSN - [20190605-2037] - [001] - Copying timelog links from timelog index*@
+
+        <br />
+
+
+
+        @*
+                        //  11/20/2019 05:51 am - SSN - [20191120-0532] - [002] - Job Timelog index - update on change
+            // Add Edit
+        *@
+        <a ng-click="timesheetForm_Edit(@Model.timelog.TimeLogId)">Edit (A)</a>
+        <span ng-If="'@Model.timelog.TotalSeconds' <= 0 ">
+            <a ng-click="timesheetForm_ClockOut(@Model.timelog.TimeLogId)" class="alert-warning">Clock-out</a> |
+        </span>
+
+
+
+
+
+
+        @{
+            string caption = (Model.timelog.TotalSeconds ?? 0) > 0 ? "Continue" : "Line Item";
+
+        }
+        <a ng-click="timesheetForm_ClockContinue(@Model.timelog.TimeLogId)" class="alert-warning">@caption</a>
+
+
+
+
+
+
+
+    </td>
+</tr>
+@if (!string.IsNullOrWhiteSpace(Model.timelog.WorkDetail))
+{
+
+    <tr id="@tr_2_id" class="detail workDetail_2">
+        <td colspan="2"></td>
+        <td colspan="5" class="workDetail">
+            @Html.DisplayFor(modelItem => Model.timelog.WorkDetail)
+        </td>
+
+    </tr>
+}

@@ -140,7 +140,7 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
             if (identityUser == null)
             {
                 ModelState.AddModelError(string.Empty, "Invalid email or password.");
-                _logger.TrackEvent($"DemoSite-20190905-0517 - Invalid email [{Input.Email}]");
+                _logger.TrackEvent($"DemoSite-20190905-0517 - Invalid email  ");
                 return Page();
 
             }
@@ -152,7 +152,7 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
             if (!hasValidCredentials)
             {
                 ModelState.AddModelError(string.Empty, "Invalid email  or password.");
-                _logger.TrackEvent($"DemoSite-20190905-0539 - Invalid email or password [{Input.Email}]");
+                _logger.TrackEvent($"DemoSite-20190905-0539 - Invalid email or password  ");
                 return Page();
 
             }
@@ -210,7 +210,7 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
                 _logger.LogInformation("User logged in.");
 
 
-                _logger.TrackEvent($"DemoSite-20190828-0821: Login successful (2) {Input.Email} [{returnUrl}]");
+                _logger.TrackEvent($"DemoSite-20190828-0821-A: Login successful (2)   [{returnUrl}]");
 
                 return LocalRedirect(returnUrl);
             }
@@ -228,14 +228,14 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
 
             if (result.IsLockedOut)
             {
-                _logger.TrackEvent($"DemoSite-20190828-0821: Login failure.  Lockedout {Input.Email}");
+                _logger.TrackEvent($"DemoSite-20190828-0821-B: Login failure.  Lockedout ");
 
                 _logger.LogWarning("User account locked out.");
                 return RedirectToPage("./Lockout");
             }
             else
             {
-                _logger.TrackEvent($"DemoSite-20190828-0821: Login failure.  Invalid login. {Input.Email}");
+                _logger.TrackEvent($"DemoSite-20190828-0821-C: Login failure.  Invalid login. ");
 
                 ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                 return Page();

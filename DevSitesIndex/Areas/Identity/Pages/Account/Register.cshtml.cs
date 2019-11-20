@@ -104,7 +104,7 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
                     //await _signInManager.SignInAsync(user, isPersistent: false);
                     //return LocalRedirect(returnUrl);
 
-                    telemetry.TrackEvent($"DemoSite-20190904-2242 - New registration [{Input.Email}]");
+                    telemetry.TrackEvent($"DemoSite-20190904-2242 - New registration   ");
 
 
 

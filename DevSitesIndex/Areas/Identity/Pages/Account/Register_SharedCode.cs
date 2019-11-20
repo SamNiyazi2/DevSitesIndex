@@ -58,7 +58,7 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
             {
                 _logger.LogInformation("User created a new account with password.");
 
-                telemetry.TrackEvent($"DemoSite-20191105-1913 - New registration [{Input.Email}]");
+                telemetry.TrackEvent($"DemoSite-20191105-1913 - New registration  ");
 
                 //  Feedbackw_util.PageContent pageContent = new Feedbackw_util.PageContent();
                 regiseration_Result.pageContent = new PageContent();

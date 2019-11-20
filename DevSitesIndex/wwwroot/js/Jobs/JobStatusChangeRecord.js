@@ -17,7 +17,7 @@ var jobStatusChangeRecord_instance = function () {
                 actionLink: '@',
                 optionLabel: '@'
             },
-            link: function (scope, el, attrs) {
+            link: function (scope, el, attrs, ctrl) {
                 if (parentTable == null) {
                     parentTable = el.parents('table');
                 }
@@ -28,6 +28,19 @@ var jobStatusChangeRecord_instance = function () {
                 $scope.displayContent = false;
                 $scope.showContent = function () {
                     $scope.displayContent = !$scope.displayContent;
+                };
+                $scope.getWindowName = function () {
+                    var windowName = this.actionLink.trim();
+                    var windowName1 = windowName.replace(/[^a-z|^0-9]*/ig, '');
+                    console.log('************************************');
+                    console.log('************************************');
+                    console.log('************************************');
+                    console.log('************************************');
+                    console.log(windowName);
+                    console.log(windowName1);
+                    console.log('');
+                    console.log('');
+                    return windowName1;
                 };
             }
         };

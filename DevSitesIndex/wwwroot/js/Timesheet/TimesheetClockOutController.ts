@@ -18,9 +18,13 @@ var timesheetClockoutController_instance = function () {
 
     // 11/16/2019 02:52 pm - SSN - [20191116-1419] - [003] - Add RowVersion  to Timelog.
     // Inject changeMonitorService
-    timesheetApp.controller('TimesheetClockOutController', ['$scope', '$uibModalInstance', '$http', '$q', 'dataService', 'changeMonitorService', 'timelogId',
 
-        function TimesheetController($scope, $uibModalInstance, $http, $q, dataService, changeMonitorService, timelogId) {
+    // 11/20/2019 04:43 am - SSN - [20191120-0429] - [003] - Timelog index clock-out refresh updated row
+    // Inject PageUpdaterService
+
+    timesheetApp.controller('TimesheetClockOutController', ['$scope', '$uibModalInstance', '$http', '$q', 'dataService', 'changeMonitorService', 'timelogId', 'PageUpdaterService',
+
+        function TimesheetController($scope, $uibModalInstance, $http, $q, dataService, changeMonitorService, timelogId, PageUpdaterService) {
 
 
             // 11/16/2019 03:08 pm - SSN - [20191116-1419] - [004] - Add RowVersion  to Timelog.
@@ -67,49 +71,26 @@ var timesheetClockoutController_instance = function () {
 
             function getTimelogSuccess(data) {
 
-
-                //$scope.disciplineSelected = { id: 0, title: '' };
-
-
+                 
                 let timeNow = new Date();
 
                 timeNow.setMilliseconds(0);
                 timeNow.setSeconds(0);
-
-                //$scope.timeLog = {
-                //    timeLogId: 0,
-                //    id: 0,
-                //    startTime: timeNow,
-                //    workDetail: "",
-                //    disciplineId: '2',
-                //    jobId: jobId
-                //};
-
+ 
                 data.stopTime = timeNow;
 
                 let data2 = data;
-
-                console.log("timesheetClockoutController - current record");
-                console.log(data2);
-
-
+ 
+ 
                 util.site_instance.fnConverDate(data2);
                 $scope.timeLog = data2;
-
-
+                 
                 $scope.editableTimeLog = angular.copy($scope.timeLog);
-
-                //setTimeout(() => {
-                //    $scope.getDisciplines(data2.discipline.disciplineShort);
-                //    $scope.disciplineSelected = { id: data2.discipline.disciplineId, title: data2.discipline.disciplineShort };
-                //}
-                //    , 500);
-
-
+                 
             }
-
+            
             function getTimelogError(data) {
-                console.log('timesheetClockOutController - 20190922-1426');
+                console.error('timesheetClockOutController - 20190922-1426');
                 console.log(data);
 
                 toastr.warning("Error posted to console. (0307)");
@@ -117,7 +98,7 @@ var timesheetClockoutController_instance = function () {
             }
 
             function getTimelogCatch(data) {
-                console.log('timesheetClockOutController - 20190922-1427');
+                console.error('timesheetClockOutController - 20190922-1427');
                 console.log(data);
 
 
@@ -135,19 +116,14 @@ var timesheetClockoutController_instance = function () {
                 var test = $scope.editableTimeLog;
 
                 var promise = null;
-
-                ///////////////////////////////        $scope.editableTimeLog.disciplineId = $scope.disciplineSelected.id;
-
-
-                console.log('timesheetClockoutController - submitForm - check disciplineID , stop time (when null), totalSeconds ');
-                console.log($scope.editableTimeLog);
-
+                  
+ 
                 if ($scope.editableTimeLog.stopTime) {
                     $scope.editableTimeLog.totalSeconds = ($scope.editableTimeLog.stopTime - $scope.editableTimeLog.startTime) / 1000;
                 }
 
 
-                if ($scope.editableTimeLog.id === 0) {
+                if ($scope.editableTimeLog.timeLogId === 0) {
                     promise = dataService.insertTimeLog($scope.editableTimeLog);
                 }
                 else {
@@ -166,6 +142,11 @@ var timesheetClockoutController_instance = function () {
 
                             $uibModalInstance.close();
                             toastr.info("Clocked-out");
+
+                            console.log('timesheetClockoutController - 20191120-0423 - timelog_index update [' , $scope.editableTimeLog.timeLogId ,']');
+
+                            PageUpdaterService.timelog_index($scope.editableTimeLog.timeLogId);
+                            
 
                         },
                         function (error) {

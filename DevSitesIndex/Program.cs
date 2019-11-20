@@ -129,7 +129,7 @@ namespace DevSitesIndex
         public static IWebHostBuilder include_UseApplicationInsights( this IWebHostBuilder x){
 
 
-            //////////////////////////////////////////////////////////////.UseApplicationInsights()
+            x.UseApplicationInsights();
      
             return x;
         }

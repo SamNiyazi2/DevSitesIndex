@@ -8,6 +8,9 @@
 //import { ChangeMonitor_Util } from '../Util/ChangeMonitor';
 import { changeMonitorService_instance } from '../Util/ChangeMonitorService';
 
+// 11/20/2019 04:40 am - SSN - [20191120-0429] - [002] - Timelog index clock-out refresh updated row
+import { PageUpdater_Instance } from '../Util/PageUpdater';
+
 
 import { dataService_instance } from '../DataServices';
 import { timesheetApp_instance } from './TimesheetApp';
@@ -25,6 +28,10 @@ const ngApplicationName = 'timesheetApp';
 
 //ChangeMonitor_Util
 changeMonitorService_instance.doSetup(ngApplicationName);
+
+
+PageUpdater_Instance.doSetup(ngApplicationName);
+
 
 
 // 11/16/2019 06:27 pm - SSN - [20191116-1516] - [006] - Timelog edit (AngularJS client version)

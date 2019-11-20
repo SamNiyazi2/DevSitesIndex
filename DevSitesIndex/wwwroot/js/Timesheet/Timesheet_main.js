@@ -3,6 +3,8 @@
 // 11/14/2019 03:20 pm - SSN - [20191114-1459] - [004] - ChangeMonitroService
 //import { ChangeMonitor_Util } from '../Util/ChangeMonitor';
 import { changeMonitorService_instance } from '../Util/ChangeMonitorService';
+// 11/20/2019 04:40 am - SSN - [20191120-0429] - [002] - Timelog index clock-out refresh updated row
+import { PageUpdater_Instance } from '../Util/PageUpdater';
 import { dataService_instance } from '../DataServices';
 import { timesheetApp_instance } from './TimesheetApp';
 import { timesheetController_instance } from './TimesheetController';
@@ -14,6 +16,7 @@ import { timesheetEditController_instance } from '../Timesheet/TimesheetEditCont
 var ngApplicationName = 'timesheetApp';
 //ChangeMonitor_Util
 changeMonitorService_instance.doSetup(ngApplicationName);
+PageUpdater_Instance.doSetup(ngApplicationName);
 // 11/16/2019 06:27 pm - SSN - [20191116-1516] - [006] - Timelog edit (AngularJS client version)
 dropdownListDirective_instance.doSetup(null); // Original entry for timelog edit
 dropdownListDirective_instance.doSetup(ngApplicationName);

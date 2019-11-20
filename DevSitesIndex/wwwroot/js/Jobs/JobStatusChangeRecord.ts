@@ -58,8 +58,24 @@ var jobStatusChangeRecord_instance = function () {
                 $scope.showContent = function () {
 
                     $scope.displayContent = !$scope.displayContent;
-                }
+                };
 
+
+                $scope.getWindowName = function () {
+
+                    let windowName = this.actionLink.trim();
+                    var windowName1 = windowName.replace(/[^a-z|^0-9]*/ig, '');
+                    console.log('************************************');
+                    console.log('************************************');
+                    console.log('************************************');
+                    console.log('************************************');
+
+                    console.log(windowName);
+                    console.log(windowName1);
+                    console.log('');
+                    console.log('');
+                    return windowName1;
+                };
 
             }
 

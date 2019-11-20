@@ -36,7 +36,7 @@
                         // 11/19/2019 12:48 am - SSN - [20191119-0048] Created
 
                     *@
-                    @await Html.PartialAsync("Timelog_index_record", item);
+                    @await Html.PartialAsync("Timelog_index_record", new Shared.Timelog_index_record { timelog = item });
                 }
             </tbody>
         </table>

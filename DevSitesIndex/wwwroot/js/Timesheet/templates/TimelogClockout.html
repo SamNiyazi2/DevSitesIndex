@@ -129,6 +129,7 @@
 
         <div ng-if="feedbackToUserText" ng-class="feedbackToUserClassNameSet()">
             {{feedbackToUserText}}
+            <div [innerHtml]="feedbackToUserText"></div>
         </div>
 
     </div>

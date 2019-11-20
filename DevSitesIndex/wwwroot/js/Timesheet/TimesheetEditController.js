@@ -76,6 +76,7 @@ var timesheetEditController_instance = function () {
                         $scope.timeLog = angular.copy($scope.editableTimeLog);
                         $uibModalInstance.close();
                         toastr.info("Record saved.");
+                        // Refactor [20191120-0438] - Begin
                         var id_temp = $scope.editableTimeLog.timeLogId;
                         dataService.timelogRefreshRecord(id_temp).then(refreshRecord_Sucess, refreshRecord_Error);
                         function refreshRecord_Sucess(result) {
@@ -88,6 +89,7 @@ var timesheetEditController_instance = function () {
                         function refreshRecord_Error(result) {
                             console.error(result);
                         }
+                        // Refactor [20191120-0438] - End
                     }, function (error) {
                         var test2 = error;
                         console.log(error);
