@@ -15,7 +15,16 @@
 @*// 04/12/2019 07:18 am - SSN - [20190412-0718] - Move timesheet implementation to job index page. Having imact on "Save and Stay" of Dev sites.*@
 
 @*06/01/2019 11:24 am - SSN - Adding class="hidden-xs"*@
-<div ng-app="timesheetApp">
+
+@{
+    // 11/23/2019 09:04 am - SSN - Replace ng-app
+    ViewBag.InitModule_Full = "data-ng-app=\"timesheetApp\"";
+}
+@*
+    <div ng-app="timesheetApp">
+*@
+
+<div>
 
 
     @*

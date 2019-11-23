@@ -130,7 +130,7 @@ var config = [
 
         output: {
             path: path.resolve(__dirname, './wwwroot/webpack_build'),
-            filename: 'bundle_DevSitesIndex.js'
+            filename: 'bundle_DemoSites_index.js'
         },
 
 
@@ -166,10 +166,7 @@ var config = [
 
     }
 
-
-
-
-
+    
 
     ,
 
@@ -187,8 +184,6 @@ var config = [
         },
 
         
-
-
         entry: [
 // ERROR in Debug Failure. False expression: Host should not return a redirect source file from `getSourceFile`
             './site.ts',
@@ -214,15 +209,32 @@ var config = [
         },
 
 
-
-
         entry: [
             './DemoSites_Pages.ts',
         ]
 
     }
 
+    ,
 
+
+    // 11/23/2019 09:19 am - SSN - Adding
+
+    
+        {
+        ...d_master,
+
+        output: {
+            path: path.resolve(__dirname, './wwwroot/webpack_build'),
+            filename: 'bundle_Temp_Support.js'
+        },
+
+
+        entry: [
+            './Temp_Support_main.ts',
+        ]
+
+    }
 
 
 

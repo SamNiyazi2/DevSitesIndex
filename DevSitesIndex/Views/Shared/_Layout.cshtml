@@ -1,12 +1,4 @@
-﻿
-
-
-
-
-
-
-
-@*@inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet*@
+﻿@*@inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet*@
 
 <!DOCTYPE html>
 
@@ -45,48 +37,6 @@
 
 
     @RenderSection("Styles", required: false)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    @*@Html.Raw(JavaScriptSnippet.FullScript)*@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -147,6 +97,17 @@
             <hr />
 
         </div>
+
+
+
+            <div ng-controller="utilityControllerQueue">
+
+                <site-task-queue-list></site-task-queue-list>
+
+            </div>
+     
+
+
         <footer style="padding:20px;">
             <hr />
             @DevSitesIndex.Util.Odds.showCopyright()

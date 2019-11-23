@@ -13,11 +13,23 @@
 <p>
     <a asp-page="Create">Create New Timelog Record</a>
 </p>
-<div ng-app="timesheetApp">
+
+
+
+@{
+    // 11/23/2019 07:34 am - SSN - Replace ng-app
+    ViewBag.InitModule_Full = "data-ng-app=\"timesheetApp\"";
+
+}
+@*
+    <div ng-app="timesheetApp">
+*@
+
+<div>
 
     <div ng-controller="timesheetController">
 
-   
+
         <table class="table">
             <thead>
                 <tr>
@@ -27,10 +39,10 @@
                 </tr>
 
             </thead>
-            <tbody >
+            <tbody>
                 @foreach (var item in Model.TimeLog)
                 {
-                    
+
 
                     @*
                         // 11/19/2019 12:48 am - SSN - [20191119-0048] Created

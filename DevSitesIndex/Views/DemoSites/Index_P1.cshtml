@@ -35,9 +35,9 @@
 
         <input type="checkbox" data-bind="checked: prefixPreWithShowHideAnchor_DontCall_KO" /> Don't collapse div<br />
         <input type="submit" value="Search" class="btn btn-default" />
-@{ 
-    string currentPage = Context.Request.Path;
-}
+        @{
+            string currentPage = Context.Request.Path;
+        }
         <a href="@currentPage" class="btn btn-default">Clear Search</a>
     </div>
 
@@ -279,7 +279,7 @@
         if (Program.RunWhatJavaScriptVersion == Program.whatJavaScriptVersion.Webpack)
         {
 
-            <script src="~/webpack_build/bundle_DevSitesIndex.js" asp-append-version="true"></script>
+            <script src="~/webpack_build/bundle_DemoSites_index.js" asp-append-version="true"></script>
         }
 
 

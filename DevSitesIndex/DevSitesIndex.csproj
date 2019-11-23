@@ -26,7 +26,6 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="SSNSendGridStandardUtil" Version="1.0.2" />
-    <PackageReference Include="SSN_DevSites_DAL_Standard" Version="1.0.117" />
     <PackageReference Include="toastr" Version="2.1.1" />
     <PackageReference Include="underscore.js" Version="1.8.3" />
   </ItemGroup>
@@ -47,14 +46,21 @@
     <Folder Include="wwwroot\webpack_build\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Remove="wwwroot\js\Temp_Support_main.ts" />
     <Content Remove="wwwroot\js\Timesheet\TimelogLinkOtions\TimelogLinkOptions.ts" />
     <Content Remove="wwwroot\js\Util\PageUpdater.ts" />
+    <Content Remove="wwwroot\js\Util\RestorePreviousPageState.ts" />
+    <Content Remove="wwwroot\js\Util\site_Task_Queue_List.ts" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SSN_DevSites_DAL_Standard\SSN_DevSites_DAL_Standard.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="wwwroot\js\Temp_Support_main.ts" />
     <TypeScriptCompile Include="wwwroot\js\Timesheet\TimelogLinkOtions\TimelogLinkOptions.ts" />
     <TypeScriptCompile Include="wwwroot\js\Util\PageUpdater.ts" />
+    <TypeScriptCompile Include="wwwroot\js\Util\RestorePreviousPageState.ts" />
+    <TypeScriptCompile Include="wwwroot\js\Util\site_Task_Queue_List.ts" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services" />

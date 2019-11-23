@@ -18,7 +18,11 @@ import { timesheetContinueController_instance } from '../Timesheet/TimesheetCont
 import { timesheetClockoutController_instance } from '../Timesheet/TimesheetClockOutController';
 import { PageUpdater_Instance } from '../Util/PageUpdater';
 import { ProjectIndexController_instance } from '../Projects/ProjectsIndex';
+import { dropdownListDirective_instance } from '../DropdownList/DropdownListDirective';
+import { RestorePreviousPageState_instance } from '../Util/RestorePreviousPageState';
 var ngApplicationName = "timesheetApp";
+// 11/22/2019 09:06 pm - SSN - [20191121-0503] - [023] - Timelog edit options on project search
+dropdownListDirective_instance.doSetup(ngApplicationName);
 // 11/21/2019 08:18 am - SSN - [20191121-0503] - [009] - Timelog edit options on project search
 changeMonitorService_instance.doSetup(ngApplicationName);
 TimelogLinkOptions.doSetup(ngApplicationName);
@@ -40,4 +44,6 @@ timesheetEditController_instance.timesheetApp;
 timesheetContinueController_instance.timesheetApp;
 timesheetClockoutController_instance.timesheetApp;
 PageUpdater_Instance.doSetup(ngApplicationName);
+// 11/23/2019 09:07 pm - SSN 
+RestorePreviousPageState_instance.doSetup(ngApplicationName);
 //# sourceMappingURL=jobsIndex_main.js.map

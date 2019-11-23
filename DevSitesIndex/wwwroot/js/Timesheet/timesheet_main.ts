@@ -25,6 +25,7 @@ import { timesheetEditController_instance } from '../Timesheet/TimesheetEditCont
 
 import { AppInsights_Util } from '../Util/ApplicationInsights_Monitor';
 import { TimelogLinkOptions } from './TimelogLinkOtions/TimelogLinkOptions';
+import { RestorePreviousPageState_instance } from '../Util/RestorePreviousPageState';
 
 
 
@@ -66,6 +67,8 @@ AppInsights_Util.doSetup();
 
 timesheetEditController_instance.timesheetApp;
 
+// 11/23/2019 08:56 am - SSN
+RestorePreviousPageState_instance.doSetup(ngApplicationName);
 
 
 AppInsights_Util.logEvent("Timesheet_main", { SourceCode: "20191001-1112-C", Message: "Loading timesheet_main" });

@@ -447,3 +447,56 @@ alarm {
         padding: 4px;
     }
 }
+
+
+
+/* 11/23/2019 01:20 am - SSN - Hightlight clicked object when returning to page*/
+/* Source: https://www.w3schools.com/css/tryit.asp?filename=trycss3_animation1 */
+
+.cssHilight101 {
+    position: absolute;
+    -webkit-animation-name: example; /* Safari 4.0 - 8.0 */
+    -webkit-animation-duration: 4s; /* Safari 4.0 - 8.0 */
+    /*    animation-name: example;
+
+    animation-duration: 4s;
+*/
+    /* https://www.w3schools.com/cssref/tryit.asp?filename=trycss_anim_font-size */
+    -webkit-animation: example 2s ease-in-out; /* Chrome, Safari, Opera */
+    /*animation: mymove 5s  ease-in-out;*/
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes example {
+    0% {
+        background-color: transparent;
+    }
+
+    50% {
+        background-color: yellow;
+        font-size: 64px;
+    }
+
+    100% {
+        background-color: transparent;
+    }
+
+}
+
+/* Standard syntax */
+@keyframes example {
+    0% {
+        background-color: transparent;
+    }
+
+    50% {
+        background-color: yellow;
+        font-size: 64px;
+    }
+
+    100% {
+        background-color: transparent;
+    }
+}
+
+ 

@@ -15,6 +15,7 @@ import { dropdownListDirective_instance } from '../DropdownList/DropdownListDire
 import { timesheetEditController_instance } from '../Timesheet/TimesheetEditController';
 import { AppInsights_Util } from '../Util/ApplicationInsights_Monitor';
 import { TimelogLinkOptions } from './TimelogLinkOtions/TimelogLinkOptions';
+import { RestorePreviousPageState_instance } from '../Util/RestorePreviousPageState';
 var ngApplicationName = 'timesheetApp';
 // 11/21/2019 06:45 am - SSN - [20191121-0503] - [007] - Timelog edit options on project search
 TimelogLinkOptions.doSetup(ngApplicationName);
@@ -33,6 +34,8 @@ timesheetApp_instance.timesheetApp;
 console.log("Timesheet_main - 20191001-1110");
 AppInsights_Util.doSetup();
 timesheetEditController_instance.timesheetApp;
+// 11/23/2019 08:56 am - SSN
+RestorePreviousPageState_instance.doSetup(ngApplicationName);
 AppInsights_Util.logEvent("Timesheet_main", { SourceCode: "20191001-1112-C", Message: "Loading timesheet_main" });
 AppInsights_Util.logEvent(document.location.hostname, { SourceCode: "20191105-0503", Message: "Loading timesheet_main" });
 //# sourceMappingURL=timesheet_main.js.map

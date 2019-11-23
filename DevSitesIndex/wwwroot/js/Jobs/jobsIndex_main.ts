@@ -8,14 +8,8 @@ import { dataService_instance } from '../DataServices';
 import { jobStatusDirective_instance } from './JobStatusDirective';
 import { jobsIndexController_instance } from '../Jobs/JobsIndexController';
 
-
-
 import { timesheetController_instance } from '../Timesheet/TimesheetController';
 
-
-//import { timesheetApp_instance } from '../Timesheet/TimesheetApp';  // for timesheet related links
-//import { timesheetContinueController_instance } from '../Timesheet/timesheetcontinuecontroller';
-//import { timesheetClockoutController_instance } from '../Timesheet/timesheetclockoutcontroller';
 
 
 // 11/14/2019 08:28 pm - SSN - [20191114-1931] - [006] - Job - option to change job status 
@@ -28,8 +22,13 @@ import { timesheetContinueController_instance } from '../Timesheet/TimesheetCont
 import { timesheetClockoutController_instance } from '../Timesheet/TimesheetClockOutController';
 import { PageUpdater_Instance } from '../Util/PageUpdater';
 import { ProjectIndexController_instance } from '../Projects/ProjectsIndex';
+import { dropdownListDirective_instance } from '../DropdownList/DropdownListDirective';
+import { RestorePreviousPageState_instance } from '../Util/RestorePreviousPageState';
 
 let ngApplicationName = "timesheetApp";
+
+// 11/22/2019 09:06 pm - SSN - [20191121-0503] - [023] - Timelog edit options on project search
+dropdownListDirective_instance.doSetup(ngApplicationName);
 
 
 // 11/21/2019 08:18 am - SSN - [20191121-0503] - [009] - Timelog edit options on project search
@@ -39,7 +38,6 @@ TimelogLinkOptions.doSetup(ngApplicationName);
 
 // 11/22/2019 01:48 pm - SSN - [20191121-0503] - [013] - Timelog edit options on project search
 ProjectIndexController_instance.doSetup(ngApplicationName);
-
 
 
 dataService_instance.doSetup(ngApplicationName);
@@ -74,3 +72,6 @@ timesheetEditController_instance.timesheetApp;
 timesheetContinueController_instance.timesheetApp;
 timesheetClockoutController_instance.timesheetApp;
 PageUpdater_Instance.doSetup(ngApplicationName);
+
+// 11/23/2019 09:07 pm - SSN 
+RestorePreviousPageState_instance.doSetup(ngApplicationName);
