@@ -26,6 +26,7 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="SSNSendGridStandardUtil" Version="1.0.2" />
+    <PackageReference Include="SSN_DevSites_DAL_Standard" Version="1.0.117" />
     <PackageReference Include="toastr" Version="2.1.1" />
     <PackageReference Include="underscore.js" Version="1.8.3" />
   </ItemGroup>
@@ -50,7 +51,6 @@
     <Content Remove="wwwroot\js\Util\PageUpdater.ts" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SSN_DevSites_DAL_Standard\SSN_DevSites_DAL_Standard.csproj" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="wwwroot\js\Timesheet\TimelogLinkOtions\TimelogLinkOptions.ts" />

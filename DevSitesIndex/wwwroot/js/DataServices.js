@@ -34,8 +34,6 @@ var dataService_instance = function () {
                 // 11/21/2019 06:26 am - SSN - [20191121-0503] - [004] - Timelog edit options on project search
                 // Add servingPage
                 var _TimelogRefreshRecord = function (id, servingPage) {
-                    console.log('HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH');
-                    console.log('servingPage', servingPage);
                     var deferred = $q.defer();
                     $http.get('/api/timelogapi/RefreshRecord/' + id + "?servingPage=" + servingPage)
                         .then(function (result) {
@@ -133,8 +131,6 @@ var dataService_instance = function () {
                 };
                 // 11/22/2019 04:06 pm - SSN - [20191121-0503] - [018] - Timelog edit options on project search
                 var _ProjectsSearchRefreshRecord = function (id, servingPage) {
-                    console.log('LLLLLLLLLLLLLLLLLLLLLLLLLL');
-                    console.log('servingPage', servingPage);
                     var deferred = $q.defer();
                     $http.get('/api/ProjectAPI/refreshrecord/' + id + "?servingPage=" + servingPage)
                         .then(function (result) {
