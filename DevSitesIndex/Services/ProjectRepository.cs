@@ -124,6 +124,10 @@ namespace DevSitesIndex.Services
         // 11/15/2019 03:47 pm - SSN - Added project and job titles
         public string ProjectTitle { get; set; }
         public string JobTitle { get; set; }
+
+        // 11/22/2019 07:17 pm - SSN - [20191121-0503] - [022] - Timelog edit options on project search
+        // Added for timelog entries on project index search
+        public int? totalSeconds { get; set; }
     }
 
 

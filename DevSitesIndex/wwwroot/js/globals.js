@@ -140,6 +140,15 @@ var test_103 = function () {
         doIt: doIt
     };
 }();
-export { globals_instance };
-export { test_103 };
+// 11/21/2019 06:32 am - SSN - [20191121-0503] - [006] - Timelog edit options on project search
+var Timelog_ServingPage;
+(function (Timelog_ServingPage) {
+    Timelog_ServingPage["Timelog"] = "Timelog";
+    Timelog_ServingPage["Job_Timelog"] = "Job_Timelog";
+    Timelog_ServingPage["Projects_Search"] = "Projects_Search";
+})(Timelog_ServingPage || (Timelog_ServingPage = {}));
+function Timelog_ServingPage_checkvalue(value, compareTo) {
+    return compareTo === value;
+}
+export { globals_instance, test_103, Timelog_ServingPage, Timelog_ServingPage_checkvalue };
 //# sourceMappingURL=globals.js.map

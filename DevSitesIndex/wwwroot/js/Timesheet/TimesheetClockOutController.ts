@@ -182,48 +182,44 @@ var timesheetClockoutController_instance = function () {
             };
 
 
-            $scope.getDisciplines = function (lookupValue) {
+            //$scope.getDisciplines = function (lookupValue) {
 
-                if (lookupValue === null) lookupValue = "";
+            //    if (lookupValue === null) lookupValue = "";
 
-                var deferred = $q.defer();
+            //    var deferred = $q.defer();
 
-                $http({
-                    method: 'GET',
-                    url: 'api/DisciplineAPI'
+            //    $http({
+            //        method: 'GET',
+            //        url: 'api/DisciplineAPI'
 
-                }).then(typeaheadDisciplineSuccess, typeaheadDisciplineError);
+            //    }).then(typeaheadDisciplineSuccess, typeaheadDisciplineError);
 
-                return deferred.promise;
+            //    return deferred.promise;
 
-                function typeaheadDisciplineSuccess(response) {
+            //    function typeaheadDisciplineSuccess(response) {
 
-                    var addresses = [];
+            //        var addresses = [];
 
-                    angular.forEach(response.data,
-                        function (item) {
+            //        angular.forEach(response.data,
+            //            function (item) {
 
-                            if (item.disciplineShort.toLowerCase().indexOf(lookupValue.toLowerCase()) > -1) {
-                                addresses.push({ id: item.disciplineId, title: item.disciplineShort });
-                            }
-                        }
-                    );
+            //                if (item.disciplineShort.toLowerCase().indexOf(lookupValue.toLowerCase()) > -1) {
+            //                    addresses.push({ id: item.disciplineId, title: item.disciplineShort });
+            //                }
+            //            }
+            //        );
 
-                    deferred.resolve(addresses);
+            //        deferred.resolve(addresses);
 
-                }
+            //    }
 
-                function typeaheadDisciplineError(response) {
+            //    function typeaheadDisciplineError(response) {
 
-                    deferred.reject(response);
-                }
+            //        deferred.reject(response);
+            //    }
 
-            };
-
-
-
-
-
+            //};
+             
         }]);
 
 

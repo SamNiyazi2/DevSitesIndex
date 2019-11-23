@@ -1,4 +1,4 @@
-﻿import { globals_instance } from "../globals";
+﻿import { globals_instance, Timelog_ServingPage } from "../globals";
 
 // 11/20/2019 04:29 am - SSN - [20191120-0429] - [001] - Timelog index clock-out refresh updated row
 
@@ -12,12 +12,16 @@ var PageUpdater_Instance = function () {
 
         pageUpdater_Module.factory('PageUpdaterService', ['$rootScope', 'dataService', function ($rootScope, dataService) {
 
+            // 11/21/2019 06:28 am - SSN - [20191121-0503] - [005] - Timelog edit options on project search
+            // Adding servingPage
 
-            var _timelog_index = function (id_temp) {
 
-                console.log('PageUpdater - timelog_index - 001 [', id_temp, ']');
+            var _timelog_index = function (id_temp, servingPage: Timelog_ServingPage) {
 
-                dataService.timelogRefreshRecord(id_temp).then(refreshRecord_Sucess, refreshRecord_Error);
+
+                console.log('PageUpdater - timelog_index - 001 [', id_temp, '] servingPage [' + servingPage + ']');
+
+                dataService.timelogRefreshRecord(id_temp, servingPage).then(refreshRecord_Sucess, refreshRecord_Error);
 
                 console.log('PageUpdater - timelog_index - 002 ');
 
@@ -25,9 +29,11 @@ var PageUpdater_Instance = function () {
                 function refreshRecord_Sucess(result) {
 
                     console.log('PageUpdater - timelog_index - 003 ');
+                    console.log(result);
 
-                    let tr_1_id_jq = "#model_" + id_temp + "_a";
-                    let tr_2_id_jq = "#model_" + id_temp + "_b";
+
+                    let tr_1_id_jq = "#" + result.tr_1_id;
+                    let tr_2_id_jq = "#" + result.tr_2_id;
 
                     $(tr_2_id_jq).remove();
 
@@ -35,7 +41,7 @@ var PageUpdater_Instance = function () {
 
                     console.log('PageUpdater - timelog_index - 005 - broadcast ');
 
-                    $rootScope.$broadcast('TimeLog_Index_Refresh', id_temp);
+                    $rootScope.$broadcast('TimeLog_Index_Refresh', { id: id_temp, servingPage: servingPage });
 
                 }
 

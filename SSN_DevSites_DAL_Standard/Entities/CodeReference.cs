@@ -47,7 +47,8 @@ namespace DevSitesIndex.Entities
         public DateTime DateModified { get; set; }
 
         // 02/24/2019 05:16 - SSN - Added
-        [Required(ErrorMessage ="Title is required")]
+        // 11/21/2019 04:27 - SSN - We don't want to rebuild tabkle.  Takes too long. Allow null.
+        // [Required(ErrorMessage ="Title is required")]
         public string Title { get; set; }
 
 

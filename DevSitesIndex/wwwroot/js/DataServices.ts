@@ -72,11 +72,13 @@ var dataService_instance = function () {
 
 
             // 11/19/2019 02:00 am - SSN - [20191119-0048] Created    
-            var _TimelogRefreshRecord = function (id) {
+            // 11/21/2019 06:26 am - SSN - [20191121-0503] - [004] - Timelog edit options on project search
+            // Add servingPage
+            var _TimelogRefreshRecord = function (id, servingPage) {
 
                 var deferred = $q.defer();
 
-                $http.get('/api/timelogapi/RefreshRecord/' + id)
+                $http.get('/api/timelogapi/RefreshRecord/' + id + "?servingPage=" + servingPage)
                     .then(function (result) {
 
                         deferred.resolve(result.data);
@@ -245,6 +247,29 @@ var dataService_instance = function () {
 
 
 
+
+
+            // 11/22/2019 04:06 pm - SSN - [20191121-0503] - [018] - Timelog edit options on project search
+
+            var _ProjectsSearchRefreshRecord = function (id, servingPage) {
+  
+                var deferred = $q.defer();
+
+                $http.get('/api/ProjectAPI/refreshrecord/' + id + "?servingPage=" + servingPage)
+                    .then(function (result) {
+                        deferred.resolve(result.data);
+                    },
+                        function (errorMessage) {
+                            deferred.reject({ Error: 'Failed call to get project search record  [20191122-1608] [' + id + '] [' + servingPage + ']' });
+                            console.error(errorMessage);
+                        });
+
+                return deferred.promise;
+            };
+
+
+
+
             return {
 
                 devSites: ko.observable(_devSites),
@@ -259,7 +284,8 @@ var dataService_instance = function () {
                 getJobs: _getJobs,
                 getJob_Statuses: _getJob_Statuses,
                 getJob: _getJob,
-                timelogRefreshRecord: _TimelogRefreshRecord
+                timelogRefreshRecord: _TimelogRefreshRecord,
+                projectsSearchRefreshRecord: _ProjectsSearchRefreshRecord
 
             };
 

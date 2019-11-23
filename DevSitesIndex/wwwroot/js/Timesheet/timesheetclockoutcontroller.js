@@ -97,28 +97,29 @@ var timesheetClockoutController_instance = function () {
                 }
                 $uibModalInstance.dismiss(); //same as cancel???
             };
-            $scope.getDisciplines = function (lookupValue) {
-                if (lookupValue === null)
-                    lookupValue = "";
-                var deferred = $q.defer();
-                $http({
-                    method: 'GET',
-                    url: 'api/DisciplineAPI'
-                }).then(typeaheadDisciplineSuccess, typeaheadDisciplineError);
-                return deferred.promise;
-                function typeaheadDisciplineSuccess(response) {
-                    var addresses = [];
-                    angular.forEach(response.data, function (item) {
-                        if (item.disciplineShort.toLowerCase().indexOf(lookupValue.toLowerCase()) > -1) {
-                            addresses.push({ id: item.disciplineId, title: item.disciplineShort });
-                        }
-                    });
-                    deferred.resolve(addresses);
-                }
-                function typeaheadDisciplineError(response) {
-                    deferred.reject(response);
-                }
-            };
+            //$scope.getDisciplines = function (lookupValue) {
+            //    if (lookupValue === null) lookupValue = "";
+            //    var deferred = $q.defer();
+            //    $http({
+            //        method: 'GET',
+            //        url: 'api/DisciplineAPI'
+            //    }).then(typeaheadDisciplineSuccess, typeaheadDisciplineError);
+            //    return deferred.promise;
+            //    function typeaheadDisciplineSuccess(response) {
+            //        var addresses = [];
+            //        angular.forEach(response.data,
+            //            function (item) {
+            //                if (item.disciplineShort.toLowerCase().indexOf(lookupValue.toLowerCase()) > -1) {
+            //                    addresses.push({ id: item.disciplineId, title: item.disciplineShort });
+            //                }
+            //            }
+            //        );
+            //        deferred.resolve(addresses);
+            //    }
+            //    function typeaheadDisciplineError(response) {
+            //        deferred.reject(response);
+            //    }
+            //};
         }]);
     return {
         timesheetApp: timesheetApp

@@ -55,7 +55,7 @@
 
 <div ng-app="timesheetApp">
     @*jobsIndexController*@
-    <div ng-controller="ProjectIndexController">
+    <div ng-controller="ProjectsIndexController">
 
 
         <p>
@@ -88,107 +88,11 @@
 
                             @{
 
-                                string _url = "";
 
                                 foreach (Services.Project_Search_Record r in Model.searchResults)
                                 {
 
-                                    if (r.TableID == 1) { _url = $"/Projects/details?id={r.ProjectID}"; }
-                                    if (r.TableID == 3) { _url = $"/timelogs/details?id={r.TimelogId}"; }
-                                    if (r.TableID == 2) { _url = $"/jobs/details?id={r.JobId}"; }
-
-
-
-                                    <tr>
-                                        <td width="120">
-
-
-                                            @*
-                                                            // 11/14/2019 07:56 pm - SSN - [20191114-1931] - [003] - Job - option to change job status
-                                                // Temp
-                                                        @Html.Linkfor_SSN(r.SourceTable, _url)
-
-                                            *@
-
-                                            @{
-                                                System.Text.StringBuilder sb = new System.Text.StringBuilder();
-
-                                                System.IO.TextWriter textWriter = new System.IO.StringWriter(sb);
-
-                                                Html.Linkfor_SSN(r.SourceTable, _url).WriteTo(textWriter, System.Text.Encodings.Web.HtmlEncoder.Default);
-                                            }
-                                            <job-status-change-record action-link="@_url" option-label="@r.SourceTable"></job-status-change-record>
-
-
-                                        </td>
-
-
-
-                                        <td width="200">
-                                            @Html.DisplayFor(modelItem => r.LastActivity)
-                                        </td>
-
-
-
-                                        <td width="300">
-                                            @r.ProjectTitle<br />
-                                            @r.JobTitle<br />
-
-                                            @{
-                                                if (r.TableID != 3)
-                                                {
-                                                    @Html.DisplayFor(modelItem => r.Description)
-
-
-                                                }
-                                            }
-                                        </td>
-
-                                        <td class="indexNowrapCol">
-
-                                            @{
-                                                string pageName = "projects";
-                                                int keyId = r.ProjectID;
-
-                                                if (r.TableID == 2)
-                                                {
-                                                    pageName = "jobs";
-                                                    keyId = r.JobId;
-
-                                                }
-                                                if (r.TableID == 3)
-                                                {
-                                                    pageName = "timelogs";
-                                                    keyId = r.TimelogId;
-
-                                                }
-                                            }
-
-                                            <a ssn-cmd="returnToCallerLink" asp-page="/@pageName/Edit" asp-route-id="@keyId">Edit</a> |
-                                            <a ssn-cmd="returnToCallerLink" asp-page="/@pageName/Details" asp-route-id="@keyId">Details</a> |
-                                            <a ssn-cmd="returnToCallerLink" asp-page="/@pageName/Delete" asp-route-id="@keyId">Delete</a>
-
-
-                                        </td>
-
-                                    </tr>
-
-
-                                    if (r.TableID == 3)
-                                    {
-
-
-
-                                        <tr class="detail workDetail_2">
-                                            <td colspan="2"></td>
-                                            <td colspan="2" class="workDetail ">
-                                                @Html.DisplayFor(modelItem => r.Description)
-                                            </td>
-
-                                        </tr>
-                                    }
-
-
+                                    await Html.RenderPartialAsync("Projects_Index_Search_Row", new Shared.Project_Search_index_record { project_Search_Record = r, servingPage = Shared.ServingPage.Projects_Search });
                                 }
                             }
 

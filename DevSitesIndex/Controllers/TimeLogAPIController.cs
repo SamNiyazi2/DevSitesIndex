@@ -1,4 +1,5 @@
 ﻿using DevSitesIndex.Entities;
+using DevSitesIndex.Pages.Shared;
 using DevSitesIndex.Services;
 using DevSitesIndex.Util;
 using Microsoft.AspNetCore.Mvc;
@@ -31,12 +32,12 @@ namespace DevSitesIndex.Controllers
             _entityRepository = new TimeLogRepository(context, logger);
         }
 
-         
+
 
         // 10/21/2019 08:15 am - SSN - [20191021-0444] - [009] - M12 - Creating directives and advanced components in Angular.
         // Partial copy of JobApiController
 
-             
+
         [Route("search")]
         public async Task<DataBag<TimeLog>> search([FromBody] SqlStatsRecord sqlStatsRecord)
         {
@@ -231,25 +232,26 @@ namespace DevSitesIndex.Controllers
         // 11/19/2019 12:48 am - SSN - [20191119-0048] Created    
 
         [HttpGet("RefreshRecord/{id}")]
-        public string RefreshRecord(int id)
+        public Timelog_index_record RefreshRecord(int id, ServingPage servingPage)
         {
             TimeLog timelog = _entityRepository.GetRecord(id);
 
-            string html = "NotSet";
+            Timelog_index_record r = new Timelog_index_record { timelog = timelog, servingPage = servingPage};
 
             try
             {
-                var view = View("Timelog_index_record", timelog);
-                html = view.ToHtml(HttpContext);
+                var view = View("Timelog_index_record", r);
+                r.html = view.ToHtml(HttpContext);
+
 
             }
             catch (Exception ex)
             {
-                html = string.Format("**** [20191119-0233] Error: {0}", ex.Message);
+                r.html = ExceptionHandling_MessageToUser.getBasicMessage_asHtml("20191119-0233", ex);
                 logger.PostException(ex, "20191119-0234", "Failed call to return view for Timelog index record refresh.");
             }
 
-            return html;
+            return r;
         }
 
 
@@ -268,7 +270,8 @@ namespace DevSitesIndex.Controllers
         public int JobId { get; set; }
         public int TimelogId { get; set; }
         public DateTime StartTime { get; set; }
-        public int TotalSeconds { get; set; }
+        public int? TotalSeconds { get; set; }
+
 
     }
 

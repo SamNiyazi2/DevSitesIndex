@@ -30,8 +30,16 @@ var timesheetApp_instance = function () {
          // 11/19/2019 06:43 am - SSN - [20191119-0048] Added to re-bind ng-click
 
         $scope.$on('TimeLog_Index_Refresh', function (event, item) {
+
+            console.log('20191122-1757');
+
+            console.log(item);
             
-            $compile($("#model_" + item + "_a").contents())($scope);
+            $("#" + item.tr_2_id ).remove();
+
+            $("#" + item.tr_1_id ).replaceWith(item.html);
+            
+            $compile($("#" + item.tr_1_id  ).contents())($scope);
 
         });
 

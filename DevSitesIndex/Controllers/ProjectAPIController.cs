@@ -19,7 +19,7 @@ using SSN_GenUtil_StandardLib;
 namespace DevSitesIndex.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
+    ////////////////////////////////////////////////////////////////////////////////// [ApiController]
 
     // 10/09/2019 01:20 pm - SSN - [20191009-1302] - [004] - M09 - Reusing components with content projection
     // Change to implement : EntityAPIController<Project>
@@ -40,6 +40,10 @@ namespace DevSitesIndex.Controllers
             _entityRepository = new ProjectRepository(context, logger);
         }
 
+
+
+
+
         // 09/26/2019 02:48 pm - SSN - [20190926-1242] - [008] - Search projects
 
 
@@ -57,9 +61,7 @@ namespace DevSitesIndex.Controllers
         //  public  DataBag<Project_Search_Record> getSerachResults(
         [Route("search")]
         public async Task<DataBag<Project_Search_Record>> search([FromBody] Tempparam options) // Input replaces form Input variable from code copied here
-
         {
-
             try
             {
 
@@ -107,5 +109,90 @@ namespace DevSitesIndex.Controllers
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // 11/22/2019 03:31 pm - SSN - [20191121-0503] - [017] - Timelog edit options on project search
+
+        [HttpGet("RefreshRecord/{id}")]
+        public Pages.Shared.Project_Search_index_record RefreshRecord(int id, string servingPage)
+        {
+
+            Pages.Shared.Project_Search_index_record r = new Pages.Shared.Project_Search_index_record
+            {
+                servingPage = Enum_Extensions.parseEnum<Pages.Shared.ServingPage>(servingPage)
+
+            };
+
+            try
+            {
+
+
+                TimeLogRepository timeLogRepository = new TimeLogRepository(context, logger);
+                TimeLog timelog = timeLogRepository.GetRecord(id);
+
+                r.project_Search_Record = new DevSitesIndex.Services.Project_Search_Record
+                {
+                    Description = timelog.WorkDetail,
+                    JobId = timelog.JobId,
+                    JobTitle = timelog.job.JobTitle,
+                    ProjectID = timelog.job.ProjectID,
+                    ProjectTitle = timelog.job.project.ProjectTitle,
+                    SourceTable = "Timelog",
+                    TableID = 3,
+                    TimelogId = timelog.TimeLogId,
+                    LastActivity = timelog.DateModified ?? timelog.DateAdded,
+                    totalSeconds = timelog.TotalSeconds
+
+                };
+
+
+                var view = View("Projects_Index_Search_Row", r);
+                r.html = view.ToHtml(HttpContext);
+
+
+            }
+            catch (Exception ex)
+            {
+                r.html = ExceptionHandling_MessageToUser.getBasicMessage_asHtml("20191122-1548", ex);
+                logger.PostException(ex, "20191122-1549", "Failed call to return view for project search index record refresh.");
+
+            }
+
+            return r;
+
+        }
+
+
+
+
+
+
+
+
+
+
+
     }
 }
+

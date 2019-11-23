@@ -10,7 +10,11 @@ var timesheetApp_instance = function () {
     timesheetApp.controller("timesheetController", ['$scope', '$uibModal', 'changeMonitorService', '$compile', function ($scope, $uibModal, changeMonitorService, $compile) {
             // 11/19/2019 06:43 am - SSN - [20191119-0048] Added to re-bind ng-click
             $scope.$on('TimeLog_Index_Refresh', function (event, item) {
-                $compile($("#model_" + item + "_a").contents())($scope);
+                console.log('20191122-1757');
+                console.log(item);
+                $("#" + item.tr_2_id).remove();
+                $("#" + item.tr_1_id).replaceWith(item.html);
+                $compile($("#" + item.tr_1_id).contents())($scope);
             });
             $scope.timesheetForm_ClockOut = function (timelogId) {
                 // 04/29/2019 04:16 pm - SSN - [20190429-1616] - [001] - Timesheet - stop / continue

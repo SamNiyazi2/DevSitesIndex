@@ -13,7 +13,11 @@ import { timesheetClockoutController_instance } from './timesheetclockoutcontrol
 import { dropdownListDirective_instance } from '../DropdownList/DropdownListDirective';
 // 11/16/2019 04:57 pm - SSN - [20191116-1516] - [004] - Timelog edit (AngularJS client version)
 import { timesheetEditController_instance } from '../Timesheet/TimesheetEditController';
+import { AppInsights_Util } from '../Util/ApplicationInsights_Monitor';
+import { TimelogLinkOptions } from './TimelogLinkOtions/TimelogLinkOptions';
 var ngApplicationName = 'timesheetApp';
+// 11/21/2019 06:45 am - SSN - [20191121-0503] - [007] - Timelog edit options on project search
+TimelogLinkOptions.doSetup(ngApplicationName);
 //ChangeMonitor_Util
 changeMonitorService_instance.doSetup(ngApplicationName);
 PageUpdater_Instance.doSetup(ngApplicationName);
@@ -27,7 +31,6 @@ timesheetClockoutController_instance.timesheetApp;
 timesheetApp_instance.timesheetApp;
 // 10/01/2019 11:09 am - SSN - [20191001-0944] - [007] - Adding Application Insights for JavaScript
 console.log("Timesheet_main - 20191001-1110");
-import { AppInsights_Util } from '../Util/ApplicationInsights_Monitor';
 AppInsights_Util.doSetup();
 timesheetEditController_instance.timesheetApp;
 AppInsights_Util.logEvent("Timesheet_main", { SourceCode: "20191001-1112-C", Message: "Loading timesheet_main" });

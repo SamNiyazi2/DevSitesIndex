@@ -106,7 +106,7 @@ var globals_instance = function () {
                         angularApp = {
                             name: applicationName,
                             // 11/10/2019 08:36 am - SSN - Adding 'ngSanitize' for ng-bind-html
-                            instance: angular.module('timesheetApp', ['ngRoute', 'ui.bootstrap',  'ngSanitize'])
+                            instance: angular.module('timesheetApp', ['ngRoute', 'ui.bootstrap', 'ngSanitize'])
                         }
 
                         SSN_Globals.ssn_devsite_angular_module.push(angularApp);
@@ -317,7 +317,20 @@ var test_103 = function () {
 }();
 
 
-export { globals_instance };
+// 11/21/2019 06:32 am - SSN - [20191121-0503] - [006] - Timelog edit options on project search
 
-export { test_103 };
+enum Timelog_ServingPage { // ServingPage (for IDE Search)
+
+    Timelog = 'Timelog',
+    Job_Timelog = 'Job_Timelog',
+    Projects_Search = 'Projects_Search'
+}
+
+function Timelog_ServingPage_checkvalue(value: Timelog_ServingPage, compareTo: Timelog_ServingPage) {
+
+    return compareTo === value;
+}
+
+export { globals_instance, test_103, Timelog_ServingPage, Timelog_ServingPage_checkvalue };
+
 

@@ -6,15 +6,17 @@ import * as util from '../site';
 var timesheetEditController_instance = function () {
     var timesheetApp = ssn_globals.globals_instance.getInstance("timesheetApp");
     // 11/19/2019 12:48 am - SSN - [20191119-0048] Adding $compile for dynamically loaded view
-    timesheetApp.controller('TimesheetEditController', ['$scope', '$uibModalInstance', '$http', '$q', 'dataService', 'changeMonitorService', 'timelogId', '$timeout', '$rootScope',
-        function TimesheetController($scope, $uibModalInstance, $http, $q, dataService, changeMonitorService, timelogId, $timeout, $rootScope) {
+    // 11/22/2019 02:18 pm - SSN - [20191121-0503] - [015] - Timelog edit options on project search
+    // Injecting Servingpage
+    timesheetApp.controller('TimesheetEditController', ['$scope', '$uibModalInstance', '$http', '$q', 'dataService', 'changeMonitorService', 'timelogId', '$timeout', '$rootScope', 'servingPage',
+        function TimesheetController($scope, $uibModalInstance, $http, $q, dataService, changeMonitorService, timelogId, $timeout, $rootScope, servingPage) {
             $timeout(function () {
                 changeMonitorService.setupMonitor();
                 util.site_instance.setDefaults();
             }, 600);
             dataService.getTimelog(timelogId).then(getTimelogSuccess, getTimelogError)
                 .catch(getTimelogCatch);
-            $scope.pageTitle = "Edit";
+            $scope.pageTitle = "Edit [" + servingPage + ']';
             $scope.feedbackToUserText = "";
             $scope.feedbackToUserClassNameCase = "";
             $scope.feedbackToUserClassNameSet = function () {
@@ -78,13 +80,29 @@ var timesheetEditController_instance = function () {
                         toastr.info("Record saved.");
                         // Refactor [20191120-0438] - Begin
                         var id_temp = $scope.editableTimeLog.timeLogId;
-                        dataService.timelogRefreshRecord(id_temp).then(refreshRecord_Sucess, refreshRecord_Error);
+                        // 11/22/2019 04:09 pm - SSN - [20191121-0503] - [019] - Timelog edit options on project search
+                        console.log("servingPage 5 ", servingPage);
+                        var haveMatch_on_servingPage = false;
+                        if (ssn_globals.Timelog_ServingPage_checkvalue(servingPage, ssn_globals.Timelog_ServingPage.Timelog)
+                            ||
+                                ssn_globals.Timelog_ServingPage_checkvalue(servingPage, ssn_globals.Timelog_ServingPage.Job_Timelog)) {
+                            dataService.timelogRefreshRecord(id_temp, servingPage).then(refreshRecord_Sucess, refreshRecord_Error);
+                            haveMatch_on_servingPage = true;
+                        }
+                        if (ssn_globals.Timelog_ServingPage_checkvalue(servingPage, ssn_globals.Timelog_ServingPage.Projects_Search)) {
+                            dataService.projectsSearchRefreshRecord(id_temp, servingPage).then(refreshRecord_Sucess, refreshRecord_Error);
+                            haveMatch_on_servingPage = true;
+                        }
+                        if (!haveMatch_on_servingPage) {
+                            console.log('No match for servingPage to refresh page ***** 20191122-1949');
+                            console.log('No match for servingPage to refresh page ***** 20191122-1949');
+                            console.log('No match for servingPage to refresh page ***** 20191122-1949');
+                            console.log('No match for servingPage to refresh page ***** 20191122-1949');
+                            console.log('No match for servingPage to refresh page ***** 20191122-1949');
+                            console.log('No match for servingPage to refresh page ***** 20191122-1949');
+                        }
                         function refreshRecord_Sucess(result) {
-                            var tr_1_id_jq = "#model_" + id_temp + "_a";
-                            var tr_2_id_jq = "#model_" + id_temp + "_b";
-                            $(tr_2_id_jq).remove();
-                            $(tr_1_id_jq).replaceWith(result);
-                            $rootScope.$broadcast('TimeLog_Index_Refresh', id_temp);
+                            $rootScope.$broadcast('TimeLog_Index_Refresh', result);
                         }
                         function refreshRecord_Error(result) {
                             console.error(result);
@@ -107,28 +125,29 @@ var timesheetEditController_instance = function () {
                 }
                 $uibModalInstance.dismiss();
             };
-            $scope.getDisciplines = function (lookupValue) {
-                if (lookupValue === null)
-                    lookupValue = "";
-                var deferred = $q.defer();
-                $http({
-                    method: 'GET',
-                    url: 'api/DisciplineAPI'
-                }).then(typeaheadDisciplineSuccess, typeaheadDisciplineError);
-                return deferred.promise;
-                function typeaheadDisciplineSuccess(response) {
-                    var addresses = [];
-                    angular.forEach(response.data, function (item) {
-                        if (item.disciplineShort.toLowerCase().indexOf(lookupValue.toLowerCase()) > -1) {
-                            addresses.push({ id: item.disciplineId, title: item.disciplineShort });
-                        }
-                    });
-                    deferred.resolve(addresses);
-                }
-                function typeaheadDisciplineError(response) {
-                    deferred.reject(response);
-                }
-            };
+            //$scope.getDisciplines = function (lookupValue) {
+            //    if (lookupValue === null) lookupValue = "";
+            //    var deferred = $q.defer();
+            //    $http({
+            //        method: 'GET',
+            //        url: 'api/DisciplineAPI'
+            //    }).then(typeaheadDisciplineSuccess, typeaheadDisciplineError);
+            //    return deferred.promise;
+            //    function typeaheadDisciplineSuccess(response) {
+            //        var addresses = [];
+            //        angular.forEach(response.data,
+            //            function (item) {
+            //                if (item.disciplineShort.toLowerCase().indexOf(lookupValue.toLowerCase()) > -1) {
+            //                    addresses.push({ id: item.disciplineId, title: item.disciplineShort });
+            //                }
+            //            }
+            //        );
+            //        deferred.resolve(addresses);
+            //    }
+            //    function typeaheadDisciplineError(response) {
+            //        deferred.reject(response);
+            //    }
+            //};
         }]);
     return {
         timesheetApp: timesheetApp

@@ -23,7 +23,16 @@ import { dropdownListDirective_instance } from '../DropdownList/DropdownListDire
 import { timesheetEditController_instance } from '../Timesheet/TimesheetEditController';
 
 
+import { AppInsights_Util } from '../Util/ApplicationInsights_Monitor';
+import { TimelogLinkOptions } from './TimelogLinkOtions/TimelogLinkOptions';
+
+
+
 const ngApplicationName = 'timesheetApp';
+
+
+// 11/21/2019 06:45 am - SSN - [20191121-0503] - [007] - Timelog edit options on project search
+TimelogLinkOptions.doSetup(ngApplicationName);
 
 
 //ChangeMonitor_Util
@@ -51,7 +60,6 @@ timesheetApp_instance.timesheetApp;
 // 10/01/2019 11:09 am - SSN - [20191001-0944] - [007] - Adding Application Insights for JavaScript
 console.log("Timesheet_main - 20191001-1110");
 
-import { AppInsights_Util } from '../Util/ApplicationInsights_Monitor';
 
 AppInsights_Util.doSetup();
 

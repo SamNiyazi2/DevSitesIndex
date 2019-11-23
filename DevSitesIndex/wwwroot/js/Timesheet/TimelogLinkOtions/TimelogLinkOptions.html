@@ -1,0 +1,15 @@
+﻿<!--
+// 11/21/2019 07:05 am - SSN - [20191121-0503] - [008] - Timelog edit options on project search
+// Created:
+-->
+
+<a ng-click="timesheetForm_Edit(timelogId, servingPage)">Edit (A)</a> |
+ 
+<span ng-If="showClockoutOption">
+    <a ng-click="timesheetForm_ClockOut(timelogId, servingPage)" class="alert-warning">Clock-out</a>
+    |
+</span>
+
+<a ng-click="timesheetForm_ClockContinue(timelogId, servingPage)" class="alert-warning">{{continue_or_lineItem_caption}}</a>
+
+ 

@@ -65,7 +65,7 @@ else
                     // Added
                 *@
                 @*@await Html.PartialAsync("Job_Timelog_Record", item);*@
-                @await Html.PartialAsync("Timelog_index_record", new Shared.Timelog_index_record { timelog = item, servingPage = ServingPage.Job });
+                @await Html.PartialAsync("Timelog_index_record", new Shared.Timelog_index_record { timelog = item, servingPage = ServingPage.Job_Timelog });
 
             }
 

@@ -6,23 +6,11 @@ import * as ssn_globals from "../globals";
 var jobStatusChangeRecord_instance = function () {
 
 
-    var jobStatusChangeRecord_Module: angular.IModule = ssn_globals.globals_instance.getInstance("timesheetApp");
-    /////////////////////////////////   jobsIndexController
-    // , '$http', '$q', 'dataService', '$timeout', '$sce', '$uibModal'
-    // , $http, $q, dataService, $timeout, $sce, $uibModal
-    jobStatusChangeRecord_Module.controller('ProjectIndexController', ['$scope',
+    var angular_Module: angular.IModule = ssn_globals.globals_instance.getInstance("timesheetApp");
+ 
 
 
-        function ($scope) {
-
-            console.log('ProjectIndexController- 20191115-1621-A');
-
-
-
-        }]);
-
-
-    jobStatusChangeRecord_Module.directive('jobStatusChangeRecord', function () {
+    angular_Module.directive('jobStatusChangeRecord', function () {
 
 
         let parentTable = null;
@@ -65,15 +53,7 @@ var jobStatusChangeRecord_instance = function () {
 
                     let windowName = this.actionLink.trim();
                     var windowName1 = windowName.replace(/[^a-z|^0-9]*/ig, '');
-                    console.log('************************************');
-                    console.log('************************************');
-                    console.log('************************************');
-                    console.log('************************************');
 
-                    console.log(windowName);
-                    console.log(windowName1);
-                    console.log('');
-                    console.log('');
                     return windowName1;
                 };
 
@@ -86,7 +66,7 @@ var jobStatusChangeRecord_instance = function () {
 
 
     return {
-        jobStatusChangeRecord_Module: jobStatusChangeRecord_Module
+        angular_Module: angular_Module
     };
 
 
