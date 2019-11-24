@@ -46,20 +46,18 @@
 <body>
 
     @{
-        string forDebugginOnly = "ViewBag.InitModule_Full is already set";
+
         if (string.IsNullOrEmpty(ViewBag.InitModule_Full))
         {
             string path = Context.Request.Path.ToString().ToLower();
             if (Startup.applicablePaths_temp_support.Any(r => path.StartsWith(r.ToLower())))
-            {  <script src="/webpack_build/bundle_Temp_Support.js" asp-append-version="true"></script>
-                    ViewBag.InitModule_Full = "data-ng-app=\"timesheetApp\"";
-
-                    forDebugginOnly = "setting ViewBag.InitModule_Full ***********";
-                }
+            {
+                <script src="/webpack_build/bundle_Temp_Support.js" asp-append-version="true"></script>
+                ViewBag.InitModule_Full = "data-ng-app=\"timesheetApp\"";
             }
         }
+    }
 
-    <h1>forDebugginOnly  [@ViewBag.InitModule_Full] </h1>
 
 
     <div @Html.Raw(ViewBag.InitModule_Full)>

@@ -43,9 +43,9 @@ namespace DevSitesIndex
             Configuration = configuration;
         }
 
-        public static List<string> applicablePaths_Site_Only = new List<string>() { "/codereference", "/companies", "/devsites" , "/Discipline", "/jobs",  "/projects", "/ReferenceSites" };
+        public static List<string> applicablePaths_Site_Only = new List<string>() { "/codereference", "/companies", "/devsites", "/Discipline", "/jobs", "/projects", "/ReferenceSites" };
 
-        public static List<string> applicablePaths_temp_support = new List<string>() { "/codereference", "/companies", "/devsites", "/discipline" ,"/referencesites", "/timelogs/" };
+        public static List<string> applicablePaths_temp_support = new List<string>() { "/codereference", "/companies", "/devsites", "/discipline", "/referencesites", "/projects", "/timelogs/" };
         //                                                                                                                                                            "/timelogs/" trailing slash to avoid including index.
 
 

@@ -1,38 +1,25 @@
-﻿import { globals_instance } from "../globals";
-
+﻿
 // 11/22/2019 09:41 pm - SSN - Created to restore page on hitting the back button or recalling the page.
+
+
+import * as angular from 'angular'
+
+import { globals_instance } from "../globals";
+
 
 
 var RestorePreviousPageState_instance = function () {
 
 
     console.log('RestorePreviousPageState xxxxxxxxxxxxxxxxxxxxxxxxx');
-    console.log('RestorePreviousPageState xxxxxxxxxxxxxxxxxxxxxxxxx');
-    console.log('RestorePreviousPageState xxxxxxxxxxxxxxxxxxxxxxxxx');
-    console.log('RestorePreviousPageState xxxxxxxxxxxxxxxxxxxxxxxxx');
-    console.log('RestorePreviousPageState xxxxxxxxxxxxxxxxxxxxxxxxx');
-    console.log('RestorePreviousPageState xxxxxxxxxxxxxxxxxxxxxxxxx');
-    console.log('RestorePreviousPageState xxxxxxxxxxxxxxxxxxxxxxxxx');
 
 
     var doSetup = function (ngDefaultApplication) {
 
 
+        console.log('ngDefaultApplication [', ngDefaultApplication, ']')
 
-        console.log('RestorePreviousPageState yyyyyyyyyyyyyyyyyyyyy');
-        console.log('RestorePreviousPageState yyyyyyyyyyyyyyyyyyyyy');
-        console.log('RestorePreviousPageState yyyyyyyyyyyyyyyyyyyyy');
-        console.log('RestorePreviousPageState yyyyyyyyyyyyyyyyyyyyy');
-        console.log('RestorePreviousPageState yyyyyyyyyyyyyyyyyyyyy');
-        console.log('RestorePreviousPageState yyyyyyyyyyyyyyyyyyyyy');
-        console.log('RestorePreviousPageState yyyyyyyyyyyyyyyyyyyyy');
-        console.log('ngDefaultApplication [', ngDefaultApplication,']')
-
-        var angular_module = globals_instance.getInstance(ngDefaultApplication);
-
-
-
-
+        var angular_module: angular.IModule = globals_instance.getInstance(ngDefaultApplication);
 
         angular_module.controller('restorePreviousPageAndTaskQueueController', ['$scope', '$attrs', '$location', function ($scope, $attrs, $location) {
 
@@ -46,21 +33,16 @@ var RestorePreviousPageState_instance = function () {
             //    $rootScope.$broadcast('site_Task_Queue_List', result);
 
 
-            console.log('RestorePreviousPageState ***********************');
-            console.log('RestorePreviousPageState ***********************');
-            console.log('RestorePreviousPageState ***********************');
-            console.log('RestorePreviousPageState ***********************');
-            console.log('RestorePreviousPageState ***********************');
-            console.log('RestorePreviousPageState ***********************');
-            console.log('RestorePreviousPageState ***********************');
+            console.log('RestorePreviousPageState -  directive  ***********************'); 
+
+
             let alreadyPosted = false;
 
 
             var controller = function ($http, $q, $scope) {
             };
 
-
-
+             
 
             $(function () {
 
@@ -76,6 +58,7 @@ var RestorePreviousPageState_instance = function () {
 
             function getRelativePath() {
 
+                // Source: https://stackoverflow.com/questions/4504686/get-relative-path-of-the-page-url-using-javascript
                 return document.location.href.replace(/(.+\w\/)(.+)/, "/$2");
             }
 
@@ -103,7 +86,7 @@ var RestorePreviousPageState_instance = function () {
                     };
                 }
 
-                
+
 
                 let posX = window.scrollX;
                 let posY = window.scrollY;
@@ -132,7 +115,7 @@ var RestorePreviousPageState_instance = function () {
 
 
             function get_URL_Track_Record(createIfNotFound: boolean = false) {
-                 
+
                 let URL_Track_temp: any = window.localStorage.getItem('URL_Track');
 
                 if (URL_Track_temp == undefined) {
@@ -283,18 +266,18 @@ var RestorePreviousPageState_instance = function () {
             return {
 
                 restrict: "E",
-                 
+
                 templateUrl: "/js/util/RestorePreviousPageState.html",
 
-               
+
 
                 link: function (scope, el, attrs) {
-                     
+
                 }
 
             }
 
-             
+
 
         });
 

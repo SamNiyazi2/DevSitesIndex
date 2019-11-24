@@ -1,34 +1,15 @@
-import { globals_instance } from "../globals";
 // 11/22/2019 09:41 pm - SSN - Created to restore page on hitting the back button or recalling the page.
+import { globals_instance } from "../globals";
 var RestorePreviousPageState_instance = function () {
     console.log('RestorePreviousPageState xxxxxxxxxxxxxxxxxxxxxxxxx');
-    console.log('RestorePreviousPageState xxxxxxxxxxxxxxxxxxxxxxxxx');
-    console.log('RestorePreviousPageState xxxxxxxxxxxxxxxxxxxxxxxxx');
-    console.log('RestorePreviousPageState xxxxxxxxxxxxxxxxxxxxxxxxx');
-    console.log('RestorePreviousPageState xxxxxxxxxxxxxxxxxxxxxxxxx');
-    console.log('RestorePreviousPageState xxxxxxxxxxxxxxxxxxxxxxxxx');
-    console.log('RestorePreviousPageState xxxxxxxxxxxxxxxxxxxxxxxxx');
     var doSetup = function (ngDefaultApplication) {
-        console.log('RestorePreviousPageState yyyyyyyyyyyyyyyyyyyyy');
-        console.log('RestorePreviousPageState yyyyyyyyyyyyyyyyyyyyy');
-        console.log('RestorePreviousPageState yyyyyyyyyyyyyyyyyyyyy');
-        console.log('RestorePreviousPageState yyyyyyyyyyyyyyyyyyyyy');
-        console.log('RestorePreviousPageState yyyyyyyyyyyyyyyyyyyyy');
-        console.log('RestorePreviousPageState yyyyyyyyyyyyyyyyyyyyy');
-        console.log('RestorePreviousPageState yyyyyyyyyyyyyyyyyyyyy');
         console.log('ngDefaultApplication [', ngDefaultApplication, ']');
         var angular_module = globals_instance.getInstance(ngDefaultApplication);
         angular_module.controller('restorePreviousPageAndTaskQueueController', ['$scope', '$attrs', '$location', function ($scope, $attrs, $location) {
             }]);
         angular_module.directive('restorePreviousPageStateAndTaskQueue', function () {
             //    $rootScope.$broadcast('site_Task_Queue_List', result);
-            console.log('RestorePreviousPageState ***********************');
-            console.log('RestorePreviousPageState ***********************');
-            console.log('RestorePreviousPageState ***********************');
-            console.log('RestorePreviousPageState ***********************');
-            console.log('RestorePreviousPageState ***********************');
-            console.log('RestorePreviousPageState ***********************');
-            console.log('RestorePreviousPageState ***********************');
+            console.log('RestorePreviousPageState -  directive  ***********************');
             var alreadyPosted = false;
             var controller = function ($http, $q, $scope) {
             };
@@ -38,6 +19,7 @@ var RestorePreviousPageState_instance = function () {
                 setTimeout(restorePos, 300);
             });
             function getRelativePath() {
+                // Source: https://stackoverflow.com/questions/4504686/get-relative-path-of-the-page-url-using-javascript
                 return document.location.href.replace(/(.+\w\/)(.+)/, "/$2");
             }
             function saveUrl(e) {

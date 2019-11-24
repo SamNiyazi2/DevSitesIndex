@@ -6,4 +6,4 @@
 call SSN_Remove_GenUtil_DLL_FromProject
 
 
-dotnet add DevSitesIndex.csproj package ssn_genutil_standardlib -s https://api.nuget.org/v3/index.json
+dotnet add DevSitesIndex.csproj package ssn_genutil_standardlib -s c:\sams_nuget
