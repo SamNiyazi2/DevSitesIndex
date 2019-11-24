@@ -5,9 +5,6 @@ import { dataService_instance } from '../DataServices';
 import { jobStatusDirective_instance } from './JobStatusDirective';
 import { jobsIndexController_instance } from '../Jobs/JobsIndexController';
 import { timesheetController_instance } from '../Timesheet/TimesheetController';
-//import { timesheetApp_instance } from '../Timesheet/TimesheetApp';  // for timesheet related links
-//import { timesheetContinueController_instance } from '../Timesheet/timesheetcontinuecontroller';
-//import { timesheetClockoutController_instance } from '../Timesheet/timesheetclockoutcontroller';
 // 11/14/2019 08:28 pm - SSN - [20191114-1931] - [006] - Job - option to change job status 
 // Adding jobStatusChangeRecord_instance 
 import { jobStatusChangeRecord_instance } from './JobStatusChangeRecord';

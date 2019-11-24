@@ -35,18 +35,18 @@
 
         string path = Context.Request.Path.ToString().ToLower();
 
-        List<string> applicablePaths = new List<string>() { "/projects", "/companies", "/Discipline", "/jobs", "/ReferenceSites", "/devsites", "/codereference" };
 
-        if (applicablePaths.Any(r => path.StartsWith(r.ToLower())))
+        if (Startup.applicablePaths_Site_Only.Any(r => path.StartsWith(r.ToLower())))
         {
             <script src="/webpack_build/bundle_Site_only.js" asp-append-version="true"></script>
         }
 
 
-        List<string> applicablePaths_temp_support = new List<string>() { "/referencesites", "/codereference", "/devsites", "/companies","/discipline" };
-        if (applicablePaths_temp_support.Any(r => path.StartsWith(r.ToLower())))
+
+        if (Startup.applicablePaths_temp_support.Any(r => path.StartsWith(r.ToLower())))
         {
             <script src="/webpack_build/bundle_Temp_Support.js" asp-append-version="true"></script>
+            ViewBag.InitModule_Full = "data-ng-app=\"timesheetApp\"";
         }
 
 

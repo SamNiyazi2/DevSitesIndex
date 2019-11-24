@@ -10,7 +10,7 @@
        typeahead-no-results="noResults"
        class="form-control" ng-required="true"
        typeahead-on-select="vm101.validateEntry($event)"
-       check-availability >
+       validate-dropdown-list-directive>
 
 <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
 
@@ -19,5 +19,5 @@
 </div>
 
 <p ng-show="!vm101.isValidBoolean" class="has-error">Selection is required (1)</p>
-<p ng-show="vm101.isInvalidUserName" class="has-error">Selection is required (22)</p>
+<p ng-show="vm101.isInvalidDropdownListDirectiveInput" class="has-error">Selection is required (22)</p>
  

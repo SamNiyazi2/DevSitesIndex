@@ -43,6 +43,13 @@ namespace DevSitesIndex
             Configuration = configuration;
         }
 
+        public static List<string> applicablePaths_Site_Only = new List<string>() { "/codereference", "/companies", "/devsites" , "/Discipline", "/jobs",  "/projects", "/ReferenceSites" };
+
+        public static List<string> applicablePaths_temp_support = new List<string>() { "/codereference", "/companies", "/devsites", "/discipline" ,"/referencesites", "/timelogs/" };
+        //                                                                                                                                                            "/timelogs/" trailing slash to avoid including index.
+
+
+
         // 07/29/2018 03:37 pm - SSN _ Changed to static
         // public  IConfiguration Configuration { get; }
         public static IConfiguration Configuration { get; private set; }

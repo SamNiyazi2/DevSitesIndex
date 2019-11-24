@@ -34,14 +34,14 @@ var RestorePreviousPageState_instance = function () {
 
 
 
-        angular_module.controller('utilityControllerQueue', ['$scope', '$attrs', '$location', function ($scope, $attrs, $location) {
+        angular_module.controller('restorePreviousPageAndTaskQueueController', ['$scope', '$attrs', '$location', function ($scope, $attrs, $location) {
 
 
         }]);
 
 
 
-        angular_module.directive('siteTaskQueueList', function () {
+        angular_module.directive('restorePreviousPageStateAndTaskQueue', function () {
 
             //    $rootScope.$broadcast('site_Task_Queue_List', result);
 
@@ -60,10 +60,7 @@ var RestorePreviousPageState_instance = function () {
             };
 
 
-            //var RestorePreviousPageState = function ()
-            //{
 
-            //  var doSetup = function () {
 
             $(function () {
 
@@ -75,15 +72,12 @@ var RestorePreviousPageState_instance = function () {
 
             });
 
-            //}
 
-            //    return {
-            //        doSetup: doSetup
-            //    };
 
-            //     }();
-            //}
+            function getRelativePath() {
 
+                return document.location.href.replace(/(.+\w\/)(.+)/, "/$2");
+            }
 
 
             function saveUrl(e) {
@@ -93,36 +87,7 @@ var RestorePreviousPageState_instance = function () {
                 alreadyPosted = true;
 
 
-
-
-                //let URL_Track_temp: any = window.localStorage.getItem('URL_Track');
-
-
-
-                //if (URL_Track_temp == undefined) {
-                //    URL_Track_temp = '{"urls":[]}';
-                //}
-
-                //let URL_Track = JSON.parse(URL_Track_temp);
-
-
-                //let url = document.location.href;
-
-                //let currentRecord = undefined;
-                //let currentIndex = -1;
-
-                //for (currentIndex = 0; currentIndex < URL_Track.urls.length; currentIndex++) {
-                //    if (URL_Track.urls[currentIndex].url == url) {
-                //        currentRecord = URL_Track.urls[currentIndex];
-                //        break;
-                //    }
-                //}
-
-
-
-                let URL_Track_Ref = get_URL_Track_Record();
-
-
+                let URL_Track_Ref = get_URL_Track_Record(true);
 
 
                 let elemInfo = {};
@@ -138,16 +103,14 @@ var RestorePreviousPageState_instance = function () {
                     };
                 }
 
-
-
-
+                
 
                 let posX = window.scrollX;
                 let posY = window.scrollY;
 
                 if (URL_Track_Ref.currentRecord == undefined) {
 
-                    URL_Track_Ref.currentRecord = { url: document.location.href, posX: posX, posY: posY, element: elemInfo };
+                    URL_Track_Ref.currentRecord = { url: getRelativePath(), posX: posX, posY: posY, element: elemInfo };
 
                     URL_Track_Ref.URL_Track.urls.push(URL_Track_Ref.currentRecord);
 
@@ -168,16 +131,22 @@ var RestorePreviousPageState_instance = function () {
             }
 
 
-            function get_URL_Track_Record() {
-
+            function get_URL_Track_Record(createIfNotFound: boolean = false) {
+                 
                 let URL_Track_temp: any = window.localStorage.getItem('URL_Track');
 
-                if (URL_Track_temp == undefined) return;
+                if (URL_Track_temp == undefined) {
+
+                    if (!createIfNotFound) return null;
+
+                    URL_Track_temp = '{"urls":[]}';
+                }
+
 
                 let URL_Track = JSON.parse(URL_Track_temp);
 
 
-                let url = document.location.href;
+                let url = getRelativePath();
                 let currentRecord = undefined;
 
                 let currentIndex = -1
@@ -198,7 +167,14 @@ var RestorePreviousPageState_instance = function () {
 
             function restorePos() {
 
-                let currentRecord = get_URL_Track_Record().currentRecord;
+
+                let URL_Track_Ref = get_URL_Track_Record();
+
+                if (!URL_Track_Ref) return;
+                if (!URL_Track_Ref.currentRecord) return;
+
+
+                let currentRecord = URL_Track_Ref.currentRecord;
 
                 if (currentRecord) {
 
@@ -226,28 +202,13 @@ var RestorePreviousPageState_instance = function () {
 
             function highlightClickSource() {
 
-                ////////////let URL_Track_temp: any = window.localStorage.getItem('URL_Track');
+                let URL_Track_Ref = get_URL_Track_Record();
+
+                if (!URL_Track_Ref) return;
+                if (!URL_Track_Ref.currentRecord) return;
 
 
-                ////////////if (URL_Track_temp == undefined) return;
-
-                ////////////let URL_Track = JSON.parse(URL_Track_temp);
-
-
-                ////////////let url = document.location.href;
-                ////////////let currentRecord = undefined;
-
-                ////////////let currentIndex = -1
-
-                ////////////for (currentIndex = 0; currentIndex < URL_Track.urls.length; currentIndex++) {
-                ////////////    if (URL_Track.urls[currentIndex].url == url) {
-                ////////////        currentRecord = URL_Track.urls[currentIndex];
-                ////////////        break;
-                ////////////    }
-                ////////////}
-
-
-                let currentRecord = get_URL_Track_Record().currentRecord;
+                let currentRecord = URL_Track_Ref.currentRecord;
 
                 console.log("xxxxxxxxxxxxx-00000");
 
@@ -322,44 +283,18 @@ var RestorePreviousPageState_instance = function () {
             return {
 
                 restrict: "E",
-
-                //template: "<h1>siteTaskQueueList</h1>",
-
+                 
                 templateUrl: "/js/util/RestorePreviousPageState.html",
 
-                //controllerAs: 'vm101',
-                //bindToController: true, //required in 1.3+ with controllerAs - VERIFIED.
-                //controller: controller,
-
-                //controller: ['$http', '$q', '$scope', '$timeout', controller],
-                //controllerAs: 'vm101',
-                //bindToController: true, //required in 1.3+ with controllerAs - VERIFIED.
-                //scope: {
-
-                //    keyColumn: "@key",
-                //    formName: "=", // Needed for posting form (Replacing url)
-
-
-                //    angularControlId: "=?aci"
-
-                //},
+               
 
                 link: function (scope, el, attrs) {
-
-
-
-
-
-
-
+                     
                 }
 
             }
 
-
-
-
-
+             
 
         });
 

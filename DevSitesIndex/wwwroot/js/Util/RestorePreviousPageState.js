@@ -18,9 +18,9 @@ var RestorePreviousPageState_instance = function () {
         console.log('RestorePreviousPageState yyyyyyyyyyyyyyyyyyyyy');
         console.log('ngDefaultApplication [', ngDefaultApplication, ']');
         var angular_module = globals_instance.getInstance(ngDefaultApplication);
-        angular_module.controller('utilityControllerQueue', ['$scope', '$attrs', '$location', function ($scope, $attrs, $location) {
+        angular_module.controller('restorePreviousPageAndTaskQueueController', ['$scope', '$attrs', '$location', function ($scope, $attrs, $location) {
             }]);
-        angular_module.directive('siteTaskQueueList', function () {
+        angular_module.directive('restorePreviousPageStateAndTaskQueue', function () {
             //    $rootScope.$broadcast('site_Task_Queue_List', result);
             console.log('RestorePreviousPageState ***********************');
             console.log('RestorePreviousPageState ***********************');
@@ -32,39 +32,19 @@ var RestorePreviousPageState_instance = function () {
             var alreadyPosted = false;
             var controller = function ($http, $q, $scope) {
             };
-            //var RestorePreviousPageState = function ()
-            //{
-            //  var doSetup = function () {
             $(function () {
                 window.addEventListener('click', function (e) { saveUrl(e); });
                 window.addEventListener('beforeunload', function (e) { saveUrl(e); });
                 setTimeout(restorePos, 300);
             });
-            //}
-            //    return {
-            //        doSetup: doSetup
-            //    };
-            //     }();
-            //}
+            function getRelativePath() {
+                return document.location.href.replace(/(.+\w\/)(.+)/, "/$2");
+            }
             function saveUrl(e) {
                 if (alreadyPosted)
                     return;
                 alreadyPosted = true;
-                //let URL_Track_temp: any = window.localStorage.getItem('URL_Track');
-                //if (URL_Track_temp == undefined) {
-                //    URL_Track_temp = '{"urls":[]}';
-                //}
-                //let URL_Track = JSON.parse(URL_Track_temp);
-                //let url = document.location.href;
-                //let currentRecord = undefined;
-                //let currentIndex = -1;
-                //for (currentIndex = 0; currentIndex < URL_Track.urls.length; currentIndex++) {
-                //    if (URL_Track.urls[currentIndex].url == url) {
-                //        currentRecord = URL_Track.urls[currentIndex];
-                //        break;
-                //    }
-                //}
-                var URL_Track_Ref = get_URL_Track_Record();
+                var URL_Track_Ref = get_URL_Track_Record(true);
                 var elemInfo = {};
                 if (e.screenX) {
                     elemInfo = {
@@ -75,7 +55,7 @@ var RestorePreviousPageState_instance = function () {
                 var posX = window.scrollX;
                 var posY = window.scrollY;
                 if (URL_Track_Ref.currentRecord == undefined) {
-                    URL_Track_Ref.currentRecord = { url: document.location.href, posX: posX, posY: posY, element: elemInfo };
+                    URL_Track_Ref.currentRecord = { url: getRelativePath(), posX: posX, posY: posY, element: elemInfo };
                     URL_Track_Ref.URL_Track.urls.push(URL_Track_Ref.currentRecord);
                 }
                 else {
@@ -86,12 +66,16 @@ var RestorePreviousPageState_instance = function () {
                 }
                 window.localStorage.setItem('URL_Track', JSON.stringify(URL_Track_Ref.URL_Track));
             }
-            function get_URL_Track_Record() {
+            function get_URL_Track_Record(createIfNotFound) {
+                if (createIfNotFound === void 0) { createIfNotFound = false; }
                 var URL_Track_temp = window.localStorage.getItem('URL_Track');
-                if (URL_Track_temp == undefined)
-                    return;
+                if (URL_Track_temp == undefined) {
+                    if (!createIfNotFound)
+                        return null;
+                    URL_Track_temp = '{"urls":[]}';
+                }
                 var URL_Track = JSON.parse(URL_Track_temp);
-                var url = document.location.href;
+                var url = getRelativePath();
                 var currentRecord = undefined;
                 var currentIndex = -1;
                 for (currentIndex = 0; currentIndex < URL_Track.urls.length; currentIndex++) {
@@ -105,7 +89,12 @@ var RestorePreviousPageState_instance = function () {
                 };
             }
             function restorePos() {
-                var currentRecord = get_URL_Track_Record().currentRecord;
+                var URL_Track_Ref = get_URL_Track_Record();
+                if (!URL_Track_Ref)
+                    return;
+                if (!URL_Track_Ref.currentRecord)
+                    return;
+                var currentRecord = URL_Track_Ref.currentRecord;
                 if (currentRecord) {
                     window.scrollTo({
                         top: currentRecord.posY, left: currentRecord.posX, behavior: 'smooth'
@@ -116,19 +105,12 @@ var RestorePreviousPageState_instance = function () {
                 }
             }
             function highlightClickSource() {
-                ////////////let URL_Track_temp: any = window.localStorage.getItem('URL_Track');
-                ////////////if (URL_Track_temp == undefined) return;
-                ////////////let URL_Track = JSON.parse(URL_Track_temp);
-                ////////////let url = document.location.href;
-                ////////////let currentRecord = undefined;
-                ////////////let currentIndex = -1
-                ////////////for (currentIndex = 0; currentIndex < URL_Track.urls.length; currentIndex++) {
-                ////////////    if (URL_Track.urls[currentIndex].url == url) {
-                ////////////        currentRecord = URL_Track.urls[currentIndex];
-                ////////////        break;
-                ////////////    }
-                ////////////}
-                var currentRecord = get_URL_Track_Record().currentRecord;
+                var URL_Track_Ref = get_URL_Track_Record();
+                if (!URL_Track_Ref)
+                    return;
+                if (!URL_Track_Ref.currentRecord)
+                    return;
+                var currentRecord = URL_Track_Ref.currentRecord;
                 console.log("xxxxxxxxxxxxx-00000");
                 if (currentRecord) {
                     console.log("xxxxxxxxxxxxx-001");
@@ -163,19 +145,7 @@ var RestorePreviousPageState_instance = function () {
             }
             return {
                 restrict: "E",
-                //template: "<h1>siteTaskQueueList</h1>",
                 templateUrl: "/js/util/RestorePreviousPageState.html",
-                //controllerAs: 'vm101',
-                //bindToController: true, //required in 1.3+ with controllerAs - VERIFIED.
-                //controller: controller,
-                //controller: ['$http', '$q', '$scope', '$timeout', controller],
-                //controllerAs: 'vm101',
-                //bindToController: true, //required in 1.3+ with controllerAs - VERIFIED.
-                //scope: {
-                //    keyColumn: "@key",
-                //    formName: "=", // Needed for posting form (Replacing url)
-                //    angularControlId: "=?aci"
-                //},
                 link: function (scope, el, attrs) {
                 }
             };

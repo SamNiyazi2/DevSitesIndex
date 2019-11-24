@@ -42,19 +42,14 @@ var dropdownListDirective_instance = function () {
                     }
                 };
             }]);
-        downdownList_angular_module.directive('checkAvailability', checkAvailabilityFunc);
-        function checkAvailabilityFunc($http, $q) {
+        downdownList_angular_module.directive('validateDropdownListDirective', validateDropdownListDirectiveFunc);
+        function validateDropdownListDirectiveFunc($http, $q) {
             return {
                 restrict: 'A',
                 require: 'ngModel',
                 scope: {},
                 link: function (scope, element, attr, ngModel) {
-                    ngModel.$asyncValidators.invalidUsername = function (modelValue, viewValue) {
-                        console.log('firing ngModel  invalidUserName function xxxxxxxxxxxxxxxxxxxxx');
-                        console.log('modelValue');
-                        console.log(modelValue);
-                        console.log('viewValue');
-                        console.log(viewValue);
+                    ngModel.$asyncValidators.isInvalidDropdownListDirectiveInputCheck2 = function (modelValue, viewValue) {
                         var deferred = $q.defer();
                         if (modelValue && modelValue.id) {
                             deferred.resolve();
@@ -74,7 +69,7 @@ var dropdownListDirective_instance = function () {
                 vm.isValidBoolean = false;
                 vm.firstRun = true;
                 vm.hitCount = 0;
-                vm.isInvalidUserName = true;
+                vm.isInvalidDropdownListDirectiveInput = true;
                 $scope.$on('$destroy', function () {
                     console.log("************ Cleanup");
                     console.log("************ Cleanup");
@@ -85,14 +80,14 @@ var dropdownListDirective_instance = function () {
                     console.log("************ Cleanup");
                 });
                 $scope.$watch('vm101.formName.$error', function (newValue, oldValue) {
-                    console.log('dropdownListDirective - watching vm.formName.$error.invalidUsername (1841)');
+                    console.log('dropdownListDirective - watching vm.formName.$error.isInvalidDropdownListDirectiveInputCheck2 (1841)');
                     console.log('form change');
                     console.log(oldValue);
                     console.log(newValue);
                 });
                 $scope.$watch('vm101.disciplineSelected_XXX', function (newValue, oldValue) {
                     console.log('dropdownListDirective - watching firing (0345)');
-                    vm.isInvalidUserName = true;
+                    vm.isInvalidDropdownListDirectiveInput = true;
                     if (newValue) {
                         console.log('oldValue');
                         console.log(oldValue);
@@ -105,7 +100,7 @@ var dropdownListDirective_instance = function () {
                                 console.log("cond 2");
                                 if (newValue.id > 0) {
                                     console.log("cond 3");
-                                    vm.isInvalidUserName = false;
+                                    vm.isInvalidDropdownListDirectiveInput = false;
                                 }
                             }
                         }

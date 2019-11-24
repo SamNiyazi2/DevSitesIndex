@@ -20,13 +20,15 @@ namespace DevSitesIndex.Entities
         public int Id { get; set; }
 
         [DisplayName("Code Block")]
-        [Required(ErrorMessage ="Input is required")]
+        [Required(ErrorMessage = "Input is required")]
         public string CodeBlock { get; set; }
 
 
         // 11/08/2019 06:20 pm - SSN - Copied form DevSite
         [NotMapped]
-        public string CodeBlock_Encoded => RE_Util.EncodeContentOfPreTag(CodeBlock);
+        // 11/23/2019 07:16 pm - SSN - Replaced
+        // public string CodeBlock_Encoded => RE_Util.EncodeContentOfPreTag(CodeBlock);
+        public string CodeBlock_Encoded => RE_Util.EncodeContent_AllContent(CodeBlock);
 
 
 
@@ -35,7 +37,7 @@ namespace DevSitesIndex.Entities
 
         // 03/13/2019 09:29 am - SSN
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy hh:mm tt}")]
-        [DisplayName("Date Added")] 
+        [DisplayName("Date Added")]
         [EFCoreShadowProperty.Models.DateAdded]
         public DateTime DateAdded { get; set; }
 

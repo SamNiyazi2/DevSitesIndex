@@ -45,6 +45,21 @@
 
 <body>
 
+    @{
+        string forDebugginOnly = "ViewBag.InitModule_Full is already set";
+        if (string.IsNullOrEmpty(ViewBag.InitModule_Full))
+        {
+            string path = Context.Request.Path.ToString().ToLower();
+            if (Startup.applicablePaths_temp_support.Any(r => path.StartsWith(r.ToLower())))
+            {  <script src="/webpack_build/bundle_Temp_Support.js" asp-append-version="true"></script>
+                    ViewBag.InitModule_Full = "data-ng-app=\"timesheetApp\"";
+
+                    forDebugginOnly = "setting ViewBag.InitModule_Full ***********";
+                }
+            }
+        }
+
+    <h1>forDebugginOnly  [@ViewBag.InitModule_Full] </h1>
 
 
     <div @Html.Raw(ViewBag.InitModule_Full)>
@@ -100,12 +115,12 @@
 
 
 
-            <div ng-controller="utilityControllerQueue">
+        <div ng-controller="restorePreviousPageAndTaskQueueController">
 
-                <site-task-queue-list></site-task-queue-list>
+            @*<site-task-queue-list></site-task-queue-list>*@
+            <restore-previous-page-state-and-task-queue></restore-previous-page-state-and-task-queue>
+        </div>
 
-            </div>
-     
 
 
         <footer style="padding:20px;">
