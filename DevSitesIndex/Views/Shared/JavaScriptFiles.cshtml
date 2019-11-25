@@ -43,7 +43,7 @@
 
 
 
-        if (Startup.applicablePaths_temp_support.Any(r => path.StartsWith(r.ToLower())))
+        if (Startup.applicablePaths_temp_support.isApplicable(path))
         {
             <script src="/webpack_build/bundle_Temp_Support.js" asp-append-version="true"></script>
             ViewBag.InitModule_Full = "data-ng-app=\"timesheetApp\"";

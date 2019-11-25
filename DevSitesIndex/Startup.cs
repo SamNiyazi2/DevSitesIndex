@@ -45,7 +45,19 @@ namespace DevSitesIndex
 
         public static List<string> applicablePaths_Site_Only = new List<string>() { "/codereference", "/companies", "/devsites", "/Discipline", "/jobs", "/projects", "/ReferenceSites" };
 
-        public static List<string> applicablePaths_temp_support = new List<string>() { "/codereference", "/companies", "/devsites", "/discipline", "/referencesites", "/projects", "/timelogs/" };
+        public class ApplicablePaths_temp_support
+        {
+            public string[] path { get; set; }
+            public bool isApplicable(string _path)
+            {
+                return (path.Any(r => _path == r.ToLower()));
+            }
+            
+        }
+
+        // 11/24/2019 07:36 pm - SSN 
+        public static ApplicablePaths_temp_support applicablePaths_temp_support = new ApplicablePaths_temp_support();
+
         //                                                                                                                                                            "/timelogs/" trailing slash to avoid including index.
 
 
@@ -252,6 +264,11 @@ namespace DevSitesIndex
             ApprovedRemoteSites approvedRemoteSites = new ApprovedRemoteSites();
             Configuration.GetSection("ApprovedRemoteSites").Bind(approvedRemoteSites);
 
+
+
+            // 11/24/2019 07:36 pm - SSN 
+            Configuration.GetSection("ApplicablePaths_temp_support").Bind(applicablePaths_temp_support);
+             
 
 
 
