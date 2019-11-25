@@ -57,7 +57,8 @@ namespace DevSitesIndex.Pages.CodeReferences
                 // 01/28/2019 10:42 am - SSN - Performance issue on azure
                 //CodeReference = await _context.CodeReferences.OrderByDescending( r=> r.DateModified>r.DateAdded?r.DateModified:r.DateAdded).Take(50).ToListAsync();
 
-                CodeReference = await _context.CodeReferences.OrderByDescending(r => r.DateModified).ThenByDescending(r => r.DateAdded).Take(50).ToListAsync();
+                CodeReference = await _context.CodeReferences.OrderByDescending(r => r.DateModified).ThenByDescending(r => r.DateAdded)
+                    .Take(50).ToListAsync();
             }
             else
             {
@@ -76,7 +77,8 @@ namespace DevSitesIndex.Pages.CodeReferences
             {
                 // 02/08/2019 03:14 am - SSN - Added order
                 // CodeReference = await _context.CodeReferences.Take(50).ToListAsync();
-                CodeReference = await _context.CodeReferences.OrderByDescending(r => r.DateModified).ThenByDescending(r => r.DateAdded).Take(50).ToListAsync();
+                CodeReference = await _context.CodeReferences.OrderByDescending(r => r.DateModified).ThenByDescending(r => r.DateAdded)
+                    .Take(50).ToListAsync();
 
                 return Page();
             }
@@ -143,7 +145,8 @@ namespace DevSitesIndex.Pages.CodeReferences
 
             string[] allText = s.ToLower().Split().Select(r4 => r4.Trim()).ToArray();
 
-            s = s.Replace("<", "&lt;");
+            // 11/24/2019 11:18 pm - SSN - Remove
+            // s = s.Replace("<", "&lt;");
 
             foreach (string w in tempArray)
             {

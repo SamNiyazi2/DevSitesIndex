@@ -208,35 +208,40 @@ namespace site_instance_NS {
 
             });
 
-            // 05/01/2019 04:52 am - SSN - Use JavaScript only
 
-            var list1 = document.querySelectorAll('pre');
+            // 11/24/2019 11:20 pm - SSN - Disable
+            if (false) {
 
-            // 05/19/2019 12:30 pm - SSN - [20190519-1132] - [004] - Address definitely typed errors
-            // for (var a of list1) {
-            // list1.forEach(function (currentItem, currentIndex, listObj) {
-            list1.forEach(function (a, currentIndex, listObj) {
+                // 05/01/2019 04:52 am - SSN - Use JavaScript only
 
-                // 05/17/2019 04:16 am - SSN - Update to exclude highlighting
-                //var b = a.innerHTML.replace(/</g, '&lt;');  
-                // Exclude <h and <n. Already setup for <i.  See site.css.
+                var list1 = document.querySelectorAll('pre');
 
+                // 05/19/2019 12:30 pm - SSN - [20190519-1132] - [004] - Address definitely typed errors
+                // for (var a of list1) {
+                // list1.forEach(function (currentItem, currentIndex, listObj) {
+                list1.forEach(function (a, currentIndex, listObj) {
 
-                // 06/07/2019 11:50 am - SSN - Update - Matches shown https://www.regextester.com/
-                // var b = a.innerHTML.replace(/<([^i|^/i|^h|^/h|^n|^/n]){1}[^\s|^>]{1}/g, '&lt;$1');
-
-                // var b = a.innerHTML.replace(/(<)((?!\/?[n|i|h]))(.*?>)/g, '\n1---\n[$&]\n2---\n[$1]\n3---\n[$2]\n4---\n[$3]\n\n');
-
-                // We have not coverred h1, h2, etc.
-                // knockout is doing its own thing when it comes to tags. Evident with the use of generic types ( function<SomeType> )
-                var b = a.innerHTML.replace(/(<)((?!\/?[n|i|h]))(.*?>)/g, '&lt;$3');
+                    // 05/17/2019 04:16 am - SSN - Update to exclude highlighting
+                    //var b = a.innerHTML.replace(/</g, '&lt;');  
+                    // Exclude <h and <n. Already setup for <i.  See site.css.
 
 
-                a.innerHTML = b;
+                    // 06/07/2019 11:50 am - SSN - Update - Matches shown https://www.regextester.com/
+                    // var b = a.innerHTML.replace(/<([^i|^/i|^h|^/h|^n|^/n]){1}[^\s|^>]{1}/g, '&lt;$1');
+
+                    // var b = a.innerHTML.replace(/(<)((?!\/?[n|i|h]))(.*?>)/g, '\n1---\n[$&]\n2---\n[$1]\n3---\n[$2]\n4---\n[$3]\n\n');
+
+                    // We have not coverred h1, h2, etc.
+                    // knockout is doing its own thing when it comes to tags. Evident with the use of generic types ( function<SomeType> )
+                    var b = a.innerHTML.replace(/(<)((?!\/?[n|i|h]))(.*?>)/g, '&lt;$3');
 
 
-            });
+                    a.innerHTML = b;
 
+
+                });
+
+            }
 
 
             // 04/26/2019 10:14 pm - SSN - [20190426-2156] - [002] - Hide pre and add a link to show.

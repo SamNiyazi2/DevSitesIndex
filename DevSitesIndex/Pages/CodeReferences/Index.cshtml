@@ -2,8 +2,8 @@
 @model DevSitesIndex.Pages.CodeReferences.IndexModel
 
 @{
-    ViewData["Title"] = "Code Reference - Index";    
-    
+    ViewData["Title"] = "Code Reference - Index";
+
     // 11/23/2019 09:37 am - SSN - Replace ng-app
     ViewBag.InitModule_Full = "data-ng-app=\"timesheetApp\"";
 }
@@ -78,77 +78,83 @@
 
         @*// 04/03/2019 09:01 pm - SSN - Adding validation*@
 
-        @if (Model.CodeReference != null)
-        {
-            foreach (var item in Model.CodeReference)
+        @{
+            if (Model.CodeReference != null)
             {
-                <tr>
+                foreach (var item in Model.CodeReference)
+                {
 
-                    <td class="maxWidthCol2">
-                        @if (item.Title != null)
+        <tr>
+
+            <td class="maxWidthCol2">
+                @if (item.Title != null)
+                {
+                    <h3>  @Html.DisplayFor(modelItem => item.Title)</h3>
+
+                }
+
+                @if (item.SourceAddress != null)
+                {
+                    <p class="maxWidthCol1">
+                        @if (item.SourceAddress.ToLower().StartsWith("http"))
                         {
-                            <h3>  @Html.DisplayFor(modelItem => item.Title)</h3>
+                            <a target="wincoderef@item.Id" href="@item.SourceAddress">@Html.DisplayFor(modelItem => item.SourceAddress)</a>
 
                         }
-
-                        @if (item.SourceAddress != null)
+                        else
                         {
-                            <p class="maxWidthCol1">
-                                @if (item.SourceAddress.ToLower().StartsWith("http"))
-                                {
-                                    <a target="wincoderef@item.Id" href="@item.SourceAddress">@Html.DisplayFor(modelItem => item.SourceAddress)</a>
+                            @Html.DisplayFor(modelItem => item.SourceAddress)
 
-                                }
-                                else
-                                {
-                                    @Html.DisplayFor(modelItem => item.SourceAddress)
-
-                                }
-                            </p>
                         }
+                    </p>
+                }
 
-                            <pre class="codeblock2">
+                <pre class="codeblock2">
      
-
-                            @{ 
-
-
-                                if (Model.doHeightlight_v02)
-                                {
-                                    // 02/08/2019 04:53 am - SSN - Encode
-                                    //@Html.Raw(Model.HighlightText(item.CodeBlock))
-                                    // 11/23/2019 06:31 pm - SSN - Problem with $/{/}
-                                    // @Html.Raw(Model.HighlightText(System.Net.WebUtility.HtmlEncode(item.CodeBlock)))
-                                    @Html.Raw(Model.HighlightText(System.Net.WebUtility.HtmlEncode(item.CodeBlock_Encoded)))
-                                }
-                                else
-                                {
-                                   @item.CodeBlock_Encoded
-                                }
-
-                            }
-                        </pre>
+ 
+                @{
 
 
+                    if (Model.doHeightlight_v02)
+                    {
+                        // 02/08/2019 04:53 am - SSN - Encode
+                        //@Html.Raw(Model.HighlightText(item.CodeBlock))
+                        // 11/23/2019 06:31 pm - SSN - Problem with $/{/}
+                        // @Html.Raw(Model.HighlightText(System.Net.WebUtility.HtmlEncode(item.CodeBlock)))
+                        //@Html.Raw(Model.HighlightText(System.Net.WebUtility.HtmlEncode(item.CodeBlock_Encoded)))
+                        @Html.Raw(Model.HighlightText(item.CodeBlock_Encoded))
+                    }
+                    else
+                    {
+                        @Html.Raw(item.CodeBlock_Encoded)
+                    }
 
-                    </td>
+                }
 
-                    <td class="indexNowrapCol">
-                        @Html.DisplayFor(modelItem => item.DateAdded)
-                    </td>
 
-                    <td class="indexNowrapCol">
-                        @Html.DisplayFor(modelItem => item.DateModified)
-                    </td>
+                 </pre>
 
-                    <td class="indexNowrapCol">
-                        <a asp-page="./Edit" asp-route-id="@item.Id" asp-route-SearchText="@Model.SearchText">Edit</a> |
-                        <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                        <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-                    </td>
-                </tr>
+
+            </td>
+
+            <td class="indexNowrapCol">
+                @Html.DisplayFor(modelItem => item.DateAdded)
+            </td>
+
+            <td class="indexNowrapCol">
+                @Html.DisplayFor(modelItem => item.DateModified)
+            </td>
+
+            <td class="indexNowrapCol">
+                <a asp-page="./Edit" asp-route-id="@item.Id" asp-route-SearchText="@Model.SearchText">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+
+        </tr>
             }
         }
+    }
     </tbody>
 </table>
 
