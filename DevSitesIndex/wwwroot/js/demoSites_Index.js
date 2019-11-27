@@ -6,7 +6,7 @@
 import * as angular from 'angular';
 import * as globals from './globals';
 var ssn_devsite_angular_module_instance = function () {
-    var ssn_devsite_angular_module = globals.globals_instance.getInstance("demoSites_Index", ['ngRoute']);
+    var ssn_devsite_angular_module = globals.globals_instance.getInstance_v002('demoSite_index', "demoSites_Index", ['ngRoute']);
     // 09/26/2019 05:51 am - SSN - [20190926-0551] Add $locationProvider
     ssn_devsite_angular_module.config(["$routeProvider", "$locationProvider", function ($routeProvider, $locationProvider) {
             $routeProvider.when("/", {

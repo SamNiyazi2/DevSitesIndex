@@ -4,12 +4,15 @@ import * as ssn_globals from "../globals";
 import * as angular from 'angular';
 import * as util from '../site';
 var timesheetEditController_instance = function () {
-    var timesheetApp = ssn_globals.globals_instance.getInstance("timesheetApp");
+    var timesheetApp = ssn_globals.globals_instance.getInstance_v002('TimesheetEditController', "timesheetApp");
     // 11/19/2019 12:48 am - SSN - [20191119-0048] Adding $compile for dynamically loaded view
     // 11/22/2019 02:18 pm - SSN - [20191121-0503] - [015] - Timelog edit options on project search
     // Injecting Servingpage
     timesheetApp.controller('TimesheetEditController', ['$scope', '$uibModalInstance', '$http', '$q', 'dataService', 'changeMonitorService', 'timelogId', '$timeout', '$rootScope', 'servingPage',
-        function TimesheetController($scope, $uibModalInstance, $http, $q, dataService, changeMonitorService, timelogId, $timeout, $rootScope, servingPage) {
+        // 11/25/2019 04:03 pm - SSN - [20191125-1414] - [006] - Project jobs - filter 
+        // Remove function name
+        //        function TimesheetController($scope, $uibModalInstance, $http, $q, dataService, changeMonitorService, timelogId, $timeout, $rootScope, servingPage: ssn_globals.Timelog_ServingPage) {
+        function ($scope, $uibModalInstance, $http, $q, dataService, changeMonitorService, timelogId, $timeout, $rootScope, servingPage) {
             $timeout(function () {
                 changeMonitorService.setupMonitor();
                 util.site_instance.setDefaults();

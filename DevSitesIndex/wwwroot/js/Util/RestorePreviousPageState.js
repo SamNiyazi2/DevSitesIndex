@@ -1,10 +1,11 @@
 // 11/22/2019 09:41 pm - SSN - Created to restore page on hitting the back button or recalling the page.
 import { globals_instance } from "../globals";
 var RestorePreviousPageState_instance = function () {
-    console.log('RestorePreviousPageState xxxxxxxxxxxxxxxxxxxxxxxxx');
+    console.log('RestorePreviousPageState xxxxxxxxxxxxxxxxxxxxxxxxx Top - setup???');
     var doSetup = function (ngDefaultApplication) {
-        console.log('ngDefaultApplication [', ngDefaultApplication, ']');
-        var angular_module = globals_instance.getInstance(ngDefaultApplication);
+        console.log('RestorePreviousPageState xxxxxxxxxxxxxxxxxxxxxxxxx - Setup - ngDefaultApplication [', ngDefaultApplication, ']');
+        console.log('RestorePreviousPageState xxxxxxxxxxxxxxxxxxxxxxxxx - Setup - directive???');
+        var angular_module = globals_instance.getInstance_v002('RestorePreviousPageState', ngDefaultApplication);
         angular_module.controller('restorePreviousPageAndTaskQueueController', ['$scope', '$attrs', '$location', function ($scope, $attrs, $location) {
             }]);
         angular_module.directive('restorePreviousPageStateAndTaskQueue', function () {
@@ -71,6 +72,7 @@ var RestorePreviousPageState_instance = function () {
                 };
             }
             function restorePos() {
+                console.log('RestorePreviousPageState -  restorePos  ***********************');
                 var URL_Track_Ref = get_URL_Track_Record();
                 if (!URL_Track_Ref)
                     return;
@@ -87,6 +89,7 @@ var RestorePreviousPageState_instance = function () {
                 }
             }
             function highlightClickSource() {
+                console.log('RestorePreviousPageState -  highlightClickSource  ***********************');
                 var URL_Track_Ref = get_URL_Track_Record();
                 if (!URL_Track_Ref)
                     return;
@@ -103,7 +106,12 @@ var RestorePreviousPageState_instance = function () {
                             var x = currentRecord.element.clientX;
                             var y = currentRecord.element.clientY;
                             var selectedElement = document.elementFromPoint(x, y);
+                            console.log("selectedElement: ");
                             console.log(selectedElement);
+                            console.log('document.length');
+                            console.log($(document).length);
+                            console.log('selectedElement.length');
+                            console.log($(selectedElement).parent().length);
                             if (selectedElement) {
                                 var spanTemp_1 = $('<span></span>').prependTo(selectedElement);
                                 $(spanTemp_1).text($(selectedElement).text());
@@ -112,14 +120,17 @@ var RestorePreviousPageState_instance = function () {
                             }
                         }
                     }
-                    //console.log('************ Count');
-                    //console.log('************ Count');
-                    //console.log(URL_Track.urls.length);
-                    //  setTimeout(() => { URL_Track.urls.splice(currentIndex) }, 2000);
-                    //console.log(URL_Track.urls.length);
-                    //console.log('************ Count');
-                    //console.log('************ Count');
-                    // window.localStorage.setItem('URL_Track', JSON.stringify(URL_Track));
+                    setTimeout(function () {
+                        console.log('RestorePreviousPageState - Removing current reocrd... 101');
+                        console.log('************ Count 2');
+                        console.log('************ Count');
+                        console.log(URL_Track_Ref.URL_Track.urls.length);
+                        setTimeout(function () { URL_Track_Ref.URL_Track.urls.splice(URL_Track_Ref.currentIndex); }, 2000);
+                        console.log(URL_Track_Ref.URL_Track.urls.length);
+                        console.log('************ Count');
+                        console.log('************ Count');
+                        window.localStorage.setItem('URL_Track', JSON.stringify(URL_Track_Ref.URL_Track));
+                    }, 4000);
                 }
             }
             function removeAddedClass(objRef) {

@@ -9,7 +9,7 @@ var ProjectIndexController_instance = function () {
 
     var doSetup = function (defaultAppName) {
 
-        var angular_Module: angular.IModule = globals_instance.getInstance("timesheetApp");
+        var angular_Module: angular.IModule = globals_instance.getInstance_v002('ProjectIndex', defaultAppName);
 
         angular_Module.controller('ProjectsIndexController', ['$scope', '$compile', function ($scope, $compile) {
 
@@ -24,7 +24,7 @@ var ProjectIndexController_instance = function () {
 
                 console.log('ProjectsIndex - Firing TimeLog_Index_Refresh - 20191122-1406');
                 console.log('item', item);
-          
+
 
                 console.log(item);
 

@@ -25,7 +25,7 @@ var TimelogLinkOptions = function () {
 
 
         //var TimelogLinkOptions_angular_module = globals_instance.getInstance(defaultAppName, []);
-        var TimelogLinkOptions_angular_module = globals_instance.getInstance(defaultAppName);
+        var TimelogLinkOptions_angular_module = globals_instance.getInstance_v002('TimelogLinkOptions', defaultAppName);
 
 
 
@@ -113,60 +113,7 @@ var TimelogLinkOptions = function () {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -251,131 +198,12 @@ var TimelogLinkOptions = function () {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    // 11/21/2019 04:09 pm - SSN - [20191121-0503] - [011] - Timelog edit options on project search
-                    // Add servingPage
-
-
-                    $scope.timesheetForm_ClockContinue = function (timelogId, servingPage: Timelog_ServingPage) {
-
-
-
-                        // 05/19/2019 09:37 am - SSN - [20190519-0837] - [003] - Adding timesheet "Continue" option
-
-                        // 11/14/2019 02:44 pm - SSN - TimesheetContinueController_modal 
-
-                        let TimesheetContinueController_modal = $uibModal.open({
-
-                            animation: 'slide-in-up',
-                            templateUrl: '/js/timesheet/templates//timesheetTemplate.html?v=' + $scope.versionForHTMLRefresh,
-                            controller: 'TimesheetContinueController',
-                            windowClass: 'ssn-mobile-modal',
-
-                            backdrop: 'static',
-                            keyboard: false,
-
-                            resolve: {
-                                timelogId: function () {
-                                    return timelogId;
-                                },
-                                servingPage: function () {
-                                    return servingPage;
-                                }
-
-                            }
-                        });
-
-
-
-
-                        // 11/14/2019 02:44 pm - SSN - [20191114-1459] - [007] - ChangeMonitroService
-
-
-                        TimesheetContinueController_modal.result.then(TimesheetContinueController_modal_save, TimesheetContinueController_modal_cancel);
-                        function TimesheetContinueController_modal_save(result) {
-                            console.log('TimesheetContinueController_modal_save - 20191114-1448');
-                            console.log("result", result);
-
-                            console.log("changeMonitorService.getHaveChanges()", changeMonitorService.getHaveChanges());
-                            changeMonitorService.reset();
-
-                        }
-
-                        function TimesheetContinueController_modal_cancel(result) {
-                            console.log('TimesheetContinueController_modal_cancel - 20191114-1449');
-                            console.log("result", result);
-
-                            console.log("changeMonitorService.getHaveChanges()", changeMonitorService.getHaveChanges());
-
-                            changeMonitorService.reset();
-
-                        }
-
-
-                    };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                     // 05/19/2019 08:39 am - SSN - [20190519-0837] - [002] - Adding timesheet "Continue" option
 
                     // 11/21/2019 04:09 pm - SSN - [20191121-0503] - [011] - Timelog edit options on project search
                     // Add servingPage
 
+
                     $scope.timesheetForm_ClockContinue = function (timelogId, servingPage: Timelog_ServingPage) {
 
 
@@ -433,6 +261,58 @@ var TimelogLinkOptions = function () {
 
 
                     };
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    // 11/27/2019 08:45 am - SSN - Copied from JobIndexController.ts 
+
+
+                    // 09/28/2019 04:06 pm - SSN - [20190928-1256] - [011] - Adding Entity Framework model attribute
+                    // Duplicate - Wrong way to go!
+
+                    $scope.showCreateTimesheetForm = function (jobID) {
+
+                        if (isNaN(jobID)) {
+                            jobID = 0;
+                        }
+
+                        $uibModal.open({
+                            templateUrl: '/js/timesheet/templates/timesheetTemplate.html',
+                            controller: 'TimesheetController',
+
+
+                            backdrop: false,
+
+                            resolve: {
+                                jobId: function () {
+                                    return jobID;
+                                }
+                            }
+                        });
+
+                    };
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -456,7 +336,8 @@ var TimelogLinkOptions = function () {
 
                     timelogId: "@",
                     totalSeconds: "@",
-                    servingPage:'@'
+                    servingPage: '@',
+                    jobId: '@'
 
                 },
 

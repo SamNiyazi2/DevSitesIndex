@@ -62,6 +62,8 @@ var demoSites_index_p3_instance = function () {
                 this.requestDelConfirm = function (itemToDelete) {
 
                     console.log("index_p3 - 20190921-0947-3");
+                    console.log(itemToDelete);
+
 
                     vm.currentItem = itemToDelete;
                     $('#del-confirm').modal({ backdrop: 'static', keyboard: false });

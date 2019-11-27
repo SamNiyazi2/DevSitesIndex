@@ -1,6 +1,6 @@
 ﻿<!--uib-typeahead="discipline as discipline.title for discipline in vm101.getDisciplines($viewValue) "-->
 <!--ng-model="disciplineSelected"-->
-    <!--name="disciplineSelectedLocal"-->
+<!--name="disciplineSelectedLocal"-->
 ***
 <input type="text"
        ng-model="vm101.disciplineSelected_XXX"
@@ -17,7 +17,8 @@
 <div ng-show="noResults">
     <i class="glyphicon glyphicon-remove"></i> No Results Found
 </div>
+<ng-content ng-if="vm101.isReady">
+    <p ng-show="!vm101.isValidBoolean" class="has-error">Selection is required (1)</p>
+    <p ng-show="vm101.isInvalidDropdownListDirectiveInput" class="has-error">Selection is required (22)</p>
+</ng-content>
 
-<p ng-show="!vm101.isValidBoolean" class="has-error">Selection is required (1)</p>
-<p ng-show="vm101.isInvalidDropdownListDirectiveInput" class="has-error">Selection is required (22)</p>
- 

@@ -2,7 +2,7 @@
 import * as ssn_globals from "../globals";
 // 09/21/2019 05:21 am - SSN - [20190921-0357] - [007] - Creating multiple entry for Webpack
 var headerWithSort_instance = function () {
-    var headerWithSort_angular_module = ssn_globals.globals_instance.getInstance("timesheetApp");
+    var headerWithSort_angular_module = ssn_globals.globals_instance.getInstance_v002('HeaderWithSort', "timesheetApp");
     headerWithSort_angular_module.controller('utilityController', ['$scope', '$sce', 'dataService', function ($scope, $sce, dataService) {
         }]);
     headerWithSort_angular_module.directive('headerWithSort', ['$sce', function ($sce) {

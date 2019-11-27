@@ -1,7 +1,7 @@
 // 11/14/2019 07:31 pm - SSN - [20191114-1931] - [001] - Job - option to change job status
 import * as ssn_globals from "../globals";
 var jobStatusChangeRecord_instance = function () {
-    var angular_Module = ssn_globals.globals_instance.getInstance("timesheetApp");
+    var angular_Module = ssn_globals.globals_instance.getInstance_v002('JobstatusChangedRecord', "timesheetApp");
     angular_Module.directive('jobStatusChangeRecord', function () {
         var parentTable = null;
         return {

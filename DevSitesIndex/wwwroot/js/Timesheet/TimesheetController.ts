@@ -14,7 +14,7 @@ import * as tostr from "toastr";
 
 var timesheetController_instance = function () {
 
-    var timesheetApp = globals.globals_instance.getInstance("timesheetApp");
+    var timesheetApp = globals.globals_instance.getInstance_v002('TimesheetController', "timesheetApp");
 
 
     // 09/30/2019 06:56 pm - SSN - (Inject jobId)
@@ -95,7 +95,7 @@ var timesheetController_instance = function () {
                             $scope.timeLog = angular.copy($scope.editableTimeLog);
                         },
                         function (error) {
-                            
+
                             console.log("TimesheetController - 20190921-0640 - promise > error");
                             console.log(error);
 

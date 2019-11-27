@@ -159,21 +159,54 @@ namespace DevSitesIndex.Util
 
             if (reader == null)
             {
-                // reader = await cmd.ExecuteReaderAsync().ContinueWith( t =>
-                Task t = cmd.ExecuteReaderAsync().ContinueWith(t2 =>
+
+                if (false)
                 {
-                    if (t2.IsFaulted)
-                    {
-                        logger.PostException(t2.Exception, "DemoSite-20191031-0932", $"Failed call to ExecuteReaderAsync {cmd.CommandText}");
-                    }
 
-                    if (t2.IsCompletedSuccessfully)
-                    {
-                        reader = t2.Result;         
-                    }
-                });
+                    // 11/27/2019 03:52 pm - SSN - Revise capturing error logic.
 
-               t.Wait();
+                    // reader = await cmd.ExecuteReaderAsync().ContinueWith( t =>
+                    Task t1 = cmd.ExecuteReaderAsync().ContinueWith(t2 =>
+                    {
+                        if (t2.IsFaulted)
+                        {
+                            logger.PostException(t2.Exception, "DemoSite-20191031-0932", $"Failed call to ExecuteReaderAsync {cmd.CommandText}");
+                        }
+
+                        if (t2.IsCompletedSuccessfully)
+                        {
+                            reader = t2.Result;
+                        }
+
+                    }, TaskContinuationOptions.OnlyOnRanToCompletion);
+
+
+                    Task t2b = t1.ContinueWith(t2 =>
+                    {
+                        Exception ex = t2.Exception;
+                        bool s1 = t2.IsCanceled;
+                        bool s2 = t2.IsCompleted;
+                        bool s3 = t2.IsCompletedSuccessfully;
+                        bool s4 = t2.IsFaulted;
+                        TaskStatus taskStatus = t2.Status;
+
+                        if (t2.IsFaulted)
+                        {
+                            logger.PostException(t2.Exception, "DemoSite-20191031-0932-ERROR", $"Failed call to ExecuteReaderAsync {cmd.CommandText}");
+                        }
+
+                    }, TaskContinuationOptions.NotOnRanToCompletion);
+
+
+
+                    t1.Wait();
+                    t2b.Wait();
+                }
+
+
+                reader = await cmd.ExecuteReaderAsync();
+                
+
 
             }
             else

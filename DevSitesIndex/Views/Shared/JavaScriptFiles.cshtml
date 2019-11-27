@@ -36,7 +36,7 @@
         string path = Context.Request.Path.ToString().ToLower();
 
 
-        if (Startup.applicablePaths_Site_Only.Any(r => path.StartsWith(r.ToLower())))
+        if (Startup.applicablePaths_Site_Only.isApplicable(path))
         {
             <script src="/webpack_build/bundle_Site_only.js" asp-append-version="true"></script>
         }

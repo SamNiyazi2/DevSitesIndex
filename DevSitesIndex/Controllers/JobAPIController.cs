@@ -81,56 +81,77 @@ namespace DevSitesIndex.Controllers
 
         [Route("list/{pageNo}/{recordsPerPage}/{columnName}/{desc}/{job_statuses_selected}")]
         [HttpGet]
-        public async Task<DataBag<Job>> Get_Jobs(int? pageNo, int? recordsPerPage, string columnName, string desc, string job_statuses_selected)
+        public async Task<DataBag<Job>> Get_Jobs(int? projectId, int? pageNo, int? recordsPerPage, string columnName, string desc, string job_statuses_selected)
         {
             // 10/21/2019 09:22 am - SSN - [20191021-0444] - [012] - M12 - Creating directives and advanced components in Angular.
             // Update with SqlStatsRecord_temp 
 
-            SqlStatsRecord SqlStatsRecord_temp = new SqlStatsRecord();
-            SqlStatsRecord_temp.RecordsPerPage_Default = 10;
+            DataBag<Job> databag = new DataBag<Job>();
 
-            // 11/13/2019 09:49 pm - SSN - [20191113-1946] - [009] - ReturnToCaller
-            // Left out???
-            SqlStatsRecord_temp.CurrentPageNo = pageNo??1;
-
-            // 09/18/2019 12:40 am - SSN - [20190917-0929] - [009] - Adding paging for angular lists
-
-
-            Util.ExecuteStoredProcedure exec = new Util.ExecuteStoredProcedure(context, logger);
-
-            exec.LoadStoredProc("demosites.Jobs_Index_WithLastActivityDate");
-
-            exec.WithSqlParam("@recordsPerPage", SqlStatsRecord_temp.RecordsPerPage);
-            exec.WithSqlParam("@pageNo", SqlStatsRecord_temp.CurrentPageNo);
-            exec.WithSqlParam("@sortColumn", columnName);
-            exec.WithSqlParam("@desc", desc.ToLower() == "true");
-
-            // 09/22/2019 09:18 am - SSN - [20190922-0822] - [005] - Plug in job status filter on job's index - update data source
-
-            exec.WithSqlParam("@job_statuses_selected", job_statuses_selected);
-
-
-            IEnumerable<Job> result1_data = await exec.GetResultSet_v02<Job>();
-            IList<SqlStatsRecord> result2_Stats = await exec.GetResultSet_v02<SqlStatsRecord>();
-
-            SqlStatsRecord sqlStatsRecord = null;
-
-            if (result2_Stats.Count() == 0)
+            // 11/27/2019 10:22 am - SSN - Add try/catch
+            try
             {
-                await logger.PostException(new Exception { Source = "JobAPIController" }, "20190918-0057", "Procedure did not return a second result set of table/page stats.");
-                sqlStatsRecord = new SqlStatsRecord();
+
+
+                if (!projectId.HasValue) projectId = 0;
+
+                SqlStatsRecord SqlStatsRecord_temp = new SqlStatsRecord();
+                SqlStatsRecord_temp.RecordsPerPage_Default = 10;
+
+                // 11/13/2019 09:49 pm - SSN - [20191113-1946] - [009] - ReturnToCaller
+                // Left out???
+                SqlStatsRecord_temp.CurrentPageNo = pageNo ?? 1;
+
+                // 09/18/2019 12:40 am - SSN - [20190917-0929] - [009] - Adding paging for angular lists
+
+
+                Util.ExecuteStoredProcedure exec = new Util.ExecuteStoredProcedure(context, logger);
+
+                exec.LoadStoredProc("demosites.Jobs_Index_WithLastActivityDate");
+
+                exec.WithSqlParam("@recordsPerPage", SqlStatsRecord_temp.RecordsPerPage);
+                exec.WithSqlParam("@pageNo", SqlStatsRecord_temp.CurrentPageNo);
+                exec.WithSqlParam("@sortColumn", columnName);
+                exec.WithSqlParam("@desc", desc.ToLower() == "true");
+
+                // 09/22/2019 09:18 am - SSN - [20190922-0822] - [005] - Plug in job status filter on job's index - update data source
+
+                exec.WithSqlParam("@job_statuses_selected", job_statuses_selected);
+
+                // 11/2/2019 10:08 am - SSN - Adding projectId
+                exec.WithSqlParam("@projectId", projectId);
+
+
+                IEnumerable<Job> result1_data = await exec.GetResultSet_v02<Job>();
+                IList<SqlStatsRecord> result2_Stats = await exec.GetResultSet_v02<SqlStatsRecord>();
+
+                SqlStatsRecord sqlStatsRecord = null;
+
+                if (result2_Stats.Count() == 0)
+                {
+                    await logger.PostException(new Exception { Source = "JobAPIController" }, "20190918-0057", "Procedure did not return a second result set of table/page stats.");
+                    sqlStatsRecord = new SqlStatsRecord();
+                }
+                else
+                {
+                    // 09/27/2019 07:50 am - SSN - [20190927-0634] - [007] - Testing
+                    // sqlStatsRecord = result2_Stats[0];
+                    sqlStatsRecord = result2_Stats.FirstOrDefault();
+                }
+
+                exec.CloseConnection();
+
+
+                databag = new DataBag<Job> { dataList = result1_data, sqlStatsRecord = sqlStatsRecord };
             }
-            else
+            catch (Exception ex)
             {
-                // 09/27/2019 07:50 am - SSN - [20190927-0634] - [007] - Testing
-                // sqlStatsRecord = result2_Stats[0];
-                sqlStatsRecord = result2_Stats.FirstOrDefault();
+
+                databag.addToBagModelError("", ExceptionHandling_MessageToUser.getBasicMessage_asHtml("20191127-1641", ex));
+
+                await logger.PostException(ex, "20191127-1640", "Failed call to get jobs.");
+
             }
-
-            exec.CloseConnection();
-
-
-            DataBag<Job> databag = new DataBag<Job> { dataList = result1_data, sqlStatsRecord = sqlStatsRecord };
 
             return databag;
         }

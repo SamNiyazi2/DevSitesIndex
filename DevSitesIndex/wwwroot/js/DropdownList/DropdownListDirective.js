@@ -13,7 +13,7 @@ var dropdownListDirective_instance = function () {
         if (typeof (defaultAppName) != "string") {
             defaultAppName = "demoSites_Index_Timesheet";
         }
-        var downdownList_angular_module = ssn_globals.globals_instance.getInstance(defaultAppName, ['ui.bootstrap']);
+        var downdownList_angular_module = ssn_globals.globals_instance.getInstance_v002('DropdownListDirective', defaultAppName, ['ui.bootstrap']);
         var utilityController_objectRef = downdownList_angular_module.controller('utilityController', ['$scope', '$attrs', '$location', function ($scope, $attrs, $location) {
                 // Needed to be able to submit form
                 var formName = $attrs['formName'];
@@ -122,6 +122,18 @@ var dropdownListDirective_instance = function () {
                         case 'jobid':
                             vm.APIUrl = '/api/jobapi/typeahead';
                             break;
+                        // 11/27/2019 04:46 pm - SSN - Adding
+                        case 'job.projectid':
+                            vm.APIUrl = '/api/projectapi/typeahead';
+                            break;
+                        default:
+                            console.log('DropdownListDirective - no case for [', this.keyColumn);
+                            console.log('DropdownListDirective - no case for [', this.keyColumn);
+                            console.log('DropdownListDirective - no case for [', this.keyColumn);
+                            console.log('DropdownListDirective - no case for [', this.keyColumn);
+                            console.log('DropdownListDirective - no case for [', this.keyColumn);
+                            console.log('DropdownListDirective - no case for [', this.keyColumn);
+                            console.log('DropdownListDirective - no case for [', this.keyColumn);
                     }
                     var keyColumnValue = $("[name='" + this.keyColumn + "']").val();
                     console.log('dropdownListDirective = (999-A) - this.angularControlId', this.angularControlId);
@@ -139,7 +151,13 @@ var dropdownListDirective_instance = function () {
                         vm.isValidBoolean = true;
                         return true;
                     }
+                    // Are we ever reaching this point?
                     console.log('dropdownListDirective - (xxxxx101-B) vm.disciplineSelected_XXX    [', vm.disciplineSelected_XXX, ']');
+                    console.log("xxxxxxxxxxxxxxxxxxxxx");
+                    console.log("xxxxxxxxxxxxxxxxxxxxx");
+                    console.log("xxxxxxxxxxxxxxxxxxxxx");
+                    console.log("xxxxxxxxxxxxxxxxxxxxx");
+                    console.log("xxxxxxxxxxxxxxxxxxxxx");
                     _isValid = vm.setInputVariables();
                     vm.isValidBoolean = _isValid;
                     console.log('*************** _isValid', _isValid);
@@ -240,6 +258,7 @@ var dropdownListDirective_instance = function () {
                     }
                 };
                 $timeout(function () { vm.isValid(); }, 600);
+                $timeout(function () { vm.isReady = true; }, 2000);
             };
             return {
                 restrict: "E",

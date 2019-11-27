@@ -7,4 +7,5 @@ export default interface IColumnBag {
     desc: boolean;
     caption: string;
     job_statuses_selected: number[];
+    fk_filter: number;
 }

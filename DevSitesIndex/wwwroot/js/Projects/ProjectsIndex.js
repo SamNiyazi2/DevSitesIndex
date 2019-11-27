@@ -4,7 +4,7 @@ import { globals_instance } from "../globals";
 // Replace incomplete code for project search
 var ProjectIndexController_instance = function () {
     var doSetup = function (defaultAppName) {
-        var angular_Module = globals_instance.getInstance("timesheetApp");
+        var angular_Module = globals_instance.getInstance_v002('ProjectIndex', defaultAppName);
         angular_Module.controller('ProjectsIndexController', ['$scope', '$compile', function ($scope, $compile) {
                 console.log('ProjectsIndexController - new - 20191122-1344');
                 // 11/22/2019 01:57 pm - SSN - [20191121-0503] - [014] - Timelog edit options on project search

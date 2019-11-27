@@ -4,7 +4,7 @@ import * as angular from "angular";
 // 04/12/2019 03:57 am - SSN - [20190412-0142] - TimesheetApp
 // 09/18/2019 11:13 am - SSN - [20190918-0943] - [008] - Adding job status option to index
 var timesheetController_instance = function () {
-    var timesheetApp = globals.globals_instance.getInstance("timesheetApp");
+    var timesheetApp = globals.globals_instance.getInstance_v002('TimesheetController', "timesheetApp");
     // 09/30/2019 06:56 pm - SSN - (Inject jobId)
     timesheetApp.controller('TimesheetController', ['$scope', '$uibModalInstance', '$http', '$q', 'dataService', 'jobId',
         function TimesheetController($scope, $uibModalInstance, $http, $q, dataService, jobId) {

@@ -37,7 +37,7 @@ var globals_instance = function () {
 
 
 
-        public static getInstance(applicationName: string, args: string[] = null): angular.IModule {
+        public static getInstance_v02(callSource: string, applicationName: string, args: string[] = null): angular.IModule {
 
             ////  DO NOT REMOVE.
             //// Option to call an injected AngularJS server from here. Tested.  
@@ -55,7 +55,7 @@ var globals_instance = function () {
 
 
 
-            return SSN_Globals.getInstance_Original(applicationName, args);
+            return SSN_Globals.getInstance_Original(callSource, applicationName, args);
 
         }
 
@@ -69,7 +69,7 @@ var globals_instance = function () {
 
 
 
-        public static getInstance_Original(applicationName: string, args: string[] = null) {
+        public static getInstance_Original(callSource: string, applicationName: string, args: string[] = null) {
 
 
             var angularApp: IAngularApp = null;
@@ -254,16 +254,16 @@ var globals_instance = function () {
 
     // 09/20/2019 09:38 am - SSN - Pass in args
 
-    function getInstance(applicationName: string, args: string[] = null): angular.IModule {
+    function getInstance_v002(callSource: string, applicationName: string, args: string[] = null): angular.IModule {
 
-        return SSN_Globals.getInstance(applicationName, args);
+        return SSN_Globals.getInstance_v02(callSource, applicationName, args);
     }
 
 
 
     return {
 
-        getInstance: getInstance
+        getInstance_v002: getInstance_v002
     }
 
 

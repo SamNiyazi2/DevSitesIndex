@@ -3,7 +3,7 @@ import * as ssn_globals from "../globals";
 var timesheetApp_instance = function () {
     // 05/03/2019 06:33 pm - SSN - [20190503-1539] - [013] - Add link to create timelog
     // Convert to TS
-    var timesheetApp = ssn_globals.globals_instance.getInstance("timesheetApp");
+    var timesheetApp = ssn_globals.globals_instance.getInstance_v002('TimesheetApp-filename', "timesheetApp");
     // 04/12/2019 02:35 pm - SSN - [20190412-1126] - Timelog - save data - ssn_devsite_angular_module is in use by DataServices.js
     // 11/14/2019 03:35 pm - SSN - [20191114-1459] - [005] - ChangeMonitroService
     // Inject changeMonitorService

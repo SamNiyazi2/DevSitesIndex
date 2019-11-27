@@ -8,7 +8,7 @@ var PageUpdater_Instance = function () {
 
     var doSetup = function (currentApplication) {
 
-        var pageUpdater_Module = globals_instance.getInstance(currentApplication);
+        var pageUpdater_Module = globals_instance.getInstance_v002('PageUpdater', currentApplication);
 
         pageUpdater_Module.factory('PageUpdaterService', ['$rootScope', 'dataService', function ($rootScope, dataService) {
 
@@ -19,6 +19,13 @@ var PageUpdater_Instance = function () {
             var _timelog_index = function (id_temp, servingPage: Timelog_ServingPage) {
 
 
+                console.log('PageUpdater - timelog_index - 001 [', id_temp, '] servingPage [' + servingPage + ']');
+                console.log('PageUpdater - timelog_index - 001 [', id_temp, '] servingPage [' + servingPage + ']');
+                console.log('PageUpdater - timelog_index - 001 [', id_temp, '] servingPage [' + servingPage + ']');
+                console.log('PageUpdater - timelog_index - 001 [', id_temp, '] servingPage [' + servingPage + ']');
+                console.log('PageUpdater - timelog_index - 001 [', id_temp, '] servingPage [' + servingPage + ']');
+                console.log('PageUpdater - timelog_index - 001 [', id_temp, '] servingPage [' + servingPage + ']');
+                console.log('PageUpdater - timelog_index - 001 [', id_temp, '] servingPage [' + servingPage + ']');
                 console.log('PageUpdater - timelog_index - 001 [', id_temp, '] servingPage [' + servingPage + ']');
 
                 dataService.timelogRefreshRecord(id_temp, servingPage).then(refreshRecord_Sucess, refreshRecord_Error);
@@ -31,17 +38,7 @@ var PageUpdater_Instance = function () {
                     console.log('PageUpdater - timelog_index - 003 ');
                     console.log(result);
 
-
-                    let tr_1_id_jq = "#" + result.tr_1_id;
-                    let tr_2_id_jq = "#" + result.tr_2_id;
-
-                    $(tr_2_id_jq).remove();
-
-                    $(tr_1_id_jq).replaceWith(result);
-
-                    console.log('PageUpdater - timelog_index - 005 - broadcast ');
-
-                    $rootScope.$broadcast('TimeLog_Index_Refresh', { id: id_temp, servingPage: servingPage });
+                    $rootScope.$broadcast('TimeLog_Index_Refresh', result);
 
                 }
 

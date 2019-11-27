@@ -6,36 +6,33 @@ import { changeMonitorService_instance } from '../Util/ChangeMonitorService';
 // 11/20/2019 04:40 am - SSN - [20191120-0429] - [002] - Timelog index clock-out refresh updated row
 import { PageUpdater_Instance } from '../Util/PageUpdater';
 import { dataService_instance } from '../DataServices';
-import { timesheetApp_instance } from './TimesheetApp';
-import { timesheetController_instance } from './TimesheetController';
-import { timesheetContinueController_instance } from './timesheetcontinuecontroller';
-import { timesheetClockoutController_instance } from './timesheetclockoutcontroller';
 import { dropdownListDirective_instance } from '../DropdownList/DropdownListDirective';
-// 11/16/2019 04:57 pm - SSN - [20191116-1516] - [004] - Timelog edit (AngularJS client version)
-import { timesheetEditController_instance } from '../Timesheet/TimesheetEditController';
 import { AppInsights_Util } from '../Util/ApplicationInsights_Monitor';
-import { TimelogLinkOptions } from './TimelogLinkOtions/TimelogLinkOptions';
 import { RestorePreviousPageState_instance } from '../Util/RestorePreviousPageState';
 var ngApplicationName = 'timesheetApp';
-// 11/21/2019 06:45 am - SSN - [20191121-0503] - [007] - Timelog edit options on project search
-TimelogLinkOptions.doSetup(ngApplicationName);
 //ChangeMonitor_Util
 changeMonitorService_instance.doSetup(ngApplicationName);
 PageUpdater_Instance.doSetup(ngApplicationName);
 // 11/16/2019 06:27 pm - SSN - [20191116-1516] - [006] - Timelog edit (AngularJS client version)
-dropdownListDirective_instance.doSetup(null); // Original entry for timelog edit
+// 11/25/2019 11:34 pm - SSN - [20191125-2153] - [005] - Job create - Replace dropdown with dropdownListDirective
+////////////////////////////////////////dropdownListDirective_instance.doSetup(null); // Original entry for timelog edit
+////////////////////////////////////////dropdownListDirective_instance.doSetup(null); // Original entry for timelog edit
+////////////////////////////////////////dropdownListDirective_instance.doSetup(null); // Original entry for timelog edit
+////////////////////////////////////////dropdownListDirective_instance.doSetup(null); // Original entry for timelog edit
+////////////////////////////////////////dropdownListDirective_instance.doSetup(null); // Original entry for timelog edit
+////////////////////////////////////////dropdownListDirective_instance.doSetup(null); // Original entry for timelog edit
+////////////////////////////////////////dropdownListDirective_instance.doSetup(null); // Original entry for timelog edit
 dropdownListDirective_instance.doSetup(ngApplicationName);
 dataService_instance.doSetup(ngApplicationName);
-timesheetController_instance.timesheetApp_TimesheetController;
-timesheetContinueController_instance.timesheetApp;
-timesheetClockoutController_instance.timesheetApp;
-timesheetApp_instance.timesheetApp;
+// 11/23/2019 08:56 am - SSN
+RestorePreviousPageState_instance.doSetup(ngApplicationName);
 // 10/01/2019 11:09 am - SSN - [20191001-0944] - [007] - Adding Application Insights for JavaScript
 console.log("Timesheet_main - 20191001-1110");
 AppInsights_Util.doSetup();
-timesheetEditController_instance.timesheetApp;
-// 11/23/2019 08:56 am - SSN
-RestorePreviousPageState_instance.doSetup(ngApplicationName);
 AppInsights_Util.logEvent("Timesheet_main", { SourceCode: "20191001-1112-C", Message: "Loading timesheet_main" });
 AppInsights_Util.logEvent(document.location.hostname, { SourceCode: "20191105-0503", Message: "Loading timesheet_main" });
+// 11/25/2019 05:34 pm - SSN - [20191125-1414] - [011] - Project jobs - filter 
+// Refactor - Timelog only
+import * as x from './Timesheet_main_timesheetOnly';
+x.doSetup(ngApplicationName);
 //# sourceMappingURL=timesheet_main.js.map

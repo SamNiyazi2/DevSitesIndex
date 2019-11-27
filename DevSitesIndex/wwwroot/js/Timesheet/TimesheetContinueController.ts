@@ -15,14 +15,14 @@ const ngApplicationName = "timesheetApp";
 
 var timesheetContinueController_instance = function () {
 
-    var timesheetApp = ssn_globals.globals_instance.getInstance(ngApplicationName );
+    var timesheetApp = ssn_globals.globals_instance.getInstance_v002('TimesheetContinueController', ngApplicationName);
 
 
     // 11/14/2019 03:07 pm - SSN - [20191114-1459] - [002] - ChangeMonitroService
 
     console.log('Adding ChangeMonitorService');
 
-    timesheetApp.controller('TimesheetContinueController', ['$scope', '$uibModalInstance', '$http', '$q', 'dataService', '$timeout', 'timelogId', 'changeMonitorService' ,
+    timesheetApp.controller('TimesheetContinueController', ['$scope', '$uibModalInstance', '$http', '$q', 'dataService', '$timeout', 'timelogId', 'changeMonitorService',
 
 
         function ($scope, $uibModalInstance, $http, $q, dataService, $timeout, timelogId, changeMonitorService) {
@@ -171,7 +171,7 @@ var timesheetContinueController_instance = function () {
             $scope.cancelForm = function () {
 
 
-              // 11/14/2019 05:09 pm - SSN - [20191114-1459] - [010] - ChangeMonitroService
+                // 11/14/2019 05:09 pm - SSN - [20191114-1459] - [010] - ChangeMonitroService
 
 
                 // changeMonitorService

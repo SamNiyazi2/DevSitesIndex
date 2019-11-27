@@ -11,15 +11,18 @@ import { globals_instance } from "../globals";
 var RestorePreviousPageState_instance = function () {
 
 
-    console.log('RestorePreviousPageState xxxxxxxxxxxxxxxxxxxxxxxxx');
+    console.log('RestorePreviousPageState xxxxxxxxxxxxxxxxxxxxxxxxx Top - setup???');
 
 
     var doSetup = function (ngDefaultApplication) {
 
 
-        console.log('ngDefaultApplication [', ngDefaultApplication, ']')
+        console.log('RestorePreviousPageState xxxxxxxxxxxxxxxxxxxxxxxxx - Setup - ngDefaultApplication [', ngDefaultApplication, ']');
+        console.log('RestorePreviousPageState xxxxxxxxxxxxxxxxxxxxxxxxx - Setup - directive???');
 
-        var angular_module: angular.IModule = globals_instance.getInstance(ngDefaultApplication);
+
+
+        var angular_module: angular.IModule = globals_instance.getInstance_v002('RestorePreviousPageState', ngDefaultApplication);
 
         angular_module.controller('restorePreviousPageAndTaskQueueController', ['$scope', '$attrs', '$location', function ($scope, $attrs, $location) {
 
@@ -33,7 +36,7 @@ var RestorePreviousPageState_instance = function () {
             //    $rootScope.$broadcast('site_Task_Queue_List', result);
 
 
-            console.log('RestorePreviousPageState -  directive  ***********************'); 
+            console.log('RestorePreviousPageState -  directive  ***********************');
 
 
             let alreadyPosted = false;
@@ -42,7 +45,7 @@ var RestorePreviousPageState_instance = function () {
             var controller = function ($http, $q, $scope) {
             };
 
-             
+
 
             $(function () {
 
@@ -151,6 +154,9 @@ var RestorePreviousPageState_instance = function () {
             function restorePos() {
 
 
+                console.log('RestorePreviousPageState -  restorePos  ***********************');
+
+
                 let URL_Track_Ref = get_URL_Track_Record();
 
                 if (!URL_Track_Ref) return;
@@ -185,6 +191,10 @@ var RestorePreviousPageState_instance = function () {
 
             function highlightClickSource() {
 
+
+                console.log('RestorePreviousPageState -  highlightClickSource  ***********************');
+
+
                 let URL_Track_Ref = get_URL_Track_Record();
 
                 if (!URL_Track_Ref) return;
@@ -208,13 +218,13 @@ var RestorePreviousPageState_instance = function () {
 
                             console.log("xxxxxxxxxxxxx-003");
 
-
                             let x = currentRecord.element.clientX;
                             let y = currentRecord.element.clientY;
 
 
                             let selectedElement = document.elementFromPoint(x, y);
 
+                            console.log("selectedElement: ");
                             console.log(selectedElement);
 
                             if (selectedElement) {
@@ -233,19 +243,25 @@ var RestorePreviousPageState_instance = function () {
 
                     }
 
-                    //console.log('************ Count');
-                    //console.log('************ Count');
-                    //console.log(URL_Track.urls.length);
-
-                    //  setTimeout(() => { URL_Track.urls.splice(currentIndex) }, 2000);
-
-                    //console.log(URL_Track.urls.length);
-                    //console.log('************ Count');
-                    //console.log('************ Count');
 
 
+                    setTimeout(function () {
 
-                    // window.localStorage.setItem('URL_Track', JSON.stringify(URL_Track));
+                        console.log('RestorePreviousPageState - Removing current reocrd... 101');
+                        console.log('************ Count 2');
+                        console.log('************ Count');
+                        console.log(URL_Track_Ref.URL_Track.urls.length);
+
+                        setTimeout(() => { URL_Track_Ref.URL_Track.urls.splice(URL_Track_Ref.currentIndex) }, 2000);
+
+
+                        console.log(URL_Track_Ref.URL_Track.urls.length);
+                        console.log('************ Count');
+                        console.log('************ Count');
+
+                        window.localStorage.setItem('URL_Track', JSON.stringify(URL_Track_Ref.URL_Track));
+
+                    }, 4000);
 
                 }
 

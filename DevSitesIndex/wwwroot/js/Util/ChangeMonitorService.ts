@@ -20,7 +20,7 @@ var changeMonitorService_instance = function () {
         console.log('ChangeMonitorService  - 20191114-1505 - top   IN    DOSETUP');
 
 
-        var ssn_ChangeMonitorService_module = globals.globals_instance.getInstance(currentApplication);
+        var ssn_ChangeMonitorService_module = globals.globals_instance.getInstance_v002('ChangeMonitorService', currentApplication);
 
 
         ssn_ChangeMonitorService_module.factory("changeMonitorService", ['$http', '$q', function ($http, $q) {

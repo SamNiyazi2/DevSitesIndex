@@ -6,7 +6,7 @@ import * as ssn_globals from "../globals";
 
 var jobStatusDisplayDirective_instance = function () {
 
-    var app = ssn_globals.globals_instance.getInstance('timesheetApp');
+    var app = ssn_globals.globals_instance.getInstance_v002('JobStatusDisplayDirective', 'timesheetApp');
 
     var jobStatusDisplay = app.directive('jobStatusDisplay', function () {
 

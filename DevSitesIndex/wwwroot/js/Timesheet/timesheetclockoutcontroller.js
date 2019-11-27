@@ -6,13 +6,15 @@ import * as angular from 'angular';
 import * as util from '../site';
 var timesheetClockoutController_instance = function () {
     // 05/19/2019 10:06 am - SSN - [20190519-0837] - [006] - Adding timesheet "Continue" option
-    var timesheetApp = ssn_globals.globals_instance.getInstance("timesheetApp");
+    var timesheetApp = ssn_globals.globals_instance.getInstance_v002('TimesheetClockOutController', "timesheetApp");
     // 11/16/2019 02:52 pm - SSN - [20191116-1419] - [003] - Add RowVersion  to Timelog.
     // Inject changeMonitorService
     // 11/20/2019 04:43 am - SSN - [20191120-0429] - [003] - Timelog index clock-out refresh updated row
     // Inject PageUpdaterService
-    timesheetApp.controller('TimesheetClockOutController', ['$scope', '$uibModalInstance', '$http', '$q', 'dataService', 'changeMonitorService', 'timelogId', 'PageUpdaterService',
-        function TimesheetController($scope, $uibModalInstance, $http, $q, dataService, changeMonitorService, timelogId, PageUpdaterService) {
+    // 11/25/2019 06:39 pm - SSN - [20191125-1803] - [003] - clock-out is not updating index row
+    // Added servingPage
+    timesheetApp.controller('TimesheetClockOutController', ['$scope', '$uibModalInstance', '$http', '$q', 'dataService', 'changeMonitorService', 'timelogId', 'PageUpdaterService', 'servingPage',
+        function TimesheetController($scope, $uibModalInstance, $http, $q, dataService, changeMonitorService, timelogId, PageUpdaterService, servingPage) {
             // 11/16/2019 03:08 pm - SSN - [20191116-1419] - [004] - Add RowVersion  to Timelog.
             changeMonitorService.setupMonitor();
             // 04/29/2019 05:51 pm - SSN - [20190429-1748] - [002] - Angular clock out popup
@@ -40,7 +42,7 @@ var timesheetClockoutController_instance = function () {
             function getTimelogSuccess(data) {
                 var timeNow = new Date();
                 timeNow.setMilliseconds(0);
-                timeNow.setSeconds(0);
+                // timeNow.setSeconds(0);
                 data.stopTime = timeNow;
                 var data2 = data;
                 util.site_instance.fnConverDate(data2);
@@ -78,7 +80,9 @@ var timesheetClockoutController_instance = function () {
                         $uibModalInstance.close();
                         toastr.info("Clocked-out");
                         console.log('timesheetClockoutController - 20191120-0423 - timelog_index update [', $scope.editableTimeLog.timeLogId, ']');
-                        PageUpdaterService.timelog_index($scope.editableTimeLog.timeLogId);
+                        // 11/25/2019 06:38 pm - SSN - [20191125-1803] - [002] - clock-out is not updating index row
+                        // Added servingPage
+                        PageUpdaterService.timelog_index($scope.editableTimeLog.timeLogId, servingPage);
                     }, function (error) {
                         var test2 = error;
                         console.log(error);
@@ -126,4 +130,4 @@ var timesheetClockoutController_instance = function () {
     };
 }();
 export { timesheetClockoutController_instance };
-//# sourceMappingURL=TimesheetClockOutController.js.map
+//# sourceMappingURL=timesheetclockoutcontroller.js.map

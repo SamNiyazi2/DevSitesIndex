@@ -223,4 +223,39 @@ site_instance_NS.site_Class.loadCounter++;
 console.log('site - 20191115-1740 - xxxxxxxxxxx');
 console.log(site_instance_NS.site_Class.loadCounter);
 console.log(d2);
+// 11/25/2019 02:37 pm - SSN - [20191125-1414] - [003] - Project jobs - filter 
+// https://stackoverflow.com/questions/6361465/how-to-check-if-click-event-is-already-bound-jquery
+$.fn.isBound = function (type, fn) {
+    console.log('fn.isBound-0245');
+    console.log('this');
+    console.log(this);
+    console.log("this.data('events')");
+    console.log(this.data('events'));
+    if (!this.data('events')) {
+        console.log("undefined <<<<<<<<<<");
+        return false;
+    }
+    var data = this.data('events')[type];
+    if (data === undefined || data.length === 0) {
+        return false;
+    }
+    return (-1 !== $.inArray(fn, data));
+};
+// 11/25/2019 02:29 pm - SSN - [20191125-1414] - [002] - Project jobs - filter 
+console.log('site - project_jobs - filter');
+function Job_Timelog_setFilter() {
+    console.log('site - project_jobs - filter - 333 ');
+    if ($("#filterText").isBound('keyup', Job_Timelog_setFilter)) {
+        console.log("Already bound");
+        return;
+    }
+    $("#filterText").on('keyup', function (e) {
+        console.log('project_jobs - fitlerText');
+        console.log((e));
+    });
+}
+$(function () {
+    console.log('site - project_jobs - filter - 2');
+    Job_Timelog_setFilter();
+});
 //# sourceMappingURL=site.js.map

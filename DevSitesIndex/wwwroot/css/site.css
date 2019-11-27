@@ -15,6 +15,17 @@ h2, h3, h4, h5 {
 }
 
 
+td > h1 {
+    margin: 0;
+}
+
+td > h2, td > h3, td > h4, td > h5 {
+    margin: 0;
+    padding-bottom:20px;
+}
+
+
+
 a {
     cursor: pointer;
 }
@@ -362,11 +373,11 @@ alarm {
     margin: auto;
 }
 
-.jobStatusChangeRecord_on div {
-    /*box-shadow: 1px 5px 7px ;*/
-    background-color: rgb(151, 157, 174);
-    padding: 10px;
-}
+    .jobStatusChangeRecord_on div {
+        /*box-shadow: 1px 5px 7px ;*/
+        background-color: rgb(151, 157, 174);
+        padding: 10px;
+    }
 
 
 
@@ -388,7 +399,7 @@ alarm {
 
 
     .table {
-        empty-cells: hide!important;
+        empty-cells: hide !important;
     }
 
         .table > tbody > tr {
@@ -474,13 +485,12 @@ alarm {
 
     50% {
         background-color: yellow;
-        font-size: 64px;
+        font-size: 32px;
     }
 
     100% {
         background-color: transparent;
     }
-
 }
 
 /* Standard syntax */
@@ -491,12 +501,10 @@ alarm {
 
     50% {
         background-color: yellow;
-        font-size: 64px;
+        font-size: 32px;
     }
 
     100% {
         background-color: transparent;
     }
 }
-
- 

@@ -5,7 +5,7 @@ import * as angular from 'angular';
 import * as util from '../site';
 var ngApplicationName = "timesheetApp";
 var timesheetContinueController_instance = function () {
-    var timesheetApp = ssn_globals.globals_instance.getInstance(ngApplicationName);
+    var timesheetApp = ssn_globals.globals_instance.getInstance_v002('TimesheetContinueController', ngApplicationName);
     // 11/14/2019 03:07 pm - SSN - [20191114-1459] - [002] - ChangeMonitroService
     console.log('Adding ChangeMonitorService');
     timesheetApp.controller('TimesheetContinueController', ['$scope', '$uibModalInstance', '$http', '$q', 'dataService', '$timeout', 'timelogId', 'changeMonitorService',
@@ -123,4 +123,4 @@ var timesheetContinueController_instance = function () {
     };
 }();
 export { timesheetContinueController_instance };
-//# sourceMappingURL=TimesheetContinueController.js.map
+//# sourceMappingURL=timesheetcontinuecontroller.js.map

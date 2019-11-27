@@ -40,11 +40,19 @@ var ChangeMonitor_Util = function () {
                 return true;
             }
         }
+        // 11/25/2019 02:27 pm - SSN - Added
+        if (obj1.noChangeMonitor) {
+            return true;
+        }
         if (!obj1.id && !obj1.name)
             return true;
         if (obj1.id.toLowerCase().indexOf('search') > -1)
             return true;
         if (obj1.name.toLowerCase().indexOf('search') > -1)
+            return true;
+        if (obj1.id.toLowerCase().indexOf('filter') > -1)
+            return true;
+        if (obj1.name.toLowerCase().indexOf('filter') > -1)
             return true;
         return false;
     };

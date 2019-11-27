@@ -37,7 +37,7 @@ var dropdownListDirective_instance = function () {
         }
 
 
-        var downdownList_angular_module = ssn_globals.globals_instance.getInstance(defaultAppName, ['ui.bootstrap']);
+        var downdownList_angular_module = ssn_globals.globals_instance.getInstance_v002('DropdownListDirective', defaultAppName, ['ui.bootstrap']);
 
 
         var utilityController_objectRef = downdownList_angular_module.controller('utilityController', ['$scope', '$attrs', '$location', function ($scope, $attrs, $location) {
@@ -102,7 +102,7 @@ var dropdownListDirective_instance = function () {
 
 
                     ngModel.$asyncValidators.isInvalidDropdownListDirectiveInputCheck2 = function (modelValue, viewValue) {
-                         
+
 
                         var deferred = $q.defer()
 
@@ -161,7 +161,7 @@ var dropdownListDirective_instance = function () {
                     console.log("************ Cleanup");
                     console.log("************ Cleanup");
                     console.log("************ Cleanup");
-             
+
                 });
 
 
@@ -172,12 +172,12 @@ var dropdownListDirective_instance = function () {
 
                     console.log('dropdownListDirective - watching vm.formName.$error.isInvalidDropdownListDirectiveInputCheck2 (1841)');
 
-                  
-                        console.log('form change');
-                        console.log(oldValue);
-                        console.log(newValue);
 
-                     
+                    console.log('form change');
+                    console.log(oldValue);
+                    console.log(newValue);
+
+
 
                 });
 
@@ -256,7 +256,7 @@ var dropdownListDirective_instance = function () {
 
                         case 'timelog.disciplineid':
                         case 'disciplineid':
-                            
+
                             vm.APIUrl = '/api/DisciplineAPI';
 
                             break;
@@ -267,6 +267,20 @@ var dropdownListDirective_instance = function () {
 
                             break;
 
+                        // 11/27/2019 04:46 pm - SSN - Adding
+                        case 'job.projectid':
+                            vm.APIUrl = '/api/projectapi/typeahead';
+
+                            break;
+
+                        default:
+                            console.log('DropdownListDirective - no case for [', this.keyColumn);
+                            console.log('DropdownListDirective - no case for [', this.keyColumn);
+                            console.log('DropdownListDirective - no case for [', this.keyColumn);
+                            console.log('DropdownListDirective - no case for [', this.keyColumn);
+                            console.log('DropdownListDirective - no case for [', this.keyColumn);
+                            console.log('DropdownListDirective - no case for [', this.keyColumn);
+                            console.log('DropdownListDirective - no case for [', this.keyColumn);
                     }
 
 
@@ -290,6 +304,8 @@ var dropdownListDirective_instance = function () {
                     }
 
 
+
+
                     if (vm.disciplineSelected_XXX === undefined && keyValueSelected > 0) {
                         console.log("XXXXXXXXXXXXxx set defalt")
                         vm.getDisciplineCurrent(keyValueSelected).then(vm.currentDisplineLookupSuccess);
@@ -299,8 +315,14 @@ var dropdownListDirective_instance = function () {
                     }
 
 
-                    console.log('dropdownListDirective - (xxxxx101-B) vm.disciplineSelected_XXX    [', vm.disciplineSelected_XXX, ']')
+                    // Are we ever reaching this point?
 
+                    console.log('dropdownListDirective - (xxxxx101-B) vm.disciplineSelected_XXX    [', vm.disciplineSelected_XXX, ']')
+                    console.log("xxxxxxxxxxxxxxxxxxxxx");
+                    console.log("xxxxxxxxxxxxxxxxxxxxx");
+                    console.log("xxxxxxxxxxxxxxxxxxxxx");
+                    console.log("xxxxxxxxxxxxxxxxxxxxx");
+                    console.log("xxxxxxxxxxxxxxxxxxxxx");
 
                     _isValid = vm.setInputVariables();
 
@@ -310,6 +332,9 @@ var dropdownListDirective_instance = function () {
                     console.log('*************** _isValid', _isValid);
 
                     vm.firstRun = false;
+
+
+
 
                     return _isValid;
 
@@ -373,17 +398,17 @@ var dropdownListDirective_instance = function () {
 
 
                         console.log('dropdownListDirective - currentDisplineLookupSuccess - 20191117-1025 - 102');
-                         
+
 
                         // 09/16/2019 05:30 am - SSN - [20190916-0355] - [008] - Adding JobAPI controller
-                         
+
 
                         console.log(data);
 
                         if (data.disciplineId) {
 
                             console.log('dropdownListDirective - currentDisplineLookupSuccess - 20191117-1025 - 103-A');
-                     
+
                             vm.disciplineSelected_XXX = { id: data.disciplineId, title: data.disciplineShort };
                             vm.angularControlId = data.disciplineId;
 
@@ -391,7 +416,7 @@ var dropdownListDirective_instance = function () {
 
                         if (data.ta_id) {
                             console.log('dropdownListDirective - currentDisplineLookupSuccess - 20191117-1025 - 103-B');
- 
+
                             vm.disciplineSelected_XXX = { id: data.ta_id, title: data.ta_description };
                             vm.angularControlId = data.ta_id;
                         }
@@ -505,7 +530,7 @@ var dropdownListDirective_instance = function () {
 
 
 
-               
+
 
 
 
@@ -514,6 +539,9 @@ var dropdownListDirective_instance = function () {
 
 
                 $timeout(function () { vm.isValid(); }, 600);
+
+                $timeout(function () { vm.isReady = true; }, 2000);
+
 
             };
 

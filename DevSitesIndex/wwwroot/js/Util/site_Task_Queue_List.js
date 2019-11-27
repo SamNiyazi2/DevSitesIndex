@@ -2,7 +2,7 @@
 import { globals_instance } from '../globals';
 var site_Task_Queue_List_instance = function () {
     var doSetupp = function (ngApplicationName) {
-        var site_Task_Queue_List = globals_instance.getInstance(ngApplicationName, []);
+        var site_Task_Queue_List = globals_instance.getInstance_v002('site_Task_Queue', ngApplicationName, []);
         site_Task_Queue_List.controller('SiteTaskQueueListController', ['$rootScope', '$scope', function ($rootScope, $scope) {
                 //    $rootScope.$broadcast('site_Task_Queue_List', result);
                 $scope.$on('site_Task_Queue_List', function (event, item) {

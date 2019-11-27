@@ -5,7 +5,7 @@ var globals_instance = function () {
         function SSN_Globals() {
         }
         // 09/23/2019 06:13 am - SSN - [20190923-0613] - [001] - Adding a lock
-        SSN_Globals.getInstance = function (applicationName, args) {
+        SSN_Globals.getInstance_v02 = function (callSource, applicationName, args) {
             ////  DO NOT REMOVE.
             //// Option to call an injected AngularJS server from here. Tested.  
             if (args === void 0) { args = null; }
@@ -17,9 +17,9 @@ var globals_instance = function () {
             //    console.error("globals:  20190923-1135 - Failed call to test_102");
             //    console.log(e);
             //}
-            return SSN_Globals.getInstance_Original(applicationName, args);
+            return SSN_Globals.getInstance_Original(callSource, applicationName, args);
         };
-        SSN_Globals.getInstance_Original = function (applicationName, args) {
+        SSN_Globals.getInstance_Original = function (callSource, applicationName, args) {
             if (args === void 0) { args = null; }
             var angularApp = null;
             var selected = (SSN_Globals.ssn_devsite_angular_module).filter(function (r) { return r.name === applicationName; });
@@ -110,12 +110,12 @@ var globals_instance = function () {
         };
     }();
     // 09/20/2019 09:38 am - SSN - Pass in args
-    function getInstance(applicationName, args) {
+    function getInstance_v002(callSource, applicationName, args) {
         if (args === void 0) { args = null; }
-        return SSN_Globals.getInstance(applicationName, args);
+        return SSN_Globals.getInstance_v02(callSource, applicationName, args);
     }
     return {
-        getInstance: getInstance
+        getInstance_v002: getInstance_v002
     };
 }();
 var test_103 = function () {

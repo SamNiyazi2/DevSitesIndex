@@ -186,9 +186,17 @@ namespace DevSitesIndex.Controllers
 
 
 
+        // 11/27/2019 04:51 pm - SSN Copied from JobApiController
 
+        [Route("typeahead")]
+        [HttpGet]
+        public IEnumerable<TypeAheadRecord> Get_TA()
+        {
 
+            IEnumerable<Project> entity = _entityRepository.GetAll();
 
+            return entity.Select(r => new TypeAheadRecord(r.ProjectID, r.ProjectTitle));
+        }
 
 
 

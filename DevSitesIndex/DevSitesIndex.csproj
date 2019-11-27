@@ -48,17 +48,18 @@
     <Folder Include="wwwroot\webpack_build\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Remove="Pages\Jobs\Index_partial.cshtml" />
     <Content Remove="wwwroot\js\Temp_Support_main.ts" />
     <Content Remove="wwwroot\js\Timesheet\TimelogLinkOtions\TimelogLinkOptions.ts" />
+    <Content Remove="wwwroot\js\Timesheet\Timesheet_main_timesheetOnly.ts" />
     <Content Remove="wwwroot\js\Util\PageUpdater.ts" />
     <Content Remove="wwwroot\js\Util\RestorePreviousPageState.ts" />
     <Content Remove="wwwroot\js\Util\site_Task_Queue_List.ts" />
   </ItemGroup>
   <ItemGroup>
-  </ItemGroup>
-  <ItemGroup>
     <TypeScriptCompile Include="wwwroot\js\Temp_Support_main.ts" />
     <TypeScriptCompile Include="wwwroot\js\Timesheet\TimelogLinkOtions\TimelogLinkOptions.ts" />
+    <TypeScriptCompile Include="wwwroot\js\Timesheet\Timesheet_main_timesheetOnly.ts" />
     <TypeScriptCompile Include="wwwroot\js\Util\PageUpdater.ts" />
     <TypeScriptCompile Include="wwwroot\js\Util\RestorePreviousPageState.ts" />
     <TypeScriptCompile Include="wwwroot\js\Util\site_Task_Queue_List.ts" />

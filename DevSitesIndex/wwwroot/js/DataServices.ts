@@ -22,7 +22,7 @@ var dataService_instance = function () {
     var doSetup = function (currentApplication: string) {
 
 
-        var ssn_devsite_angular_module = globals.globals_instance.getInstance(currentApplication);
+        var ssn_devsite_angular_module = globals.globals_instance.getInstance_v002('DataServices', currentApplication);
 
 
         ssn_devsite_angular_module.factory("dataService", ['$http', '$q', function ($http, $q) {
@@ -180,6 +180,7 @@ var dataService_instance = function () {
 
             // 09/18/2019 03:24 am - SSN - [20190917-0929] - [017] - Adding paging for angular lists
             // var _getJobs = function (pageNo, recordsPerPage, columnName, desc) {
+            // 11/27/2019 09:14 am - SSN - Pass projectId
             var _getJobs = function (columnBag: IColumnBagTemp.default) {
 
                 var deferred = $q.defer();
@@ -189,7 +190,9 @@ var dataService_instance = function () {
                 var job_statuses_selected = ((columnBag.job_statuses_selected.length == 0) ? "nothing-201909221117" : columnBag.job_statuses_selected.join(','));
 
 
-                $http.get('/api/jobapi/list/' + columnBag.currentPageNo + "/" + columnBag.recordsPerPage + "/" + columnBag.columnName + "/" + columnBag.desc + "/" + job_statuses_selected)
+                $http.get('/api/jobapi/list/' + columnBag.currentPageNo + "/" + columnBag.recordsPerPage + "/" + columnBag.columnName + "/" + columnBag.desc + "/" + job_statuses_selected + "?projectId="
+                    + columnBag.fk_filter)
+
                     .then(function (result) {
 
                         deferred.resolve(result.data);
@@ -252,7 +255,7 @@ var dataService_instance = function () {
             // 11/22/2019 04:06 pm - SSN - [20191121-0503] - [018] - Timelog edit options on project search
 
             var _ProjectsSearchRefreshRecord = function (id, servingPage) {
-  
+
                 var deferred = $q.defer();
 
                 $http.get('/api/ProjectAPI/refreshrecord/' + id + "?servingPage=" + servingPage)

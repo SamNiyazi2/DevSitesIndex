@@ -30,7 +30,7 @@
             <div>
                 @*02/07/2019 02:40 pm - SSN - Removed class="form-group" when adding doHighlight*@
                 <label class="control-label">Search</label>
-                <input asp-for="SearchText" class="form-control" accesskey="s" autofocus />
+                <input asp-for="SearchText" class="form-control" accesskey="s" autofocus required />
                 <span asp-validation-for="SearchText" class="text-danger"></span>
                 <a target="ws" href="https://docs.microsoft.com/en-us/sql/relational-databases/search/search-for-words-close-to-another-word-with-near?view=sql-server-2017">__</a>
             </div>

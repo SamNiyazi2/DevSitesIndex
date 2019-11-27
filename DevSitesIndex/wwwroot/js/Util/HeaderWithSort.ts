@@ -25,7 +25,7 @@ interface iFixScope extends ng.IScope {
 var headerWithSort_instance = function () {
 
 
-    var headerWithSort_angular_module: angular.IModule = ssn_globals.globals_instance.getInstance("timesheetApp");
+    var headerWithSort_angular_module: angular.IModule = ssn_globals.globals_instance.getInstance_v002('HeaderWithSort', "timesheetApp");
 
 
     headerWithSort_angular_module.controller('utilityController', ['$scope', '$sce', 'dataService', function ($scope, $sce, dataService) {
@@ -52,7 +52,7 @@ var headerWithSort_instance = function () {
                 };
 
                 scope.displayArrow = function () {
-              ////////////////////////////////////////////xxxxxx      console.log("headerWithSort - 20191110-0749 - [", this.columnlist.desc, "]", this.columnlist.columnName,  Date());
+                    ////////////////////////////////////////////xxxxxx      console.log("headerWithSort - 20191110-0749 - [", this.columnlist.desc, "]", this.columnlist.columnName,  Date());
                     switch (this.columnlist.desc) {
                         case true:
                             return $sce.trustAsHtml("&#9650;"); break;

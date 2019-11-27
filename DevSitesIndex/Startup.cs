@@ -43,7 +43,22 @@ namespace DevSitesIndex
             Configuration = configuration;
         }
 
-        public static List<string> applicablePaths_Site_Only = new List<string>() { "/codereference", "/companies", "/devsites", "/Discipline", "/jobs", "/projects", "/ReferenceSites" };
+
+        // 11/25/2019 10:03 pm - SSN - [20191125-2153] - [003] - Job create - Replace dropdown with dropdownListDirective
+        // Refactor applicablePaths_Site_Only
+
+        public class ApplicablePaths_Site_Only
+        {
+            public string[] path { get; set; }
+            public bool isApplicable(string _path)
+            {
+                return (path.Any(r => _path == r.ToLower()));
+            }
+
+        }
+
+
+        // http://p3013.nonbs.net:3013/Jobs/Create?id=9
 
         public class ApplicablePaths_temp_support
         {
@@ -55,8 +70,25 @@ namespace DevSitesIndex
             
         }
 
+
+
+
+
+        // 11/25/2019 10:03 pm - SSN - [20191125-2153] - [003] - Job create - Replace dropdown with dropdownListDirective
+        // Refactor applicablePaths_Site_Only
+
+
+
+
         // 11/24/2019 07:36 pm - SSN 
         public static ApplicablePaths_temp_support applicablePaths_temp_support = new ApplicablePaths_temp_support();
+
+
+        // 11/25/2019 10:03 pm - SSN - [20191125-2153] - [003] - Job create - Replace dropdown with dropdownListDirective
+        // Refactor applicablePaths_Site_Only
+        public static ApplicablePaths_Site_Only applicablePaths_Site_Only = new ApplicablePaths_Site_Only();
+
+        
 
         //                                                                                                                                                            "/timelogs/" trailing slash to avoid including index.
 
@@ -83,54 +115,6 @@ namespace DevSitesIndex
         {
 
 
-            // services.AddMvc();
-
-
-            // 06/03/2019 05:20 pm - SSN - [20190603-1427] - [007] - Error handling
-            // Take out options
-
-            //  services.AddMvc().AddRazorPagesOptions(options =>
-            //  {
-            //      options.RootDirectory = "/Pages";
-            //      //options.Conventions.AddPageRoute("/Employees/Index", "");
-            //      options.Conventions.AddPageRoute("/jobs", "");
-
-            //  }
-            //);
-
-
-
-
-            //// 09/13/2019 01:32 pm - SSN - [20190913-0548] - [008] - Crate generic dropdown list directive
-            //// Todo:  Need to take out after resolving problem posting form from DropdownListDirective.ts
-            ////services.AddMvc();
-            //services.AddMvc().AddRazorPagesOptions(o =>
-            //{
-            //    o.Conventions.ConfigureFilter(new IgnoreAntiforgeryTokenAttribute());
-            //});
-
-
-
-
-            //  // 04/12/2019 04:18 pm - SSN - [20190412-1126] - Timelog - save data -- Copied from:
-            //// Copied from: C:\Sams_Projects\PluralSight\angularjs-forms-bootstrap-mvc5\Work2\PS_AngularForMVC\PS_AngularForMVC\Global.asax.cs
-            //.AddJsonOptions(options =>
-            // {
-            //     options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-            // })
-
-            // 04/29/2019 07:02 pm - SSN - [20190429-1748] - [004] - Angular clock out popup
-
-            //.AddJsonOptions(options =>
-            // {
-            //     // options.SerializerSettings.Converters.Add(new IsoDateTimeConverter());
-            //     // options.SerializerSettings.DateFormatHandling = Newtonsoft.Json.DateFormatHandling.MicrosoftDateFormat;
-
-            //     //options.SerializerSettings.DateFormatHandling = Newtonsoft.Json.DateFormatHandling.IsoDateFormat;
-            //     //options.SerializerSettings.DateTimeZoneHandling = Newtonsoft.Json.DateTimeZoneHandling.Local; 
-            //     // 04/29/2019 07:26 pm - SSN - [20190429-1748] - [005] - Angular clock out popup
-            //     // No benfit
-            // });
 
 
 
@@ -145,6 +129,34 @@ namespace DevSitesIndex
             string SendGrid_APIKey = Configuration["SendGrid:API_Key"];
             SSNSendGridStandardUtil.SendGridUtil.APIKey = SendGrid_APIKey;
             SSNSendGridStandardUtil.SendGridUtil.BCC_Default = Configuration["SendGrid:BBC_Default"];
+
+
+
+
+
+
+
+
+
+
+
+
+
+            // 08/12/2019 09:45 am - SSN - [20190812-0945] - [001] - Add identity
+
+
+            //services.AddDbContext<ApplicationDbContext>(options =>
+            // options.UseSqlServer(
+            //     Configuration.GetConnectionString("DefaultConnection")));
+
+
+            //services.AddDefaultIdentity<IdentityUser>()
+            //    .AddDefaultUI(UIFramework.Bootstrap4)
+            //    .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            //services.AddDefaultIdentity<IdentityUser>()
+            //             .AddDefaultUI(UIFramework.Bootstrap4)
+            //             .AddEntityFrameworkStores<DevSitesIndexContext>();
 
 
 
@@ -224,12 +236,20 @@ namespace DevSitesIndex
                 options.User.RequireUniqueEmail = true;
 
             });
+
+
+            if ( !int.TryParse(Configuration["Session_Duration"], out int session_Duration))
+            {
+                session_Duration = 40;
+            }
+
+
             services.ConfigureApplicationCookie(options =>
             {
 
                 options.Cookie.HttpOnly = true;
-                options.Cookie.Expiration = TimeSpan.FromMinutes(40);
-                options.ExpireTimeSpan = TimeSpan.FromMinutes(40);
+                options.Cookie.Expiration = TimeSpan.FromMinutes(session_Duration);
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(session_Duration);
                 //options.LoginPath = "/Account/Login";
                 //options.LogoutPath = "/Account/Logout";
                 //options.AccessDeniedPath = "/Account/AccessDenied";
@@ -239,22 +259,6 @@ namespace DevSitesIndex
 
 
 
-
-            // 08/12/2019 09:45 am - SSN - [20190812-0945] - [001] - Add identity
-
-
-            //services.AddDbContext<ApplicationDbContext>(options =>
-            // options.UseSqlServer(
-            //     Configuration.GetConnectionString("DefaultConnection")));
-
-
-            //services.AddDefaultIdentity<IdentityUser>()
-            //    .AddDefaultUI(UIFramework.Bootstrap4)
-            //    .AddEntityFrameworkStores<ApplicationDbContext>();
-
-            //services.AddDefaultIdentity<IdentityUser>()
-            //             .AddDefaultUI(UIFramework.Bootstrap4)
-            //             .AddEntityFrameworkStores<DevSitesIndexContext>();
 
 
 
@@ -268,9 +272,11 @@ namespace DevSitesIndex
 
             // 11/24/2019 07:36 pm - SSN 
             Configuration.GetSection("ApplicablePaths_temp_support").Bind(applicablePaths_temp_support);
-             
 
 
+            // 11/25/2019 10:03 pm - SSN - [20191125-2153] - [003] - Job create - Replace dropdown with dropdownListDirective
+            // Refactor applicablePaths_Site_Only
+            Configuration.GetSection("ApplicablePaths_Site_Only").Bind(applicablePaths_Site_Only);
 
 
             // 10/02/2019 01:45 pm - SSN - [20191002-1118] - [008] - Adding Angular 7 test app
@@ -283,6 +289,65 @@ namespace DevSitesIndex
             });
 
 
+
+
+
+
+
+
+
+
+
+            // services.AddMvc();
+
+
+            // 06/03/2019 05:20 pm - SSN - [20190603-1427] - [007] - Error handling
+            // Take out options
+
+            //  services.AddMvc().AddRazorPagesOptions(options =>
+            //  {
+            //      options.RootDirectory = "/Pages";
+            //      //options.Conventions.AddPageRoute("/Employees/Index", "");
+            //      options.Conventions.AddPageRoute("/jobs", "");
+
+            //  }
+            //);
+
+
+
+
+            //// 09/13/2019 01:32 pm - SSN - [20190913-0548] - [008] - Crate generic dropdown list directive
+            //// Todo:  Need to take out after resolving problem posting form from DropdownListDirective.ts
+            ////services.AddMvc();
+            //services.AddMvc().AddRazorPagesOptions(o =>
+            //{
+            //    o.Conventions.ConfigureFilter(new IgnoreAntiforgeryTokenAttribute());
+            //});
+
+
+
+
+            //  // 04/12/2019 04:18 pm - SSN - [20190412-1126] - Timelog - save data -- Copied from:
+            //// Copied from: C:\Sams_Projects\PluralSight\angularjs-forms-bootstrap-mvc5\Work2\PS_AngularForMVC\PS_AngularForMVC\Global.asax.cs
+            //.AddJsonOptions(options =>
+            // {
+            //     options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            // })
+
+            // 04/29/2019 07:02 pm - SSN - [20190429-1748] - [004] - Angular clock out popup
+
+            //.AddJsonOptions(options =>
+            // {
+            //     // options.SerializerSettings.Converters.Add(new IsoDateTimeConverter());
+            //     // options.SerializerSettings.DateFormatHandling = Newtonsoft.Json.DateFormatHandling.MicrosoftDateFormat;
+
+            //     //options.SerializerSettings.DateFormatHandling = Newtonsoft.Json.DateFormatHandling.IsoDateFormat;
+            //     //options.SerializerSettings.DateTimeZoneHandling = Newtonsoft.Json.DateTimeZoneHandling.Local; 
+            //     // 04/29/2019 07:26 pm - SSN - [20190429-1748] - [005] - Angular clock out popup
+            //     // No benfit
+            // });
+            
+            
             // 10/09/2019 02:27 pm - SSN - [20191009-1302] - [008] - M09 - Reusing components with content projection
 
             services

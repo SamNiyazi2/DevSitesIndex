@@ -3,7 +3,7 @@ import * as globals from './globals';
 import * as angular from "angular";
 var dataService_instance = function () {
     var doSetup = function (currentApplication) {
-        var ssn_devsite_angular_module = globals.globals_instance.getInstance(currentApplication);
+        var ssn_devsite_angular_module = globals.globals_instance.getInstance_v002('DataServices', currentApplication);
         ssn_devsite_angular_module.factory("dataService", ['$http', '$q', function ($http, $q) {
                 var _devSites = [];
                 var _getDevSites = function () {
@@ -94,11 +94,13 @@ var dataService_instance = function () {
                 // Adding option to list Jobs
                 // 09/18/2019 03:24 am - SSN - [20190917-0929] - [017] - Adding paging for angular lists
                 // var _getJobs = function (pageNo, recordsPerPage, columnName, desc) {
+                // 11/27/2019 09:14 am - SSN - Pass projectId
                 var _getJobs = function (columnBag) {
                     var deferred = $q.defer();
                     // 09/22/2019 08:23 am - SSN - [20190922-0822] - [001] - Plug in job status filter on job's index - update data source
                     var job_statuses_selected = ((columnBag.job_statuses_selected.length == 0) ? "nothing-201909221117" : columnBag.job_statuses_selected.join(','));
-                    $http.get('/api/jobapi/list/' + columnBag.currentPageNo + "/" + columnBag.recordsPerPage + "/" + columnBag.columnName + "/" + columnBag.desc + "/" + job_statuses_selected)
+                    $http.get('/api/jobapi/list/' + columnBag.currentPageNo + "/" + columnBag.recordsPerPage + "/" + columnBag.columnName + "/" + columnBag.desc + "/" + job_statuses_selected + "?projectId="
+                        + columnBag.fk_filter)
                         .then(function (result) {
                         deferred.resolve(result.data);
                     }, function (errorMessage) {

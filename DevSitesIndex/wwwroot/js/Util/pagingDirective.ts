@@ -35,7 +35,7 @@ var pagingDirective_instance = function () {
 
 
 
-    var pagingDirective_angular_module: angular.IModule = ssn_globals.globals_instance.getInstance("timesheetApp");
+    var pagingDirective_angular_module: angular.IModule = ssn_globals.globals_instance.getInstance_v002('pagingDirective', "timesheetApp");
 
     pagingDirective_angular_module.controller('utilityController', ['$scope', 'dataService', function ($scope, dataService) {
 
