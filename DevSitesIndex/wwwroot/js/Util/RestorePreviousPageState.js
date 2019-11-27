@@ -108,10 +108,6 @@ var RestorePreviousPageState_instance = function () {
                             var selectedElement = document.elementFromPoint(x, y);
                             console.log("selectedElement: ");
                             console.log(selectedElement);
-                            console.log('document.length');
-                            console.log($(document).length);
-                            console.log('selectedElement.length');
-                            console.log($(selectedElement).parent().length);
                             if (selectedElement) {
                                 var spanTemp_1 = $('<span></span>').prependTo(selectedElement);
                                 $(spanTemp_1).text($(selectedElement).text());

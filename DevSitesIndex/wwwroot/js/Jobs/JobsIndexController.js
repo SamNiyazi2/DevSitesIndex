@@ -25,11 +25,6 @@ var jobsIndexController_instance = function () {
             $scope.feedbackToUserClassNameCase = 0;
             $scope.errorMessages = "";
             $scope.showOriginalTable = false;
-            console.log('jobIndexController - queryString - projectId');
-            console.log('jobIndexController - queryString - projectId');
-            console.log('jobIndexController - queryString - projectId');
-            console.log('jobIndexController - queryString - projectId');
-            console.log(document.location.search);
             var qd = {};
             if (location.search)
                 location.search.substr(1).split("&").forEach(function (item) {
@@ -37,13 +32,7 @@ var jobsIndexController_instance = function () {
                         && decodeURIComponent(s[1]);
                     (qd[k] = qd[k] || []).push(v);
                 });
-            console.log(qd);
             var projectId = qd['id'];
-            console.log('jobIndexController - queryString - projectId [', projectId, ']');
-            console.log('jobIndexController - queryString - projectId [', projectId, ']');
-            console.log('jobIndexController - queryString - projectId [', projectId, ']');
-            console.log('jobIndexController - queryString - projectId [', projectId, ']');
-            console.log('jobIndexController - queryString - projectId [', projectId, ']');
             // 09/18/2019 01:15 am - SSN - [20190917-0929] - [010] - Adding paging for angular lists
             //$scope.sqlStatsRecord = {};
             //  Setup intiail values for list
