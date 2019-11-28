@@ -277,19 +277,25 @@ var dropdownListDirective_instance = function () {
 
                     var keyValueSelected = null;
 
-
-                    if (vm.disciplineSelected_XXX === undefined && this.angularControlId > 0) {
+                    // 11/28/2019 09:47 am - SSN - Setting vm.disciplineSelected_XXX = "" for $watch
+                    //   if (vm.disciplineSelected_XXX === undefined && this.angularControlId > 0) {
+                    if (this.angularControlId > 0) {
                         keyValueSelected = this.angularControlId;
                     }
 
 
-                    if (vm.disciplineSelected_XXX === undefined && keyColumnValue > 0) {
+                    // 11/28/2019 09:47 am - SSN - Setting vm.disciplineSelected_XXX = "" for $watch
+
+                    //if (vm.disciplineSelected_XXX === undefined && keyColumnValue > 0) {
+                    if (keyColumnValue > 0) {
                         keyValueSelected = keyColumnValue;
                     }
 
 
 
-                    if (vm.disciplineSelected_XXX === undefined && keyValueSelected > 0) {
+                    // 11/28/2019 09:47 am - SSN - Setting vm.disciplineSelected_XXX = "" for $watch
+                    // if (vm.disciplineSelected_XXX === undefined && keyValueSelected > 0) {
+                    if (keyValueSelected > 0) {
                         console.log("XXXXXXXXXXXXxx set defalt")
                         console.log("XXXXXXXXXXXXxx set defalt")
                         console.log("XXXXXXXXXXXXxx set defalt")

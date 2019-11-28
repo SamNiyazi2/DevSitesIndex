@@ -154,14 +154,21 @@ var RestorePreviousPageState_instance = function () {
             function restorePos() {
 
 
-                console.log('RestorePreviousPageState -  restorePos  ***********************');
+                console.log('RestorePreviousPageState -  restorePos  ***********************  101 ');
 
 
                 let URL_Track_Ref = get_URL_Track_Record();
 
+
+                console.log('RestorePreviousPageState -  restorePos  ***********************  102 ');
+
                 if (!URL_Track_Ref) return;
+
+                console.log('RestorePreviousPageState -  restorePos  ***********************  103 ');
+
                 if (!URL_Track_Ref.currentRecord) return;
 
+                console.log('RestorePreviousPageState -  restorePos  ***********************  104 ');
 
                 let currentRecord = URL_Track_Ref.currentRecord;
 
