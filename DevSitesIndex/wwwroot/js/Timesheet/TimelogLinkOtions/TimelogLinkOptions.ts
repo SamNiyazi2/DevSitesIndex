@@ -282,9 +282,7 @@ var TimelogLinkOptions = function () {
 
                     $scope.showCreateTimesheetForm = function (jobID) {
 
-                        if (isNaN(jobID)) {
-                            jobID = 0;
-                        }
+
 
                         $uibModal.open({
                             templateUrl: '/js/timesheet/templates/timesheetTemplate.html',

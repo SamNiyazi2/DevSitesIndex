@@ -18,8 +18,34 @@ var timesheetController_instance = function () {
 
 
     // 09/30/2019 06:56 pm - SSN - (Inject jobId)
-    timesheetApp.controller('TimesheetController', ['$scope', '$uibModalInstance', '$http', '$q', 'dataService', 'jobId',
-        function TimesheetController($scope, $uibModalInstance, $http, $q, dataService, jobId) {
+    // 11/28/2019 02:58 am - SSN - [20191128-0247] - [002] - Clock-in not saving - Add changeMonitorService
+
+    timesheetApp.controller('TimesheetController', ['$scope', '$uibModalInstance', '$http', '$q', 'dataService', 'changeMonitorService', 'jobId',
+        function TimesheetController($scope, $uibModalInstance, $http, $q, dataService, changeMonitorService, jobId) {
+ 
+            changeMonitorService.setupMonitor();
+
+             
+            // 11/28/2019 02:47 am - SSN - [20191128-0247] - [001] - Clock-in not saving
+            // Adding feedback
+
+            $scope.feedbackToUserText = "";
+            $scope.feedbackToUserClassNameCase = "";
+
+            $scope.feedbackToUserClassNameSet = function () {
+
+                switch ($scope.feedbackToUserClassNameCase) {
+                    case 1:
+                        return "rounded margined info_good";
+                    case 2:
+                        return "rounded margined info_bad";
+                    default:
+                        return "";
+                }
+
+            }
+
+
 
 
             dataService.getJob(jobId).then(getJobSuccess, getJobError).catch(getJobCatch);
@@ -77,7 +103,7 @@ var timesheetController_instance = function () {
                 var test = $scope.editableTimeLog;
 
                 var promise = null;
-
+  
                 $scope.editableTimeLog.disciplineId = $scope.disciplineSelected.id;
 
                 if ($scope.editableTimeLog.id === 0) {
@@ -93,25 +119,42 @@ var timesheetController_instance = function () {
                         function (data) {
 
                             $scope.timeLog = angular.copy($scope.editableTimeLog);
+
+                            $uibModalInstance.close();
+
+                            toastr.info("Clocked-in");
+
+
                         },
                         function (error) {
 
                             console.log("TimesheetController - 20190921-0640 - promise > error");
                             console.log(error);
 
+                            toastr.error("Failed to save record.  See console log.");
+
+
+                            // 11/28/2019 02:47 am - SSN - [20191128-0247] - [001] - Clock-in not saving
+                            // Adding feedback
+
+                            $scope.feedbackToUserClassNameCase = 2;
+                            $scope.feedbackToUserText = error.data;
+
+
                         });
                 }
 
-
-                $uibModalInstance.close();
-
-                toastr.info("Clocked-in");
 
             };
 
 
 
             $scope.cancelForm = function () {
+
+
+                if (changeMonitorService.getHaveChanges()) {
+                    if (!confirm('You have unsaved changes? Are you sure you want to cancel?')) return;
+                }
 
 
                 $uibModalInstance.dismiss(); //same as cancel???
