@@ -25,7 +25,7 @@
 
         @Html.HiddenFor(r => Model.returnToCallerKey)
 
-        <form method="post">
+        <form method="post" action="">
             <input type="search" asp-for="searchText" class="form-control" autofocus placeholder="Enter your search words.." />
             <div asp-validation-summary="All" class="text-danger"></div>
 

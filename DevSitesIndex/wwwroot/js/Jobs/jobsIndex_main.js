@@ -13,6 +13,10 @@ import { ProjectIndexController_instance } from '../Projects/ProjectsIndex';
 import { dropdownListDirective_instance } from '../DropdownList/DropdownListDirective';
 import { RestorePreviousPageState_instance } from '../Util/RestorePreviousPageState';
 var ngApplicationName = "timesheetApp";
+// 11/23/2019 09:07 pm - SSN 
+// 11/25/2019 04:40 pm - SSN - [20191125-1414] - [007] - Project jobs - filter 
+// Moved to top.  Directive is not loading???
+RestorePreviousPageState_instance.doSetup(ngApplicationName);
 // 11/22/2019 09:06 pm - SSN - [20191121-0503] - [023] - Timelog edit options on project search
 dropdownListDirective_instance.doSetup(ngApplicationName);
 // 11/21/2019 08:18 am - SSN - [20191121-0503] - [009] - Timelog edit options on project search
@@ -30,9 +34,4 @@ PageUpdater_Instance.doSetup(ngApplicationName);
 // Refactor - Timelog only
 import * as x from '../Timesheet/Timesheet_main_timesheetOnly';
 x.doSetup(ngApplicationName);
-// 11/23/2019 09:07 pm - SSN 
-// 11/25/2019 04:40 pm - SSN - [20191125-1414] - [007] - Project jobs - filter 
-// Moved to top.  Directive is not loading???
-// 11/28/2019 10:17 am - SSN - Moved to bottom - Works on refresh but not on back link.
-RestorePreviousPageState_instance.doSetup(ngApplicationName);
 //# sourceMappingURL=jobsIndex_main.js.map
