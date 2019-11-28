@@ -111,7 +111,7 @@ var config = [
 
 
         entry: [
-            './Timesheet/timesheet_main.js'
+            './Timesheet/timesheet_main.ts'
         ]
 
 
