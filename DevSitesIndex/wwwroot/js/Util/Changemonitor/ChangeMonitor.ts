@@ -3,7 +3,7 @@
 
 // 11/18/2019 02:26 pm - SSN - Create class for haveChanges
 
-import { ChangeMonitorFlag } from '../Util/ChangeMonitorFlag';
+import { ChangeMonitorFlag } from './ChangeMonitorFlag';
 
 var ChangeMonitor_Util = function () {
 

@@ -17,7 +17,11 @@ class ChangeMonitorFlag_class {
 
 
         if (typeof (_haveChanges) === 'undefined') {
-            console.log("Setting default value ");
+            console.log("ChangeMonitorFlag - Setting default value ");
+            console.log("ChangeMonitorFlag - Setting default value ");
+            console.log("ChangeMonitorFlag - Setting default value ");
+            console.log("ChangeMonitorFlag - Setting default value ");
+            console.log("ChangeMonitorFlag - Setting default value ");
             _haveChanges = false;
         }
 

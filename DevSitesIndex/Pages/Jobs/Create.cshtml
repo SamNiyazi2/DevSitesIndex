@@ -12,7 +12,7 @@
 
 <h2>@ViewData["Title"] </h2>
 
-  
+
 
 <hr />
 <div class="row">
@@ -52,7 +52,7 @@
             <div class="form-group">
                 <label asp-for="Job.ProjectID" class="control-label"></label>
                 <input asp-for="Job.ProjectID" type="hidden" />
-                <dropdown-list-directive key="Job.ProjectID" form-name="jobCreateForm"></dropdown-list-directive>
+                <dropdown-list-directive key="Job.ProjectID" form-name="jobCreateForm" autofocus="true"></dropdown-list-directive>
             </div>
 
 
@@ -74,7 +74,7 @@
             <div class="form-group">
                 <label asp-for="Job.Job_StatusID" class="control-label"></label>
 
-                <select asp-for="Job.Job_StatusID" class="form-control" asp-items="Model.job_statusSL" autofocus>
+                <select asp-for="Job.Job_StatusID" class="form-control" asp-items="Model.job_statusSL"  >
                     <option></option>
                 </select>
 

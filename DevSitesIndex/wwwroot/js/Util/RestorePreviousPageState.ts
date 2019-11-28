@@ -224,18 +224,54 @@ var RestorePreviousPageState_instance = function () {
 
                             let selectedElement = document.elementFromPoint(x, y);
 
-                            console.log("selectedElement: ");
+                            console.log("selectedElement: *********************************");
+                            console.log("selectedElement: *********************************");
+                            console.log("selectedElement: *********************************");
+                            console.log("selectedElement: *********************************");
                             console.log(selectedElement);
 
-                            if (selectedElement) {
 
-                                let spanTemp = $('<span></span>').prependTo(selectedElement);
+                            if (selectedElement && selectedElement.attributes) {
 
-                                $(spanTemp).text($(selectedElement).text());
-                                $(spanTemp).addClass('cssHilight101');
+                                let bypass = false;
+
+                                if (selectedElement.nodeName.toUpperCase() === "DIV") {
+                                    bypass = true;
+                                }
+
+                                console.log("Node Name", selectedElement.nodeName);
+                                console.log("Node type", selectedElement.nodeType);
+
+                                console.log(selectedElement.attributes);
 
 
-                                setTimeout(function () { removeAddedClass(spanTemp); }, 2000);
+                                for (let x = 0; x < selectedElement.attributes.length; x++) {
+
+                                    if (selectedElement.attributes[x].name === "ng-click") {
+                                        console.log('have ng-click ****************************');
+                                        console.log('have ng-click ****************************');
+                                        console.log('have ng-click ****************************');
+                                        console.log('have ng-click ****************************');
+                                    }
+                                    if (selectedElement.attributes[x].name === "href") {
+                                        console.log('have href ****************************');
+                                        console.log('have href ****************************');
+                                        console.log('have href ****************************');
+                                        console.log('have href ****************************');
+                                    }
+                                }
+
+                                if (!bypass) {
+
+                                    let spanTemp = $('<span></span>').prependTo(selectedElement);
+
+                                    $(spanTemp).text($(selectedElement).text());
+                                    $(spanTemp).addClass('cssHilight101');
+
+                                    setTimeout(function () { removeAddedClass(spanTemp); }, 2000);
+
+                                }
+
                             }
 
                         }
@@ -252,16 +288,17 @@ var RestorePreviousPageState_instance = function () {
                         console.log('************ Count');
                         console.log(URL_Track_Ref.URL_Track.urls.length);
 
-                        setTimeout(() => { URL_Track_Ref.URL_Track.urls.splice(URL_Track_Ref.currentIndex) }, 2000);
+                        setTimeout(() => {
+                            URL_Track_Ref.URL_Track.urls.splice(URL_Track_Ref.currentIndex)
+                            window.localStorage.setItem('URL_Track', JSON.stringify(URL_Track_Ref.URL_Track));
 
+                            console.log('************ Count 222');
+                            console.log('************ Count');
+                            console.log(URL_Track_Ref.URL_Track.urls.length);
 
-                        console.log(URL_Track_Ref.URL_Track.urls.length);
-                        console.log('************ Count');
-                        console.log('************ Count');
+                        }, 2000);
 
-                        window.localStorage.setItem('URL_Track', JSON.stringify(URL_Track_Ref.URL_Track));
-
-                    }, 4000);
+                    }, 2000);
 
                 }
 

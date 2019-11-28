@@ -21,11 +21,11 @@ var timesheetController_instance = function () {
     // 11/28/2019 02:58 am - SSN - [20191128-0247] - [002] - Clock-in not saving - Add changeMonitorService
 
     timesheetApp.controller('TimesheetController', ['$scope', '$uibModalInstance', '$http', '$q', 'dataService', 'changeMonitorService', 'jobId',
-        function TimesheetController($scope, $uibModalInstance, $http, $q, dataService, changeMonitorService, jobId) {
- 
+        function ($scope, $uibModalInstance, $http, $q, dataService, changeMonitorService, jobId) {
+
             changeMonitorService.setupMonitor();
 
-             
+
             // 11/28/2019 02:47 am - SSN - [20191128-0247] - [001] - Clock-in not saving
             // Adding feedback
 
@@ -103,8 +103,7 @@ var timesheetController_instance = function () {
                 var test = $scope.editableTimeLog;
 
                 var promise = null;
-  
-                $scope.editableTimeLog.disciplineId = $scope.disciplineSelected.id;
+
 
                 if ($scope.editableTimeLog.id === 0) {
                     promise = dataService.insertTimeLog($scope.editableTimeLog);
@@ -160,58 +159,6 @@ var timesheetController_instance = function () {
                 $uibModalInstance.dismiss(); //same as cancel???
 
             };
-
-
-
-            // 04/13/2019 11:00 am - SSN - [20190413-1037] - Add discipline lookup
-
-            $scope.getDisciplines = function (lookupValue) {
-
-                if (lookupValue === null) lookupValue = "";
-
-                var deferred = $q.defer();
-                // 05/03/2019 04:16 pm - SSN - [20190503-1539] - [006] - Add link to create timelog
-                // from   url:  'api/DisciplineAPI'
-                //   to   url: '/api/DisciplineAPI'
-
-                $http({
-                    method: 'GET',
-                    url: '/api/DisciplineAPI'
-
-                }).then(typeaheadDisciplineSuccess, typeaheadDisciplineError);
-
-                return deferred.promise;
-
-                function typeaheadDisciplineSuccess(response) {
-
-                    var addresses = [];
-
-
-
-                    console.log("angular - forEach - 20190920-0720-o");
-
-
-
-                    angular.forEach(response.data,
-                        function (item) {
-
-                            if (item.disciplineShort.toLowerCase().indexOf(lookupValue.toLowerCase()) > -1) {
-                                addresses.push({ id: item.disciplineId, title: item.disciplineShort });
-                            }
-                        }
-                    );
-
-                    deferred.resolve(addresses);
-
-                }
-
-                function typeaheadDisciplineError(response) {
-
-                    deferred.reject(response);
-                }
-
-            };
-
 
 
 

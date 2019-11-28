@@ -4,7 +4,7 @@
 
 //03/28/2019 08:59 am - SSN - Moved out of edit.cshtml
 
-import { ChangeMonitorFlag } from './Util/ChangeMonitorFlag';
+import { ChangeMonitorFlag } from './Util/ChangeMonitor/ChangeMonitorFlag';
 
 
 // 11/18/2019 01:15 pm - SSN - [20191118-1316] - Added interface

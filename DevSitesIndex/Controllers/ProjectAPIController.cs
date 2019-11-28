@@ -198,7 +198,23 @@ namespace DevSitesIndex.Controllers
             return entity.Select(r => new TypeAheadRecord(r.ProjectID, r.ProjectTitle));
         }
 
+        // 11/28/2019 07:58 am - SSN - Copied from JobApiController
 
+        [Route("typeahead/{id}")]
+        [HttpGet]
+        public TypeAheadRecord Get_TA(int? id)
+        {
+
+            TypeAheadRecord entity = default(TypeAheadRecord);
+
+            if (id.HasValue)
+            {
+                Project r = _entityRepository.GetRecord(id.Value);
+                entity = new TypeAheadRecord(r.ProjectID, r.ProjectTitle);
+            }
+            return entity;
+
+        }
 
 
     }

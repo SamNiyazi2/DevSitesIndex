@@ -6,7 +6,7 @@
 // 11/14/2019 03:20 pm - SSN - [20191114-1459] - [004] - ChangeMonitroService
 
 //import { ChangeMonitor_Util } from '../Util/ChangeMonitor';
-import { changeMonitorService_instance } from '../Util/ChangeMonitorService';
+import { changeMonitorService_instance } from '../Util/ChangeMonitor/ChangeMonitorService';
 
 // 11/20/2019 04:40 am - SSN - [20191120-0429] - [002] - Timelog index clock-out refresh updated row
 import { PageUpdater_Instance } from '../Util/PageUpdater';

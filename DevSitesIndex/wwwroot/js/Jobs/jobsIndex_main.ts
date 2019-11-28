@@ -12,7 +12,7 @@ import { jobsIndexController_instance } from '../Jobs/JobsIndexController';
 // 11/14/2019 08:28 pm - SSN - [20191114-1931] - [006] - Job - option to change job status 
 // Adding jobStatusChangeRecord_instance 
 import { jobStatusChangeRecord_instance } from './JobStatusChangeRecord';
-import { changeMonitorService_instance } from '../Util/ChangeMonitorService';
+import { changeMonitorService_instance } from '../Util/ChangeMonitor/ChangeMonitorService';
 
  
 

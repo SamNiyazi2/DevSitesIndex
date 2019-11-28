@@ -40,10 +40,12 @@ namespace DevSitesIndex.Services
             return result;
         }
 
+
         public Project GetRecord(int id)
         {
-            throw new NotImplementedException();
+            return context.Projects.Include(r => r.jobs).Where(r => r.ProjectID == id).FirstOrDefault();
         }
+
 
         public async Task<DataBag<Project_Search_Record>> getSerachResults(string searchText, string selectedTablesIDs, int _recordsPerPage, int _pageNo, string columnName, string desc)
 

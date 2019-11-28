@@ -190,7 +190,7 @@ var config = [
 //            './site_only_main.ts',
 
             './CodeReference_Pages.ts',
-            './util/ChangeMonitor.ts'
+            './util/ChangeMonitor/ChangeMonitor.ts'
         ]
 
     },
@@ -210,7 +210,7 @@ var config = [
 
 
         entry: [
-            './DemoSites_Pages.ts',
+            './DemoSites_Pages.ts'
         ]
 
     }
@@ -231,7 +231,7 @@ var config = [
 
 
         entry: [
-            './Temp_Support_main.ts',
+            './Temp_Support_main.ts'
         ]
 
     }

@@ -19,7 +19,7 @@ interface LookupRecord {
     id: number
 }
 
-
+// Add autofocus="true" to set focus
 
 var dropdownListDirective_instance = function () {
 
@@ -27,9 +27,9 @@ var dropdownListDirective_instance = function () {
     var doSetup = function (defaultAppName) {
 
 
-        console.log("DropdownListDirective - 20191116-0551");
+        /////  console.log("DropdownListDirective - 20191116-0551");
 
-        console.log('defaultAppName type and name [', typeof (defaultAppName), '] [', defaultAppName, ']');
+        /////   console.log('defaultAppName type and name [', typeof (defaultAppName), '] [', defaultAppName, ']');
 
 
         if (typeof (defaultAppName) != "string") {
@@ -128,11 +128,12 @@ var dropdownListDirective_instance = function () {
 
 
 
+
         downdownList_angular_module.directive('dropdownListDirective', function () {
 
 
 
-            var controller = function ($http, $q, $scope, $timeout) {
+            var controller = ['$http', '$q', '$scope', '$timeout', 'changeMonitorService', function ($http, $q, $scope, $timeout, changeMonitorService) {
 
                 let _isValid = false;
 
@@ -149,7 +150,8 @@ var dropdownListDirective_instance = function () {
                 vm.isInvalidDropdownListDirectiveInput = true;
 
 
-
+                // 11/28/2019 08:29 am - SSN - Adding - Need to initial for $watch to work.
+                vm.disciplineSelected_XXX = "";
 
 
 
@@ -168,43 +170,25 @@ var dropdownListDirective_instance = function () {
 
 
 
-                $scope.$watch('vm101.formName.$error', function (newValue, oldValue) {
-
-                    console.log('dropdownListDirective - watching vm.formName.$error.isInvalidDropdownListDirectiveInputCheck2 (1841)');
-
-
-                    console.log('form change');
-                    console.log(oldValue);
-                    console.log(newValue);
-
-
-
-                });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 $scope.$watch('vm101.disciplineSelected_XXX', function (newValue: LookupRecord, oldValue) {
 
-                    console.log('dropdownListDirective - watching firing (0345)');
+
+                    if (vm.formName) {
+                        if (vm.formName.$dirty) {
+
+                            changeMonitorService.doSetHaveChange(true);
+                        }
+                    }
+
+
 
                     vm.isInvalidDropdownListDirectiveInput = true;
 
                     if (newValue) {
                         console.log('oldValue');
-                        console.log(oldValue);
+                        console.log("[", oldValue, "]");
                         console.log('newValue');
-                        console.log(newValue);
+                        console.log("[", newValue, "]");
 
                         console.log("cond 1");
 
@@ -286,8 +270,8 @@ var dropdownListDirective_instance = function () {
 
                     var keyColumnValue = $("[name='" + this.keyColumn + "']").val();
 
-                    console.log('dropdownListDirective = (999-A) - this.angularControlId', this.angularControlId);
-                    console.log('dropdownListDirective = (999-B) - keyColumnValue [', keyColumnValue, ']');
+                    /////  console.log('dropdownListDirective = (999-A) - this.angularControlId', this.angularControlId);
+                    /////  console.log('dropdownListDirective = (999-B) - keyColumnValue [', keyColumnValue, ']');
 
 
 
@@ -305,8 +289,11 @@ var dropdownListDirective_instance = function () {
 
 
 
-
                     if (vm.disciplineSelected_XXX === undefined && keyValueSelected > 0) {
+                        console.log("XXXXXXXXXXXXxx set defalt")
+                        console.log("XXXXXXXXXXXXxx set defalt")
+                        console.log("XXXXXXXXXXXXxx set defalt")
+                        console.log("XXXXXXXXXXXXxx set defalt")
                         console.log("XXXXXXXXXXXXxx set defalt")
                         vm.getDisciplineCurrent(keyValueSelected).then(vm.currentDisplineLookupSuccess);
 
@@ -392,12 +379,12 @@ var dropdownListDirective_instance = function () {
 
 
 
-                    console.log('dropdownListDirective - currentDisplineLookupSuccess - 20191117-1025 - 101');
+                    /////  console.log('dropdownListDirective - currentDisplineLookupSuccess - 20191117-1025 - 101');
 
                     if (data) {
 
 
-                        console.log('dropdownListDirective - currentDisplineLookupSuccess - 20191117-1025 - 102');
+                        /////   console.log('dropdownListDirective - currentDisplineLookupSuccess - 20191117-1025 - 102');
 
 
                         // 09/16/2019 05:30 am - SSN - [20190916-0355] - [008] - Adding JobAPI controller
@@ -407,7 +394,8 @@ var dropdownListDirective_instance = function () {
 
                         if (data.disciplineId) {
 
-                            console.log('dropdownListDirective - currentDisplineLookupSuccess - 20191117-1025 - 103-A');
+                            /////    console.log('dropdownListDirective - currentDisplineLookupSuccess - 20191117-1025 - 103-A');
+
 
                             vm.disciplineSelected_XXX = { id: data.disciplineId, title: data.disciplineShort };
                             vm.angularControlId = data.disciplineId;
@@ -415,7 +403,7 @@ var dropdownListDirective_instance = function () {
                         }
 
                         if (data.ta_id) {
-                            console.log('dropdownListDirective - currentDisplineLookupSuccess - 20191117-1025 - 103-B');
+                            /////    console.log('dropdownListDirective - currentDisplineLookupSuccess - 20191117-1025 - 103-B');
 
                             vm.disciplineSelected_XXX = { id: data.ta_id, title: data.ta_description };
                             vm.angularControlId = data.ta_id;
@@ -494,7 +482,8 @@ var dropdownListDirective_instance = function () {
                 vm.getDisciplineCurrent = function (lookupID) {
 
 
-                    console.log('dropdownListDirective - getDisciplineCurrent XXXXXXXX [', lookupID, ']');
+                    /////console.log('dropdownListDirective - getDisciplineCurrent 1111 [', vm.APIUrl, ']');
+                    /////console.log('dropdownListDirective - getDisciplineCurrent 2222 [', lookupID, ']');
 
                     if (lookupID === null) return null;
 
@@ -543,7 +532,7 @@ var dropdownListDirective_instance = function () {
                 $timeout(function () { vm.isReady = true; }, 2000);
 
 
-            };
+            }];
 
 
 
@@ -560,7 +549,7 @@ var dropdownListDirective_instance = function () {
 
                 restrict: "E",
                 templateUrl: "/js/DropdownList/DropDownListDirective.html",
-                controller: ['$http', '$q', '$scope', '$timeout', controller],
+                controller: controller,
                 controllerAs: 'vm101',
                 bindToController: true, //required in 1.3+ with controllerAs - VERIFIED.
                 scope: {
@@ -571,12 +560,31 @@ var dropdownListDirective_instance = function () {
 
                     angularControlId: "=?aci"
 
+
                 },
 
                 link: function (scope, el, attrs) {
 
 
+                    // 11/28/2019 05:29 am - SSN - [20191128-0529] - [001] - Autofocus
 
+                    if (attrs.autofocus) {
+
+                        let setfocusFunc = function (elem) {
+
+                            if (attrs.autofocus.toLowerCase() === "true") {
+
+                                let inputObj = elem.find('input[type=text]').filter(':visible:first');
+                                if (inputObj.val() === "") {
+                                    inputObj.focus();
+                                }
+
+                            }
+                        };
+
+                        setTimeout(function () { setfocusFunc(el); }, 1000);
+
+                    }
 
 
 
