@@ -8,6 +8,16 @@
     <ApplicationInsightsResourceId>/subscriptions/d6723a94-6723-4e85-b988-03bf28d6ea51/resourcegroups/DevSitesIndex20190127--0929-redeploy-rg/providers/microsoft.insights/components/DevSitesIndex20190127__0929_redeploy_v02</ApplicationInsightsResourceId>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="wwwroot\dist\**" />
+    <Compile Remove="wwwroot\webpack_build\**" />
+    <Content Remove="wwwroot\dist\**" />
+    <Content Remove="wwwroot\webpack_build\**" />
+    <EmbeddedResource Remove="wwwroot\dist\**" />
+    <EmbeddedResource Remove="wwwroot\webpack_build\**" />
+    <None Remove="wwwroot\dist\**" />
+    <None Remove="wwwroot\webpack_build\**" />
+  </ItemGroup>
+  <ItemGroup>
     <None Remove="file.ts" />
     <None Remove="node_modules_hack\GlobalVariables.d.ts" />
     <None Remove="node_modules_hack\SSN_jquery_modal.d.ts" />
@@ -43,9 +53,7 @@
     <Folder Include="Connected Services\" />
     <Folder Include="node_modules\" />
     <Folder Include="node_modules_hack\" />
-    <Folder Include="wwwroot\dist\" />
     <Folder Include="wwwroot\js\CodeRederence\" />
-    <Folder Include="wwwroot\webpack_build\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="Pages\Jobs\Index_partial.cshtml" />
