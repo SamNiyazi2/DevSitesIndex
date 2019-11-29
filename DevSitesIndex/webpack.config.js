@@ -23,7 +23,7 @@ var d_master = {
 
     devtool: 'inline-source-map',
 
-    watch: true,
+    watch: false,  // until we fix a file for product
     watchOptions: {
         ignored: ['wwwroot/js/Angular_1_2', 'wwwroot/js/Angular_1_7', 'wwwroot/js/Angular_x', 'wwwroot/js/Angular_ui', 'wwwroot/js/tostr', 'node_modules', 'timesheetsSupport7'],
         aggregateTimeout: 300,
