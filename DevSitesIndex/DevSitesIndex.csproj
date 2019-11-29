@@ -9,18 +9,38 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="wwwroot\dist\**" />
-    <Compile Remove="wwwroot\webpack_build\**" />
+    <Compile Remove="wwwroot\js\**" />
     <Content Remove="wwwroot\dist\**" />
-    <Content Remove="wwwroot\webpack_build\**" />
+    <Content Remove="wwwroot\js\**" />
     <EmbeddedResource Remove="wwwroot\dist\**" />
-    <EmbeddedResource Remove="wwwroot\webpack_build\**" />
+    <EmbeddedResource Remove="wwwroot\js\**" />
     <None Remove="wwwroot\dist\**" />
-    <None Remove="wwwroot\webpack_build\**" />
+    <None Remove="wwwroot\js\**" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="dotnet_add_package_DAL_local.cmd" />
+    <None Remove="dotnet_add_package_DAL_Remote.cmd" />
+    <None Remove="dotnet_add_package_GenUtil_local.cmd" />
+    <None Remove="dotnet_add_package_SendGrid_local.cmd" />
+    <None Remove="dotnet_add_package_SendGrid_remote.cmd" />
     <None Remove="file.ts" />
+    <None Remove="js.zip" />
     <None Remove="node_modules_hack\GlobalVariables.d.ts" />
     <None Remove="node_modules_hack\SSN_jquery_modal.d.ts" />
+    <None Remove="p.cmd" />
+    <None Remove="p_all.cmd" />
+    <None Remove="p_buildAll.cmd" />
+    <None Remove="ScaffoldingReadme.txt" />
+    <None Remove="ssn_azure_build.cmd" />
+    <None Remove="ssn_babel_it_2.cmd" />
+    <None Remove="SSN_Notes.txt" />
+    <None Remove="SSN_Remove_DAL_DLL_FromProject.cmd" />
+    <None Remove="SSN_Remove_GenUtil_DLL_FromProject.cmd" />
+    <None Remove="ssn_Runtest_mocha.cmd" />
+    <None Remove="ssn_run_webpack.cmd" />
+    <None Remove="ssn_run_webpack_prod.cmd" />
+    <None Remove="tsc_all_ts_files.ps1" />
+    <None Remove="webpack.config.js" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="angularjs.TypeScript.DefinitelyTyped" Version="6.5.6" />
@@ -53,24 +73,23 @@
     <Folder Include="Connected Services\" />
     <Folder Include="node_modules\" />
     <Folder Include="node_modules_hack\" />
-    <Folder Include="wwwroot\js\CodeRederence\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Remove="libman.json" />
+    <Content Remove="package-lock.json" />
+    <Content Remove="package.json" />
     <Content Remove="Pages\Jobs\Index_partial.cshtml" />
-    <Content Remove="wwwroot\js\Temp_Support_main.ts" />
-    <Content Remove="wwwroot\js\Timesheet\TimelogLinkOtions\TimelogLinkOptions.ts" />
-    <Content Remove="wwwroot\js\Timesheet\Timesheet_main_timesheetOnly.ts" />
-    <Content Remove="wwwroot\js\Util\PageUpdater.ts" />
-    <Content Remove="wwwroot\js\Util\RestorePreviousPageState.ts" />
-    <Content Remove="wwwroot\js\Util\site_Task_Queue_List.ts" />
+    <Content Remove="tsconfig.json" />
+    <Content Remove="wwwroot\js.zip" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="wwwroot\js\Temp_Support_main.ts" />
-    <TypeScriptCompile Include="wwwroot\js\Timesheet\TimelogLinkOtions\TimelogLinkOptions.ts" />
-    <TypeScriptCompile Include="wwwroot\js\Timesheet\Timesheet_main_timesheetOnly.ts" />
-    <TypeScriptCompile Include="wwwroot\js\Util\PageUpdater.ts" />
-    <TypeScriptCompile Include="wwwroot\js\Util\RestorePreviousPageState.ts" />
-    <TypeScriptCompile Include="wwwroot\js\Util\site_Task_Queue_List.ts" />
+    <None Include="wwwroot\webpack_build\bundle_DemoSites_index.js" />
+    <None Include="wwwroot\webpack_build\bundle_DemoSites_Pages.js" />
+    <None Include="wwwroot\webpack_build\bundle_DevSitesIndex_p3.js" />
+    <None Include="wwwroot\webpack_build\bundle_jobsIndex.js" />
+    <None Include="wwwroot\webpack_build\bundle_Site_only.js" />
+    <None Include="wwwroot\webpack_build\bundle_Temp_Support.js" />
+    <None Include="wwwroot\webpack_build\bundle_timesheetapp.js" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services" />
