@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
@@ -7,16 +7,6 @@
     <LangVersion>7.2</LangVersion>
     <ApplicationInsightsResourceId>/subscriptions/d6723a94-6723-4e85-b988-03bf28d6ea51/resourcegroups/DevSitesIndex20190127--0929-redeploy-rg/providers/microsoft.insights/components/DevSitesIndex20190127__0929_redeploy_v02</ApplicationInsightsResourceId>
   </PropertyGroup>
-  <ItemGroup>
-    <Compile Remove="wwwroot\dist\**" />
-    <Compile Remove="wwwroot\js\**" />
-    <Content Remove="wwwroot\dist\**" />
-    <Content Remove="wwwroot\js\**" />
-    <EmbeddedResource Remove="wwwroot\dist\**" />
-    <EmbeddedResource Remove="wwwroot\js\**" />
-    <None Remove="wwwroot\dist\**" />
-    <None Remove="wwwroot\js\**" />
-  </ItemGroup>
   <ItemGroup>
     <None Remove="dotnet_add_package_DAL_local.cmd" />
     <None Remove="dotnet_add_package_DAL_Remote.cmd" />
@@ -40,7 +30,6 @@
     <None Remove="ssn_run_webpack.cmd" />
     <None Remove="ssn_run_webpack_prod.cmd" />
     <None Remove="tsc_all_ts_files.ps1" />
-    <None Remove="webpack.config.js" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="angularjs.TypeScript.DefinitelyTyped" Version="6.5.6" />
@@ -73,24 +62,33 @@
     <Folder Include="Connected Services\" />
     <Folder Include="node_modules\" />
     <Folder Include="node_modules_hack\" />
+    <Folder Include="wwwroot\js\__________________Hold4Delete\" />
+    <Folder Include="wwwroot\webpack_build\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="libman.json" />
-    <Content Remove="package-lock.json" />
-    <Content Remove="package.json" />
     <Content Remove="Pages\Jobs\Index_partial.cshtml" />
-    <Content Remove="tsconfig.json" />
     <Content Remove="wwwroot\js.zip" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="wwwroot\webpack_build\bundle_DemoSites_index.js" />
-    <None Include="wwwroot\webpack_build\bundle_DemoSites_Pages.js" />
-    <None Include="wwwroot\webpack_build\bundle_DevSitesIndex_p3.js" />
-    <None Include="wwwroot\webpack_build\bundle_jobsIndex.js" />
-    <None Include="wwwroot\webpack_build\bundle_Site_only.js" />
-    <None Include="wwwroot\webpack_build\bundle_Temp_Support.js" />
-    <None Include="wwwroot\webpack_build\bundle_timesheetapp.js" />
+    <None Include="wwwroot\dist\timesheetsSupport7\es2015-polyfills.js" />
+    <None Include="wwwroot\dist\timesheetsSupport7\es2015-polyfills.js.map" />
+    <None Include="wwwroot\dist\timesheetsSupport7\main.js" />
+    <None Include="wwwroot\dist\timesheetsSupport7\main.js.map" />
+    <None Include="wwwroot\dist\timesheetsSupport7\polyfills.js" />
+    <None Include="wwwroot\dist\timesheetsSupport7\polyfills.js.map" />
+    <None Include="wwwroot\dist\timesheetsSupport7\runtime.js" />
+    <None Include="wwwroot\dist\timesheetsSupport7\runtime.js.map" />
+    <None Include="wwwroot\dist\timesheetsSupport7\scripts.js" />
+    <None Include="wwwroot\dist\timesheetsSupport7\scripts.js.map" />
+    <None Include="wwwroot\dist\timesheetsSupport7\styles.css.map" />
+    <None Include="wwwroot\dist\timesheetsSupport7\users-user-module-ngfactory.js" />
+    <None Include="wwwroot\dist\timesheetsSupport7\users-user-module-ngfactory.js.map" />
+    <None Include="wwwroot\dist\timesheetsSupport7\vendor.js" />
+    <None Include="wwwroot\dist\timesheetsSupport7\vendor.js.map" />
+    <None Include="wwwroot\js\angular.js" />
   </ItemGroup>
+
   <ItemGroup>
     <WCFMetadata Include="Connected Services" />
   </ItemGroup>
