@@ -10,5 +10,5 @@ rem 7:02 AM 10/22/2019 - SSN - Revise
 rem start "DevSitesIndex npm run build" npm run build 
 rem 11/28/2019 06:02 pm - SSN - Using pakcage.json build for Azure
 rem call npm run build 
-webpack --progress --color  --watch --display-error-details --info-verbosity verbose
+webpack --progress --color  --watch --display-error-details --info-verbosity  
 

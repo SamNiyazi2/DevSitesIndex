@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --progress --color  --display-error-details --info-verbosity verbose"
+    "build": "webpack --progress --color  --display-error-details --info-verbosity "
   },
   "keywords": [],
   "author": "",
@@ -31,8 +31,8 @@
     "source-map-loader": "^0.2.4",
     "ts-loader": "^6.1.0",
     "typescript": "^3.6.3",
-    "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.9"
+    "webpack": "4.41.2",
+    "webpack-cli": "3.3.9"
   },
   "dependencies": {
     "applicationinsights-js": "^1.0.20"
