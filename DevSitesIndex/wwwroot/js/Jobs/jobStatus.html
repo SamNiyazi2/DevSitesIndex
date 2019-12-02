@@ -1,9 +1,8 @@
 ﻿
-<span job-status-display job-status="{{entry.id}}">
+<span job-status-display job-status="{{entry.id}}" class="indexNowrapOption">
     <input type="checkbox"
            ng-true-value="{{entry.id}}"
            ng-checked="job_status_checked(entry)"
-           ng-click="job_status_click(entry)" />
-    {{entry.id}} - {{entry.status}}
+           ng-click="job_status_click(entry)" />&nbsp;&nbsp;{{entry.id}} - {{entry.status}}
 </span> &nbsp; &nbsp;
 

@@ -228,8 +228,21 @@ a[cmd-name="showsibling"] {
     white-space: nowrap;
 }
 
+/* 12/02/2019 02:20 am - SSN - Jobs Index - Job status option - Begin*/
+.indexNowrapOption {
+    white-space: nowrap;
+    padding:2px;
+    vertical-align:bottom;
+}
 
-.maxWidthCol1 {
+.indexNowrapOption input {
+    vertical-align:text-bottom;
+}
+
+    /* 12/02/2019 02:20 am - SSN - Jobs Index - Job status option - End*/
+
+
+    .maxWidthCol1 {
     /* 05/14/2019 04:17 am - SSN Copied to menuOptions */
     max-width: 600px; /* Match codeblock2*/
     /*white-space: pre-wrap;*/ /* CSS3 */

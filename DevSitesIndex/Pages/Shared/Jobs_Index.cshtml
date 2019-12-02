@@ -25,11 +25,15 @@
                       checkedfunction="job_status_changed101(job_status)"
                       jobstatusesselected102="job_statuses_selected"></span>
             </div>
+          
+            <hr style="padding:0px;margin:0px;border:0px;height:8px;" />
 
             <div>
                 <button ng-click="job_statuses_checkAll(1)">Check all</button>
                 <button ng-click="job_statuses_checkAll(0)">Uncheck all</button>
             </div>
+
+            <a id="{{tableTopIdForScroll}}"></a>
 
             <table class="table table-responsive" height="300">
 

@@ -25,6 +25,7 @@ var jobsIndexController_instance = function () {
             $scope.feedbackToUserClassNameCase = 0;
             $scope.errorMessages = "";
             $scope.showOriginalTable = false;
+            $scope.tableTopIdForScroll = "jobIndexTableID";
             var qd = {};
             if (location.search)
                 location.search.substr(1).split("&").forEach(function (item) {
@@ -116,6 +117,14 @@ var jobsIndexController_instance = function () {
             $scope.pagingmethod101 = function (columnBag) {
                 getJobsList(columnBag);
                 $scope.sqlStatsRecord = columnBag;
+                // 12/02/2019 02:48 am - SSN - Added
+                console.log('jobIndexControler - pagingMethod101');
+                if ($scope.tableTopIdForScroll) {
+                    document.querySelector("#" + $scope.tableTopIdForScroll).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                    console.log('jobIndexControler - pagingMethod101 - scroll');
+                }
             };
             // 09/22/2019 10:47 am - SSN - [20190922-0822] - [007] - Plug in job status filter on job's index - update data source
             $scope.job_status_changed101 = function (job_status) {

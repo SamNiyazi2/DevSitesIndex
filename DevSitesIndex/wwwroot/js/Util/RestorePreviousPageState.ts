@@ -228,6 +228,7 @@ var RestorePreviousPageState_instance = function () {
                             let x = currentRecord.element.clientX;
                             let y = currentRecord.element.clientY;
 
+                            console.log("xxxxxxxxxxxxx-004 [", x, "] [", y, "]");
 
                             let selectedElement = document.elementFromPoint(x, y);
 

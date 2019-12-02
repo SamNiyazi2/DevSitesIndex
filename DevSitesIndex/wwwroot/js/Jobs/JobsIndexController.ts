@@ -38,7 +38,7 @@ var jobsIndexController_instance = function () {
             $scope.errorMessages = "";
 
             $scope.showOriginalTable = false;
-
+            $scope.tableTopIdForScroll ="jobIndexTableID"
 
             var qd = {};
             if (location.search) location.search.substr(1).split("&").forEach(function (item) {
@@ -184,6 +184,16 @@ var jobsIndexController_instance = function () {
 
                 $scope.sqlStatsRecord = columnBag;
 
+                // 12/02/2019 02:48 am - SSN - Added
+                console.log('jobIndexControler - pagingMethod101');
+
+                if ($scope.tableTopIdForScroll) {
+                    document.querySelector("#"+$scope.tableTopIdForScroll).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                    console.log('jobIndexControler - pagingMethod101 - scroll');
+
+                }
             }
 
 
