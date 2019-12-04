@@ -3579,7 +3579,7 @@ __webpack_require__.r(__webpack_exports__);
  * @suppress {suspiciousCode,uselessCode,missingProperties,missingOverride,checkTypes}
  * tslint:disable
  */ 
-var styles = ["\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3RpbWVzaGVldC9kYXNoYm9hcmQvc2FtcGxlcy9iYXItY2hhcnQvYmFyLWNoYXJ0LmNvbXBvbmVudC5jc3MifQ== */"];
+var styles = [".chart-container[_ngcontent-%COMP%] {\r\n  position: relative;\r\n  margin: auto;\r\n  height: 80vh;\r\n  width: 80vw;\r\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGltZXNoZWV0L2Rhc2hib2FyZC9zYW1wbGVzL2Jhci1jaGFydC9iYXItY2hhcnQuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTs7OztDQUlDOztBQUVEO0VBQ0Usa0JBQWtCO0VBQ2xCLFlBQVk7RUFDWixZQUFZO0VBQ1osV0FBVztBQUNiIiwiZmlsZSI6InNyYy9hcHAvdGltZXNoZWV0L2Rhc2hib2FyZC9zYW1wbGVzL2Jhci1jaGFydC9iYXItY2hhcnQuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi8qXHJcbiAgLy8gMTIvMDQvMjAxOSAwNToyNSBhbSAtIFNTTiAtIFsyMDE5MTIwNC0wNTI5XSAtIFswMDJdIC0gV29ya2luZyBvbiBzdGFibGl6aW5nIGNoYXJ0IGRpc3BsYXlcclxuICBodHRwczovL2NvZGVwZW4uaW8vY2hhcnRqcy9wZW4vWVZXWmJ6XHJcbiAgQWRkZWQgY2xhc3MgLmNoYXJ0LWNvbnRhaW5lclxyXG4qL1xyXG5cclxuLmNoYXJ0LWNvbnRhaW5lciB7XHJcbiAgcG9zaXRpb246IHJlbGF0aXZlO1xyXG4gIG1hcmdpbjogYXV0bztcclxuICBoZWlnaHQ6IDgwdmg7XHJcbiAgd2lkdGg6IDgwdnc7XHJcbn1cclxuIl19 */"];
 
 
 
@@ -3621,7 +3621,7 @@ var styles_BarChartComponent = [_bar_chart_component_css_shim_ngstyle__WEBPACK_I
 var RenderType_BarChartComponent = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵcrt"]({ encapsulation: 0, styles: styles_BarChartComponent, data: {} });
 
 function View_BarChartComponent_1(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵeld"](0, 0, null, null, 0, "canvas", [], [[8, "id", 0]], null, null, null, null))], null, function (_ck, _v) { var _co = _v.component; var currVal_0 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵinlineInterpolate"](1, "", _co.barChartData.Master_Canvas_ID, ""); _ck(_v, 0, 0, currVal_0); }); }
-function View_BarChartComponent_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵeld"](0, 0, null, null, 2, "div", [["style", "display: block;"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵand"](16777216, null, null, 1, null, View_BarChartComponent_1)), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵdid"](2, 16384, null, 0, _angular_common__WEBPACK_IMPORTED_MODULE_2__["NgIf"], [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewContainerRef"], _angular_core__WEBPACK_IMPORTED_MODULE_0__["TemplateRef"]], { ngIf: [0, "ngIf"] }, null)], function (_ck, _v) { var _co = _v.component; var currVal_0 = _co.barChartData; _ck(_v, 2, 0, currVal_0); }, null); }
+function View_BarChartComponent_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵeld"](0, 0, null, null, 2, "div", [["class", "chart-container"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵand"](16777216, null, null, 1, null, View_BarChartComponent_1)), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵdid"](2, 16384, null, 0, _angular_common__WEBPACK_IMPORTED_MODULE_2__["NgIf"], [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewContainerRef"], _angular_core__WEBPACK_IMPORTED_MODULE_0__["TemplateRef"]], { ngIf: [0, "ngIf"] }, null)], function (_ck, _v) { var _co = _v.component; var currVal_0 = _co.barChartData; _ck(_v, 2, 0, currVal_0); }, null); }
 function View_BarChartComponent_Host_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵeld"](0, 0, null, null, 1, "app-bar-chart", [], null, null, null, View_BarChartComponent_0, RenderType_BarChartComponent)), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵdid"](1, 638976, null, 0, _bar_chart_component__WEBPACK_IMPORTED_MODULE_3__["BarChartComponent"], [], null, null)], function (_ck, _v) { _ck(_v, 1, 0); }, null); }
 var BarChartComponentNgFactory = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵccf"]("app-bar-chart", _bar_chart_component__WEBPACK_IMPORTED_MODULE_3__["BarChartComponent"], View_BarChartComponent_Host_0, { barChartData: "barChartData" }, {}, []);
 
@@ -3722,7 +3722,10 @@ var BarChartComponent = /** @class */ (function () {
                     text: this.barChartData.Master_barChartTitle,
                 },
                 responsive: true,
-                maintainAspectRatio: true,
+                // 12/04/2019 05:29 am - SSN - [20191204-0529] - [001] - Working on stablizing chart display
+                //  maintainAspectRatio: false changed from true
+                // https://codepen.io/chartjs/pen/YVWZbz
+                maintainAspectRatio: false,
                 scales: {
                     yAxes: [{
                             ticks: {

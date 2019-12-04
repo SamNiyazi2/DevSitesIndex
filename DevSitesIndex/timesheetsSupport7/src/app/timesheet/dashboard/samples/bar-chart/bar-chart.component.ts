@@ -104,11 +104,11 @@ export class BarChartComponent implements OnInit, OnChanges {
 
           // https://www.chartjs.org/docs/latest/configuration/tooltip.html
           custom: function (tooltipModel) {
-            
+
 
             //tooltipModel._bodyFontFamily = "Courier";
             //tooltipModel.bodyFontSize = 10;
-  
+
           }
           ,
 
@@ -120,7 +120,7 @@ export class BarChartComponent implements OnInit, OnChanges {
             label: function (tooltipItem, data) {
 
               var label = data.datasets[tooltipItem.datasetIndex].label || 'xxxxxx';
- 
+
 
               if (label) {
                 label += ':     ';
@@ -140,10 +140,10 @@ export class BarChartComponent implements OnInit, OnChanges {
 
               let footerValue = "";
               if (item.length == 1) {
-              //  footerValue = item[0].label;
+                //  footerValue = item[0].label;
               }
 
-              return [footerValue ];
+              return [footerValue];
             }
 
 
@@ -161,7 +161,11 @@ export class BarChartComponent implements OnInit, OnChanges {
 
         responsive: true, // true is the default https://www.chartjs.org/docs/latest/general/responsive.html?h=size
 
-        maintainAspectRatio: true,
+        // 12/04/2019 05:29 am - SSN - [20191204-0529] - [001] - Working on stablizing chart display
+        //  maintainAspectRatio: false changed from true
+        // https://codepen.io/chartjs/pen/YVWZbz
+
+        maintainAspectRatio: false,
 
         scales: {
           yAxes: [{
