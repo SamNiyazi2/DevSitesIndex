@@ -40,7 +40,7 @@ namespace DevSitesIndex.Pages.TimeLogs
 
 
 
-            returnToCaller.setup(Request, "/timelog/Index");
+            returnToCaller.setup(HttpContext, "/timelog/Index");
 
 
             // 09/21/2019 11:06 am - SSN - Included projct and updated form to display project and job titles.

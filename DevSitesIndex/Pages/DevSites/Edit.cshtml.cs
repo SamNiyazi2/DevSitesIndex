@@ -60,7 +60,7 @@ namespace DevSitesIndex.Pages.DevSites
                 return NotFound();
             }
 
-            returnToCaller.setup(Request, "/devsites/Index");
+            returnToCaller.setup(HttpContext, "/devsites/Index");
 
             return Page();
         }
@@ -93,7 +93,7 @@ namespace DevSitesIndex.Pages.DevSites
 
             // 11/13/2019 08:10 pm - SSN - [20191113-1946] - [003] - ReturnToCaller
             //return RedirectToPage("./Index");
-            return Redirect(returnToCaller.getReturnToCallerUrl_Final(Request));
+            return Redirect(returnToCaller.getReturnToCallerUrl_Final(HttpContext));
         }
 
         // 09/06/2019 06:41 pm - SSN - [20190906-0518] - [006] - Angular - edit div content

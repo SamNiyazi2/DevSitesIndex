@@ -45,7 +45,7 @@ namespace DevSitesIndex.Pages.Projects
             }
 
 
-            returnToCaller.setup(Request, "/projects/Index");
+            returnToCaller.setup(HttpContext, "/projects/Index");
 
             Project = await _context.Projects
                 .Include(p => p.company).SingleOrDefaultAsync(m => m.ProjectID == id);
@@ -100,7 +100,7 @@ namespace DevSitesIndex.Pages.Projects
 
             // 11/13/2019 09:26 pm - SSN - [20191113-1946] - [006] - ReturnToCaller
             // return RedirectToPage("./Index");
-            return Redirect(returnToCaller.getReturnToCallerUrl_Final(HttpContext.Request));
+            return Redirect(returnToCaller.getReturnToCallerUrl_Final(HttpContext));
 
         }
 

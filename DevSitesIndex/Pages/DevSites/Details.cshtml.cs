@@ -38,7 +38,7 @@ namespace DevSitesIndex.Pages.DevSites
             }
 
 
-            returnToCaller.setup(Request, "/devsites/Index");
+            returnToCaller.setup(HttpContext, "/devsites/Index");
 
 
             DevSite = await _context.DevSites.SingleOrDefaultAsync(m => m.Id == id);

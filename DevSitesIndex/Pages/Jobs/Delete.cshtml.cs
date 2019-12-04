@@ -26,7 +26,7 @@ namespace DevSitesIndex.Pages.Jobs
 
         // 11/04/2019 01:50 pm - SSN - [20191104-0844] - [021] - Prevent delete option on timesheet related forms 
         public int timelogCount { get; set; }
-        
+
 
 
 
@@ -38,7 +38,7 @@ namespace DevSitesIndex.Pages.Jobs
         [BindProperty]
         public Job Job { get; set; }
 
-// 11/10/2019 07:30 am - SSN
+        // 11/10/2019 07:30 am - SSN
 
         public Job_Timesheet job_Timesheet { get; set; }
 
@@ -50,7 +50,7 @@ namespace DevSitesIndex.Pages.Jobs
                 return NotFound();
             }
 
-            returnToCaller.setup(Request, "/jobs/index");
+            returnToCaller.setup(HttpContext, "/jobs/index");
 
             // 11/04/2019 10:02 am - SSN - Added company
             Job = await _context.Jobs
@@ -62,7 +62,7 @@ namespace DevSitesIndex.Pages.Jobs
             }
 
             this.timelogCount = _context.TimeLog.Count(r => r.JobId == id);
-            
+
             job_Timesheet = new Job_Timesheet(_context, id);
 
             return Page();
@@ -85,7 +85,7 @@ namespace DevSitesIndex.Pages.Jobs
 
             // 11/13/2019 09:43 pm - SSN - [20191113-1946] - [008] - ReturnToCaller
             // return RedirectToPage("./Index");
-            return Redirect(returnToCaller.getReturnToCallerUrl_Final(Request));
+            return Redirect(returnToCaller.getReturnToCallerUrl_Final(HttpContext));
 
         }
     }

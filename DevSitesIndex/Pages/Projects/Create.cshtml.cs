@@ -37,7 +37,7 @@ namespace DevSitesIndex.Pages.Projects
         public IActionResult OnGet()
         {
 
-            returnToCaller.setup(Request, "/projects/Index");
+            returnToCaller.setup(HttpContext, "/projects/Index");
 
             setupPageRequirements();
 
@@ -65,7 +65,7 @@ namespace DevSitesIndex.Pages.Projects
             {
                 return Page();
             }
-             
+
 
             //_context.Projects.Add(Project);
             //await _context.SaveChangesAsync();
@@ -85,7 +85,7 @@ namespace DevSitesIndex.Pages.Projects
                 _context.Entry(Project).Property(x => x.DateAdded).IsModified = false;
             }
 
-           //////////////////////////////////////////// _context.Attach(Project).State = EntityState.Modified;
+            //////////////////////////////////////////// _context.Attach(Project).State = EntityState.Modified;
 
             List<ConcurrencyValidationRecord> validationList = new List<ConcurrencyValidationRecord>();
             validationList.Add(new ConcurrencyValidationRecord { PropertyName = "JobTitle", ModelErrorEntryName = "Job.JobTitle" });
@@ -99,7 +99,7 @@ namespace DevSitesIndex.Pages.Projects
 
             // 11/13/2019 09:43 pm - SSN - [20191113-1946] - [008] - ReturnToCaller
             // return RedirectToPage("./Index");
-            return Redirect(returnToCaller.getReturnToCallerUrl_Final(Request));
+            return Redirect(returnToCaller.getReturnToCallerUrl_Final(HttpContext));
 
         }
     }

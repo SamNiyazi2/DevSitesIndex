@@ -48,11 +48,11 @@
 
                     <tr ng-repeat="job in databag.jobs">
 
-                      
+
                         <td ng-if="!hideProjectTitle" class="truncateLongText_100">
                             {{job.projectTitle_ForActivity}}
                         </td>
-                         
+
                         <td>
                             <div job-status-display job-status="job.job_StatusID" class="truncateLongText_200 dropdownHint">
                                 {{job.jobTitle}}

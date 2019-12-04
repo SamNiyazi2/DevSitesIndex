@@ -13,7 +13,7 @@ namespace DevSitesIndex.Pages.Companies
 {
     // 11/04/2019 08:07 am - SSN - Disable delete for companies with project records.
 
-        
+
     // 08/12/2019 12:21 pm - SSN - [20190812-0945] - [014] - Add identity
     // Add Authorize    public class CreateModel : PageModel
     [Authorize]
@@ -44,7 +44,7 @@ namespace DevSitesIndex.Pages.Companies
             }
 
 
-            returnToCaller.setup(Request, "/companies/Index");
+            returnToCaller.setup(HttpContext, "/companies/Index");
 
 
             Company = await _context.Companies.SingleOrDefaultAsync(m => m.CompanyID == id);

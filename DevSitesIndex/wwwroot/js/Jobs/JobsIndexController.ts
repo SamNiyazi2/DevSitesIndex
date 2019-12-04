@@ -38,7 +38,7 @@ var jobsIndexController_instance = function () {
             $scope.errorMessages = "";
 
             $scope.showOriginalTable = false;
-            $scope.tableTopIdForScroll ="jobIndexTableID"
+            $scope.tableTopIdForScroll = "jobIndexTableID"
 
             $scope.hideProjectTitle = false;
 
@@ -51,7 +51,7 @@ var jobsIndexController_instance = function () {
 
             // 12/03/2019 10:12 pm - SSN - parseInt
 
-            let projectId = parseInt( qd['id']);
+            let projectId = parseInt(qd['id']);
 
             // 12/03/2019 10:25 pm - SSN - Hide project title.
             $scope.hideProjectTitle = projectId > 0;
@@ -84,10 +84,10 @@ var jobsIndexController_instance = function () {
                 { ...columnBag_defaults, columnName: 'activityAge', caption: 'Activity Age', columnNameSelected: 'activityAge', desc: true },
             ];
 
-            if ($scope.hideProjectTitle ) {
-                 
-                _fieldList.splice(0,1);
-                  
+            if ($scope.hideProjectTitle) {
+
+                _fieldList.splice(0, 1);
+
             }
 
 
@@ -200,7 +200,7 @@ var jobsIndexController_instance = function () {
                 console.log('jobIndexControler - pagingMethod101');
 
                 if ($scope.tableTopIdForScroll) {
-                    document.querySelector("#"+$scope.tableTopIdForScroll).scrollIntoView({
+                    document.querySelector("#" + $scope.tableTopIdForScroll).scrollIntoView({
                         behavior: 'smooth'
                     });
                     console.log('jobIndexControler - pagingMethod101 - scroll');

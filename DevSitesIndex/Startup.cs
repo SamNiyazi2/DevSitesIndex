@@ -98,6 +98,10 @@ namespace DevSitesIndex
         // public  IConfiguration Configuration { get; }
         public static IConfiguration Configuration { get; private set; }
 
+
+        // 12/04/2019 02:29 am - SSN - Add SITE_COOKIE_NAME 
+        public static string SITE_COOKIE_NAME = "DevSiteSIndex02";
+
         public static string SITE_NAME_STRING = "";
         public static string SITE_FULL_WEB_ADDRESS = ""; // 11/07/2019 04:31 pm - SSN
 
@@ -246,7 +250,6 @@ namespace DevSitesIndex
 
             services.ConfigureApplicationCookie(options =>
             {
-
                 options.Cookie.HttpOnly = true;
                 options.Cookie.Expiration = TimeSpan.FromMinutes(session_Duration);
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(session_Duration);

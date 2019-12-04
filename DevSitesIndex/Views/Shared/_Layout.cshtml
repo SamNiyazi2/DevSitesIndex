@@ -52,10 +52,19 @@
             string path = Context.Request.Path.ToString().ToLower();
 
             if (Startup.applicablePaths_temp_support.isApplicable(path))
-            { 
+            {
                 ViewBag.InitModule_Full = "data-ng-app=\"timesheetApp\"";
             }
         }
+    }
+
+    @{
+
+        // 12/04/2019 02:43 am - SSN - Addnig cookie
+
+        string cookie = DevSitesIndex.Util.CookieManager.GetOrCreateCookie(Context, Startup.SITE_COOKIE_NAME);
+        <h1>cookie [@cookie ]</h1>
+
     }
 
 

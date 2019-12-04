@@ -27,7 +27,7 @@ namespace DevSitesIndex.Pages.DevSites
         [BindProperty]
         public DevSite DevSite { get; set; }
 
-        
+
         // 11/13/2019 08:08 pm - SSN - [20191113-1946] - [002] - ReturnToCaller
         public ReturnToCaller returnToCaller = new ReturnToCaller();
 
@@ -64,7 +64,7 @@ namespace DevSitesIndex.Pages.DevSites
 
             // 11/13/2019 09:43 pm - SSN - [20191113-1946] - [008] - ReturnToCaller
             // return RedirectToPage("./Index");
-            return Redirect(returnToCaller.getReturnToCallerUrl_Final(Request));
+            return Redirect(returnToCaller.getReturnToCallerUrl_Final(HttpContext));
 
         }
     }

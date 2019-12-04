@@ -40,7 +40,7 @@ namespace DevSitesIndex.Pages.Companies
             }
 
 
-            returnToCaller.setup(Request, "/companies/Index");
+            returnToCaller.setup(HttpContext, "/companies/Index");
 
 
             Company = await _context.Companies.SingleOrDefaultAsync(m => m.CompanyID == id);

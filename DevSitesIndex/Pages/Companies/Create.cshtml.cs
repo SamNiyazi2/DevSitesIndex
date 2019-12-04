@@ -31,8 +31,8 @@ namespace DevSitesIndex.Pages.Companies
 
         public IActionResult OnGet()
         {
-            
-            returnToCaller.setup(Request, "/companies/Index");
+
+            returnToCaller.setup(HttpContext, "/companies/Index");
 
 
             // 03/13/2019 10:55 am - SSN - Init dateadded.

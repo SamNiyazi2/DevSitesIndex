@@ -110,7 +110,7 @@ export class ProjectJobsListComponent implements OnInit, OnChanges {
 
   // 12/02/2019 10:09 am - SSN - Delete job
 
-  deleteJob(e,jobId) {
+  deleteJob(e, jobId) {
 
     e.stopPropagation();
     e.stopPropagation();

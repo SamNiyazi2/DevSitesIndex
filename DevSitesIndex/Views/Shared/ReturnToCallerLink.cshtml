@@ -11,9 +11,9 @@
     }*@
 
 @{
-    
-    string finalReferrer = Model.getReturnToCallerUrl_Final(Context.Request);
 
-    <a href="@finalReferrer" >## Back to List</a>
+    string finalReferrer = Model.getReturnToCallerUrl_Final(Context);
+
+    <a href="@finalReferrer">## Back to List</a>
 
 }

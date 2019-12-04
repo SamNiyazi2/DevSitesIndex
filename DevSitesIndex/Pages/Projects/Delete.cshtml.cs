@@ -42,14 +42,14 @@ namespace DevSitesIndex.Pages.Projects
         public Project Project { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
-        { 
+        {
             if (id == null)
             {
                 return NotFound();
             }
 
 
-            returnToCaller.setup(Request, "/projects/Index");
+            returnToCaller.setup(HttpContext, "/projects/Index");
 
 
             Project = await _context.Projects
@@ -64,7 +64,7 @@ namespace DevSitesIndex.Pages.Projects
             this.jobCount = _context.Jobs.Count(r => r.ProjectID == id);
 
             project_Jobs = new Project_Jobs(_context, id);
-             
+
 
             return Page();
         }
@@ -87,7 +87,7 @@ namespace DevSitesIndex.Pages.Projects
 
             // 11/13/2019 09:43 pm - SSN - [20191113-1946] - [008] - ReturnToCaller
             // return RedirectToPage("./Index");
-            return Redirect(returnToCaller.getReturnToCallerUrl_Final(Request));
+            return Redirect(returnToCaller.getReturnToCallerUrl_Final(HttpContext));
 
         }
 

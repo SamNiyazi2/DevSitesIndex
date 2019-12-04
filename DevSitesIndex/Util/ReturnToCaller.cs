@@ -28,7 +28,9 @@ namespace DevSitesIndex.Util
         //public string referrer { get; set; }
         //public string defaultUrl { get; set; }
 
-        private static List<UrlRecord> urlList { get; set; } = new List<UrlRecord>();
+        // 12/04/2019 03:23 am - SSN - [20191204-0323] - [001] - List to ConcurrentDictionary
+        // private static List<UrlRecord> urlList { get; set; } = new List<UrlRecord>();
+        private static ConcurrentDictionary<string, ConcurrentBag<UrlRecord>> urlList_v02 { get; set; } = new ConcurrentDictionary<string, ConcurrentBag<UrlRecord>>();
 
         // 11/08/2019 11:04 am - SSN - [20191108-1043] - [005] - Persisting search on return to index
         /// <summary>
@@ -43,11 +45,11 @@ namespace DevSitesIndex.Util
         }
 
 
-        internal void setup(HttpRequest request, string _defaultUrl)
+        internal void setup(HttpContext context, string _defaultUrl)
         {
-            string requestUrl = getRequestFullUrl(request);
+            string requestUrl = getRequestFullUrl(context.Request);
 
-            string referrer_v02 = getSelectedReferrer_v02(request);
+            string referrer_v02 = getSelectedReferrer_v02(context.Request);
 
             // 11/16/2019 08:16 pm - SSN - [20191116-1516] - [013] - Timelog edit (AngularJS client version)
             // Added check
@@ -56,7 +58,7 @@ namespace DevSitesIndex.Util
                 referrer_v02 = "";
             }
 
-            setFinalReferrer(_defaultUrl, requestUrl, referrer_v02);
+            setFinalReferrer(_defaultUrl, requestUrl, referrer_v02, context);
 
 
         }
@@ -78,7 +80,7 @@ namespace DevSitesIndex.Util
             return requestUrl;
         }
 
-        private static void setFinalReferrer(string _defaultUrl, string requestUrl, string referrer)
+        private static void setFinalReferrer(string _defaultUrl, string requestUrl, string referrer, HttpContext context)
         {
 
 
@@ -98,17 +100,19 @@ namespace DevSitesIndex.Util
             sb.AppendLine(" ");
             sb.AppendLine(" ");
 
+            ConcurrentBag<UrlRecord> urlRecordList = getUrlRecordList(context);
 
-            UrlRecord foundRecord = urlList.OrderByDescending(r => r.seqNo).FirstOrDefault(r => r.RequestUrl == requestUrl);
+            UrlRecord foundRecord = urlRecordList.OrderByDescending(r => r.seqNo).FirstOrDefault(r => r.RequestUrl == requestUrl);
+
             if (foundRecord == null)
             {
                 sb.AppendLine("Adding record");
 
-                urlList.Add(new UrlRecord
+                urlRecordList.Add(new UrlRecord
                 {
                     RequestUrl = requestUrl,
                     DefaultReturnUrl = string.IsNullOrWhiteSpace(referrer) ? _defaultUrl : referrer,
-                    seqNo = urlList.Count
+                    seqNo = urlRecordList.Count
                 });
             }
             else
@@ -126,10 +130,13 @@ namespace DevSitesIndex.Util
 
 
 
-            foreach (UrlRecord r in urlList)
+            if (urlRecordList != null)
             {
-                sb.AppendLine(string.Format("{0,5} - {1,-30} -> {2}", r.seqNo, r.RequestUrl, r.DefaultReturnUrl));
+                foreach (UrlRecord r in urlRecordList)
+                {
+                    sb.AppendLine(string.Format("{0,5} - {1,-30} -> {2}", r.seqNo, r.RequestUrl, r.DefaultReturnUrl));
 
+                }
             }
 
 
@@ -199,6 +206,28 @@ namespace DevSitesIndex.Util
             return referrer;
 
         }
+
+
+
+
+        // 12/04/2019 03:48 am - SSN - [20191204-0323] - [002] - List to ConcurrentDictionary
+
+        private static ConcurrentBag<UrlRecord> getUrlRecordList(HttpContext context)
+        {
+            string cookie = CookieManager.GetOrCreateCookie(context);
+            if (!urlList_v02.ContainsKey(cookie))
+            {
+                // https://docs.microsoft.com/en-us/dotnet/standard/collections/thread-safe/how-to-add-and-remove-items?redirectedfrom=MSDN
+
+                urlList_v02.AddOrUpdate(cookie, new ConcurrentBag<UrlRecord>(), (key, existingValue) =>
+                 {
+                     return existingValue;
+                 });
+            }
+            return urlList_v02[cookie];
+        }
+
+
 
         // 11/08/2019 11:51 am - SSN - [20191108-1043] - [007] - Persisting search on return to index
 
@@ -274,19 +303,26 @@ namespace DevSitesIndex.Util
 
 
 
-        public string getReturnToCallerUrl_Final(HttpRequest request)
+        public string getReturnToCallerUrl_Final(HttpContext context)
         {
-            string requestUrl = getRequestFullUrl(request);
+            string requestUrl = getRequestFullUrl(context.Request);
 
-            UrlRecord foundRecord = urlList.OrderByDescending(r => r.seqNo).FirstOrDefault(r => r.RequestUrl == requestUrl);
-            if (foundRecord != null && !string.IsNullOrWhiteSpace(foundRecord.DefaultReturnUrl))
+            ConcurrentBag<UrlRecord> DicEntry = getUrlRecordList(context);
+
+            if (DicEntry != null)
             {
-                return foundRecord.DefaultReturnUrl;
+
+                UrlRecord foundRecord = DicEntry.OrderByDescending(r => r.seqNo).FirstOrDefault(r => r.RequestUrl == requestUrl);
+                if (foundRecord != null && !string.IsNullOrWhiteSpace(foundRecord.DefaultReturnUrl))
+                {
+                    return foundRecord.DefaultReturnUrl;
+                }
             }
 
             return "/";
 
 
         }
+
     }
 }

@@ -42,7 +42,7 @@ namespace DevSitesIndex.Pages.TimeLogs
         {
 
 
-            returnToCaller.setup(Request, "/timelog/Index");
+            returnToCaller.setup(HttpContext, "/timelog/Index");
 
 
             setupPageRequirements();
@@ -110,7 +110,7 @@ namespace DevSitesIndex.Pages.TimeLogs
 
             // 11/13/2019 09:43 pm - SSN - [20191113-1946] - [008] - ReturnToCaller
             // return RedirectToPage("./Index");
-            return Redirect(returnToCaller.getReturnToCallerUrl_Final(Request));
+            return Redirect(returnToCaller.getReturnToCallerUrl_Final(HttpContext));
 
         }
 

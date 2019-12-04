@@ -26,7 +26,7 @@
     <div ng-controller="jobsIndexController">
 
         @*
-        // 11/25/2019 02:14 pm - SSN - [20191125-1414] - [001] - Project jobs - filter
+            // 11/25/2019 02:14 pm - SSN - [20191125-1414] - [001] - Project jobs - filter
         *@
 
 
@@ -44,7 +44,7 @@
         <ng-content ng-if="showOriginalTable">
 
 
-            <table style="background-color:#eee" >
+            <table style="background-color:#eee">
 
                 @foreach (var item in Model.project_Jobs)
                 {
@@ -64,8 +64,8 @@
 
                         <td>
                             @*
-                            05/03/2019 05:37 pm - SSN - [20190503-1539] - [010] - Add link to create timelog
-                            Prefix with /jobs
+                                05/03/2019 05:37 pm - SSN - [20190503-1539] - [010] - Add link to create timelog
+                                Prefix with /jobs
                             *@
                             <a asp-page="/jobs/Edit" asp-route-id="@item.JobID">Edit</a> |
                             <a asp-page="/jobs/Details" asp-route-id="@item.JobID">Details</a> |

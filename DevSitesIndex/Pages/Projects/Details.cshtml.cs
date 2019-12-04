@@ -47,7 +47,7 @@ namespace DevSitesIndex.Pages.Projects
             }
 
 
-            returnToCaller.setup(Request, "/projects/Index");
+            returnToCaller.setup(HttpContext, "/projects/Index");
 
 
             Project = await _context.Projects

@@ -32,8 +32,8 @@ namespace DevSitesIndex.Pages.Companies
         [BindProperty]
         public Company Company { get; set; }
 
-  
-        
+
+
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -42,7 +42,7 @@ namespace DevSitesIndex.Pages.Companies
             }
 
 
-            returnToCaller.setup(Request, "/companies/Index");
+            returnToCaller.setup(HttpContext, "/companies/Index");
 
 
             Company = await _context.Companies.SingleOrDefaultAsync(m => m.CompanyID == id);

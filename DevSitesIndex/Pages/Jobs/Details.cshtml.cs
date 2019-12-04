@@ -30,10 +30,10 @@ namespace DevSitesIndex.Pages.Jobs
         }
 
         public Job Job { get; set; }
-         
+
         public Job_Timesheet job_Timesheet { get; set; }
 
-         
+
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -42,12 +42,12 @@ namespace DevSitesIndex.Pages.Jobs
                 return NotFound();
             }
 
-            returnToCaller.setup(Request, "/jobs/Index");
+            returnToCaller.setup(HttpContext, "/jobs/Index");
 
             Job = await _context.Jobs
                 .Include(j => j.project).SingleOrDefaultAsync(m => m.JobID == id);
 
-         
+
 
             if (Job == null)
             {

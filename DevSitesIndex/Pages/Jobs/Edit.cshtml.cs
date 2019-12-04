@@ -60,7 +60,7 @@ namespace DevSitesIndex.Pages.Jobs
             }
 
 
-            returnToCaller.setup(Request, "/jobs/Index");
+            returnToCaller.setup(HttpContext, "/jobs/Index");
 
 
             Job = await _context.Jobs
@@ -146,10 +146,10 @@ namespace DevSitesIndex.Pages.Jobs
                 return Page();
             }
 
-            
+
             // 11/13/2019 09:39 pm - SSN - [20191113-1946] - [007] - ReturnToCaller
             // return RedirectToPage("./Index");
-            return Redirect(returnToCaller.getReturnToCallerUrl_Final(Request));
+            return Redirect(returnToCaller.getReturnToCallerUrl_Final(HttpContext));
 
         }
 

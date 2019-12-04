@@ -28,7 +28,7 @@ export class ProjectCreateJobComponent implements OnInit, OnChanges {
   constructor(private genUtil: GenUtilService, private dataService: DataService, private compiler: Compiler,
 
     // 12/03/2019 10:42 pm - SSN - Added Toastr
-    @Inject(TOASTR_TOKEN) private toastr: Toastr 
+    @Inject(TOASTR_TOKEN) private toastr: Toastr
 
   ) { }
 
@@ -96,8 +96,8 @@ export class ProjectCreateJobComponent implements OnInit, OnChanges {
 
   postJobSuccess(results) {
 
-   
-   
+
+
     console.log('project-create-job.component - 20191202-0805');
     console.log(results);
 
@@ -119,7 +119,7 @@ export class ProjectCreateJobComponent implements OnInit, OnChanges {
 
 
 
-   
+
   cancelNewJob_local() {
 
     this.cancelNewJob.emit();
@@ -144,7 +144,7 @@ export class ProjectCreateJobComponent implements OnInit, OnChanges {
   // 12/02/2019 08:22 am - SSN - Added
 
   checkForDuplicates() {
-      
+
     let newJob: any = {};
     let temp = this.jobTitle.value.replace("  ", " ").trim();
 

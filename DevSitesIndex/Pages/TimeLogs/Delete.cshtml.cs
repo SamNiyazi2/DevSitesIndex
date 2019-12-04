@@ -38,10 +38,10 @@ namespace DevSitesIndex.Pages.TimeLogs
                 return NotFound();
             }
 
-            
-            returnToCaller.setup(Request, "/timelog/Index");
 
-            
+            returnToCaller.setup(HttpContext, "/timelog/Index");
+
+
             TimeLog = await _context.TimeLog
              .Include(t => t.discipline)
              .Include(t => t.job).ThenInclude(r => r.project)
@@ -70,10 +70,10 @@ namespace DevSitesIndex.Pages.TimeLogs
                 await _context.SaveChangesAsync();
             }
 
-            
+
             // 11/13/2019 09:43 pm - SSN - [20191113-1946] - [008] - ReturnToCaller
             // return RedirectToPage("./Index");
-            return Redirect(returnToCaller.getReturnToCallerUrl_Final(Request));
+            return Redirect(returnToCaller.getReturnToCallerUrl_Final(HttpContext));
 
         }
     }

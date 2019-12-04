@@ -59,7 +59,7 @@ namespace DevSitesIndex.Pages.TimeLogs
             }
 
 
-            returnToCaller.setup(Request, "/timelogs/Index");
+            returnToCaller.setup(HttpContext, "/timelogs/Index");
 
 
             // 09/21/2019 11:08 am - SSN - Added include job and project to display titles on form.
@@ -175,7 +175,7 @@ namespace DevSitesIndex.Pages.TimeLogs
 
             // 11/13/2019 09:43 pm - SSN - [20191113-1946] - [008] - ReturnToCaller
             // return RedirectToPage("./Index");
-            return Redirect(returnToCaller.getReturnToCallerUrl_Final(Request));
+            return Redirect(returnToCaller.getReturnToCallerUrl_Final(HttpContext));
 
         }
 
