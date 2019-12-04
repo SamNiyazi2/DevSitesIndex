@@ -58,7 +58,6 @@ var timesheetContinueController_instance = function () {
                 console.log('timesheetContinueController - submitForm - (101)');
                 var test = $scope.editableTimeLog;
                 var promise = null;
-                $scope.editableTimeLog.disciplineId = $scope.disciplineSelected.id;
                 if ($scope.editableTimeLog.timeLogId === 0) {
                     promise = dataService.insertTimeLog($scope.editableTimeLog);
                 }
