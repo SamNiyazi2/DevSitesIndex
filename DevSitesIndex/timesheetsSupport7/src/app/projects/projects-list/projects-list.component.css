@@ -1,6 +1,8 @@
 
 .projectDiv {
-  margin: 0px 0px 40px 0px;
+  margin: 10px 0px 40px 0px;
+  padding:0px 20px 0px 20px;
+  background-color:#eee;
 }
 
 hr{
@@ -9,12 +11,14 @@ hr{
 
 
 .filterOptions {
-  position: fixed;
-  background-color: white;
+  /*
+    12/02/2019 04:14 am - SSN - Take out     position: fixed;
   z-index: 1;
-  margin: 0px;
-  padding: 0px;
 
+ */
+  background-color: white;
+  margin: 0px 0px 20px 0px;
+  padding: 0px;
 }
 
   .filterOptions button {
@@ -29,6 +33,10 @@ hr{
   }
 }
 
-  .filterOptions + .container {
-    margin-top: 100px;
-  }
+.filterOptions + .container {
+  /*
+    12/02/2019 04:14 am - SSN - Take out     position: fixed;
+  margin-top: 100px;
+
+ */
+}

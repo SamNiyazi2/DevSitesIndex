@@ -30,32 +30,35 @@ export class CheckLoginService implements HttpInterceptor {
     
     let returnResult = next.handle(req).pipe(
       tap(evt => {
-        
+
         if (evt.type != 0) {
-          
+
         }
-        
+
 
       })
-    ).pipe(catchError(error => {
+    );
 
+    // 12/02/2019 07:25 am - SSN - We don't want to capture all errors.
+
+    //.pipe(catchError(error => {
     
 
-      console.log("===============================================");
-      console.log("===============================================");
-      console.log("===============================================");
-      console.log("===============================================");
-      console.log("===============================================");
+    //  console.log("===============================================");
+    //  console.log("===============================================");
+    //  console.log("===============================================");
+    //  console.log("===============================================");
+    //  console.log("===============================================");
 
 
-      console.log('(Interceptor) check-login-service - catchError');
-      console.log(error);
+    //  console.log('(Interceptor) check-login-service - catchError');
+    //  console.log(error);
         
-      ehu.ErrorHandlingHelpers.showHtmlErrorResponse(error);
+    //  ehu.ErrorHandlingHelpers.showHtmlErrorResponse(error);
       
-      return new Observable<HttpEvent<any>>();
+    //  return new Observable<HttpEvent<any>>();
 
-    }));
+    //}));
     
     return returnResult;
     

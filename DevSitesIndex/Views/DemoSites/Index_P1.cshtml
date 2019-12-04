@@ -9,15 +9,22 @@
 
 }
 
-<h1>Demo Sites Index (p1)</h1>
+<a id="topTitle"></a>
+<br/>
+<h2 >Demo Sites Index</h2>
 
 @*
-    08/12/2019 05:15 am - SSN - [20190812-0515] - [001] - Apply fulltext search
+        08/12/2019 05:15 am - SSN - [20190812-0515] - [001] - Apply fulltext search
+
+    // 12/02/2019 04:04 am - SSN - Removed menu options
+
+        @{await Html.RenderPartialAsync("Index_Option_Select");}
+    <br />
+    <br />
+    <br />
+
+
 *@
-@{await Html.RenderPartialAsync("Index_Option_Select");}
-<br />
-<br />
-<br />
 
 <form data-bind="submit: onSubmit">
 
@@ -116,8 +123,11 @@
 
 
 
-<h3>Source: Knockout Template (list-container template)</h3>
-<hr />
+@*
+
+        // 12/02/2019 04:04 am - SSN - Removed
+        <h3>Source: Knockout Template (list-container template)</h3>
+    <hr />*@
 
 @*
     // 08/15/2019 12:46 pm - SSN - Added message
@@ -134,6 +144,26 @@
     <p class="padded alert-warning ">No records were found!</p>
 </div>
 
+
+@*
+    12/02/2019 04:07 am - SSN - Adding - copied from CorReferences - Todo Todo Todo - Refactor
+    Begin
+*@
+<div class="fixed_anchor" hidden>
+    <a cmd-name="smooth-scroll" jQueryObjectName="#topTitle">Top</a>
+</div>
+
+
+<style>
+    .fixed_anchor {
+        left: 10px;
+        position: fixed;
+    }
+</style>
+@*
+    12/02/2019 04:07 am - SSN - Adding - copied from CorReferences - Todo Todo Todo - Refactor
+    End
+*@
 
 
 

@@ -21,7 +21,7 @@ td > h1 {
 
 td > h2, td > h3, td > h4, td > h5 {
     margin: 0;
-    padding-bottom:20px;
+    padding-bottom: 20px;
 }
 
 
@@ -231,18 +231,18 @@ a[cmd-name="showsibling"] {
 /* 12/02/2019 02:20 am - SSN - Jobs Index - Job status option - Begin*/
 .indexNowrapOption {
     white-space: nowrap;
-    padding:2px;
-    vertical-align:bottom;
+    padding: 2px;
+    vertical-align: bottom;
 }
 
-.indexNowrapOption input {
-    vertical-align:text-bottom;
-}
+    .indexNowrapOption input {
+        vertical-align: text-bottom;
+    }
 
-    /* 12/02/2019 02:20 am - SSN - Jobs Index - Job status option - End*/
+/* 12/02/2019 02:20 am - SSN - Jobs Index - Job status option - End*/
 
 
-    .maxWidthCol1 {
+.maxWidthCol1 {
     /* 05/14/2019 04:17 am - SSN Copied to menuOptions */
     max-width: 600px; /* Match codeblock2*/
     /*white-space: pre-wrap;*/ /* CSS3 */
@@ -521,3 +521,58 @@ alarm {
         background-color: transparent;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 12/02/2019 09:20 am - SSN  */
+
+.csshighlight_Added {
+   
+    -webkit-animation-name: example2; /* Safari 4.0 - 8.0 */
+    -webkit-animation-duration: 4s; /* Safari 4.0 - 8.0 */
+    -webkit-animation: example2 2s ease-in-out; /* Chrome, Safari, Opera */
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes example2 {
+    0% {
+        background-color: transparent;
+    }
+
+    50% {
+        background-color: yellow;
+    }
+
+    100% {
+        background-color: transparent;
+    }
+}
+
+/* Standard syntax */
+@keyframes example2 {
+    0% {
+        background-color: transparent;
+    }
+
+    50% {
+        background-color: yellow;
+    }
+
+    100% {
+        background-color: transparent;
+    }
+}
+

@@ -1,9 +1,7 @@
+<!--<div class="col-md-2">
 
-
-<div class="col-md-2">
-
-  <strong>Jobs List</strong>
-</div>
+  <h3>Jobs List</h3>
+</div>-->
 
 <div class="col-md-4">
   <a *ngIf="!addMode" (click)="addJob()">Add new job</a>
@@ -16,10 +14,12 @@
 
     <div class="col-md-10 col-md-offset-2 ">
 
-      <app-project-job-detail>
+
+      <app-project-job-detail [csshighlightAdded]="job.csshighlightAdded">
+
 
         <div div-title>
-          {{job.jobTitle}} 
+          {{job.jobTitle}}
         </div>
 
         <div div-body>
@@ -36,13 +36,18 @@
 
           </dl>
 
+
+
         </div>
 
+
       </app-project-job-detail>
+       
+        
+      <a (click)="deleteJob($event,job.jobID)">Delete Job</a>
 
     </div>
   </div>
 </div>
 
-<app-project-create-job *ngIf="addMode" (saveNewJob)="saveNewProjectJob($event)" (cancelNewJob)="cancelNewProjectJob($event)"></app-project-create-job>
-
+<app-project-create-job *ngIf="addMode" [projectId]="projectId" (saveNewJob)="saveNewProjectJob($event)" (cancelNewJob)="cancelNewProjectJob($event)"></app-project-create-job>

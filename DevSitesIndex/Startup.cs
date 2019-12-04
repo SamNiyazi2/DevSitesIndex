@@ -67,7 +67,7 @@ namespace DevSitesIndex
             {
                 return (path.Any(r => _path == r.ToLower()));
             }
-            
+
         }
 
 
@@ -88,7 +88,7 @@ namespace DevSitesIndex
         // Refactor applicablePaths_Site_Only
         public static ApplicablePaths_Site_Only applicablePaths_Site_Only = new ApplicablePaths_Site_Only();
 
-        
+
 
         //                                                                                                                                                            "/timelogs/" trailing slash to avoid including index.
 
@@ -238,7 +238,7 @@ namespace DevSitesIndex
             });
 
 
-            if ( !int.TryParse(Configuration["Session_Duration"], out int session_Duration))
+            if (!int.TryParse(Configuration["Session_Duration"], out int session_Duration))
             {
                 session_Duration = 40;
             }
@@ -258,8 +258,9 @@ namespace DevSitesIndex
 
 
 
-
-
+            // 12/03/2019 04:49 am - SSN - [20191202-2353] - [018] - DisplayCode - Adding
+            // https://docs.microsoft.com/en-us/aspnet/core/fundamentals/http-requests?view=aspnetcore-3.0
+            services.AddHttpClient();
 
 
 
@@ -346,8 +347,8 @@ namespace DevSitesIndex
             //     // 04/29/2019 07:26 pm - SSN - [20190429-1748] - [005] - Angular clock out popup
             //     // No benfit
             // });
-            
-            
+
+
             // 10/09/2019 02:27 pm - SSN - [20191009-1302] - [008] - M09 - Reusing components with content projection
 
             services

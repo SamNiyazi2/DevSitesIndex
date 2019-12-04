@@ -14,3 +14,19 @@
 <address>
     <strong>Email:</strong> <a href="mailto:Support@example.com">sam2003@niyazi.com</a><br />
 </address>
+
+@{
+
+    // 12/02/2019 11:51 pm - SSN - [20191202-2353] - [002] - DisplayCode - Adding
+
+    if (User.Identity.IsAuthenticated)
+    {
+        <pre cmd-ssn="displayCode" url="http://p3013.nonbs.net:3013/CodeReferences" doDebug=false></pre>
+
+    }
+}
+
+@section scripts {
+
+        <script src="/webpack_build/bundle_main_101.js" asp-append-version="true"></script>
+}

@@ -68,26 +68,12 @@
   <ItemGroup>
     <Content Remove="libman.json" />
     <Content Remove="Pages\Jobs\Index_partial.cshtml" />
-    <Content Remove="wwwroot\js.zip" />
+    <Content Remove="wwwroot\js.zip" /> 
   </ItemGroup>
   <ItemGroup>
-    <None Include="wwwroot\dist\timesheetsSupport7\es2015-polyfills.js" />
-    <None Include="wwwroot\dist\timesheetsSupport7\es2015-polyfills.js.map" />
-    <None Include="wwwroot\dist\timesheetsSupport7\main.js" />
-    <None Include="wwwroot\dist\timesheetsSupport7\main.js.map" />
-    <None Include="wwwroot\dist\timesheetsSupport7\polyfills.js" />
-    <None Include="wwwroot\dist\timesheetsSupport7\polyfills.js.map" />
-    <None Include="wwwroot\dist\timesheetsSupport7\runtime.js" />
-    <None Include="wwwroot\dist\timesheetsSupport7\runtime.js.map" />
-    <None Include="wwwroot\dist\timesheetsSupport7\scripts.js" />
-    <None Include="wwwroot\dist\timesheetsSupport7\scripts.js.map" />
-    <None Include="wwwroot\dist\timesheetsSupport7\styles.css.map" />
-    <None Include="wwwroot\dist\timesheetsSupport7\users-user-module-ngfactory.js" />
-    <None Include="wwwroot\dist\timesheetsSupport7\users-user-module-ngfactory.js.map" />
-    <None Include="wwwroot\dist\timesheetsSupport7\vendor.js" />
-    <None Include="wwwroot\dist\timesheetsSupport7\vendor.js.map" />
     <None Include="wwwroot\js\angular.js" />
   </ItemGroup>
+ 
 
   <ItemGroup>
     <WCFMetadata Include="Connected Services" />

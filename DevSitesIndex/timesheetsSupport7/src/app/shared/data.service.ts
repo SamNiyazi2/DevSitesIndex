@@ -196,8 +196,16 @@ export class DataService {
   }
 
 
+  // 12/02/2019 05:03 am - SSN - Adding
+  postJob(data) {
+    return this.http.post('/api/jobAPI/', data).toPromise();
+  }
 
 
+  // 12/02/2019 08:39 am - SSN - Adding
+  checkForDuplicateProjectJobTitle(data) {
+    return this.http.post('/api/jobAPI/checkForDuplicateProjectJobTitle', data).toPromise();
+  }
 
 }
 

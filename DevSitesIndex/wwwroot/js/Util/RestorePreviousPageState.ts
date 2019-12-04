@@ -241,10 +241,10 @@ var RestorePreviousPageState_instance = function () {
 
                             if (selectedElement && selectedElement.attributes) {
 
-                                let bypass = false;
+                                let bypass = true;
 
-                                if (selectedElement.nodeName.toUpperCase() === "DIV") {
-                                    bypass = true;
+                                if ("A ".toUpperCase().indexOf(selectedElement.nodeName.toUpperCase()) > -1 ) {
+                                    bypass = false;
                                 }
 
                                 console.log("Node Name", selectedElement.nodeName);

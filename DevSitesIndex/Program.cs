@@ -33,22 +33,16 @@ namespace DevSitesIndex
             WebHost.CreateDefaultBuilder(args)
 
 
+
+
             // 09/27/2019 02:21 pm - SSN - [20190927-0634] - [023] - Testing
             // While moving some code to SSN_GenUtil_StandardLib, we had to replace some packages with version 3.0.0 with 2.2.0
             // it may have impacted this.  Comment out
             // 09/29/2019 09:26 pm - SSN - Adding back in.    
 
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+
+
+
 
 
 
@@ -59,78 +53,84 @@ namespace DevSitesIndex
 
 
 
+            .UseStartup<Startup>()
+
+            .ConfigureLogging((hostingContext, logging) =>
+            {
+
+
+
+                // 09/27/2019 02:19 pm - SSN - [20190927-0634] - [022] - Testing
+                #region Moving a copy to SSN_GenUtil_StandardLib 
+
+
+                // 10/31/2019 10:55 - SSN - Take out.
+
+                //logging.AddProvider(
+                //    new Util.SSN_LoggerProvider_ov_01(
+                //                                new Util.SSN_LoggerProviderConfiguration_ov_01
+                //                                {
+                //                                    Color = ConsoleColor.Yellow,
+                //                                    LogLevel = LogLevel.Information
+
+                //                                }
+                //                        ));
+
+                //logging.AddSSN_Logger_ov_01((r) =>
+                //{
+                //    r.Color = ConsoleColor.Red;
+                //    r.LogLevel = LogLevel.Debug;
+
+                //});
 
 
 
 
+                logging.AddProvider(
+                   new SSN_GenUtil_StandardLib.SSN_LoggerProvider(
+                                               new SSN_GenUtil_StandardLib.SSN_LoggerProviderConfiguration
+                                               {
+                                                   Color = ConsoleColor.Yellow,
+                                                   LogLevel = LogLevel.Information
 
-                .UseStartup<Startup>()
+                                               }
+                                       ));
 
-                .ConfigureLogging((hostingContext, logging) =>
+                logging.AddSSN_Logger((r) =>
                 {
+                    r.Color = ConsoleColor.Red;
+                    r.LogLevel = LogLevel.Debug;
+
+                });
+
+
+                #endregion Moving a copy to SSN_GenUtil_StandardLib 
 
 
 
-                    // 09/27/2019 02:19 pm - SSN - [20190927-0634] - [022] - Testing
-                    #region Moving a copy to SSN_GenUtil_StandardLib 
+            })
 
 
-                    // 10/31/2019 10:55 - SSN - Take out.
+            // 12/03/019 04:20 am - SSN 
+            //.ConfigureAppConfiguration((hostinContext, config) =>
+            //{
 
-                    //logging.AddProvider(
-                    //    new Util.SSN_LoggerProvider_ov_01(
-                    //                                new Util.SSN_LoggerProviderConfiguration_ov_01
-                    //                                {
-                    //                                    Color = ConsoleColor.Yellow,
-                    //                                    LogLevel = LogLevel.Information
+            ////    config.AddEnvironmentVariables();
 
-                    //                                }
-                    //                        ));
+            //})
 
-                    //logging.AddSSN_Logger_ov_01((r) =>
-                    //{
-                    //    r.Color = ConsoleColor.Red;
-                    //    r.LogLevel = LogLevel.Debug;
-
-                    //});
-
-
-
-
-                    logging.AddProvider(
-                       new SSN_GenUtil_StandardLib.SSN_LoggerProvider(
-                                                   new SSN_GenUtil_StandardLib.SSN_LoggerProviderConfiguration
-                                                   {
-                                                       Color = ConsoleColor.Yellow,
-                                                       LogLevel = LogLevel.Information
-
-                                                   }
-                                           ));
-
-                    logging.AddSSN_Logger((r) =>
-                    {
-                        r.Color = ConsoleColor.Red;
-                        r.LogLevel = LogLevel.Debug;
-
-                    });
-
-
-                    #endregion Moving a copy to SSN_GenUtil_StandardLib 
-
-
-
-                })
                 .Build();
     }
 
 
     public static class ext101
     {
-        public static IWebHostBuilder include_UseApplicationInsights( this IWebHostBuilder x){
+        public static IWebHostBuilder include_UseApplicationInsights(this IWebHostBuilder x)
+        {
 
 
             x.UseApplicationInsights();
-     
+
             return x;
         }
     }

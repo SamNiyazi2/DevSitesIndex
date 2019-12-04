@@ -112,7 +112,8 @@ namespace DevSitesIndex.Controllers
 
             }
 
-            return Ok();
+            // 12/02/2019 08:14 am - SSN - Return value. To refresh screen.
+            return Ok(value);
 
 
         }

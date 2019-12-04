@@ -1,17 +1,19 @@
+<!--*ngIf="!childInAddMode"-->
 
+<div class="filterOptions">
 
-<div class="filterOptions " *ngIf="!childInAddMode">
-
-  <div class="col-md-9">
-
+  <div class="col-md-9" class="form-group">
     <dl class="dl-horizontal">
       <dt>
         Filter Project:
       </dt>
       <dd>
-        <button class="btn-default btn-sm" [class.active]="!ProjectWithJobsOnly" (click)="setProjectWithJobsOnly(false)"> All Project</button>
-        <button class="btn-default btn-sm" [class.active]="ProjectWithJobsOnly" (click)="setProjectWithJobsOnly(true)"> With jobs only</button>
+        <button class="btn-default btn-sm" [class.active]="!ProjectWithJobsOnly" (click)="setProjectWithJobsOnly(false, null)"> All Project</button>
+        <button class="btn-default btn-sm" [class.active]="ProjectWithJobsOnly" (click)="setProjectWithJobsOnly(true, null)"> With jobs only</button>
       </dd>
+    </dl>
+
+    <dl class="dl-horizontal">
       <dt>
         Filter Job Status:
       </dt>
@@ -27,7 +29,7 @@
   </div>
 
 
-  <div class="col-md-3">
+  <div class="col-md-3" class="form-group">
 
     <form id="serachForm" (ngSubmit)="searchProjects()" autocomplete="off" novalidate>
       <div class="form-group">
@@ -48,7 +50,8 @@
 
       <h3>{{project.projectTitle}}</h3>
       <hr />
-      <app-project-jobs-list [jobs]="project?.jobs" (inAddMode)="inAddMode($event)" filterBy="{{filterBy}}"></app-project-jobs-list>
+      <app-project-jobs-list [projectId]="project.projectID" [jobs]="project?.jobs" (inAddMode)="inAddMode($event)"
+                             filterBy="{{filterBy}}"></app-project-jobs-list>
 
     </div>
   </div>

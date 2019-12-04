@@ -239,6 +239,30 @@ var config = [
 
 
 
+    ,
+
+
+// 12/03/2019 12:09 am - SSN - [20191202-2353] - [005] - DisplayCode - Adding
+
+
+    {
+        ...d_master,
+
+        output: {
+            path: path.resolve(__dirname, './wwwroot/webpack_build'),
+            filename: 'bundle_main_101.js'
+        },
+
+
+        entry: [
+            './util/main_101.ts'
+        ]
+
+    }
+
+
+
+
 
 ];
 

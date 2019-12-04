@@ -13,7 +13,7 @@
 }
 <h3>Project's Jobs List</h3>
 <p>
-    <a asp-page="/jobs/Create" asp-route-id="@Model.project.ProjectID">Create New Job</a>
+    <a asp-page="/jobs/Create" asp-route-id="@Model.project.ProjectID">Create New Job (MVC)</a>
 </p>
 
 <!-- 05/03/2019 03:40 pm - SSN - [20190503-1539] - [002] - Add link to create timelog -->
@@ -30,7 +30,8 @@
         *@
 
 
-        <div class="row">
+        <br />
+        <div class="form-group">
 
             <input type="search" name="filterText" id="filterText" class="form-control" autofocus placeholder="Enter your search words.." />
             <div class="text-danger"></div>

@@ -4,15 +4,15 @@
 *@
 
 <div>
- 
+
     <p>
-        <a asp-page="Create">Create New Job Record</a>
+        <a asp-page="/jobs/Create">Create New Job</a>
     </p>
 
-   
+
     <div ng-controller="jobsIndexController">
-          
- 
+
+
         <div ng-if="hasErrors" ng-class="feedbackToUserClassNameSet()" ng-bind-html="errorMessages">
 
         </div>
@@ -25,7 +25,7 @@
                       checkedfunction="job_status_changed101(job_status)"
                       jobstatusesselected102="job_statuses_selected"></span>
             </div>
-          
+
             <hr style="padding:0px;margin:0px;border:0px;height:8px;" />
 
             <div>
@@ -48,10 +48,11 @@
 
                     <tr ng-repeat="job in databag.jobs">
 
-
-                        <td class="truncateLongText_100">
+                      
+                        <td ng-if="!hideProjectTitle" class="truncateLongText_100">
                             {{job.projectTitle_ForActivity}}
                         </td>
+                         
                         <td>
                             <div job-status-display job-status="job.job_StatusID" class="truncateLongText_200 dropdownHint">
                                 {{job.jobTitle}}

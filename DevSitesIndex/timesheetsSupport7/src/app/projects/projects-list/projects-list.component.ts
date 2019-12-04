@@ -1,7 +1,7 @@
 
 // 10/09/2019 01:14 pm - SSN - [20191009-1302] - [002] - M09 - Reusing components with content projection
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Compiler } from '@angular/core';
 import { DataService } from 'src/app/shared/data.service';
 
 import * as ehu from '../../util/ErrorHandlingHelpers';
@@ -10,6 +10,7 @@ import { GenUtilService } from 'src/app/shared/gen-util.service';
 @Component({
   selector: 'app-projects-list',
   templateUrl: './projects-list.component.html',
+
   styleUrls: ['./projects-list.component.css']
 })
 export class ProjectsListComponent implements OnInit {
@@ -30,11 +31,14 @@ export class ProjectsListComponent implements OnInit {
   projectRecordsFound: any;
 
 
-  constructor(private dataService: DataService, private genUtil: GenUtilService) { }
+  // 12/02/2019 04:28 am - SSN - Adding clearCache
+
+  constructor(private dataService: DataService, private genUtil: GenUtilService, private compiler: Compiler) { }
 
 
   ngOnInit() {
 
+    this.compiler.clearCache();
 
     this.genUtil.setPageTitle("Project List");
 
@@ -56,7 +60,7 @@ export class ProjectsListComponent implements OnInit {
   getProjectsError(response) {
 
     console.log('project-list - Error - 20191009-1317');
-    console.log(response);
+    console.error(response);
 
     ehu.ErrorHandlingHelpers.showHtmlErrorResponse(response);
 
@@ -83,7 +87,7 @@ export class ProjectsListComponent implements OnInit {
 
 
   setProjectWithJobsOnly(projectsWithJobsOnly, _filterBy) {
-    
+
     if (_filterBy == null) {
       _filterBy = this.filterBy;
     }

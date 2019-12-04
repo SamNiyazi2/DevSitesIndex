@@ -1,7 +1,7 @@
 
 // 10/09/2019 08:32 pm - SSN - [20191009-1302] - [009] - M09 - Reusing components with content projection
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { GenUtilService } from 'src/app/shared/gen-util.service';
 
 @Component({
@@ -12,6 +12,8 @@ import { GenUtilService } from 'src/app/shared/gen-util.service';
 export class ProjectJobDetailComponent implements OnInit {
 
   visible: boolean = false;
+
+  @Input() csshighlightAdded: string = "Notset-0954";
 
   constructor(private genUtil:GenUtilService) { }
 

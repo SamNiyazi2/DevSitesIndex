@@ -26,6 +26,7 @@ var jobsIndexController_instance = function () {
             $scope.errorMessages = "";
             $scope.showOriginalTable = false;
             $scope.tableTopIdForScroll = "jobIndexTableID";
+            $scope.hideProjectTitle = false;
             var qd = {};
             if (location.search)
                 location.search.substr(1).split("&").forEach(function (item) {
@@ -33,7 +34,10 @@ var jobsIndexController_instance = function () {
                         && decodeURIComponent(s[1]);
                     (qd[k] = qd[k] || []).push(v);
                 });
-            var projectId = qd['id'];
+            // 12/03/2019 10:12 pm - SSN - parseInt
+            var projectId = parseInt(qd['id']);
+            // 12/03/2019 10:25 pm - SSN - Hide project title.
+            $scope.hideProjectTitle = projectId > 0;
             // 09/18/2019 01:15 am - SSN - [20190917-0929] - [010] - Adding paging for angular lists
             //$scope.sqlStatsRecord = {};
             //  Setup intiail values for list
@@ -56,6 +60,9 @@ var jobsIndexController_instance = function () {
                 __assign({}, columnBag_defaults, { columnName: 'dateUpdated', caption: 'Date Updated' }),
                 __assign({}, columnBag_defaults, { columnName: 'activityAge', caption: 'Activity Age', columnNameSelected: 'activityAge', desc: true }),
             ];
+            if ($scope.hideProjectTitle) {
+                _fieldList.splice(0, 1);
+            }
             var selectColumnEntries = _fieldList.filter(function (r) { return r.columnNameSelected.length > 0; });
             console.log("selectColumnEntries");
             console.log(selectColumnEntries);

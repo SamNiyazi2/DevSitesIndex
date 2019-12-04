@@ -75,7 +75,8 @@ export class DashboardComponent implements OnInit {
     this.setup_SummaryByDiscipline();
     this.setup_SummaryByProject();
 
-    this.setup_Timelog_SummaryByDailyWorkHours();
+
+  //  this.setup_Timelog_SummaryByDailyWorkHours();
     this.setup_Timelog_SummaryByWeekAndDiscipline();
 
   }

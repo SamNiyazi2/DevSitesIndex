@@ -177,6 +177,15 @@ namespace DevSitesIndex.Controllers
         }
 
 
+        // 12/02/2019 08:18 am - SSN - Check for duplicates
+        [HttpPost]
+        [Route("checkForDuplicateProjectJobTitle")]
+        public bool checkForDuplicateProjectJobTitle([FromBody] Job job)
+        {
+            Job entity = _entityRepository.GetAll().Where(r => r.ProjectID == job.ProjectID && r.JobTitle == job.JobTitle).FirstOrDefault();
+            return entity != null;
+        }
+
 
     }
 }

@@ -116,9 +116,9 @@ var RestorePreviousPageState_instance = function () {
                             console.log("selectedElement: *********************************");
                             console.log(selectedElement);
                             if (selectedElement && selectedElement.attributes) {
-                                var bypass = false;
-                                if (selectedElement.nodeName.toUpperCase() === "DIV") {
-                                    bypass = true;
+                                var bypass = true;
+                                if ("A ".toUpperCase().indexOf(selectedElement.nodeName.toUpperCase()) > -1) {
+                                    bypass = false;
                                 }
                                 console.log("Node Name", selectedElement.nodeName);
                                 console.log("Node type", selectedElement.nodeType);
