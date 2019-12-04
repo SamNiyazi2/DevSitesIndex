@@ -58,15 +58,6 @@
         }
     }
 
-    @{
-
-        // 12/04/2019 02:43 am - SSN - Addnig cookie
-
-        string cookie = DevSitesIndex.Util.CookieManager.GetOrCreateCookie(Context, Startup.SITE_COOKIE_NAME);
-        <h1>cookie [@cookie ]</h1>
-
-    }
-
 
     <div @Html.Raw(ViewBag.InitModule_Full)>
 

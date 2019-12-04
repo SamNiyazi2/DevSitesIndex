@@ -305,6 +305,12 @@ namespace DevSitesIndex.Util
 
         public string getReturnToCallerUrl_Final(HttpContext context)
         {
+            // Todo: 11/13/2019 11:55 pm - SSN - Do we need to mock request?
+            // Todo: 12/04/2019 04:51 am - SSN - Added
+
+            if (context == null) return "NoContextObject201912040452";
+            if (context.Request == null) return "NoRequestObject201912040453";
+
             string requestUrl = getRequestFullUrl(context.Request);
 
             ConcurrentBag<UrlRecord> DicEntry = getUrlRecordList(context);
