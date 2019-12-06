@@ -12,8 +12,8 @@ var RestorePreviousPageState_instance = function () {
             //    $rootScope.$broadcast('site_Task_Queue_List', result);
             console.log('RestorePreviousPageState -  directive  ***********************');
             var alreadyPosted = false;
-            var controller = function ($http, $q, $scope) {
-            };
+            //var controller = function ($http, $q, $scope) {
+            //};
             $(function () {
                 window.addEventListener('click', function (e) { saveUrl(e); });
                 window.addEventListener('beforeunload', function (e) { saveUrl(e); });

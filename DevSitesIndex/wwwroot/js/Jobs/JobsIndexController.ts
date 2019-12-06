@@ -50,11 +50,11 @@ var jobsIndexController_instance = function () {
 
 
             // 12/03/2019 10:12 pm - SSN - parseInt
-
-            let projectId = parseInt(qd['id']);
+            // 12/04/2019 06:25 am - SSN - Change from local to $scope
+            $scope.projectId = parseInt(qd['id']);
 
             // 12/03/2019 10:25 pm - SSN - Hide project title.
-            $scope.hideProjectTitle = projectId > 0;
+            $scope.hideProjectTitle = $scope.projectId > 0;
 
             // 09/18/2019 01:15 am - SSN - [20190917-0929] - [010] - Adding paging for angular lists
             //$scope.sqlStatsRecord = {};
@@ -72,7 +72,7 @@ var jobsIndexController_instance = function () {
                 totalRecordCount: 0,
                 caption: "???",
                 job_statuses_selected: [$scope.job_statuses_selected],
-                fk_filter: projectId
+                fk_filter: $scope.projectId
             };
 
 

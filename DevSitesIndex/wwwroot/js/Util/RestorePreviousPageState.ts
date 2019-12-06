@@ -42,8 +42,8 @@ var RestorePreviousPageState_instance = function () {
             let alreadyPosted = false;
 
 
-            var controller = function ($http, $q, $scope) {
-            };
+            //var controller = function ($http, $q, $scope) {
+            //};
 
 
 
