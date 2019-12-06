@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using DevSitesIndex.Entities;
 using Microsoft.AspNetCore.Authorization;
+using DevSitesIndex.Util;
 
 namespace DevSitesIndex.Pages.DevSites
 {
@@ -17,6 +18,13 @@ namespace DevSitesIndex.Pages.DevSites
     public class CreateModel : DevSite_BasePageModel
     {
         private readonly DevSitesIndexContext _context;
+        
+        
+        // 12/06/2019 02:26 am - SSN -  X [20191104-0844] - [022] - Prevent delete option on timesheet related forms 
+        // Return to caller
+        public ReturnToCaller returnToCaller = new ReturnToCaller();
+
+
 
         public CreateModel(DevSitesIndexContext context)
         {
@@ -26,6 +34,12 @@ namespace DevSitesIndex.Pages.DevSites
 
         public IActionResult OnGet()
         {
+
+
+            returnToCaller.setup(HttpContext, "/devsites/Index");
+
+
+
             // 08/24/2018 02:04 am - SSN - Added SelectList and default date.
             Populate_softwareCodesSL(_context);
             DevSite = new DevSite();
@@ -53,7 +67,13 @@ namespace DevSitesIndex.Pages.DevSites
 
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+
+
+            // 12/06/2019 02:28 am - SSN -  X [20191113-1946] - [008] - ReturnToCaller
+            // return RedirectToPage("./Index");
+            return Redirect(returnToCaller.getReturnToCallerUrl_Final(HttpContext));
+
+
         }
     }
 }
