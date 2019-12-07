@@ -67,7 +67,9 @@
                 {
                     string description = o.GetDescription();
                     int key = (int)o;
-                    <input asp-for="DevSite.ForDemo_v02" type="radio" value="@key" /> @description
+                    <span class="indexNowrapOption">
+                        <input asp-for="DevSite.ForDemo_v02" type="radio" value="@key" /> @description
+                    </span>
                 }
 
 

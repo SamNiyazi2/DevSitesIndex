@@ -101,7 +101,9 @@
                 {
                     string description = o.GetDescription();
                     int key = (int)o;
-                    <input asp-for="DevSite.ForDemo_v02" type="radio" value="@key" /> @description
+                    <span class="indexNowrapOption">
+                        <input asp-for="DevSite.ForDemo_v02" type="radio" value="@key" /> @description
+                    </span>
                 }
                 <span asp-validation-for="DevSite.ForDemo_v02" class="text-danger"></span>
             </div>
@@ -168,8 +170,8 @@
         <script type="text/javascript" src="~/js/DevSite_Pages.js" asp-append-version="true"></script>
     *@
 
-    <script   src="/webpack_build/bundle_DemoSites_Pages.js" asp-append-version="true"></script>
-     
+    <script src="/webpack_build/bundle_DemoSites_Pages.js" asp-append-version="true"></script>
+
 }
 
 <style>
