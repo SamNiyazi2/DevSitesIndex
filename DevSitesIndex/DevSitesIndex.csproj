@@ -62,16 +62,21 @@
     <Folder Include="Connected Services\" />
     <Folder Include="node_modules\" />
     <Folder Include="node_modules_hack\" />
-    <Folder Include="wwwroot\js\__________________Hold4Delete\" />
     <Folder Include="wwwroot\webpack_build\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="libman.json" />
     <Content Remove="Pages\Jobs\Index_partial.cshtml" />
-    <Content Remove="wwwroot\js.zip" /> 
+    <Content Remove="wwwroot\js.zip" />
+    <Content Remove="wwwroot\js\Interceptors\SessonTimeoutInterceptor.ts" />
+    <Content Remove="wwwroot\js\Routing\Routing_Config.ts" /> 
   </ItemGroup>
   <ItemGroup>
-    <None Include="wwwroot\js\angular.js" />
+    <None Include="wwwroot\js\__________________Hold4Delete\angular.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="wwwroot\js\Interceptors\SessonTimeoutInterceptor.ts" />
+    <TypeScriptCompile Include="wwwroot\js\Routing\Routing_Config.ts" />
   </ItemGroup>
  
 

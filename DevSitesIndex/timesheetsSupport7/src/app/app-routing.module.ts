@@ -82,7 +82,7 @@ const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
 
   //{ path: '**', component: AppComponent, outlet: "main101" },
-  { path: '**', redirectTo: 'dashboardtest3' },
+  { path: '**', redirectTo: 'dashboard' },
 
 
 ];

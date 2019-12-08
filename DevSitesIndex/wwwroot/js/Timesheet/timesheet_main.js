@@ -9,7 +9,13 @@ import { dataService_instance } from '../DataServices';
 import { dropdownListDirective_instance } from '../DropdownList/DropdownListDirective';
 import { AppInsights_Util } from '../Util/ApplicationInsights_Monitor';
 import { RestorePreviousPageState_instance } from '../Util/RestorePreviousPageState';
+// 12/07/2019 04:09 am - SSN - [20191207-0353] - [002] - SessionTimeoutInterceptor
+import sessionTimeoutInterceptor from '../Interceptors/SessonTimeoutInterceptor';
+// 12/07/2019 08:07 am - SSN - [20191207-0704] - [004] - AngularJS - Routing - Authentication
+import { routing_config_instance } from '../Routing/Routing_Config';
+routing_config_instance.doSetup();
 var ngApplicationName = 'timesheetApp';
+sessionTimeoutInterceptor.doSetup(ngApplicationName);
 //ChangeMonitor_Util
 changeMonitorService_instance.doSetup(ngApplicationName);
 PageUpdater_Instance.doSetup(ngApplicationName);

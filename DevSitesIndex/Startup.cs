@@ -406,7 +406,6 @@ namespace DevSitesIndex
             }
 
 
-
             // 09/06/2019 07:16 am - SSN - 
 
             bool firstRequest = true;
@@ -431,9 +430,23 @@ namespace DevSitesIndex
                     firstRequest = false;
                 }
                 await next();
+
+
+
+                //After going down the pipeline check if we 404'd. 
+                if (context.Response.StatusCode == StatusCodes.Status404NotFound)
+                {
+                    // await context.Response.WriteAsync("Woops! We 404'd");
+                  
+                    context.Response.Redirect($"/home/error/{context.Response.StatusCode}");
+                }
+
+
+
+
             });
 
-
+            
 
 
             app.UseStaticFiles();
@@ -501,10 +514,24 @@ namespace DevSitesIndex
 
                 // 10/03/2019 10:59 am - SSN - [20191002-1118] - [018] - Adding Angular 7 test app
                 // This does serve SPA and MVC requests
-                routes.MapRoute(
-                   "Default_angx", // Route name
-                   "{*catchall}", // URL with parameters
-                   new { controller = "timesheetssupport7", action = "test2" });
+                //routes.MapRoute(
+                //   "Default_angx", // Route name
+                //   "{*catchall}", // URL with parameters
+                //   new { controller = "timesheetssupport7", action = "test2" });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
                 #endregion Testing
@@ -513,20 +540,74 @@ namespace DevSitesIndex
             });
 
 
-            // 10/02/2019 01:40 pm - SSN - [20191002-1118] - [006] - Adding Angular 7 test app
 
-            // This allows to display AppComponent when using route 'test2'
-            app.UseSpa(spa =>
+
+            // 12/07/2019 08:32 am - SSN - [20191207-0704] - [005] - AngularJS - Routing - Authentication
+
+
+            ////////////////////////// 10/02/2019 01:40 pm - SSN - [20191002-1118] - [006] - Adding Angular 7 test app
+
+            ////////////////////////// This allows to display AppComponent when using route 'test2'
+            ////////////////////////app.UseSpa(spa =>
+            ////////////////////////{
+            ////////////////////////    // To learn more about options for serving an Angular SPA from ASP.NET Core,
+            ////////////////////////    // see https://go.microsoft.com/fwlink/?linkid=864501
+
+            ////////////////////////    spa.Options.SourcePath = "timesheetsSupport7";
+
+            ////////////////////////    if (env.IsDevelopment())
+            ////////////////////////    {
+            ////////////////////////        //     spa.UseAngularCliServer(npmScript: "start");
+            ////////////////////////    }
+            ////////////////////////});
+
+            // https://forums.asp.net/t/2156516.aspx?Serve+multiple+angular+spa+from+a+single+core+web+application
+
+
+            app.Map("/app1", app1 =>
             {
-                // To learn more about options for serving an Angular SPA from ASP.NET Core,
-                // see https://go.microsoft.com/fwlink/?linkid=864501
-
-                spa.Options.SourcePath = "timesheetsSupport7";
-
-                if (env.IsDevelopment())
+                app1.UseSpa(spa =>
                 {
-                    //     spa.UseAngularCliServer(npmScript: "start");
-                }
+                    // To learn more about options for serving an Angular SPA from ASP.NET Core,
+                    // see https://go.microsoft.com/fwlink/?linkid=864501
+
+                    spa.Options.SourcePath = "wwwroot/js";
+
+                    spa.UseSpaPrerendering(options =>
+                    {
+                        //options.BootModulePath = $"{spa.Options.SourcePath}/dist-server/main.bundle.js";
+                        options.BootModulePath = "wwwroot/webpack_build/bundle_timesheetapp.js";
+                        //options.BootModuleBuilder = env.IsDevelopment()
+                        //    ? new AngularCliBuilder(npmScript: "build:ssr:en")
+                        //    : null;
+                        //options.ExcludeUrls = new[] { "/sockjs-node" };
+                        //options.SupplyData = (context, data) =>
+                        //{
+                        //    data["foo"] = "bar";
+                        //};
+                    });
+
+                    //if (env.IsDevelopment())
+                    //{
+                    //    spa.UseAngularCliServer(npmScript: "start --app=app1 --base-href=/app1/ --serve-path=/");
+                    //}
+                });
+            }).Map("/app2", app2 =>
+            {
+                app2.UseSpa(spa =>
+                {
+                    // To learn more about options for serving an Angular SPA from ASP.NET Core,
+                    // see https://go.microsoft.com/fwlink/?linkid=864501
+
+                    spa.Options.SourcePath = "timesheetsSupport7";
+
+                    //spa.UseSpaPrerendering(options =>
+                    //{
+                    //    options.BootModulePath = "wwwroot/dist/timesheetsSupport7/runtime.js";
+                    //});
+
+
+                });
             });
 
 
