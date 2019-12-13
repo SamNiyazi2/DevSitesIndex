@@ -123,6 +123,21 @@ namespace DevSitesIndex.Controllers
             }
         }
 
+
+        // 12/13/2019 06:37 am - SSN - Adding claims
+        [Authorize(Policy = "EmployeeOnly")]
+        public IActionResult Test_Access1()
+        {
+            return View("index_p2");
+        }
+
+        [Authorize(Policy = "Managers")]
+        public IActionResult Test_Access2()
+        {
+            return View("index_p2");
+        }
+
+
         // 08/21/2018 03:34 am - SSN - Adding
         protected override void Dispose(bool disposing)
         {
@@ -132,5 +147,7 @@ namespace DevSitesIndex.Controllers
             }
             base.Dispose(disposing);
         }
+
+
     }
 }

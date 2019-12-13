@@ -32,7 +32,7 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 
 
 using Microsoft.AspNetCore.Routing;
-
+using System.Security.Claims;
 
 namespace DevSitesIndex
 {
@@ -239,6 +239,17 @@ namespace DevSitesIndex
                 // 08/29/2019 12:06 pm - SSN - [20190829-1212] - [001] - Adding email confirmation 
                 options.User.RequireUniqueEmail = true;
 
+            });
+
+
+            // 12/13/2019 06:32 am - SSN - Add claims
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("Managers", policy =>
+                                  policy.RequireClaim( ClaimTypes.Role,"Manager"));
+
+                options.AddPolicy("EmployeeOnly", policy =>
+                                  policy.RequireClaim(ClaimTypes.Role, "Employee"));
             });
 
 

@@ -21,12 +21,15 @@
 
     if (User.Identity.IsAuthenticated)
     {
-        <pre cmd-ssn="displayCode" url="http://p3013.nonbs.net:3013/CodeReferences" doDebug=false></pre>
+        if (DevSitesIndex.Areas.Identity.Util.ClaimUtil.hasClaim(this.Context, "Role", "Manager"))
+        {
+            <pre cmd-ssn="displayCode" url="http://p3013.nonbs.net:3013/CodeReferences" doDebug=false></pre>
+        }
 
     }
 }
 
 @section scripts {
 
-        <script src="/webpack_build/bundle_main_101.js" asp-append-version="true"></script>
+    <script src="/webpack_build/bundle_main_101.js" asp-append-version="true"></script>
 }

@@ -6,6 +6,7 @@ using SSN_GenUtil_StandardLib;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 
@@ -137,6 +138,15 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
                 //_logger.TrackEvent($"DemoSite-20190828-0821-SA: Login successful (2)   [{returnUrl}]");
 
                 // return LocalRedirect(returnUrl);
+
+                // 12/13/2019 06:25 am - SSN - Adding claims
+                IList<Claim> userClaims = await _signInManager.UserManager.GetClaimsAsync(identityUser);
+                if ( userClaims == null || userClaims.Count == 0)
+                {
+                    Claim claim = new Claim("Role", "Manager");
+                    await _signInManager.UserManager.AddClaimAsync(identityUser, claim);
+                }
+
                 return Login_Result;
             }
 
