@@ -28,7 +28,10 @@ namespace DevSitesIndex.Entities
         [NotMapped]
         // 11/23/2019 07:16 pm - SSN - Replaced
         // public string CodeBlock_Encoded => RE_Util.EncodeContentOfPreTag(CodeBlock);
-        public string CodeBlock_Encoded => RE_Util.EncodeContent_AllContent(CodeBlock);
+        // 12/13/2019 10:18 am - SSN - Replaced for <n>
+        //        public string CodeBlock_Encoded => RE_Util.EncodeContent_AllContent(CodeBlock);
+        public string CodeBlock_Encoded => RE_Util.EncodeContent_PreContent(CodeBlock);
+
 
 
 
