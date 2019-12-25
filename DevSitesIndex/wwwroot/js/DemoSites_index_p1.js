@@ -77,6 +77,20 @@ var demosites_index_p1_instance = function () {
         // https://stackoverflow.com/questions/16245905/fetching-or-sending-data-from-a-form-using-knockout-js
         //self.onSubmit = function () {
         this.onSubmit = function () {
+            var searchText = self.SearchText_KO();
+            if (searchText === undefined) {
+                self.SearchResultsFeedback_KO('Input is required for search.');
+                self.SearchResultsFeedback_ClassName_KO("alert-warning");
+                return;
+            }
+            else {
+                searchText = searchText.trim();
+                if (searchText === "") {
+                    self.SearchResultsFeedback_KO('Input is required for search. (2)');
+                    self.SearchResultsFeedback_ClassName_KO("alert-warning");
+                    return;
+                }
+            }
             //var data = JSON.stringify(
             //    {
             //        SearchText: self.SearchText_KO()
@@ -142,11 +156,8 @@ var demosites_index_p1_instance = function () {
             return "siteDiv" + " " + selectedClass;
         };
     };
-    console.debug('20191213-1948 - DemoSites_index_p1 - 001');
     var vm = new ViewModel();
-    console.debug('20191213-1948 - DemoSites_index_p1 - 002');
     ko.applyBindings(vm);
-    console.debug('20191213-1948 - DemoSites_index_p1 - 003');
     vm.loadData();
 }();
 var stringStartsWith = function (string, startsWith) {
