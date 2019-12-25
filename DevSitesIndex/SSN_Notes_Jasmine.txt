@@ -1,0 +1,88 @@
+
+11:31 AM 12/13/2019
+
+https://blogs.msdn.microsoft.com/wushuai/2017/10/29/javascript-unit-test-intergration-in-vsts-build-pipeline/
+
+
+npm install karma -D
+
+
+
+
+npm install jasmine-core --save-dev
+
+npm install karma-junit-reporter --save-dev
+
+npm install gulp --save-dev
+
+Note: npm audit fix
+
+karma init
+
+Add gulpfile.js:
+var gulp = require('gulp');
+var Server = require('karma').Server;
+gulp.task('unittest', function(done){
+    new Server({
+        configFile: __dirname + '/karma.conf.js',
+        singleRun: true
+    }, done).start();
+});
+
+-------------------------------------
+
+
+
+==========================
+
+// https://zirho.github.io/2016/06/06/karma-es6/
+
+npm i -D karma karma-phantomjs-launcher phantomjs-prebuilt babel-core babel-polyfill babel-loader babel-preset-es2015 karma-webpack
+
+Already installed npm i -g karma-cli
+---
+
+
+
+karma.config.js
+
+module.exports = function(config) {
+    config.set({
+        browsers: ['PhantomJS'],
+        files: [
+            { pattern: 'test-context.js', watched: false }
+        ],
+        frameworks: ['jasmine'],
+        preprocessors: {
+            'test-context.js': ['webpack']
+        },
+        webpack: {
+            module: {
+                loaders: [
+                    { test: /\.js$/, exclude: /node_modules/, loader: 'babel?presets[]=es2015' }
+                ]
+            },
+            watch: true
+        },
+        webpackServer: {
+            noInfo: true
+        }
+    });
+};
+
+------------------------------
+
+Added C:\Sams\DevSitesIndex\DevSitesIndex\karma-test-context.js
+
+
+
+12/15/2019 01:28 pm - SSN
+
+npm install --save-dev karma-verbose-reporter
+
+
+12/15/2019 03:24 pm - SSN
+
+npm install karma-spec-reporter --save-dev
+reporters: ['spec'],
+

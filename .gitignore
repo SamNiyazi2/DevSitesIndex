@@ -266,3 +266,5 @@ __pycache__/
  
 
 /DevSitesIndex/DevSitesIndex_00*.csproj
+/DevSitesIndex/TESTS-Chrome_79.0.3945_(Windows_10.0.0).xml
+/DevSitesIndex/TESTS-PhantomJS_2.1.1_(Windows_8.0.0).xml

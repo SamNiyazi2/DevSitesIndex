@@ -412,8 +412,9 @@ $.fn.isBound = function (type, fn) {
 
     console.log('fn.isBound-0245');
 
-    console.log('this');
-    console.log(this);
+
+    console.log('this - turned off 20191213-1942');
+   // console.log(this);
 
 
     console.log("this.data('events')");

@@ -87,8 +87,16 @@ var demoSites_index_p3_instance = function () {
 
             };
 
+            console.debug('20191213-1944 - demoSites_index_p3 - 001');
+
             var vm = new ViewModel();
+
+            console.debug('20191213-1944 - demoSites_index_p3 - 002');
+
             ko.applyBindings(vm);
+
+            console.debug('20191213-1944 - demoSites_index_p3 - 003');
+
             vm.loadData();
 
         });
