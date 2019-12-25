@@ -24,7 +24,9 @@
 
     <div class="searchOption @Model.searchOptionCustomClassName">
 
-        <form method="post" action="">
+        @*12/24/2019 07:31 pm - SSN - novalidate because we need to submit the form to reset the search*@
+
+        <form method="post" action="" novalidate>
 
 
             <div>
@@ -84,32 +86,32 @@
                 foreach (var item in Model.CodeReference)
                 {
 
-        <tr>
+                    <tr>
 
-            <td class="maxWidthCol2">
-                @if (item.Title != null)
-                {
-                    <h3>  @Html.DisplayFor(modelItem => item.Title)</h3>
+                        <td class="maxWidthCol2">
+                            @if (item.Title != null)
+                            {
+                                <h3>  @Html.DisplayFor(modelItem => item.Title)</h3>
 
-                }
+                            }
 
-                @if (item.SourceAddress != null)
-                {
-                    <p class="maxWidthCol1">
-                        @if (item.SourceAddress.ToLower().StartsWith("http"))
-                        {
-                            <a target="wincoderef@item.Id" href="@item.SourceAddress">@Html.DisplayFor(modelItem => item.SourceAddress)</a>
+                            @if (item.SourceAddress != null)
+                            {
+                                <p class="maxWidthCol1">
+                                    @if (item.SourceAddress.ToLower().StartsWith("http"))
+                                    {
+                                        <a target="wincoderef@item.Id" href="@item.SourceAddress">@Html.DisplayFor(modelItem => item.SourceAddress)</a>
 
-                        }
-                        else
-                        {
-                            @Html.DisplayFor(modelItem => item.SourceAddress)
+                                    }
+                                    else
+                                    {
+                                        @Html.DisplayFor(modelItem => item.SourceAddress)
 
-                        }
-                    </p>
-                }
+                                    }
+                                </p>
+                            }
 
-                <pre class="codeblock2">
+                            <pre class="codeblock2">
      
  
                 @{
@@ -135,30 +137,34 @@
                  </pre>
 
 
-            </td>
+                        </td>
 
-            <td class="indexNowrapCol">
-                @Html.DisplayFor(modelItem => item.DateAdded)
-            </td>
+                        <td class="indexNowrapCol">
+                            @Html.DisplayFor(modelItem => item.DateAdded)
+                        </td>
 
-            <td class="indexNowrapCol">
-                @Html.DisplayFor(modelItem => item.DateModified)
-            </td>
+                        <td class="indexNowrapCol">
+                            @Html.DisplayFor(modelItem => item.DateModified)
+                        </td>
 
-            <td class="indexNowrapCol">
-                <a asp-page="./Edit" asp-route-id="@item.Id" asp-route-SearchText="@Model.SearchText">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
+                        <td class="indexNowrapCol">
+                            <a asp-page="./Edit" asp-route-id="@item.Id" asp-route-SearchText="@Model.SearchText">Edit</a> |
+                            <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                            <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                        </td>
 
-        </tr>
+                    </tr>
+                }
             }
         }
-    }
     </tbody>
 </table>
 
+@section Scripts {
 
+
+    <script src="~/webpack_build/bundle_CodeReference_Pages.js" asp-append-version="true"></script>
+}
 
 
 

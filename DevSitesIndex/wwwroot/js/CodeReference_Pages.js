@@ -1,13 +1,16 @@
 // 11/08/2019 04:41 pm - SSN -
 // Convert to TypeScript
 // import * as x111 from '../js/site';
+console.log("20191224-1921 - CodeReference_Pages");
 var CodeReference_Page;
 (function (CodeReference_Page) {
     var doSetup = function () {
         $(function () {
             $('[doRefreshForm]').on('click', function (e) {
+                console.log("20191224-1921 - CodeReference_Pages -- 002");
                 // 03/27/2019 01:01 pm - SSN - Revise handling of clearing search.
                 var doRefreshForm_temp = $(this).attr("doRefreshForm");
+                console.log("20191224-1921 - CodeReference_Pages -- 003 [" + doRefreshForm_temp + "]");
                 if (doRefreshForm_temp === "0") {
                     $("#SearchText").val("");
                 }

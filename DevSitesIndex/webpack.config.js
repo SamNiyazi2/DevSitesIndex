@@ -189,11 +189,33 @@ var config = [
             './site.ts',
 //            './site_only_main.ts',
 
-            './CodeReference_Pages.ts',
+    // 12/13/2019 07:35 pm - SSN - [20191213-1935] - Seperate CodeReference_Pages from bundle_site_only
+//            './CodeReference_Pages.ts',
             './util/ChangeMonitor/ChangeMonitor.ts'
         ]
 
     },
+
+
+
+    // 12/13/2019 07:35 pm - SSN - [20191213-1935] - Seperate CodeReference_Pages from bundle_site_only
+
+    {
+        ...d_master,
+
+        output: {
+            path: path.resolve(__dirname, './wwwroot/webpack_build'),
+            filename: 'bundle_CodeReference_Pages.js'
+        },
+
+
+        entry: [
+            './CodeReference_Pages.ts'
+        ]
+
+    },
+
+
 
 
 
