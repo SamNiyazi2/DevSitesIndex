@@ -9,6 +9,7 @@ using DevSitesIndex.Entities;
 using Microsoft.AspNetCore.Authorization;
 using DevSitesIndex.Models;
 using Microsoft.AspNetCore.Html;
+using SSN_GenUtil_StandardLib;
 
 namespace DevSitesIndex.Pages.DevSites
 {
@@ -25,10 +26,14 @@ namespace DevSitesIndex.Pages.DevSites
         public string SearchText { get; set; }
 
         private readonly DevSitesIndex.Entities.DevSitesIndexContext _context;
+        private readonly ILogger_SSN logger;
 
-        public IndexModel(DevSitesIndex.Entities.DevSitesIndexContext context)
+
+        // 12/28/2019 05:42 pm - SSN Adding ILogger_SSN logger
+        public IndexModel(DevSitesIndex.Entities.DevSitesIndexContext context, ILogger_SSN logger)
         {
             _context = context;
+            this.logger = logger;
         }
 
 
@@ -46,7 +51,6 @@ namespace DevSitesIndex.Pages.DevSites
         public string desc_XXXX { get; set; }
         [BindProperty]
         public int? pageIndex_XXXX { get; set; }
-
 
 
 
@@ -70,6 +74,10 @@ namespace DevSitesIndex.Pages.DevSites
 
             pageIndex_XXXX = 1;
 
+            // 12/28/2019 05:36 pm - SSN - Adding try/catch
+            try
+            {
+
             if (string.IsNullOrEmpty(SearchText))
             {
                 await GetData(sortOrder_XXXX, desc_XXXX, pageIndex_XXXX, SearchText);
@@ -79,6 +87,14 @@ namespace DevSitesIndex.Pages.DevSites
             // 08/12/2019 04:48 am - SSN - [20190812-0345] - [005] - Apply fulltext search
             // DevSite = await GetData();
             await GetData(sortOrder_XXXX, desc_XXXX, pageIndex_XXXX, SearchText);
+
+            }
+            catch (Exception ex)
+            {
+                logger.PostException(ex, "DevSites index post error", "20191228-1740");
+                ModelState.AddModelError("SearchText", "Invalid syntax (SQL Server fulltext) (002)");
+            }
+
 
             return Page();
         }
