@@ -1,9 +1,25 @@
 // 11/22/2019 09:41 pm - SSN - Created to restore page on hitting the back button or recalling the page.
+// 12/28/2019 10:0 pm - SSN - Adding AppInsights_Util 
+import { AppInsights_Util } from './ApplicationInsights_Monitor';
 import { globals_instance } from "../globals";
 var RestorePreviousPageState_instance = function () {
     console.log('RestorePreviousPageState xxxxxxxxxxxxxxxxxxxxxxxxx Top - setup???');
     var doSetup = function (ngDefaultApplication) {
         console.log('RestorePreviousPageState xxxxxxxxxxxxxxxxxxxxxxxxx - Setup - ngDefaultApplication [', ngDefaultApplication, ']');
+        console.log('RestorePreviousPageState xxxxxxxxxxxxxxxxxxxxxxxxx - Setup - directive???');
+        console.log('RestorePreviousPageState xxxxxxxxxxxxxxxxxxxxxxxxx - Setup - directive???');
+        console.log('RestorePreviousPageState xxxxxxxxxxxxxxxxxxxxxxxxx - Setup - directive???');
+        console.log('RestorePreviousPageState xxxxxxxxxxxxxxxxxxxxxxxxx - Setup - directive???');
+        console.log(' ');
+        console.log(' ');
+        console.log(' ');
+        AppInsights_Util.logEvent("DemoSites_20191228_2228", { SourceCode: "20191228-2210", Message: "doSetup" });
+        console.log(' ');
+        console.log(' ');
+        console.log(' ');
+        console.log('RestorePreviousPageState xxxxxxxxxxxxxxxxxxxxxxxxx - Setup - directive???');
+        console.log('RestorePreviousPageState xxxxxxxxxxxxxxxxxxxxxxxxx - Setup - directive???');
+        console.log('RestorePreviousPageState xxxxxxxxxxxxxxxxxxxxxxxxx - Setup - directive???');
         console.log('RestorePreviousPageState xxxxxxxxxxxxxxxxxxxxxxxxx - Setup - directive???');
         var angular_module = globals_instance.getInstance_v002('RestorePreviousPageState', ngDefaultApplication);
         angular_module.controller('restorePreviousPageAndTaskQueueController', ['$scope', '$attrs', '$location', function ($scope, $attrs, $location) {

@@ -4,6 +4,9 @@
 
 import * as angular from 'angular'
 
+// 12/28/2019 10:0 pm - SSN - Adding AppInsights_Util 
+import { AppInsights_Util } from './ApplicationInsights_Monitor';
+
 import { globals_instance } from "../globals";
 
 
@@ -17,7 +20,25 @@ var RestorePreviousPageState_instance = function () {
     var doSetup = function (ngDefaultApplication) {
 
 
+
         console.log('RestorePreviousPageState xxxxxxxxxxxxxxxxxxxxxxxxx - Setup - ngDefaultApplication [', ngDefaultApplication, ']');
+        console.log('RestorePreviousPageState xxxxxxxxxxxxxxxxxxxxxxxxx - Setup - directive???');
+        console.log('RestorePreviousPageState xxxxxxxxxxxxxxxxxxxxxxxxx - Setup - directive???');
+        console.log('RestorePreviousPageState xxxxxxxxxxxxxxxxxxxxxxxxx - Setup - directive???');
+        console.log('RestorePreviousPageState xxxxxxxxxxxxxxxxxxxxxxxxx - Setup - directive???');
+        console.log(' ');
+        console.log(' ');
+        console.log(' ');
+
+        AppInsights_Util.logEvent("DemoSites_20191228_2228", { SourceCode: "20191228-2210", Message: "doSetup" });
+
+        console.log(' ');
+        console.log(' ');
+        console.log(' ');
+
+        console.log('RestorePreviousPageState xxxxxxxxxxxxxxxxxxxxxxxxx - Setup - directive???');
+        console.log('RestorePreviousPageState xxxxxxxxxxxxxxxxxxxxxxxxx - Setup - directive???');
+        console.log('RestorePreviousPageState xxxxxxxxxxxxxxxxxxxxxxxxx - Setup - directive???');
         console.log('RestorePreviousPageState xxxxxxxxxxxxxxxxxxxxxxxxx - Setup - directive???');
 
 
@@ -182,6 +203,7 @@ var RestorePreviousPageState_instance = function () {
                     });
 
 
+
                     setTimeout(function () { highlightClickSource(); }, 1000);
 
 
@@ -246,7 +268,7 @@ var RestorePreviousPageState_instance = function () {
 
                                 let bypass = true;
 
-                                if ("A ".toUpperCase().indexOf(selectedElement.nodeName.toUpperCase()) > -1 ) {
+                                if ("A ".toUpperCase().indexOf(selectedElement.nodeName.toUpperCase()) > -1) {
                                     bypass = false;
                                 }
 
