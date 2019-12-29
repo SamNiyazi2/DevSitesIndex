@@ -18,9 +18,9 @@ var sessionTimeoutInterceptor_instance = function () {
                         var service = {
                             // run this function before making requests
                             'request': function (config) {
-                                console.log('sessionTimeoutInterceptor - Main function - SERVICE - 20191207-0412-SERVICE');
-                                console.log('config next:');
-                                console.log(config);
+                                ////////console.log('sessionTimeoutInterceptor - Main function - SERVICE - 20191207-0412-SERVICE');
+                                ////////console.log('config next:');
+                                ////////console.log(config);
                                 ////////////if (config.method === 'GET' || userSession.isAuth()) {
                                 ////////////    // the request looks good, so return the config
                                 return config;
