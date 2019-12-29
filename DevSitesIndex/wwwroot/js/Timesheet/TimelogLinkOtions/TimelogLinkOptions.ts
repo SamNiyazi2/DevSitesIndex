@@ -19,11 +19,6 @@ var TimelogLinkOptions = function () {
     var doSetup = function (defaultAppName) {
 
 
-        console.log("TimelogLinkOptions - 20191121-0554-B");
-
-        console.log('defaultAppName type and name [', typeof (defaultAppName), '] [', defaultAppName, ']');
-
-
         //var TimelogLinkOptions_angular_module = globals_instance.getInstance(defaultAppName, []);
         var TimelogLinkOptions_angular_module = globals_instance.getInstance_v002('TimelogLinkOptions', defaultAppName);
 
@@ -49,16 +44,7 @@ var TimelogLinkOptions = function () {
                     // Add servingPage
 
                     $scope.timesheetForm_Edit = function (timelogId, servingPage: Timelog_ServingPage) {
-
-                        console.log('timelogLinkOptions - [' + timelogId + ']  OOOOOOOOOOOOOOOOOO');
-
-
-
-
-
-                        console.log('TimelogLinkOptions_angular_module - x20191116-1637 - timesheetForm_Edit ');
-                        console.log('ServingPage', servingPage);
-
+                        
 
                         let modalEdit = $uibModal.open({
 
@@ -87,30 +73,16 @@ var TimelogLinkOptions = function () {
 
                         function modalEdit_save(result) {
 
-                            console.log('TimelogLinkOptions_angular_module - x20191116-1640 - modalEdit_save');
-                            console.log(result);
-
                             changeMonitorService.reset();
-                            console.log("changeMonitorService.getHaveChanges()", changeMonitorService.getHaveChanges());
+
                         }
 
 
 
                         function modalEdit_cancel(result) {
 
-                            console.log('TimesheetApp - 20191116-1641 - modalEdit_cancel');
-                            console.log(result);
-
                             changeMonitorService.reset();
-                            console.log("changeMonitorService.getHaveChanges()", changeMonitorService.getHaveChanges());
                         }
-
-
-
-
-                        console.log('TimesheetApp - 20191116-1643 - timesheetForm_Edit - end ');
-
-
 
 
                     }
@@ -133,10 +105,6 @@ var TimelogLinkOptions = function () {
                         // Testing:             templateUrl:  'js/timesheet/timesheetTemplate.html' 
                         //                   to templateUrl: '/js/timesheet/timesheetTemplate.html'
 
-
-
-
-                        console.log('TimesheetApp - 20191114-1435 - modalClockout  - begin ');
 
                         let modalClockout = $uibModal.open({
                             templateUrl: '/js/timesheet/templates/TimelogClockout.html',
@@ -166,28 +134,17 @@ var TimelogLinkOptions = function () {
 
                         function modalClockout_save(result) {
 
-                            console.log('TimesheetApp - 20191114-1435-2 - modalClockout_1 ');
-                            console.log(result);
-
                             changeMonitorService.reset();
-                            console.log("changeMonitorService.getHaveChanges()", changeMonitorService.getHaveChanges());
+
                         }
 
 
 
                         function modalClockout_cancel(result) {
 
-                            console.log('TimesheetApp - 20191114-1435-3 - modalClockout_2 ');
-                            console.log(result);
-
                             changeMonitorService.reset();
-                            console.log("changeMonitorService.getHaveChanges()", changeMonitorService.getHaveChanges());
+
                         }
-
-
-
-
-                        console.log('TimesheetApp - 20191114-1435 - modalClockout  - end ');
 
 
                     };
@@ -241,20 +198,13 @@ var TimelogLinkOptions = function () {
 
                         TimesheetContinueController_modal.result.then(TimesheetContinueController_modal_save, TimesheetContinueController_modal_cancel);
                         function TimesheetContinueController_modal_save(result) {
-                            console.log('TimesheetContinueController_modal_save - 20191114-1448');
-                            console.log("result", result);
 
-                            console.log("changeMonitorService.getHaveChanges()", changeMonitorService.getHaveChanges());
                             changeMonitorService.reset();
 
                         }
 
                         function TimesheetContinueController_modal_cancel(result) {
-                            console.log('TimesheetContinueController_modal_cancel - 20191114-1449');
-                            console.log("result", result);
-
-                            console.log("changeMonitorService.getHaveChanges()", changeMonitorService.getHaveChanges());
-
+                            
                             changeMonitorService.reset();
 
                         }

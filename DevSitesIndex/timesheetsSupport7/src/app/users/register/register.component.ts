@@ -101,11 +101,6 @@ export class RegisterComponent extends PopupComponentSupport implements OnInit {
     setTimeout(this.doSetfocus, 700);
     
 
-    console.log('register.component - 20191107-0858 - .autofocus length next');
-    console.log('Length:', $('[autofocus]').length);
-
-     
-
 
   }
 
@@ -137,8 +132,10 @@ export class RegisterComponent extends PopupComponentSupport implements OnInit {
 
 
   isEmailOnFileError(response) {
-    console.log('isEmailOnFileError - register.component - 20191106-1412');
+
+    console.error('isEmailOnFileError - register.component - 20191106-1412');
     console.log(response);
+
     ehu.ErrorHandlingHelpers.showHtmlErrorResponse(response);
   }
 
@@ -162,10 +159,6 @@ export class RegisterComponent extends PopupComponentSupport implements OnInit {
 
     this.isDirty = false;
 
-    console.log('regiser.component - 20191104-0654 - register');
-
-    console.log(formValue);
-
     this.dataService.registerUser(formValue).then(this.registerUserSuccess.bind(this), this.registerUserError.bind(this));
   }
 
@@ -175,11 +168,6 @@ export class RegisterComponent extends PopupComponentSupport implements OnInit {
     this.email_errorMessage = "";
     this.password_errorMessage = "";
     this.confirmPassword_errorMessage = "";
-
-
-    console.log('registerUserSuccess - 20191105-1825');
-    console.log(response);
-     
 
 
     if (!response.hasErrors) {
@@ -218,7 +206,7 @@ export class RegisterComponent extends PopupComponentSupport implements OnInit {
 
   registerUserError(response) {
 
-    console.log('registerUserError - 20191105-1826');
+    console.error('registerUserError - 20191105-1826');
     console.log(response);
     ehu.ErrorHandlingHelpers.showHtmlErrorResponse(response);
 
@@ -229,10 +217,7 @@ export class RegisterComponent extends PopupComponentSupport implements OnInit {
 
     this.isDirty = false;
 
-
-
     this.route.navigate(['/']);
-
 
 
   }

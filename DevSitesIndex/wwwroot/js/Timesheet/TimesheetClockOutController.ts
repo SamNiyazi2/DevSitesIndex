@@ -92,6 +92,7 @@ var timesheetClockoutController_instance = function () {
             }
 
             function getTimelogError(data) {
+
                 console.error('timesheetClockOutController - 20190922-1426');
                 console.log(data);
 
@@ -145,7 +146,6 @@ var timesheetClockoutController_instance = function () {
                             $uibModalInstance.close();
                             toastr.info("Clocked-out");
 
-                            console.log('timesheetClockoutController - 20191120-0423 - timelog_index update [', $scope.editableTimeLog.timeLogId, ']');
 
                             // 11/25/2019 06:38 pm - SSN - [20191125-1803] - [002] - clock-out is not updating index row
                             // Added servingPage
@@ -157,7 +157,7 @@ var timesheetClockoutController_instance = function () {
 
                             var test2 = error;
 
-                            console.log(error);
+                            console.error(error);
 
                             toastr.error("Failed to save record.");
                             toastr.warning("Error posted to console.");

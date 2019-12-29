@@ -7,7 +7,6 @@
 
 // ssn_devsite_angular_module 
 
-console.log("XXXXXXXX Routing_config - TOP ");
 
 
 var routing_config_instance = function () {
@@ -53,9 +52,6 @@ var routing_config_instance = function () {
 
 
 
-
-            console.log("setting routes [20190926-0556]");
-
         }]);
 
 
@@ -76,8 +72,6 @@ var routing_config_instance = function () {
 
     var doSetup_b = function () {
 
-        console.log('))))))))))))))))) 101');
-
 
         angularJS_module.config(function ($routeProvider) {
             $routeProvider
@@ -94,8 +88,6 @@ var routing_config_instance = function () {
             //If the route change failed due to authentication error, redirect them out
             $rootScope.$on('$routeChangeError', function (event, current, previous, rejection) {
 
-                console.log('))))))))))))))))) 102');
-
 
                 if (rejection === 'Not Authenticated') {
                     $location.path('/');
@@ -105,8 +97,6 @@ var routing_config_instance = function () {
         }).factory('AuthService', function ($q) {
             return {
                 authenticate: function () {
-
-                    console.log('))))))))))))))))) 103');
 
 
                     //Authentication logic here
@@ -143,7 +133,6 @@ var routing_config_instance = function () {
 }();
 
 
-console.log("XXXXXXXX Routing_config - BOTTOM ");
 
 export { routing_config_instance };
 

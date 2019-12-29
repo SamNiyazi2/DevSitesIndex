@@ -100,7 +100,7 @@ var timesheetEditController_instance = function () {
 
             function getTimelogError(data) {
 
-                console.log('timesheetEditController - 20191116-1648');
+                console.error('timesheetEditController - 20191116-1648');
                 console.log(data);
 
                 toastr.warning("Error posted to console. (1648)");
@@ -110,7 +110,7 @@ var timesheetEditController_instance = function () {
 
             function getTimelogCatch(data) {
 
-                console.log('timesheetEditController - 20191116-1649');
+                console.error('timesheetEditController - 20191116-1649');
                 console.log(data);
 
                 toastr.warning("Error posted to console. (1649)");
@@ -162,7 +162,6 @@ var timesheetEditController_instance = function () {
 
                             // 11/22/2019 04:09 pm - SSN - [20191121-0503] - [019] - Timelog edit options on project search
 
-                            console.log("servingPage 5 ", servingPage);
 
                             let haveMatch_on_servingPage = false;
 

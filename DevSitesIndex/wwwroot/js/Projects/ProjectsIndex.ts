@@ -13,20 +13,11 @@ var ProjectIndexController_instance = function () {
 
         angular_Module.controller('ProjectsIndexController', ['$scope', '$compile', function ($scope, $compile) {
 
-            console.log('ProjectsIndexController - new - 20191122-1344');
-
-
-
 
             // 11/22/2019 01:57 pm - SSN - [20191121-0503] - [014] - Timelog edit options on project search
 
             $scope.$on('TimeLog_Index_Refresh', function (event, item) {
 
-                console.log('ProjectsIndex - Firing TimeLog_Index_Refresh - 20191122-1406');
-                console.log('item', item);
-
-
-                console.log(item);
 
                 $("#" + item.tr_2_id).remove();
 

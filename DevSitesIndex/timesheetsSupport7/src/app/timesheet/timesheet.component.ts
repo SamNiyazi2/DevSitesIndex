@@ -73,11 +73,11 @@ export class TimesheetComponent implements OnInit {
     // 11/01/2019 11:30 am - SSN - Update to use paging
     let dataTemp = this.route.snapshot.data['timesheets_resolver'];
 
- 
+
     //    this.timesheets = this.route.snapshot.data['timesheets_resolver'];
     this.timesheets = dataTemp.dataList;
     this.sqlStatsRecord = dataTemp.sqlStatsRecord;
-    
+
   }
 
 
@@ -91,7 +91,7 @@ export class TimesheetComponent implements OnInit {
 
   getTimesheetError(response) {
 
-    console.log('timesheetComponent  20191003-1715 - Error');
+    console.error('timesheetComponent  20191003-1715 - Error');
     console.log(response);
 
     ehu.ErrorHandlingHelpers.showHtmlErrorResponse(response);
@@ -156,7 +156,7 @@ export class TimesheetComponent implements OnInit {
     this.feedbackMessage = "Returned no resuls";
     this.feedbackMessage_ClassName = feedbackMessageNumber.Bad;
 
-    console.log('timesheet.Component - 20191021-0824  - Error ');
+    console.error('timesheet.Component - 20191021-0824  - Error ');
     console.log(response);
 
     ehu.ErrorHandlingHelpers.showHtmlErrorResponse(response);
@@ -177,7 +177,6 @@ export class TimesheetComponent implements OnInit {
   skipTimelog(data) {
 
     data.sqlStatsRecord.currentPageNo = data.sqlStatsRecord.currentPageNo + data.value;
-    console.log(data.sqlStatsRecord);
     this.dataService.getTimelogSearch(data.sqlStatsRecord).then(this.getTimelogSearchSuccess.bind(this), this.getTimelogSearchError.bind(this));
 
   }

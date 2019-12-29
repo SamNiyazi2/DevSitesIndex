@@ -70,7 +70,6 @@ export class ProjectJobsListComponent implements OnInit, OnChanges {
 
   saveNewProjectJob(newJob) {
 
-    console.log('project-jobs-list.component - 20191009-1611');
     this.setAddMode(false);
     newJob.csshighlightAdded = "csshighlight_Added";
     this.jobs.unshift(newJob);

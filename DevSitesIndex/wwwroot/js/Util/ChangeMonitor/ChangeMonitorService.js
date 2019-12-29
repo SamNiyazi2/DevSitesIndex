@@ -2,16 +2,11 @@
 import { ChangeMonitorFlag } from './ChangeMonitorFlag';
 import { ChangeMonitor_Util } from './ChangeMonitor';
 import * as globals from '../../globals';
-console.log('ChangeMonitorService  - 20191114-1505 - top ');
 var changeMonitorService_instance = function () {
-    console.log('ChangeMonitorService  - 20191114-1505 - top DOSETUP');
     var doSetup = function (currentApplication) {
-        console.log('ChangeMonitorService  - 20191114-1505 - top   IN    DOSETUP');
         var ssn_ChangeMonitorService_module = globals.globals_instance.getInstance_v002('ChangeMonitorService', currentApplication);
         ssn_ChangeMonitorService_module.factory("changeMonitorService", ['$http', '$q', function ($http, $q) {
-                console.log('changeMonitorService factory - 20191116-1348 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
                 var _setupMonitor = function () {
-                    console.log("Inomplete Testing setupMonitor plugged in");
                     ChangeMonitor_Util.setupMonitor_FullProcess();
                 };
                 var _getHaveChanges = function () {
@@ -36,5 +31,4 @@ var changeMonitorService_instance = function () {
     };
 }();
 export { changeMonitorService_instance };
-console.log('ChangeMonitorService  - 20191114-1505 - bottom ');
 //# sourceMappingURL=ChangeMonitorService.js.map

@@ -65,8 +65,6 @@ export class LoginComponent extends PopupComponentSupport implements OnInit, OnC
   // To pass in returnUrl
   ngOnChanges(): void {
 
-    //console.log('login.component - 20191103-0726 XXXXXXXXX');
-    //console.log(this.customObject);
 
   }
 
@@ -87,7 +85,6 @@ export class LoginComponent extends PopupComponentSupport implements OnInit, OnC
 
     // this.route.navigate(['/timesheet']);
     // We need to redirect regardless, in case the current selected page requires login.
-    console.log("cancel - login.component - 20191104-0512-B");
 
     document.location.href = "/";
 
@@ -117,13 +114,6 @@ export class LoginComponent extends PopupComponentSupport implements OnInit, OnC
   // 11/07/2019 12:13 pm - SSN - [20191107-1213] - [001] - Login -  Test run after working with newly added register option
 
   loginUserSuccess(response: IAuthResult_v02) {
-
-    console.log('login.component - 20191107-1537');
-    console.log('lognUserSuccess');
-
-    console.log(response);
-
-
 
     this.authenticateService.currentUser = response;
 
@@ -187,7 +177,7 @@ export class LoginComponent extends PopupComponentSupport implements OnInit, OnC
 
   loginUserError(response) {
 
-    console.log("login.component.ts - error ");
+    console.error("login.component.ts - error ");
     console.log(response);
 
     ehu.ErrorHandlingHelpers.showHtmlErrorResponse(response);

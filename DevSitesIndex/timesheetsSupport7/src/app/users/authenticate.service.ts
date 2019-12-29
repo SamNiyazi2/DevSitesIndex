@@ -60,7 +60,7 @@ export class AuthenticateService {
       ,
 
       (e) => {
-        console.log("20191103-0542 - authenticate.service - subscribe exception - isLoggedIn ");
+        console.error("20191103-0542 - authenticate.service - subscribe exception - isLoggedIn ");
         console.log(e);
 
         ehu.ErrorHandlingHelpers.showHtmlErrorResponse(e);
@@ -88,7 +88,7 @@ export class AuthenticateService {
 
 
   isLoggedInError(response) {
-    console.log('EEEEEEEEEEEEEEEEEE authenticate.service.ts isLoggedInError');
+    console.error('EEEEEEEEEEEEEEEEEE authenticate.service.ts isLoggedInError');
     console.log(response);
     ehu.ErrorHandlingHelpers.showHtmlErrorResponse(response);
   }

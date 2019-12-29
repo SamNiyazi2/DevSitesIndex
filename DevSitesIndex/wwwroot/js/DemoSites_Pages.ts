@@ -59,8 +59,6 @@ let DemoSites_Pages = function () {
 
 
 
-                console.log(o5);
-
                 var id_local = 0;
 
                 var method = "Post";
@@ -84,7 +82,6 @@ let DemoSites_Pages = function () {
 
                     success: function (response) {
 
-                        console.log('20190328-1722-010-C');
                         // 09/21/2019 12:13 pm - SSN - Update rowVersion
 
                         $("#devSiteSaveStatus").html("Record saved.");
@@ -109,7 +106,7 @@ let DemoSites_Pages = function () {
                             $("#devSiteSaveStatus").css({ 'background-color': 'yellow' });
 
 
-                            console.log("Error-20190328-0704");
+                            console.error("Error-20190328-0704");
                             console.log(response.responseText);
                             console.error('Todo');
                             

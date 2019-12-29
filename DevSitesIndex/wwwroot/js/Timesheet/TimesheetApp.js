@@ -10,8 +10,6 @@ var timesheetApp_instance = function () {
     timesheetApp.controller("timesheetController", ['$scope', '$uibModal', 'changeMonitorService', '$compile', function ($scope, $uibModal, changeMonitorService, $compile) {
             // 11/19/2019 06:43 am - SSN - [20191119-0048] Added to re-bind ng-click
             $scope.$on('TimeLog_Index_Refresh', function (event, item) {
-                console.log('20191122-1757');
-                console.log(item);
                 $("#" + item.tr_2_id).remove();
                 $("#" + item.tr_1_id).replaceWith(item.html);
                 $compile($("#" + item.tr_1_id).contents())($scope);
@@ -21,7 +19,6 @@ var timesheetApp_instance = function () {
                 // 05/03/2019 03:54 pm - SSN - [20190503-1539] - [004] - Add link to create timelog
                 // Testing:             templateUrl:  'js/timesheet/timesheetTemplate.html' 
                 //                   to templateUrl: '/js/timesheet/timesheetTemplate.html'
-                console.log('TimesheetApp - 20191114-1435 - modalClockout  - begin ');
                 var modalClockout = $uibModal.open({
                     templateUrl: '/js/timesheet/templates/TimelogClockout.html',
                     controller: 'TimesheetClockOutController',
@@ -37,18 +34,11 @@ var timesheetApp_instance = function () {
                 // 11/14/2019 03:36 pm - SSN - [20191114-1459] - [006] - ChangeMonitroService
                 modalClockout.result.then(modalClockout_save, modalClockout_cancel);
                 function modalClockout_save(result) {
-                    console.log('TimesheetApp - 20191114-1435-2 - modalClockout_1 ');
-                    console.log(result);
                     changeMonitorService.reset();
-                    console.log("changeMonitorService.getHaveChanges()", changeMonitorService.getHaveChanges());
                 }
                 function modalClockout_cancel(result) {
-                    console.log('TimesheetApp - 20191114-1435-3 - modalClockout_2 ');
-                    console.log(result);
                     changeMonitorService.reset();
-                    console.log("changeMonitorService.getHaveChanges()", changeMonitorService.getHaveChanges());
                 }
-                console.log('TimesheetApp - 20191114-1435 - modalClockout  - end ');
             };
             // 05/19/2019 08:39 am - SSN - [20190519-0837] - [002] - Adding timesheet "Continue" option
             $scope.timesheetForm_ClockContinue = function (timelogId) {
@@ -71,24 +61,16 @@ var timesheetApp_instance = function () {
                 // 11/14/2019 02:44 pm - SSN - [20191114-1459] - [007] - ChangeMonitroService
                 TimesheetContinueController_modal.result.then(TimesheetContinueController_modal_save, TimesheetContinueController_modal_cancel);
                 function TimesheetContinueController_modal_save(result) {
-                    console.log('TimesheetContinueController_modal_save - 20191114-1448');
-                    console.log("result", result);
-                    console.log("changeMonitorService.getHaveChanges()", changeMonitorService.getHaveChanges());
                     changeMonitorService.reset();
                 }
                 function TimesheetContinueController_modal_cancel(result) {
-                    console.log('TimesheetContinueController_modal_cancel - 20191114-1449');
-                    console.log("result", result);
-                    console.log("changeMonitorService.getHaveChanges()", changeMonitorService.getHaveChanges());
                     changeMonitorService.reset();
                 }
             };
             // 11/14/2019 04:41 pm - SSN - [20191114-1459] - [008] - ChangeMonitroService
             // Testing - Not working.
             function modalClosingHook($scope) {
-                console.log('modal.closing - begin');
                 $scope.$on('modal.closing', function (event, reason, closed) {
-                    console.log('modal.closing: ' + (closed ? 'close' : 'dismiss') + '(' + reason + ')');
                     var message = "You are about to leave the edit view. Uncaught reason. Are you sure?";
                     switch (reason) {
                         // clicked outside
@@ -108,7 +90,6 @@ var timesheetApp_instance = function () {
                         event.preventDefault();
                     }
                 });
-                console.log('model.closing - end');
             }
             $scope.showCreateTimesheetForm = function (jobID) {
                 if (isNaN(jobID)) {
@@ -129,7 +110,6 @@ var timesheetApp_instance = function () {
             };
             // 11/16/2019 04:35 pm - SSN - [20191116-1516] - [002] - Timelog edit (AngularJS client version)
             $scope.timesheetForm_Edit = function (timelogId) {
-                console.log('TimesheetApp - 20191116-1637 - timesheetForm_Edit ');
                 var modalEdit = $uibModal.open({
                     templateUrl: '/js/timesheet/templates/TimelogClockout.html',
                     controller: 'TimesheetEditController',
@@ -143,18 +123,11 @@ var timesheetApp_instance = function () {
                 });
                 modalEdit.result.then(modalEdit_save, modalEdit_cancel);
                 function modalEdit_save(result) {
-                    console.log('TimesheetApp - 20191116-1640 - modalEdit_save');
-                    console.log(result);
                     changeMonitorService.reset();
-                    console.log("changeMonitorService.getHaveChanges()", changeMonitorService.getHaveChanges());
                 }
                 function modalEdit_cancel(result) {
-                    console.log('TimesheetApp - 20191116-1641 - modalEdit_cancel');
-                    console.log(result);
                     changeMonitorService.reset();
-                    console.log("changeMonitorService.getHaveChanges()", changeMonitorService.getHaveChanges());
                 }
-                console.log('TimesheetApp - 20191116-1643 - timesheetForm_Edit - end ');
             };
         }]);
     return {

@@ -53,12 +53,6 @@ $(function () {
             success: function (data, status, xhr) {
 
 
-                console.log('main_101 - 20191203-0735 - 001 ');
-                console.log(data);
-                console.log(status);
-                console.log(xhr);
-
-
                 if (typeof (defaultTitle) === "string") {
 
                     var div_defaultTitle = $("<h3>" + defaultTitle + "</h3>");

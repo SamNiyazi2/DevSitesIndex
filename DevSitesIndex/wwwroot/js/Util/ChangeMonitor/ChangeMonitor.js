@@ -57,10 +57,8 @@ var ChangeMonitor_Util = function () {
         return false;
     };
     var setupMonitor_v01 = function () {
-        console.log('ChangeMonitor - setupMonitor');
         var isChrome = getBrowserName() === 'chrome';
         if (true) {
-            console.log('site - beforeUnload on');
             if (isChrome) {
                 window.addEventListener("beforeunload", function (e) {
                     if (!ChangeMonitorFlag.haveChanges)
@@ -121,6 +119,5 @@ var ChangeMonitor_Util = function () {
 $(function () {
     ChangeMonitor_Util.setupMonitor_FullProcess();
 });
-console.log('ChangeMonitor - 20191109-1114-F');
 export { ChangeMonitor_Util };
 //# sourceMappingURL=ChangeMonitor.js.map

@@ -61,14 +61,14 @@ var timesheetController_instance = function () {
 
             function getJobError(data) {
 
-                console.log('TimeshetController - getJobSuccess  -  20190930-2106-B ');
+                console.error('TimeshetController - getJobSuccess  -  20190930-2106-B ');
                 console.log(data);
 
             }
 
             function getJobCatch(data) {
 
-                console.log('TimeshetController - getJobSuccess  -  20190930-2106-C ');
+                console.error('TimeshetController - getJobSuccess  -  20190930-2106-C ');
                 console.log(data);
 
             }
@@ -127,7 +127,7 @@ var timesheetController_instance = function () {
                         },
                         function (error) {
 
-                            console.log("TimesheetController - 20190921-0640 - promise > error");
+                            console.error("TimesheetController - 20190921-0640 - promise > error");
                             console.log(error);
 
                             toastr.error("Failed to save record.  See console log.");

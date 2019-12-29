@@ -62,7 +62,7 @@ var globals_instance = function () {
                         SSN_Globals.ssn_devsite_angular_module.push(angularApp);
                         break;
                     default:
-                        console.log("Globals ************* No case for application name [" + applicationName + "]  [20190920-0955] globals.ts");
+                        console.error("Globals ************* No case for application name [" + applicationName + "]  [20190920-0955] globals.ts");
                         break;
                 }
             }
@@ -84,14 +84,11 @@ var globals_instance = function () {
                     var doTest101 = function (namePassedIn) {
                         var deferred = $q.defer();
                         setTimeout(function () {
-                            console.log('GLOBALS - asyncGreet - 45');
                             deferred.notify('About to greet ' + namePassedIn + '.');
                             if (okToGreet(namePassedIn)) {
-                                console.log('GLOBALS - asyncGreet - 50');
                                 deferred.resolve('Hello, ' + namePassedIn + '!');
                             }
                             else {
-                                console.log('GLOBALS - asyncGreet - 53');
                                 deferred.reject('Greeting ' + namePassedIn + ' is not allowed.');
                             }
                         }, 1000);

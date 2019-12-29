@@ -13,36 +13,15 @@ import { globals_instance } from "../globals";
 
 var RestorePreviousPageState_instance = function () {
 
-
-    console.log('RestorePreviousPageState xxxxxxxxxxxxxxxxxxxxxxxxx Top - setup???');
-
-
+ 
     var doSetup = function (ngDefaultApplication) {
 
 
-
-        console.log('RestorePreviousPageState xxxxxxxxxxxxxxxxxxxxxxxxx - Setup - ngDefaultApplication [', ngDefaultApplication, ']');
-        console.log('RestorePreviousPageState xxxxxxxxxxxxxxxxxxxxxxxxx - Setup - directive???');
-        console.log('RestorePreviousPageState xxxxxxxxxxxxxxxxxxxxxxxxx - Setup - directive???');
-        console.log('RestorePreviousPageState xxxxxxxxxxxxxxxxxxxxxxxxx - Setup - directive???');
-        console.log('RestorePreviousPageState xxxxxxxxxxxxxxxxxxxxxxxxx - Setup - directive???');
-        console.log(' ');
-        console.log(' ');
-        console.log(' ');
+         
 
         AppInsights_Util.logEvent("DemoSites_20191228_2228", { SourceCode: "20191228-2210", Message: "doSetup" });
 
-        console.log(' ');
-        console.log(' ');
-        console.log(' ');
-
-        console.log('RestorePreviousPageState xxxxxxxxxxxxxxxxxxxxxxxxx - Setup - directive???');
-        console.log('RestorePreviousPageState xxxxxxxxxxxxxxxxxxxxxxxxx - Setup - directive???');
-        console.log('RestorePreviousPageState xxxxxxxxxxxxxxxxxxxxxxxxx - Setup - directive???');
-        console.log('RestorePreviousPageState xxxxxxxxxxxxxxxxxxxxxxxxx - Setup - directive???');
-
-
-
+         
         var angular_module: angular.IModule = globals_instance.getInstance_v002('RestorePreviousPageState', ngDefaultApplication);
 
         angular_module.controller('restorePreviousPageAndTaskQueueController', ['$scope', '$attrs', '$location', function ($scope, $attrs, $location) {
@@ -55,10 +34,7 @@ var RestorePreviousPageState_instance = function () {
         angular_module.directive('restorePreviousPageStateAndTaskQueue', function () {
 
             //    $rootScope.$broadcast('site_Task_Queue_List', result);
-
-
-            console.log('RestorePreviousPageState -  directive  ***********************');
-
+             
 
             let alreadyPosted = false;
 
@@ -174,25 +150,16 @@ var RestorePreviousPageState_instance = function () {
 
             function restorePos() {
 
-
-                console.log('RestorePreviousPageState -  restorePos  ***********************  101 ');
-
-
+                 
                 let URL_Track_Ref = get_URL_Track_Record();
 
 
-                console.log('RestorePreviousPageState -  restorePos  ***********************  102 ');
-
-                console.log('URL_Track_Ref');
-                console.log(URL_Track_Ref);
-
                 if (!URL_Track_Ref) return;
 
-                console.log('RestorePreviousPageState -  restorePos  ***********************  103 ');
 
                 if (!URL_Track_Ref.currentRecord) return;
 
-                console.log('RestorePreviousPageState -  restorePos  ***********************  104 ');
+
 
                 let currentRecord = URL_Track_Ref.currentRecord;
 
@@ -223,9 +190,7 @@ var RestorePreviousPageState_instance = function () {
 
             function highlightClickSource() {
 
-
-                console.log('RestorePreviousPageState -  highlightClickSource  ***********************');
-
+                 
 
                 let URL_Track_Ref = get_URL_Track_Record();
 
@@ -234,34 +199,23 @@ var RestorePreviousPageState_instance = function () {
 
 
                 let currentRecord = URL_Track_Ref.currentRecord;
-
-                console.log("xxxxxxxxxxxxx-00000");
+                 
 
                 if (currentRecord) {
-
-
-                    console.log("xxxxxxxxxxxxx-001");
+                     
 
                     if (currentRecord.element) {
-
-                        console.log("xxxxxxxxxxxxx-002");
+                         
 
                         if (currentRecord.element.clientX) {
-
-                            console.log("xxxxxxxxxxxxx-003");
+                             
 
                             let x = currentRecord.element.clientX;
                             let y = currentRecord.element.clientY;
-
-                            console.log("xxxxxxxxxxxxx-004 [", x, "] [", y, "]");
+                             
 
                             let selectedElement = document.elementFromPoint(x, y);
-
-                            console.log("selectedElement: *********************************");
-                            console.log("selectedElement: *********************************");
-                            console.log("selectedElement: *********************************");
-                            console.log("selectedElement: *********************************");
-                            console.log(selectedElement);
+                             
 
 
                             if (selectedElement && selectedElement.attributes) {
@@ -271,26 +225,14 @@ var RestorePreviousPageState_instance = function () {
                                 if ("A ".toUpperCase().indexOf(selectedElement.nodeName.toUpperCase()) > -1) {
                                     bypass = false;
                                 }
-
-                                console.log("Node Name", selectedElement.nodeName);
-                                console.log("Node type", selectedElement.nodeType);
-
-                                console.log(selectedElement.attributes);
-
-
+                                 
                                 for (let x = 0; x < selectedElement.attributes.length; x++) {
 
                                     if (selectedElement.attributes[x].name === "ng-click") {
-                                        console.log('have ng-click ****************************');
-                                        console.log('have ng-click ****************************');
-                                        console.log('have ng-click ****************************');
-                                        console.log('have ng-click ****************************');
+                                        
                                     }
                                     if (selectedElement.attributes[x].name === "href") {
-                                        console.log('have href ****************************');
-                                        console.log('have href ****************************');
-                                        console.log('have href ****************************');
-                                        console.log('have href ****************************');
+                                       
                                     }
                                 }
 
@@ -316,18 +258,13 @@ var RestorePreviousPageState_instance = function () {
 
                     setTimeout(function () {
 
-                        console.log('RestorePreviousPageState - Removing current reocrd... 101');
-                        console.log('************ Count 2');
-                        console.log('************ Count');
-                        console.log(URL_Track_Ref.URL_Track.urls.length);
+                     
 
                         setTimeout(() => {
                             URL_Track_Ref.URL_Track.urls.splice(URL_Track_Ref.currentIndex)
                             window.localStorage.setItem('URL_Track', JSON.stringify(URL_Track_Ref.URL_Track));
 
-                            console.log('************ Count 222');
-                            console.log('************ Count');
-                            console.log(URL_Track_Ref.URL_Track.urls.length);
+                           
 
                         }, 2000);
 

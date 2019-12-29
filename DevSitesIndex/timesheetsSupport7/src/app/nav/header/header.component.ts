@@ -39,8 +39,6 @@ export class HeaderComponent implements OnInit {
 
     this.broadcasterUtil.on<string>('login')
       .subscribe(message => {
-        console.log('header.compoent - broacast - 20191011-1805');
-        console.log(message);
 
         this.setupControl();
 
@@ -71,7 +69,7 @@ export class HeaderComponent implements OnInit {
 
   forgeryTokenError(response) {
 
-    console.log('header.component.ts - forgeryTokenError - 20191009-0014');
+    console.error('header.component.ts - forgeryTokenError - 20191009-0014');
     console.log(response);
 
     this.forgeryToken = "";

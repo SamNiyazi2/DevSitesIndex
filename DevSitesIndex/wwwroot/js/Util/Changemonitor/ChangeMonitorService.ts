@@ -9,15 +9,12 @@ import * as   globals from '../../globals';
 import * as angular from "angular";
 
 
-console.log('ChangeMonitorService  - 20191114-1505 - top ');
 
 var changeMonitorService_instance = function () {
 
-    console.log('ChangeMonitorService  - 20191114-1505 - top DOSETUP');
 
     var doSetup = function (currentApplication: string) {
 
-        console.log('ChangeMonitorService  - 20191114-1505 - top   IN    DOSETUP');
 
 
         var ssn_ChangeMonitorService_module = globals.globals_instance.getInstance_v002('ChangeMonitorService', currentApplication);
@@ -25,11 +22,9 @@ var changeMonitorService_instance = function () {
 
         ssn_ChangeMonitorService_module.factory("changeMonitorService", ['$http', '$q', function ($http, $q) {
 
-            console.log('changeMonitorService factory - 20191116-1348 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
 
 
             var _setupMonitor = function () {
-                console.log("Inomplete Testing setupMonitor plugged in");
 
                 ChangeMonitor_Util.setupMonitor_FullProcess()
             }
@@ -83,4 +78,3 @@ var changeMonitorService_instance = function () {
 export { changeMonitorService_instance };
 
 
-console.log('ChangeMonitorService  - 20191114-1505 - bottom ');

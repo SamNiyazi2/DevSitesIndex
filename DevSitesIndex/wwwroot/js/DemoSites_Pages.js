@@ -24,7 +24,6 @@ var DemoSites_Pages = function () {
                         }
                     }
                 }
-                console.log(o5);
                 var id_local = 0;
                 var method = "Post";
                 if (o5.Id > 0) {
@@ -40,7 +39,6 @@ var DemoSites_Pages = function () {
                     contentType: "application/json",
                     dataType: "json",
                     success: function (response) {
-                        console.log('20190328-1722-010-C');
                         // 09/21/2019 12:13 pm - SSN - Update rowVersion
                         $("#devSiteSaveStatus").html("Record saved.");
                         $("#devSiteSaveStatus").addClass('text-success');
@@ -54,7 +52,7 @@ var DemoSites_Pages = function () {
                             $("#devSiteSaveStatus").html("System error! Record not saved.<br/>" + response.responseText);
                             $("#devSiteSaveStatus").addClass('text-warning');
                             $("#devSiteSaveStatus").css({ 'background-color': 'yellow' });
-                            console.log("Error-20190328-0704");
+                            console.error("Error-20190328-0704");
                             console.log(response.responseText);
                             console.error('Todo');
                         }

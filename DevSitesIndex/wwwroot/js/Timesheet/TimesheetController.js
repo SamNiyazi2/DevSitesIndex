@@ -32,11 +32,11 @@ var timesheetController_instance = function () {
                 $scope.editableTimeLog.job.project.projectTitle = data.project.projectTitle;
             }
             function getJobError(data) {
-                console.log('TimeshetController - getJobSuccess  -  20190930-2106-B ');
+                console.error('TimeshetController - getJobSuccess  -  20190930-2106-B ');
                 console.log(data);
             }
             function getJobCatch(data) {
-                console.log('TimeshetController - getJobSuccess  -  20190930-2106-C ');
+                console.error('TimeshetController - getJobSuccess  -  20190930-2106-C ');
                 console.log(data);
             }
             $scope.disciplineSelected = { id: 0, title: '' };
@@ -70,7 +70,7 @@ var timesheetController_instance = function () {
                         $uibModalInstance.close();
                         toastr.info("Clocked-in");
                     }, function (error) {
-                        console.log("TimesheetController - 20190921-0640 - promise > error");
+                        console.error("TimesheetController - 20190921-0640 - promise > error");
                         console.log(error);
                         toastr.error("Failed to save record.  See console log.");
                         // 11/28/2019 02:47 am - SSN - [20191128-0247] - [001] - Clock-in not saving

@@ -3,30 +3,13 @@
 import { AppInsights_Util } from './ApplicationInsights_Monitor';
 import { globals_instance } from "../globals";
 var RestorePreviousPageState_instance = function () {
-    console.log('RestorePreviousPageState xxxxxxxxxxxxxxxxxxxxxxxxx Top - setup???');
     var doSetup = function (ngDefaultApplication) {
-        console.log('RestorePreviousPageState xxxxxxxxxxxxxxxxxxxxxxxxx - Setup - ngDefaultApplication [', ngDefaultApplication, ']');
-        console.log('RestorePreviousPageState xxxxxxxxxxxxxxxxxxxxxxxxx - Setup - directive???');
-        console.log('RestorePreviousPageState xxxxxxxxxxxxxxxxxxxxxxxxx - Setup - directive???');
-        console.log('RestorePreviousPageState xxxxxxxxxxxxxxxxxxxxxxxxx - Setup - directive???');
-        console.log('RestorePreviousPageState xxxxxxxxxxxxxxxxxxxxxxxxx - Setup - directive???');
-        console.log(' ');
-        console.log(' ');
-        console.log(' ');
         AppInsights_Util.logEvent("DemoSites_20191228_2228", { SourceCode: "20191228-2210", Message: "doSetup" });
-        console.log(' ');
-        console.log(' ');
-        console.log(' ');
-        console.log('RestorePreviousPageState xxxxxxxxxxxxxxxxxxxxxxxxx - Setup - directive???');
-        console.log('RestorePreviousPageState xxxxxxxxxxxxxxxxxxxxxxxxx - Setup - directive???');
-        console.log('RestorePreviousPageState xxxxxxxxxxxxxxxxxxxxxxxxx - Setup - directive???');
-        console.log('RestorePreviousPageState xxxxxxxxxxxxxxxxxxxxxxxxx - Setup - directive???');
         var angular_module = globals_instance.getInstance_v002('RestorePreviousPageState', ngDefaultApplication);
         angular_module.controller('restorePreviousPageAndTaskQueueController', ['$scope', '$attrs', '$location', function ($scope, $attrs, $location) {
             }]);
         angular_module.directive('restorePreviousPageStateAndTaskQueue', function () {
             //    $rootScope.$broadcast('site_Task_Queue_List', result);
-            console.log('RestorePreviousPageState -  directive  ***********************');
             var alreadyPosted = false;
             //var controller = function ($http, $q, $scope) {
             //};
@@ -88,17 +71,11 @@ var RestorePreviousPageState_instance = function () {
                 };
             }
             function restorePos() {
-                console.log('RestorePreviousPageState -  restorePos  ***********************  101 ');
                 var URL_Track_Ref = get_URL_Track_Record();
-                console.log('RestorePreviousPageState -  restorePos  ***********************  102 ');
-                console.log('URL_Track_Ref');
-                console.log(URL_Track_Ref);
                 if (!URL_Track_Ref)
                     return;
-                console.log('RestorePreviousPageState -  restorePos  ***********************  103 ');
                 if (!URL_Track_Ref.currentRecord)
                     return;
-                console.log('RestorePreviousPageState -  restorePos  ***********************  104 ');
                 var currentRecord = URL_Track_Ref.currentRecord;
                 if (currentRecord) {
                     window.scrollTo({
@@ -110,49 +87,27 @@ var RestorePreviousPageState_instance = function () {
                 }
             }
             function highlightClickSource() {
-                console.log('RestorePreviousPageState -  highlightClickSource  ***********************');
                 var URL_Track_Ref = get_URL_Track_Record();
                 if (!URL_Track_Ref)
                     return;
                 if (!URL_Track_Ref.currentRecord)
                     return;
                 var currentRecord = URL_Track_Ref.currentRecord;
-                console.log("xxxxxxxxxxxxx-00000");
                 if (currentRecord) {
-                    console.log("xxxxxxxxxxxxx-001");
                     if (currentRecord.element) {
-                        console.log("xxxxxxxxxxxxx-002");
                         if (currentRecord.element.clientX) {
-                            console.log("xxxxxxxxxxxxx-003");
                             var x = currentRecord.element.clientX;
                             var y = currentRecord.element.clientY;
-                            console.log("xxxxxxxxxxxxx-004 [", x, "] [", y, "]");
                             var selectedElement = document.elementFromPoint(x, y);
-                            console.log("selectedElement: *********************************");
-                            console.log("selectedElement: *********************************");
-                            console.log("selectedElement: *********************************");
-                            console.log("selectedElement: *********************************");
-                            console.log(selectedElement);
                             if (selectedElement && selectedElement.attributes) {
                                 var bypass = true;
                                 if ("A ".toUpperCase().indexOf(selectedElement.nodeName.toUpperCase()) > -1) {
                                     bypass = false;
                                 }
-                                console.log("Node Name", selectedElement.nodeName);
-                                console.log("Node type", selectedElement.nodeType);
-                                console.log(selectedElement.attributes);
                                 for (var x_1 = 0; x_1 < selectedElement.attributes.length; x_1++) {
                                     if (selectedElement.attributes[x_1].name === "ng-click") {
-                                        console.log('have ng-click ****************************');
-                                        console.log('have ng-click ****************************');
-                                        console.log('have ng-click ****************************');
-                                        console.log('have ng-click ****************************');
                                     }
                                     if (selectedElement.attributes[x_1].name === "href") {
-                                        console.log('have href ****************************');
-                                        console.log('have href ****************************');
-                                        console.log('have href ****************************');
-                                        console.log('have href ****************************');
                                     }
                                 }
                                 if (!bypass) {
@@ -165,16 +120,9 @@ var RestorePreviousPageState_instance = function () {
                         }
                     }
                     setTimeout(function () {
-                        console.log('RestorePreviousPageState - Removing current reocrd... 101');
-                        console.log('************ Count 2');
-                        console.log('************ Count');
-                        console.log(URL_Track_Ref.URL_Track.urls.length);
                         setTimeout(function () {
                             URL_Track_Ref.URL_Track.urls.splice(URL_Track_Ref.currentIndex);
                             window.localStorage.setItem('URL_Track', JSON.stringify(URL_Track_Ref.URL_Track));
-                            console.log('************ Count 222');
-                            console.log('************ Count');
-                            console.log(URL_Track_Ref.URL_Track.urls.length);
                         }, 2000);
                     }, 2000);
                 }

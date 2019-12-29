@@ -69,9 +69,6 @@ export class ProjectsListComponent implements OnInit {
 
   getJobStatusesSuccess(response) {
 
-    //console.log('project-list - jobStatus success - 20191010-1102');
-    //console.log(response);
-
     this.job_statuses = response;
 
   }
@@ -79,7 +76,7 @@ export class ProjectsListComponent implements OnInit {
 
   getJobStatusesError(response) {
 
-    console.log('project-list - jobStatus Error - 20191010-1103');
+    console.error('project-list - jobStatus Error - 20191010-1103');
     console.log(response);
 
     ehu.ErrorHandlingHelpers.showHtmlErrorResponse(response);
@@ -143,7 +140,7 @@ export class ProjectsListComponent implements OnInit {
 
   searchResultError(response) {
 
-    console.log('projects-list.component - searchresult Error - 20191011-1423');
+    console.error('projects-list.component - searchresult Error - 20191011-1423');
     console.log(response);
 
     ehu.ErrorHandlingHelpers.showHtmlErrorResponse(response);

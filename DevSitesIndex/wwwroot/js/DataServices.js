@@ -110,7 +110,6 @@ var dataService_instance = function () {
                 };
                 // 09/30/2019 07:06 pm - SSN - Adding
                 var _getJob = function (id) {
-                    console.log("DataServices - 20190930-1907 - getJob [" + id + "]");
                     var deferred = $q.defer();
                     $http.get('/api/jobapi/get_custom/' + id)
                         .then(function (result) {

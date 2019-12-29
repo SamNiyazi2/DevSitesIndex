@@ -7,7 +7,6 @@ dataService_instance.doSetup(ngDefaultApplication);
 ssn_devsite_angular_module_instance.ssn_devsite_angular_module;
 demosites_index_p1_instance;
 // 10/01/2019 10:15 am - SSN - [20191001-0944] - [006] - Adding Application Insights for JavaScript
-console.log("DemoSites_Index_main - 20191001-1017");
 import { AppInsights_Util } from './Util/ApplicationInsights_Monitor';
 // 11/23/2019 08:53 am - SSN 
 import { RestorePreviousPageState_instance } from './Util/RestorePreviousPageState';

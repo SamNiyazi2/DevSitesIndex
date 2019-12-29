@@ -46,13 +46,13 @@ var headerWithSort_instance = function () {
             link: function (scope: iFixScope, el, attrs) {
 
                 scope.sort = function () {
-                    console.log("headerWithSort - 20190921-0613 - ");
+
                     scope.sortmethod();
 
                 };
 
                 scope.displayArrow = function () {
-                    ////////////////////////////////////////////xxxxxx      console.log("headerWithSort - 20191110-0749 - [", this.columnlist.desc, "]", this.columnlist.columnName,  Date());
+
                     switch (this.columnlist.desc) {
                         case true:
                             return $sce.trustAsHtml("&#9650;"); break;

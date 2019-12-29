@@ -27,11 +27,6 @@ var dropdownListDirective_instance = function () {
     var doSetup = function (defaultAppName) {
 
 
-        /////  console.log("DropdownListDirective - 20191116-0551");
-
-        /////   console.log('defaultAppName type and name [', typeof (defaultAppName), '] [', defaultAppName, ']');
-
-
         if (typeof (defaultAppName) != "string") {
             defaultAppName = "demoSites_Index_Timesheet";
         }
@@ -51,25 +46,10 @@ var dropdownListDirective_instance = function () {
 
 
             $scope.submitForm_2 = function (event, form) {
-                console.log("2 $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
-                console.log("2 $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
-                console.log("2 $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
-                console.log("dropdownListDirective - submitForm_2")
-                console.log("2 $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
-                console.log("2 $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
-                console.log("2 $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
 
             }
 
             $scope.submitForm_1 = function (event, form) {
-
-                console.log("1 $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
-                console.log("1 $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
-                console.log("1 $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
-                console.log("dropdownListDirective - submitForm_1")
-                console.log("1 $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
-                console.log("1 $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
-                console.log("1 $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
 
 
                 if (!form.$valid) {
@@ -156,13 +136,6 @@ var dropdownListDirective_instance = function () {
 
 
                 $scope.$on('$destroy', function () {
-                    console.log("************ Cleanup");
-                    console.log("************ Cleanup");
-                    console.log("************ Cleanup");
-                    console.log("************ Cleanup");
-                    console.log("************ Cleanup");
-                    console.log("************ Cleanup");
-                    console.log("************ Cleanup");
 
                 });
 
@@ -184,33 +157,19 @@ var dropdownListDirective_instance = function () {
 
                     vm.isInvalidDropdownListDirectiveInput = true;
 
+
                     if (newValue) {
-                        console.log('oldValue');
-                        console.log("[", oldValue, "]");
-                        console.log('newValue');
-                        console.log("[", newValue, "]");
 
-                        console.log("cond 1");
+                        if (newValue.id) {
 
+                            if (newValue.id > 0) {
 
-                        if (newValue) {
+                                vm.isInvalidDropdownListDirectiveInput = false;
 
-                            console.log("cond 1");
-
-                            if (newValue.id) {
-
-                                console.log("cond 2");
-
-                                if (newValue.id > 0) {
-
-                                    console.log("cond 3");
-                                    vm.isInvalidDropdownListDirectiveInput = false;
-
-                                }
                             }
                         }
-
                     }
+
 
 
                 });
@@ -224,16 +183,11 @@ var dropdownListDirective_instance = function () {
 
                     vm.hitCount += 1;
 
-                    console.log("hitcount ", vm.hitCount);
-
 
                     if (!this.keyColumn) {
-                        console.log('No keyColumn');
+                        console.log('No keyColumn-201912291545(Note)');
                         return;
                     }
-
-
-
 
 
                     switch (this.keyColumn.toLowerCase()) {
@@ -270,10 +224,6 @@ var dropdownListDirective_instance = function () {
 
                     var keyColumnValue = $("[name='" + this.keyColumn + "']").val();
 
-                    /////  console.log('dropdownListDirective = (999-A) - this.angularControlId', this.angularControlId);
-                    /////  console.log('dropdownListDirective = (999-B) - keyColumnValue [', keyColumnValue, ']');
-
-
 
                     var keyValueSelected = null;
 
@@ -296,11 +246,7 @@ var dropdownListDirective_instance = function () {
                     // 11/28/2019 09:47 am - SSN - Setting vm.disciplineSelected_XXX = "" for $watch
                     // if (vm.disciplineSelected_XXX === undefined && keyValueSelected > 0) {
                     if (keyValueSelected > 0) {
-                        console.log("XXXXXXXXXXXXxx set defalt")
-                        console.log("XXXXXXXXXXXXxx set defalt")
-                        console.log("XXXXXXXXXXXXxx set defalt")
-                        console.log("XXXXXXXXXXXXxx set defalt")
-                        console.log("XXXXXXXXXXXXxx set defalt")
+
                         vm.getDisciplineCurrent(keyValueSelected).then(vm.currentDisplineLookupSuccess);
 
                         vm.isValidBoolean = true;
@@ -358,7 +304,7 @@ var dropdownListDirective_instance = function () {
 
                             }
                             else {
-                                console.log("nvnvnvnvnvnvnvnvnvnvnvnvnvnvnvnvnvnvn");
+
                                 _isValid_local = true;
                             }
                         }
@@ -366,17 +312,12 @@ var dropdownListDirective_instance = function () {
 
 
                     vm.isValidBoolean = _isValid_local;
-                    console.log("isValidBoolean (0522)", vm.isValidBoolean)
 
                     return _isValid_local;
 
                 }
 
                 vm.validateEntry = function (event) {
-
-                    console.log('dropdownList - validateEntry ');
-                    console.log(vm.disciplineSelected_XXX);
-                    console.log(event);
 
                     vm.setInputVariables();
                 }
@@ -385,23 +326,13 @@ var dropdownListDirective_instance = function () {
 
 
 
-                    /////  console.log('dropdownListDirective - currentDisplineLookupSuccess - 20191117-1025 - 101');
-
                     if (data) {
 
-
-                        /////   console.log('dropdownListDirective - currentDisplineLookupSuccess - 20191117-1025 - 102');
-
-
                         // 09/16/2019 05:30 am - SSN - [20190916-0355] - [008] - Adding JobAPI controller
-
 
                         console.log(data);
 
                         if (data.disciplineId) {
-
-                            /////    console.log('dropdownListDirective - currentDisplineLookupSuccess - 20191117-1025 - 103-A');
-
 
                             vm.disciplineSelected_XXX = { id: data.disciplineId, title: data.disciplineShort };
                             vm.angularControlId = data.disciplineId;
@@ -409,7 +340,6 @@ var dropdownListDirective_instance = function () {
                         }
 
                         if (data.ta_id) {
-                            /////    console.log('dropdownListDirective - currentDisplineLookupSuccess - 20191117-1025 - 103-B');
 
                             vm.disciplineSelected_XXX = { id: data.ta_id, title: data.ta_description };
                             vm.angularControlId = data.ta_id;
@@ -487,9 +417,6 @@ var dropdownListDirective_instance = function () {
 
                 vm.getDisciplineCurrent = function (lookupID) {
 
-
-                    /////console.log('dropdownListDirective - getDisciplineCurrent 1111 [', vm.APIUrl, ']');
-                    /////console.log('dropdownListDirective - getDisciplineCurrent 2222 [', lookupID, ']');
 
                     if (lookupID === null) return null;
 

@@ -66,7 +66,7 @@ export class TimelogComponent implements OnInit {
 
   getTimesheetError(response) {
 
-    console.log('timelog.component - getTimehseetError - 20191005-1524');
+    console.error('timelog.component - getTimehseetError - 20191005-1524');
     console.log(response);
 
   }
@@ -74,7 +74,7 @@ export class TimelogComponent implements OnInit {
 
   getTimesheetCatch(response) {
 
-    console.log('timelog.component - getTimehseetCatch - 20191005-1526');
+    console.error('timelog.component - getTimehseetCatch - 20191005-1526');
     console.log(response);
 
   }

@@ -52,12 +52,12 @@ var timesheetEditController_instance = function () {
                 }, 500);
             }
             function getTimelogError(data) {
-                console.log('timesheetEditController - 20191116-1648');
+                console.error('timesheetEditController - 20191116-1648');
                 console.log(data);
                 toastr.warning("Error posted to console. (1648)");
             }
             function getTimelogCatch(data) {
-                console.log('timesheetEditController - 20191116-1649');
+                console.error('timesheetEditController - 20191116-1649');
                 console.log(data);
                 toastr.warning("Error posted to console. (1649)");
             }
@@ -84,7 +84,6 @@ var timesheetEditController_instance = function () {
                         // Refactor [20191120-0438] - Begin
                         var id_temp = $scope.editableTimeLog.timeLogId;
                         // 11/22/2019 04:09 pm - SSN - [20191121-0503] - [019] - Timelog edit options on project search
-                        console.log("servingPage 5 ", servingPage);
                         var haveMatch_on_servingPage = false;
                         if (ssn_globals.Timelog_ServingPage_checkvalue(servingPage, ssn_globals.Timelog_ServingPage.Timelog)
                             ||

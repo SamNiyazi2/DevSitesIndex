@@ -92,14 +92,12 @@ var ChangeMonitor_Util = function () {
 
     var setupMonitor_v01 = function () {
 
-        console.log('ChangeMonitor - setupMonitor');
 
 
         let isChrome = getBrowserName() === 'chrome';
 
         if (true) {
 
-            console.log('site - beforeUnload on');
 
             if (isChrome) {
 
@@ -197,7 +195,6 @@ $(function () {
 });
 
 
-console.log('ChangeMonitor - 20191109-1114-F');
 
 
 export { ChangeMonitor_Util };

@@ -93,8 +93,6 @@ var jobsIndexController_instance = function () {
 
             let selectColumnEntries = _fieldList.filter(r => r.columnNameSelected.length > 0);
 
-            console.log("selectColumnEntries");
-            console.log(selectColumnEntries);
 
             let columnBag = null;
 
@@ -197,13 +195,11 @@ var jobsIndexController_instance = function () {
                 $scope.sqlStatsRecord = columnBag;
 
                 // 12/02/2019 02:48 am - SSN - Added
-                console.log('jobIndexControler - pagingMethod101');
 
                 if ($scope.tableTopIdForScroll) {
                     document.querySelector("#" + $scope.tableTopIdForScroll).scrollIntoView({
                         behavior: 'smooth'
                     });
-                    console.log('jobIndexControler - pagingMethod101 - scroll');
 
                 }
             }

@@ -44,7 +44,7 @@ var ssn_devsite_angular_module_instance = function () {
             },
                 function (ex) {
 
-                    console.log("20190910-0101");
+                    console.error("20190910-0101");
                     console.log(ex)
                     alert('failed call to api/demositesapi (20180831-0940) - See console.');
                 })
@@ -88,11 +88,10 @@ var ssn_devsite_angular_module_instance = function () {
 
             $scope.data.updateDevSite($scope.editablerow)
                 .then((response) => {
-                    console.log("20190908-0628-S - demoSites_Index - updateDevSite Success");
                     console.log(response);
                 },
                     (error) => {
-                        console.log("20190908-0628-E - demoSites_Index - updateDevSite Error");
+                        console.error("20190908-0628-E - demoSites_Index - updateDevSite Error");
                         console.log(error);
                     });
 

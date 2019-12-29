@@ -79,13 +79,12 @@ var timesheetClockoutController_instance = function () {
                         $scope.timeLog = angular.copy($scope.editableTimeLog);
                         $uibModalInstance.close();
                         toastr.info("Clocked-out");
-                        console.log('timesheetClockoutController - 20191120-0423 - timelog_index update [', $scope.editableTimeLog.timeLogId, ']');
                         // 11/25/2019 06:38 pm - SSN - [20191125-1803] - [002] - clock-out is not updating index row
                         // Added servingPage
                         PageUpdaterService.timelog_index($scope.editableTimeLog.timeLogId, servingPage);
                     }, function (error) {
                         var test2 = error;
-                        console.log(error);
+                        console.error(error);
                         toastr.error("Failed to save record.");
                         toastr.warning("Error posted to console.");
                         $scope.feedbackToUserClassNameCase = 2;

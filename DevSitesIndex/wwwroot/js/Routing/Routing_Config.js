@@ -2,7 +2,6 @@ import { globals_instance } from "../globals";
 // 12/07/2019 07:06 am - SSN - [20191207-0704] - [001] - AngularJS - Routing - Authentication
 // Moved from demoSites_index.ts - Begin
 // ssn_devsite_angular_module 
-console.log("XXXXXXXX Routing_config - TOP ");
 var routing_config_instance = function () {
     // from Routing_Config to Routing_Config with move.
     // Moved outside to shared between doSetup_a and doSetup_b
@@ -29,14 +28,12 @@ var routing_config_instance = function () {
                 // Take out
                 // $routeProvider.otherwise({});
                 $locationProvider.html5Mode({ enabled: true, rewriteLinks: false }).hashPrefix('!');
-                console.log("setting routes [20190926-0556]");
             }]);
         // Moved from demoSites_index.ts - End
     };
     // 12/07/2019 08:02 am - SSN - [20191207-0704] - [003] - AngularJS - Routing - Authentication
     // Source: https://stackoverflow.com/questions/17209203/angularjs-protecting-routes-with-angularjs-depending-if-the-user-is-authorized
     var doSetup_b = function () {
-        console.log('))))))))))))))))) 101');
         angularJS_module.config(function ($routeProvider) {
             $routeProvider
                 .when('/needsauthorisation', {
@@ -51,7 +48,6 @@ var routing_config_instance = function () {
         }).run(function ($rootScope, $location) {
             //If the route change failed due to authentication error, redirect them out
             $rootScope.$on('$routeChangeError', function (event, current, previous, rejection) {
-                console.log('))))))))))))))))) 102');
                 if (rejection === 'Not Authenticated') {
                     $location.path('/');
                 }
@@ -59,7 +55,6 @@ var routing_config_instance = function () {
         }).factory('AuthService', function ($q) {
             return {
                 authenticate: function () {
-                    console.log('))))))))))))))))) 103');
                     //Authentication logic here
                     // if (isAuthenticated) {
                     if (false) {
@@ -82,6 +77,5 @@ var routing_config_instance = function () {
         doSetup: doSetup
     };
 }();
-console.log("XXXXXXXX Routing_config - BOTTOM ");
 export { routing_config_instance };
 //# sourceMappingURL=Routing_Config.js.map

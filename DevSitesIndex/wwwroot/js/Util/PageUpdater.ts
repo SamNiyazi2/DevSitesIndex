@@ -17,27 +17,15 @@ var PageUpdater_Instance = function () {
 
 
             var _timelog_index = function (id_temp, servingPage: Timelog_ServingPage) {
-
-
-                console.log('PageUpdater - timelog_index - 001 [', id_temp, '] servingPage [' + servingPage + ']');
-                console.log('PageUpdater - timelog_index - 001 [', id_temp, '] servingPage [' + servingPage + ']');
-                console.log('PageUpdater - timelog_index - 001 [', id_temp, '] servingPage [' + servingPage + ']');
-                console.log('PageUpdater - timelog_index - 001 [', id_temp, '] servingPage [' + servingPage + ']');
-                console.log('PageUpdater - timelog_index - 001 [', id_temp, '] servingPage [' + servingPage + ']');
-                console.log('PageUpdater - timelog_index - 001 [', id_temp, '] servingPage [' + servingPage + ']');
-                console.log('PageUpdater - timelog_index - 001 [', id_temp, '] servingPage [' + servingPage + ']');
-                console.log('PageUpdater - timelog_index - 001 [', id_temp, '] servingPage [' + servingPage + ']');
+ 
 
                 dataService.timelogRefreshRecord(id_temp, servingPage).then(refreshRecord_Sucess, refreshRecord_Error);
 
-                console.log('PageUpdater - timelog_index - 002 ');
-
+              
 
                 function refreshRecord_Sucess(result) {
 
-                    console.log('PageUpdater - timelog_index - 003 ');
-                    console.log(result);
-
+  
                     $rootScope.$broadcast('TimeLog_Index_Refresh', result);
 
                 }
@@ -71,5 +59,4 @@ var PageUpdater_Instance = function () {
 }();
 
 export { PageUpdater_Instance };
-
-console.log('PageUpdater - Loaded');
+     

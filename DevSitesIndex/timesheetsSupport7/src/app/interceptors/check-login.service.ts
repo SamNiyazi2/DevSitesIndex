@@ -43,16 +43,7 @@ export class CheckLoginService implements HttpInterceptor {
 
     //.pipe(catchError(error => {
     
-
-    //  console.log("===============================================");
-    //  console.log("===============================================");
-    //  console.log("===============================================");
-    //  console.log("===============================================");
-    //  console.log("===============================================");
-
-
-    //  console.log('(Interceptor) check-login-service - catchError');
-    //  console.log(error);
+      
         
     //  ehu.ErrorHandlingHelpers.showHtmlErrorResponse(error);
       

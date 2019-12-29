@@ -76,7 +76,7 @@ export class DashboardComponent implements OnInit {
     this.setup_SummaryByProject();
 
 
-  //  this.setup_Timelog_SummaryByDailyWorkHours();
+    //  this.setup_Timelog_SummaryByDailyWorkHours();
     this.setup_Timelog_SummaryByWeekAndDiscipline();
 
   }
@@ -172,7 +172,7 @@ export class DashboardComponent implements OnInit {
     },
       (e) => {
 
-        console.log("20191030-1512 - dashboard.component - subscribe exception - Summary by daily work hours");
+        console.error("20191030-1512 - dashboard.component - subscribe exception - Summary by daily work hours");
         console.log(e);
 
         ehu.ErrorHandlingHelpers.showHtmlErrorResponse(e);
@@ -230,8 +230,8 @@ export class DashboardComponent implements OnInit {
 
     this.dataService.getTimelog_SummaryByDailyWorkHours().subscribe((data: any[]) => {
 
-  
-      
+
+
       let workDateList = new Set(data.sort(r => r.seqNo).map(r2 => this.genUtil.dateToString(r2.workDate)));
       let disciplineList = new Set(data.map(r => r.discipline));
 
@@ -256,13 +256,13 @@ export class DashboardComponent implements OnInit {
       },
         (e) => {
 
-          console.log("20191031-16433 - dashboard.component - subscribe exception - Summary by daily work hours");
+          console.error("20191031-16433 - dashboard.component - subscribe exception - Summary by daily work hours");
           console.log(e);
 
           ehu.ErrorHandlingHelpers.showHtmlErrorResponse(e);
         });
 
-       
+
 
       this.barChartData_202 = {
 
@@ -285,7 +285,7 @@ export class DashboardComponent implements OnInit {
     },
       (e) => {
 
-        console.log("20191029-1212 - dashboard.component - subscribe exception - Summary by daily work hours");
+        console.error("20191029-1212 - dashboard.component - subscribe exception - Summary by daily work hours");
         console.log(e);
 
         ehu.ErrorHandlingHelpers.showHtmlErrorResponse(e);
@@ -362,7 +362,7 @@ export class DashboardComponent implements OnInit {
 
     },
       (e) => {
-        console.log("20191029-0137 - dashboard.component - subscribe exception");
+        console.error("20191029-0137 - dashboard.component - subscribe exception");
         console.log(e);
 
         ehu.ErrorHandlingHelpers.showHtmlErrorResponse(e);
@@ -426,7 +426,7 @@ export class DashboardComponent implements OnInit {
 
     },
       (e) => {
-        console.log("20191029-0519 - dashboard.component - subscribe exception - Summary by project");
+        console.error("20191029-0519 - dashboard.component - subscribe exception - Summary by project");
         console.log(e);
 
         ehu.ErrorHandlingHelpers.showHtmlErrorResponse(e);

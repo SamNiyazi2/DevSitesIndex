@@ -33,13 +33,8 @@ namespace site_instance_NS {
                 var jQueryObjectName = $(this).attr('jQueryObjectName');
                 var jQueryObjectName2 = $(this).attr('jQueryObjectName2');
 
-                //      alert('clicked me! cmdName [' + cmdName + "] popup-name  [" + popupName + "]");
-
-                console.log('cmd-name', cmdName, 'popupName', popupName, 'jQueryObjectName ', jQueryObjectName, 'jQueryObjectName2', jQueryObjectName2);
 
                 if (cmdName === "open-popup") {
-
-                    console.log('exec cmdName ', cmdName);
 
                     $(popupName).modal({ backdrop: 'static', keyboard: false });
 
@@ -49,15 +44,11 @@ namespace site_instance_NS {
                 // 03/14/2019 09:33 am - SSN - Adding hide and show
                 if (cmdName === "hideObject") {
 
-                    console.log('exec cmdName ', cmdName, 'jQueryObjectName', jQueryObjectName);
-
                     $(jQueryObjectName).hide();
 
                 }
 
                 if (cmdName === "showObject") {
-
-                    console.log('exec cmdName ', cmdName, 'jQueryObjectName', jQueryObjectName);
 
                     $(jQueryObjectName).show();
 
@@ -151,7 +142,7 @@ namespace site_instance_NS {
             // Did not finish.
             // Todo-SSN
             $('.modal').on('show', function () {
-                console.log('site.ts  -  20191102-1930 - Setting draggable.')
+                
                 $(this).draggable({
                     handle: ".modal-header"
                 });
@@ -399,10 +390,6 @@ $(function () {
 let d2 = new Date();
 site_instance_NS.site_Class.loadCounter++;
 
-console.log('site - 20191115-1740 - xxxxxxxxxxx');
-console.log(site_instance_NS.site_Class.loadCounter);
-console.log(d2);
-
 
 
 // 11/25/2019 02:37 pm - SSN - [20191125-1414] - [003] - Project jobs - filter 
@@ -410,18 +397,8 @@ console.log(d2);
 // https://stackoverflow.com/questions/6361465/how-to-check-if-click-event-is-already-bound-jquery
 $.fn.isBound = function (type, fn) {
 
-    console.log('fn.isBound-0245');
-
-
-    console.log('this - turned off 20191213-1942');
-   // console.log(this);
-
-
-    console.log("this.data('events')");
-    console.log(this.data('events'));
 
     if (!this.data('events')) {
-        console.log("undefined <<<<<<<<<<");
         return false;
     }
 
@@ -439,12 +416,7 @@ $.fn.isBound = function (type, fn) {
 // 11/25/2019 02:29 pm - SSN - [20191125-1414] - [002] - Project jobs - filter 
 
 
-console.log('site - project_jobs - filter');
-
 function Job_Timelog_setFilter() {
-
-    console.log('site - project_jobs - filter - 333 ');
-
 
     if ($("#filterText").isBound('keyup', Job_Timelog_setFilter)) {
         console.log("Already bound");
