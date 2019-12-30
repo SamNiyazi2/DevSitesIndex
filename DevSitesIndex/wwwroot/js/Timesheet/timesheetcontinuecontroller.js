@@ -14,10 +14,12 @@ var timesheetContinueController_instance = function () {
             dataService.getTimelog(timelogId).then(getTimelogSuccess, getTimelogError)
                 .catch(getTimelogCatch);
             $scope.pageTitle = "Continue / Line Item";
+            // 12/29/2019 11:17 pm - SSN - Adding disableSaveButton 
+            $scope.disableSaveButton = false;
             // 09/28/2019 03:59 pm - SSN - [20190928-1256] - [010] - Adding Entity Framework model attribute
             $scope.feedbackToUserText = "";
             $scope.feedbackToUserClassNameCase = "";
-            $scope.versionForHTMLRefresh = "15";
+            $scope.versionForHTMLRefresh = "17";
             $scope.feedbackToUserClassNameSet = function () {
                 switch ($scope.feedbackToUserClassNameCase) {
                     case 1:
@@ -55,6 +57,9 @@ var timesheetContinueController_instance = function () {
                 var temp = data;
             }
             $scope.submitForm = function () {
+                if ($scope.disableSaveButton)
+                    return;
+                $scope.disableSaveButton = true;
                 console.log('timesheetContinueController - submitForm - (101)');
                 var test = $scope.editableTimeLog;
                 var promise = null;
@@ -76,6 +81,7 @@ var timesheetContinueController_instance = function () {
                             location.reload();
                         }, 1000);
                     }, function (error) {
+                        $scope.disableSaveButton = false;
                         console.log(error);
                         // 09/28/2019 03:57 pm - SSN - [20190928-1256] - [009] - Adding Entity Framework model attribute
                         // $uibModalInstance.close();

@@ -46,6 +46,9 @@ var timesheetClockoutController_instance = function () {
             // Add pageTitle
             $scope.pageTitle = "Clock-out";
 
+            // 12/29/2019 11:25 pm - SSN - Adding disableSaveButton 
+            $scope.disableSaveButton = false;
+
 
 
             // 11/16/2019 02:48 pm - SSN - [20191116-1419] - [002] - Add RowVersion  to Timelog.
@@ -112,6 +115,12 @@ var timesheetClockoutController_instance = function () {
 
             $scope.submitForm = function () {
 
+                if ($scope.disableSaveButton) return;
+
+                $scope.disableSaveButton = true;
+
+
+
                 $scope.feedbackToUserText = "";
                 $scope.feedbackToUserClassNameCase = "";
 
@@ -154,6 +163,9 @@ var timesheetClockoutController_instance = function () {
 
                         },
                         function (error) {
+
+                            $scope.disableSaveButton = false;
+
 
                             var test2 = error;
 

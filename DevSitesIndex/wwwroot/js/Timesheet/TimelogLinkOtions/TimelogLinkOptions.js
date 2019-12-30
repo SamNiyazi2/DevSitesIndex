@@ -74,10 +74,10 @@ var TimelogLinkOptions = function () {
                                 // 05/19/2019 09:37 am - SSN - [20190519-0837] - [003] - Adding timesheet "Continue" option
                                 // 11/14/2019 02:44 pm - SSN - TimesheetContinueController_modal 
                                 var TimesheetContinueController_modal = $uibModal.open({
-                                    animation: 'slide-in-up',
-                                    templateUrl: '/js/timesheet/templates//timesheetTemplate.html?v=' + $scope.versionForHTMLRefresh,
+                                    // animation: 'slide-in-up',
+                                    templateUrl: '/js/timesheet/templates//timesheetTemplate.html',
                                     controller: 'TimesheetContinueController',
-                                    windowClass: 'ssn-mobile-modal',
+                                    //  windowClass: 'ssn-mobile-modal',
                                     backdrop: 'static',
                                     keyboard: false,
                                     resolve: {

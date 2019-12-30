@@ -171,10 +171,10 @@ var TimelogLinkOptions = function () {
 
                         let TimesheetContinueController_modal = $uibModal.open({
 
-                            animation: 'slide-in-up',
-                            templateUrl: '/js/timesheet/templates//timesheetTemplate.html?v=' + $scope.versionForHTMLRefresh,
+                           // animation: 'slide-in-up',
+                            templateUrl: '/js/timesheet/templates//timesheetTemplate.html', //?v=' + $scope.versionForHTMLRefresh,
                             controller: 'TimesheetContinueController',
-                            windowClass: 'ssn-mobile-modal',
+                          //  windowClass: 'ssn-mobile-modal',
 
                             backdrop: 'static',
                             keyboard: false,
@@ -191,7 +191,7 @@ var TimelogLinkOptions = function () {
                         });
 
 
-
+                         
 
                         // 11/14/2019 02:44 pm - SSN - [20191114-1459] - [007] - ChangeMonitroService
 

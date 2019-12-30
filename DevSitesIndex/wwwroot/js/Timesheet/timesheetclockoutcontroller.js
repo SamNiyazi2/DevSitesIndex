@@ -25,6 +25,8 @@ var timesheetClockoutController_instance = function () {
             // 05/03/2019 05:54 pm - SSN - [20190503-1539] - [012] - Add link to create timelog 
             // Add pageTitle
             $scope.pageTitle = "Clock-out";
+            // 12/29/2019 11:25 pm - SSN - Adding disableSaveButton 
+            $scope.disableSaveButton = false;
             // 11/16/2019 02:48 pm - SSN - [20191116-1419] - [002] - Add RowVersion  to Timelog.
             // Copied from TimesheetContinueController
             $scope.feedbackToUserText = "";
@@ -60,6 +62,9 @@ var timesheetClockoutController_instance = function () {
                 toastr.warning("Error posted to console. (0306)");
             }
             $scope.submitForm = function () {
+                if ($scope.disableSaveButton)
+                    return;
+                $scope.disableSaveButton = true;
                 $scope.feedbackToUserText = "";
                 $scope.feedbackToUserClassNameCase = "";
                 var test = $scope.editableTimeLog;
@@ -83,6 +88,7 @@ var timesheetClockoutController_instance = function () {
                         // Added servingPage
                         PageUpdaterService.timelog_index($scope.editableTimeLog.timeLogId, servingPage);
                     }, function (error) {
+                        $scope.disableSaveButton = false;
                         var test2 = error;
                         console.error(error);
                         toastr.error("Failed to save record.");

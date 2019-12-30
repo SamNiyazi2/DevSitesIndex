@@ -39,13 +39,16 @@ var timesheetContinueController_instance = function () {
 
             $scope.pageTitle = "Continue / Line Item";
 
+            // 12/29/2019 11:17 pm - SSN - Adding disableSaveButton 
+            $scope.disableSaveButton = false;
+
 
             // 09/28/2019 03:59 pm - SSN - [20190928-1256] - [010] - Adding Entity Framework model attribute
             $scope.feedbackToUserText = "";
             $scope.feedbackToUserClassNameCase = "";
 
 
-            $scope.versionForHTMLRefresh = "15";
+            $scope.versionForHTMLRefresh = "17";
 
             $scope.feedbackToUserClassNameSet = function () {
 
@@ -110,6 +113,9 @@ var timesheetContinueController_instance = function () {
 
             $scope.submitForm = function () {
 
+                if ($scope.disableSaveButton) return;
+
+                $scope.disableSaveButton = true;
 
                 console.log('timesheetContinueController - submitForm - (101)');
 
@@ -147,6 +153,8 @@ var timesheetContinueController_instance = function () {
 
                         },
                         function (error) {
+
+                            $scope.disableSaveButton = false;
 
                             console.log(error);
 

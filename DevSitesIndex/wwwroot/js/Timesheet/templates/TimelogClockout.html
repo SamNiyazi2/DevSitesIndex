@@ -35,12 +35,7 @@
 
         <fieldset>
 
-
-
-
-
-
-
+ 
 
             <div class="form-group">
 
@@ -136,12 +131,12 @@
 
 
 
-
     <div class="modal-footer">
-
+         
         <div class="col-sm-offset-3 col-sm-9">
+
             <input type="button" class="btn btn-default" value="Cancel" ng-click="cancelForm()" />
-            <input type="button" class="btn btn-primary" value="Submit" ng-click="submitForm()" ng-disabled="timesheetForm.$invalid" />
+            <input type="button" class="btn btn-primary" value="Submit" ng-click="submitForm()" ng-disabled="timesheetForm.$invalid || disableSaveButton" />
 
         </div>
 

@@ -10,6 +10,8 @@ var timesheetController_instance = function () {
     timesheetApp.controller('TimesheetController', ['$scope', '$uibModalInstance', '$http', '$q', 'dataService', 'changeMonitorService', 'jobId',
         function ($scope, $uibModalInstance, $http, $q, dataService, changeMonitorService, jobId) {
             changeMonitorService.setupMonitor();
+            // 12/29/2019 11:21 pm - SSN - Adding disableSaveButton 
+            $scope.disableSaveButton = false;
             // 11/28/2019 02:47 am - SSN - [20191128-0247] - [001] - Clock-in not saving
             // Adding feedback
             $scope.feedbackToUserText = "";
@@ -56,6 +58,9 @@ var timesheetController_instance = function () {
             };
             $scope.editableTimeLog = angular.copy($scope.timeLog);
             $scope.submitForm = function () {
+                if ($scope.disableSaveButton)
+                    return;
+                $scope.disableSaveButton = true;
                 var test = $scope.editableTimeLog;
                 var promise = null;
                 if ($scope.editableTimeLog.id === 0) {
@@ -70,6 +75,7 @@ var timesheetController_instance = function () {
                         $uibModalInstance.close();
                         toastr.info("Clocked-in");
                     }, function (error) {
+                        $scope.disableSaveButton = false;
                         console.error("TimesheetController - 20190921-0640 - promise > error");
                         console.log(error);
                         toastr.error("Failed to save record.  See console log.");
