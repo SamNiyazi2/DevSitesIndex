@@ -206,7 +206,9 @@ var site_instance_NS;
 var site_instance = new site_instance_NS.site_Class();
 export { site_instance };
 $(function () {
-    site_instance.setDefaults();
+    // 12/30/2019 01:23 am - SSN - Add timeot
+    // site_instance.setDefaults();
+    setTimeout(function () { site_instance.setDefaults(); }, 2000);
     // 04/29/2019 07:36 pm - SSN - [20190429-1748] - [006] - Angular clock out popup  - End
     // 09/10/2019 08:53 pm - SSN - Replaced
     // 09/11/2019 07:08 am - SSN - DevSiteIndex p1 data is coming after document is ready.

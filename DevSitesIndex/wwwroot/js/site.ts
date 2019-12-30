@@ -32,7 +32,7 @@ namespace site_instance_NS {
                 var popupName = $(this).attr('popup-name');
                 var jQueryObjectName = $(this).attr('jQueryObjectName');
                 var jQueryObjectName2 = $(this).attr('jQueryObjectName2');
-
+              
 
                 if (cmdName === "open-popup") {
 
@@ -375,7 +375,9 @@ export { site_instance };
 
 $(function () {
 
-    site_instance.setDefaults();
+    // 12/30/2019 01:23 am - SSN - Add timeot
+    // site_instance.setDefaults();
+    setTimeout(() => { site_instance.setDefaults(); }, 2000);
 
 
     // 04/29/2019 07:36 pm - SSN - [20190429-1748] - [006] - Angular clock out popup  - End
