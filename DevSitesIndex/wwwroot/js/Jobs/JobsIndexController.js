@@ -127,8 +127,6 @@ var jobsIndexController_instance = function () {
                 getJobsList(columnBag);
             };
             $scope.pagingmethod101 = function (columnBag) {
-                console.log('jobsIndexController.ts - 20200814-0802');
-                console.log(columnBag);
                 getJobsList(columnBag);
                 $scope.sqlStatsRecord = columnBag;
                 // 12/02/2019 02:48 am - SSN - Added
