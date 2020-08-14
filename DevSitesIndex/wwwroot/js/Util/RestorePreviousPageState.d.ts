@@ -1,4 +1,4 @@
 declare var RestorePreviousPageState_instance: {
-    doSetup: (ngDefaultApplication: any) => void;
+    doSetup: (ngApplicationName: any) => void;
 };
 export { RestorePreviousPageState_instance };

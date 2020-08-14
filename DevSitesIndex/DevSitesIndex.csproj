@@ -71,6 +71,9 @@
     <Content Remove="wwwroot\js.zip" />
     <Content Remove="wwwroot\js\Interceptors\SessonTimeoutInterceptor.ts" />
     <Content Remove="wwwroot\js\Routing\Routing_Config.ts" />
+    <Content Remove="wwwroot\js\Shared\SharedUtil.ts" />
+    <Content Remove="wwwroot\js\Users\login.ts" />
+    <Content Remove="wwwroot\js\Users\users_main.ts" />
   </ItemGroup>
   <ItemGroup>
     <None Include="wwwroot\js\__________________Hold4Delete\angular.js" />
@@ -78,6 +81,9 @@
   <ItemGroup>
     <TypeScriptCompile Include="wwwroot\js\Interceptors\SessonTimeoutInterceptor.ts" />
     <TypeScriptCompile Include="wwwroot\js\Routing\Routing_Config.ts" />
+    <TypeScriptCompile Include="wwwroot\js\Shared\SharedUtil.ts" />
+    <TypeScriptCompile Include="wwwroot\js\Users\login.ts" />
+    <TypeScriptCompile Include="wwwroot\js\Users\users_main.ts" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services" />

@@ -26,6 +26,15 @@
             <pre cmd-ssn="displayCode" url="http://p3013.nonbs.net:3013/CodeReferences" doDebug=false></pre>
         }
 
+
+        if (DevSitesIndex.Areas.Identity.Util.ClaimUtil.hasClaim(this.Context, "Role", "TestUser"))
+        {
+            <div class="col-md-4" ng-controller="loginController">
+                <a ng-click="login()">Login</a>
+            </div>
+
+        }
+
     }
 }
 

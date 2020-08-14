@@ -2,6 +2,8 @@
 
 cd %~dp0
 
+rem Build AngulaJS project
+
 rem 09/21/2019 05:27 am - SSN - Revise
 rem Webpack watches ts files. No need for tsc
 rem start tsc --build tsconfig.json -w

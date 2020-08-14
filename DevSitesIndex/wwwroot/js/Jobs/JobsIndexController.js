@@ -54,6 +54,8 @@ var jobsIndexController_instance = function () {
                 job_statuses_selected: [$scope.job_statuses_selected],
                 fk_filter: $scope.projectId
             };
+            console.log('JobIndexController.ts - 20200814-0901');
+            console.log(columnBag_defaults);
             var _fieldList = [
                 __assign({}, columnBag_defaults, { columnName: 'projectTitle_ForActivity', caption: 'Project Title' }),
                 __assign({}, columnBag_defaults, { columnName: 'jobTitle', caption: 'Job Title' }),
@@ -72,6 +74,8 @@ var jobsIndexController_instance = function () {
             $scope.fieldsList = _fieldList;
             getJobsList(columnBag);
             function getJobsList(columnBag) {
+                console.log('jobsIndexController.ts - 20200814-0903');
+                console.log(columnBag);
                 dataService.getJobs(columnBag).then(getJobsSuccess, getJobsError).catch(getTimelogCatch);
                 function getJobsSuccess(data) {
                     $scope.fieldsList.forEach(function (r) {
@@ -88,6 +92,8 @@ var jobsIndexController_instance = function () {
                         }
                     }
                     else {
+                        console.log('jobsIndexController.ts - 20200814-0904');
+                        console.log(data);
                         $scope.databag = {
                             jobs: data.dataList, column: data.sqlStatsRecord.columnName, desc: data.sqlStatsRecord.desc
                         };
@@ -121,6 +127,8 @@ var jobsIndexController_instance = function () {
                 getJobsList(columnBag);
             };
             $scope.pagingmethod101 = function (columnBag) {
+                console.log('jobsIndexController.ts - 20200814-0802');
+                console.log(columnBag);
                 getJobsList(columnBag);
                 $scope.sqlStatsRecord = columnBag;
                 // 12/02/2019 02:48 am - SSN - Added

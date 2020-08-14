@@ -73,6 +73,9 @@ namespace DevSitesIndex.Util
             }
         }
 
+
+        // 08/14/2020 09:16 am - SSN - Added fk_filter
+        public int fk_filter { get; set; }
     }
 
 

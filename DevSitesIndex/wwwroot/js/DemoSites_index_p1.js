@@ -129,7 +129,7 @@ var demosites_index_p1_instance = function () {
                     self.SearchResultsFeedback_ClassName_KO("alert-warning");
                 }
                 if (!self.prefixPreWithShowHideAnchor_DontCall_KO()) {
-                    setTimeout(util.site_instance.prefixPreWithShowHideAnchor, 2000);
+                    setTimeout(function () { return util.site_instance.prefixPreWithShowHideAnchor('20200102-1533'); }, 2000);
                 }
                 else {
                     // 08/21/2019 01:48 pm - SSN - [20190821-1348] [001] - Added

@@ -2,9 +2,6 @@
 // 11/08/2019 04:41 pm - SSN -
 // Convert to TypeScript
 
-// import * as x111 from '../js/site';
-
-console.log("20191224-1921 - CodeReference_Pages");
 
 
 module CodeReference_Page {
@@ -82,8 +79,6 @@ module CodeReference_Page {
     });
 
 }
-
-console.log('CodeReference_Pages - top ');
 
 
 console.log(Date());

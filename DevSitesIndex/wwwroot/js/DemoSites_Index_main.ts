@@ -3,7 +3,7 @@
  
 import * as util from '../js/site';
 
-let ngDefaultApplication = 'demoSites_Index';
+let ngApplicationName = 'demoSites_Index';
 
 import { demosites_index_p1_instance  } from "./DemoSites_index_p1"
 
@@ -11,7 +11,7 @@ import { dataService_instance } from './DataServices';
 
 import { ssn_devsite_angular_module_instance } from './demoSites_Index';
 
-dataService_instance.doSetup(ngDefaultApplication );
+dataService_instance.doSetup(ngApplicationName );
 
 ssn_devsite_angular_module_instance.ssn_devsite_angular_module;
 
@@ -26,7 +26,7 @@ import { AppInsights_Util } from './Util/ApplicationInsights_Monitor';
 // 11/23/2019 08:53 am - SSN 
 import { RestorePreviousPageState_instance } from './Util/RestorePreviousPageState';
 
-RestorePreviousPageState_instance.doSetup(ngDefaultApplication);
+RestorePreviousPageState_instance.doSetup(ngApplicationName);
 
 
 

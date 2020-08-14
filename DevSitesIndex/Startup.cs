@@ -71,6 +71,16 @@ namespace DevSitesIndex
         }
 
 
+        // 01/02/2020 01:23 pm - SSN - [20200102-1234] - [007] - Add AngularJS login
+        public class ApplicablePaths_NG_App
+        {
+            public string[] path { get; set; }
+            public bool isApplicable(string _path)
+            {
+                return (path.Any(r => _path == r.ToLower()));
+            }
+
+        }
 
 
 
@@ -89,6 +99,8 @@ namespace DevSitesIndex
         public static ApplicablePaths_Site_Only applicablePaths_Site_Only = new ApplicablePaths_Site_Only();
 
 
+        // 01/02/2020 01:24 pm - SSN - [20200102-1234] - [008] - Add AngularJS login
+        public static ApplicablePaths_NG_App applicablePaths_NG_App = new ApplicablePaths_NG_App();
 
         //                                                                                                                                                            "/timelogs/" trailing slash to avoid including index.
 
@@ -294,9 +306,13 @@ namespace DevSitesIndex
             Configuration.GetSection("ApplicablePaths_Site_Only").Bind(applicablePaths_Site_Only);
 
 
+            // 01/02/2020 01:25 pm - SSN - [20200102-1234] - [009] - Add AngularJS login
+            Configuration.GetSection("ApplicablePaths_NG_App").Bind(applicablePaths_NG_App);
+
+
+
             // 10/02/2019 01:45 pm - SSN - [20191002-1118] - [008] - Adding Angular 7 test app
-
-
+            
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {

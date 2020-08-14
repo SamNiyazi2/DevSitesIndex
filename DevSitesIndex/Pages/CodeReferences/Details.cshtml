@@ -62,7 +62,12 @@
             @*03/29/2019 02:52 am - Added pre block*@
             <pre>
      
+@*
+// 01/02/2020 03:15 pm - SSN - Replace with CodeBlock_Encoded    
             @Html.DisplayFor(model => model.CodeReference.CodeBlock)
+*@
+            @Html.Raw(Model.CodeReference.CodeBlock_Encoded)
+
 </pre>
         </dd>
 

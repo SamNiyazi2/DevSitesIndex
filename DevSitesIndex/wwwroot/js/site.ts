@@ -32,7 +32,7 @@ namespace site_instance_NS {
                 var popupName = $(this).attr('popup-name');
                 var jQueryObjectName = $(this).attr('jQueryObjectName');
                 var jQueryObjectName2 = $(this).attr('jQueryObjectName2');
-              
+
 
                 if (cmdName === "open-popup") {
 
@@ -101,6 +101,30 @@ namespace site_instance_NS {
 
 
 
+
+
+
+
+                // 11/08/2019 01:04 pm - SSN - [20191108-1043] - [008] - Persisting search on return to index
+                // 
+                // 01/02/2020 04:06 pm - SSN - Moved from  prefixPreWithShowHideAnchor
+
+                $('[ssn-cmd=returnToCallerLink]').click((e) => {
+
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    var returnToCallerKey = $("#returnToCallerKey").val();
+
+                    document.location.href = (<HTMLAnchorElement>e.target).href + "&returnToCallerKey=" + returnToCallerKey;
+
+                });
+
+
+
+
+
+
             });
 
 
@@ -142,7 +166,7 @@ namespace site_instance_NS {
             // Did not finish.
             // Todo-SSN
             $('.modal').on('show', function () {
-                
+
                 $(this).draggable({
                     handle: ".modal-header"
                 });
@@ -171,11 +195,13 @@ namespace site_instance_NS {
 
         // 09/21/2019 12:27 pm - SSN - [201909-1227] Revise to accommodate Babel/Webpack
         // function prefixPreWithShowHideAnchor() {
-        prefixPreWithShowHideAnchor() {
+        prefixPreWithShowHideAnchor(caller) {
 
 
             // 04/26/2019 09:56 pm - SSN - [20190426-2156] - [001] - Hide pre and add a link to show.
             // 06/01/2019 08:07 pm - SSN - [20190601-2007] - Add title
+
+            console.log('site.ts 20200102-1528 - prefixPreWithShowHideAnchor [' + caller + ']');
 
             $('pre').each(function (aa) {
 
@@ -199,40 +225,6 @@ namespace site_instance_NS {
 
             });
 
-
-            // 11/24/2019 11:20 pm - SSN - Disable
-            if (false) {
-
-                // 05/01/2019 04:52 am - SSN - Use JavaScript only
-
-                var list1 = document.querySelectorAll('pre');
-
-                // 05/19/2019 12:30 pm - SSN - [20190519-1132] - [004] - Address definitely typed errors
-                // for (var a of list1) {
-                // list1.forEach(function (currentItem, currentIndex, listObj) {
-                list1.forEach(function (a, currentIndex, listObj) {
-
-                    // 05/17/2019 04:16 am - SSN - Update to exclude highlighting
-                    //var b = a.innerHTML.replace(/</g, '&lt;');  
-                    // Exclude <h and <n. Already setup for <i.  See site.css.
-
-
-                    // 06/07/2019 11:50 am - SSN - Update - Matches shown https://www.regextester.com/
-                    // var b = a.innerHTML.replace(/<([^i|^/i|^h|^/h|^n|^/n]){1}[^\s|^>]{1}/g, '&lt;$1');
-
-                    // var b = a.innerHTML.replace(/(<)((?!\/?[n|i|h]))(.*?>)/g, '\n1---\n[$&]\n2---\n[$1]\n3---\n[$2]\n4---\n[$3]\n\n');
-
-                    // We have not coverred h1, h2, etc.
-                    // knockout is doing its own thing when it comes to tags. Evident with the use of generic types ( function<SomeType> )
-                    var b = a.innerHTML.replace(/(<)((?!\/?[n|i|h]))(.*?>)/g, '&lt;$3');
-
-
-                    a.innerHTML = b;
-
-
-                });
-
-            }
 
 
             // 04/26/2019 10:14 pm - SSN - [20190426-2156] - [002] - Hide pre and add a link to show.
@@ -274,26 +266,14 @@ namespace site_instance_NS {
 
 
 
-            // 11/08/2019 01:04 pm - SSN - [20191108-1043] - [008] - Persisting search on return to index
-            // 
-
-
-            $('[ssn-cmd=returnToCallerLink]').click((e) => {
-
-                e.preventDefault();
-                e.stopPropagation();
-
-                var returnToCallerKey = $("#returnToCallerKey").val();
-
-                document.location.href = (<HTMLAnchorElement>e.target).href + "&returnToCallerKey=" + returnToCallerKey;
-
-            });
-
-
 
 
 
         }
+
+
+
+
 
 
         // 04/29/2019 07:36 pm - SSN - [20190429-1748] - [006] - Angular clock out popup  - Begin
@@ -372,21 +352,40 @@ namespace site_instance_NS {
 let site_instance = new site_instance_NS.site_Class();
 export { site_instance };
 
+ 
 
-$(function () {
+// 01/02/2020 04:20 pm - SSN - [20200102-1611] - [003] - Seperate AngularJS utility from general DOM utilities
+// Of course we are calling utility more than once. Need to call functions where they apply.
 
-    // 12/30/2019 01:23 am - SSN - Add timeot
-    // site_instance.setDefaults();
-    setTimeout(() => { site_instance.setDefaults(); }, 2000);
+  
+
+if (typeof (window["site_routine_run"]) != "number") {
+     
+    window["site_routine_run"] = 0;
+}
+
+window["site_routine_run"] = window["site_routine_run"] + 1;
+ 
+
+if (window["site_routine_run"] === 1) {
 
 
-    // 04/29/2019 07:36 pm - SSN - [20190429-1748] - [006] - Angular clock out popup  - End
-    // 09/10/2019 08:53 pm - SSN - Replaced
-    // 09/11/2019 07:08 am - SSN - DevSiteIndex p1 data is coming after document is ready.
-    setTimeout(site_instance.prefixPreWithShowHideAnchor, 2000);
+    $(function () {
+
+        // 12/30/2019 01:23 am - SSN - Add timeot
+        // site_instance.setDefaults();
+        setTimeout(() => { site_instance.setDefaults(); }, 2000);
 
 
-});
+        // 04/29/2019 07:36 pm - SSN - [20190429-1748] - [006] - Angular clock out popup  - End
+        // 09/10/2019 08:53 pm - SSN - Replaced
+        // 09/11/2019 07:08 am - SSN - DevSiteIndex p1 data is coming after document is ready.
+        setTimeout(() => site_instance.prefixPreWithShowHideAnchor('20200102-1534-2'), 2000);
+
+
+    });
+
+}
 
 
 let d2 = new Date();
@@ -420,6 +419,9 @@ $.fn.isBound = function (type, fn) {
 
 function Job_Timelog_setFilter() {
 
+    console.log('site.ts 20200102-1531 - job_Timelog_setFilter ');
+
+
     if ($("#filterText").isBound('keyup', Job_Timelog_setFilter)) {
         console.log("Already bound");
         return;
@@ -427,7 +429,7 @@ function Job_Timelog_setFilter() {
 
     $("#filterText").on('keyup', function (e) {
 
-        console.log('project_jobs - fitlerText');
+        console.log('project_jobs - fitlerText - KeyUp');
         console.log((e));
     });
 
@@ -435,7 +437,7 @@ function Job_Timelog_setFilter() {
 
 $(function () {
 
-    console.log('site - project_jobs - filter - 2');
+    console.log('site - project_jobs - filter - 2 - setup');
 
     Job_Timelog_setFilter();
 

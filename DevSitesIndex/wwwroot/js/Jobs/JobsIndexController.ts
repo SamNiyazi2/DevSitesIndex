@@ -75,6 +75,9 @@ var jobsIndexController_instance = function () {
                 fk_filter: $scope.projectId
             };
 
+            console.log('JobIndexController.ts - 20200814-0901');
+            console.log(columnBag_defaults);
+
 
             let _fieldList: IColumnBag[] = [
                 { ...columnBag_defaults, columnName: 'projectTitle_ForActivity', caption: 'Project Title' },
@@ -111,6 +114,9 @@ var jobsIndexController_instance = function () {
 
 
 
+                console.log('jobsIndexController.ts - 20200814-0903');
+                console.log(columnBag);
+
                 dataService.getJobs(columnBag).then(getJobsSuccess, getJobsError).catch(getTimelogCatch);
 
 
@@ -134,6 +140,10 @@ var jobsIndexController_instance = function () {
                         }
                     }
                     else {
+
+
+                        console.log('jobsIndexController.ts - 20200814-0904');
+                        console.log(data);
 
 
                         $scope.databag = {
@@ -189,6 +199,7 @@ var jobsIndexController_instance = function () {
 
 
             $scope.pagingmethod101 = function (columnBag: IColumnBag) {
+
 
                 getJobsList(columnBag);
 

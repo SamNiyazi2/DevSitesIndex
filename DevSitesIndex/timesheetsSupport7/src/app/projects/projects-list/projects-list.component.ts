@@ -43,8 +43,16 @@ export class ProjectsListComponent implements OnInit {
     this.genUtil.setPageTitle("Project List");
 
 
-    this.dataService.getProjects().then(this.getProjectsSuccess.bind(this), this.getProjectsError.bind(this));
     this.dataService.getJobStatuses().then(this.getJobStatusesSuccess.bind(this), this.getJobStatusesError.bind(this));
+    this.initialDataLoad();
+  }
+
+  // 01/01/2019 02:52 am - SSN - To share with resetSearch
+
+
+  initialDataLoad() {
+
+    this.dataService.getProjects().then(this.getProjectsSuccess.bind(this), this.getProjectsError.bind(this));
 
   }
 
@@ -59,9 +67,6 @@ export class ProjectsListComponent implements OnInit {
 
   getProjectsError(response) {
 
-    console.log('project-list - Error - 20191009-1317');
-    console.error(response);
-
     ehu.ErrorHandlingHelpers.showHtmlErrorResponse(response);
 
   }
@@ -75,9 +80,6 @@ export class ProjectsListComponent implements OnInit {
 
 
   getJobStatusesError(response) {
-
-    console.error('project-list - jobStatus Error - 20191010-1103');
-    console.log(response);
 
     ehu.ErrorHandlingHelpers.showHtmlErrorResponse(response);
   }
@@ -132,22 +134,25 @@ export class ProjectsListComponent implements OnInit {
 
   searchResultSuccess(response) {
 
-    //console.log('projects-list.component - searchresult Success - 20191011-1422');
-    //console.log(response);
-
+    this.projects = response.dataList;
+    this.filteredProjects = response.dataList;
   }
 
 
   searchResultError(response) {
-
-    console.error('projects-list.component - searchresult Error - 20191011-1423');
-    console.log(response);
 
     ehu.ErrorHandlingHelpers.showHtmlErrorResponse(response);
 
   }
 
 
+  // 01/01/2019 02:51 am - SSN - Adding 
+  resetSearch() {
+
+    this.searchTerm = null;
+    this.initialDataLoad();
+
+  }
 
 
 }

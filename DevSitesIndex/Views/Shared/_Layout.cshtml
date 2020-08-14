@@ -51,10 +51,19 @@
         {
             string path = Context.Request.Path.ToString().ToLower();
 
+            // 01/02/2020 01:21 pm - SSN - [20200102-1234] - [005] - Add AngularJS login
+
+            if (Startup.applicablePaths_NG_App.isApplicable(path))
+            {
+                ViewBag.InitModule_Full = "data-ng-app=\"timesheetApp\"";
+            }
+
+
             if (Startup.applicablePaths_temp_support.isApplicable(path))
             {
                 ViewBag.InitModule_Full = "data-ng-app=\"timesheetApp\"";
             }
+
         }
     }
 

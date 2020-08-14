@@ -1,7 +1,5 @@
 // 11/08/2019 04:41 pm - SSN -
 // Convert to TypeScript
-// import * as x111 from '../js/site';
-console.log("20191224-1921 - CodeReference_Pages");
 var CodeReference_Page;
 (function (CodeReference_Page) {
     var doSetup = function () {
@@ -45,7 +43,6 @@ var CodeReference_Page;
         doSetup();
     });
 })(CodeReference_Page || (CodeReference_Page = {}));
-console.log('CodeReference_Pages - top ');
 console.log(Date());
 export { CodeReference_Page };
 //# sourceMappingURL=CodeReference_Pages.js.map

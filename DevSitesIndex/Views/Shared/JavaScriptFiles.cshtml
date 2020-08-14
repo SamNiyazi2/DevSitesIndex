@@ -46,7 +46,10 @@
         if (Startup.applicablePaths_temp_support.isApplicable(path))
         {
             <script src="/webpack_build/bundle_Temp_Support.js" asp-append-version="true"></script>
-            ViewBag.InitModule_Full = "data-ng-app=\"timesheetApp\"";
+
+            // 01/02/2020 01:22 pm - SSN - [20200102-1234] - [006] - Add AngularJS login
+            // Remove?  Duplicate with _Layout???
+            //ViewBag.InitModule_Full = "data-ng-app=\"timesheetApp\"";
         }
 
 
@@ -57,6 +60,11 @@
     }
 }
 
+
+@*
+    // 01/02/2020 01:11 pm - SSN - [20200102-1234] - [004] - Add AngularJS login
+*@
+<script src="/webpack_build/bundle_users.js" asp-append-version="true"></script>
 
 @{
 

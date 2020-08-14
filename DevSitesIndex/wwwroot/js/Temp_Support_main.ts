@@ -4,6 +4,6 @@
 import { RestorePreviousPageState_instance } from "./Util/RestorePreviousPageState";
 
 
-let ngDefaultApplication = 'timesheetApp';
+let ngApplicationName = 'timesheetApp';
 
-RestorePreviousPageState_instance.doSetup(ngDefaultApplication);
+RestorePreviousPageState_instance.doSetup(ngApplicationName);

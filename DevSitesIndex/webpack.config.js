@@ -285,6 +285,27 @@ var config = [
 
 
 
+    ,
+
+// 01/02/2020 12:55 pm - SSN - [20200102-1234] - [003] - Add AngularJS login
+
+
+    {
+        ...d_master,
+
+        output: {
+            path: path.resolve(__dirname, './wwwroot/webpack_build'),
+            filename: 'bundle_users.js'
+        },
+
+
+        entry: [
+            './users/users_main.ts'
+        ]
+
+    }
+
+
 
 ];
 

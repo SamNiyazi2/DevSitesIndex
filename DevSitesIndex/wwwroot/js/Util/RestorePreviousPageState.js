@@ -3,9 +3,9 @@
 import { AppInsights_Util } from './ApplicationInsights_Monitor';
 import { globals_instance } from "../globals";
 var RestorePreviousPageState_instance = function () {
-    var doSetup = function (ngDefaultApplication) {
+    var doSetup = function (ngApplicationName) {
         AppInsights_Util.logEvent("DemoSites_20191228_2228", { SourceCode: "20191228-2210", Message: "doSetup" });
-        var angular_module = globals_instance.getInstance_v002('RestorePreviousPageState', ngDefaultApplication);
+        var angular_module = globals_instance.getInstance_v002('RestorePreviousPageState', ngApplicationName);
         angular_module.controller('restorePreviousPageAndTaskQueueController', ['$scope', '$attrs', '$location', function ($scope, $attrs, $location) {
             }]);
         angular_module.directive('restorePreviousPageStateAndTaskQueue', function () {
