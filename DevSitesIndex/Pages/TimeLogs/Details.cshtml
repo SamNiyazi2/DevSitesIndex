@@ -7,86 +7,10 @@
 
 <h2>@ViewData["Title"]</h2>
 
-<div>
-    <hr />
-    <dl class="dl-horizontal">
+@{await Html.RenderPartialAsync("display_record", Model.TimeLog);}
 
-        @*// 09/21/2019 11:08 am - SSN - Added include job and project to display titles on form.*@
-        <dt>
-            @Html.DisplayNameFor(model => model.TimeLog.job.project)
-        </dt>
-        <dd>
-            <a asp-page="/projects/Details" asp-route-id="@Model.TimeLog.job.ProjectID">
-                @Html.DisplayFor(model => model.TimeLog.job.project.ProjectTitle)
-            </a>
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TimeLog.job.JobTitle)
-        </dt>
-        <dd>
-            <a asp-page="/jobs/Details" asp-route-id="@Model.TimeLog.JobId">
-                @Html.DisplayFor(model => model.TimeLog.job.JobTitle)
-            </a>
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TimeLog.StartTime)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.TimeLog.StartTime)
-        </dd>
-
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TimeLog.StopTime_AsString)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.TimeLog.StopTime_AsString)
-        </dd>
-
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TimeLog.TotalSeconds_ToTimeSpanFormat_T)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.TimeLog.TotalSeconds_ToTimeSpanFormat_T)
-        </dd>
-
-
-
-
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TimeLog.DateAdded)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.TimeLog.DateAdded)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.TimeLog.DateModified)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.TimeLog.DateModified)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TimeLog.discipline)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.TimeLog.discipline.DisciplineShort)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TimeLog.WorkDetail)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.TimeLog.WorkDetail)
-        </dd>
-
-    </dl>
-</div>
 <div>
     <a asp-page="./Edit" asp-route-id="@Model.TimeLog.TimeLogId">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
+    @*<a asp-page="./Index">Back to List</a>*@
+    @await Html.PartialAsync("ReturnToCallerLink", Model.returnToCaller)
 </div>

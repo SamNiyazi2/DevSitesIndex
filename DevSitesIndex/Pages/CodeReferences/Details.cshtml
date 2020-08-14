@@ -8,7 +8,7 @@
 <h2>@ViewData["Title"]</h2>
 
 <div>
-     
+
     <dl class="dl-horizontal">
 
         <dt>
@@ -23,7 +23,19 @@
             @Html.DisplayNameFor(model => model.CodeReference.SourceAddress)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.CodeReference.SourceAddress)
+            @{
+                if (!string.IsNullOrWhiteSpace(Model.CodeReference.SourceAddress))
+                {
+                    @if (Model.CodeReference.SourceAddress.ToLower().StartsWith("http"))
+                    {
+                        <a target="wincoderef@item.Id" href="@Model.CodeReference.SourceAddress">@Html.DisplayFor(modelItem => modelItem.CodeReference.SourceAddress)</a>
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(modelItem => Model.CodeReference.SourceAddress)
+                    }
+                }
+            }
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.CodeReference.DateAdded)
@@ -50,7 +62,12 @@
             @*03/29/2019 02:52 am - Added pre block*@
             <pre>
      
+@*
+// 01/02/2020 03:15 pm - SSN - Replace with CodeBlock_Encoded    
             @Html.DisplayFor(model => model.CodeReference.CodeBlock)
+*@
+            @Html.Raw(Model.CodeReference.CodeBlock_Encoded)
+
 </pre>
         </dd>
 

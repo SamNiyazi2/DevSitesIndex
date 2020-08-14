@@ -19,9 +19,9 @@ namespace DevSitesIndex.Services
             this.context = context;
         }
 
-        public IEnumerable<Job_Status> GetAll()
+        public IQueryable<Job_Status> GetAll()
         {
-            return context.Job_Statuses.AsNoTracking().ToList();
+            return context.Job_Statuses.AsNoTracking();
         }
 
         public Job_Status GetRecord(int id)
@@ -29,7 +29,7 @@ namespace DevSitesIndex.Services
             throw new NotImplementedException();
         }
 
-        public Exception Save()
+        public void Save()
         {
             throw new NotImplementedException();
         }

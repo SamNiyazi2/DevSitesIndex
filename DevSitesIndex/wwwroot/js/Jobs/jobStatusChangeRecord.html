@@ -1,0 +1,31 @@
+﻿<div   ng-hide="displayContent">
+
+
+        <a ng-click="showContent()">
+            {{optionLabel}}
+        </a>
+
+</div>
+
+<div class="jobStatusChangeRecord_on" ng-show="displayContent">
+
+    <a ng-click="showContent()">
+        Hide
+    </a>
+
+    &nbsp; | &nbsp;
+
+    <a ng-href="{{actionLink}}" target="{{getWindowName()}}">Open</a>
+    <div>
+
+        <p>
+        <p><span [innerHtml]=actionLink></span></p>
+
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam eos consectetur quod ipsam voluptate! Inventore ullam hic, labore error quibusdam quod quia eaque reiciendis, cupiditate aliquid minus qui distinctio beatae?
+        At culpa quibusdam expedita eveniet nulla ad quis minima odio possimus accusamus, necessitatibus suscipit atque omnis nam qui ipsam veniam officiis voluptas dolor veritatis! Minus fugiat at a mollitia itaque.
+        </p>
+
+    </div>
+
+</div>
+

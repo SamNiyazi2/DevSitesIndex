@@ -3,7 +3,9 @@
 
 import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/shared/data.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
+import { GenUtilService } from 'src/app/shared/gen-util.service';
+
 
 @Component({
   selector: 'app-timelog',
@@ -15,21 +17,40 @@ export class TimelogComponent implements OnInit {
   timelog: any;
 
 
+  constructor(private dataService: DataService, private route: ActivatedRoute, private genUtil: GenUtilService) { }
 
-  constructor(private dataService: DataService, private route: ActivatedRoute) { }
 
   ngOnInit() {
 
-    console.log("timelog.component - 20191005-1521");
+
+
+    this.genUtil.setPageTitle("Timelog List");
 
     this.timelog = {};
 
     this.timelog.timeLogId = -999;
 
     // 10/06/2019 12:12 pm - SSN - [20191006-1211] - [001] - Adding Angular 7
-    let id = +this.route.snapshot.params['id'];
+    // 10/21/2019 11:58 am - SSN - [20191021-0444] - [014] - M12 - Creating directives and advanced components in Angular.
 
-    let promise = this.dataService.getTimesheet(id).toPromise();
+    let id = 0;
+    let promise;
+
+    let useOriginalVersion: boolean = true;
+
+    if (useOriginalVersion) {
+
+      id = +this.route.snapshot.params['id'];
+    }
+    else {
+
+      this.route.params.forEach((params: Params) => {
+        id = +params['id'];
+      });
+
+    }
+
+    promise = this.dataService.getTimesheet(id).toPromise();
 
     promise.then(this.getTimesheetSuccess.bind(this), this.getTimesheetError).catch(this.getTimesheetCatch);
 
@@ -38,9 +59,6 @@ export class TimelogComponent implements OnInit {
 
   getTimesheetSuccess(response) {
 
-    console.log('timelog.component - getTimehseetSuccess - 20191005-1523');
-
-    console.log(response);
     this.timelog = response;
 
   }
@@ -48,7 +66,7 @@ export class TimelogComponent implements OnInit {
 
   getTimesheetError(response) {
 
-    console.log('timelog.component - getTimehseetError - 20191005-1524');
+    console.error('timelog.component - getTimehseetError - 20191005-1524');
     console.log(response);
 
   }
@@ -56,7 +74,7 @@ export class TimelogComponent implements OnInit {
 
   getTimesheetCatch(response) {
 
-    console.log('timelog.component - getTimehseetCatch - 20191005-1526');
+    console.error('timelog.component - getTimehseetCatch - 20191005-1526');
     console.log(response);
 
   }

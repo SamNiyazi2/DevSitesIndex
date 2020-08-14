@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using DevSitesIndex.Entities;
 using Microsoft.AspNetCore.Authorization;
+using DevSitesIndex.Util;
 
 namespace DevSitesIndex.Pages.Projects
 {
+
 
     // 08/12/2019 12:21 pm - SSN - [20190812-0945] - [014] - Add identity
     // Add Authorize    public class CreateModel : PageModel
@@ -17,6 +19,19 @@ namespace DevSitesIndex.Pages.Projects
     public class DeleteModel : PageModel
     {
         private readonly DevSitesIndex.Entities.DevSitesIndexContext _context;
+
+        // 11/04/2019 08:14 am - SSN - Prevent deleting projects with job reocrds 
+        public int jobCount { get; set; }
+        public Project_Jobs project_Jobs { get; set; }
+
+
+        // 11/04/2019 08:44 am - SSN - [20191104-0844] - [001] - Prevent delete option on timesheet related forms 
+        // Save referrer link
+        // 11/04/2019 09:47 am - SSN - [20191104-0844] - [006] - Prevent delete option on timesheet related forms 
+        // Return to caller
+
+        public ReturnToCaller returnToCaller = new ReturnToCaller();
+
 
         public DeleteModel(DevSitesIndex.Entities.DevSitesIndexContext context)
         {
@@ -33,6 +48,10 @@ namespace DevSitesIndex.Pages.Projects
                 return NotFound();
             }
 
+
+            returnToCaller.setup(HttpContext, "/projects/Index");
+
+
             Project = await _context.Projects
                 .Include(p => p.company).SingleOrDefaultAsync(m => m.ProjectID == id);
 
@@ -40,8 +59,16 @@ namespace DevSitesIndex.Pages.Projects
             {
                 return NotFound();
             }
+
+            // 11/04/2019 08:25 am - SSN - [20191104-0825] Adding detailsModel
+            this.jobCount = _context.Jobs.Count(r => r.ProjectID == id);
+
+            project_Jobs = new Project_Jobs(_context, id);
+
+
             return Page();
         }
+
 
         public async Task<IActionResult> OnPostAsync(int? id)
         {
@@ -58,7 +85,16 @@ namespace DevSitesIndex.Pages.Projects
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToPage("./Index");
+            // 11/13/2019 09:43 pm - SSN - [20191113-1946] - [008] - ReturnToCaller
+            // return RedirectToPage("./Index");
+            return Redirect(returnToCaller.getReturnToCallerUrl_Final(HttpContext));
+
         }
+
+
+
+
     }
+
+
 }

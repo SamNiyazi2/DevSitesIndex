@@ -3,27 +3,58 @@
 
 @{
     ViewData["Title"] = "Create New Job";
+
+    // 11/25/2019 11:41 pm - SSN - [20191125-2153] - [007] - Job create - Replace dropdown with dropdownListDirective
+
+    ViewBag.InitModule_Full = "data-ng-app=\"timesheetApp\"";
+
 }
 
 <h2>@ViewData["Title"] </h2>
 
+
+
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form method="post">
+    <div class="col-md-4" ng-controller="utilityController">
+
+        @*
+
+            // 11/25/2019 09:56 pm - SSN - [20191125-2153] - [001] - Job create - Replace dropdown with dropdownListDirective
+            // Add form name
+
+        *@
+
+        <form method="post" name="jobCreateForm" action="">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
+            @*
+                // 11/25/2019 09:56 pm - SSN - [20191125-2153] - [002] - Job create - Replace dropdown with dropdownListDirective
+
+
+                <div class="form-group">
+                    <label asp-for="Job.ProjectID" class="control-label"></label>
+
+                    @.*<select asp-for="Job.ProjectID" class="form-control" asp-items="ViewBag.ProjectID"></select>*.@
+
+                    @.*09/14/2019 12:28 am - SSN - Remove "Please select" from option and leave blank. Added placeholder*.@
+                    <select asp-for="Job.ProjectID" class="form-control" asp-items="Model.projectsSL" autofocus>
+                        <option></option>
+                    </select>
+                    <span asp-validation-for="Job.ProjectID" class="text-danger"></span>
+                </div>
+
+
+            *@
+
 
             <div class="form-group">
                 <label asp-for="Job.ProjectID" class="control-label"></label>
-
-                @*<select asp-for="Job.ProjectID" class="form-control" asp-items="ViewBag.ProjectID"></select>*@
-
-                @*09/14/2019 12:28 am - SSN - Remove "Please select" from option and leave blank. Added placeholder*@
-                <select asp-for="Job.ProjectID" class="form-control" asp-items="Model.projectsSL" autofocus>
-                    <option></option>
-                </select>
-                <span asp-validation-for="Job.ProjectID" class="text-danger"></span>
+                <input asp-for="Job.ProjectID" type="hidden" />
+                <dropdown-list-directive key="Job.ProjectID" form-name="jobCreateForm" autofocus="true"></dropdown-list-directive>
             </div>
+
 
 
             <div class="form-group">
@@ -36,21 +67,21 @@
 
             @*
 
-        // 09/18/2019 09:22 am - SSN - [20190918-0817] - [006] - Adding paging for angular lists
+                // 09/18/2019 09:22 am - SSN - [20190918-0817] - [006] - Adding paging for angular lists
 
 
             *@
             <div class="form-group">
                 <label asp-for="Job.Job_StatusID" class="control-label"></label>
 
-                <select asp-for="Job.Job_StatusID" class="form-control" asp-items="Model.job_statusSL" autofocus>
+                <select asp-for="Job.Job_StatusID" class="form-control" asp-items="Model.job_statusSL"  >
                     <option></option>
                 </select>
 
                 <span asp-validation-for="Job.Job_StatusID" class="text-danger"></span>
             </div>
 
- 
+
 
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />
@@ -60,9 +91,22 @@
 </div>
 
 <div>
-    <a asp-page="Index">Back to List</a>
+    @*<a asp-page="Index">Back to List</a>*@
+    @await Html.PartialAsync("ReturnToCallerLink", Model.returnToCaller)
 </div>
 
+
+
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+
+        if (Program.RunWhatJavaScriptVersion == Program.whatJavaScriptVersion.Webpack)
+        {
+            // 11/25/2019 10:28 pm - SSN - [20191125-2153] - [004] - Job create - Replace dropdown with dropdownListDirective
+
+            <script src="~/webpack_build/bundle_jobsIndex.js" asp-append-version="true"></script>
+        }
+    }
 }

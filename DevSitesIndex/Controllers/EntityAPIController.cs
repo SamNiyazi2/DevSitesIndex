@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using SSN_GenUtil_StandardLib;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 // 04/12/2019 11:44 am - SSN - [20190412-1126] - Timelog - save data - Copying from DemoSitesAPIController
@@ -30,7 +31,7 @@ namespace DevSitesIndex.Controllers
         // 09/30/2019 10:04 pm - SSN - Replaced _context
 
         protected readonly DevSitesIndexContext context;
-        protected readonly Util.ILogger_SSN logger;
+        protected readonly ILogger_SSN logger;
 
 
         public EntityAPIController(DevSitesIndexContext context, ILogger_SSN logger)
@@ -43,10 +44,10 @@ namespace DevSitesIndex.Controllers
 
         // GET: api/<controller>
         [HttpGet]
-        public IEnumerable<T> Get()
+        public IQueryable<T> Get()
         {
 
-            IEnumerable<T> entity = _entityRepository.GetAll();
+            IQueryable<T> entity = _entityRepository.GetAll();
 
             return entity;
 
@@ -64,6 +65,7 @@ namespace DevSitesIndex.Controllers
             return entity;
         }
 
+
         // POST api/<controller>
         //   [HttpPost]
         public ActionResult Post([FromBody]  T value)
@@ -73,21 +75,31 @@ namespace DevSitesIndex.Controllers
 
             // 05/19/2019 03:06 pm - SSN - [20190519-1412] - [005] - Continue work on adding continue option for timesheet record
             // Testing save on update
+
             try
             {
-                _entityRepository.Update(value);
 
-                // 09/29/2019 09:50 am - SSN - [20190928-1256] - [017] - Adding Entity Framework model attribute
-                // if (!_entityRepository.Save())
-                Exception ex = _entityRepository.Save();
-                if (ex != null)
-                {
-                    return BadRequest(string.Format("Failed to save record .  (DemoSite-20190521-1150-AAA) {0}", ex.Message));
-                }
+
+            _entityRepository.Update(value);
+
+            // 09/29/2019 09:50 am - SSN - [20190928-1256] - [017] - Adding Entity Framework model attribute
+            // if (!_entityRepository.Save())
+            // 11/16/2019 08:03 pm - SSN - [20191116-1516] - [010] - Timelog edit (AngularJS client version)
+            // Leave exception handling to repository
+            // Exception ex = _entityRepository.Save();
+            _entityRepository.Save();
+
+
 
             }
             catch (Exception ex)
             {
+
+                // Todo Todo Todo Todo Todo Todo Todo 
+                // Todo Todo Todo Todo Todo Todo Todo 
+                // Todo Todo Todo Todo Todo Todo Todo 
+                // Todo Todo Todo Todo Todo Todo Todo 
+                // Todo Todo Todo Todo Todo Todo Todo 
 
                 // 09/29/2019 11:43 am - SSN - [20190928-1256] - [022] - Adding Entity Framework model attribute
                 //string message = ex.Message;
@@ -95,41 +107,36 @@ namespace DevSitesIndex.Controllers
 
                 SSN_GenUtil_StandardLib.ExceptionsList el = eh.HandleException_GetExAsSB_v02(ex);
 
-
-
                 string message = el.Message_ToStringBuilder().ToString();
                 return BadRequest(string.Format("Failed to save record.  (DemoSite-20190521-1150-ZZZ)  {0}", message));
+
             }
 
-            return Ok();
+            // 12/02/2019 08:14 am - SSN - Return value. To refresh screen.
+            return Ok(value);
 
 
         }
 
-        // PUT api/<controller>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
 
-        // DELETE api/<controller>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+        //// PUT api/<controller>/5
+        //[HttpPut("{id}")]
+        //public void Put(int id, [FromBody]string value)
+        //{
+        //}
+
+        //// DELETE api/<controller>/5
+        //[HttpDelete("{id}")]
+        //public void Delete(int id)
+        //{
+        //}
 
 
     }
 
 
-    public class x123
-    {
-        public string DisciplineID { get; set; }
-        public DateTime StartTime { get; set; }
-        public int TimeLogId { get; set; }
-        public string WorkDetail { get; set; }
 
-    }
+
 
 
 
@@ -145,59 +152,6 @@ namespace DevSitesIndex.Controllers
         public string ta_id { get; set; }
         public string ta_description { get; set; }
     }
-
-
-    // 09/17/2019 08:04 am - SSN - [20190916-1123] - [020] - Adding job status
-
-    public class DataBag<T>
-    {
-        public IEnumerable<T> dataList { get; set; }
-        public SqlStatsRecord sqlStatsRecord { get; set; }
-
-        public ModelStateDictionary modelState { get; set; }
-
-        public void addModelError(string key, string errorMessage)
-        {
-            if (modelState == null) modelState = new ModelStateDictionary();
-            modelState.AddModelError(key, errorMessage);
-        }
-        public bool hasErrors => modelState != null && modelState.ErrorCount > 0;
-
-        public void copyModelError(ModelStateDictionary pageModelState)
-        {
-            if (modelState == null) return;
-
-            foreach (KeyValuePair<string, ModelStateEntry> e in modelState)
-            {
-                string key = e.Key;
-                foreach (ModelError me in e.Value.Errors)
-                {
-                    string em = me.ErrorMessage;
-                    pageModelState.AddModelError(key, em);
-                    pageModelState.AddModelError(key, em);
-                }
-
-            }
-
-        }
-
-    }
-
-    // 09/17/2019 11:55 am - SSN - [20190917-0929] - [006] - Adding paging for angular lists
-
-    public class SqlStatsRecord
-    {
-        public int RecordsPerPage { get; set; }
-        public int CurrentPageNo { get; set; }
-        public int TotalRecordCount { get; set; }
-        public string columnName { get; set; }
-        public string columnNameSelected { get; set; }
-        public bool desc { get; set; }
-
-        // 09/22/2019 08:25 am - SSN - [20190922-0822] - [002] - Plug in job status filter on job's index - update data source
-        public string job_statuses_selected { get; set; }
-    }
-
 
 
 }

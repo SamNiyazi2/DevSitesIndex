@@ -46,7 +46,9 @@ namespace DevSitesIndex.Entities
 
         // 09/10/2019 09:57 am - SSN 
         [NotMapped]
-        public string Solution_Details_PRE_Encoded => RE_Util.EncodeContentOfPreTag(Solution_Details);
+        // 11/23/2019 07:17 pm - SSN - Replaced
+        // public string Solution_Details_PRE_Encoded => RE_Util.EncodeContentOfPreTag(Solution_Details);
+        public string Solution_Details_PRE_Encoded => RE_Util.EncodeContent_PreContent(Solution_Details);
 
 
 

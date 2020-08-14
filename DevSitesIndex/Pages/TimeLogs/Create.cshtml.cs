@@ -9,6 +9,7 @@ using DevSitesIndex.Entities;
 using Microsoft.AspNetCore.Authorization;
 using SSN_GenUtil_StandardLib;
 using System.ComponentModel.DataAnnotations;
+using DevSitesIndex.Util;
 
 // 04/08/2019 12:43 am - SSN - [20190407-2345] - TimeLog
 
@@ -23,6 +24,12 @@ namespace DevSitesIndex.Pages.TimeLogs
         private readonly DevSitesIndex.Entities.DevSitesIndexContext _context;
         private readonly ILogger_SSN logger;
 
+
+        // 11/04/2019 02:04 pm - SSN - [20191104-0844] - [023] - Prevent delete option on timesheet related forms 
+        // Return to caller
+        public ReturnToCaller returnToCaller = new ReturnToCaller();
+
+
         // 09/27/2019 02:48 pm - SSN - [20190927-0634] - [025] - Testing
         // Added SSN_GenUtil_StandardLib.logger
         public CreateModel(DevSitesIndex.Entities.DevSitesIndexContext context, ILogger_SSN logger)
@@ -33,6 +40,11 @@ namespace DevSitesIndex.Pages.TimeLogs
 
         public IActionResult OnGet()
         {
+
+
+            returnToCaller.setup(HttpContext, "/timelog/Index");
+
+
             setupPageRequirements();
 
             TimeLog = new TimeLog();
@@ -96,7 +108,10 @@ namespace DevSitesIndex.Pages.TimeLogs
             await _context.SaveChangesAsync();
 
 
-            return RedirectToPage("./Index");
+            // 11/13/2019 09:43 pm - SSN - [20191113-1946] - [008] - ReturnToCaller
+            // return RedirectToPage("./Index");
+            return Redirect(returnToCaller.getReturnToCallerUrl_Final(HttpContext));
+
         }
 
 

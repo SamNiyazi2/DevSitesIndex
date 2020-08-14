@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
 
-     
+    "declaration": true,
     "moduleResolution": "classic",
 
 
@@ -48,32 +48,12 @@
 
   },
   "compileOnSave": true,
-  "files": [
-    "wwwroot/js/DataServices.ts",
-    "wwwroot/js/DemoSites.ts",
-    "wwwroot/js/demoSites_Index.ts",
-    "wwwroot/js/DemoSites_index_p1.ts",
-    "wwwroot/js/globals.ts",
-    "wwwroot/js/IAngularApp.ts",
-    "wwwroot/js/IColumnBag.ts",
-    "wwwroot/js/site.ts",
-    "wwwroot/js/CodeReference/Typeahead_Discipline.ts",
-    "wwwroot/js/DropdownList/DropdownListDirective.ts",
-    "wwwroot/js/Jobs/JobsIndexController.ts",
-    "wwwroot/js/Jobs/JobStatusDirective.ts",
-    "wwwroot/js/Timesheet/TimesheetApp.ts",
-    "wwwroot/js/Timesheet/Timesheet_main.ts",
-    "wwwroot/js/Timesheet/timesheetclockoutcontroller.ts",
-    "wwwroot/js/Timesheet/timesheetcontinuecontroller.ts",
-    "wwwroot/js/Timesheet/TimesheetController.ts",
-    "wwwroot/js/Util/HeaderWithSort.ts",
-    "wwwroot/js/Util/pagingDirective.ts",
-    "wwwroot/js/Projects/ProjectsIndex.ts"
-
-  ],
+  //"files": [ Not needed
+  //],
 
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "timesheetsSupport7"
   ],
 
   // 09/19/2019 04:08 am - SSN - [20190919-0354] - [004] - Putting things back - Cleanup from implementing AMD - Adding tsconfig.json     "alwaysStrict": true,

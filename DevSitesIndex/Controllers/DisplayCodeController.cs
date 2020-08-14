@@ -1,12 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
+using SSN_GenUtil_StandardLib;
+
 
 // 09/26/2018 02:16 am - SSN - Created
 
@@ -14,6 +19,10 @@ using Microsoft.Extensions.Configuration;
 
 namespace DevSitesIndex.Controllers
 {
+
+    // 12/03/2019 12:26 am - SSN - [20191202-2353] - [006] - DisplayCode - Adding
+    // Add [Route("api/[controller]")]
+    [Route("api/[controller]")]
     public class DisplayCodeController : Controller
     {
         const string DISPLAY_CODE_BEGIN = "*** displaycode-begin";
@@ -24,28 +33,217 @@ namespace DevSitesIndex.Controllers
         public const string JAVASCRIPT_COMMENT_HIGHLIGHT_TOKEN_o2 = "// h//";
         public const string JAVASCRIPT_COMMENT_HIGHLIGHT_TOKEN_BEGIN = "//ha//";
         public const string JAVASCRIPT_COMMENT_HIGHLIGHT_TOKEN_END = "//hz//";
-
+        private readonly IConfiguration configuration;
+        private readonly IHttpClientFactory clientFactory;
+        private readonly ILogger_SSN logger;
         CodeBlocksMaster_v02 codeBlocksMaster;
 
 
-        Util.ValidateReferer validateReferer ;
+        Util.ValidateReferer validateReferer;
 
 
-        public DisplayCodeController(IConfiguration configuration)
+        public DisplayCodeController(IConfiguration configuration, IHttpClientFactory clientFactory, ILogger_SSN logger)
         {
             // 1/23/2018 07:09 am - SSN - refactor
             validateReferer = new Util.ValidateReferer(configuration);
-
+            this.configuration = configuration;
+            this.clientFactory = clientFactory;
+            this.logger = logger;
         }
 
 
+        // 12/03/2019 03:03 am - SSN - [20191202-2353] - [008] - DisplayCode - Adding
+        // Create method for VSTS
+        [HttpGet("VSTSCode")]
+        public async Task<RequestResult> VSTSCode(string url, bool doDebug, bool useFileSystem = false)
+        {
+            string userName = configuration["vsts_username"];
+            string token = configuration["vsts_token"];
+
+
+            RequestResult requestResult_init = new RequestResult();
+
+            if (string.IsNullOrWhiteSpace(userName) || string.IsNullOrWhiteSpace(token))
+            {
+                requestResult_init.finalResult = "Missing VSTS credentials.";
+                requestResult_init.haveError = true;
+                logger.PostException(new Exception("Missing VSTS credentials"), "20191203-2257", "Missing VSTS credential for VSTSCode display");
+                return requestResult_init;
+            }
+
+            string vstsAccount = "samniyazi";
+            string projectName = "Training Track";
+            string repository = "433fe932-11f3-4919-831b-234c1dab4d8d";
+
+
+
+            // path=/DevSitesIndex/wwwroot/js/DemoSites_index_p1.ts
+            string path = "/DevSitesIndex/wwwroot/js/DemoSites_index_p1.ts";
+
+            // Wrong url - string url_base = string.Format("https://{0}.VisualStudio.com/defaultcollection/{1}/_apis/git/repositories/{2}/items?api-version=5.1", vstsAccount, projectName, repository);
+            string url_base = string.Format("https://dev.azure.com/{0}/{1}/_apis/git/repositories/{2}/items?path={3}&api-version=5.1", vstsAccount, projectName, repository, path);
+
+
+            // &recursionLevel=full  <---- Only when listing all items  - URL does not work here when tested. 
+            // 'responseStream.ReadTimeout' threw an exception of type 'System.InvalidOperationException'
+
+            string base64AuthInfo = Convert.ToBase64String(Encoding.ASCII.GetBytes(string.Format("{0}:{1}", userName, token)));
+
+
+
+            // 12/03/2019 04:49 am - SSN - [20191202-2353] - [019] - DisplayCode - Adding
+            // https://docs.microsoft.com/en-us/aspnet/core/fundamentals/http-requests?view=aspnetcore-3.0
+
+
+            try
+            {
+                requestResult_init = await processRequest_init(url_base, base64AuthInfo);
+
+            }
+            catch (Exception ex)
+            {
+                requestResult_init.haveError = true;
+                requestResult_init.finalResult = ex.Message;
+                await logger.PostException(ex, "20191203-0901", "Failed to call DisplayCodeContrller - VSTSCode");
+            }
+
+
+            return requestResult_init;
+        }
+
+        private async Task<RequestResult> processRequest_init(string url_base, string base64AuthInfo)
+        {
+            RequestResult requestResult_init = new RequestResult();
+
+            var request = new HttpRequestMessage(HttpMethod.Get, url_base);
+            request.Headers.Add("Accept", "application/json");
+            request.Headers.Add("Authorization", string.Format("Basic {0}", base64AuthInfo));
+
+
+            var client = clientFactory.CreateClient();
+
+            var response = await client.SendAsync(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseStream = await response.Content.ReadAsStreamAsync();
+
+                StreamReader sr = new StreamReader(responseStream);
+
+                requestResult_init.finalResult = await sr.ReadToEndAsync();
+
+                //Branches = await JsonSerializer.DeserializeAsync
+                //    <IEnumerable<GitHubBranch>>(responseStream);
+
+                ItemDetail itemDetail = JsonConvert.DeserializeObject<ItemDetail>(requestResult_init.finalResult);
+
+                if (itemDetail != null)
+                {
+                    requestResult_init = await processRequest_blob(base64AuthInfo, requestResult_init, itemDetail);
+
+                }
+            }
+            else
+            {
+                requestResult_init.haveError = true;
+            }
+
+            return requestResult_init;
+        }
+
+        private async Task<RequestResult> processRequest_blob(string base64AuthInfo, RequestResult requestResult_init, ItemDetail itemDetail)
+        {
+            RequestResult requestResult = new RequestResult();
+
+            ItemDetailLinkHref blob = itemDetail._links.blob;
+
+            if (blob != null && !string.IsNullOrEmpty(blob.href))
+            {
+                var request2 = new HttpRequestMessage(HttpMethod.Get, blob.href);
+                request2.Headers.Add("Accept", "text/plain");
+                request2.Headers.Add("Authorization", string.Format("Basic {0}", base64AuthInfo));
+
+
+                var client2 = clientFactory.CreateClient();
+
+                var response2 = await client2.SendAsync(request2);
+
+                if (response2.IsSuccessStatusCode)
+                {
+                    var responseStream2 = await response2.Content.ReadAsStreamAsync();
+
+                    StreamReader sr2 = new StreamReader(responseStream2);
+
+                    requestResult_init.finalResult = await sr2.ReadToEndAsync();
+
+                }
+                else
+                {
+                    requestResult_init.haveError = true;
+                }
+
+            }
+
+            return requestResult_init;
+        }
+
+
+        public class RequestResult
+        {
+            public string finalResult { get; set; }
+            public bool haveError { get; set; }
+        }
+
+        //        {
+        //  "objectId": "fde2947dc25061a625d0b282647bbda8f9804231",
+        //  "gitObjectType": "blob",
+        //  "commitId": "92f25c4b2dedd6a6e1a34c7563f01f9596d922c6",
+        //  "path": "/DevSitesIndex/wwwroot/js/DemoSites_index_p1.ts",
+        //  "url": "https://dev.azure.com/samniyazi/23a6e784-1bc9-4b41-a395-0a828963facb/_apis/git/repositories/433fe932-11f3-4919-831b-234c1dab4d8d/items?path=%2FDevSitesIndex%2Fwwwroot%2Fjs%2FDemoSites_index_p1.ts&versionType=Branch&versionOptions=None",
+        //  "_links": {
+        //    "self": {
+        //      "href": "https://dev.azure.com/samniyazi/23a6e784-1bc9-4b41-a395-0a828963facb/_apis/git/repositories/433fe932-11f3-4919-831b-234c1dab4d8d/items?path=%2FDevSitesIndex%2Fwwwroot%2Fjs%2FDemoSites_index_p1.ts&versionType=Branch&versionOptions=None"
+        //    },
+        //    "repository": {
+        //      "href": "https://dev.azure.com/samniyazi/23a6e784-1bc9-4b41-a395-0a828963facb/_apis/git/repositories/433fe932-11f3-4919-831b-234c1dab4d8d"
+        //    },
+        //    "blob": {
+        //      "href": "https://dev.azure.com/samniyazi/23a6e784-1bc9-4b41-a395-0a828963facb/_apis/git/repositories/433fe932-11f3-4919-831b-234c1dab4d8d/blobs/fde2947dc25061a625d0b282647bbda8f9804231"
+        //    }
+        //  }
+        //}
+        class ItemDetail
+        {
+            public string objectId { get; set; }
+            public string gitObjectType { get; set; }
+            public string commitId { get; set; }
+            public string path { get; set; }
+            public string url { get; set; }
+            public ItemDetailLinks _links { get; set; }
+        }
+        class ItemDetailLinks
+        {
+            public ItemDetailLinkHref self { get; set; }
+            public ItemDetailLinkHref repository { get; set; }
+            public ItemDetailLinkHref blob { get; set; }
+
+        }
+        class ItemDetailLinkHref
+        {
+            public string href { get; set; }
+        }
+
         // GET: /<controller>/
-        public string Index(string url, bool doDebug, bool useFileSystem = false)
+        // 12/03/2019 12:26 am - SSN - [20191202-2353] - [007] - DisplayCode - Adding
+        // Replace name and add [HttpGet[
+        // public string Index(string url, bool doDebug, bool useFileSystem = false)
+        [HttpGet]
+        public string get(string url, bool doDebug, bool useFileSystem = false)
         {
             validateReferer.validateReferer(Request, Response);
 
 
-           WebClient web = new WebClient();
+            WebClient web = new WebClient();
 
             StringBuilder sb_final = new StringBuilder();
 
@@ -273,7 +471,7 @@ namespace DevSitesIndex.Controllers
             }
 
 
-// 11/10/2018 11:56 am - SSN - Adding alarm
+            // 11/10/2018 11:56 am - SSN - Adding alarm
             if (text.Contains("alarm ["))
             {
                 if (debugRegex) currentCodeBlock.sb.AppendLine("------------- Regex  begin (102-alarm)");
@@ -332,9 +530,9 @@ namespace DevSitesIndex.Controllers
             //    currentCodeBlock.sb.Insert(0, $"Number of words to highlight [{currentCodeBlock.highlight.Count}]{lf}");
             //}
 
-            text = doReplacements_Step01_sub(text,"n",currentCodeBlock.highlightWords_v02);
+            text = doReplacements_Step01_sub(text, "n", currentCodeBlock.highlightWords_v02);
 
-            text = doReplacements_Step01_sub(text,"alarm", currentCodeBlock.alarmWords);
+            text = doReplacements_Step01_sub(text, "alarm", currentCodeBlock.alarmWords);
 
 
             return text;
@@ -437,7 +635,7 @@ namespace DevSitesIndex.Controllers
     {
         public StringBuilder sb { get; set; }
 
-// 11/10/2018 11:58 am - SSN - v02 for adding alarmWords.  Match process.
+        // 11/10/2018 11:58 am - SSN - v02 for adding alarmWords.  Match process.
         public List<string> highlightWords_v02 { get; set; }
         public List<string> alarmWords { get; set; }
 

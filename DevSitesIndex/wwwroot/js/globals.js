@@ -5,7 +5,7 @@ var globals_instance = function () {
         function SSN_Globals() {
         }
         // 09/23/2019 06:13 am - SSN - [20190923-0613] - [001] - Adding a lock
-        SSN_Globals.getInstance = function (applicationName, args) {
+        SSN_Globals.getInstance_v02 = function (callSource, applicationName, args) {
             ////  DO NOT REMOVE.
             //// Option to call an injected AngularJS server from here. Tested.  
             if (args === void 0) { args = null; }
@@ -17,9 +17,9 @@ var globals_instance = function () {
             //    console.error("globals:  20190923-1135 - Failed call to test_102");
             //    console.log(e);
             //}
-            return SSN_Globals.getInstance_Original(applicationName, args);
+            return SSN_Globals.getInstance_Original(callSource, applicationName, args);
         };
-        SSN_Globals.getInstance_Original = function (applicationName, args) {
+        SSN_Globals.getInstance_Original = function (callSource, applicationName, args) {
             if (args === void 0) { args = null; }
             var angularApp = null;
             var selected = (SSN_Globals.ssn_devsite_angular_module).filter(function (r) { return r.name === applicationName; });
@@ -42,7 +42,8 @@ var globals_instance = function () {
                     case 'timesheetApp':
                         angularApp = {
                             name: applicationName,
-                            instance: angular.module('timesheetApp', ['ngRoute', 'ui.bootstrap'])
+                            // 11/10/2019 08:36 am - SSN - Adding 'ngSanitize' for ng-bind-html
+                            instance: angular.module('timesheetApp', ['ngRoute', 'ui.bootstrap', 'ngSanitize'])
                         };
                         SSN_Globals.ssn_devsite_angular_module.push(angularApp);
                         break;
@@ -61,7 +62,7 @@ var globals_instance = function () {
                         SSN_Globals.ssn_devsite_angular_module.push(angularApp);
                         break;
                     default:
-                        console.log("Globals ************* No case for application name [" + applicationName + "]  [20190920-0955] globals.ts");
+                        console.error("Globals ************* No case for application name [" + applicationName + "]  [20190920-0955] globals.ts");
                         break;
                 }
             }
@@ -83,14 +84,11 @@ var globals_instance = function () {
                     var doTest101 = function (namePassedIn) {
                         var deferred = $q.defer();
                         setTimeout(function () {
-                            console.log('GLOBALS - asyncGreet - 45');
                             deferred.notify('About to greet ' + namePassedIn + '.');
                             if (okToGreet(namePassedIn)) {
-                                console.log('GLOBALS - asyncGreet - 50');
                                 deferred.resolve('Hello, ' + namePassedIn + '!');
                             }
                             else {
-                                console.log('GLOBALS - asyncGreet - 53');
                                 deferred.reject('Greeting ' + namePassedIn + ' is not allowed.');
                             }
                         }, 1000);
@@ -109,12 +107,12 @@ var globals_instance = function () {
         };
     }();
     // 09/20/2019 09:38 am - SSN - Pass in args
-    function getInstance(applicationName, args) {
+    function getInstance_v002(callSource, applicationName, args) {
         if (args === void 0) { args = null; }
-        return SSN_Globals.getInstance(applicationName, args);
+        return SSN_Globals.getInstance_v02(callSource, applicationName, args);
     }
     return {
-        getInstance: getInstance
+        getInstance_v002: getInstance_v002
     };
 }();
 var test_103 = function () {
@@ -139,6 +137,15 @@ var test_103 = function () {
         doIt: doIt
     };
 }();
-export { globals_instance };
-export { test_103 };
+// 11/21/2019 06:32 am - SSN - [20191121-0503] - [006] - Timelog edit options on project search
+var Timelog_ServingPage;
+(function (Timelog_ServingPage) {
+    Timelog_ServingPage["Timelog"] = "Timelog";
+    Timelog_ServingPage["Job_Timelog"] = "Job_Timelog";
+    Timelog_ServingPage["Projects_Search"] = "Projects_Search";
+})(Timelog_ServingPage || (Timelog_ServingPage = {}));
+function Timelog_ServingPage_checkvalue(value, compareTo) {
+    return compareTo === value;
+}
+export { globals_instance, test_103, Timelog_ServingPage, Timelog_ServingPage_checkvalue };
 //# sourceMappingURL=globals.js.map

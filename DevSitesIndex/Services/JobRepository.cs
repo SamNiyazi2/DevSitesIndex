@@ -20,10 +20,10 @@ namespace DevSitesIndex.Services
         }
 
 
-        public IEnumerable<Job> GetAll()
+        public IQueryable<Job> GetAll()
         {
 
-            return _context.Jobs.OrderBy(r => r.JobTitle).AsNoTracking().ToList();
+            return _context.Jobs.OrderBy(r => r.JobTitle).AsNoTracking();
         }
 
 
@@ -60,25 +60,15 @@ namespace DevSitesIndex.Services
 
         // 09/29/2019 09:52 am - SSN - [20190928-1256] - [018] - Adding Entity Framework model attribute
         // public bool Save()
-        public Exception Save()
+        // 11/16/2019 08:07 pm - SSN - [20191116-1516] - [012] - Timelog edit (AngularJS client version)
+        // Let SaveChanges handle exception
+
+        public void Save()
         {
-            try
-            {
-                // return _context.SaveChanges() > 0;
-                if (_context.SaveChanges() > 0) throw default(Exception);
+            _context.SaveChanges();
 
-                return new Exception("20190929-0954 - Failed to save record. ");
-
-            }
-            catch (Exception ex)
-            {
-                string message = ex.Message;
-
-                // 09/29/2019 09:55 am - SSN - [20190928-1256] - [019] - Adding Entity Framework model attribute
-                //return false;
-                throw;
-            }
         }
+
 
         public void Dispose()
         {

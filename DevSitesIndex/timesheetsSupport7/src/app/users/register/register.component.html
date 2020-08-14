@@ -1,0 +1,85 @@
+
+<ng-container *ngIf="Display_Registration">
+
+
+  <h3>Register</h3>
+
+  <hr />
+
+  <div [ngClass]="{'col-md-4':!isOpenAsModal(),'':isOpenAsModal()}">
+
+
+
+    <div>
+
+
+      <form [formGroup]="registerForm" autocomplete="off" (ngSubmit)="register(registerForm.value)" novalidate>
+
+
+        <h4>Create a new account.</h4>
+        <hr />
+
+        <div class="form-group">
+
+          <label for="email">Email</label>
+
+          <em *ngIf="(email?.touched || mouseoverRegister) && email?.errors?.required">Required</em>
+          <em *ngIf="(email?.touched || mouseoverRegister) && email?.errors?.email">Invalid email</em>
+
+
+          <input formControlName="email" name="email"
+                 id="email"
+                 type="text" class="form-control" placeholder="Email..." autofocus required />
+          <div *ngIf="email_errorMessage" class="error" [innerHtml]="email_errorMessage"></div>
+
+
+
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+
+          <em *ngIf="(password?.touched || mouseoverRegister) && password?.errors?.required">Required</em>
+          <input [formGroup]="registerForm" formControlName="password" name="password" id="password" type="password" class="form-control" placeholder="Password..." required />
+
+          <div *ngIf="password_errorMessage" class="error" [innerHtml]="password_errorMessage">
+
+
+          </div>
+        </div>
+
+
+        <div class="form-group">
+
+          <label for="confirmPassword">Confirm Password</label>
+          <em *ngIf="(confirmPassword?.touched || mouseoverRegister) && confirmPassword?.errors?.required">Required</em>
+          <em *ngIf="(confirmPassword?.touched || mouseoverRegister) && confirmPassword?.errors?.passwordMismatch">Mismatched password</em>
+          <input [formGroup]="registerForm" formControlName="confirmPassword" name="confirmPassword" id="confirmPassword" type="password" class="form-control" placeholder="Confirm password..." required />
+          <div *ngIf="confirmPassword_errorMessage" class="error" [innerHtml]="confirmPassword_errorMessage"></div>
+
+        </div>
+
+
+        <div *ngIf="global_errorMessage" class="error" [innerHtml]="global_errorMessage"></div>
+
+
+        <span (mouseenter)="mouseoverRegister=true" (mouseleave)="mouseoverRegister=false">
+          <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid">Register</button> &nbsp;
+        </span>
+        <button type="button" class="btn btn-default" (click)="cancel()">Cancel</button>
+        <br />
+        <div [ngClass]="{error:feedbackMessage}"
+             [innerHtml]="feedbackMessage">
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+</ng-container>
+
+
+<ng-container *ngIf="Display_EmailSentNotification && !Display_Registration">
+  <div [innerHtml]="pageContent.title"></div>
+  <div [innerHtml]="pageContent.body"></div>
+</ng-container>

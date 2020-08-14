@@ -67,7 +67,9 @@
                 {
                     string description = o.GetDescription();
                     int key = (int)o;
-                    <input asp-for="DevSite.ForDemo_v02" type="radio" value="@key" /> @description
+                    <span class="indexNowrapOption">
+                        <input asp-for="DevSite.ForDemo_v02" type="radio" value="@key" /> @description
+                    </span>
                 }
 
 
@@ -101,9 +103,14 @@
     </div>
 </div>
 
+
 <div>
-    <a asp-page="Index">Back to List</a>
+    @*<a asp-page="Index">Back to List</a>*@
+
+    @await Html.PartialAsync("ReturnToCallerLink", Model.returnToCaller)
 </div>
+
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

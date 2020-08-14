@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using DevSitesIndex.Entities;
 using Microsoft.AspNetCore.Authorization;
+using DevSitesIndex.Util;
 
 namespace DevSitesIndex.Pages.DevSites
 {
@@ -25,12 +26,20 @@ namespace DevSitesIndex.Pages.DevSites
 
         public DevSite DevSite { get; set; }
 
+        // 11/09/2019 06:54 am - SSN - [20191109-0654] - [001] - ReturnToIndex from demosite index
+        public ReturnToCaller returnToCaller = new ReturnToCaller();
+
+
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
+
+
+            returnToCaller.setup(HttpContext, "/devsites/Index");
+
 
             DevSite = await _context.DevSites.SingleOrDefaultAsync(m => m.Id == id);
 

@@ -248,9 +248,7 @@
 
             @*08/31/2018 08:51 am - SSN*@
             <script type="module" src="~/js/demoSites_Index.js" asp-append-version="true"></script>
-
-
-            @await Html.PartialAsync("DataServices_Scripts")
+             
         }
 
 
@@ -258,7 +256,7 @@
         if (Program.RunWhatJavaScriptVersion == Program.whatJavaScriptVersion.Webpack)
         {
 
-            <script src="~/webpack_build/bundle_DevSitesIndex.js" asp-append-version="true"></script>
+            <script src="~/webpack_build/bundle_DemoSites_index.js" asp-append-version="true"></script>
         }
 
     }

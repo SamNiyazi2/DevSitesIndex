@@ -3,6 +3,10 @@
 
 @{
     ViewData["Title"] = "Edit Job";
+
+    // 11/28/2019 07:38 am - SSN -  Replace dropdown with dropdownListDirective
+
+    ViewBag.InitModule_Full = "data-ng-app=\"timesheetApp\"";
 }
 
 <h2>@ViewData["Title"]</h2>
@@ -22,17 +26,21 @@
                 @Html.DisplayFor(model => model.Job.DateAdded)
             </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Job.DateUpdated)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Job.DateUpdated)
-            </dd>
+            @{
+                if (Model.Job.DateUpdated != null)
+                {
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Job.DateUpdated)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Job.DateUpdated)
+                    </dd>
 
+                }
+            }
         </dl>
 
-
-        <form method="post">
+        <form method="post" name="jobEditForm" action="">
 
             @*// 09/08/2019 07:00 am - SSN - [20190908-0001] - [002] - Concurrency*@
 
@@ -42,16 +50,29 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
 
+
+            @*
+
+                    11/28/2019 07:36 am - SSN - Replaced with dropdown-list-directive
+
+                    <div class="form-group">
+                    <label asp-for="Job.ProjectID" class="control-label"></label>
+
+                    <select asp-for="Job.ProjectID" class="form-control" asp-items="Model.projectsSL" autofocus>
+                        <option></option>
+                    </select>
+
+                    <span asp-validation-for="Job.ProjectID" class="text-danger"></span>
+                </div>*@
+
+
+
             <div class="form-group">
                 <label asp-for="Job.ProjectID" class="control-label"></label>
-
-                @*<select asp-for="Job.ProjectID" class="form-control" asp-items="ViewBag.ProjectID"></select>*@
-                <select asp-for="Job.ProjectID" class="form-control" asp-items="Model.projectsSL" autofocus>
-                    <option></option>
-                </select>
-
-                <span asp-validation-for="Job.ProjectID" class="text-danger"></span>
+                <input asp-for="Job.ProjectID" type="hidden" />
+                <dropdown-list-directive key="Job.ProjectID" form-name="jobEditForm" autofocus="true"></dropdown-list-directive>
             </div>
+
 
 
             @*
@@ -75,7 +96,7 @@
                 <input asp-for="Job.JobTitle" class="form-control" />
                 <span asp-validation-for="Job.JobTitle" class="text-danger"></span>
             </div>
- 
+
 
 
             <div class="form-group">
@@ -86,9 +107,24 @@
 </div>
 
 <div>
-    <a asp-page="./Index">Back to List</a>
+
+    @*<a asp-page="./Index">Back to List</a>*@
+
+    @await Html.PartialAsync("ReturnToCallerLink", Model.returnToCaller)
+
 </div>
+  
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+
+        if (Program.RunWhatJavaScriptVersion == Program.whatJavaScriptVersion.Webpack)
+        {
+            // 11/28/2019 07:38 am - SSN -  Replace dropdown with dropdownListDirective
+
+            <script src="~/webpack_build/bundle_jobsIndex.js" asp-append-version="true"></script>
+        }
+    }
 }

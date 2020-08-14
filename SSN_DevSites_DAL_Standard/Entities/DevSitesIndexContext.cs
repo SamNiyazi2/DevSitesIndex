@@ -25,8 +25,8 @@ namespace DevSitesIndex.Entities
     // public class DevSitesIndexContext : IdentityDbContext
     {
         private readonly ILogger_SSN logger;
-        
-            
+
+
         // 02/24/2019 12:42 pm - SSN - [20190224-1247] Adding IConfiguration configuration
         public DevSitesIndexContext(DbContextOptions<DevSitesIndexContext> options, IConfiguration configuration, ILogger_SSN logger)
            : base(options)
@@ -120,7 +120,7 @@ namespace DevSitesIndex.Entities
                 }
 
                 if (entry.State == EntityState.Modified && property_DateUpdated != null)
-                { 
+                {
                     entry.Property(property_DateAdded.Name).IsModified = false;
                     entry.Property(property_DateUpdated.Name).CurrentValue = timestamp;
                 }
@@ -238,6 +238,11 @@ namespace DevSitesIndex.Entities
 
         private static void setup_Job(ModelBuilder modelBuilder)
         {
+            // 10/09/2019 10:01 pm - SSN - [20191009-1302] - [010] - M09 - Reusing components with content projection
+
+            modelBuilder.Entity<Job>().HasMany(s => s.timelogs).WithOne(s => s.job);
+
+
             modelBuilder.Entity<Job>()
                 .Property(x => x.JobTitle)
                 .IsRequired()

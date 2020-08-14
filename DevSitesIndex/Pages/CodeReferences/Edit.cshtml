@@ -56,65 +56,6 @@
             </div>
 
 
-
-            @*05/30/2019 06:40 pm - SSN - Adding*@
-
-            @{
-
-                // Incomplete
-
-                if (Model.Test_20190901_2333)
-                {
-                    <h1>-----------------------------------------------------------------------</h1>
-
-
-                    <h1>Test-001</h1>
-
-                    int ndx = 0;
-
-                    if (Model.CodeReference.DevSiteCodeReferences != null)
-                    {
-
-                        foreach (var item in Model.CodeReference.DevSiteCodeReferences)
-                        {
-
-                            <div class="form-group">
-                                <label class="control-label">Demo Site(s): </label>
-                                @Html.DisplayFor(modelItem => item.DevSite.SiteTitle)
-                                <input name="CodeReference.DevSiteCodeReferences[@ndx].DevSite.SiteTitle" class="form-control" maxlength="100" value="@item.DevSite.SiteTitle"></input>
-
-                                <span asp-validation-for="CodeReference.DevSiteCodeReferences" class="text-danger"></span>
-
-
-                            </div>
-
-                            ndx++;
-                        }
-
-                    }
-
-                    <h1>Test-002</h1>
-
-                    <div class="form-group">
-                        <label class="control-label">Demo Site(s): </label>
-
-                        <input name="CodeReference.DevSiteCodeReferences[@ndx].DevSite.SiteTitle" class="form-control" maxlength="100"></input>
-
-                        <span asp-validation-for="CodeReference.DevSiteCodeReferences" class="text-danger"></span>
-                    </div>
-
-                    <h1>Test-003</h1>
-                    <div ng-app="timesheetApp">
-
-                        <typeahead-discipline key="'TheKeyColumn101'" form-name="codeReferenceForm"></typeahead-discipline>
-
-                    </div>
-                    <h1>-----------------------------------------------------------------------</h1>
-
-                }
-            }
-
-
             @*
                 09/13/2019 04:30 am - SSN - [20190913-0421] - [001]
                 Moved down
@@ -122,7 +63,7 @@
 
             <div class="form-group">
                 <label asp-for="CodeReference.CodeBlock" class="control-label"></label>
-                <textarea asp-for="CodeReference.CodeBlock" class="form-control codeblock1"></textarea>
+                <textarea asp-for="CodeReference.CodeBlock" class="form-control "></textarea>
                 <span asp-validation-for="CodeReference.CodeBlock" class="text-danger"></span>
             </div>
 

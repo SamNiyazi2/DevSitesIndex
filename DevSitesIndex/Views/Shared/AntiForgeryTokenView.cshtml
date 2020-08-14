@@ -1,0 +1,16 @@
+﻿@using System.IO;
+@using System.Text;
+
+@{
+    Layout = null;
+}
+@{
+
+    StringBuilder sb = new StringBuilder();
+
+    TextWriter textWriter = new StringWriter(sb);
+
+    Html.AntiForgeryToken().WriteTo(textWriter, System.Text.Encodings.Web.HtmlEncoder.Default);
+
+}
+@Html.Raw(textWriter)

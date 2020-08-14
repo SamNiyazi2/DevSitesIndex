@@ -20,211 +20,256 @@ var demosites_index_p1_instance = function () {
     // Knockout related
 
 
-        var ViewModel = function () {
+    var ViewModel = function () {
 
-            // 08/12/2019 05:58 am - SSN - [20190812-0515] - [006] - Apply fulltext search
-            var self = this;
+        // 08/12/2019 05:58 am - SSN - [20190812-0515] - [006] - Apply fulltext search
+        var self = this;
 
 
-            // 09/10/2019 04:20 am - SSN - [20190910-0147] - [009] - WARNING: Tried to load angular more than once.
-            // Since bound to control, it displays the observable as object[object]. Take out.
-            self.SearchText_KO = ""; // ko.observable({});
+        // 09/10/2019 04:20 am - SSN - [20190910-0147] - [009] - WARNING: Tried to load angular more than once.
+        // Since bound to control, it displays the observable as object[object]. Take out.
 
+        // 12/20/2019 05:06 pm - SSN - [20191220-1706] Adding resetSearch
+        self.SearchText_KO = ko.observable();
 
-            // 08/21/2019 12:16 pm - SSN - [20190821-1210] - [003] - SearchResultsFeedback_KO
 
-            self.SearchResultsFeedback_KO = ko.observable("");
-            self.SearchResultsFeedback_ClassName_KO = ko.observable();
-            self.prefixPreWithShowHideAnchor_DontCall_KO = ko.observable(false);
+        // 08/21/2019 12:16 pm - SSN - [20190821-1210] - [003] - SearchResultsFeedback_KO
 
-            // 09/08/2019 07:10 pm - SSN - [20190908-0001] - [007] - Concurrency
-            //////this.currentItem = {};
-            self.currentItem = ko.observable();
+        self.SearchResultsFeedback_KO = ko.observable("");
+        self.SearchResultsFeedback_ClassName_KO = ko.observable();
+        self.prefixPreWithShowHideAnchor_DontCall_KO = ko.observable(false);
 
-            self.errorMessage = ko.observable();
+        // 09/08/2019 07:10 pm - SSN - [20190908-0001] - [007] - Concurrency
+        //////this.currentItem = {};
+        self.currentItem = ko.observable();
 
-            // 06/06/2019 05:44 pm - SSN - Moved from index_p1.cshtml - Update
-            //  this.devSitesJSON = ko.observableArray(@Html.Raw(Model.devSitesJSON));
+        self.errorMessage = ko.observable();
 
-            this.devSitesJSON = ko.observableArray([]);
+        // 06/06/2019 05:44 pm - SSN - Moved from index_p1.cshtml - Update
+        //  this.devSitesJSON = ko.observableArray(@Html.Raw(Model.devSitesJSON));
 
+        this.devSitesJSON = ko.observableArray([]);
 
-            // 06/06/2019 05:44 pm - SSN - Moved from index_p1.cshtml - Update
-            this.loadData = function () {
-                var self = this;
 
-                // 09/09/2019 10:35 pm - SSN - [20190909-2136] - [005] - Select top 15
+        // 06/06/2019 05:44 pm - SSN - Moved from index_p1.cshtml - Update
+        this.loadData = function () {
+            let self = this;
 
-                // $.getJSON("/api/demositesapi", function (data) {
-                $.getJSON("/api/demositesapi/top?recordCount=15", function (data) {
+            // 09/09/2019 10:35 pm - SSN - [20190909-2136] - [005] - Select top 15
 
-                    self.devSitesJSON.removeAll();
-                    self.devSitesJSON(data);
-                });
+            // $.getJSON("/api/demositesapi", function (data) {
+            $.getJSON("/api/demositesapi/top?recordCount=15", function (data) {
 
-            }
+                self.devSitesJSON.removeAll();
+                self.devSitesJSON(data);
+            });
 
+        }
 
-            // 08/16/2019 04:25 pm - SSN - [20190816-1625] - [001] - Correct logic for getting record count to show no search results message
 
+        // 08/16/2019 04:25 pm - SSN - [20190816-1625] - [001] - Correct logic for getting record count to show no search results message
 
-            this.getRecordCount = function () {
 
-                let recordCount: number = self.devSitesJSON().length;
-                // self.devSitesJSON
+        this.getRecordCount = function () {
 
-                return recordCount;
+            let recordCount: number = self.devSitesJSON().length;
+            // self.devSitesJSON
 
-            };
-
-
-            // 09/08/2019 08:07 pm - SSN - [20190908-0001] - [009] - Concurrency
-            // Renamed del-confirm del_confirm_p1
-            this.requestDelConfirm = function (itemToDelete) {
-
-                self.currentItem(itemToDelete);
-                $('#del_confirm_p1').modal({ backdrop: 'static', keyboard: false });
-
-            };
-
-
-
-            this.showJob = function (devSiteID) {
-
-                $('#show-job').modal();
-
-            };
-
-
-            this.del = function () {
-
-                var itemToDelete = ko.toJS(vm.currentItem);
-                $('#del-confirm').modal('hide');
-
-            };
-
-
-
-            this.checkIfcallingcmd = function (siteUrl) {
-                if (stringStartsWith(siteUrl, 'cmd')) {
-                    return true;
-
-                }
-            };
-
-            this.siteUrlWithoutCMD = function (siteUrl) {
-                if (stringStartsWith(siteUrl, 'cmd')) {
-                    return siteUrl.substring(4);
-                }
-                else {
-
-                    return siteUrl;
-                }
-            };
-
-
-            // 08/12/2019 05:57 am - SSN - [20190812-0515] - [005] - Apply fulltext search
-            // https://stackoverflow.com/questions/16245905/fetching-or-sending-data-from-a-form-using-knockout-js
-            //self.onSubmit = function () {
-            this.onSubmit = function () {
-                //var data = JSON.stringify(
-                //    {
-                //        SearchText: self.SearchText_KO()
-                //    }); // prepare request data
-
-
-                // 09/10/2019 04:20 am - SSN - [20190910-0147] - [009] - WARNING: Tried to load angular more than once.
-                // "SearchText": self.SearchText_KO()
-
-                var data_pre = {
-                    "SearchText": self.SearchText_KO
-                };
-
-                var data = JSON.stringify(data_pre);
-
-
-                //$.post("/echo/json", data, function (response) // sends 'post' request
-                //{
-                //    // on success callback
-                //    self.responseJSON(response);
-                //})
-
-
-                //$.post("/api/demositesapi/Search", data, function (response) {
-
-                //    self.devSitesJSON.removeAll();
-                //    self.devSitesJSON(response);
-                //});
-
-                $.ajax({
-                    type: "POST",
-                    data: data,
-                    url: "/api/demositesapi/Search",
-                    contentType: "application/json",
-                    dataType: 'json'
-                }).done(function (response) {
-
-                    self.devSitesJSON.removeAll();
-                    self.devSitesJSON(response);
-
-                    // 08/21/2019 12:14 pm - SSN - [20190821-1210] - [002] - SearchResultsFeedback_KO
-
-                    self.SearchResultsFeedback_KO('');
-                    self.SearchResultsFeedback_ClassName_KO("");
-
-                    if (response.length === 0) {
-                        self.SearchResultsFeedback_KO('Search returned no records.');
-                        self.SearchResultsFeedback_ClassName_KO("alert-warning");
-                    }
-
-
-                    if (!self.prefixPreWithShowHideAnchor_DontCall_KO()) {
-                        setTimeout(util.site_instance.prefixPreWithShowHideAnchor, 2000);
-                    }
-                    else {
-                        // 08/21/2019 01:48 pm - SSN - [20190821-1348] [001] - Added
-                        setTimeout(util.site_instance.showCollapsedDivs, 2000);
-
-                    }
-
-                });
-
-
-
-            }
-
-
-            this.getClassForDemoState = function (forDemo_v2) {
-
-                let selectedClass = "";
-
-                switch (forDemo_v2) {
-                    case 1:
-                        selectedClass = ' forDemo_Yes';
-                        break;
-
-                    case 2:
-                        selectedClass = 'forDemo_No';
-                        break;
-
-                    case 3:
-                        selectedClass = 'forDemo_Undecided';
-                        break;
-
-                }
-
-                return "siteDiv" + " " + selectedClass;
-
-            };
-
+            return recordCount;
 
         };
 
-        var vm = new ViewModel();
-        ko.applyBindings(vm);
-        vm.loadData();
 
-       
+        // 09/08/2019 08:07 pm - SSN - [20190908-0001] - [009] - Concurrency
+        // Renamed del-confirm del_confirm_p1
+        this.requestDelConfirm = function (itemToDelete) {
+
+            self.currentItem(itemToDelete);
+            $('#del_confirm_p1').modal({ backdrop: 'static', keyboard: false });
+
+        };
+
+
+
+        this.showJob = function (devSiteID) {
+
+            $('#show-job').modal();
+
+        };
+
+
+        this.del = function () {
+
+            var itemToDelete = ko.toJS(vm.currentItem);
+            $('#del-confirm').modal('hide');
+
+        };
+
+
+
+        this.checkIfcallingcmd = function (siteUrl) {
+            if (stringStartsWith(siteUrl, 'cmd')) {
+                return true;
+
+            }
+        };
+
+        this.siteUrlWithoutCMD = function (siteUrl) {
+            if (stringStartsWith(siteUrl, 'cmd')) {
+                return siteUrl.substring(4);
+            }
+            else {
+
+                return siteUrl;
+            }
+        };
+
+
+        // 12/20/2019 05:06 pm - SSN - [20191220-1706] Adding resetSearch
+
+        this.ressetSearchForm = function () {
+
+            self.SearchResultsFeedback_KO('');
+            self.SearchResultsFeedback_ClassName_KO("");
+            self.SearchText_KO("");
+            self.loadData();
+        }
+
+        // 08/12/2019 05:57 am - SSN - [20190812-0515] - [005] - Apply fulltext search
+        // https://stackoverflow.com/questions/16245905/fetching-or-sending-data-from-a-form-using-knockout-js
+        //self.onSubmit = function () {
+        this.onSubmit = function () {
+
+            let searchText = self.SearchText_KO();
+
+
+            if (searchText === undefined) {
+                self.SearchResultsFeedback_KO('Input is required for search.');
+                self.SearchResultsFeedback_ClassName_KO("alert-warning");
+                return;
+
+            }
+            else {
+                searchText = searchText.trim();
+
+                if (searchText === "") {
+                    self.SearchResultsFeedback_KO('Input is required for search. (2)');
+                    self.SearchResultsFeedback_ClassName_KO("alert-warning");
+                    return;
+
+                }
+
+            }
+
+
+            //var data = JSON.stringify(
+            //    {
+            //        SearchText: self.SearchText_KO()
+            //    }); // prepare request data
+
+
+            // 09/10/2019 04:20 am - SSN - [20190910-0147] - [009] - WARNING: Tried to load angular more than once.
+            // "SearchText": self.SearchText_KO()
+
+            // 12/20/2019 05:06 pm - SSN - [20191220-1706] Adding resetSearch
+            var data_pre = {
+                // 12/20/2019 05:06 pm - SSN - [20191220-1706] Adding resetSearch
+                "SearchText": self.SearchText_KO()
+            };
+
+            var data = JSON.stringify(data_pre);
+
+
+            //$.post("/echo/json", data, function (response) // sends 'post' request
+            //{
+            //    // on success callback
+            //    self.responseJSON(response);
+            //})
+
+
+            //$.post("/api/demositesapi/Search", data, function (response) {
+
+            //    self.devSitesJSON.removeAll();
+            //    self.devSitesJSON(response);
+            //});
+
+            $.ajax({
+                type: "POST",
+                data: data,
+                url: "/api/demositesapi/Search",
+                contentType: "application/json",
+                dataType: 'json'
+            }).done(function (response) {
+
+                self.devSitesJSON.removeAll();
+                self.devSitesJSON(response);
+
+                // 08/21/2019 12:14 pm - SSN - [20190821-1210] - [002] - SearchResultsFeedback_KO
+
+                self.SearchResultsFeedback_KO('');
+                self.SearchResultsFeedback_ClassName_KO("");
+
+                if (response.length === 0) {
+                    self.SearchResultsFeedback_KO('Search returned no records.');
+                    self.SearchResultsFeedback_ClassName_KO("alert-warning");
+                }
+
+
+                if (!self.prefixPreWithShowHideAnchor_DontCall_KO()) {
+                    setTimeout(() => util.site_instance.prefixPreWithShowHideAnchor('20200102-1533') , 2000);
+                }
+                else {
+                    // 08/21/2019 01:48 pm - SSN - [20190821-1348] [001] - Added
+                    setTimeout(util.site_instance.showCollapsedDivs, 2000);
+
+                }
+
+
+            }).fail(function (response) {
+                // 12/20/2019 05:06 pm - SSN - [20191220-1706] Adding resetSearch
+                console.error(response);
+
+            });
+
+
+
+        }
+
+
+        this.getClassForDemoState = function (forDemo_v2) {
+
+            let selectedClass = "";
+
+            switch (forDemo_v2) {
+                case 1:
+                    selectedClass = ' forDemo_Yes';
+                    break;
+
+                case 2:
+                    selectedClass = 'forDemo_No';
+                    break;
+
+                case 3:
+                    selectedClass = 'forDemo_Undecided';
+                    break;
+
+            }
+
+            return "siteDiv" + " " + selectedClass;
+
+        };
+
+
+    };
+
+
+    var vm = new ViewModel();
+
+    ko.applyBindings(vm);
+
+    vm.loadData();
+
+
 
 
 }();

@@ -10,15 +10,27 @@ import * as util from '../site';
 
 var timesheetClockoutController_instance = function () {
 
-  
+
     // 05/19/2019 10:06 am - SSN - [20190519-0837] - [006] - Adding timesheet "Continue" option
 
 
-    var timesheetApp = ssn_globals.globals_instance.getInstance("timesheetApp");
+    var timesheetApp = ssn_globals.globals_instance.getInstance_v002('TimesheetClockOutController', "timesheetApp");
 
-    timesheetApp.controller('TimesheetClockOutController', ['$scope', '$uibModalInstance', '$http', '$q', 'dataService', 'timelogId',
+    // 11/16/2019 02:52 pm - SSN - [20191116-1419] - [003] - Add RowVersion  to Timelog.
+    // Inject changeMonitorService
 
-        function TimesheetController($scope, $uibModalInstance, $http, $q, dataService, timelogId) {
+    // 11/20/2019 04:43 am - SSN - [20191120-0429] - [003] - Timelog index clock-out refresh updated row
+    // Inject PageUpdaterService
+
+    // 11/25/2019 06:39 pm - SSN - [20191125-1803] - [003] - clock-out is not updating index row
+    // Added servingPage
+    timesheetApp.controller('TimesheetClockOutController', ['$scope', '$uibModalInstance', '$http', '$q', 'dataService', 'changeMonitorService', 'timelogId', 'PageUpdaterService', 'servingPage',
+
+        function ($scope, $uibModalInstance, $http, $q, dataService, changeMonitorService, timelogId, PageUpdaterService, servingPage: ssn_globals.Timelog_ServingPage) {
+
+
+            // 11/16/2019 03:08 pm - SSN - [20191116-1419] - [004] - Add RowVersion  to Timelog.
+            changeMonitorService.setupMonitor();
 
 
 
@@ -34,65 +46,96 @@ var timesheetClockoutController_instance = function () {
             // Add pageTitle
             $scope.pageTitle = "Clock-out";
 
+            // 12/29/2019 11:25 pm - SSN - Adding disableSaveButton 
+            $scope.disableSaveButton = false;
+
+
+
+            // 11/16/2019 02:48 pm - SSN - [20191116-1419] - [002] - Add RowVersion  to Timelog.
+            // Copied from TimesheetContinueController
+
+            $scope.feedbackToUserText = "";
+            $scope.feedbackToUserClassNameCase = "";
+
+            $scope.feedbackToUserClassNameSet = function () {
+
+                switch ($scope.feedbackToUserClassNameCase) {
+                    case 1:
+                        return "rounded margined info_good";
+                    case 2:
+                        return "rounded margined info_bad";
+                    default:
+                        return "";
+                }
+
+            }
+
+
+
+
 
             function getTimelogSuccess(data) {
 
 
-                //$scope.disciplineSelected = { id: 0, title: '' };
+                let timeNow = new Date();
 
-
-                //let timeNow = new Date();
-                //timeNow.setMilliseconds(0);
+                timeNow.setMilliseconds(0);
                 // timeNow.setSeconds(0);
 
-                //$scope.timeLog = {
-                //    timeLogId: 0,
-                //    id: 0,
-                //    startTime: timeNow,
-                //    workDetail: "",
-                //    disciplineId: '2',
-                //    jobId: jobId
-                //};
+                data.stopTime = timeNow;
+
                 let data2 = data;
+
+
                 util.site_instance.fnConverDate(data2);
                 $scope.timeLog = data2;
 
-                // $scope.disciplineSelected = data2.discipline.disciplineShort; // { id: data2.discipline.disciplineId, title: data2.discipline.disciplineShort};
-
                 $scope.editableTimeLog = angular.copy($scope.timeLog);
-
-                setTimeout(() => {
-                    $scope.getDisciplines(data2.discipline.disciplineShort);
-                    $scope.disciplineSelected = { id: data2.discipline.disciplineId, title: data2.discipline.disciplineShort };
-                }
-                    , 500);
-
 
             }
 
             function getTimelogError(data) {
-                console.log('timesheetClockOutController - 20190922-1426');
+
+                console.error('timesheetClockOutController - 20190922-1426');
                 console.log(data);
+
+                toastr.warning("Error posted to console. (0307)");
 
             }
 
             function getTimelogCatch(data) {
-                console.log('timesheetClockOutController - 20190922-1427');
+                console.error('timesheetClockOutController - 20190922-1427');
                 console.log(data);
+
+
+                toastr.warning("Error posted to console. (0306)");
 
             }
 
- 
+
             $scope.submitForm = function () {
+
+                if ($scope.disableSaveButton) return;
+
+                $scope.disableSaveButton = true;
+
+
+
+                $scope.feedbackToUserText = "";
+                $scope.feedbackToUserClassNameCase = "";
 
 
                 var test = $scope.editableTimeLog;
 
                 var promise = null;
 
-                $scope.editableTimeLog.disciplineId = $scope.disciplineSelected.id;
 
-                if ($scope.editableTimeLog.id === 0) {
+                if ($scope.editableTimeLog.stopTime) {
+                    $scope.editableTimeLog.totalSeconds = ($scope.editableTimeLog.stopTime - $scope.editableTimeLog.startTime) / 1000;
+                }
+
+
+                if ($scope.editableTimeLog.timeLogId === 0) {
                     promise = dataService.insertTimeLog($scope.editableTimeLog);
                 }
                 else {
@@ -107,69 +150,52 @@ var timesheetClockoutController_instance = function () {
                             var test1 = data;
 
                             $scope.timeLog = angular.copy($scope.editableTimeLog);
+
+
+                            $uibModalInstance.close();
+                            toastr.info("Clocked-out");
+
+
+                            // 11/25/2019 06:38 pm - SSN - [20191125-1803] - [002] - clock-out is not updating index row
+                            // Added servingPage
+                            PageUpdaterService.timelog_index($scope.editableTimeLog.timeLogId, servingPage);
+
+
                         },
                         function (error) {
 
+                            $scope.disableSaveButton = false;
+
+
                             var test2 = error;
-                            alert("System Error! Check console.");
-                            console.log(error);
+
+                            console.error(error);
+
+                            toastr.error("Failed to save record.");
+                            toastr.warning("Error posted to console.");
+
+                            $scope.feedbackToUserClassNameCase = 2;
+                            $scope.feedbackToUserText = error.data;
+
+
+                            return;
 
                         });
                 }
 
 
-                $uibModalInstance.close();
-                toastr.info("Clocked-out");
             };
 
- 
+
             $scope.cancelForm = function () {
 
+                if (changeMonitorService.getHaveChanges()) {
+                    if (!confirm('You have unsaved changes? Are you sure you want to cancel?')) return;
+                }
 
                 $uibModalInstance.dismiss(); //same as cancel???
 
             };
-             
-            // 04/13/2019 11:00 am - SSN - [20190413-1037] - Add discipline lookup
-
-            $scope.getDisciplines = function (lookupValue) {
-
-                if (lookupValue === null) lookupValue = "";
-
-                var deferred = $q.defer();
-
-                $http({
-                    method: 'GET',
-                    url: 'api/DisciplineAPI'
-
-                }).then(typeaheadDisciplineSuccess, typeaheadDisciplineError);
-
-                return deferred.promise;
-
-                function typeaheadDisciplineSuccess(response) {
-
-                    var addresses = [];
-
-                    angular.forEach(response.data,
-                        function (item) {
-
-                            if (item.disciplineShort.toLowerCase().indexOf(lookupValue.toLowerCase()) > -1) {
-                                addresses.push({ id: item.disciplineId, title: item.disciplineShort });
-                            }
-                        }
-                    );
-
-                    deferred.resolve(addresses);
-
-                }
-
-                function typeaheadDisciplineError(response) {
-
-                    deferred.reject(response);
-                }
-
-            };
-
 
 
 

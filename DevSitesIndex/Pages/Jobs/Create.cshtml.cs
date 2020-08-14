@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using DevSitesIndex.Entities;
 using Microsoft.AspNetCore.Authorization;
+using DevSitesIndex.Util;
 
 namespace DevSitesIndex.Pages.Jobs
 {
@@ -18,6 +19,11 @@ namespace DevSitesIndex.Pages.Jobs
     {
 
         private readonly DevSitesIndex.Entities.DevSitesIndexContext _context;
+
+        // 11/04/2019 01:45 pm - SSN - [20191104-0844] - [020] - Prevent delete option on timesheet related forms 
+        // Return to caller
+        public ReturnToCaller returnToCaller = new ReturnToCaller();
+
 
         // 08/08/2018 04:02 pm - SSN
         public SelectList projectsSL { get; set; }
@@ -36,6 +42,10 @@ namespace DevSitesIndex.Pages.Jobs
         {
             // ViewData["ProjectID"] = new SelectList(_context.Project, "ProjectID", "ProjectID");
             // 05/03/2019 05:35 am - SSN - Add order
+
+
+            returnToCaller.setup(HttpContext, "/jobs/Index");
+
 
             setupPageRequirements();
             Job = new Job();
@@ -79,7 +89,10 @@ namespace DevSitesIndex.Pages.Jobs
 
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+            // 11/13/2019 09:43 pm - SSN - [20191113-1946] - [008] - ReturnToCaller
+            // return RedirectToPage("./Index");
+            return Redirect(returnToCaller.getReturnToCallerUrl_Final(HttpContext));
+
         }
     }
 }

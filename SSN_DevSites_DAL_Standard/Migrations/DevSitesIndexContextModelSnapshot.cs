@@ -338,6 +338,10 @@ namespace DevSitesIndex.Migrations
 
                     b.Property<int>("JobId");
 
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
+
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("datetime2(0)");
 
@@ -383,7 +387,7 @@ namespace DevSitesIndex.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("DevSitesIndex.Entities.Project", "project")
-                        .WithMany()
+                        .WithMany("jobs")
                         .HasForeignKey("ProjectID")
                         .OnDelete(DeleteBehavior.Restrict);
                 });

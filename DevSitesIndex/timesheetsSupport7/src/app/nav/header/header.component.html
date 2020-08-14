@@ -9,16 +9,18 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">@Startup.SITE_NAME_STRING</a>
+      <a [routerLink]="['/']" class="navbar-brand">
+        <app-default-page-parts requestedSection="showDomainNameOnMainPage"></app-default-page-parts>
+      </a>
     </div>
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 
 
 
-        <li><a href="/DemoSites/Index">Sites</a></li>
-        <li><a href="/home/about">About</a></li>
-        <li><a href="/Home/Contact">Contact</a></li>
+        <li><a [routerLink]="['/MainSiteMenu/DemoSites/index']">Sites</a></li>
+        <li><a [routerLink]="['/MainSiteMenu/home/about']">About</a></li>
+        <li><a [routerLink]="['/MainSiteMenu/Home/Contact']">Contact</a></li>
 
         <li class="dropdown-submenu">
 
@@ -26,16 +28,18 @@
 
           <ul class="dropdown-menu">
 
-            <li><a href="/Companies">Companies</a></li>
-            <li><a href="/Discipline">Disciplines</a></li>
-            <li><a href="/Projects">Projects</a></li>
-            <li><a href="/jobs">Jobs</a></li>
-            <li><a href="/TimeLogs">Timelog</a></li>
-            <li><a href="/timesheet">Timelog (Angular 7)</a></li>
-            <li><a href="/ReferenceSites">Reference Sites</a></li>
-            <li><a href="/CodeReferences">Code</a></li>
-            <li><a href="/CommandLine">Command Line</a></li>
-            <li><a href="/DevSites">Demo Sites</a></li>
+            <li><a [routerLink]="['/dashboard']">Dashboard</a></li>
+            <li><a [routerLink]="['/MainSiteMenu/TimeLogs']">Timelog</a></li>
+            <li><a [routerLink]="['/MainSiteMenu/jobs']">Jobs</a></li>
+            <li><a [routerLink]="['/MainSiteMenu/Projects']">Projects</a></li>
+            <li><a [routerLink]="['/ProjectsA7']">Projects (Angular 7)</a></li>
+            <li><a [routerLink]="['/timesheet']">Timelog (Angular 7)</a></li>
+            <li><a [routerLink]="['/MainSiteMenu/ReferenceSites']">Reference Sites</a></li>
+            <li><a [routerLink]="['/MainSiteMenu/CodeReferences']">Code</a></li>
+            <li><a [routerLink]="['/MainSiteMenu/CommandLine']">Command Line</a></li>
+            <li><a [routerLink]="['/MainSiteMenu/DevSites']">Demo Sites</a></li>
+            <li><a [routerLink]="['/MainSiteMenu/Companies']">Companies</a></li>
+            <li><a [routerLink]="['/MainSiteMenu/Discipline']">Disciplines</a></li>
 
 
           </ul>
@@ -44,9 +48,39 @@
 
       </ul>
 
-       
+      <ul class="nav navbar-nav " style="float:right;">
+        <li *ngIf="!authenticateService.isAuthenticated()">
+          <a [routerLink]="['/user/login']">Login</a>
+        </li>
+        <li class="nav-item" *ngIf="authenticateService.isAuthenticated()">
+          <a id="manage" class="nav-link text-dark" title="Manage" [routerLink]="['/user/profile']"><span [innerText]="getGreetingMessage()"></span></a>
+        </li>
+        <li class="nav-item" *ngIf="authenticateService.isAuthenticated()">
+          <!--<form id="logoutForm" class="form-inline" action="/Identity/Account/Logout?returnUrl=%2F%3Fpage%3D%252FIndex" method="post">
+            <button id="logout" type="submit" class="nav-link btn btn-link text-dark menu_button">Logout</button>
+          </form>-->
+
+          <a id="logout" class="nav-link text-dark" title="Logout" [routerLink]="['/user/logout']">Logout</a>
+
+        </li>
+      </ul>
+
 
 
     </div>
+    <app-timesheet-menu></app-timesheet-menu>
+
   </div>
 </nav>
+
+
+<div [innerHtml]="forgeryToken">
+</div>
+
+<!-- 11/01/2019 11:45 am - SSN - [20191101-0526] - [003] - Check login status -->
+<!-- Moved from timesheet.components-->
+<!-- // 10/21/2019 12:30 pm - SSN - [20191021-1230] - [001] - Modal for displaying selectd entry --> 
+<app-timelog-modal elementId="appLoginPopup"  #appLoginPopupTEMP closeOnClick="false">
+ <app-login (closePopupCaller)="appLoginPopupTEMP.closeModal()" [customObject]="appLoginPopupTEMP.customObject"></app-login>
+</app-timelog-modal>
+ 

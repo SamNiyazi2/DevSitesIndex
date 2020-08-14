@@ -1,4 +1,5 @@
-﻿using Microsoft.ApplicationInsights;
+﻿using DevSitesIndex.Util;
+using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
@@ -17,7 +18,7 @@ namespace DevSitesIndex.Areas.Identity
 
         static TelemetryClient telemetry = new TelemetryClient();
 
-        public Feedbackw_util.PageContent pageContent = new Feedbackw_util.PageContent();
+        public PageContent pageContent = new PageContent();
 
 
         public void OnGet()
@@ -32,7 +33,7 @@ namespace DevSitesIndex.Areas.Identity
                 {
                     if (Guid.TryParse(pageIDAsObj.ToString(), out pageID))
                     {
-                        pageContent = Feedbackw_util.PageContent.GetPageData(pageID);
+                        pageContent = PageContent.GetPageData(pageID);
 
                     }
 

@@ -13,7 +13,8 @@ import * as ssn_globals from "../globals";
 interface iFixScope extends ng.IScope {
 
     sort(): any,
-    sortmethod(): any
+    sortmethod(): any,
+    displayArrow(): string
 }
 
 
@@ -24,16 +25,16 @@ interface iFixScope extends ng.IScope {
 var headerWithSort_instance = function () {
 
 
-    var headerWithSort_angular_module: angular.IModule = ssn_globals.globals_instance.getInstance("timesheetApp");
+    var headerWithSort_angular_module: angular.IModule = ssn_globals.globals_instance.getInstance_v002('HeaderWithSort', "timesheetApp");
 
 
-    headerWithSort_angular_module.controller('utilityController', ['$scope', 'dataService', function ($scope, dataService) {
-         
+    headerWithSort_angular_module.controller('utilityController', ['$scope', '$sce', 'dataService', function ($scope, $sce, dataService) {
+
     }]);
 
 
-    headerWithSort_angular_module.directive('headerWithSort', function () {
-         
+    headerWithSort_angular_module.directive('headerWithSort', ['$sce', function ($sce) {
+
         return {
 
             restrict: "A",
@@ -42,18 +43,32 @@ var headerWithSort_instance = function () {
                 columnlist: "=columnlist", sortmethod: "&"
             }
             ,
-            link: function (scope: iFixScope , el, attrs) {
-                 
+            link: function (scope: iFixScope, el, attrs) {
+
                 scope.sort = function () {
-                    console.log("headerWithSort - 20190921-0613 - ");
+
                     scope.sortmethod();
 
-                }
+                };
+
+                scope.displayArrow = function () {
+
+                    switch (this.columnlist.desc) {
+                        case true:
+                            return $sce.trustAsHtml("&#9650;"); break;
+                        case false:
+                            return $sce.trustAsHtml("&#9660;"); break;
+                        default:
+                            return "";
+                    }
+
+                };
+
 
             }
         };
 
-    });
+    }]);
 
 
     return {

@@ -2,7 +2,7 @@ const path = require('path');
 
 var mode_local = "";
 
-var x = 2;
+var x = 1;
 
 switch (x) {
     case 1: mode_local = "development"; break;
@@ -23,9 +23,9 @@ var d_master = {
 
     devtool: 'inline-source-map',
 
-    watch: true,
+    watch: false,  // until we fix a file for product
     watchOptions: {
-        ignored: ['wwwroot/js/Angular_1_2', 'wwwroot/js/Angular_1_7', 'wwwroot/js/Angular_x', 'wwwroot/js/Angular_ui', 'wwwroot/js/tostr', 'node_modules'],
+        ignored: ['wwwroot/js/Angular_1_2', 'wwwroot/js/Angular_1_7', 'wwwroot/js/Angular_x', 'wwwroot/js/Angular_ui', 'wwwroot/js/tostr', 'node_modules', 'timesheetsSupport7'],
         aggregateTimeout: 300,
         poll: 1000
     }
@@ -52,7 +52,8 @@ var d_master = {
                 path.resolve(__dirname, 'wwwroot/js/Angular_1_7'),
                 path.resolve(__dirname, 'wwwroot/js/Angular_x'),
                 path.resolve(__dirname, 'wwwroot/js/Angular_ui'),
-                path.resolve(__dirname, 'wwwroot/js/tostr')
+                path.resolve(__dirname, 'wwwroot/js/tostr'),
+                path.resolve(__dirname, 'timesheetsSupport7')
             ]
         }
         ]
@@ -110,7 +111,7 @@ var config = [
 
 
         entry: [
-            './Timesheet/timesheet_main.js'
+            './Timesheet/timesheet_main.ts'
         ]
 
 
@@ -129,7 +130,7 @@ var config = [
 
         output: {
             path: path.resolve(__dirname, './wwwroot/webpack_build'),
-            filename: 'bundle_DevSitesIndex.js'
+            filename: 'bundle_DemoSites_index.js'
         },
 
 
@@ -165,10 +166,7 @@ var config = [
 
     }
 
-
-
-
-
+    
 
     ,
 
@@ -185,9 +183,77 @@ var config = [
             filename: 'bundle_Site_only.js'
         },
 
+        
+        entry: [
+// ERROR in Debug Failure. False expression: Host should not return a redirect source file from `getSourceFile`
+            './site.ts',
+//            './site_only_main.ts',
+
+    // 12/13/2019 07:35 pm - SSN - [20191213-1935] - Seperate CodeReference_Pages from bundle_site_only
+//            './CodeReference_Pages.ts',
+            './util/ChangeMonitor/ChangeMonitor.ts'
+        ]
+
+    },
+
+
+
+    // 12/13/2019 07:35 pm - SSN - [20191213-1935] - Seperate CodeReference_Pages from bundle_site_only
+
+    {
+        ...d_master,
+
+        output: {
+            path: path.resolve(__dirname, './wwwroot/webpack_build'),
+            filename: 'bundle_CodeReference_Pages.js'
+        },
+
 
         entry: [
-            './site_only_main.ts'
+            './CodeReference_Pages.ts'
+        ]
+
+    },
+
+
+
+
+
+
+    // 11/18/2019 01:34 pm - SSN - [20191118-1316]  Added
+
+    {
+        ...d_master,
+
+        output: {
+            path: path.resolve(__dirname, './wwwroot/webpack_build'),
+            filename: 'bundle_DemoSites_Pages.js'
+        },
+
+
+        entry: [
+            './DemoSites_Pages.ts'
+        ]
+
+    }
+
+    ,
+
+
+    // 11/23/2019 09:19 am - SSN - Adding
+
+    
+        {
+        ...d_master,
+
+        output: {
+            path: path.resolve(__dirname, './wwwroot/webpack_build'),
+            filename: 'bundle_Temp_Support.js'
+        },
+
+
+        entry: [
+            './Temp_Support_main.ts'
         ]
 
     }
@@ -195,6 +261,49 @@ var config = [
 
 
 
+    ,
+
+
+// 12/03/2019 12:09 am - SSN - [20191202-2353] - [005] - DisplayCode - Adding
+
+
+    {
+        ...d_master,
+
+        output: {
+            path: path.resolve(__dirname, './wwwroot/webpack_build'),
+            filename: 'bundle_main_101.js'
+        },
+
+
+        entry: [
+            './util/main_101.ts'
+        ]
+
+    }
+
+
+
+
+    ,
+
+// 01/02/2020 12:55 pm - SSN - [20200102-1234] - [003] - Add AngularJS login
+
+
+    {
+        ...d_master,
+
+        output: {
+            path: path.resolve(__dirname, './wwwroot/webpack_build'),
+            filename: 'bundle_users.js'
+        },
+
+
+        entry: [
+            './users/users_main.ts'
+        ]
+
+    }
 
 
 

@@ -3,6 +3,9 @@
 
 @{
     ViewData["Title"] = "DemoSites - Index";
+
+    // 11/23/2019 09:46 am - SSN - Replace ng-app
+    ViewBag.InitModule_Full = "data-ng-app=\"timesheetApp\"";
 }
 
 
@@ -16,7 +19,7 @@
 @*06/01/2019 11:24 am - SSN - Added class="hidden-xs"*@
 <p>
 
-    <form method="post" id="devSiteForm">
+    <form method="post" id="devSiteForm" action="">
 
 
         <input type="hidden" asp-for="sortOrder_XXXX" />
@@ -44,24 +47,27 @@
 
 
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            @*
-                // 09/01/2019 01:32 pm - SSN - [20190901-1225] - [004] - Add Job_DevSite table - Adding sorting and paging here
-            *@
-            @{await Html.RenderPartialAsync("HeaderWithSortLinks", Model.pageUtil.headerWithSortLinks);}
 
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
+@*08/12/2019 05:11 am - SSN - [20190812-0345] - [006] - Apply fulltext search *@
+
+@if (Model.DevSites != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                @*
+                    // 09/01/2019 01:32 pm - SSN - [20190901-1225] - [004] - Add Job_DevSite table - Adding sorting and paging here
+                *@
+
+                @{await Html.RenderPartialAsync("HeaderWithSortLinks", Model.pageUtil.headerWithSortLinks);}
+
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
 
 
-        @*08/12/2019 05:11 am - SSN - [20190812-0345] - [006] - Apply fulltext search *@
 
-        @if (Model.DevSites != null)
-        {
             @foreach (var item in Model.DevSites)
             {
                 <tr>
@@ -93,8 +99,12 @@
                     </td>
                 </tr>
             }
-        }
-    </tbody>
-</table>
 
-@{await Html.RenderPartialAsync("TablePager", Model.pageUtil.tablePager);}
+        </tbody>
+    </table>
+
+    
+    {
+        await Html.RenderPartialAsync("TablePager", Model.pageUtil.tablePager);
+    }
+}

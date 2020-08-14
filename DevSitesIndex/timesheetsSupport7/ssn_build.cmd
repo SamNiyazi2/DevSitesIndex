@@ -1,7 +1,15 @@
 @echo off
 : 10/02/2019 12:35 pm - SSN
 
+cd %~dp0
+
+
 :for /?
+
+
+goto build
+
+
 
 set ask=
 set /p ask=Rebuild timesheetsSupport7? (Y/N)
@@ -17,17 +25,9 @@ goto end
 
 :build
 
-set currentPath=%cd%
-
-cd %~dp0
-
-:start /WAIT ng build --watch
-start ng build --watch
+ng build --watch   --aot=true  
 
 
-cd %currentPath%
-
-set currentPath=
 
 :end
  

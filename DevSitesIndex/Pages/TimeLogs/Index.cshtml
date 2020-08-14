@@ -13,9 +13,22 @@
 <p>
     <a asp-page="Create">Create New Timelog Record</a>
 </p>
-<div ng-app="timesheetApp">
+
+
+
+@{
+    // 11/23/2019 07:34 am - SSN - Replace ng-app
+    ViewBag.InitModule_Full = "data-ng-app=\"timesheetApp\"";
+
+}
+@*
+    <div ng-app="timesheetApp">
+*@
+
+<div>
 
     <div ng-controller="timesheetController">
+
 
         <table class="table">
             <thead>
@@ -29,82 +42,14 @@
             <tbody>
                 @foreach (var item in Model.TimeLog)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.StartTime)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.TotalSeconds_ToTimeSpanFormat_T)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.job.JobTitle)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.discipline.DisciplineShort)
-                        </td>
 
 
+                    @*
+                        // 11/19/2019 12:48 am - SSN - [20191119-0048] Created
 
-                        <td class="indexNowrapCol">
-                            @Html.DisplayFor(modelItem => item.DateAdded)
-                        </td>
-
-                        <td class="indexNowrapCol">
-                            @Html.DisplayFor(modelItem => item.DateModified)
-                        </td>
-
-                        <td class="indexNowrapCol">
-
-                            <a asp-page="./Edit" asp-route-id="@item.TimeLogId">Edit</a>
-
-
-                            <strong>
-
-                                ||
-                                <a asp-page="./Details" asp-route-id="@item.TimeLogId">Entry's Details</a>
-                                |
-                                <a asp-page="/jobs/details" asp-route-id="@item.JobId">Job's Details</a>
-                                |
-                                <a asp-page="/projects/details" asp-route-id="@item.job.ProjectID">Project's Details</a>
-                                ||
-                            </strong>
-
-                            <a asp-page="./Delete" asp-route-id="@item.TimeLogId">Delete</a> |
-
-                            @*
-                                <!-- Todo-SSN - 09/26/2019 11:31 am - SSN - [20190926-1047] - [008] - Debugging: timelog not posting -->
-                            *@
-                            <span ng-If="'@item.TotalSeconds' <= 0 ">
-                                <a ng-click="timesheetForm_ClockOut(@item.TimeLogId)" class="alert-warning">Clock-out</a>
-                                |
-                            </span>
-
-                            <!-- 05/19/2019 08:38 am - SSN - [20190519-0837] - [001] - Adding timesheet "Continue" option -->
-                            <!-- 09/24/2019 04:16 am - SSN - [20190924-0401] - [002] - Quick timelog entry -->
-                            <!-- Allow to resue link for a quick entry-->
-                            @{
-                                string caption = (item.TotalSeconds ?? 0) > 0 ? "Continue" : "Line Item";
-
-                            }
-                            <a ng-click="timesheetForm_ClockContinue(@item.TimeLogId)" class="alert-warning">@caption</a>
-
-
-                        </td>
-                    </tr>
-
-                    @if (!string.IsNullOrWhiteSpace(item.WorkDetail))
-                    {
-
-                        <tr class="detail">
-                            <td colspan="2"></td>
-                            @*06/01/2019 02:59 pm - SSN - Added class codeblock2*@
-                            <td colspan="5" class="codeblock2">
-                                @Html.DisplayFor(modelItem => item.WorkDetail)
-                            </td>
-
-                        </tr>
-                    }
-                                }
+                    *@
+                    @await Html.PartialAsync("Timelog_index_record", new Shared.Timelog_index_record { timelog = item, servingPage = Shared.ServingPage.Timelog });
+                }
             </tbody>
         </table>
 

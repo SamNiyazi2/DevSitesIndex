@@ -12,6 +12,9 @@ using Microsoft.Extensions.Logging;
 using Microsoft.ApplicationInsights;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Hosting;
+using SSN_GenUtil_StandardLib;
+using DevSitesIndex.Util;
+using Newtonsoft.Json;
 
 namespace DevSitesIndex.Areas.Identity.Pages.Account
 {
@@ -19,7 +22,7 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
     public class LoginModel : PageModel
     {
         private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly Util.ILogger_SSN _logger;
+        private readonly ILogger_SSN _logger;
         private readonly IConfiguration configuration;
         private readonly IHostingEnvironment env;
 
@@ -29,7 +32,7 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
 
         // 09/01/2019 03:26 pm - SSN - [20190901-1225] - [006] - Add Job_DevSite table - Adding username_temp and pass
 
-        public LoginModel(SignInManager<IdentityUser> signInManager, Util.ILogger_SSN logger, IConfiguration configuration, IHostingEnvironment env)
+        public LoginModel(SignInManager<IdentityUser> signInManager, ILogger_SSN logger, IConfiguration configuration, IHostingEnvironment env)
         {
             this.configuration = configuration;
             this.env = env;
@@ -81,7 +84,14 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
             // 09/01/2019 03:26 pm - SSN - [20190901-1225] - [006] - Add Job_DevSite table - Adding usernamex and password
 
             Input = new InputModel();
-            if (env.IsDevelopment())
+
+            // 10/07/2019 10:28 am - SSN - [20191007-1020] - [003] - Adding Angular 7 - Collecting data with Angular forms and validations - Authenticate user
+            // Limit access to Usernamex to local development
+
+            string webRootpath = env.WebRootPath;
+
+
+            if (env.IsDevelopment() && webRootpath.ToLower().StartsWith("c:\\sams"))
             {
                 Input.Email = configuration["UserNamex"]; ;
                 Input.Password_Temp = configuration["Password"];
@@ -130,7 +140,7 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
             if (identityUser == null)
             {
                 ModelState.AddModelError(string.Empty, "Invalid email or password.");
-                _logger.TrackEvent($"DemoSite-20190905-0517 - Invalid email [{Input.Email}]");
+                _logger.TrackEvent($"DemoSite-20190905-0517 - Invalid email  ");
                 return Page();
 
             }
@@ -142,7 +152,7 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
             if (!hasValidCredentials)
             {
                 ModelState.AddModelError(string.Empty, "Invalid email  or password.");
-                _logger.TrackEvent($"DemoSite-20190905-0539 - Invalid email or password [{Input.Email}]");
+                _logger.TrackEvent($"DemoSite-20190905-0539 - Invalid email or password  ");
                 return Page();
 
             }
@@ -157,9 +167,10 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
 
 
                 #region  Message to user when they click the link to resend their confirmation email
-                Feedbackw_util.PageContent pageContent2 = new Feedbackw_util.PageContent();
+                PageContent pageContent2 = new PageContent();
 
-                pageContent2.AddTheKey(identityUser.Id.ToString());
+                // pageContent2.AddTheKey(identityUser.Id.ToString());
+                pageContent2.AddUserID(identityUser.Id.ToString());
 
                 pageContent2.AddTitle("Confirmation Email Request Sent");
                 pageContent2.AddMessage(@"<p>Confirmation email was sent.&nbsp;  Please check your email</p>");
@@ -175,7 +186,7 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
                                 "<p>Thank you!</p>";
 
 
-                Feedbackw_util.PageContent pageContent = new Feedbackw_util.PageContent();
+                PageContent pageContent = new PageContent();
 
                 pageContent.AddTitle("Email Not Confirmed");
                 pageContent.AddMessage(message);
@@ -199,7 +210,7 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
                 _logger.LogInformation("User logged in.");
 
 
-                _logger.TrackEvent($"DemoSite-20190828-0821: Login successful (2) {Input.Email} [{returnUrl}]");
+                _logger.TrackEvent($"DemoSite-20190828-0821-A: Login successful (2)   [{returnUrl}]");
 
                 return LocalRedirect(returnUrl);
             }
@@ -217,14 +228,14 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
 
             if (result.IsLockedOut)
             {
-                _logger.TrackEvent($"DemoSite-20190828-0821: Login failure.  Lockedout {Input.Email}");
+                _logger.TrackEvent($"DemoSite-20190828-0821-B: Login failure.  Lockedout ");
 
                 _logger.LogWarning("User account locked out.");
                 return RedirectToPage("./Lockout");
             }
             else
             {
-                _logger.TrackEvent($"DemoSite-20190828-0821: Login failure.  Invalid login. {Input.Email}");
+                _logger.TrackEvent($"DemoSite-20190828-0821-C: Login failure.  Invalid login. ");
 
                 ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                 return Page();

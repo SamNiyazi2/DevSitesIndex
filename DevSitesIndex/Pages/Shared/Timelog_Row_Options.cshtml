@@ -1,0 +1,17 @@
+﻿@*
+    // 11/21/2019 05:04 am - SSN - [20191121-0503] - [001] - Timelog edit options on project search
+*@
+@{
+    Layout = null;
+}
+
+@model Timelog_index_record
+@*
+    // 11/16/2019 04:30 pm - SSN - [20191116-1516] - [001] - Timelog edit (AngularJS client version)
+    // 05/19/2019 08:38 am - SSN - [20190519-0837] - [001] - Adding timesheet "Continue" option
+    // 09/24/2019 04:16 am - SSN - [20190924-0401] - [002] - Quick timelog entry
+    // Allow to resue link for a quick entry
+*@
+
+
+<timelog-link-options job-id="@Model.timelog.JobId" timelog-id="@Model.timelog.TimeLogId" total-seconds="@Model.timelog.TotalSeconds" serving-page="@Model.servingPage"></timelog-link-options>

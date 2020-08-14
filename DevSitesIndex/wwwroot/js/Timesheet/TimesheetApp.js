@@ -1,47 +1,96 @@
 // 04/12/2019 01:42 am - SSN - [20190412-0142] - TimesheetApp
-import * as ssn_globals from "../globals.js";
+import * as ssn_globals from "../globals";
 var timesheetApp_instance = function () {
     // 05/03/2019 06:33 pm - SSN - [20190503-1539] - [013] - Add link to create timelog
     // Convert to TS
-    var timesheetApp = ssn_globals.globals_instance.getInstance("timesheetApp");
+    var timesheetApp = ssn_globals.globals_instance.getInstance_v002('TimesheetApp-filename', "timesheetApp");
     // 04/12/2019 02:35 pm - SSN - [20190412-1126] - Timelog - save data - ssn_devsite_angular_module is in use by DataServices.js
-    timesheetApp.controller("timesheetController", ['$scope', '$uibModal', function ($scope, $uibModal) {
+    // 11/14/2019 03:35 pm - SSN - [20191114-1459] - [005] - ChangeMonitroService
+    // Inject changeMonitorService
+    timesheetApp.controller("timesheetController", ['$scope', '$uibModal', 'changeMonitorService', '$compile', function ($scope, $uibModal, changeMonitorService, $compile) {
+            // 11/19/2019 06:43 am - SSN - [20191119-0048] Added to re-bind ng-click
+            $scope.$on('TimeLog_Index_Refresh', function (event, item) {
+                $("#" + item.tr_2_id).remove();
+                $("#" + item.tr_1_id).replaceWith(item.html);
+                $compile($("#" + item.tr_1_id).contents())($scope);
+            });
             $scope.timesheetForm_ClockOut = function (timelogId) {
                 // 04/29/2019 04:16 pm - SSN - [20190429-1616] - [001] - Timesheet - stop / continue
                 // 05/03/2019 03:54 pm - SSN - [20190503-1539] - [004] - Add link to create timelog
                 // Testing:             templateUrl:  'js/timesheet/timesheetTemplate.html' 
                 //                   to templateUrl: '/js/timesheet/timesheetTemplate.html'
-                $uibModal.open({
-                    templateUrl: '/js/timesheet/templates/TimeLogEdit.html',
+                var modalClockout = $uibModal.open({
+                    templateUrl: '/js/timesheet/templates/TimelogClockout.html',
                     controller: 'TimesheetClockOutController',
                     windowClass: 'ssn-mobile-modal',
-                    size: 'md',
-                    //05/03/2019 05:50 pm - SSN - [20190503-1539] - [011] - Add link to create timelog 
-                    // Added backdrop
-                    backdrop: false,
+                    backdrop: 'static',
+                    keyboard: false,
                     resolve: {
                         timelogId: function () {
                             return timelogId;
                         }
                     }
                 });
+                // 11/14/2019 03:36 pm - SSN - [20191114-1459] - [006] - ChangeMonitroService
+                modalClockout.result.then(modalClockout_save, modalClockout_cancel);
+                function modalClockout_save(result) {
+                    changeMonitorService.reset();
+                }
+                function modalClockout_cancel(result) {
+                    changeMonitorService.reset();
+                }
             };
             // 05/19/2019 08:39 am - SSN - [20190519-0837] - [002] - Adding timesheet "Continue" option
             $scope.timesheetForm_ClockContinue = function (timelogId) {
                 // 05/19/2019 09:37 am - SSN - [20190519-0837] - [003] - Adding timesheet "Continue" option
-                $uibModal.open({
+                // 11/14/2019 02:44 pm - SSN - TimesheetContinueController_modal 
+                var TimesheetContinueController_modal = $uibModal.open({
+                    animation: 'slide-in-up',
                     templateUrl: '/js/timesheet/templates//timesheetTemplate.html?v=' + $scope.versionForHTMLRefresh,
                     controller: 'TimesheetContinueController',
                     windowClass: 'ssn-mobile-modal',
-                    size: 'md',
-                    backdrop: false,
+                    backdrop: 'static',
+                    keyboard: false,
                     resolve: {
                         timelogId: function () {
                             return timelogId;
                         }
                     }
                 });
+                modalClosingHook($scope);
+                // 11/14/2019 02:44 pm - SSN - [20191114-1459] - [007] - ChangeMonitroService
+                TimesheetContinueController_modal.result.then(TimesheetContinueController_modal_save, TimesheetContinueController_modal_cancel);
+                function TimesheetContinueController_modal_save(result) {
+                    changeMonitorService.reset();
+                }
+                function TimesheetContinueController_modal_cancel(result) {
+                    changeMonitorService.reset();
+                }
             };
+            // 11/14/2019 04:41 pm - SSN - [20191114-1459] - [008] - ChangeMonitroService
+            // Testing - Not working.
+            function modalClosingHook($scope) {
+                $scope.$on('modal.closing', function (event, reason, closed) {
+                    var message = "You are about to leave the edit view. Uncaught reason. Are you sure?";
+                    switch (reason) {
+                        // clicked outside
+                        case "backdrop click":
+                            message = "Any changes will be lost, are you sure?";
+                            break;
+                        // cancel button
+                        case "cancel":
+                            message = "Any changes will be lost, are you sure?";
+                            break;
+                        // escape key
+                        case "escape key press":
+                            message = "Any changes will be lost, are you sure?";
+                            break;
+                    }
+                    if (!confirm(message)) {
+                        event.preventDefault();
+                    }
+                });
+            }
             $scope.showCreateTimesheetForm = function (jobID) {
                 if (isNaN(jobID)) {
                     jobID = 0;
@@ -50,16 +99,35 @@ var timesheetApp_instance = function () {
                 $uibModal.open({
                     templateUrl: '/js/timesheet/templates/timesheetTemplate.html',
                     controller: 'TimesheetController',
-                    // 05/03/2019 04:29 pm - SSN - [20190503-1539] - [007] - Add link to create timelog - Prevent close (Testing)
-                    // windowClass: 'ssn-mobile-modal',
-                    // size: 'md',
-                    backdrop: false,
+                    backdrop: 'static',
+                    keyboard: false,
                     resolve: {
                         jobId: function () {
                             return jobID;
                         }
                     }
                 });
+            };
+            // 11/16/2019 04:35 pm - SSN - [20191116-1516] - [002] - Timelog edit (AngularJS client version)
+            $scope.timesheetForm_Edit = function (timelogId) {
+                var modalEdit = $uibModal.open({
+                    templateUrl: '/js/timesheet/templates/TimelogClockout.html',
+                    controller: 'TimesheetEditController',
+                    backdrop: 'static',
+                    keyboard: false,
+                    resolve: {
+                        timelogId: function () {
+                            return timelogId;
+                        }
+                    }
+                });
+                modalEdit.result.then(modalEdit_save, modalEdit_cancel);
+                function modalEdit_save(result) {
+                    changeMonitorService.reset();
+                }
+                function modalEdit_cancel(result) {
+                    changeMonitorService.reset();
+                }
             };
         }]);
     return {

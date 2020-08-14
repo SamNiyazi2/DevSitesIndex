@@ -6,20 +6,30 @@
 <h1 class="text-danger">Error.</h1>
 <h2 class="text-danger">An error occurred while processing your request.</h2>
 
-@if (Model.ShowRequestId)
-{
-    <p>
-        <strong>Request ID:</strong> <code>@Model.RequestId</code>
-    </p>
-}
-
 
 @{
-    if (Model.HasFeedbackToUser)
+    // 12/07/2019 10:16 am - SSN - [20191207-0704] - [007] - AngularJS - Routing - Authentication
+    // Address 404s
+    // Check Model
+
+    if (Model != null)
     {
-        @Html.Raw(Model.FeedbackToUser_AsHtml)
+
+        if (Model.ShowRequestId)
+        {
+            <p>
+                <strong>Request ID:</strong> <code>@Model.RequestId</code>
+            </p>
+
+            if (Model.HasFeedbackToUser)
+            {
+                @Html.Raw(Model.FeedbackToUser_AsHtml)
+            }
+        }
     }
+
 }
+
 <br />
 <br />
 @Html.Raw(ViewData["Feedback"])

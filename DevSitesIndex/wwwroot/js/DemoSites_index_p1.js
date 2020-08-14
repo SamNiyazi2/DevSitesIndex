@@ -11,7 +11,8 @@ var demosites_index_p1_instance = function () {
         var self = this;
         // 09/10/2019 04:20 am - SSN - [20190910-0147] - [009] - WARNING: Tried to load angular more than once.
         // Since bound to control, it displays the observable as object[object]. Take out.
-        self.SearchText_KO = ""; // ko.observable({});
+        // 12/20/2019 05:06 pm - SSN - [20191220-1706] Adding resetSearch
+        self.SearchText_KO = ko.observable();
         // 08/21/2019 12:16 pm - SSN - [20190821-1210] - [003] - SearchResultsFeedback_KO
         self.SearchResultsFeedback_KO = ko.observable("");
         self.SearchResultsFeedback_ClassName_KO = ko.observable();
@@ -65,18 +66,41 @@ var demosites_index_p1_instance = function () {
                 return siteUrl;
             }
         };
+        // 12/20/2019 05:06 pm - SSN - [20191220-1706] Adding resetSearch
+        this.ressetSearchForm = function () {
+            self.SearchResultsFeedback_KO('');
+            self.SearchResultsFeedback_ClassName_KO("");
+            self.SearchText_KO("");
+            self.loadData();
+        };
         // 08/12/2019 05:57 am - SSN - [20190812-0515] - [005] - Apply fulltext search
         // https://stackoverflow.com/questions/16245905/fetching-or-sending-data-from-a-form-using-knockout-js
         //self.onSubmit = function () {
         this.onSubmit = function () {
+            var searchText = self.SearchText_KO();
+            if (searchText === undefined) {
+                self.SearchResultsFeedback_KO('Input is required for search.');
+                self.SearchResultsFeedback_ClassName_KO("alert-warning");
+                return;
+            }
+            else {
+                searchText = searchText.trim();
+                if (searchText === "") {
+                    self.SearchResultsFeedback_KO('Input is required for search. (2)');
+                    self.SearchResultsFeedback_ClassName_KO("alert-warning");
+                    return;
+                }
+            }
             //var data = JSON.stringify(
             //    {
             //        SearchText: self.SearchText_KO()
             //    }); // prepare request data
             // 09/10/2019 04:20 am - SSN - [20190910-0147] - [009] - WARNING: Tried to load angular more than once.
             // "SearchText": self.SearchText_KO()
+            // 12/20/2019 05:06 pm - SSN - [20191220-1706] Adding resetSearch
             var data_pre = {
-                "SearchText": self.SearchText_KO
+                // 12/20/2019 05:06 pm - SSN - [20191220-1706] Adding resetSearch
+                "SearchText": self.SearchText_KO()
             };
             var data = JSON.stringify(data_pre);
             //$.post("/echo/json", data, function (response) // sends 'post' request
@@ -105,12 +129,15 @@ var demosites_index_p1_instance = function () {
                     self.SearchResultsFeedback_ClassName_KO("alert-warning");
                 }
                 if (!self.prefixPreWithShowHideAnchor_DontCall_KO()) {
-                    setTimeout(util.site_instance.prefixPreWithShowHideAnchor, 2000);
+                    setTimeout(function () { return util.site_instance.prefixPreWithShowHideAnchor('20200102-1533'); }, 2000);
                 }
                 else {
                     // 08/21/2019 01:48 pm - SSN - [20190821-1348] [001] - Added
                     setTimeout(util.site_instance.showCollapsedDivs, 2000);
                 }
+            }).fail(function (response) {
+                // 12/20/2019 05:06 pm - SSN - [20191220-1706] Adding resetSearch
+                console.error(response);
             });
         };
         this.getClassForDemoState = function (forDemo_v2) {

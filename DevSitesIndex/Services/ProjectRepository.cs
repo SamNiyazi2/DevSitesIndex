@@ -9,9 +9,12 @@ using System.Threading.Tasks;
 
 // 09/26/2019 03:18 pm - SSN - [20190926-1242] - [010] - Search projects
 
+using Microsoft.EntityFrameworkCore;
+using SSN_GenUtil_StandardLib;
+
 namespace DevSitesIndex.Services
 {
-    public class ProjectRepository
+    public class ProjectRepository : IEntityRepository<Project>
     {
         private readonly DevSitesIndexContext context;
         private readonly ILogger_SSN logger;
@@ -20,6 +23,27 @@ namespace DevSitesIndex.Services
         {
             this.context = context;
             this.logger = logger;
+        }
+
+        public void Dispose()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IQueryable<Project> GetAll()
+        {
+
+            IQueryable<Project> result = context.Projects
+                .Include(r => r.jobs)
+                .OrderByDescending(r => r.DateModified ?? r.DateAdded).AsNoTracking();
+
+            return result;
+        }
+
+
+        public Project GetRecord(int id)
+        {
+            return context.Projects.Include(r => r.jobs).Where(r => r.ProjectID == id).FirstOrDefault();
         }
 
 
@@ -32,12 +56,12 @@ namespace DevSitesIndex.Services
 
             if (string.IsNullOrWhiteSpace(searchText))
             {
-                databag.addModelError("searchText", "You need to provide at least one word.");
+                databag.addToBagModelError("searchText", "You need to provide at least one word.");
             }
 
             if (string.IsNullOrWhiteSpace(selectedTablesIDs))
             {
-                databag.addModelError("searchTables", "You need to select at least one table.");
+                databag.addToBagModelError("searchTables", "You need to select at least one table.");
             }
 
             if (databag.hasErrors) return databag;
@@ -77,6 +101,16 @@ namespace DevSitesIndex.Services
 
             return databag;
         }
+
+        public void Save()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Project Update(Project dbSet)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public class Project_Search_Record
@@ -88,6 +122,14 @@ namespace DevSitesIndex.Services
         public int TimelogId { get; set; }
         public DateTime LastActivity { get; set; }
         public string Description { get; set; }
+
+        // 11/15/2019 03:47 pm - SSN - Added project and job titles
+        public string ProjectTitle { get; set; }
+        public string JobTitle { get; set; }
+
+        // 11/22/2019 07:17 pm - SSN - [20191121-0503] - [022] - Timelog edit options on project search
+        // Added for timelog entries on project index search
+        public int? totalSeconds { get; set; }
     }
 
 

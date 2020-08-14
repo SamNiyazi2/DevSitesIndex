@@ -25,7 +25,7 @@ namespace DevSitesIndex.Pages.CodeReferences
         [BindProperty]
         public string SearchText { get; set; }
 
-        // 02/07/2019 02:41 pm - SSN - Adding doHeightlight_v02  and doDecodeHtml 
+        // 02/07/2019 02:41 pm - SSN - Adding doHeightlight_v02
         [BindProperty]
         public bool doHeightlight_v02 { get; set; } = true;
 
@@ -35,10 +35,7 @@ namespace DevSitesIndex.Pages.CodeReferences
 
         public HtmlString searchOptionFeedbackMessage { get; set; }
 
-
-
-        [BindProperty]
-        public bool doDecodeHtml { get; set; }
+        
 
 
         public IndexModel(DevSitesIndex.Entities.DevSitesIndexContext context)
@@ -60,7 +57,8 @@ namespace DevSitesIndex.Pages.CodeReferences
                 // 01/28/2019 10:42 am - SSN - Performance issue on azure
                 //CodeReference = await _context.CodeReferences.OrderByDescending( r=> r.DateModified>r.DateAdded?r.DateModified:r.DateAdded).Take(50).ToListAsync();
 
-                CodeReference = await _context.CodeReferences.OrderByDescending(r => r.DateModified).ThenByDescending(r => r.DateAdded).Take(50).ToListAsync();
+                CodeReference = await _context.CodeReferences.OrderByDescending(r => r.DateModified).ThenByDescending(r => r.DateAdded)
+                    .Take(50).ToListAsync();
             }
             else
             {
@@ -79,7 +77,8 @@ namespace DevSitesIndex.Pages.CodeReferences
             {
                 // 02/08/2019 03:14 am - SSN - Added order
                 // CodeReference = await _context.CodeReferences.Take(50).ToListAsync();
-                CodeReference = await _context.CodeReferences.OrderByDescending(r => r.DateModified).ThenByDescending(r => r.DateAdded).Take(50).ToListAsync();
+                CodeReference = await _context.CodeReferences.OrderByDescending(r => r.DateModified).ThenByDescending(r => r.DateAdded)
+                    .Take(50).ToListAsync();
 
                 return Page();
             }
@@ -113,8 +112,7 @@ namespace DevSitesIndex.Pages.CodeReferences
             string tempSearchString = cleanseSearchString(SearchText);
             tempArray = tempSearchString.ToLower().Split().Where(r => includeWord(r)).Select(r => r.Trim().ToLower()).ToArray();
 
-
-            var x = (doDecodeHtml);
+            
 
             // 03/22/2019 09:32 pm - SSN - Replaced - ToListAsync<CodeReference>
             // 04/03/2019 08:55 pm - SSN - Adding validation
@@ -147,7 +145,8 @@ namespace DevSitesIndex.Pages.CodeReferences
 
             string[] allText = s.ToLower().Split().Select(r4 => r4.Trim()).ToArray();
 
-            s = s.Replace("<", "&lt;");
+            // 11/24/2019 11:18 pm - SSN - Remove
+            // s = s.Replace("<", "&lt;");
 
             foreach (string w in tempArray)
             {

@@ -53,7 +53,7 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
                 if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
                 {
                     // Don't reveal that the user does not exist or is not confirmed
-                    telemetry.TrackEvent($"DemoSite-20190905-1845 - ************** ForgotPassword invalid user {Input.Email}");
+                    telemetry.TrackEvent($"DemoSite-20190905-1845 - ************** ForgotPassword invalid user  ");
                     return RedirectToPage("./ForgotPasswordConfirmation");
                 }
 
@@ -66,13 +66,13 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
 
                 await Email.EmailSenders.SendForgotPasswordResetRequest(_userManager, _emailSender, user, this);
 
-                telemetry.TrackEvent($"DemoSite-20190905-1850 - ForgotPassword - Sending email {Input.Email}");
+                telemetry.TrackEvent($"DemoSite-20190905-1850 - ForgotPassword - Sending email ");
 
                 return RedirectToPage("./ForgotPasswordConfirmation");
             }
             else
             {
-                telemetry.TrackEvent($"DemoSite-20190905-1849 - ************** ForgotPassword - Invalid request {Input.Email}");
+                telemetry.TrackEvent($"DemoSite-20190905-1849 - ************** ForgotPassword - Invalid request  ");
 
             }
 

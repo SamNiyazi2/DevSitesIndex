@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using DevSitesIndex.Entities;
 using DevSitesIndex.Util;
 using Microsoft.EntityFrameworkCore;
+using SSN_GenUtil_StandardLib;
 
 // 04/12/2019 11:51 am - SSN - [20190412-1126] - Timelog - save data - Copied from DevSitesIndexRepository
 
@@ -25,21 +26,21 @@ namespace DevSitesIndex.Services
         }
 
 
-        public IEnumerable<TimeLog> GetAll()
+        //public IEnumerable<TimeLog> GetAll()
+        public IQueryable<TimeLog> GetAll()
         {
             // 04/20/2019 11:12 am - SSN - [20190420-1109] - Add AsNoTracking to index pages
             // 10/03/2019 05:33 pm - SSN - [20191003-1557] - [008] - Adding data service to Angular7
             // Include discipline, job and project titles.
             // return _context.TimeLog.OrderByDescending(r => r.DateModified ?? r.DateAdded).AsNoTracking().ToList();
-            IList<TimeLog> result = _context.TimeLog
+            IQueryable<TimeLog> result = _context.TimeLog
                 .Include(r => r.job).ThenInclude(r => r.project)
                 .Include(r => r.discipline)
-                .OrderByDescending(r => r.DateModified ?? r.DateAdded).AsNoTracking().ToList();
 
-            foreach (TimeLog r in result)
-            {
-                r.job.timelogs = null;
-            }
+                // 10/21/2019 08:33 pm - SSN - [20191021-2033] - [001] - Revise timelog search returned result
+
+                // .OrderByDescending(r => r.DateModified ?? r.DateAdded).AsNoTracking().ToList();
+                .OrderByDescending(r => r.DateModified ?? r.DateAdded).AsNoTracking();
 
             return result;
         }
@@ -78,49 +79,63 @@ namespace DevSitesIndex.Services
             // 04/20/2019 06:56 pm - SSN - Convert time passed by javaScript as Utc 
             timeLog.StartTime = timeLog.StartTime.ToLocalTime();
 
+
+
+            // 11/16/2019 08:33 pm - SSN - [20191116-1516] - [014] - Timelog edit (AngularJS client version)
+
+            // Replace logic
+            // Todo Todo Todo Todo Todo Todo Todo Todo 
+            // Todo Todo Todo Todo Todo Todo Todo Todo 
+            // Todo Todo Todo Todo Todo Todo Todo Todo 
+            // Todo Todo Todo Todo Todo Todo Todo Todo 
+            // Todo Todo Todo Todo Todo Todo Todo Todo 
+            // Todo Todo Todo Todo Todo Todo Todo Todo 
+            // Todo Todo Todo Todo Todo Todo Todo Todo
+            
+
+
+            //////////////////if (timeLog.TimeLogId == 0)
+            //////////////////{
+
+              timeLog.discipline = null;
+
+            //////////////////    // We "include"d projects for displaying titles. We need to exclude them from inserts.
+             timeLog.job = null;
+
+            //////////////////    _context.TimeLog.Add(timeLog);
+
+            //////////////////}
+            //////////////////else
+            //////////////////{
+            //////////////////    _context.TimeLog.Update(timeLog);
+            //////////////////}
+
             if (timeLog.TimeLogId == 0)
             {
-
-                timeLog.discipline = null;
-
-                // We "include"d projects for displaying titles. We need to exclude them from inserts.
-                timeLog.job = null;
-
                 _context.TimeLog.Add(timeLog);
-
             }
             else
             {
-                _context.TimeLog.Update(timeLog);
+                _context.Attach(timeLog).State = EntityState.Modified;
             }
 
             return timeLog;
+
         }
 
 
         // 09/29/2019 09:47 am - SSN - [20190928-1256] - [014] - Adding Entity Framework model attribute
         // public bool Save()
-        public Exception Save()
+        // 11/16/2019 08:00 pm - SSN - [20191116-1516] - [008] - Timelog edit (AngularJS client version)
+        // Leave error handling to SaveChanges
+
+        public void Save()
         {
-            try
-            {
-                if (_context.SaveChanges() > 0)
-                    return default(Exception);
-                else
-                    return new Exception("20190929-0948 - Failed to save record.");
-            }
-            catch (Exception ex)
-            {
 
-                // 09/26/2019 11:01 am - SSN - [20190926-1047] - [004] - Debugging: timelog not posting
+            _context.SaveChanges();
 
-                logger.PostException(ex, "20190926-1059", "Failed to save timelog record");
-
-                // 09/29/2019 09:48 am - SSN - [20190928-1256] - [015] - Adding Entity Framework model attribute
-                // return false;
-                throw;
-            }
         }
+
 
         public void Dispose()
         {

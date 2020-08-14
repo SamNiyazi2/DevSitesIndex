@@ -37,7 +37,7 @@
                 <input asp-for="TimeLog.TotalSeconds" class="form-control" />
                 <span asp-validation-for="TimeLog.TotalSeconds" class="text-danger"></span>
             </div>
-           
+
             <div class="form-group">
                 <label asp-for="TimeLog.WorkDetail" class="control-label"></label>
                 <input asp-for="TimeLog.WorkDetail" class="form-control" />
@@ -51,7 +51,8 @@
 </div>
 
 <div>
-    <a asp-page="Index">Back to List</a>
+    @*<a asp-page="Index">Back to List</a>*@
+    @await Html.PartialAsync("ReturnToCallerLink", Model.returnToCaller)
 </div>
 
 @section Scripts {

@@ -8,18 +8,25 @@ using System.Linq;
 
 
 namespace DevSitesIndex.Services
-{
+{ 
+
+    // 10/21/2019 08:37 pm - SSN - [20191021-2033] - [002] - Revise timelog search returned result
+
     public interface IEntityRepository<T>
     {
 
-        IEnumerable<T> GetAll();
-        
+        IQueryable<T> GetAll();
+
         T GetRecord(int id);
 
         // 09/29/2019 09:49 am - SSN - [20190928-1256] - [016] - Adding Entity Framework model attribute
         T Update(T dbSet);
-        // bool Save();
-        Exception Save();
+
+
+        // 11/16/2019 08:02 pm - SSN - [20191116-1516] - [009] - Timelog edit (AngularJS client version)
+        // from exception to void
+        void Save();
+
 
         void Dispose();
     }

@@ -21,6 +21,11 @@ namespace DevSitesIndex.Pages.Projects
     {
         private readonly DevSitesIndex.Entities.DevSitesIndexContext _context;
 
+
+        // 11/04/2019 02:00 pm - SSN - [20191104-0844] - [022] - Prevent delete option on timesheet related forms 
+        // Return to caller
+        public ReturnToCaller returnToCaller = new ReturnToCaller();
+
         public SelectList companiesSL { get; set; }
 
         public CreateModel(DevSitesIndex.Entities.DevSitesIndexContext context)
@@ -31,6 +36,9 @@ namespace DevSitesIndex.Pages.Projects
 
         public IActionResult OnGet()
         {
+
+            returnToCaller.setup(HttpContext, "/projects/Index");
+
             setupPageRequirements();
 
             return Page();
@@ -58,6 +66,7 @@ namespace DevSitesIndex.Pages.Projects
                 return Page();
             }
 
+
             //_context.Projects.Add(Project);
             //await _context.SaveChangesAsync();
 
@@ -76,7 +85,7 @@ namespace DevSitesIndex.Pages.Projects
                 _context.Entry(Project).Property(x => x.DateAdded).IsModified = false;
             }
 
-           //////////////////////////////////////////// _context.Attach(Project).State = EntityState.Modified;
+            //////////////////////////////////////////// _context.Attach(Project).State = EntityState.Modified;
 
             List<ConcurrencyValidationRecord> validationList = new List<ConcurrencyValidationRecord>();
             validationList.Add(new ConcurrencyValidationRecord { PropertyName = "JobTitle", ModelErrorEntryName = "Job.JobTitle" });
@@ -88,8 +97,10 @@ namespace DevSitesIndex.Pages.Projects
 
 
 
+            // 11/13/2019 09:43 pm - SSN - [20191113-1946] - [008] - ReturnToCaller
+            // return RedirectToPage("./Index");
+            return Redirect(returnToCaller.getReturnToCallerUrl_Final(HttpContext));
 
-            return RedirectToPage("./Index");
         }
     }
 }

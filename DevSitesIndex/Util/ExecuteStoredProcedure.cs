@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SSN_GenUtil_StandardLib;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
@@ -100,7 +101,7 @@ namespace DevSitesIndex.Util
                                       if (T2b.IsFaulted)
                                       {
                                           logger.PostException(T2b.Exception, "20190926-1544-A", "Task failed");
-                                          logger.TrackEvent("DemoSite-20190926-1544-B - Do we see (A)");
+                                          logger.TrackEvent("DemoSite-20190926-1544-B - Do we see (EXCEPTION A)");
                                       }
 
                                   }
@@ -108,8 +109,17 @@ namespace DevSitesIndex.Util
                                 );
 
 
+            try
+            {
+                Task.WaitAll(T1, T2a);
+            }
+            catch (Exception ex)
+            {
+                await logger.PostException(ex, "20190926-1544-A-DOUBLE-LOG", "Task failed");
+                logger.TrackEvent("DemoSite-20190926-1544-B-DOUBLE-LOG - Do we see (EXCEPTION A)");
 
-            Task.WaitAll(T1, T2a);
+            }
+
             return await T1;
 
 
@@ -148,7 +158,57 @@ namespace DevSitesIndex.Util
 
 
             if (reader == null)
+            {
+
+                if (false)
+                {
+
+                    // 11/27/2019 03:52 pm - SSN - Revise capturing error logic.
+
+                    // reader = await cmd.ExecuteReaderAsync().ContinueWith( t =>
+                    Task t1 = cmd.ExecuteReaderAsync().ContinueWith(t2 =>
+                    {
+                        if (t2.IsFaulted)
+                        {
+                            logger.PostException(t2.Exception, "DemoSite-20191031-0932", $"Failed call to ExecuteReaderAsync {cmd.CommandText}");
+                        }
+
+                        if (t2.IsCompletedSuccessfully)
+                        {
+                            reader = t2.Result;
+                        }
+
+                    }, TaskContinuationOptions.OnlyOnRanToCompletion);
+
+
+                    Task t2b = t1.ContinueWith(t2 =>
+                    {
+                        Exception ex = t2.Exception;
+                        bool s1 = t2.IsCanceled;
+                        bool s2 = t2.IsCompleted;
+                        bool s3 = t2.IsCompletedSuccessfully;
+                        bool s4 = t2.IsFaulted;
+                        TaskStatus taskStatus = t2.Status;
+
+                        if (t2.IsFaulted)
+                        {
+                            logger.PostException(t2.Exception, "DemoSite-20191031-0932-ERROR", $"Failed call to ExecuteReaderAsync {cmd.CommandText}");
+                        }
+
+                    }, TaskContinuationOptions.NotOnRanToCompletion);
+
+
+
+                    t1.Wait();
+                    t2b.Wait();
+                }
+
+
                 reader = await cmd.ExecuteReaderAsync();
+                
+
+
+            }
             else
                 reader.NextResult();
 

@@ -32,7 +32,7 @@ namespace DevSitesIndex.Entities
         public DateTime StartTime { get; set; }
 
 
-        [Display(Name = "Duration (Seconds)")]
+        [Display(Name = "Duration (Sec.)")]
         public int? TotalSeconds { get; set; }
 
 
@@ -57,6 +57,12 @@ namespace DevSitesIndex.Entities
 
         [Display(Name = "Job Title")]
         public Job job { get; set; }
+
+
+        // 11/16/2019 02:20 pm - SSN - [20191116-1419] - [001] - Add RowVersion  to Timelog.
+        [Timestamp]
+        public byte[] RowVersion { get; set; }
+
 
         [Display(Name = "Discipline")]
         public Discipline discipline { get; set; }

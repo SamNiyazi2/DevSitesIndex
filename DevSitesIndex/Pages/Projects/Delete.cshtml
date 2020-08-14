@@ -7,6 +7,7 @@
 
 <h2>@ViewData["Title"]</h2>
 
+
 <h3>Are you sure you want to delete this?</h3>
 <div>
     <hr />
@@ -43,13 +44,41 @@
             @Html.DisplayNameFor(model => model.Project.company)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Project.company.CompanyID)
+            @Html.DisplayFor(model => model.Project.company.CompanyName)
         </dd>
     </dl>
 
+
+
     <form method="post">
-        <input type="hidden" asp-for="Project.ProjectID" />
-        <input type="submit" value="Delete" class="btn btn-default" /> |
-        <a asp-page="./Index">Back to List</a>
+
+        @{
+            if (Model.jobCount == 0)
+            {
+                <input type="hidden" asp-for="Project.ProjectID" />
+                <input type="submit" value="Delete" class="btn btn-default" /><span> &nbsp; | &nbsp;</span>
+            }
+            else
+            {
+                <div class="info_bad">
+                    <p>Projcets with job records cannot be deleted.</p>
+                    <p>Project count: @Model.jobCount</p>
+                </div>
+
+            }
+        }
+
+        @*<a asp-page="./Index">Back to List</a>*@
+
+        @await Html.PartialAsync("ReturnToCallerLink", Model.returnToCaller)
+
     </form>
+
+    @await Html.PartialAsync("Project_Jobs", Model.project_Jobs)
+
+
 </div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("TimesheetAngularScripts");}
+}

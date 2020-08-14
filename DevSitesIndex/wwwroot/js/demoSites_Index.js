@@ -6,27 +6,9 @@
 import * as angular from 'angular';
 import * as globals from './globals';
 var ssn_devsite_angular_module_instance = function () {
-    var ssn_devsite_angular_module = globals.globals_instance.getInstance("demoSites_Index", ['ngRoute']);
-    // 09/26/2019 05:51 am - SSN - [20190926-0551] Add $locationProvider
-    ssn_devsite_angular_module.config(["$routeProvider", "$locationProvider", function ($routeProvider, $locationProvider) {
-            $routeProvider.when("/", {
-                controller: "demoSiteIndexController_101",
-                templateUrl: "/templates/SitesIndex.html"
-            });
-            // 09/10/2019 01:47 am - SSN - [20190910-0147] - [001] - WARNING: Tried to load angular more than once.
-            // Turn off
-            //$routeProvider.when("/detail", {
-            //    controller: "devSiteUpdateController",
-            //    // templateUrl: "/templates/SiteDetail.html"
-            //    templateUrl: "/DevSites/Create_partial"
-            //});
-            // 09/26/2019 05:51 am - SSN - [20190926-0551] Add $locationProvider
-            // Use the HTML5 history API
-            //  $routeProvider.otherwise({ redirectTo: "/" });
-            $routeProvider.otherwise({});
-            $locationProvider.html5Mode({ enabled: true, rewriteLinks: false }).hashPrefix('!');
-            console.log("setting routes [20190926-0556]");
-        }]);
+    var ssn_devsite_angular_module = globals.globals_instance.getInstance_v002('demoSite_index', "demoSites_Index", ['ngRoute']);
+    // 12/07/2019 07:12 am - SSN - [20191207-0704] - [002] - AngularJS - Routing - Authentication
+    // Moved  $routeProvider code to Routing_Config.ts
     // 09/21/2019 08:23 am - SSN - [20190921-0357] - [012] - Creating multiple entry for Webpack
     // = function
     var demoSiteIndexController_101 = function ($scope, $http, $window, dataService) {
@@ -39,7 +21,7 @@ var ssn_devsite_angular_module_instance = function () {
             .then(function (result) {
             $scope.data_local = ko.observable($scope.data.devSites());
         }, function (ex) {
-            console.log("20190910-0101");
+            console.error("20190910-0101");
             console.log(ex);
             alert('failed call to api/demositesapi (20180831-0940) - See console.');
         })
@@ -64,10 +46,9 @@ var ssn_devsite_angular_module_instance = function () {
             $scope.data_local()[theIndex] = $scope.editablerow;
             $scope.data.updateDevSite($scope.editablerow)
                 .then(function (response) {
-                console.log("20190908-0628-S - demoSites_Index - updateDevSite Success");
                 console.log(response);
             }, function (error) {
-                console.log("20190908-0628-E - demoSites_Index - updateDevSite Error");
+                console.error("20190908-0628-E - demoSites_Index - updateDevSite Error");
                 console.log(error);
             });
             $scope.reset();

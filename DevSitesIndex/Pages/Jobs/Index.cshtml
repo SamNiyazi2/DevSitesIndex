@@ -15,109 +15,26 @@
 @*// 04/12/2019 07:18 am - SSN - [20190412-0718] - Move timesheet implementation to job index page. Having imact on "Save and Stay" of Dev sites.*@
 
 @*06/01/2019 11:24 am - SSN - Adding class="hidden-xs"*@
-<div ng-app="timesheetApp">
 
-    <p>
-        <a asp-page="Create">Create New Job Record</a>
-    </p>
-
-
-    <div ng-controller="jobsIndexController">
+@{
+    // 11/23/2019 09:04 am - SSN - Replace ng-app
+    ViewBag.InitModule_Full = "data-ng-app=\"timesheetApp\"";
+}
 
 
-        <div ng-controller="utilityController">
-            <span job-status-option ng-repeat="job_status in job_statuses"
-                  entry="job_status"
-                  checkedfunction="job_status_changed101(job_status)"
-                  jobstatusesselected102="job_statuses_selected"></span>
-        </div>
-
-        <div>
-            <button ng-click="job_statuses_checkAll(1)">Check all</button>
-            <button ng-click="job_statuses_checkAll(0)">Uncheck all</button>
-        </div>
-
-        <table class="table table-responsive" height="300">
-
-            <thead ng-controller="utilityController">
-                <tr ng-show="databag.jobs.length>0">
-                    <th header-with-sort columnlist="item" sortmethod="$parent.$parent.sortMethod101(item)" ng-repeat="item in fieldsList"></th>
-                </tr>
-            </thead>
+@*
+    // 11/13/2019 09:58 pm - SSN - [20191113-1946] - [010] - ReturnToCaller
+    // Adding Model.returnToCallerKey
+*@
+@Html.HiddenFor(r => Model.returnToCallerKey)
 
 
-            <tbody>
-
-                <tr ng-repeat="job in databag.jobs">
-
-
-                    <td class="truncateLongText_100">
-                        {{job.projectTitle_ForActivity}}
-                    </td>
-                    <td>
-                        <div job-status-display job-status="job.job_StatusID" class="truncateLongText_200 dropdownHint">
-                            {{job.jobTitle}}
-                        </div>
-
-                        <div class="dropdownHint-content">
-                            {{job.jobTitle}}
-                        </div>
-
-
-                    </td>
-
-                    <td class="indexNowrapCol hidden-xs">
-                        {{job.dateAdded}}
-                    </td>
-
-                    <td class="indexNowrapCol hidden-xs">
-                        {{job.dateUpdated}}
-                        <br>
-                        <b>
-                            {{job.lastActivityDate}}
-
-                        </b>
-                    </td>
-
-                    <td class="indexNowrapCol hidden-xs">
-                        {{job.activityAge_ToString}}
-                    </td>
-
-
-
-
-
-                    <td class="indexNowrapCol">
-                        <a href="/jobs/Edit?id={{job.jobID}}">Edit</a>
-                        ||
-                        <strong>
-
-                            <a href="/jobs/Details?id={{job.jobID}}">Job's Details</a>
-                            |
-                            <a href="/projects/Details?id={{job.projectID}}">Project's Details</a>
-
-                        </strong>
-                        ||
-                        <a href="/jobs/Delete?id={{job.jobID}}">Delete</a> |
-
-                        <a ng-click="showCreateTimesheetForm(job.jobID)">Clock-in</a>
-
-                    </td>
-
-
-            </tbody>
-        </table>
-
-        <div ng-controller="utilityController">
-            <div ng-if="sqlStatsRecord" paging-directive pagingmethod="$parent.pagingmethod101(sqlStatsRecord)" databag="databag" sqlstatsrecord="sqlStatsRecord"></div>
-        </div>
-
-
-    </div>
-
-
-</div>
-
+@*
+    <div ng-app="timesheetApp">
+*@
+ 
+@await Html.PartialAsync("Jobs_Index" )
+ 
 
 
 @section Scripts {

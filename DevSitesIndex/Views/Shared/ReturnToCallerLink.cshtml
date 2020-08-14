@@ -1,0 +1,19 @@
+﻿@model DevSitesIndex.Util.ReturnToCaller
+@*@{
+        if (!string.IsNullOrWhiteSpace(Model.referrer))
+        {
+            <a href="@Model.referrer">* Back to List</a>
+        }
+        else
+        {
+            <a asp-page="@Model.defaultUrl">*** Back to List</a>
+        }
+    }*@
+
+@{
+
+    string finalReferrer = Model.getReturnToCallerUrl_Final(Context);
+
+    <a href="@finalReferrer">## Back to List</a>
+
+}

@@ -1,5 +1,36 @@
 
-<app-timesheet-menu></app-timesheet-menu>
+
+
+<a ssnobject2="topOfThePage2"></a>
+
+<div class="row">
+  <div class="col-md-6">
+
+    <!-- 10/21/2019 04:51 am - SSN - [20191021-0444] - [002] - M12 - Creating directives and advanced components in Angular. -->
+
+    <form id="serachForm" (ngSubmit)="searchTimesheets()" autocomplete="off" novalidate>
+      <div class="form-group">
+        <input [(ngModel)]="searchTerm" name="searchTerm" type="search" class="form-control" placeholder="Search timelog entries..." />
+
+        <!--
+        app-modal-trigger="timelogSearchResults"
+        app-modal-trigger="timelogSearchResults"
+        app-modal-trigger="timelogShowSelected" appLoginPopup
+  -->
+
+        <button type="submit" class="btn btn-default">Search</button>
+        <button type="button" class="btn btn-default" (click)="resetSearch()">Reset</button>
+      </div>
+    </form>
+    <div *ngIf="feedbackMessage">
+      <span [innerText]="feedbackMessage" [ngClass]="getfeedbackMessage_ClassName()"></span>
+    </div>
+
+  </div>
+</div>
+
+
+
 
 <div class="row">
 
@@ -9,9 +40,12 @@
     <app-thumbnail #timesheetThumbnail [timesheet]="timesheet" (eventClick)="handleThumbnailClick($event)"></app-thumbnail>
     <button class="btn btn-info" (click)="timesheetThumbnail.testFunction()">Call thumbnail test</button>
     <br />
-    Thumbnail somePropertyInThumnail [{{timesheetThumbnail.somePropertyInThumnail}}]
     <br />
     <br />
   </div>
 
 </div>
+
+
+
+<app-page-v02-custom (skipActionOwner)="skipTimelog($event)" [sqlStatsRecord]="sqlStatsRecord" [scrollIntoViewSelector]="'[ssnobject2=topOfThePage2]'"></app-page-v02-custom>

@@ -23,12 +23,17 @@
             @Html.DisplayFor(model => model.Project.DateAdded)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Project.DateModified)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Project.DateModified)
-        </dd>
+        @{
+            if (Model.Project.DateModified != null)
+            {
+                <dt>
+                    @Html.DisplayNameFor(model => model.Project.DateModified)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Project.DateModified)
+                </dd>
+            }
+        }
 
 
         <dt>
@@ -41,14 +46,18 @@
 </div>
 <div>
     <a asp-page="./Edit" asp-route-id="@Model.Project.ProjectID">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
+
+    @*<a asp-page="./Index">Back to List</a>*@
+
+    @await Html.PartialAsync("ReturnToCallerLink", Model.returnToCaller)
+
 </div>
 
 @{
 
     // 04/19/2019 01:56 pm - SSN - Add Project_Jobs
 
-    @Html.Partial("Project_Jobs")
+    @await Html.PartialAsync("Project_Jobs", Model.project_Jobs)
 }
 
 
@@ -56,4 +65,7 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("TimesheetAngularScripts");}
+
+    <script src="~/webpack_build/bundle_jobsIndex.js" asp-append-version="true"></script>
+
 }

@@ -1,4 +1,4 @@
-﻿@inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
+﻿@*@inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet*@
 
 <!DOCTYPE html>
 
@@ -39,12 +39,33 @@
     @RenderSection("Styles", required: false)
 
 
-    @Html.Raw(JavaScriptSnippet.FullScript)
+
 
 </head>
 
 <body>
 
+    @{
+
+        if (string.IsNullOrEmpty(ViewBag.InitModule_Full))
+        {
+            string path = Context.Request.Path.ToString().ToLower();
+
+            // 01/02/2020 01:21 pm - SSN - [20200102-1234] - [005] - Add AngularJS login
+
+            if (Startup.applicablePaths_NG_App.isApplicable(path))
+            {
+                ViewBag.InitModule_Full = "data-ng-app=\"timesheetApp\"";
+            }
+
+
+            if (Startup.applicablePaths_temp_support.isApplicable(path))
+            {
+                ViewBag.InitModule_Full = "data-ng-app=\"timesheetApp\"";
+            }
+
+        }
+    }
 
 
     <div @Html.Raw(ViewBag.InitModule_Full)>
@@ -97,6 +118,17 @@
             <hr />
 
         </div>
+
+
+
+        <div ng-controller="restorePreviousPageAndTaskQueueController">
+
+            @*<site-task-queue-list></site-task-queue-list>*@
+            <restore-previous-page-state-and-task-queue></restore-previous-page-state-and-task-queue>
+        </div>
+
+
+
         <footer style="padding:20px;">
             <hr />
             @DevSitesIndex.Util.Odds.showCopyright()

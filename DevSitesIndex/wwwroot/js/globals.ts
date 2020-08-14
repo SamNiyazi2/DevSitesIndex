@@ -37,7 +37,7 @@ var globals_instance = function () {
 
 
 
-        public static getInstance(applicationName: string, args: string[] = null): angular.IModule {
+        public static getInstance_v02(callSource: string, applicationName: string, args: string[] = null): angular.IModule {
 
             ////  DO NOT REMOVE.
             //// Option to call an injected AngularJS server from here. Tested.  
@@ -55,7 +55,7 @@ var globals_instance = function () {
 
 
 
-            return SSN_Globals.getInstance_Original(applicationName, args);
+            return SSN_Globals.getInstance_Original(callSource, applicationName, args);
 
         }
 
@@ -69,7 +69,7 @@ var globals_instance = function () {
 
 
 
-        public static getInstance_Original(applicationName: string, args: string[] = null) {
+        public static getInstance_Original(callSource: string, applicationName: string, args: string[] = null) {
 
 
             var angularApp: IAngularApp = null;
@@ -105,7 +105,8 @@ var globals_instance = function () {
 
                         angularApp = {
                             name: applicationName,
-                            instance: angular.module('timesheetApp', ['ngRoute', 'ui.bootstrap'])
+                            // 11/10/2019 08:36 am - SSN - Adding 'ngSanitize' for ng-bind-html
+                            instance: angular.module('timesheetApp', ['ngRoute', 'ui.bootstrap', 'ngSanitize'])
                         }
 
                         SSN_Globals.ssn_devsite_angular_module.push(angularApp);
@@ -137,7 +138,7 @@ var globals_instance = function () {
 
                     default:
 
-                        console.log("Globals ************* No case for application name [" + applicationName + "]  [20190920-0955] globals.ts");
+                        console.error("Globals ************* No case for application name [" + applicationName + "]  [20190920-0955] globals.ts");
 
                         break;
 
@@ -193,17 +194,13 @@ var globals_instance = function () {
 
                     setTimeout(function () {
 
-                        console.log('GLOBALS - asyncGreet - 45');
-
                         deferred.notify('About to greet ' + namePassedIn + '.');
 
 
                         if (okToGreet(namePassedIn)) {
-                            console.log('GLOBALS - asyncGreet - 50');
                             deferred.resolve('Hello, ' + namePassedIn + '!');
                         } else {
-                            console.log('GLOBALS - asyncGreet - 53');
-
+                            
                             deferred.reject('Greeting ' + namePassedIn + ' is not allowed.');
                         }
                     }, 1000);
@@ -253,16 +250,16 @@ var globals_instance = function () {
 
     // 09/20/2019 09:38 am - SSN - Pass in args
 
-    function getInstance(applicationName: string, args: string[] = null): angular.IModule {
+    function getInstance_v002(callSource: string, applicationName: string, args: string[] = null): angular.IModule {
 
-        return SSN_Globals.getInstance(applicationName, args);
+        return SSN_Globals.getInstance_v02(callSource, applicationName, args);
     }
 
 
 
     return {
 
-        getInstance: getInstance
+        getInstance_v002: getInstance_v002
     }
 
 
@@ -316,7 +313,20 @@ var test_103 = function () {
 }();
 
 
-export { globals_instance };
+// 11/21/2019 06:32 am - SSN - [20191121-0503] - [006] - Timelog edit options on project search
 
-export { test_103 };
+enum Timelog_ServingPage { // ServingPage (for IDE Search)
+
+    Timelog = 'Timelog',
+    Job_Timelog = 'Job_Timelog',
+    Projects_Search = 'Projects_Search'
+}
+
+function Timelog_ServingPage_checkvalue(value: Timelog_ServingPage, compareTo: Timelog_ServingPage) {
+
+    return compareTo === value;
+}
+
+export { globals_instance, test_103, Timelog_ServingPage, Timelog_ServingPage_checkvalue };
+
 

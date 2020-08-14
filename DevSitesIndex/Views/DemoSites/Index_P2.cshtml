@@ -18,16 +18,7 @@
 @{await Html.RenderPartialAsync("Index_Option_Select");}
 
 
-
-
-<h3>Angular Container (1) - Begin</h3>
-<div class="row" data-ng-view=""></div>
-
-<h3>Angular Container (1) - End</h3>
-<hr />
-
-
-<h3>Angular Container (2) - Begin</h3>
+<h3>AngularJS</h3>
 
 <div data-ng-controller="demoSiteIndexController_101">
 
@@ -134,7 +125,7 @@
 
 </script>
 
-<h3>Angular Container (2) - End</h3>
+
 
 <hr />
 
@@ -152,9 +143,7 @@
 
             @*08/31/2018 08:51 am - SSN*@
         <script type="module" src="~/js/demoSites_Index.js" asp-append-version="true"></script>
-
-
-        @await Html.PartialAsync("DataServices_Scripts")
+         
 
     }
 
@@ -163,7 +152,7 @@
     if (Program.RunWhatJavaScriptVersion == Program.whatJavaScriptVersion.Webpack)
     {
 
-        <script src="~/webpack_build/bundle_DevSitesIndex.js" asp-append-version="true"></script>
+        <script src="~/webpack_build/bundle_DemoSites_index.js" asp-append-version="true"></script>
     }
 
     }

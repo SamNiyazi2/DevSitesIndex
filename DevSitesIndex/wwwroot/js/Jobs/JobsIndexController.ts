@@ -19,13 +19,42 @@ jobStatusDisplayDirective_instance;
 var jobsIndexController_instance = function () {
 
 
-    var Jobs_Angular_Module: angular.IModule = ssn_globals.globals_instance.getInstance("timesheetApp");
+    var Jobs_Angular_Module: angular.IModule = ssn_globals.globals_instance.getInstance_v002('JobIndexController', "timesheetApp");
 
+
+
+
+
+
+
+    // 11/27/2019 09:24 am - SSN - Passing in projectId
     Jobs_Angular_Module.controller('jobsIndexController', ['$scope', '$http', '$q', 'dataService', '$timeout', '$sce', '$uibModal',
 
 
         function ($scope, $http, $q, dataService, $timeout, $sce, $uibModal) {
 
+            $scope.hasErrors = false;
+            $scope.feedbackToUserClassNameCase = 0;
+            $scope.errorMessages = "";
+
+            $scope.showOriginalTable = false;
+            $scope.tableTopIdForScroll = "jobIndexTableID"
+
+            $scope.hideProjectTitle = false;
+
+            var qd = {};
+            if (location.search) location.search.substr(1).split("&").forEach(function (item) {
+                var s = item.split("="), k = s[0], v = s[1]
+                    && decodeURIComponent(s[1]); (qd[k] = qd[k] || []).push(v)
+            })
+
+
+            // 12/03/2019 10:12 pm - SSN - parseInt
+            // 12/04/2019 06:25 am - SSN - Change from local to $scope
+            $scope.projectId = parseInt(qd['id']);
+
+            // 12/03/2019 10:25 pm - SSN - Hide project title.
+            $scope.hideProjectTitle = $scope.projectId > 0;
 
             // 09/18/2019 01:15 am - SSN - [20190917-0929] - [010] - Adding paging for angular lists
             //$scope.sqlStatsRecord = {};
@@ -34,26 +63,45 @@ var jobsIndexController_instance = function () {
 
             $scope.job_statuses_selected = [1]; // open
 
-            let columnBag: IColumnBag = {
-                columnName: 'dateAdded',
-                columnNameSelected: 'dateAdded',
+            let columnBag_defaults: IColumnBag = {
+                columnName: '????',
+                columnNameSelected: '',// leave blank.  Length is used to select selected column
                 currentPageNo: 1,
-                desc: true,
                 recordsPerPage: 4,
+                desc: null,
                 totalRecordCount: 0,
-                caption: "Date Added",
-                job_statuses_selected: [$scope.job_statuses_selected]
+                caption: "???",
+                job_statuses_selected: [$scope.job_statuses_selected],
+                fk_filter: $scope.projectId
             };
+
+            console.log('JobIndexController.ts - 20200814-0901');
+            console.log(columnBag_defaults);
 
 
             let _fieldList: IColumnBag[] = [
-                { ...columnBag, columnName: 'projectTitle_ForActivity', caption: 'Project Title' },
-                { ...columnBag, columnName: 'jobTitle', caption: 'Job Title' },
-                { ...columnBag, columnName: 'dateAdded', caption: 'Date Added' },
-                { ...columnBag, columnName: 'dateUpdated', caption: 'Date Updated' },
-                { ...columnBag, columnName: 'activityAge', caption: 'Activity Age', },
+                { ...columnBag_defaults, columnName: 'projectTitle_ForActivity', caption: 'Project Title' },
+                { ...columnBag_defaults, columnName: 'jobTitle', caption: 'Job Title' },
+                { ...columnBag_defaults, columnName: 'dateAdded', caption: 'Date Added' },
+                { ...columnBag_defaults, columnName: 'dateUpdated', caption: 'Date Updated' },
+                { ...columnBag_defaults, columnName: 'activityAge', caption: 'Activity Age', columnNameSelected: 'activityAge', desc: true },
             ];
 
+            if ($scope.hideProjectTitle) {
+
+                _fieldList.splice(0, 1);
+
+            }
+
+
+            let selectColumnEntries = _fieldList.filter(r => r.columnNameSelected.length > 0);
+
+
+            let columnBag = null;
+
+            if (selectColumnEntries.length > 0) {
+                columnBag = selectColumnEntries[0];
+            }
 
             $scope.fieldsList = _fieldList;
 
@@ -64,33 +112,74 @@ var jobsIndexController_instance = function () {
 
             function getJobsList(columnBag: IColumnBag) {
 
+
+
+                console.log('jobsIndexController.ts - 20200814-0903');
+                console.log(columnBag);
+
                 dataService.getJobs(columnBag).then(getJobsSuccess, getJobsError).catch(getTimelogCatch);
 
 
                 function getJobsSuccess(data) {
 
-                    $scope.databag = {
-                        jobs: data.dataList, column: data.columnName, desc: data.desc
+                    $scope.fieldsList.forEach(r => {
+                        r.desc = null;
+                    });
+
+
+                    if (data.hasErrors) {
+
+                        $scope.feedbackToUserClassNameCase = 2;
+                        $scope.hasErrors = true;
+                        $scope.errorMessages = "";
+
+                        for (var i = 0; i < data.feedbackMessages.length; i++) {
+                            for (var i2 = 0; i2 < data.feedbackMessages[i].errorMessages.length; i2++) {
+                                $scope.errorMessages += data.feedbackMessages[i].errorMessages[i2];
+                            }
+                        }
                     }
+                    else {
 
 
-                    // We need to convert to an array. We don't have a setter on an interface.
-                    data.sqlStatsRecord.job_statuses_selected = data.sqlStatsRecord.job_statuses_selected.split(',');
+                        console.log('jobsIndexController.ts - 20200814-0904');
+                        console.log(data);
 
-                    $scope.sqlStatsRecord = data.sqlStatsRecord;
 
-                    var currentColumnIndex = $scope.fieldsList.findIndex(r => r.column === data.columnName);
-                    if (currentColumnIndex > -1) {
-                        $scope.fieldsList[currentColumnIndex].desc = data.desc;
+                        $scope.databag = {
+                            jobs: data.dataList, column: data.sqlStatsRecord.columnName, desc: data.sqlStatsRecord.desc
+                        }
+
+
+                        // We need to convert to an array. We don't have a setter on an interface.
+                        data.sqlStatsRecord.job_statuses_selected = data.sqlStatsRecord.job_statuses_selected.split(',');
+
+                        $scope.sqlStatsRecord = data.sqlStatsRecord;
+
+                        var currentColumnIndex = $scope.fieldsList.findIndex(r => r.columnName === data.sqlStatsRecord.columnName);
+
+                        if (currentColumnIndex > -1) {
+
+                            $scope.fieldsList[currentColumnIndex].desc = data.sqlStatsRecord.desc;
+
+                        }
 
                     }
 
                 }
 
 
-                function getJobsError(data) { var temp = data; }
+                function getJobsError(data) {
+                    var temp = data;
+                    console.log('20191110-0935 - JobsIndexController - getJobsError');
+                    console.error(data);
+                }
 
-                function getTimelogCatch(data) { var temp = data; }
+                function getTimelogCatch(data) {
+                    var temp = data;
+                    console.log('20191110-0936 - JobsIndexController - getJobsCatch');
+                    console.error(data);
+                }
 
             }
 
@@ -115,6 +204,15 @@ var jobsIndexController_instance = function () {
                 getJobsList(columnBag);
 
                 $scope.sqlStatsRecord = columnBag;
+
+                // 12/02/2019 02:48 am - SSN - Added
+
+                if ($scope.tableTopIdForScroll) {
+                    document.querySelector("#" + $scope.tableTopIdForScroll).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+
+                }
             }
 
 
@@ -161,31 +259,6 @@ var jobsIndexController_instance = function () {
             }
 
 
-            // 09/28/2019 04:06 pm - SSN - [20190928-1256] - [011] - Adding Entity Framework model attribute
-            // Duplicate - Wrong way to go!
-
-            $scope.showCreateTimesheetForm = function (jobID) {
-
-                if (isNaN(jobID)) {
-                    jobID = 0;
-                }
-
-                $uibModal.open({
-                    templateUrl: '/js/timesheet/templates/timesheetTemplate.html',
-                    controller: 'TimesheetController',
-
-
-                    backdrop: false,
-
-                    resolve: {
-                        jobId: function () {
-                            return jobID;
-                        }
-                    }
-                });
-
-            };
-
 
 
             function getJob_Statuses() {
@@ -200,16 +273,31 @@ var jobsIndexController_instance = function () {
 
                 function getJob_StatusesError(data) {
                     console.log("JobIndexController -  20190922-0758 - Data error ?????????????????????????????");
-                    console.log(data);
+                    console.error(data);
                 }
 
 
                 function getJob_StatusesCatch(data) {
                     console.log("JobIndexController -  20190922-0758 - Data error (catch) ?????????????????????????????");
-                    console.log(data);
+                    console.error(data);
                 }
 
             }
+
+
+            $scope.feedbackToUserClassNameSet = function () {
+
+                switch ($scope.feedbackToUserClassNameCase) {
+                    case 1:
+                        return "  margined info_good";
+                    case 2:
+                        return "  margined info_bad";
+                    default:
+                        return "";
+                }
+
+            }
+
 
             getJob_Statuses();
 

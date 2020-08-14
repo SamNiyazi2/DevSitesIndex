@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DevSitesIndex.Util;
 using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -19,7 +20,7 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
         TelemetryClient telemetry = new TelemetryClient();
 
 
-        public Feedbackw_util.PageContent pageContent = new Feedbackw_util.PageContent();
+        public PageContent pageContent = new PageContent();
 
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IEmailSender _emailSender;
@@ -37,7 +38,7 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
         }
 
 
-        
+
         public async Task<IActionResult> OnGetAsync()
         {
             await RunProcess();
@@ -60,13 +61,16 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
                     if (Guid.TryParse(pageIDAsObj.ToString(), out pageID))
                     {
 
-                        pageContent = Feedbackw_util.PageContent.GetPageData(pageID);
+                        pageContent = PageContent.GetPageData(pageID);
 
-                        IdentityUser user = await _userManager.FindByIdAsync(pageContent.TheKey.ToString());
+                        // IdentityUser user = await _userManager.FindByIdAsync(pageContent.TheKey.ToString());
+                        IdentityUser user = await _userManager.FindByIdAsync(pageContent.UserID.ToString());
 
                         Email.EmailSenders es = new Email.EmailSenders(_userManager, _emailSender, _env);
 
-                        await es.SendEmailConfirmationRequest(this.Url, Request, user);
+                        // 11/05/2019 06:59 pm - SSN - [20191104-0607] - [018] - Registration - Client 
+                        // await es.SendEmailConfirmationRequest(this.Url, Request, user);
+                        await es.SendEmailConfirmationRequest(this.Url, user);
 
 
                     }

@@ -3,18 +3,21 @@
 
 @{
     ViewData["Title"] = "Reference Sites - Index";
-}
 
+    // 11/23/2019 09:10 am - SSN - Replace ng-app
+    ViewBag.InitModule_Full = "data-ng-app=\"timesheetApp\"";
+
+}
 <h2>@ViewData["Title"]</h2>
 
 <p>
     <a asp-page="Create">Create New Reference Site Record</a>
 </p>
 
-<form method="post">
+<form method="post" action="">
     <div class="form-group">
-        <label class="control-label">Search</label>
-        <input asp-for="SearchText" class="form-control" autofocus />
+        <label class="control-label" >Search</label>
+        <input asp-for="SearchText" class="form-control" required autofocus />
         <span asp-validation-for="SearchText" class="text-danger"></span>
     </div>
     <div class="form-group">
@@ -64,3 +67,4 @@
 
     </tbody>
 </table>
+ 

@@ -13,10 +13,6 @@ app.directive('typeaheadDiscipline', function () {
 
         vm.isValid = function () {
 
-            console.log('test-20190530-2235 - begin 101 ');
-
-            console.log(vm.formName);
-            console.log('test-20190530-2235 - begin 102 ');
 
             var isInvalid = null;
             var isPristine = null;
@@ -24,29 +20,14 @@ app.directive('typeaheadDiscipline', function () {
             isInvalid = $scope.$eval("   false");
             isPristine = $scope.$eval("   false");
 
-            console.log(isInvalid);
-            console.log(isPristine);
-
-
-
             isInvalid = $scope.$eval(vm.formName + ".disciplineSelectedLocal.$invalid");
             isPristine = $scope.$eval(vm.formName + ".disciplineSelectedLocal.$pristine");
 
-            //            console.log(vm.formName + ".disciplineSelectedLocal" );
-            console.log(isInvalid);
-            console.log(isPristine);
-
-            console.log('test-20190530-2235 - begin 103');
-
-
             var _isValid = isInvalid && !isPristine;
-
-            console.log('test-20190530-2235 - end ');
 
             return _isValid;
 
         }
-
 
 
         vm.getDisciplines = function (lookupValue) {

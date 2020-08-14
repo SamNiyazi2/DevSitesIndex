@@ -11,13 +11,23 @@ import * as angular from 'angular'
 import * as util from '../site';
 
 
+const ngApplicationName = "timesheetApp";
+
 var timesheetContinueController_instance = function () {
 
-    var timesheetApp = ssn_globals.globals_instance.getInstance("timesheetApp");
+    var timesheetApp = ssn_globals.globals_instance.getInstance_v002('TimesheetContinueController', ngApplicationName);
 
-    timesheetApp.controller('TimesheetContinueController', ['$scope', '$uibModalInstance', '$http', '$q', 'dataService', '$timeout', 'timelogId',
 
-        function ($scope, $uibModalInstance, $http, $q, dataService, $timeout, timelogId) {
+    // 11/14/2019 03:07 pm - SSN - [20191114-1459] - [002] - ChangeMonitroService
+
+    console.log('Adding ChangeMonitorService');
+
+    timesheetApp.controller('TimesheetContinueController', ['$scope', '$uibModalInstance', '$http', '$q', 'dataService', '$timeout', 'timelogId', 'changeMonitorService',
+
+
+        function ($scope, $uibModalInstance, $http, $q, dataService, $timeout, timelogId, changeMonitorService) {
+
+            changeMonitorService.setupMonitor();
 
 
 
@@ -29,13 +39,16 @@ var timesheetContinueController_instance = function () {
 
             $scope.pageTitle = "Continue / Line Item";
 
+            // 12/29/2019 11:17 pm - SSN - Adding disableSaveButton 
+            $scope.disableSaveButton = false;
+
 
             // 09/28/2019 03:59 pm - SSN - [20190928-1256] - [010] - Adding Entity Framework model attribute
             $scope.feedbackToUserText = "";
             $scope.feedbackToUserClassNameCase = "";
 
 
-            $scope.versionForHTMLRefresh = "15";
+            $scope.versionForHTMLRefresh = "17";
 
             $scope.feedbackToUserClassNameSet = function () {
 
@@ -100,13 +113,16 @@ var timesheetContinueController_instance = function () {
 
             $scope.submitForm = function () {
 
+                if ($scope.disableSaveButton) return;
+
+                $scope.disableSaveButton = true;
+
+                console.log('timesheetContinueController - submitForm - (101)');
 
                 var test = $scope.editableTimeLog;
 
                 var promise = null;
-
-                $scope.editableTimeLog.disciplineId = $scope.disciplineSelected.id;
-
+                
                 if ($scope.editableTimeLog.timeLogId === 0) {
                     promise = dataService.insertTimeLog($scope.editableTimeLog);
                 }
@@ -124,7 +140,7 @@ var timesheetContinueController_instance = function () {
 
                             $scope.timeLog = angular.copy($scope.editableTimeLog);
 
-                            $uibModalInstance.close();
+                            $uibModalInstance.close(true);
 
                             toastr.info("Record added.  Reloading page...");
 
@@ -137,6 +153,8 @@ var timesheetContinueController_instance = function () {
 
                         },
                         function (error) {
+
+                            $scope.disableSaveButton = false;
 
                             console.log(error);
 
@@ -159,7 +177,14 @@ var timesheetContinueController_instance = function () {
             $scope.cancelForm = function () {
 
 
-                $uibModalInstance.dismiss(); //same as cancel???
+                // 11/14/2019 05:09 pm - SSN - [20191114-1459] - [010] - ChangeMonitroService
+
+
+                // changeMonitorService
+                if (changeMonitorService.getHaveChanges()) {
+                    if (!confirm('You have unsaved changes? Are you sure you want to cancel?')) return;
+                }
+                $uibModalInstance.dismiss(false); //same as cancel???
 
             };
 

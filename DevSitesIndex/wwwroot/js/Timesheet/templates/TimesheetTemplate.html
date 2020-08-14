@@ -3,7 +3,7 @@
 <form name="timesheetForm" novalidate>
 
     <div class="modal-header">
-        <h2>{{pageTitle}}  <span style="font-size:16px;" ng-if="versionForHTMLRefresh" >(Ver. {{versionForHTMLRefresh}})</span></h2>
+        <h2>{{pageTitle}}  <span style="font-size:16px;" ng-if="versionForHTMLRefresh">(Ver. {{versionForHTMLRefresh}})</span></h2>
         <table>
             <tr>
                 <td>Project </td>
@@ -28,32 +28,20 @@
 
             <!--<legend>Basic Information</legend>-->
             <!--// 04/13/2019 10:56 am - SSN - [20190413-1037] - Add discipline lookup-->
+            <!-- 11/26/2019 02:43 am - SSN - Replaced TypeAhead with directive -->
+
 
             <div class="form-group">
 
-                <label for="discipline" class="col-sm-3 control-label">
+                <label for="disciplineID" class="col-sm-3 control-label">
                     Discipline
                 </label>
 
                 <div class="col-sm-9">
 
+                    <input type="hidden" name="disciplineID" ng-model="editableTimeLog.disciplineID" ng-required="true" />
+                    <dropdown-list-directive key="disciplineID" form-name="timesheetForm" aci="editableTimeLog.disciplineID"></dropdown-list-directive>
 
-                    <input type="text"
-                           ng-model="disciplineSelected"
-                           name="disciplineSelectedLocal"
-                           placeholder="Select discipline"
-                           uib-typeahead="discipline as discipline.title for discipline in getDisciplines($viewValue) "
-                           typeahead-loading="loadingLocations"
-                           typeahead-no-results="noResults"
-                           class="form-control" ng-required="true" autofocus>
-
-                    <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
-                    <div ng-show="noResults">
-                        <i class="glyphicon glyphicon-remove"></i> No Results Found
-                    </div>
-
-
-                    <p ng-show="timesheetForm.disciplineSelectedLocal.$invalid && !timesheetForm.disciplineSelectedLocal.$pristine" class="has-error">Selection is required</p>
                 </div>
             </div>
 
@@ -76,7 +64,7 @@
                 <label for="WorkDetail" class="col-sm-3 control-label">Work Detail</label>
                 <div class="col-sm-9">
 
-                    <textarea name="WorkDetail" id="WorkDetail" class="form-control" rows="5" cols="40" ng-model="editableTimeLog.workDetail"></textarea>
+                    <textarea name="WorkDetail" id="WorkDetail" class="form-control" rows="5" cols="40" ng-model="editableTimeLog.workDetail" autofocus></textarea>
                 </div>
             </div>
 
@@ -87,20 +75,19 @@
 
         <!-- 09/28/2019 04:11 pm - SSN - [20190928-1256] - [012] - Adding Entity Framework model attribute -->
         <!-- Adding feedbackToUser-->
-        <div ng-if="feedbackToUserText" ng-class="feedbackToUserClassNameSet()" >
+        <div ng-if="feedbackToUserText" ng-class="feedbackToUserClassNameSet()">
             {{feedbackToUserText}}
         </div>
 
     </div>
 
 
-
-
+ 
     <div class="modal-footer">
-
+         
         <div class="col-sm-offset-3 col-sm-9">
             <input type="button" class="btn btn-default" value="Cancel" ng-click="cancelForm()" />
-            <input type="button" class="btn btn-primary" value="Submit" ng-click="submitForm()" ng-disabled="timesheetForm.$invalid" />
+            <input type="button" class="btn btn-primary" value="Submit" ng-click="submitForm()" ng-disabled="timesheetForm.$invalid || disableSaveButton" />
 
         </div>
 

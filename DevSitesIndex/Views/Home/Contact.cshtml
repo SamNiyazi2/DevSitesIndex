@@ -5,13 +5,40 @@
 <h3>@ViewData["Message"]</h3>
 
 <address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
+    Sam Niyazi<br />
+    Independence, MO&nbsp; 64051<br />
     <abbr title="Phone">P:</abbr>
-    425.555.0100
+    816-836-5477
 </address>
 
 <address>
-    <strong>Support:</strong> <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
+    <strong>Email:</strong> <a href="mailto:sam2003@niyazi.com">sam2003@niyazi.com</a><br />
 </address>
+
+@{
+
+    // 12/02/2019 11:51 pm - SSN - [20191202-2353] - [002] - DisplayCode - Adding
+
+    if (User.Identity.IsAuthenticated)
+    {
+        if (DevSitesIndex.Areas.Identity.Util.ClaimUtil.hasClaim(this.Context, "Role", "Manager"))
+        {
+            <pre cmd-ssn="displayCode" url="http://p3013.nonbs.net:3013/CodeReferences" doDebug=false></pre>
+        }
+
+
+        if (DevSitesIndex.Areas.Identity.Util.ClaimUtil.hasClaim(this.Context, "Role", "TestUser"))
+        {
+            <div class="col-md-4" ng-controller="loginController">
+                <a ng-click="login()">Login</a>
+            </div>
+
+        }
+
+    }
+}
+
+@section scripts {
+
+    <script src="/webpack_build/bundle_main_101.js" asp-append-version="true"></script>
+}

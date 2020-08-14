@@ -10,6 +10,7 @@ using DevSitesIndex.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Configuration;
 using SSN_GenUtil_StandardLib;
+using DevSitesIndex.Util;
 
 
 // 04/08/2019 12:43 am - SSN - [20190407-2345] - TimeLog 
@@ -27,6 +28,9 @@ namespace DevSitesIndex.Pages.TimeLogs
         private readonly IConfiguration _configuration;
         private readonly ILogger_SSN logger;
 
+        // 11/04/2019 10:11 am - SSN - [20191104-0844] - [008] - Prevent delete option on timesheet related forms 
+        // Return to caller
+        public ReturnToCaller returnToCaller = new ReturnToCaller();
 
         // 09/13/2019 06:22 am - SSN - [20190913-0548] - [007] - Crate generic dropdown list directive - IConfiguration configuration
 
@@ -37,14 +41,6 @@ namespace DevSitesIndex.Pages.TimeLogs
             _configuration = configuration;
             this.logger = logger;
             _context = context;
-
-
-            // 09/13/2019 06:22 am - SSN - [20190913-0548] - [007] - Crate generic dropdown list directive
-
-            bool _Timesheet_Dropdown_20190913_0624 = false;
-            bool.TryParse(configuration["Timesheet_Dropdown_20190913_0624"], out _Timesheet_Dropdown_20190913_0624);
-            Timesheet_Dropdown_20190913_0624 = _Timesheet_Dropdown_20190913_0624;
-
 
         }
 
@@ -61,6 +57,10 @@ namespace DevSitesIndex.Pages.TimeLogs
             {
                 return NotFound();
             }
+
+
+            returnToCaller.setup(HttpContext, "/timelogs/Index");
+
 
             // 09/21/2019 11:08 am - SSN - Added include job and project to display titles on form.
             TimeLog = await _context.TimeLog
@@ -172,7 +172,11 @@ namespace DevSitesIndex.Pages.TimeLogs
             }
 
 
-            return RedirectToPage("./Index");
+
+            // 11/13/2019 09:43 pm - SSN - [20191113-1946] - [008] - ReturnToCaller
+            // return RedirectToPage("./Index");
+            return Redirect(returnToCaller.getReturnToCallerUrl_Final(HttpContext));
+
         }
 
         private bool TimeLogExists(int id)

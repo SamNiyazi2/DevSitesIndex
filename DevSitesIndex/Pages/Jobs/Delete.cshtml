@@ -37,17 +37,57 @@
             </dd>
 
         }
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Job.project.company.CompanyName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Job.project.company.CompanyName)
+        </dd>
+
+
         <dt>
             @Html.DisplayNameFor(model => model.Job.project)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Job.project.ProjectID)
+            @Html.DisplayFor(model => model.Job.project.ProjectTitle)
         </dd>
+
+
     </dl>
 
     <form method="post">
-        <input type="hidden" asp-for="Job.JobID" />
-        <input type="submit" value="Delete" class="btn btn-default" /> |
-        <a asp-page="./Index">Back to List</a>
+
+        @{
+            if (Model.timelogCount == 0)
+            {
+
+                <input type="hidden" asp-for="Job.JobID" />
+                <input type="submit" value="Delete" class="btn btn-default" /><span> &nbsp; | &nbsp;</span>
+            }
+            else
+            {
+                <div class="info_bad">
+                    <p>Jobs with timelog records cannot be deleted.</p>
+                    <p>Timelog count: @Model.timelogCount</p>
+                </div>
+            }
+        }
+
+
+        @*<a asp-page="./index">* Back to List</a>*@
+
+        @await Html.PartialAsync("ReturnToCallerLink", Model.returnToCaller)
+
+
+
     </form>
+
+
+    @{
+
+        @await Html.PartialAsync("Job_Timesheet", Model.job_Timesheet)
+    }
+
+
 </div>

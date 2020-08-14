@@ -1,0 +1,133 @@
+﻿@model Project_Search_index_record
+
+
+@{
+    Layout = null;
+
+}
+
+
+@{
+    // 11/22/2019 03:12 pm - SSN - [20191121-0503] - [016] - Timelog edit options on project search
+    // Refactored
+
+    DevSitesIndex.Entities.TimeLog timelog = null;
+
+    string _url = "";
+
+    if (Model.project_Search_Record.TableID == 1) { _url = $"/Projects/details?id={Model.project_Search_Record.ProjectID}"; }
+    if (Model.project_Search_Record.TableID == 2) { _url = $"/jobs/details?id={Model.project_Search_Record.JobId}"; }
+    if (Model.project_Search_Record.TableID == 3)
+    {
+
+        _url = $"/timelogs/details?id={Model.project_Search_Record.TimelogId}";
+        timelog = new Entities.TimeLog { TimeLogId = Model.project_Search_Record.TimelogId, TotalSeconds = Model.project_Search_Record.totalSeconds };
+    }
+
+
+
+    <tr id="@Model.tr_1_id">
+        <td width="120">
+
+
+            @*
+                            // 11/14/2019 07:56 pm - SSN - [20191114-1931] - [003] - Job - option to change job status
+                // Temp
+                        @Html.Linkfor_SSN(Model.project_Search_Record.SourceTable, _url)
+
+            *@
+
+            @{
+                System.Text.StringBuilder sb = new System.Text.StringBuilder();
+
+                System.IO.TextWriter textWriter = new System.IO.StringWriter(sb);
+
+                Html.Linkfor_SSN(Model.project_Search_Record.SourceTable, _url).WriteTo(textWriter, System.Text.Encodings.Web.HtmlEncoder.Default);
+
+            }
+            <job-status-change-record action-link="@_url" option-label="@Model.project_Search_Record.SourceTable"></job-status-change-record>
+
+
+        </td>
+
+
+
+        <td width="200">
+            @Html.DisplayFor(modelItem => Model.project_Search_Record.LastActivity)
+        </td>
+
+
+
+        <td width="300">
+            @Model.project_Search_Record.ProjectTitle<br />
+            @Model.project_Search_Record.JobTitle<br />
+
+            @{
+                if (Model.project_Search_Record.TableID != 3)
+                {
+                    @Html.DisplayFor(modelItem => Model.project_Search_Record.Description)
+
+
+                }
+            }
+        </td>
+
+        <td class="indexNowrapCol">
+
+            @{
+                string pageName = "projects";
+                int keyId = Model.project_Search_Record.ProjectID;
+
+                if (Model.project_Search_Record.TableID == 2)
+                {
+                    pageName = "jobs";
+                    keyId = Model.project_Search_Record.JobId;
+
+                }
+                if (Model.project_Search_Record.TableID == 3)
+                {
+                    pageName = "timelogs";
+                    keyId = Model.project_Search_Record.TimelogId;
+
+                }
+            }
+
+            <a ssn-cmd="returnToCallerLink" asp-page="/@pageName/Edit" asp-route-id="@keyId">Edit</a> |
+            <a ssn-cmd="returnToCallerLink" asp-page="/@pageName/Details" asp-route-id="@keyId">Details</a> |
+            <a ssn-cmd="returnToCallerLink" asp-page="/@pageName/Delete" asp-route-id="@keyId">Delete</a>
+
+
+            @{ if (timelog != null)
+                {
+
+                    @*
+                        // 11/21/2019 05:38 am - SSN - [20191121-0503] - [002] - Timelog edit options on project search
+                    *@
+
+                    <br />
+
+                    await Html.RenderPartialAsync("Timelog_Row_Options", new Shared.Timelog_index_record { timelog = timelog, servingPage = Model.servingPage });
+
+                }
+            }
+
+        </td>
+
+    </tr>
+
+
+    if (Model.project_Search_Record.TableID == 3)
+    {
+
+
+
+        <tr id="@Model.tr_2_id" class="detail workDetail_2">
+            <td colspan="2"></td>
+            <td colspan="2" class="workDetail ">
+                @Html.DisplayFor(modelItem => Model.project_Search_Record.Description)
+            </td>
+
+        </tr>
+    }
+
+}

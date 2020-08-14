@@ -1,0 +1,53 @@
+<!--<div class="col-md-2">
+
+  <h3>Jobs List</h3>
+</div>-->
+
+<div class="col-md-4">
+  <a *ngIf="!addMode" (click)="addJob()">Add new job</a>
+  <a *ngIf="addMode" (click)="cancelAddJob()">Cancel adding new job</a>
+</div>
+
+
+<div *ngIf="!addMode">
+  <div class="container row" *ngFor="let job of filteredJobs">
+
+    <div class="col-md-10 col-md-offset-2 ">
+
+
+      <app-project-job-detail [csshighlightAdded]="job.csshighlightAdded">
+
+
+        <div div-title>
+          {{job.jobTitle}}
+        </div>
+
+        <div div-body>
+
+          <dl class="dl-horizontal">
+            <dt>Job Status</dt>
+            <dd>{{job.job_StatusID | jobStatus}} </dd>
+            <dt>Age</dt>
+            <dd>{{job.activityAge_ToString}}</dd>
+            <dt>Date Added</dt>
+            <dd>{{job.dateAdded | date:'MM/dd/yyyy hh:mm a'}}</dd>
+            <dt>Date Updated</dt>
+            <dd>{{job.dateUpdated | date:'MM/dd/yyyy hh:mm a'}}</dd>
+
+          </dl>
+
+
+
+        </div>
+
+
+      </app-project-job-detail>
+       
+        
+      <a (click)="deleteJob($event,job.jobID)">Delete Job</a>
+
+    </div>
+  </div>
+</div>
+
+<app-project-create-job *ngIf="addMode" [projectId]="projectId" (saveNewJob)="saveNewProjectJob($event)" (cancelNewJob)="cancelNewProjectJob($event)"></app-project-create-job>

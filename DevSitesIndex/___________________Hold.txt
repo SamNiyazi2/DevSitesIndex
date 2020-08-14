@@ -1,0 +1,16 @@
+﻿
+
+
+declare var default_angularjs_app;
+
+
+
+import { RestorePreviousPageState_instance } from './Util/RestorePreviousPageState';
+
+
+
+// 11/23/2019 05:57 am - SSN - Adding Task queue
+RestorePreviousPageState_instance.doSetup(default_angularjs_app );
+
+
+

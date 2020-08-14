@@ -10,7 +10,7 @@ export default interface IColumnBag {
     columnNameSelected: string,
     desc: boolean,
     caption: string,
-    job_statuses_selected: number[] //09/22/2019 08:21 am - SSN 
-
+    job_statuses_selected: number[], //09/22/2019 08:21 am - SSN 
+    fk_filter: number // 11/27/2019 09:20 am - SSN
 }
 

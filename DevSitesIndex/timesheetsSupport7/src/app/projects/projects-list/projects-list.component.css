@@ -1,0 +1,42 @@
+
+.projectDiv {
+  margin: 10px 0px 40px 0px;
+  padding:0px 20px 0px 20px;
+  background-color:#eee;
+}
+
+hr{
+  margin:0px 0px 10px 0px;
+}
+
+
+.filterOptions {
+  /*
+    12/02/2019 04:14 am - SSN - Take out     position: fixed;
+  z-index: 1;
+
+ */
+  background-color: white;
+  margin: 0px 0px 20px 0px;
+  padding: 0px;
+}
+
+  .filterOptions button {
+    margin-left: 5px;
+    border: 1px solid #eee;
+  }
+
+@media screen and (min-width: 480px) {
+  .filterOptions button {
+    margin-left: 10px;
+    border: 1px solid #eee;
+  }
+}
+
+.filterOptions + .container {
+  /*
+    12/02/2019 04:14 am - SSN - Take out     position: fixed;
+  margin-top: 100px;
+
+ */
+}

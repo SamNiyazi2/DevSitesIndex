@@ -3,6 +3,9 @@
 
 @{
     ViewData["Title"] = "Code Reference - Index";
+
+    // 11/23/2019 09:37 am - SSN - Replace ng-app
+    ViewBag.InitModule_Full = "data-ng-app=\"timesheetApp\"";
 }
 
 <h2 id="topTitle">@ViewData["Title"]</h2>
@@ -21,17 +24,15 @@
 
     <div class="searchOption @Model.searchOptionCustomClassName">
 
-        <form method="post" >
+        @*12/24/2019 07:31 pm - SSN - novalidate because we need to submit the form to reset the search*@
 
-            @*02/07/2019 03:00 pm - SSN - Adding*@
-            <div class="form-group">
-                <input asp-for="doDecodeHtml" doRefreshForm="1" accesskey="d" /> Decode HTML
-            </div>
+        <form method="post" action="" novalidate>
+
 
             <div>
                 @*02/07/2019 02:40 pm - SSN - Removed class="form-group" when adding doHighlight*@
                 <label class="control-label">Search</label>
-                <input asp-for="SearchText" class="form-control" accesskey="s" autofocus />
+                <input asp-for="SearchText" class="form-control" accesskey="s" autofocus required />
                 <span asp-validation-for="SearchText" class="text-danger"></span>
                 <a target="ws" href="https://docs.microsoft.com/en-us/sql/relational-databases/search/search-for-words-close-to-another-word-with-near?view=sql-server-2017">__</a>
             </div>
@@ -41,8 +42,8 @@
                 Highlight matches
             </div>
             <div class="form-group">
-                <input type="submit" value="Search" class="btn btn-default" />
-                <a href="javascript:void(0)" class="btn btn-default " doRefreshForm="0">Clear search</a>
+                <input id="submitSearchCodeRef" type="submit" value="Search" class="btn btn-default" />
+                <a class="btn btn-default " doRefreshForm="0">Clear search</a>
                 <span cmd-name="showObject" jQueryObjectName="#searchOptionDiv"><a class="pull-right" cmd-name="hideObject" jQueryObjectName=".searchOption_Container">Hide</a></span>
             </div>
         </form>
@@ -79,96 +80,92 @@
 
         @*// 04/03/2019 09:01 pm - SSN - Adding validation*@
 
-        @if (Model.CodeReference != null)
-        {
-            foreach (var item in Model.CodeReference)
+        @{
+            if (Model.CodeReference != null)
             {
-                <tr>
+                foreach (var item in Model.CodeReference)
+                {
 
-                    <td>
-                        @if (item.Title != null)
-                        {
-                            <h3>  @Html.DisplayFor(modelItem => item.Title)</h3>
+                    <tr>
 
-                        }
+                        <td class="maxWidthCol2">
+                            @if (item.Title != null)
+                            {
+                                <h3>  @Html.DisplayFor(modelItem => item.Title)</h3>
 
-                        @if (item.SourceAddress != null)
-                        {
-                            <p class="maxWidthCol1">
-                                @if (item.SourceAddress.ToLower().StartsWith("http"))
-                                {
-                                    <a target="wincoderef@item.Id" href="@item.SourceAddress">@Html.DisplayFor(modelItem => item.SourceAddress)</a>
+                            }
 
-                                }
-                                else
-                                {
-                                    @Html.DisplayFor(modelItem => item.SourceAddress)
+                            @if (item.SourceAddress != null)
+                            {
+                                <p class="maxWidthCol1">
+                                    @if (item.SourceAddress.ToLower().StartsWith("http"))
+                                    {
+                                        <a target="wincoderef@item.Id" href="@item.SourceAddress">@Html.DisplayFor(modelItem => item.SourceAddress)</a>
 
-                                }
-                            </p>
-                        }
+                                    }
+                                    else
+                                    {
+                                        @Html.DisplayFor(modelItem => item.SourceAddress)
 
-                        <pre class="codeblock2">
+                                    }
+                                </p>
+                            }
+
+                            <pre class="codeblock2">
      
-
-                            @if (Model.doDecodeHtml)
-                            {
-                                if (Model.doHeightlight_v02)
-                                {
-                                     @Html.Raw(System.Net.WebUtility.HtmlDecode(item.CodeBlock))
-                                }
-                                else
-                                {
-                                    @Html.Raw(System.Net.WebUtility.HtmlDecode(item.CodeBlock))
-                                }
-                            }
-                            else
-                            {
-                                if (Model.doHeightlight_v02)
-                                {
-                                    // 02/08/2019 04:53 am - SSN - Encode
-                                    //@Html.Raw(Model.HighlightText(item.CodeBlock))
-                                    @Html.Raw(Model.HighlightText(System.Net.WebUtility.HtmlEncode(item.CodeBlock)))
-                                }
-                                else
-                                {
-                                   @item.CodeBlock 
-                                }
-
-                            }
-                        </pre>
+ 
+                @{
 
 
+                    if (Model.doHeightlight_v02)
+                    {
+                        // 02/08/2019 04:53 am - SSN - Encode
+                        //@Html.Raw(Model.HighlightText(item.CodeBlock))
+                        // 11/23/2019 06:31 pm - SSN - Problem with $/{/}
+                        // @Html.Raw(Model.HighlightText(System.Net.WebUtility.HtmlEncode(item.CodeBlock)))
+                        //@Html.Raw(Model.HighlightText(System.Net.WebUtility.HtmlEncode(item.CodeBlock_Encoded)))
+                        @Html.Raw(Model.HighlightText(item.CodeBlock_Encoded))
+                    }
+                    else
+                    {
+                        @Html.Raw(item.CodeBlock_Encoded)
+                    }
 
-                    </td>
+                }
 
-                    <td class="indexNowrapCol">
-                        @Html.DisplayFor(modelItem => item.DateAdded)
-                    </td>
 
-                    <td class="indexNowrapCol">
-                        @Html.DisplayFor(modelItem => item.DateModified)
-                    </td>
+                 </pre>
 
-                    <td class="indexNowrapCol">
-                        <a asp-page="./Edit" asp-route-id="@item.Id" asp-route-SearchText="@Model.SearchText">Edit</a> |
-                        <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                        <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-                    </td>
-                </tr>
+
+                        </td>
+
+                        <td class="indexNowrapCol">
+                            @Html.DisplayFor(modelItem => item.DateAdded)
+                        </td>
+
+                        <td class="indexNowrapCol">
+                            @Html.DisplayFor(modelItem => item.DateModified)
+                        </td>
+
+                        <td class="indexNowrapCol">
+                            <a asp-page="./Edit" asp-route-id="@item.Id" asp-route-SearchText="@Model.SearchText">Edit</a> |
+                            <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                            <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                        </td>
+
+                    </tr>
+                }
             }
         }
     </tbody>
 </table>
 
-
-
 @section Scripts {
 
 
-    @*// 04/05/2019 12:55 am - SSN - Extract script to file while attempting to address problem with copying text into serach field.*@
-    <script type="text/javascript" src="~/js/CodeReference_Pages.js"></script>
+    <script src="~/webpack_build/bundle_CodeReference_Pages.js" asp-append-version="true"></script>
 }
+
 
 
 <style>
