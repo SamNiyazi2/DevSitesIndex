@@ -6,14 +6,13 @@ class ChangeMonitorFlag_class {
 
 
 
-    get haveChanges(): boolean{
+    get haveChanges(): boolean {
 
-        console.log('ChangeMonitorFlag.ts - getter ');
 
         let _haveChanges = window["haveChanges_GLOBAL"];
 
 
-        console.log("typeof (_haveChanges) ", typeof (_haveChanges) );
+        console.log("typeof (_haveChanges) ", typeof (_haveChanges));
 
 
         if (typeof (_haveChanges) === 'undefined') {
@@ -26,15 +25,15 @@ class ChangeMonitorFlag_class {
         }
 
         console.log('_haveChanges : [', _haveChanges, ']');
-        return _haveChanges ;
+        return _haveChanges;
     }
 
 
-    set haveChanges(_haveChanges  : boolean) {
+    set haveChanges(_haveChanges: boolean) {
 
         window["haveChanges_GLOBAL"] = _haveChanges;
 
-        console.log('ChangeMonitorFlag.ts - setter ',_haveChanges);
+        console.log('ChangeMonitorFlag.ts - setter ', _haveChanges);
 
     }
 

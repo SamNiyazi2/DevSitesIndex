@@ -10,27 +10,32 @@ var ChangeMonitor_Util = function () {
     };
     // 11/09/2019 08:08 am - SSN - Added monitorChange_SSN
     var monitorChange_SSN = function () {
+        // 08/15/2020 08:28 am - SSN - Added
+        var buttons = document.querySelectorAll('button');
+        buttons.forEach(function (x, y, z) {
+            if (x.type && (x.type.toLowerCase() === "submit" || x.type.toLowerCase() === "reset")) {
+                x.addEventListener('click', ChangeMonitor_Util.setItemToResetChangedFlag_ssn);
+            }
+        });
         var inputs = document.querySelectorAll('input');
         inputs.forEach(function (x, y, z) {
-            if (!bypassObject(z[y])) {
+            if (!bypassObject(x)) {
                 z[y].addEventListener('change', ChangeMonitor_Util.setItemChanged_ssn);
             }
-            if (z[y].type) {
-                if (z[y].type.toLowerCase() === "submit") {
-                    z[y].addEventListener('click', ChangeMonitor_Util.setItemToResetChangedFlag_ssn);
-                }
+            if (x.type && (x.type.toLowerCase() === "submit" || x.type.toLowerCase() === "reset")) {
+                x.addEventListener('click', ChangeMonitor_Util.setItemToResetChangedFlag_ssn);
             }
         });
         var textareas = document.querySelectorAll('textarea');
         textareas.forEach(function (x, y, z) {
-            if (!bypassObject(z[y])) {
-                z[y].addEventListener('change', ChangeMonitor_Util.setItemChanged_ssn);
+            if (!bypassObject(x)) {
+                x.addEventListener('change', ChangeMonitor_Util.setItemChanged_ssn);
             }
         });
         var selects = document.querySelectorAll('select');
         selects.forEach(function (x, y, z) {
-            if (!bypassObject(z[y])) {
-                z[y].addEventListener('change', ChangeMonitor_Util.setItemChanged_ssn);
+            if (!bypassObject(x)) {
+                x.addEventListener('change', ChangeMonitor_Util.setItemChanged_ssn);
             }
         });
     };
@@ -39,6 +44,7 @@ var ChangeMonitor_Util = function () {
         if (obj1.type) {
             if (obj1.type.toLowerCase() === 'hidden' ||
                 obj1.type.toLowerCase() === 'submit' ||
+                obj1.type.toLowerCase() === 'search' ||
                 obj1.type.toLowerCase() === 'email' ||
                 obj1.type.toLowerCase() === 'password') {
                 return true;
