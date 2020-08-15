@@ -62,8 +62,15 @@ var ChangeMonitor_Util = function () {
 
     var bypassObject = function (obj1): boolean {
 
+
+        // 08/15/2020 0:18 am - SSN - Added email and password (login)
+
         if (obj1.type) {
-            if (obj1.type.toLowerCase() === 'hidden' || obj1.type.toLowerCase() === 'submit') {
+            if (
+                obj1.type.toLowerCase() === 'hidden' ||
+                obj1.type.toLowerCase() === 'submit' ||
+                obj1.type.toLowerCase() === 'email' ||
+                obj1.type.toLowerCase() === 'password') {
 
                 return true;
             }
@@ -83,6 +90,7 @@ var ChangeMonitor_Util = function () {
         if (obj1.id.toLowerCase().indexOf('filter') > -1) return true;
 
         if (obj1.name.toLowerCase().indexOf('filter') > -1) return true;
+
 
         return false;
     }
