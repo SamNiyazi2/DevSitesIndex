@@ -95,21 +95,8 @@
 
                             }
 
-                            @if (item.SourceAddress != null)
-                            {
-                                <p class="maxWidthCol1">
-                                    @if (item.SourceAddress.ToLower().StartsWith("http"))
-                                    {
-                                        <a target="wincoderef@item.Id" href="@item.SourceAddress">@Html.DisplayFor(modelItem => item.SourceAddress)</a>
 
-                                    }
-                                    else
-                                    {
-                                        @Html.DisplayFor(modelItem => item.SourceAddress)
-
-                                    }
-                                </p>
-                            }
+                            @await Html.PartialAsync("CodeReference_partial", item)
 
                             <pre class="codeblock2">
      

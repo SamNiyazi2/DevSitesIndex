@@ -1,0 +1,34 @@
+﻿@model DevSitesIndex.Entities.CodeReference
+
+@if (Model != null)
+{
+
+    if (Model.SourceAddress != null)
+    {
+
+        <p class="maxWidthCol1">
+            @if (Model.SourceAddress.ToLower().StartsWith("http"))
+            {
+                <a target="wincoderef@Model.Id" href="@Model.SourceAddress">@Html.DisplayFor(modelModel => Model.SourceAddress)</a>
+
+            }
+            else if (Model.SourceAddress.ToLower().StartsWith("ssnalert"))
+            {
+                System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                sb.Append(string.Format("<a href='{0}'>{1}</a>", Model.SourceAddress, "Source (ssnalert)"));
+
+                @Html.Raw(sb)
+
+            }
+            else
+            {
+                @Html.DisplayFor(modelModel => Model.SourceAddress)
+
+            }
+        </p>
+    }
+}
+
+
+ 
+

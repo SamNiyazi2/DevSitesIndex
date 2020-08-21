@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <UserSecretsId>d333cece-1c61-46c9-bdce-fbf359723d24</UserSecretsId>
-    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>3.1</TypeScriptToolsVersion>
     <LangVersion>7.2</LangVersion>
     <ApplicationInsightsResourceId>/subscriptions/d6723a94-6723-4e85-b988-03bf28d6ea51/resourcegroups/DevSitesIndex20190127--0929-redeploy-rg/providers/microsoft.insights/components/DevSitesIndex20190127__0929_redeploy_v02</ApplicationInsightsResourceId>
   </PropertyGroup>

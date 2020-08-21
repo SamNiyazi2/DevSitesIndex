@@ -10,15 +10,12 @@ var changeMonitorService_instance = function () {
                     ChangeMonitor_Util.setupMonitor_FullProcess();
                 };
                 var _getHaveChanges = function () {
-                    console.log('ChangeMonitorService.ts - _getHaveChanged - 20200815-0756-001');
                     return ChangeMonitorFlag.haveChanges;
                 };
                 var _reset = function () {
-                    console.log('ChangeMonitorService.ts - _reset  - 20200815-0758-003');
                     ChangeMonitorFlag.haveChanges = false;
                 };
                 var _doSetHaveChange = function (setting) {
-                    console.log('ChangeMonitorService.ts - _doSetHaveChange  - 20200815-0756-002');
                     ChangeMonitorFlag.haveChanges = setting;
                 };
                 return {

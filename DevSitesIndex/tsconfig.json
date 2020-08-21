@@ -53,7 +53,7 @@
 
   "exclude": [
     "node_modules",
-    "timesheetsSupport7"
+    "timesheetsSupport7" 
   ],
 
   // 09/19/2019 04:08 am - SSN - [20190919-0354] - [004] - Putting things back - Cleanup from implementing AMD - Adding tsconfig.json     "alwaysStrict": true,

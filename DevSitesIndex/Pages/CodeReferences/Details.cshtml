@@ -24,18 +24,11 @@
         </dt>
         <dd>
             @{
-                if (!string.IsNullOrWhiteSpace(Model.CodeReference.SourceAddress))
-                {
-                    @if (Model.CodeReference.SourceAddress.ToLower().StartsWith("http"))
-                    {
-                        <a target="wincoderef@item.Id" href="@Model.CodeReference.SourceAddress">@Html.DisplayFor(modelItem => modelItem.CodeReference.SourceAddress)</a>
-                    }
-                    else
-                    {
-                        @Html.DisplayFor(modelItem => Model.CodeReference.SourceAddress)
-                    }
-                }
+
+
+                @await Html.PartialAsync("CodeReference_partial", Model.CodeReference)
             }
+
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.CodeReference.DateAdded)
