@@ -9,15 +9,17 @@ var sessionTimeoutInterceptor_instance = function () {
         angularjs_module.config([
             '$httpProvider',
             function ($httpProvider) {
+                // 08/21/2020 10:53 am - SSN - Adding $location
                 var interceptor = [
                     '$q',
                     '$rootScope',
-                    //                'userSession',
-                    function ($q, $rootScope) {
+                    '$location',
+                    //  'userSession',
+                    function ($q, $rootScope, $location) {
                         console.log('sessionTimeoutInterceptor - Main function - 20191207-0412-MF');
                         var service = {
                             // run this function before making requests
-                            'request': function (config) {
+                            request: function (config) {
                                 ////////console.log('sessionTimeoutInterceptor - Main function - SERVICE - 20191207-0412-SERVICE');
                                 ////////console.log('config next:');
                                 ////////console.log(config);
@@ -27,6 +29,18 @@ var sessionTimeoutInterceptor_instance = function () {
                                 ////////////}
                                 ////////////// bad request, so reject
                                 ////////////return $q.reject(config);
+                            },
+                            requestError: function (rejection) {
+                                console.log('sessionTimeoutIntercepter - requestError - 20200821-1046-001');
+                                return $q.reject(rejection);
+                            },
+                            response: function (result) {
+                                console.log('sessionTimeoutIntercepter - response - 20200821-1046-002');
+                                return result;
+                            },
+                            responseError: function (response) {
+                                console.log('sessionTimeoutIntercepter - responseError - 20200821-1046-003');
+                                return $q.reject(response);
                             }
                         };
                         return service;
