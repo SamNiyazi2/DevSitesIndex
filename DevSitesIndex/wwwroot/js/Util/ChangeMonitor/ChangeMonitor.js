@@ -20,7 +20,7 @@ var ChangeMonitor_Util = function () {
         var inputs = document.querySelectorAll('input');
         inputs.forEach(function (x, y, z) {
             if (!bypassObject(x)) {
-                z[y].addEventListener('change', ChangeMonitor_Util.setItemChanged_ssn);
+                x.addEventListener('change', ChangeMonitor_Util.setItemChanged_ssn);
             }
             if (x.type && (x.type.toLowerCase() === "submit" || x.type.toLowerCase() === "reset")) {
                 x.addEventListener('click', ChangeMonitor_Util.setItemToResetChangedFlag_ssn);

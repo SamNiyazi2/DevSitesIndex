@@ -150,7 +150,7 @@ var config = [
 
 
 
-// 09/26/2019 06:52 am - SSN - [20190926-0638] - [005] - Move scripts from index_p1.cshtml to demoSites_index_p1
+    // 09/26/2019 06:52 am - SSN - [20190926-0638] - [005] - Move scripts from index_p1.cshtml to demoSites_index_p1
     {
         ...d_master,
 
@@ -166,7 +166,7 @@ var config = [
 
     }
 
-    
+
 
     ,
 
@@ -183,14 +183,14 @@ var config = [
             filename: 'bundle_Site_only.js'
         },
 
-        
-        entry: [
-// ERROR in Debug Failure. False expression: Host should not return a redirect source file from `getSourceFile`
-            './site.ts',
-//            './site_only_main.ts',
 
-    // 12/13/2019 07:35 pm - SSN - [20191213-1935] - Seperate CodeReference_Pages from bundle_site_only
-//            './CodeReference_Pages.ts',
+        entry: [
+            // ERROR in Debug Failure. False expression: Host should not return a redirect source file from `getSourceFile`
+            './site.ts',
+            //            './site_only_main.ts',
+
+            // 12/13/2019 07:35 pm - SSN - [20191213-1935] - Seperate CodeReference_Pages from bundle_site_only
+            //            './CodeReference_Pages.ts',
             './util/ChangeMonitor/ChangeMonitor.ts'
         ]
 
@@ -242,8 +242,8 @@ var config = [
 
     // 11/23/2019 09:19 am - SSN - Adding
 
-    
-        {
+
+    {
         ...d_master,
 
         output: {
@@ -264,7 +264,7 @@ var config = [
     ,
 
 
-// 12/03/2019 12:09 am - SSN - [20191202-2353] - [005] - DisplayCode - Adding
+    // 12/03/2019 12:09 am - SSN - [20191202-2353] - [005] - DisplayCode - Adding
 
 
     {
@@ -287,7 +287,7 @@ var config = [
 
     ,
 
-// 01/02/2020 12:55 pm - SSN - [20200102-1234] - [003] - Add AngularJS login
+    // 01/02/2020 12:55 pm - SSN - [20200102-1234] - [003] - Add AngularJS login
 
 
     {
@@ -305,6 +305,25 @@ var config = [
 
     }
 
+
+
+    // 08/26/2020 07:27 pm - SSN - [20200826-1927] - [002] - Format textarea for edit 
+    ,
+
+    {
+        ...d_master,
+
+        output: {
+            path: path.resolve(__dirname, './wwwroot/webpack_build'),
+            filename: 'bundle_TextArea_util_0718.js'
+        },
+
+
+        entry: [
+            './util/TextArea_util_0718.ts'
+        ]
+
+    }
 
 
 ];

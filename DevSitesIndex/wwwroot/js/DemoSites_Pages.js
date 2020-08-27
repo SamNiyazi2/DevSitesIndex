@@ -9,15 +9,39 @@ var DemoSites_Pages = function () {
     // Added
     var doSetup = function () {
         var ViewModel = function () {
-            this.saveAndStay = function (itemToDelete) {
+            var _this = this;
+            console.log('DemoSites_pages - doSetup ');
+            var definitions = document.querySelectorAll("[ko_demosites_pages]");
+            definitions.forEach(function (a, b, c) {
+                for (var x = 0; x < a.attributes.length; x++) {
+                    if ((a.attributes[x].nodeName).substr(0, 4) === 'ko__') {
+                        var attrName = (a.attributes[x].nodeName).substr(4);
+                        var attrValue = a.attributes[x].nodeValue;
+                        console.log("*************** attrName [" + attrName + "]  attrValue  [" + attrValue + "]");
+                        _this[attrName] = attrValue;
+                        console.log('this[attrName]  [' + _this[attrName] + "]");
+                        console.log('--------------------------');
+                        console.log(_this);
+                        console.log('--------------------------');
+                    }
+                }
+            });
+            // this.fieldName_prefix not being reassigned.
+            // this['fieldname_prefix'] = 'NotDefined-1113';
+            this.saveAndStay = function () {
                 var data101 = $('#devSiteForm').serializeArray();
+                console.log('demosite_pages - saveAndStay - 20200826-2258-001');
+                console.log('data101');
+                console.log(data101);
+                console.log('this.fieldName_prefix');
+                console.log('[', this['fieldname_prefix'], ']');
                 var ndx = 0;
                 // 11/18/2019 01:16 pm - SSN - [20191118-1316] - Added interface
                 // var o5 = new Object();
                 var o5 = {};
                 for (ndx = 0; ndx < data101.length; ndx++) {
-                    var _name = data101[ndx].name.replace('DevSite.', '');
-                    if (data101[ndx].name.indexOf("DevSite.") > -1) {
+                    var _name = data101[ndx].name.replace(this['fieldname_prefix'], '');
+                    if (data101[ndx].name.indexOf(this['fieldname_prefix']) > -1) {
                         // mvc creates a hidden field for checkboxes. If the visible one is set to true, we ignore the hidden one that is set to false.
                         if (!o5[_name] || (o5[_name] && o5[_name].value === "ture" && data101[ndx].value !== "false")) {
                             o5[_name] = data101[ndx].value;
@@ -53,7 +77,7 @@ var DemoSites_Pages = function () {
                             $("#devSiteSaveStatus").addClass('text-warning');
                             $("#devSiteSaveStatus").css({ 'background-color': 'yellow' });
                             console.error("Error-20190328-0704");
-                            console.log(response.responseText);
+                            //   console.log(response.responseText);
                             console.error('Todo');
                         }
                     }

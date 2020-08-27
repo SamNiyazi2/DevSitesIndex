@@ -72,6 +72,7 @@
     <Content Remove="wwwroot\js\Interceptors\SessonTimeoutInterceptor.ts" />
     <Content Remove="wwwroot\js\Routing\Routing_Config.ts" />
     <Content Remove="wwwroot\js\Shared\SharedUtil.ts" />
+    <Content Remove="wwwroot\js\TextArea_util_0718.ts" />
     <Content Remove="wwwroot\js\Users\login.ts" />
     <Content Remove="wwwroot\js\Users\users_main.ts" />
   </ItemGroup>
@@ -82,6 +83,7 @@
     <TypeScriptCompile Include="wwwroot\js\Interceptors\SessonTimeoutInterceptor.ts" />
     <TypeScriptCompile Include="wwwroot\js\Routing\Routing_Config.ts" />
     <TypeScriptCompile Include="wwwroot\js\Shared\SharedUtil.ts" />
+    <TypeScriptCompile Include="wwwroot\js\Util\TextArea_util_0718.ts" />
     <TypeScriptCompile Include="wwwroot\js\Users\login.ts" />
     <TypeScriptCompile Include="wwwroot\js\Users\users_main.ts" />
   </ItemGroup>

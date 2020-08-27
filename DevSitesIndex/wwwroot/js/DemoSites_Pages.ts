@@ -31,12 +31,48 @@ let DemoSites_Pages = function () {
 
         var ViewModel = function () {
 
+            console.log('DemoSites_pages - doSetup ');
+
+            let definitions = document.querySelectorAll("[ko_demosites_pages]")
+            definitions.forEach((a, b, c) => {
+
+                for (let x = 0; x < a.attributes.length; x++) {
 
 
-            this.saveAndStay = function (itemToDelete) {
+                    if ((a.attributes[x].nodeName).substr(0, 4) === 'ko__') {
+
+                        let attrName = (a.attributes[x].nodeName).substr(4);
+                        let attrValue = a.attributes[x].nodeValue;
+
+                        console.log("*************** attrName [" + attrName + "]  attrValue  [" + attrValue + "]");
+                        
+                        this[attrName] = attrValue;
+                        console.log('this[attrName]  [' + this[attrName] + "]")
+                        console.log('--------------------------');
+                        console.log(this);
+                        console.log('--------------------------');
+                    }
+                }
+
+            });
+
+
+            // this.fieldName_prefix not being reassigned.
+           // this['fieldname_prefix'] = 'NotDefined-1113';
+
+
+            this.saveAndStay = function () {
 
 
                 var data101 = $('#devSiteForm').serializeArray();
+
+                console.log('demosite_pages - saveAndStay - 20200826-2258-001');
+
+                console.log('data101');
+                console.log(data101);
+
+                console.log('this.fieldName_prefix');
+                console.log('[', this['fieldname_prefix'], ']');
 
                 var ndx = 0;
 
@@ -45,9 +81,9 @@ let DemoSites_Pages = function () {
                 let o5: DevSiteRecord = {};
 
                 for (ndx = 0; ndx < data101.length; ndx++) {
-                    var _name = data101[ndx].name.replace('DevSite.', '');
+                    var _name = data101[ndx].name.replace(this['fieldname_prefix'], '');
 
-                    if (data101[ndx].name.indexOf("DevSite.") > -1) {
+                    if (data101[ndx].name.indexOf(this['fieldname_prefix']) > -1) {
 
                         // mvc creates a hidden field for checkboxes. If the visible one is set to true, we ignore the hidden one that is set to false.
 
@@ -67,7 +103,7 @@ let DemoSites_Pages = function () {
                     method = "Put";
                     id_local = o5.Id;
                 }
-                 
+
 
 
                 $("#devSiteSaveStatus").fadeIn('slow');
@@ -95,10 +131,10 @@ let DemoSites_Pages = function () {
                     },
 
 
-                
+
 
                     error: function (response) {
-                         
+
 
                         if (response.responseText !== null && response.responseText.length > 0) {
                             $("#devSiteSaveStatus").html("System error! Record not saved.<br/>" + response.responseText);
@@ -107,9 +143,9 @@ let DemoSites_Pages = function () {
 
 
                             console.error("Error-20190328-0704");
-                            console.log(response.responseText);
+                            //   console.log(response.responseText);
                             console.error('Todo');
-                            
+
 
                         }
                     }
@@ -140,5 +176,5 @@ let DemoSites_Pages = function () {
 
 export { DemoSites_Pages };
 
-DemoSites_Pages.doSetup();
 
+DemoSites_Pages.doSetup();

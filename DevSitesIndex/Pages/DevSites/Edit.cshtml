@@ -118,7 +118,14 @@
 
 
             <div class="form-group">
-                <label asp-for="DevSite.Solution_Details" class="control-label"></label>
+                @*
+                    // 08/26/2020 07:48 pm - SSN - [20200826-1927] - [003] - Format textarea for edit
+                    Adding ssn_FitInScreen="DevSite_Solution_Details
+                *@
+
+
+
+                <label asp-for="DevSite.Solution_Details" class="control-label" ssn_FitInScreen="DevSite_Solution_Details"></label>
                 <textarea cols="40" rows="5" asp-for="DevSite.Solution_Details" class="form-control">
 
 </textarea>
@@ -137,13 +144,7 @@
 
             @if (Model.DevSite.Id > 0)
             {
-                <div class="fixed_101">
-
-                    <a href="#" class=""
-                       data-bind="click: saveAndStay" title="Save and Stay!">SaS</a>
-                    <div id="devSiteSaveStatus"></div>
-                </div>
-
+              @await Html.PartialAsync("SaveAndStayControl")
             }
 
         </form>
@@ -171,6 +172,8 @@
     *@
 
     <script src="/webpack_build/bundle_DemoSites_Pages.js" asp-append-version="true"></script>
+    <script src="/webpack_build/bundle_TextArea_util_0718.js" asp-append-version="true"></script>
+    
 
 }
 
