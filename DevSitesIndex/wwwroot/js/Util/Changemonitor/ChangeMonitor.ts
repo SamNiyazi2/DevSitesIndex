@@ -44,7 +44,7 @@ var ChangeMonitor_Util = function () {
 
             if (!bypassObject(x)) {
 
-                z[y].addEventListener('change', ChangeMonitor_Util.setItemChanged_ssn);
+                x.addEventListener('change', ChangeMonitor_Util.setItemChanged_ssn);
 
             }
 

@@ -84,7 +84,11 @@
 
 
             <div class="form-group">
-                <label asp-for="DevSite.Solution_Details" class="control-label"></label>
+
+                @*
+                    // 08/27/2020 08:19 am - SSN - [20200826-1927] - [004] - Format textarea for edit
+                *@
+                <label asp-for="DevSite.Solution_Details" class="control-label" ssn_FitInScreen="DevSite_Solution_Details"></label>
 
                 <textarea cols="40" rows="5" asp-for="DevSite.Solution_Details" class="form-control">
 
@@ -114,4 +118,7 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+
+    <script src="/webpack_build/bundle_TextArea_util_0718.js" asp-append-version="true"></script>
 }

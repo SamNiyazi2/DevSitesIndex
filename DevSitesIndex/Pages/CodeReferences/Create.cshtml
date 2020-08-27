@@ -25,15 +25,18 @@
                 <input asp-for="CodeReference.SourceAddress" class="form-control" />
                 <span asp-validation-for="CodeReference.SourceAddress" class="text-danger"></span>
             </div>
-           
+
 
             @*
-                09/13/2019 04:30 am - SSN - [20190913-0421] - [001] -  
+                09/13/2019 04:30 am - SSN - [20190913-0421] - [001] -
                 Moved down
             *@
 
+            @*
+                // 08/27/2020 08:15 am - SSN - [20200826-1927] - [004] - Format textarea for edit
+            *@
             <div class="form-group">
-                <label asp-for="CodeReference.CodeBlock" class="control-label"></label>
+                <label asp-for="CodeReference.CodeBlock" class="control-label" ssn_FitInScreen="CodeReference_CodeBlock"></label>
                 <textarea asp-for="CodeReference.CodeBlock" class="form-control "></textarea>
                 <span asp-validation-for="CodeReference.CodeBlock" class="text-danger"></span>
             </div>
@@ -52,4 +55,7 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+
+    <script src="/webpack_build/bundle_TextArea_util_0718.js" asp-append-version="true"></script>
 }
