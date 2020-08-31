@@ -4,6 +4,9 @@
 /// <reference path="../../node_modules/@types/jquery/index.d.ts" />   
 /// <reference path="../../node_modules_hack/SSN_jquery_modal.d.ts" />
 
+// 08/31/2020 04:54 am - SSN - [20200831-0417] - [004] - Disable collapsable divs with no content
+
+/// <reference path="../../node_modules_hack/SSN_console_model.d.ts" />
 
 let d1 = new Date();
 
@@ -22,6 +25,47 @@ namespace site_instance_NS {
     export class site_Class {
 
         static loadCounter: number = 0;
+
+
+
+
+        // 08/31/2020 04:29 am - SSN - [20200831-0417] - [002] - Disable collapsable divs with no content
+
+        disableEmptyCollapsableDivs() {
+
+            console.time('disableEmptyCollapsableDivs_0441');
+
+            console.log('disableEmptyCollapsableDivs - 20200831-0419');
+            $('[data-toggle="collapse"').each((ndx, obj1) => {
+
+                let divId = $(obj1).attr('aria-controls');
+
+                 
+                let childrenCount=    $("#" + divId).children().length ;
+
+                console.log(divId ,ndx, 'count', childrenCount);
+
+                if (childrenCount=== 0) {
+                    $(obj1).css( 'color', 'orange' );
+                    $(obj1).css('font-size', '24pt');
+
+                    $(obj1).replaceWith(function () {
+                        return $("<span/>").text($(obj1).text());
+                    });
+
+                }
+            });
+
+            console.timeLog('disableEmptyCollapsableDivs_0441');
+
+ 
+            console.timeEnd('disableEmptyCollapsableDivs_0441');
+
+            console.log('disableEmptyCollapsableDivs - 20200831-0419');
+
+        }
+
+
 
         // 09/21/2019 12:27 pm - SSN - [201909-1227] Revise to accommodate Babel/Webpack
         setDefaults() {
@@ -352,20 +396,20 @@ namespace site_instance_NS {
 let site_instance = new site_instance_NS.site_Class();
 export { site_instance };
 
- 
+
 
 // 01/02/2020 04:20 pm - SSN - [20200102-1611] - [003] - Seperate AngularJS utility from general DOM utilities
 // Of course we are calling utility more than once. Need to call functions where they apply.
 
-  
+
 
 if (typeof (window["site_routine_run"]) != "number") {
-     
+
     window["site_routine_run"] = 0;
 }
 
 window["site_routine_run"] = window["site_routine_run"] + 1;
- 
+
 
 if (window["site_routine_run"] === 1) {
 
@@ -380,9 +424,20 @@ if (window["site_routine_run"] === 1) {
         // 04/29/2019 07:36 pm - SSN - [20190429-1748] - [006] - Angular clock out popup  - End
         // 09/10/2019 08:53 pm - SSN - Replaced
         // 09/11/2019 07:08 am - SSN - DevSiteIndex p1 data is coming after document is ready.
-        setTimeout(() => site_instance.prefixPreWithShowHideAnchor('20200102-1534-2'), 2000);
+        setTimeout(() => {
+            site_instance.prefixPreWithShowHideAnchor('20200102-1534-2');
+
+            // 08/31/2020 04:32 am - SSN - [20200831-0417] - [003] - Disable collapsable divs with no content
+
+            setTimeout(() => site_instance.disableEmptyCollapsableDivs(), 1000);
+
+        }
+            , 2000);
 
 
+
+
+        
     });
 
 }

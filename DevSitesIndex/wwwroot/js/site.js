@@ -1,6 +1,8 @@
 // 05/19/2019 01:18 pm - SSN - [20190519-1132] - [007] - Address definitely typed errors - No errors
 /// <reference path="../../node_modules/@types/jquery/index.d.ts" />   
 /// <reference path="../../node_modules_hack/SSN_jquery_modal.d.ts" />
+// 08/31/2020 04:54 am - SSN - [20200831-0417] - [004] - Disable collapsable divs with no content
+/// <reference path="../../node_modules_hack/SSN_console_model.d.ts" />
 var d1 = new Date();
 console.log('site - 20191115-1740 - AAAA ', d1);
 //08/23/2018 01:24 am - SSN
@@ -27,6 +29,26 @@ var site_instance_NS;
             //};
             //}();
         }
+        // 08/31/2020 04:29 am - SSN - [20200831-0417] - [002] - Disable collapsable divs with no content
+        site_Class.prototype.disableEmptyCollapsableDivs = function () {
+            console.time('disableEmptyCollapsableDivs_0441');
+            console.log('disableEmptyCollapsableDivs - 20200831-0419');
+            $('[data-toggle="collapse"').each(function (ndx, obj1) {
+                var divId = $(obj1).attr('aria-controls');
+                var childrenCount = $("#" + divId).children().length;
+                console.log(divId, ndx, 'count', childrenCount);
+                if (childrenCount === 0) {
+                    $(obj1).css('color', 'orange');
+                    $(obj1).css('font-size', '24pt');
+                    $(obj1).replaceWith(function () {
+                        return $("<span/>").text($(obj1).text());
+                    });
+                }
+            });
+            console.timeLog('disableEmptyCollapsableDivs_0441');
+            console.timeEnd('disableEmptyCollapsableDivs_0441');
+            console.log('disableEmptyCollapsableDivs - 20200831-0419');
+        };
         // 09/21/2019 12:27 pm - SSN - [201909-1227] Revise to accommodate Babel/Webpack
         site_Class.prototype.setDefaults = function () {
             $("[cmd-name]").on('click', function (e) {
@@ -201,7 +223,11 @@ if (window["site_routine_run"] === 1) {
         // 04/29/2019 07:36 pm - SSN - [20190429-1748] - [006] - Angular clock out popup  - End
         // 09/10/2019 08:53 pm - SSN - Replaced
         // 09/11/2019 07:08 am - SSN - DevSiteIndex p1 data is coming after document is ready.
-        setTimeout(function () { return site_instance.prefixPreWithShowHideAnchor('20200102-1534-2'); }, 2000);
+        setTimeout(function () {
+            site_instance.prefixPreWithShowHideAnchor('20200102-1534-2');
+            // 08/31/2020 04:32 am - SSN - [20200831-0417] - [003] - Disable collapsable divs with no content
+            setTimeout(function () { return site_instance.disableEmptyCollapsableDivs(); }, 1000);
+        }, 2000);
     });
 }
 var d2 = new Date();

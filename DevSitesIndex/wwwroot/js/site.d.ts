@@ -1,7 +1,9 @@
 /// <reference path="../../node_modules_hack/SSN_jquery_modal.d.ts" />
+/// <reference path="../../node_modules_hack/SSN_console_model.d.ts" />
 declare namespace site_instance_NS {
     class site_Class {
         static loadCounter: number;
+        disableEmptyCollapsableDivs(): void;
         setDefaults(): void;
         showCollapsedDivs(): void;
         prefixPreWithShowHideAnchor(caller: any): void;

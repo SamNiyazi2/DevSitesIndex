@@ -16,6 +16,8 @@
     <None Remove="file.ts" />
     <None Remove="js.zip" />
     <None Remove="node_modules_hack\GlobalVariables.d.ts" />
+    <None Remove="node_modules_hack\SSN_console_model.d.ts" />
+    <None Remove="node_modules_hack\SSN_Console_model.ts" />
     <None Remove="node_modules_hack\SSN_jquery_modal.d.ts" />
     <None Remove="p.cmd" />
     <None Remove="p_all.cmd" />
