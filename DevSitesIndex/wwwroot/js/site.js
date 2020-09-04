@@ -33,7 +33,8 @@ var site_instance_NS;
         site_Class.prototype.disableEmptyCollapsableDivs = function () {
             console.time('disableEmptyCollapsableDivs_0441');
             console.log('disableEmptyCollapsableDivs - 20200831-0419');
-            $('[data-toggle="collapse"').each(function (ndx, obj1) {
+            // 09/04/2020 01:55 am - SSN - [20200904-0155] apply to divs only - Was hiding mobile hamberger menu.
+            $('div[data-toggle="collapse"').each(function (ndx, obj1) {
                 var divId = $(obj1).attr('aria-controls');
                 var childrenCount = $("#" + divId).children().length;
                 console.log(divId, ndx, 'count', childrenCount);
@@ -134,7 +135,8 @@ var site_instance_NS;
         // 09/21/2019 12:27 pm - SSN - [201909-1227] Revise to accommodate Babel/Webpack
         // function showCollapsedDivs() {
         site_Class.prototype.showCollapsedDivs = function () {
-            $("[data-toggle='collapse']").trigger('click');
+            // 09/04/2020 01:55 am - SSN - [20200904-0155] apply to divs only - Was hiding mobile hamberger menu.
+            $("div[data-toggle='collapse']").trigger('click');
         };
         // 09/21/2019 12:27 pm - SSN - [201909-1227] Revise to accommodate Babel/Webpack
         // function prefixPreWithShowHideAnchor() {
@@ -143,6 +145,11 @@ var site_instance_NS;
             // 06/01/2019 08:07 pm - SSN - [20190601-2007] - Add title
             console.log('site.ts 20200102-1528 - prefixPreWithShowHideAnchor [' + caller + ']');
             $('pre').each(function (aa) {
+                var autoCollapse = $(this).attr('ssn-auto-collapse');
+                if (autoCollapse === "false") {
+                    return;
+                }
+                ;
                 $(this).hide();
                 var titleAttrib = "";
                 var _title = $(this).attr("title");
