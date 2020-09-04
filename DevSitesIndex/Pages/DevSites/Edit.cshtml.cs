@@ -29,6 +29,9 @@ namespace DevSitesIndex.Pages.DevSites
         // 11/13/2019 07:46 pm - SSN - [20191113-1946] - [001] - ReturnToCaller
         public ReturnToCaller returnToCaller = new ReturnToCaller();
 
+        // 09/04/2020 05:56 am - SSN - [20200904-0540] - [005] - Ading save-and-stay option to codereference
+        public Models.SaveAndStayModel SaveAndStayModel = new Models.SaveAndStayModel { ko__fieldName_prefix = "DevSite.", ko__inputFormId = "devSiteForm", ko__API_URL = "/api/DevSites_Testing/" };
+
 
         public EditModel(DevSitesIndex.Entities.DevSitesIndexContext context, IDevSitesIndexRepository devSitesIndexRepository, ILogger_SSN logger)
         {

@@ -31,7 +31,11 @@
             </dd>
 
         </dl>
-        <form method="post" name="codeReferenceForm">
+        @*
+                    // 09/04/2020 08:00 am - SSN - [20200904-0540] - [010] - Ading save-and-stay option to codereference
+            // Added form id for save-and-stay
+        *@
+        <form method="post" id="codeReferenceFormId" name="codeReferenceForm">
 
 
             <input type="hidden" asp-for="SearchText" />
@@ -72,6 +76,15 @@
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>
+
+            @*
+                // 09/04/2020 05:43 am - SSN - [20200904-0540] - [002] - Ading save-and-stay option to codereference
+            *@
+            @if (Model.CodeReference.Id > 0)
+            {
+                @await Html.PartialAsync("SaveAndStayControl", Model.SaveAndStayModel)
+            }
+
         </form>
     </div>
 </div>
@@ -87,6 +100,9 @@
 
     @{await Html.RenderPartialAsync("TimesheetAngularScripts");}
     <script src="~/js/CodeReference/Typeahead_Discipline.js"></script>
-
+    @*
+        // 09/04/2020 07:58 am - SSN - [20200904-0540] - [009] - Ading save-and-stay option to codereference
+    *@
+    <script src="/webpack_build/bundle_DemoSites_Pages.js" asp-append-version="true"></script>
     <script src="/webpack_build/bundle_TextArea_util_0718.js" asp-append-version="true"></script>
 }

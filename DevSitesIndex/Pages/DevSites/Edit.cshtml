@@ -144,7 +144,9 @@
 
             @if (Model.DevSite.Id > 0)
             {
-              @await Html.PartialAsync("SaveAndStayControl")
+                // 09/04/2020 05:58 am - SSN - [20200904-0540] - [006] - Ading save-and-stay option to codereference
+                // Pass model
+                @await Html.PartialAsync("SaveAndStayControl", Model.SaveAndStayModel)
             }
 
         </form>
@@ -173,16 +175,7 @@
 
     <script src="/webpack_build/bundle_DemoSites_Pages.js" asp-append-version="true"></script>
     <script src="/webpack_build/bundle_TextArea_util_0718.js" asp-append-version="true"></script>
-    
+
 
 }
 
-<style>
-    .fixed_101 {
-        top: 250px;
-        left: 10px;
-        position: fixed;
-        z-index: 999;
-        background-color: white;
-    }
-</style>

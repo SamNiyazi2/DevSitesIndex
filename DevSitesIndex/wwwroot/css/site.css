@@ -578,3 +578,16 @@ alarm {
     }
 }
 
+
+/* 09/04/2020 09:00 am - SSN - [20200904-0540] - [011] - Ading save-and-stay option to codereference
+    Moved from DevSites.edit.cshtml to share with codereference save-and-stay
+*/
+
+.fixed_101_sas {
+    top: 250px;
+    left: 10px;
+    position: fixed;
+    z-index: 999;
+    background-color: white;
+}
+

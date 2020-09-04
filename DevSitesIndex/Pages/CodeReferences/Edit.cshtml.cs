@@ -20,7 +20,9 @@ namespace DevSitesIndex.Pages.CodeReferences
     {
         private readonly DevSitesIndex.Entities.DevSitesIndexContext _context;
         private readonly IConfiguration configuration;
- 
+
+        // 09/04/2020 05:56 am - SSN - [20200904-0540] - [005] - Ading save-and-stay option to codereference
+        public Models.SaveAndStayModel SaveAndStayModel = new Models.SaveAndStayModel { ko__fieldName_prefix = "CodeReference.", ko__inputFormId = "codeReferenceFormId", ko__API_URL = "/api/codereference_temp/" };
 
 
         public EditModel(DevSitesIndex.Entities.DevSitesIndexContext context, IConfiguration configuration)
@@ -28,7 +30,7 @@ namespace DevSitesIndex.Pages.CodeReferences
 
             _context = context;
             this.configuration = configuration;
-            
+
         }
 
         // 09/26/2018 07:39 am - SSN - Added to restore search after save.
@@ -38,6 +40,9 @@ namespace DevSitesIndex.Pages.CodeReferences
 
         [BindProperty]
         public CodeReference CodeReference { get; set; }
+
+
+
 
         // 09/26/2018 07:50 am - SSN - Adding SearchText to restore list
         public async Task<IActionResult> OnGetAsync(int? id, string SearchText)
@@ -70,8 +75,8 @@ namespace DevSitesIndex.Pages.CodeReferences
             }
 
             _context.Attach(CodeReference).State = EntityState.Modified;
-            
-            
+
+
             // 09/24/2019 11:44 am - SSN - [20190924-1134] - [005] - Removing date add/updated from create/edit pages
             _context.Entry(CodeReference).Property(x => x.DateAdded).IsModified = false;
 
