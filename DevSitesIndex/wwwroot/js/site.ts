@@ -37,9 +37,9 @@ namespace site_instance_NS {
 
             console.log('disableEmptyCollapsableDivs - 20200831-0419');
 
-            // 09/04/2020 01:55 am - SSN - [20200904-0155] apply to divs only - Was hiding mobile hamberger menu.
+            // 09/04/2020 01:55 am - SSN - [20200904-0155] apply to a only - Was hiding mobile hamberger menu.
 
-            $('div[data-toggle="collapse"').each((ndx, obj1) => {
+            $('a[data-toggle="collapse"]').each((ndx, obj1) => {
 
                 let divId = $(obj1).attr('aria-controls');
 

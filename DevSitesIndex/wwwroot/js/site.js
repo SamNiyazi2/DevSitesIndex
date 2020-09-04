@@ -33,8 +33,8 @@ var site_instance_NS;
         site_Class.prototype.disableEmptyCollapsableDivs = function () {
             console.time('disableEmptyCollapsableDivs_0441');
             console.log('disableEmptyCollapsableDivs - 20200831-0419');
-            // 09/04/2020 01:55 am - SSN - [20200904-0155] apply to divs only - Was hiding mobile hamberger menu.
-            $('div[data-toggle="collapse"').each(function (ndx, obj1) {
+            // 09/04/2020 01:55 am - SSN - [20200904-0155] apply to a only - Was hiding mobile hamberger menu.
+            $('a[data-toggle="collapse"]').each(function (ndx, obj1) {
                 var divId = $(obj1).attr('aria-controls');
                 var childrenCount = $("#" + divId).children().length;
                 console.log(divId, ndx, 'count', childrenCount);
