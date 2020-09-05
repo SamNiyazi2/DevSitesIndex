@@ -32,10 +32,7 @@ namespace site_instance_NS {
         // 08/31/2020 04:29 am - SSN - [20200831-0417] - [002] - Disable collapsable divs with no content
 
         disableEmptyCollapsableDivs() {
-
-            console.time('disableEmptyCollapsableDivs_0441');
-
-            console.log('disableEmptyCollapsableDivs - 20200831-0419');
+             
 
             // 09/04/2020 01:55 am - SSN - [20200904-0155] apply to a only - Was hiding mobile hamberger menu.
 
@@ -45,9 +42,7 @@ namespace site_instance_NS {
 
                  
                 let childrenCount=    $("#" + divId).children().length ;
-
-                console.log(divId ,ndx, 'count', childrenCount);
-
+  
                 if (childrenCount=== 0) {
                     $(obj1).css( 'color', 'orange' );
                     $(obj1).css('font-size', '24pt');
@@ -58,13 +53,7 @@ namespace site_instance_NS {
 
                 }
             });
-
-            console.timeLog('disableEmptyCollapsableDivs_0441');
-
- 
-            console.timeEnd('disableEmptyCollapsableDivs_0441');
-
-            console.log('disableEmptyCollapsableDivs - 20200831-0419');
+             
 
         }
 
