@@ -184,7 +184,6 @@ td, .siteDiv {
 a[cmd-name="showsibling"] {
     color: firebrick;
     background-color: #faf9f0;
- 
 }
 
 .menuOptions {
@@ -542,7 +541,6 @@ alarm {
 /* 12/02/2019 09:20 am - SSN  */
 
 .csshighlight_Added {
-   
     -webkit-animation-name: example2; /* Safari 4.0 - 8.0 */
     -webkit-animation-duration: 4s; /* Safari 4.0 - 8.0 */
     -webkit-animation: example2 2s ease-in-out; /* Chrome, Safari, Opera */
@@ -591,3 +589,10 @@ alarm {
     background-color: white;
 }
 
+
+
+menuPipe_101::after {
+    content: ' |';
+    padding: 0 10px;
+   
+}
