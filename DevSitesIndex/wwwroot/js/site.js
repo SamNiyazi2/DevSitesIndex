@@ -130,7 +130,7 @@ var site_instance_NS;
         // function showCollapsedDivs() {
         site_Class.prototype.showCollapsedDivs = function () {
             // 09/04/2020 01:55 am - SSN - [20200904-0155] apply to divs only - Was hiding mobile hamberger menu.
-            $("div[data-toggle='collapse']").trigger('click');
+            $("a[data-toggle='collapse']").trigger('click');
         };
         // 09/21/2019 12:27 pm - SSN - [201909-1227] Revise to accommodate Babel/Webpack
         // function prefixPreWithShowHideAnchor() {
