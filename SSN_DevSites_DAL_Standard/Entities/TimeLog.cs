@@ -59,6 +59,9 @@ namespace DevSitesIndex.Entities
         public Job job { get; set; }
 
 
+
+
+
         // 11/16/2019 02:20 pm - SSN - [20191116-1419] - [001] - Add RowVersion  to Timelog.
         [Timestamp]
         public byte[] RowVersion { get; set; }
