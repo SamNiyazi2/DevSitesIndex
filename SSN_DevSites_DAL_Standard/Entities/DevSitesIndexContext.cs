@@ -329,6 +329,15 @@ namespace DevSitesIndex.Entities
                 .HasForeignKey(s => s.JobId);
 
 
+
+            // 12/10/2020 09:00 am - SSN - [20201210-0618] - [008] - Adding Job_LineItems table
+            modelBuilder.Entity<TimeLog>()
+                .HasOne<Job_Lineitem>(s => s.job_Lineitem)
+                .WithMany(g => g.timelogs)
+                .HasForeignKey(s => s.LineItemID);
+
+
+
             // 05/30/2019 11:39 am - SSN - Adding datetime2(0) DateAdded and DateModified and StartTime.
             modelBuilder.Entity<TimeLog>()
                .Property(p => p.DateAdded)
