@@ -143,6 +143,17 @@ var dropdownListDirective_instance = function () {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
                 $scope.$watch('vm101.disciplineSelected_XXX', function (newValue: LookupRecord, oldValue) {
 
 
@@ -186,6 +197,9 @@ var dropdownListDirective_instance = function () {
 
                     if (!this.keyColumn) {
                         console.log('No keyColumn-201912291545(Note)');
+                        console.log('No keyColumn-201912291545(Note)');
+                        console.log('No keyColumn-201912291545(Note)');
+                        console.log('No keyColumn-201912291545(Note)');
                         return;
                     }
 
@@ -195,35 +209,87 @@ var dropdownListDirective_instance = function () {
                         case 'timelog.disciplineid':
                         case 'disciplineid':
 
-                            vm.APIUrl = '/api/DisciplineAPI';
+                            vm.APIUrlListAll = '/api/DisciplineAPI';
+                            vm.APIUrlSingleRecord = '/api/DisciplineAPI';
 
                             break;
 
+
+                        // 12/10/2020 04:32 pm - SSN - [20201210-1625] - [002] - Update Timelog edit MVC
+                        case 'timelog.lineitemid':
+
+                            vm.APIUrlListAll = '/api/job_LineItem/typeahead_jobrecords';
+                            vm.APIUrlSingleRecord = '/api/job_LineItem/typeahead';
+
+                            break;
+
+
+
                         case 'timelog.jobid':
                         case 'jobid':
-                            vm.APIUrl = '/api/jobapi/typeahead';
+                            vm.APIUrlListAll = '/api/jobapi/typeahead';
+                            vm.APIUrlSingleRecord = '/api/jobapi/typeahead';
 
                             break;
 
                         // 11/27/2019 04:46 pm - SSN - Adding
                         case 'job.projectid':
-                            vm.APIUrl = '/api/projectapi/typeahead';
+                            vm.APIUrlListAll = '/api/projectapi/typeahead';
 
                             break;
 
                         default:
-                            console.log('DropdownListDirective - no case for [', this.keyColumn);
-                            console.log('DropdownListDirective - no case for [', this.keyColumn);
-                            console.log('DropdownListDirective - no case for [', this.keyColumn);
-                            console.log('DropdownListDirective - no case for [', this.keyColumn);
-                            console.log('DropdownListDirective - no case for [', this.keyColumn);
-                            console.log('DropdownListDirective - no case for [', this.keyColumn);
-                            console.log('DropdownListDirective - no case for [', this.keyColumn);
+                            console.log('DropdownListDirective - no case for [', this.keyColumn, '] 20201210-1656');
+                            console.log('DropdownListDirective - no case for [', this.keyColumn, '] 20201210-1656');
+                            console.log('DropdownListDirective - no case for [', this.keyColumn, '] 20201210-1656');
+                            console.log('DropdownListDirective - no case for [', this.keyColumn, '] 20201210-1656');
+                            console.log('DropdownListDirective - no case for [', this.keyColumn, '] 20201210-1656');
+                            console.log('DropdownListDirective - no case for [', this.keyColumn, '] 20201210-1656');
+
+
                     }
 
 
                     var keyColumnValue = $("[name='" + this.keyColumn + "']").val();
 
+
+                    if (this.parentKeyColumn) {
+
+                        console.log('typeof this.parentKeyColumn [', typeof (this.parentKeyColumn), "]");
+
+
+
+                        console.log(this.parentKeyColumn);
+
+
+
+                        var parentKeyColumnValue = undefined;
+
+                        if (typeof (this.parentKeyColumn) === 'string') {
+                            parentKeyColumnValue = $("[name='" + this.parentKeyColumn + "']").val();
+
+                        }
+                        //else if (typeof (this.parentColumn) === 'function') {
+
+                        //    parentKeyColumnValue = this.parentKeyColumn();
+                        //} 
+                        //else {
+                        //    parentKeyColumnValue = this.parentKeyColumn.name;
+                        //}
+
+                        console.log('20201210-1749 - parentKeyColumnValue [', parentKeyColumnValue, ']');
+                        console.log('==================00');
+                         console.log('==================00');
+                       console.log('==================00');
+                     
+
+
+                        if (parentKeyColumnValue) {
+                            console.log(" ********************* Updating AppUrl with parentKeyColumnValue [", parentKeyColumnValue, ')');
+                            vm.APIUrlListAll = vm.APIUrlListAll + "/" + parentKeyColumnValue;
+                        }
+
+                    }
 
                     var keyValueSelected = null;
 
@@ -254,14 +320,10 @@ var dropdownListDirective_instance = function () {
                     }
 
 
-                    // Are we ever reaching this point?
+
 
                     console.log('dropdownListDirective - (xxxxx101-B) vm.disciplineSelected_XXX    [', vm.disciplineSelected_XXX, ']')
-                    console.log("xxxxxxxxxxxxxxxxxxxxx");
-                    console.log("xxxxxxxxxxxxxxxxxxxxx");
-                    console.log("xxxxxxxxxxxxxxxxxxxxx");
-                    console.log("xxxxxxxxxxxxxxxxxxxxx");
-                    console.log("xxxxxxxxxxxxxxxxxxxxx");
+
 
                     _isValid = vm.setInputVariables();
 
@@ -283,8 +345,75 @@ var dropdownListDirective_instance = function () {
                 }
 
 
+                vm.xxxxxxxxxxxxxxxxxxxxxxxxxxx = function () {
+
+
+                    if (this.parentKeyColumn) {
+
+                        //console.log('DropdownListDirective -   Watch fired - 20201210-1829 ZZZZZZZZZZZZZZZZZZZZZZz');
+                        //console.log('DropdownListDirective -   Watch fired - 20201210-1829 ZZZZZZZZZZZZZZZZZZZZZZz');
+                        //console.log('DropdownListDirective -   Watch fired - 20201210-1829 ZZZZZZZZZZZZZZZZZZZZZZz');
+
+                        //console.log(this);
+                        //console.log(this.formName);
+                        //console.log(this.formName.$$controls);
+
+
+                        //this.formName.$$controls.forEach(controlx => {
+
+                        //    console.log('xxxxxxxxxxxxxxxxx');
+                        //    console.log(controlx); 
+                        //    console.log(controlx.$$attr);
+                        //    console.log(controlx.$$attr.name);
+                        //    console.log(this.parentKeyColumn);
+
+
+                        //    });
+
+
+
+
+                        //console.log('DropdownListDirective -   Watch fired - 20201210-1829 ZZZZZZZZZZZZZZZZZZZZZZz');
+                        //console.log('DropdownListDirective -   Watch fired - 20201210-1829 ZZZZZZZZZZZZZZZZZZZZZZz');
+                        //console.log('DropdownListDirective -   Watch fired - 20201210-1829 ZZZZZZZZZZZZZZZZZZZZZZz');
+
+                        $scope.$watch(this.parentKeyColumn, function (newValue, oldValue) {
+
+                            console.log('DropdownListDirective - Watch fired - 20201210-1829 XXXXXXXXXXx');
+                            console.log('DropdownListDirective - Watch fired - 20201210-1829 XXXXXXXXXXx');
+                            console.log('DropdownListDirective - Watch fired - 20201210-1829 XXXXXXXXXXx');
+
+                            console.log(oldValue);
+                            console.log(newValue);
+
+                            console.log(this.parentKeyColumn)
+
+                           // var parentKeyColumnValue = $("[name='" + this.parentKeyColumn + "']").val();
+                            var parentKeyColumnValue =  this.parentKeyColumn;
+
+                            console.log('20201210-2158 - parentKeyColumnValue [', parentKeyColumnValue, ']');
+
+
+                            console.log('DropdownListDirective - Watch fired - 20201210-1829 XXXXXXXXXXx');
+                            console.log('DropdownListDirective - Watch fired - 20201210-1829 XXXXXXXXXXx');
+                            console.log('DropdownListDirective - Watch fired - 20201210-1829 XXXXXXXXXXx');
+
+
+
+                        }.bind(this));
+
+                    }
+                }
+
 
                 vm.setInputVariables = function () {
+
+
+
+                        this.xxxxxxxxxxxxxxxxxxxxxxxxxxx();
+
+
+
 
                     let _isValid_local = false;
 
@@ -297,6 +426,24 @@ var dropdownListDirective_instance = function () {
                                 this.angularControlId = vm.disciplineSelected_XXX.id;
 
                                 $("[name='" + this.keyColumn + "']").val(vm.disciplineSelected_XXX.id);
+
+                                console.log('DropdownListDirective - 20201210-1703');
+                                console.log('DropdownListDirective - 20201210-1703');
+
+                                console.log('  this.keyColumn: ');
+                                console.log('[', this.keyColumn, ']');
+
+                                console.log('  this.parentKeyColumn: ');
+                                console.log('[', this.parentKeyColumn, ']');
+
+                                console.log('  vm.disciplineSelected_XXX:');
+                                console.log(vm.disciplineSelected_XXX);
+
+                                console.log('  vm.disciplineSelected_XXX.id');
+                                console.log(vm.disciplineSelected_XXX.id);
+
+                                console.log('DropdownListDirective - 20201210-1703');
+                                console.log('DropdownListDirective - 20201210-1703');
 
                                 vm.getDisciplineCurrent(this.angularControlId).then(vm.currentDisplineLookupSuccess);
 
@@ -330,6 +477,7 @@ var dropdownListDirective_instance = function () {
 
                         // 09/16/2019 05:30 am - SSN - [20190916-0355] - [008] - Adding JobAPI controller
 
+                        console.log('DropdownListDirective - 20201210-1701');
                         console.log(data);
 
                         if (data.disciplineId) {
@@ -362,7 +510,7 @@ var dropdownListDirective_instance = function () {
 
                     $http({
                         method: 'GET',
-                        url: vm.APIUrl
+                        url: vm.APIUrlListAll
 
                     }).then(typeaheadDisciplineSuccess, typeaheadDisciplineError);
 
@@ -425,7 +573,7 @@ var dropdownListDirective_instance = function () {
 
                     $http({
                         method: 'GET',
-                        url: vm.APIUrl + "/" + lookupID
+                        url: vm.APIUrlSingleRecord + "/" + lookupID
 
                     }).then(typeaheadDisciplineSuccess, typeaheadDisciplineError);
 
@@ -488,6 +636,10 @@ var dropdownListDirective_instance = function () {
                 scope: {
 
                     keyColumn: "@key",
+
+                    // 12/10/2020 05:46 pm - SSN - [20201210-1625] - [005] - Update Timelog edit MVC
+                    parentKeyColumn: "@parentkey",
+
                     formName: "=", // Needed for posting form (Replacing url)
 
 
