@@ -14,11 +14,11 @@ var dropdownListDirective_instance = function () {
         }
         var downdownList_angular_module = ssn_globals.globals_instance.getInstance_v002('DropdownListDirective', defaultAppName, ['ui.bootstrap']);
         var utilityController_objectRef = downdownList_angular_module.controller('utilityController', ['$scope', '$attrs', '$location', function ($scope, $attrs, $location) {
-                // Needed to be able to submit form
-                var formName = $attrs['formName'];
-                var form1 = $("[name='" + formName + "']").get(0);
-                var absUrl = $location.absUrl().trim();
-                ///////////////////// $(form1).attr("action", absUrl);
+                //// Needed to be able to submit form
+                //var formName = $attrs['formName'];
+                //var form1 = $("[name='" + formName + "']").get(0);
+                //var absUrl = $location.absUrl().trim();
+                /////////////////////// $(form1).attr("action", absUrl);
                 $scope.submitForm_2 = function (event, form) {
                     console.log("DropdownListDirective-20210106-0707:  submitForm_2");
                     console.log("DropdownListDirective-20210106-0707:  submitForm_2");
@@ -32,6 +32,44 @@ var dropdownListDirective_instance = function () {
                     console.log("DropdownListDirective-20210106-0707:  submitForm_1");
                     if (!form.$valid) {
                         event.preventDefault();
+                        scrollIntoAppView();
+                    }
+                };
+                // https://www.code-sample.com/2018/11/angularjs-scroll-to-error-on-submit-and.html
+                var scrollIntoAppView = function () {
+                    var elt = $(".has-error:visible");
+                    if (elt.length) {
+                        $('html, body').animate({
+                            //scrollTop: (elt.first().offset().top)
+                            scrollTop: (elt.first().closest('div').prevAll('div').offset().top)
+                        }, 500);
+                    }
+                };
+            }]);
+        downdownList_angular_module.directive('blacklist', ["$q", function ($q) {
+                return {
+                    require: 'ngModel',
+                    link: function (scope, elem, attr, ngModel) {
+                        var blacklist = attr.blacklist.split(',');
+                        ngModel.$parsers.unshift(function (value) {
+                            ngModel.$setValidity(attr.name + '.blacklist', blacklist.indexOf(value) === -1);
+                            console.log(ngModel);
+                            console.log("===============================");
+                            console.log(ngModel.$$rawModelValue);
+                            console.log(ngModel.$modelValue);
+                            console.log("===============================");
+                            return value;
+                        });
+                        ngModel.$asyncValidators.invalidUsername = function (modelValue, viewValue) {
+                            console.log(modelValue);
+                            console.log(viewValue);
+                            var deferred = $q.defer();
+                            // ask the server if this username exists
+                            deferred.reject();
+                            // deferred.resolve();
+                            // return the promise of the asynchronous validator
+                            return deferred.promise;
+                        };
                     }
                 };
             }]);
@@ -39,30 +77,25 @@ var dropdownListDirective_instance = function () {
             var controller = ['$http', '$q', '$scope', '$rootScope', '$timeout', 'changeMonitorService', function ($http, $q, $scope, $rootScope, $timeout, changeMonitorService) {
                     var _isValid = false;
                     var vm = this;
+                    var d = new Date();
+                    vm.tempControlName = "DropdownListDirective_v1_" + d.getHours() + "_" + d.getMinutes() + "_" + d.getSeconds() + "_" + d.getMilliseconds();
+                    vm.blackListErrorName = vm.tempControlName + ".blacklist";
+                    vm.errorTriggered = function (errorName) {
+                        return !!vm.formName.$error[errorName];
+                    };
                     vm.isValidBoolean = false;
-                    vm.firstRun = true;
-                    vm.hitCount = 0;
                     vm.isInvalidDropdownListDirectiveInput = true;
                     // 11/28/2019 08:29 am - SSN - Adding - Need to initial for $watch to work.
+                    // disciplineSelected_XXX  instead of ngModel because we use an object for selected entry, id and tile. ngModel is usually a key. (The id)
                     vm.disciplineSelected_XXX = "";
                     $scope.$on('$destroy', function () {
                     });
-                    $scope.$watch('parentKeyColumn', function (newVal, oldVal) {
-                        //  all directive code here
-                        console.log(" 123 ......" + vm.parentKeyColumn);
-                        console.log("Reloaded successfully......" + vm.parentKeyColumn);
-                        console.log("Reloaded successfully......" + vm.parentKeyColumn);
-                        console.log("Reloaded successfully......" + vm.parentKeyColumn);
-                        console.log("Reloaded successfully......" + vm.parentKeyColumn);
-                        console.log("Reloaded successfully......" + vm.parentKeyColumn);
-                        console.log("[", newVal, "] [", oldVal, "]");
-                    });
                     $scope.$watch('vm101.disciplineSelected_XXX', function (newValue, oldValue) {
-                        console.log("ssn-20210105-2214----WARCH-----------");
-                        console.log("---------------------------------------------");
-                        console.log(oldValue);
-                        console.log(newValue);
-                        console.log("---------------------------------------------");
+                        //console.log("ssn-20210105-2214----WARCH-----------");
+                        //console.log("---------------------------------------------");
+                        //console.log(oldValue);
+                        //console.log(newValue);
+                        //console.log("---------------------------------------------");
                         if (vm.formName) {
                             if (vm.formName.$dirty) {
                                 changeMonitorService.doSetHaveChange(true);
@@ -78,14 +111,13 @@ var dropdownListDirective_instance = function () {
                         }
                     });
                     vm.setupUrl = function () {
-                        console.log("20210105-2305-----------------");
-                        console.log("------------------------------");
-                        console.log("this.keyColumn");
-                        console.log(this.keyColumn);
-                        console.log("-----------------------------");
-                        console.log("----------------------------");
-                        console.log("---------------------------");
-                        vm.hitCount += 1;
+                        //console.log("20210105-2305-----------------");
+                        //console.log("------------------------------");
+                        //console.log("this.keyColumn");
+                        //console.log(this.keyColumn);
+                        //console.log("-----------------------------");
+                        //console.log("----------------------------");
+                        //console.log("---------------------------");
                         if (!this.keyColumn) {
                             console.log('No keyColumn-201912291545(Note)');
                             console.log('No keyColumn-201912291545(Note)');
@@ -123,15 +155,15 @@ var dropdownListDirective_instance = function () {
                                 console.log('DropdownListDirective - no case for [', this.keyColumn, '] 20201210-1656');
                                 console.log('----------------------------');
                         }
-                        console.log("20210105-2305---B--------------");
-                        console.log("------------------------------");
+                        //console.log("20210105-2305---B--------------");
+                        //console.log("------------------------------");
                         if (this.parentKeyColumn) {
-                            console.log('typeof this.parentKeyColumn [', typeof (this.parentKeyColumn), "]");
+                            //console.log('typeof this.parentKeyColumn [', typeof (this.parentKeyColumn), "]");
                             console.log(this.parentKeyColumn);
                             var parentKeyColumnValue = this.parentKeyColumn; //undefined;
-                            console.log('20201210-1749 - parentKeyColumnValue [', parentKeyColumnValue, ']');
+                            //console.log('20201210-1749 - parentKeyColumnValue [', parentKeyColumnValue, ']');
                             if (parentKeyColumnValue) {
-                                console.log(" ********************* Updating AppUrl with parentKeyColumnValue [", parentKeyColumnValue, ')');
+                                //console.log(" ********************* Updating AppUrl with parentKeyColumnValue [", parentKeyColumnValue, ')');
                                 vm.APIUrlListAll = vm.APIUrlListAll + "/" + parentKeyColumnValue;
                             }
                         }
@@ -141,56 +173,51 @@ var dropdownListDirective_instance = function () {
                         console.log("changing changing changing changing");
                         console.log("changing changing changing changing");
                         console.log("changing changing changing changing");
-                        $rootScope.$broadcast('dropdownListDirective_Change_start', { msg: 'select new value', keyColumn: vm.keyColumn, keyValue: vm.ngModelTemp });
+                        console.log("changing changing changing changing");
+                        console.log("changing changing changing changing");
+                        console.log("changing changing changing changing");
+                        ///////////////////////////////////////////////
+                        ///////////////////////////////////////////////
+                        ///////////////////////////////////////////////
+                        ///////////////////////////////////////////////
+                        ///////////////////////////////////////////////
+                        // Todo
+                        // vm.ngModelTemp = "";
+                        vm.ngModel = "";
+                        //$rootScope.$broadcast('dropdownListDirective_Change_start', { msg: 'select new value', keyColumn: vm.keyColumn, keyValue: vm.ngModelTemp , ngModel: vm.ngModel });
+                        $rootScope.$broadcast('dropdownListDirective_Change_start', { msg: 'select new value', keyColumn: vm.keyColumn, keyValue: vm.ngModel });
                     };
                     $rootScope.$on('dropdownListDirective_Change_start', function (events, args) {
-                        console.log('---------------------------------------------');
-                        console.log('dropdownListDirective_Change_start - listener');
-                        console.log('---------------------------------------------');
-                        console.log('dropdownListDirective_Change_start - listener');
-                        console.log('---------------------------------------------');
-                        console.log(events);
-                        console.log(args);
-                        console.log('---------------------------------------------');
-                        console.log('parentKeyName ( this vm bind )');
-                        console.log(vm.parentKeyName);
-                        console.log(args.keyColumn);
-                        console.log('---------------------------------------------');
-                        console.log('---------------------------------------------');
+                        //console.log('---------------------------------------------');
+                        //console.log('dropdownListDirective_Change_start - listener');
+                        //console.log('---------------------------------------------');
+                        //console.log('dropdownListDirective_Change_start - listener');
+                        //console.log('---------------------------------------------');
+                        //console.log(events);
+                        //console.log(args);
+                        //console.log('---------------------------------------------');
+                        //console.log('parentKeyName ( this vm bind )');
+                        //console.log(vm.parentKeyName);
+                        //console.log(args.keyColumn);
+                        //console.log('---------------------------------------------');
+                        //console.log('---------------------------------------------');
                         if (vm.parentKeyName == args.keyColumn) {
-                            console.log('---------------------------------------------');
-                            console.log(' vm.parentKeyColumn and args.keyValue before update:');
-                            console.log(vm.parentKeyColumn);
-                            console.log(args.keyValue);
+                            //console.log('---------------------------------------------');
+                            //console.log(' vm.parentKeyColumn and args.keyValue before update:');
+                            //console.log(vm.parentKeyColumn);
+                            //console.log(args.keyValue);
                             vm.parentKeyColumn = args.keyValue;
-                            console.log('Update vm.parentKeyColumn = args.keyValue');
-                            console.log(vm.parentKeyColumn);
-                            console.log(args.keyValue);
+                            //console.log('Update vm.parentKeyColumn = args.keyValue');
+                            //console.log(vm.parentKeyColumn);
+                            //console.log(args.keyValue);
                             if (args.msg == "select new value") {
-                                console.log('update keyColumn jQuery  [select new value]');
-                                console.log(vm.keyColumn);
+                                //console.log('update keyColumn jQuery  [select new value]');
+                                //console.log(vm.keyColumn);
                                 $("[name='" + vm.keyColumn + "']").val('');
                                 vm.disciplineSelected_XXX = "";
-                                vm.isReady = false;
                             }
-                            //console.log("Update vm.ngModelTemp with args.keyValue")
-                            //vm.ngModelTemp = null;
-                            //console.log('Call vm.setupUrl.  Reset vm101.disciplineSelected_XXX');
-                            //if (vm.disciplineSelected_XXX) {
-                            //    console.log( "Update vm.disciplineSelected_XXX")
-                            //    if (vm.disciplineSelected_XXX.id) {
-                            //        console.log("Update vm.disciplineSelected_XXX.id")
-                            //        vm.disciplineSelected_XXX.id = "";
-                            //    }
-                            //    if (vm.disciplineSelected_XXX.title ) {
-                            //        console.log("Update vm.disciplineSelected_XXX.title")
-                            //        vm.disciplineSelected_XXX.title = "";
-                            //    }
-                            //        console.log("Update vm.ngModelTemp")
-                            //        vm.ngModelTemp = null;
-                            //}
                             vm.setupUrl();
-                            console.log('---------------------------------------------');
+                            //console.log('---------------------------------------------');
                         }
                     });
                     vm.isValid = function () {
@@ -198,34 +225,21 @@ var dropdownListDirective_instance = function () {
                         vm.setupUrl();
                         var keyColumnValue = $("[name='" + this.keyColumn + "']").val();
                         var keyValueSelected = null;
-                        // 11/28/2019 09:47 am - SSN - Setting vm.disciplineSelected_XXX = "" for $watch
-                        //   if (vm.disciplineSelected_XXX === undefined && this.angularControlId > 0) {
                         if (this.angularControlId > 0) {
                             keyValueSelected = this.angularControlId;
                         }
-                        // 11/28/2019 09:47 am - SSN - Setting vm.disciplineSelected_XXX = "" for $watch
-                        //if (vm.disciplineSelected_XXX === undefined && keyColumnValue > 0) {
                         if (keyColumnValue > 0) {
                             keyValueSelected = keyColumnValue;
                         }
-                        console.log("20210106-0349  -----------------");
-                        console.log("------------------------------");
-                        console.log("keyValueSelected");
-                        console.log('[', keyValueSelected, ']');
-                        console.log("------------------------------");
-                        // for testing only
-                        // for testing only
-                        // for testing only
-                        // for testing only
-                        /////////////////////////////////////////////////////////////////  if (keyValueSelected == null) keyValueSelected = 2;
-                        // for testing only
-                        // for testing only
-                        // for testing only
-                        // for testing only
-                        console.log("------------------------------");
-                        console.log("-----------------------------");
-                        console.log("----------------------------");
-                        console.log("---------------------------");
+                        //console.log("20210106-0349  -----------------");
+                        //console.log("------------------------------");
+                        //console.log("keyValueSelected");
+                        //console.log('[', keyValueSelected, ']');
+                        //console.log("------------------------------");
+                        //console.log("------------------------------");
+                        //console.log("-----------------------------");
+                        //console.log("----------------------------");
+                        //console.log("---------------------------");
                         // 11/28/2019 09:47 am - SSN - Setting vm.disciplineSelected_XXX = "" for $watch
                         // if (vm.disciplineSelected_XXX === undefined && keyValueSelected > 0) {
                         if (keyValueSelected > 0) {
@@ -234,55 +248,54 @@ var dropdownListDirective_instance = function () {
                             $rootScope.$broadcast('dropdownListDirective_Change_start', { msg: 'Has valid value', keyColumn: vm.keyColumn, keyValue: keyValueSelected });
                             return true;
                         }
-                        console.log("20210105-2305--- Done --------------");
-                        console.log("------------------------------");
-                        console.log('dropdownListDirective - (xxxxx101-B) vm.disciplineSelected_XXX    [', vm.disciplineSelected_XXX, ']');
+                        //console.log("20210105-2305--- Done --------------");
+                        //console.log("------------------------------");
+                        //console.log('dropdownListDirective - (xxxxx101-B) vm.disciplineSelected_XXX    [', vm.disciplineSelected_XXX, ']')
                         _isValid = vm.setInputVariables();
                         vm.isValidBoolean = _isValid;
                         console.log('*************** _isValid', _isValid);
-                        vm.firstRun = false;
                         return _isValid;
                     };
                     vm.xxxxxxxxxxxxxxxxxxxxxxxxxxx = function () {
-                        console.log('---------------------');
-                        console.log('----------------------');
-                        console.log('-----------------------');
-                        console.log('------------------------');
-                        console.log('-------------------------');
-                        console.log('DropdownListDirective - Watch fired - 99999999999999 ');
-                        console.log('-------------------------');
-                        console.log('------------------------');
-                        console.log('-----------------------');
-                        console.log('----------------------');
-                        console.log('---------------------');
-                        console.log('vm.keyColumn');
-                        console.log(vm.keyColumn);
-                        console.log('this.keyColumn');
-                        console.log(this.keyColumn);
-                        console.log('vm.parentKeyColumn');
-                        console.log(vm.parentKeyColumn);
-                        console.log('this.parentKeyColumn');
-                        console.log(this.parentKeyColumn);
+                        //console.log('---------------------');
+                        //console.log('----------------------');
+                        //console.log('-----------------------');
+                        //console.log('------------------------');
+                        //console.log('-------------------------');
+                        //console.log('DropdownListDirective - Watch fired - 99999999999999 ');
+                        //console.log('-------------------------');
+                        //console.log('------------------------');
+                        //console.log('-----------------------');
+                        //console.log('----------------------');
+                        //console.log('---------------------');
+                        //console.log('vm.keyColumn');
+                        //console.log(vm.keyColumn);
+                        //console.log('this.keyColumn');
+                        //console.log(this.keyColumn);
+                        //console.log('vm.parentKeyColumn');
+                        //console.log(vm.parentKeyColumn);
+                        //console.log('this.parentKeyColumn');
+                        //console.log(this.parentKeyColumn);
                         if (vm.parentKeyColumn) {
                             $scope.$watch("vm.parentKeyColumn", function (newValue, oldValue) {
-                                console.log('DropdownListDirective - Watch fired - 20201210-1829 XXXXXXXXXXx');
-                                console.log('---------------------------------------------------------------');
-                                console.log('DropdownListDirective - Watch fired - 20201210-1829 XXXXXXXXXXx');
-                                console.log('---------------------------------------------------------------');
-                                console.log('DropdownListDirective - Watch fired - 20201210-1829 XXXXXXXXXXx');
-                                console.log('---------------------------------------------------------------');
-                                console.log(oldValue);
-                                console.log(newValue);
-                                console.log(vm.parentKeyColumn);
+                                //console.log('DropdownListDirective - Watch fired - 20201210-1829 XXXXXXXXXXx');
+                                //console.log('---------------------------------------------------------------');
+                                //console.log('DropdownListDirective - Watch fired - 20201210-1829 XXXXXXXXXXx');
+                                //console.log('---------------------------------------------------------------');
+                                //console.log('DropdownListDirective - Watch fired - 20201210-1829 XXXXXXXXXXx');
+                                //console.log('---------------------------------------------------------------');
+                                //console.log(oldValue);
+                                //console.log(newValue);
+                                //console.log(vm.parentKeyColumn)
                                 // var parentKeyColumnValue = $("[name='" + this.parentKeyColumn + "']").val();
                                 var parentKeyColumnValue = vm.parentKeyColumn;
-                                console.log('20201210-2158 - parentKeyColumnValue [', parentKeyColumnValue, ']');
-                                console.log('DropdownListDirective - Watch fired - 20201210-1829 XXXXXXXXXXx');
-                                console.log('---------------------------------------------------------------');
-                                console.log('DropdownListDirective - Watch fired - 20201210-1829 XXXXXXXXXXx');
-                                console.log('---------------------------------------------------------------');
-                                console.log('DropdownListDirective - Watch fired - 20201210-1829 XXXXXXXXXXx');
-                                console.log('---------------------------------------------------------------');
+                                //console.log('20201210-2158 - parentKeyColumnValue [', parentKeyColumnValue, ']');
+                                //console.log('DropdownListDirective - Watch fired - 20201210-1829 XXXXXXXXXXx');
+                                //console.log('---------------------------------------------------------------');
+                                //console.log('DropdownListDirective - Watch fired - 20201210-1829 XXXXXXXXXXx');
+                                //console.log('---------------------------------------------------------------');
+                                //console.log('DropdownListDirective - Watch fired - 20201210-1829 XXXXXXXXXXx');
+                                //console.log('---------------------------------------------------------------');
                             }.bind(this));
                         }
                     };
@@ -293,27 +306,22 @@ var dropdownListDirective_instance = function () {
                                 if (this.angularControlId !== vm.disciplineSelected_XXX.id) {
                                     this.angularControlId = vm.disciplineSelected_XXX.id;
                                     $("[name='" + this.keyColumn + "']").val(vm.disciplineSelected_XXX.id);
-                                    console.log('DropdownListDirective - 20201210-1703');
-                                    console.log('DropdownListDirective - 20201210-1703');
-                                    console.log('  this.keyColumn: ');
-                                    console.log('[', this.keyColumn, ']');
-                                    console.log('  this.parentKeyColumn: ');
-                                    console.log('[', this.parentKeyColumn, ']');
-                                    console.log('  vm.parentKeyColumn: ');
-                                    console.log('[', vm.parentKeyColumn, ']');
-                                    if (this.ngModelTemp) {
-                                        this.ngModelTemp = vm.disciplineSelected_XXX.id;
-                                    }
-                                    console.log('  this.ngModelTemp: ');
-                                    console.log('[', this.ngModelTemp, ']');
-                                    console.log('  vm.ngModelTemp: ');
-                                    console.log('[', vm.ngModelTemp, ']');
-                                    console.log('  vm.disciplineSelected_XXX:');
-                                    console.log(vm.disciplineSelected_XXX);
-                                    console.log('  vm.disciplineSelected_XXX.id');
-                                    console.log(vm.disciplineSelected_XXX.id);
-                                    console.log('DropdownListDirective - 20201210-1703');
-                                    console.log('DropdownListDirective - 20201210-1703');
+                                    //console.log('DropdownListDirective - 20201210-1703');
+                                    //console.log('DropdownListDirective - 20201210-1703');
+                                    //console.log('  this.keyColumn: ');
+                                    //console.log('[', this.keyColumn, ']');
+                                    //console.log('  this.parentKeyColumn: ');
+                                    //console.log('[', this.parentKeyColumn, ']');
+                                    //console.log('  vm.parentKeyColumn: ');
+                                    //console.log('[', vm.parentKeyColumn, ']');
+                                    //console.log('  vm.ngModel: ');
+                                    //console.log('[', vm.ngModel, ']');
+                                    //console.log('  vm.disciplineSelected_XXX:');
+                                    //console.log(vm.disciplineSelected_XXX);
+                                    //console.log('  vm.disciplineSelected_XXX.id');
+                                    //console.log(vm.disciplineSelected_XXX.id);
+                                    //console.log('---------------------------------------');
+                                    this.ngModel = vm.disciplineSelected_XXX.id;
                                     vm.getDisciplineCurrent(this.angularControlId).then(vm.currentDisplineLookupSuccess);
                                     _isValid_local = this.angularControlId > 0;
                                 }
@@ -331,8 +339,8 @@ var dropdownListDirective_instance = function () {
                     vm.currentDisplineLookupSuccess = function (data) {
                         if (data) {
                             // 09/16/2019 05:30 am - SSN - [20190916-0355] - [008] - Adding JobAPI controller
-                            console.log('DropdownListDirective - 20201210-1701');
-                            console.log(data);
+                            //console.log('DropdownListDirective - 20201210-1701');
+                            //console.log(data);
                             if (data.disciplineId) {
                                 vm.disciplineSelected_XXX = { id: data.disciplineId, title: data.disciplineShort };
                                 vm.angularControlId = data.disciplineId;
@@ -345,15 +353,15 @@ var dropdownListDirective_instance = function () {
                     };
                     vm.getDisciplines = function (lookupValue) {
                         vm.setupUrl();
-                        console.log("getDiscipline-00000000001");
-                        console.log("-------------------------");
-                        console.log("vm.APIUrlListAll");
-                        console.log(vm.APIUrlListAll);
-                        console.log('  this.parentKeyColumn: ');
-                        console.log('[', this.parentKeyColumn, ']');
-                        console.log('  vm.parentKeyColumn: ');
-                        console.log('[', vm.parentKeyColumn, ']');
-                        console.log("-------------------------");
+                        //console.log("getDiscipline-00000000001");
+                        //console.log("-------------------------");
+                        //console.log("vm.APIUrlListAll");
+                        //console.log(vm.APIUrlListAll);
+                        //console.log('  this.parentKeyColumn: ');
+                        //console.log('[', this.parentKeyColumn, ']');
+                        //console.log('  vm.parentKeyColumn: ');
+                        //console.log('[', vm.parentKeyColumn, ']');
+                        //console.log("-------------------------");
                         if (lookupValue === null)
                             lookupValue = "";
                         var deferred = $q.defer();
@@ -386,26 +394,27 @@ var dropdownListDirective_instance = function () {
                     };
                     // 09/16/2019 02:57 am - SSN - Added to get current value and update view.
                     vm.getDisciplineCurrent = function (lookupID) {
-                        console.log('20210105-2243');
-                        console.log('----------------');
-                        console.log('getDisciplineCurrent');
-                        console.log('----------------');
+                        //console.log('20210105-2243')
+                        //console.log('----------------')
+                        //console.log('getDisciplineCurrent')
+                        //console.log('----------------')
                         if (lookupID === null) {
                             console.log('20210105-2243');
                             console.log('----------------  CANCEL');
                             return null;
                         }
                         var deferred = $q.defer();
-                        console.log('  this.keyColumn: ');
-                        console.log('[', this.keyColumn, ']');
-                        console.log('  this.parentKeyColumn: ');
-                        console.log('[', this.parentKeyColumn, ']');
-                        console.log(vm.APIUrlSingleRecord);
-                        console.log(lookupID);
-                        console.log(vm.ngModelTemp);
-                        console.log('--------------');
-                        console.log('---------------');
-                        console.log('----------------');
+                        //console.log('  this.keyColumn: ');
+                        //console.log('[', this.keyColumn, ']');
+                        //console.log('  this.parentKeyColumn: ');
+                        //console.log('[', this.parentKeyColumn, ']');
+                        //console.log(vm.APIUrlSingleRecord)
+                        //console.log(lookupID)
+                        ////console.log(vm.ngModelTemp)
+                        //console.log(vm.ngModel)
+                        //console.log('--------------')
+                        //console.log('---------------')
+                        //console.log('----------------')
                         $http({
                             method: 'GET',
                             url: vm.APIUrlSingleRecord + "/" + lookupID
@@ -438,17 +447,17 @@ var dropdownListDirective_instance = function () {
                     parentKeyName: "@",
                     formName: "=",
                     angularControlId: "=?aci",
-                    ngModelTemp: "="
+                    //ngModelTemp: "=",
+                    ngModel: "=",
+                    name: "@"
                 },
                 link: function (scope, el, attrs, ctrl) {
-                    console.log("1111111111");
-                    console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
-                    console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
-                    console.log(ctrl);
-                    console.log('DropdownlistDirective-20210106-0730 customValidator BBBBBBBBBBBBBB');
+                    ctrl.$parsers.unshift(function (value) {
+                        var valid = false;
+                        ctrl.$setValidity('blacklist', valid);
+                        return value; //valid ? value : undefined;
+                    });
                     function customValidator(ngModelValue) {
-                        console.log('DropdownlistDirective-20210106-0730 customValidator CCCCCCCCCCCCC');
-                        console.log(ngModelValue);
                         // check if contains uppercase
                         // if it does contain uppercase, set our custom `uppercaseValidator` to valid/true
                         // otherwise set it to non-valid/false
@@ -456,7 +465,6 @@ var dropdownListDirective_instance = function () {
                         return ngModelValue;
                     }
                     ctrl.$parsers.push(customValidator);
-                    console.log('DropdownlistDirective-20210106-0730 customValidator DDDDDDDDDD');
                     // 11/28/2019 05:29 am - SSN - [20191128-0529] - [001] - Autofocus
                     if (attrs.autofocus) {
                         var setfocusFunc_1 = function (elem) {

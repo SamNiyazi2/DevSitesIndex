@@ -41,6 +41,7 @@
 
     @*// 09/13/2019 06:02 am - SSN - [20190913-0548] - [004] - Crate generic dropdown list directive  ng-controller *@
 
+     
 
 
     <div class="col-md-4" ng-controller="utilityController" form-name="timesheetForm">
@@ -48,9 +49,9 @@
         <div ng-controller="ExampleControllerTemp">
 
 
+            {{timesheetForm}}
 
-
-            <form method="post" name="timesheetForm" ng-submit="submitForm_1($event,timesheetForm)" action="">
+            <form method="post" name="timesheetForm" ng-submit="submitForm_1($event,timesheetForm)" action="" novalidate>
 
                 @Html.AntiForgeryToken()
                 <input type="hidden" asp-for="TimeLog.TimeLogId" />
@@ -76,9 +77,9 @@
 
 
                 @*
-        // 09/13/2019 02:01 pm - SSN - [20190913-0548] - [010] - Crate generic dropdown list directive
-        // Do we need this to post from directive???
-        // Todo:
+            // 09/13/2019 02:01 pm - SSN - [20190913-0548] - [010] - Crate generic dropdown list directive
+            // Do we need this to post from directive???
+            // Todo:
                 *@
 
 
@@ -106,14 +107,24 @@
 
 
                 @*
-        09/16/2019 03:41 am - SSN - Remove "Please select..." from JobId and DisciplineId
+            09/16/2019 03:41 am - SSN - Remove "Please select..." from JobId and DisciplineId
                 *@
+
+
+
+                <h3>20210106-2303-C</h3>
+                <div>user.name = <span ng-bind="user.name"></span></div>
+                <div>user.jobid = <span ng-bind="user.jobid"></span></div>
+                <div>user.lineitemid = <span ng-bind="user.lineitemid"></span></div>
+                <div>user.DisciplineID = <span ng-bind="user.DisciplineID"></span></div>
+
+
 
                 <div class="form-group">
                     <label asp-for="TimeLog.JobId" class="control-label"></label>
 
                     @*
-            ng-model-options="{ updateOn: '*' , getterSetter: true}"  updateOn: 'change keyup' ,debounce: { 'default': 500, 'change': 500 },    ng-model-options="{  getterSetter: true}"
+                ng-model-options="{ updateOn: '*' , getterSetter: true}"  updateOn: 'change keyup' ,debounce: { 'default': 500, 'change': 500 },    ng-model-options="{  getterSetter: true}"
                     *@
                     @*ng-model="user.name"*@
                     <input name="TimeLog.JobId" value="@Model.TimeLog.JobId" />
@@ -123,33 +134,28 @@
                     <dropdown-list-directive key="TimeLog.JobId" form-name="timesheetForm" name="user_jobid" ng-model="user.jobid" ng-model-temp="user.jobid"></dropdown-list-directive>
                 </div>
 
-                <div>user.name = <span ng-bind="user.name"></span></div>
-                <div>user.jobid = <span ng-bind="user.jobid"></span></div>
-                <div>user.LineItemID = <span ng-bind="user.LineItemID"></span></div>
-                <div>user.DisciplineID = <span ng-bind="user.DisciplineID"></span></div>
-                
 
                 @*
-        12/10/2020 04:25 pm - SSN - [20201210-1625] - [001] - Update Timelog edit MVC
+            12/10/2020 04:25 pm - SSN - [20201210-1625] - [001] - Update Timelog edit MVC
                 *@
 
                 <div class="form-group">
                     <label asp-for="TimeLog.LineItemID" class="control-label"></label>
                     <input asp-for="TimeLog.LineItemID" type="hidden" />
 
-                    <dropdown-list-directive key="TimeLog.LineItemID" ng-model="user.LineItemID" name="user_LineItemID" ng-model-temp="user.LineItemID" parentkey="user.jobid" parent-key-name="TimeLog.JobId" form-name="timesheetForm"></dropdown-list-directive>
+                    <dropdown-list-directive key="TimeLog.LineItemID" name="user_lineitemid" ng-model="user.lineitemid" ng-model-temp="user.lineitemid" parentkey="user.jobid" parent-key-name="TimeLog.JobId" form-name="timesheetForm"></dropdown-list-directive>
                 </div>
 
 
 
                 @*
-        09/16/2019 03:44 am - SSN - Replaced disciplineID wiht dropdown-list-directive and hidden field
+            09/16/2019 03:44 am - SSN - Replaced disciplineID wiht dropdown-list-directive and hidden field
                 *@
 
                 <div class="form-group">
                     <label asp-for="TimeLog.DisciplineID" class="control-label"></label>
                     <input asp-for="TimeLog.DisciplineID" type="hidden" />
-                    <dropdown-list-directive key="TimeLog.DisciplineID" form-name="timesheetForm" name="user_DisciplineID" ng-model="user.DisciplineID"></dropdown-list-directive>
+                    <dropdown-list-directive key="TimeLog.DisciplineID" form-name="timesheetForm" name="user_DisciplineID" ng-model="user.DisciplineID" ng-model-temp="user.DisciplineID"></dropdown-list-directive>
                 </div>
 
 
@@ -213,6 +219,7 @@
         // https://docs.angularjs.org/api/ng/directive/ngModel
 
         let tempJobId = parseInt( "@Model.TimeLog.JobId");
+        let templineitemid = parseInt("@Model.TimeLog.LineItemID");
 
         angular.module('timesheetApp')
             .controller('ExampleControllerTemp', ['$scope', function ($scope) {
@@ -231,18 +238,18 @@
                     name: _name
                     ,
                     jobid: tempJobId,
-                    LineItemID: parseInt("@Model.TimeLog.LineItemID"),
+                    lineitemid: templineitemid,
                     DisciplineID: 111
                 };
 
               
 
 
-                $scope.$watch('user.name', function (newValue,oldValue) {
+                $scope.$watch('user', function (newValue,oldValue) {
                     console.log('XXXXXXXXXXXXXXXXX user watch fired')
-                    console.log(newValue)
                     console.log (  oldValue)
-                });
+                    console.log(newValue)
+                },true);
 
  
             }]);
