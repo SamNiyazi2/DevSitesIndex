@@ -1,9 +1,11 @@
 ﻿<!--uib-typeahead="discipline as discipline.title for discipline in vm101.getDisciplines($viewValue) "-->
 <!--ng-model="disciplineSelected"-->
 <!--name="disciplineSelectedLocal"-->
-***
+ 
+*** [key: {{vm101.disciplineSelected_XXX}}]
 <input type="text"
        ng-model="vm101.disciplineSelected_XXX"
+       ng-change="vm101.changing()"
        placeholder="Select..."
        uib-typeahead="discipline as discipline.title for discipline in vm101.getDisciplines($viewValue) "
        typeahead-loading="loadingLocations"
@@ -17,6 +19,14 @@
 <div ng-show="noResults">
     <i class="glyphicon glyphicon-remove"></i> No Results Found
 </div>
+
+
+<p>{{vm101.formName.$error}}</p> 
+
+<p ng-show="vm101.disciplineSelected_XXX.$error" class="has-error">Selection is required (22)</p>
+
+
+
 <ng-content ng-if="vm101.isReady">
     <p ng-show="!vm101.isValidBoolean" class="has-error">Selection is required (1)</p>
     <p ng-show="vm101.isInvalidDropdownListDirectiveInput" class="has-error">Selection is required (22)</p>

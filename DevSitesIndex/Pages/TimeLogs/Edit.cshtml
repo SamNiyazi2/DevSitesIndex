@@ -45,7 +45,7 @@
 
     <div class="col-md-4" ng-controller="utilityController" form-name="timesheetForm">
 
-        <div ng-controller="ExampleController">
+        <div ng-controller="ExampleControllerTemp">
 
 
 
@@ -113,14 +113,21 @@
                     <label asp-for="TimeLog.JobId" class="control-label"></label>
 
                     @*
-        ng-model-options="{ updateOn: '*' , getterSetter: true}"  updateOn: 'change keyup' ,debounce: { 'default': 500, 'change': 500 },    ng-model-options="{  getterSetter: true}"
+            ng-model-options="{ updateOn: '*' , getterSetter: true}"  updateOn: 'change keyup' ,debounce: { 'default': 500, 'change': 500 },    ng-model-options="{  getterSetter: true}"
                     *@
                     @*ng-model="user.name"*@
                     <input name="TimeLog.JobId" value="@Model.TimeLog.JobId" />
-                    <dropdown-list-directive key="TimeLog.JobId" form-name="timesheetForm"></dropdown-list-directive>
+
+                    @*// 01/05/2021 09:36 pm - SSN - [20210105-2136] - [001] - DropdownListDirective-test-ng-model*@
+
+                    <dropdown-list-directive key="TimeLog.JobId" form-name="timesheetForm" name="user_jobid" ng-model="user.jobid" ng-model-temp="user.jobid"></dropdown-list-directive>
                 </div>
 
                 <div>user.name = <span ng-bind="user.name"></span></div>
+                <div>user.jobid = <span ng-bind="user.jobid"></span></div>
+                <div>user.LineItemID = <span ng-bind="user.LineItemID"></span></div>
+                <div>user.DisciplineID = <span ng-bind="user.DisciplineID"></span></div>
+                
 
                 @*
         12/10/2020 04:25 pm - SSN - [20201210-1625] - [001] - Update Timelog edit MVC
@@ -129,7 +136,8 @@
                 <div class="form-group">
                     <label asp-for="TimeLog.LineItemID" class="control-label"></label>
                     <input asp-for="TimeLog.LineItemID" type="hidden" />
-                    <dropdown-list-directive key="TimeLog.LineItemID" parentkey="TimeLog.JobId" form-name="timesheetForm"></dropdown-list-directive>
+
+                    <dropdown-list-directive key="TimeLog.LineItemID" ng-model="user.LineItemID" name="user_LineItemID" ng-model-temp="user.LineItemID" parentkey="user.jobid" parent-key-name="TimeLog.JobId" form-name="timesheetForm"></dropdown-list-directive>
                 </div>
 
 
@@ -141,7 +149,7 @@
                 <div class="form-group">
                     <label asp-for="TimeLog.DisciplineID" class="control-label"></label>
                     <input asp-for="TimeLog.DisciplineID" type="hidden" />
-                    <dropdown-list-directive key="TimeLog.DisciplineID" form-name="timesheetForm"></dropdown-list-directive>
+                    <dropdown-list-directive key="TimeLog.DisciplineID" form-name="timesheetForm" name="user_DisciplineID" ng-model="user.DisciplineID"></dropdown-list-directive>
                 </div>
 
 
@@ -204,9 +212,10 @@
     <script>
         // https://docs.angularjs.org/api/ng/directive/ngModel
 
+        let tempJobId = parseInt( "@Model.TimeLog.JobId");
 
         angular.module('timesheetApp')
-            .controller('ExampleController', ['$scope', function ($scope) {
+            .controller('ExampleControllerTemp', ['$scope', function ($scope) {
                 var _name = 'Brian';
                 $scope.user = {
                     //name: function (newName) {
@@ -220,7 +229,13 @@
                     //    return arguments.length ? (_name = newName) : _name;
                     //}
                     name: _name
+                    ,
+                    jobid: tempJobId,
+                    LineItemID: parseInt("@Model.TimeLog.LineItemID"),
+                    DisciplineID: 111
                 };
+
+              
 
 
                 $scope.$watch('user.name', function (newValue,oldValue) {
