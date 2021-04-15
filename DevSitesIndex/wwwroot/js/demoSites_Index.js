@@ -107,6 +107,54 @@ var ssn_devsite_angular_module_instance = function () {
             });
         };
     };
+    // 04/15/2021 11:33 am - SSN - Adding projcet tags
+    ssn_devsite_angular_module.directive('devSiteTagsCompiler', function ($compile, $timeout) {
+        return {
+            restrict: 'A',
+            link: function (scope, element, attrs) {
+                $timeout(function () {
+                    console.log('Firinging compile - start');
+                    $compile(element.contents())(scope);
+                    console.log('Firinging compile - end');
+                }, 3000);
+            }
+        };
+    });
+    // 04/15/2021 11:33 am - SSN - Adding projcet tags
+    ssn_devsite_angular_module.directive('devSiteTags', function () {
+        return {
+            templateUrl: './js/devsiteTags/dev-site-tags.html',
+            scope: true,
+            controller: function ($scope) {
+                $scope.addingDevSiteTag = false;
+                $scope.removingDevSiteTag = false;
+                $scope.theTags = ["C#", "ASP.NET", "Entity Framework"];
+                $scope.addDevSiteTag = function () {
+                    $scope.addingDevSiteTag = true;
+                };
+                $scope.saveNewDevsiteTag = function () {
+                    $scope.theTags.push($scope.newDevSiteTag);
+                    $scope.addingDevSiteTag = false;
+                };
+                $scope.cancelNewDevsiteTag = function () {
+                    $scope.addingDevSiteTag = false;
+                };
+                $scope.removeDevSiteTag = function (_devSiteTagToRemove) {
+                    $scope.removingDevSiteTag = true;
+                    $scope.devSiteTagToRemove = _devSiteTagToRemove;
+                };
+                $scope.confirmedRemoveDevSiteTag = function () {
+                    $scope.theTags = $scope.theTags.filter(function (t) { return t !== $scope.devSiteTagToRemove; });
+                    $scope.removingDevSiteTag = false;
+                    $scope.devSiteTagToRemove = null;
+                };
+                $scope.cancelRemoveDevSiteTag = function () {
+                    $scope.removingDevSiteTag = false;
+                    $scope.devSiteTagToRemove = null;
+                };
+            }
+        };
+    });
     return {
         ssn_devsite_angular_module: ssn_devsite_angular_module
     };

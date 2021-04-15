@@ -39,6 +39,17 @@ var timesheetEditController_instance = function () {
                 $scope.editableTimeLog.stopTime = timeNow;
             };
             function getTimelogSuccess(data) {
+                console.log('789----------------------------');
+                console.log('789----------------------------');
+                console.log('789----------------------------');
+                console.log('789----------------------------');
+                console.log('789----------------------------');
+                console.log(data);
+                console.log('789----------------------------');
+                console.log('789----------------------------');
+                console.log('789----------------------------');
+                console.log('789----------------------------');
+                console.log('789----------------------------');
                 var timeNow = new Date();
                 timeNow.setMilliseconds(0);
                 timeNow.setSeconds(0);

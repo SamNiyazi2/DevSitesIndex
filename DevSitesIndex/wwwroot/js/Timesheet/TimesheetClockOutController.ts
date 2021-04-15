@@ -77,6 +77,16 @@ var timesheetClockoutController_instance = function () {
             function getTimelogSuccess(data) {
 
 
+
+                console.log ( '123----------------------------')
+                console.log ( '123----------------------------')
+                console.log ( data)
+                console.log('123----------------------------')
+                console.log ( '123----------------------------')
+                console.log( '123----------------------------')
+
+
+
                 let timeNow = new Date();
 
                 timeNow.setMilliseconds(0);

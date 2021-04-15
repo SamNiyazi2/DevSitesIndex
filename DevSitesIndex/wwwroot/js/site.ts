@@ -209,6 +209,51 @@ namespace site_instance_NS {
             })
 
 
+
+
+
+            $(document).ready(() => {
+
+                console.log('20210414-0904-A');
+
+                $('.navbar li a').bind('contextmenu click', (e) => {
+
+                    console.log('20210414-1007 - context menu');
+                    console.log(e);
+
+                });
+
+
+                    $('.navbar li a').bind('mousedown', (e) => {
+                    
+                    switch (e.which) {
+                        case 1:
+                            console.log('Left mouse button is pressed');
+                            break;
+                        case 2:
+                            console.log('Middle mouse button is pressed');
+                            break;
+                        case 3:
+
+                            console.log('Right mouse button is pressed   208  ');
+                             
+
+                            break;
+
+
+                        default:
+                            alert('Nothing');
+                    }
+
+                    //if ($(this.mobileNavbarMenuOption.nativeElement).is(':visible')) {
+                    //    $(this.mobileNavbarMenuOption.nativeElement).trigger('click');
+                    //}
+
+                });
+            });
+
+
+
         };
 
 

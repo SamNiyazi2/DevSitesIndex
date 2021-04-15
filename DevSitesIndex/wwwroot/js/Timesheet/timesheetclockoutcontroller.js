@@ -42,6 +42,12 @@ var timesheetClockoutController_instance = function () {
                 }
             };
             function getTimelogSuccess(data) {
+                console.log('123----------------------------');
+                console.log('123----------------------------');
+                console.log(data);
+                console.log('123----------------------------');
+                console.log('123----------------------------');
+                console.log('123----------------------------');
                 var timeNow = new Date();
                 timeNow.setMilliseconds(0);
                 // timeNow.setSeconds(0);

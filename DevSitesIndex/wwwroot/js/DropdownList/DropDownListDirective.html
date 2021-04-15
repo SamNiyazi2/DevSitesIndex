@@ -1,7 +1,22 @@
 ﻿<!--uib-typeahead="discipline as discipline.title for discipline in vm101.getDisciplines($viewValue) "-->
 <!--ng-model="disciplineSelected"-->
 <!--name="disciplineSelectedLocal"-->
-*** xsss [key: {{vm101.disciplineSelected_XXX}}]
+ 
+
+
+<h3 style="white-space:pre;font-family:'Courier New'">
+    ngModel: [{{vm101.ngModel}}]
+    keyColumn: [{{vm101.keyColumn}}]
+    elementName: [{{vm101.elementName}}]
+    hiddenFieldName: [{{vm101.hiddenFieldName}}]
+    parentKeyColumn: [{{vm101.parentKeyColumn}}]
+    parentKeyName: [{{vm101.parentKeyName}}]
+    formName: [{{vm101.formName}}]
+
+</h3>
+
+
+
 <input type="text"
        ng-model="vm101.disciplineSelected_XXX"
        ng-change="vm101.changing()"
@@ -9,13 +24,13 @@
        uib-typeahead="discipline as discipline.title for discipline in vm101.getDisciplines($viewValue) "
        typeahead-loading="loadingLocations"
        typeahead-no-results="noResults"
-       class="form-control" 
+       class="form-control"
        ng-required="true"
        blacklist="aaa,coconuts,bananas,pears"
-       name="{{vm101.tempControlName}}">
+       name="{{vm101.elementName}}">
 
 
- <!--validate-dropdown-list-directive-->
+<!--validate-dropdown-list-directive-->
 
 
 <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>

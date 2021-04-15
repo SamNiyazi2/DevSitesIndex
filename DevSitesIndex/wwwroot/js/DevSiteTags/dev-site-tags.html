@@ -1,0 +1,52 @@
+﻿
+
+<div class="cssDevsiteTags">
+    <span ng-repeat="x in theTags">
+        <tag>{{x}}</tag>
+        <i class="glyphicon glyphicon-pencil"></i>
+        <i class="glyphicon glyphicon-remove" ng-click="removeDevSiteTag(x)"></i>
+    </span>
+
+    <i class="glyphicon glyphicon-plus" ng-click="addDevSiteTag()"></i>
+</div>
+<div ng-show="addingDevSiteTag" class="cssAddNewDevSiteTag">
+    Add new tag <input ng-model="newDevSiteTag" />
+    <button class="btn btn-info" ng-click="saveNewDevsiteTag()">Save</button>
+    <button class="btn btn-default" ng-click="cancelNewDevsiteTag()">Cancel</button>
+    <p>[{{newDevSiteTag}}]</p>
+
+</div>
+
+<div ng-show="removingDevSiteTag" class="cssAddNewDevSiteTag">
+
+    <p>Confirm that you want the tag [{{devSiteTagToRemove}}] removed</p>
+    <button class="btn btn-danger" ng-click="confirmedRemoveDevSiteTag()">Remove</button>
+    <button class="btn btn-default" ng-click="cancelRemoveDevSiteTag()">Cancel</button>
+    
+</div>
+
+    <style>
+        .cssDevsiteTags   {
+            padding: 10px;
+            background-color: #ddd;
+            margin: 20px;
+        }
+
+        .cssDevsiteTags span {
+            padding: 2px 10px 2px 2px;
+            background-color: #ccc;
+            
+            margin:5px 10px 5px 0px;
+        }
+
+            .cssDevsiteTags tag {
+                padding: 2px 10px 2px 5px;
+                background-color: #eee;
+            }
+
+        .cssAddNewDevSiteTag {
+            margin: 20px;
+            padding: 10px;
+            border: 2px solid black;
+        }
+    </style>

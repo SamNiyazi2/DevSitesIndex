@@ -66,6 +66,19 @@ var timesheetContinueController_instance = function () {
 
             function getTimelogSuccess(data) {
 
+
+                console.log('456----------------------------')
+                console.log('456----------------------------')
+                console.log('456----------------------------')
+                console.log('456----------------------------')
+                console.log(data)
+                console.log('456----------------------------')
+                console.log('456----------------------------')
+                console.log('456----------------------------')
+                console.log('456----------------------------')
+
+
+
                 let data2 = data;
                 util.site_instance.fnConverDate(data2);
 
@@ -88,6 +101,17 @@ var timesheetContinueController_instance = function () {
                 $scope.timeLog.totalSeconds = null;
 
                 $scope.editableTimeLog = angular.copy($scope.timeLog);
+
+
+                console.log( 'xxxxxxxxxxxxx Takeout getDisciplines')
+                console.log( 'xxxxxxxxxxxxx Takeout getDisciplines')
+                console.log( 'xxxxxxxxxxxxx Takeout getDisciplines')
+                console.log( 'xxxxxxxxxxxxx Takeout getDisciplines')
+                console.log( 'xxxxxxxxxxxxx Takeout getDisciplines')
+                console.log( 'xxxxxxxxxxxxx Takeout getDisciplines')
+                console.log( 'xxxxxxxxxxxxx Takeout getDisciplines')
+                console.log('xxxxxxxxxxxxx Takeout getDisciplines')
+
 
 
 

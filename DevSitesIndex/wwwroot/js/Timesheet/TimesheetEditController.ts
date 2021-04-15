@@ -74,6 +74,20 @@ var timesheetEditController_instance = function () {
             function getTimelogSuccess(data) {
 
 
+                console.log('789----------------------------')
+                console.log('789----------------------------')
+                console.log('789----------------------------')
+                console.log('789----------------------------')
+                console.log('789----------------------------')
+                console.log(data)
+                console.log('789----------------------------')
+                console.log('789----------------------------')
+                console.log('789----------------------------')
+                console.log('789----------------------------')
+                console.log('789----------------------------')
+
+
+
                 let timeNow = new Date();
 
                 timeNow.setMilliseconds(0);

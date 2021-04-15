@@ -26,6 +26,29 @@
 
         <fieldset>
 
+
+            <!-- 04/13/2021 07:59 pm - SSN -->
+
+            <div class="form-group">
+
+                <label for="lineItemID" class="col-sm-3 control-label">
+                    Line item 33
+                </label>
+
+                <div class="col-sm-9">
+                     
+                    <input type="hidden" name="lineItemID" ng-model="editableTimeLog.lineItemID" ng-required="true" />
+
+                    <dropdown-list-directive key="lineItemID" form-name="timesheetForm" ng-model="editableTimeLog.lineItemID" parentkey="editableTimeLog.jobId" parent-key-name="editableTimeLog.jobId"></dropdown-list-directive>
+
+                </div>
+            </div>
+
+
+
+
+
+
             <!--<legend>Basic Information</legend>-->
             <!--// 04/13/2019 10:56 am - SSN - [20190413-1037] - Add discipline lookup-->
             <!-- 11/26/2019 02:43 am - SSN - Replaced TypeAhead with directive -->
@@ -40,7 +63,8 @@
                 <div class="col-sm-9">
 
                     <input type="hidden" name="disciplineID" ng-model="editableTimeLog.disciplineID" ng-required="true" />
-                    <dropdown-list-directive key="disciplineID" form-name="timesheetForm" aci="editableTimeLog.disciplineID"></dropdown-list-directive>
+
+                    <dropdown-list-directive key="disciplineID" form-name="timesheetForm" ng-model="editableTimeLog.disciplineID"></dropdown-list-directive>
 
                 </div>
             </div>

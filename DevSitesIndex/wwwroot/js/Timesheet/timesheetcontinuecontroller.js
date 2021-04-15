@@ -31,6 +31,15 @@ var timesheetContinueController_instance = function () {
                 }
             };
             function getTimelogSuccess(data) {
+                console.log('456----------------------------');
+                console.log('456----------------------------');
+                console.log('456----------------------------');
+                console.log('456----------------------------');
+                console.log(data);
+                console.log('456----------------------------');
+                console.log('456----------------------------');
+                console.log('456----------------------------');
+                console.log('456----------------------------');
                 var data2 = data;
                 util.site_instance.fnConverDate(data2);
                 var timeNow = new Date();
@@ -45,6 +54,14 @@ var timesheetContinueController_instance = function () {
                 // 05/21/2019 07:31 am - SSN - Forgotten
                 $scope.timeLog.totalSeconds = null;
                 $scope.editableTimeLog = angular.copy($scope.timeLog);
+                console.log('xxxxxxxxxxxxx Takeout getDisciplines');
+                console.log('xxxxxxxxxxxxx Takeout getDisciplines');
+                console.log('xxxxxxxxxxxxx Takeout getDisciplines');
+                console.log('xxxxxxxxxxxxx Takeout getDisciplines');
+                console.log('xxxxxxxxxxxxx Takeout getDisciplines');
+                console.log('xxxxxxxxxxxxx Takeout getDisciplines');
+                console.log('xxxxxxxxxxxxx Takeout getDisciplines');
+                console.log('xxxxxxxxxxxxx Takeout getDisciplines');
                 setTimeout(function () {
                     $scope.getDisciplines(data2.discipline.disciplineShort);
                     $scope.disciplineSelected = { id: data2.discipline.disciplineId, title: data2.discipline.disciplineShort };

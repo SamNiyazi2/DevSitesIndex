@@ -37,22 +37,25 @@
 <h2>@ViewData["Title"]</h2>
 
 <hr />
+
+
+
+
+
 <div class="row">
 
     @*// 09/13/2019 06:02 am - SSN - [20190913-0548] - [004] - Crate generic dropdown list directive  ng-controller *@
 
-     
+
+  
+
+        <div class="col-md-4" ng-controller="utilityController" form-name="timesheetForm">
 
 
-    <div class="col-md-4" ng-controller="utilityController" form-name="timesheetForm">
-
-        <div ng-controller="ExampleControllerTemp">
-
-
-            {{timesheetForm}}
+ 
 
             <form method="post" name="timesheetForm" ng-submit="submitForm_1($event,timesheetForm)" action="" novalidate>
-
+                 
                 @Html.AntiForgeryToken()
                 <input type="hidden" asp-for="TimeLog.TimeLogId" />
                 <input type="hidden" asp-for="TimeLog.RowVersion" />
@@ -72,18 +75,7 @@
 
                 <hr />
 
-
-
-
-
-                @*
-            // 09/13/2019 02:01 pm - SSN - [20190913-0548] - [010] - Crate generic dropdown list directive
-            // Do we need this to post from directive???
-            // Todo:
-                *@
-
-
-
+                  
 
                 <dt>
                     @Html.DisplayNameFor(model => model.TimeLog.DateAdded)
@@ -104,58 +96,34 @@
 
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-
-
-                @*
-            09/16/2019 03:41 am - SSN - Remove "Please select..." from JobId and DisciplineId
-                *@
-
-
-
-                <h3>20210106-2303-C</h3>
-                <div>user.name = <span ng-bind="user.name"></span></div>
-                <div>user.jobid = <span ng-bind="user.jobid"></span></div>
-                <div>user.lineitemid = <span ng-bind="user.lineitemid"></span></div>
-                <div>user.DisciplineID = <span ng-bind="user.DisciplineID"></span></div>
-
-
+                  
 
                 <div class="form-group">
                     <label asp-for="TimeLog.JobId" class="control-label"></label>
-
-                    @*
-                ng-model-options="{ updateOn: '*' , getterSetter: true}"  updateOn: 'change keyup' ,debounce: { 'default': 500, 'change': 500 },    ng-model-options="{  getterSetter: true}"
-                    *@
-                    @*ng-model="user.name"*@
-                    <input name="TimeLog.JobId" value="@Model.TimeLog.JobId" />
-
-                    @*// 01/05/2021 09:36 pm - SSN - [20210105-2136] - [001] - DropdownListDirective-test-ng-model*@
-
-                    <dropdown-list-directive key="TimeLog.JobId" form-name="timesheetForm" name="user_jobid" ng-model="user.jobid" ng-model-temp="user.jobid"></dropdown-list-directive>
+                      
+                    <input asp-for="TimeLog.JobId" type="hidden" />
+                    <dropdown-list-directive key="TimeLog.JobId" form-name="timesheetForm" hidden-field-name="TimeLog.JobId"  ng-model="timeLogRecord.JobId"></dropdown-list-directive>
                 </div>
 
-
-                @*
-            12/10/2020 04:25 pm - SSN - [20201210-1625] - [001] - Update Timelog edit MVC
-                *@
+ 
 
                 <div class="form-group">
+
+                  
                     <label asp-for="TimeLog.LineItemID" class="control-label"></label>
                     <input asp-for="TimeLog.LineItemID" type="hidden" />
 
-                    <dropdown-list-directive key="TimeLog.LineItemID" name="user_lineitemid" ng-model="user.lineitemid" ng-model-temp="user.lineitemid" parentkey="user.jobid" parent-key-name="TimeLog.JobId" form-name="timesheetForm"></dropdown-list-directive>
+                    <dropdown-list-directive key="TimeLog.LineItemID"  ng-model="timeLogRecord.LineItemID" hidden-field-name="TimeLog.LineItemID"  parentkey="timeLogRecord.JobId" parent-key-name="TimeLog.JobId" form-name="timesheetForm"></dropdown-list-directive>
                 </div>
 
-
-
-                @*
-            09/16/2019 03:44 am - SSN - Replaced disciplineID wiht dropdown-list-directive and hidden field
-                *@
+ 
 
                 <div class="form-group">
+                     
                     <label asp-for="TimeLog.DisciplineID" class="control-label"></label>
-                    <input asp-for="TimeLog.DisciplineID" type="hidden" />
-                    <dropdown-list-directive key="TimeLog.DisciplineID" form-name="timesheetForm" name="user_DisciplineID" ng-model="user.DisciplineID" ng-model-temp="user.DisciplineID"></dropdown-list-directive>
+                    <input asp-for="TimeLog.DisciplineID" type="hidden" ng-bind="timeLogRecord.DisciplineID" />
+           
+                    <dropdown-list-directive key="TimeLog.DisciplineID" form-name="timesheetForm" hidden-field-name="TimeLog.DisciplineID" ng-model="timeLogRecord.DisciplineID"></dropdown-list-directive>
                 </div>
 
 
@@ -173,8 +141,7 @@
 
                 <div class="form-group">
                     <label asp-for="TimeLog.TotalSeconds" class="control-label"></label>
-
-                    @*// 04/19/2019 04:48 pm - SSN - [20190419-1647] - Set amount for TotalSeconds*@
+                     
                     &nbsp; <a cmd-name="set-TotalPeriod" jQueryObjectName="#TimeLog_StartTime" jQueryObjectName2="#TimeLog_TotalSeconds">Now</a>
 
                     <input asp-for="TimeLog.TotalSeconds" class="form-control" />
@@ -185,8 +152,7 @@
 
                 <div class="form-group">
                     <label asp-for="TimeLog.WorkDetail" class="control-label"></label>
-
-                    @*// 04/19/2019 04:44 pm - SSN - Replace Input with textarea*@
+                     
                     <textarea cols="40" rows="5" asp-for="TimeLog.WorkDetail" class="form-control">
 
 </textarea>
@@ -194,16 +160,16 @@
                     <span asp-validation-for="TimeLog.WorkDetail" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Save" class="btn btn-default" ng-click="submitForm_2($event,timesheetForm)" />
+                    <input type="submit" value="Save" class="btn btn-default" />
                 </div>
             </form>
         </div>
-    </div>
+ 
 
 </div>
 
 <div>
-    @*<a asp-page="./Index">Back to List</a>*@
+   
     @await Html.PartialAsync("ReturnToCallerLink", Model.returnToCaller)
 </div>
 
@@ -212,47 +178,31 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("TimesheetAngularScripts");}
 
-
-
+     
 
     <script>
-        // https://docs.angularjs.org/api/ng/directive/ngModel
-
-        let tempJobId = parseInt( "@Model.TimeLog.JobId");
-        let templineitemid = parseInt("@Model.TimeLog.LineItemID");
+        
 
         angular.module('timesheetApp')
-            .controller('ExampleControllerTemp', ['$scope', function ($scope) {
-                var _name = 'Brian';
-                $scope.user = {
-                    //name: function (newName) {
-
-                    //    console.log('setting name[', newName, ']'); 
-
-                    //    // Note that newName can be undefined for two reasons:
-                    //    // 1. Because it is called as a getter and thus called with no arguments
-                    //    // 2. Because the property should actually be set to undefined. This happens e.g. if the
-                    //    //    input is invalid
-                    //    return arguments.length ? (_name = newName) : _name;
-                    //}
-                    name: _name
-                    ,
-                    jobid: tempJobId,
-                    lineitemid: templineitemid,
-                    DisciplineID: 111
-                };
-
-              
+            .controller('utilityController', ['$scope', function ($scope) {
 
 
-                $scope.$watch('user', function (newValue,oldValue) {
-                    console.log('XXXXXXXXXXXXXXXXX user watch fired')
-                    console.log (  oldValue)
-                    console.log(newValue)
-                },true);
+             $scope.timeLogRecord  =  @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.TimeLog, formatting: Newtonsoft.Json.Formatting.Indented, new Newtonsoft.Json.JsonSerializerSettings
+                             {
+                                 ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                             }));
+
+
+
+                
 
  
-            }]);
-         
-    </script>
-}
+ 
+
+}]);
+        alert('loaded edit.html  3333')
+        </script>
+     
+    }
+
+

@@ -10,7 +10,7 @@
         <h2>{{pageTitle}}  <span style="font-size:16px;" ng-if="versionForHTMLRefresh">(Ver. {{versionForHTMLRefresh}})</span></h2>
         <table>
             <tr>
-                <td>Project </td>
+                <td>Project 4444444444</td>
                 <td>{{editableTimeLog.job.project.projectTitle}}</td>
             </tr>
             <tr>
@@ -35,7 +35,7 @@
 
         <fieldset>
 
- 
+
 
             <div class="form-group">
 
@@ -46,12 +46,29 @@
                 <div class="col-sm-9">
 
                     <input type="hidden" name="jobId" ng-model="editableTimeLog.jobId" ng-required="true" />
-                    <dropdown-list-directive key="jobId" form-name="timesheetForm" aci="editableTimeLog.jobId"></dropdown-list-directive>
+                    <dropdown-list-directive key="jobId" form-name="timesheetForm" ng-model="editableTimeLog.jobId"></dropdown-list-directive>
 
                 </div>
             </div>
 
 
+
+            <!-- 04/14/2021 06:11 am - SSN -->
+
+            <div class="form-group">
+
+                <label for="lineItemID" class="col-sm-3 control-label">
+                    Line item 555555
+                </label>
+
+                <div class="col-sm-9">
+                    
+                    <input type="hidden" name="lineItemID" ng-model="editableTimeLog.lineItemID" ng-required="true" />
+
+                    <dropdown-list-directive key="lineItemID" form-name="timesheetForm" ng-model="editableTimeLog.lineItemID" parentkey="editableTimeLog.jobId" parent-key-name="editableTimeLog.jobId"></dropdown-list-directive>
+
+                </div>
+            </div>
 
 
 
@@ -65,7 +82,7 @@
                 <div class="col-sm-9">
 
                     <input type="hidden" name="disciplineID" ng-model="editableTimeLog.disciplineID" ng-required="true" />
-                    <dropdown-list-directive key="disciplineID" form-name="timesheetForm" aci="editableTimeLog.disciplineID"></dropdown-list-directive>
+                    <dropdown-list-directive key="disciplineID" form-name="timesheetForm" ng-model="editableTimeLog.disciplineID"></dropdown-list-directive>
 
                 </div>
             </div>
