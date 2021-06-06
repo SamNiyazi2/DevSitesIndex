@@ -214,8 +214,7 @@ namespace site_instance_NS {
 
             $(document).ready(() => {
 
-                console.log('20210414-0904-A');
-
+             
                 $('.navbar li a').bind('contextmenu click', (e) => {
 
                     console.log('20210414-1007 - context menu');
@@ -236,7 +235,7 @@ namespace site_instance_NS {
                         case 3:
 
                             console.log('Right mouse button is pressed   208  ');
-                             
+                            console.log($(e.target));
 
                             break;
 

@@ -58,11 +58,11 @@
             <div class="form-group">
 
                 <label for="lineItemID" class="col-sm-3 control-label">
-                    Line item 555555
+                    Line item 
                 </label>
 
                 <div class="col-sm-9">
-                    
+
                     <input type="hidden" name="lineItemID" ng-model="editableTimeLog.lineItemID" ng-required="true" />
 
                     <dropdown-list-directive key="lineItemID" form-name="timesheetForm" ng-model="editableTimeLog.lineItemID" parentkey="editableTimeLog.jobId" parent-key-name="editableTimeLog.jobId"></dropdown-list-directive>
@@ -71,12 +71,12 @@
             </div>
 
 
-
+            <hr/>
 
             <div class="form-group">
 
                 <label for="jobId" class="col-sm-3 control-label">
-                    Discipline
+                    Discipline  
                 </label>
 
                 <div class="col-sm-9">
@@ -149,7 +149,7 @@
 
 
     <div class="modal-footer">
-         
+
         <div class="col-sm-offset-3 col-sm-9">
 
             <input type="button" class="btn btn-default" value="Cancel" ng-click="cancelForm()" />

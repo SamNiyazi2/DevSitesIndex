@@ -124,7 +124,6 @@ var site_instance_NS;
                 });
             });
             $(document).ready(function () {
-                console.log('20210414-0904-A');
                 $('.navbar li a').bind('contextmenu click', function (e) {
                     console.log('20210414-1007 - context menu');
                     console.log(e);
@@ -139,6 +138,7 @@ var site_instance_NS;
                             break;
                         case 3:
                             console.log('Right mouse button is pressed   208  ');
+                            console.log($(e.target));
                             break;
                         default:
                             alert('Nothing');

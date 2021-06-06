@@ -1,22 +1,4 @@
-﻿<!--uib-typeahead="discipline as discipline.title for discipline in vm101.getDisciplines($viewValue) "-->
-<!--ng-model="disciplineSelected"-->
-<!--name="disciplineSelectedLocal"-->
- 
-
-
-<h3 style="white-space:pre;font-family:'Courier New'">
-    ngModel: [{{vm101.ngModel}}]
-    keyColumn: [{{vm101.keyColumn}}]
-    elementName: [{{vm101.elementName}}]
-    hiddenFieldName: [{{vm101.hiddenFieldName}}]
-    parentKeyColumn: [{{vm101.parentKeyColumn}}]
-    parentKeyName: [{{vm101.parentKeyName}}]
-    formName: [{{vm101.formName}}]
-
-</h3>
-
-
-
+﻿  
 <input type="text"
        ng-model="vm101.disciplineSelected_XXX"
        ng-change="vm101.changing()"
@@ -29,17 +11,17 @@
        blacklist="aaa,coconuts,bananas,pears"
        name="{{vm101.elementName}}">
 
-
-<!--validate-dropdown-list-directive-->
-
-
+ 
 <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+
 
 <div ng-show="noResults">
     <i class="glyphicon glyphicon-remove"></i> No Results Found
 </div>
 
+
 <p class="has-error" ng-show="vm101.disciplineSelected_XXX.$error.required">Selection is required (22)</p>
+
 
 <span class="has-error" ng-show="vm101.errorTriggered(vm101.blackListErrorName)">
     The input "{{ vm101.disciplineSelected_XXX }}" is invalid

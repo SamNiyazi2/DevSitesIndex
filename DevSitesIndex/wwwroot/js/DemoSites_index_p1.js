@@ -137,7 +137,11 @@ var demosites_index_p1_instance = function () {
                 }
             }).fail(function (response) {
                 // 12/20/2019 05:06 pm - SSN - [20191220-1706] Adding resetSearch
+                console.log('demositesapi Search filaure - 20210422-1422');
+                console.info(data);
                 console.error(response);
+                self.SearchResultsFeedback_KO('Search error.  Possibly syntax error.');
+                self.SearchResultsFeedback_ClassName_KO("alert alert-danger");
             });
         };
         this.getClassForDemoState = function (forDemo_v2) {

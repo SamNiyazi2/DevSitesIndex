@@ -113,9 +113,7 @@ var ssn_devsite_angular_module_instance = function () {
             restrict: 'A',
             link: function (scope, element, attrs) {
                 $timeout(function () {
-                    console.log('Firinging compile - start');
                     $compile(element.contents())(scope);
-                    console.log('Firinging compile - end');
                 }, 3000);
             }
         };

@@ -69,21 +69,13 @@ var dropdownListDirective_instance = function () {
                             return value;
                         });
                         ngModel.$asyncValidators.isValidDropdownDirectiveSelection = function (modelValue, viewValue) {
-                            console.log("102 ===============================");
-                            console.log("102 ===============================");
-                            console.log("102 ===============================");
-                            console.log("102 ===============================");
-                            console.log("102 ===============================");
-                            console.log(modelValue);
-                            console.log(viewValue);
-                            console.log("102 ===============================");
-                            console.log("102 ===============================");
-                            console.log("102 ===============================");
-                            console.log("102 ===============================");
-                            console.log("102 ===============================");
                             var deferred = $q.defer();
-                            // deferred.reject();
-                            deferred.resolve();
+                            if (modelValue && modelValue.id) {
+                                deferred.resolve();
+                            }
+                            else {
+                                deferred.reject();
+                            }
                             // return the promise of the asynchronous validator
                             return deferred.promise;
                         };
@@ -104,83 +96,17 @@ var dropdownListDirective_instance = function () {
                     vm.isInvalidDropdownListDirectiveInput = true;
                     // 11/28/2019 08:29 am - SSN - Adding - Need to initializa for $watch to work.
                     // disciplineSelected_XXX  instead of ngModel because we use an object for selected entry, id and tile. ngModel is usually a key. (The id)
-                    //console.log("104 ===============================");
-                    //console.log("104 ===============================");
-                    //console.log("104 ===============================");
-                    //console.log("104 ===============================");
-                    //console.log("104 ===============================");
-                    //console.log(" disciplineSelected_XXXdisciplineSelected_XXXdisciplineSelected_XXXdisciplineSelected_XXX");
-                    //console.log("104 ===============================");
-                    //console.log("104 ===============================");
-                    //console.log("104 ===============================");
-                    //console.log("104 ===============================");
-                    //console.log("104 ===============================");
                     vm.disciplineSelected_XXX = "";
                     $scope.$on('$destroy', function () {
                     });
                     $scope.$watch('vm101.disciplineSelected_XXX', function (newValue, oldValue) {
                         // Works
-                        //console.log("ssn-20210105-2214----WARCH-----------1");
-                        //console.log("ssn-20210105-2214----WARCH-----------2");
-                        //console.log("ssn-20210105-2214----WARCH-----------3");
-                        //console.log("ssn-20210105-2214----WARCH-----------4");
-                        //console.log("ssn-20210105-2214----WARCH-----------");
-                        //console.log("---------------------------------------------");
-                        //console.log("-------  " + vm.keyColumn + "----------");
-                        //console.log("-------  " + vm.keyColumn + "----------");
-                        //console.log("-------  " + vm.keyColumn + "----------");
-                        //console.log("-------  " + vm.keyColumn + "----------");
-                        //console.log("-------  " + vm.keyColumn + "----------");
-                        //console.log("---------------------------------------------");
-                        //console.log("---------------------------------------------");
-                        //console.log(oldValue);
-                        //console.log(newValue);
-                        //console.log("---------------------------------------------");
-                        //console.log("----xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx ");
-                        //console.log("----xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx ");
-                        //console.log("----xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx ");
-                        //console.log("----xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx ");
-                        ////////////////////////////////////////////////////////////////////////////////////////////////
-                        ////////////////////////////////////////////////////////////////////////////////////////////////
-                        ////////////////////////////////////////////////////////////////////////////////////////////////
                         if (newValue && newValue.id) {
                             vm.ngModel = newValue.id;
-                            //console.log("777 --------------------- ");
-                            //console.log("777 --------------------- ");
-                            //console.log("777 --------------------- ");
-                            //console.log(vm.hiddenFieldName);
-                            //console.log(vm.hiddenFieldName);
-                            //console.log(vm.hiddenFieldName);
-                            //console.log("777 --------------------- ");
-                            //console.log("777 --------------------- ");
-                            //console.log("777 --------------------- ");
-                            //console.log("777 --------------------- ");
                             if (vm.hiddenFieldName) {
-                                console.log("654 --------------------- ");
-                                console.log("654 --------------------- ");
-                                console.log("654 --------------------- ");
-                                console.log(vm.hiddenFieldName);
                                 $("[name='" + vm.hiddenFieldName + "']").val(newValue.id);
-                                console.log("654 --------------------- ");
-                                console.log("654 --------------------- ");
-                                console.log("654 --------------------- ");
                             }
                         }
-                        else {
-                            ////////////////////////////////////////////////////////  vm.ngModel = null;
-                            ////////////////////////////////////////////////////////  vm.ngModel = null;
-                            ////////////////////////////////////////////////////////  vm.ngModel = null;
-                            ////////////////////////////////////////////////////////  vm.ngModel = null;
-                            ////////////////////////////////////////////////////////  vm.ngModel = null;
-                        }
-                        //console.log("----xxxxxxxxxxxxxxxxxxx   vm.ngModel = null; xxxxxxxxxxxxxxxxxxxxx ");
-                        //console.log("----xxxxxxxxxxxxxxxxxxx   vm.ngModel = null; xxxxxxxxxxxxxxxxxxxxx ");
-                        //console.log("----xxxxxxxxxxxxxxxxxxx   vm.ngModel = null; xxxxxxxxxxxxxxxxxxxxx ");
-                        //console.log("----xxxxxxxxxxxxxxxxxxx   vm.ngModel = null; xxxxxxxxxxxxxxxxxxxxx ");
-                        //console.log("----xxxxxxxxxxxxxxxxxxx   vm.ngModel = null; xxxxxxxxxxxxxxxxxxxxx ");
-                        ////////////////////////////////////////////////////////////////////////////////////////////////
-                        ////////////////////////////////////////////////////////////////////////////////////////////////
-                        ////////////////////////////////////////////////////////////////////////////////////////////////
                         if (vm.formName) {
                             if (vm.formName.$dirty) {
                                 changeMonitorService.doSetHaveChange(true);
@@ -196,27 +122,6 @@ var dropdownListDirective_instance = function () {
                         }
                     });
                     vm.setupUrl = function () {
-                        //   console.log("20210105-2305-----------------");
-                        //console.log("20210105-2305---------   setupUrl  --------");
-                        //console.log("20210105-2305---------   setupUrl  --------");
-                        //console.log("20210105-2305---------   setupUrl  --------");
-                        //console.log("20210105-2305---------   setupUrl  --------");
-                        //console.log("20210105-2305---------   setupUrl  --------");
-                        //console.log("20210105-2305---------   setupUrl  --------");
-                        //console.log("------------------------------");
-                        //console.log("this.keyColumn");
-                        //console.log(this.keyColumn);
-                        //console.log("-----------------------------");
-                        //console.log("----------------------------");
-                        //console.log("---------------------------");
-                        console.log("TEST CSS ---------------------------");
-                        console.log("TEST CSS ---------------------------");
-                        console.log("TEST CSS ---------------------------");
-                        console.log("TEST CSS ---------------------------");
-                        console.log("TEST CSS ---------------------------");
-                        console.log("TEST CSS ---------------------------");
-                        console.log("TEST CSS ---------------------------");
-                        console.log('%c No keyColumn-201912291545(Note)', 'font-color:red;font-size:20px;font-weight:bold;');
                         if (!this.keyColumn) {
                             console.log('%c No keyColumn-201912291545(Note)', 'font-color:red;font-size:20px;font-weight:bold;');
                             console.log('%c No keyColumn-201912291545(Note)', 'font-color:red;font-size:20px;font-weight:bold;');
@@ -256,33 +161,9 @@ var dropdownListDirective_instance = function () {
                                 console.log('DropdownListDirective - no case for [', this.keyColumn, '] 20201210-1656');
                                 console.log('----------------------------');
                         }
-                        //console.log(" ");
-                        //console.log(" vm.APIUrlListAll  [" + vm.APIUrlListAll +"]");
-                        //console.log(" vm.APIUrlSingleRecord [" + vm.APIUrlSingleRecord+"]");
-                        //console.log(" ");
-                        //console.log(" ");
-                        //console.log("20210105-2305---B--------------");
-                        //console.log("20210105-2305---B--------------");
-                        //console.log("20210105-2305---B--------------");
-                        //console.log("20210105-2305---B--------------");
-                        //console.log("------------------------------");
                         if (vm.parentKeyColumn) {
-                            //console.log('typeof this.parentKeyColumn [', typeof (vm.parentKeyColumn), "]");
-                            //console.log('typeof this.parentKeyColumn [', typeof (vm.parentKeyColumn), "]");
-                            //console.log('typeof this.parentKeyColumn [', typeof (this.parentKeyColumn), "]");
-                            //console.log('typeof this.parentKeyColumn [', typeof (this.parentKeyColumn), "]");
-                            //console.log('typeof this.parentKeyColumn [', typeof (this.parentKeyColumn), "]");
-                            //                        console.log(this.parentKeyColumn);
                             var parentKeyColumnValue = this.parentKeyColumn; //undefined;
-                            //console.log('20201210-1749 - parentKeyColumnValue [', parentKeyColumnValue, ']');
-                            //console.log('20201210-1749 - parentKeyColumnValue [', parentKeyColumnValue, ']');
-                            //console.log('20201210-1749 - parentKeyColumnValue [', parentKeyColumnValue, ']');
-                            //console.log('20201210-1749 - parentKeyColumnValue [', parentKeyColumnValue, ']');
                             if (parentKeyColumnValue) {
-                                //console.log(" ********************* Updating AppUrl with parentKeyColumnValue [", parentKeyColumnValue, ')');
-                                //console.log(" ********************* Updating AppUrl with parentKeyColumnValue [", parentKeyColumnValue, ')');
-                                //console.log(" ********************* Updating AppUrl with parentKeyColumnValue [", parentKeyColumnValue, ')');
-                                //console.log(" ********************* Updating AppUrl with parentKeyColumnValue [", parentKeyColumnValue, ')');
                                 vm.APIUrlListAll = vm.APIUrlListAll + "/" + parentKeyColumnValue;
                             }
                         }
@@ -303,30 +184,6 @@ var dropdownListDirective_instance = function () {
                         $scope.$broadcast('dropdownListDirective_Change_start', { msg: 'select new value', keyColumn: vm.keyColumn, keyValue: vm.ngModel });
                     };
                     $scope.$on('dropdownListDirective_Change_start', function (events, args) {
-                        console.log('---------------------------------------------');
-                        console.log('dropdownListDirective_Change_start - listener');
-                        console.log('dropdownListDirective_Change_start - listener');
-                        console.log('dropdownListDirective_Change_start - listener');
-                        console.log('dropdownListDirective_Change_start - listener');
-                        console.log('dropdownListDirective_Change_start - listener');
-                        console.log('dropdownListDirective_Change_start - listener');
-                        console.log('dropdownListDirective_Change_start - listener');
-                        console.log('dropdownListDirective_Change_start - listener');
-                        console.log('dropdownListDirective_Change_start - listener');
-                        console.log('dropdownListDirective_Change_start - listener');
-                        console.log('dropdownListDirective_Change_start - listener');
-                        console.log('dropdownListDirective_Change_start - listener');
-                        console.log('---------------------------------------------');
-                        console.log('dropdownListDirective_Change_start - listener');
-                        console.log('---------------------------------------------');
-                        console.log(events);
-                        console.log(args);
-                        console.log('---------------------------------------------');
-                        console.log('parentKeyName ( this vm bind )');
-                        console.log(vm.parentKeyName);
-                        console.log(args.keyColumn);
-                        console.log('---------------------------------------------');
-                        console.log('---------------------------------------------');
                         if (vm.parentKeyName == args.keyColumn) {
                             console.log('---------------------------------------------');
                             console.log(' vm.parentKeyColumn and args.keyValue before update:');
@@ -349,7 +206,6 @@ var dropdownListDirective_instance = function () {
                                 vm.disciplineSelected_XXX = "";
                             }
                             vm.setupUrl();
-                            //console.log('---------------------------------------------');
                         }
                     });
                     vm.isValid = function () {
@@ -378,15 +234,6 @@ var dropdownListDirective_instance = function () {
                     };
                     vm.getDisciplines = function (lookupValue) {
                         vm.setupUrl();
-                        //console.log("getDiscipline-00000000001");
-                        //console.log("-------------------------");
-                        //console.log("vm.APIUrlListAll");
-                        //console.log(vm.APIUrlListAll);
-                        //console.log('  this.parentKeyColumn: ');
-                        //console.log('[', this.parentKeyColumn, ']');
-                        //console.log('  vm.parentKeyColumn: ');
-                        //console.log('[', vm.parentKeyColumn, ']');
-                        //console.log("-------------------------");
                         if (lookupValue === null)
                             lookupValue = "";
                         var deferred = $q.defer();
@@ -424,6 +271,7 @@ var dropdownListDirective_instance = function () {
                             console.log('20210105-2243');
                             console.log('20210105-2243');
                             console.log('20210105-2243');
+                            console.log('DropdownListDirective lookupID is null');
                             console.log('----------------  CANCEL');
                             console.log('----------------  CANCEL');
                             console.log('----------------  CANCEL');
