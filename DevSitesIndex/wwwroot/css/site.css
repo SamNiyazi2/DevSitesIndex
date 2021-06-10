@@ -66,6 +66,7 @@ fieldset {
 
 
 
+
 /* 11/08/20190 07:40 am - SSN - Take out min-height and height */
 
 
@@ -593,6 +594,55 @@ alarm {
 
 menuPipe_101::after {
     content: ' |';
-    padding: 0 10px!important;
-   
+    padding: 0 10px !important;
 }
+
+
+
+
+.cssLineItemDisplay {
+    font-size: 13px;
+    padding: 5px;
+    background-color: #f0f9ff;
+}
+
+    .cssLineItemDisplay:empty {
+        visibility: collapse;
+    }
+
+.cssTimeLogDetail_p {
+    margin: 0px;
+    padding: 0px;
+    background-color: #f0f0f0;
+    max-width: 100%;
+    white-space: pre-wrap;
+    padding: 5px 20px;
+    max-height: 100px;
+    overflow-y: scroll;
+}
+
+    .cssTimeLogDetail_p:hover {
+        max-height: none;
+    }
+
+    .cssTimeLogDetail_p:empty {
+        visibility: collapse;
+    }
+
+.cssDropdownListDirectiveHelper {
+    max-height: 40px;
+    overflow-y: auto;
+    margin: 4px;
+    padding: 5px;
+    font-family:'Courier New';
+    font-size:12px;
+    background-color:#fff;
+    border:1px solid #ccc;
+    white-space:pre;
+
+    display:none;
+}
+
+    .cssDropdownListDirectiveHelper:hover {
+        max-height: none;
+    }

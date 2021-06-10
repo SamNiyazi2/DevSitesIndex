@@ -17,5 +17,8 @@ rem 11:08 AM 4/13/2021
 rem webpack --progress --color  --watch --display-error-details --info-verbosity  
 rem Installed 3.4.1 after messing up webpack from somewhere else.
 rem Take out --info-verbosity  
-webpack --progress --color  --watch --display-error-details 
 
+rem 06/07/2021 07:09 pm - SSN - Webpack doesn't seem to recognize erros
+@echo on
+
+webpack --progress --color  --watch --display-error-details 

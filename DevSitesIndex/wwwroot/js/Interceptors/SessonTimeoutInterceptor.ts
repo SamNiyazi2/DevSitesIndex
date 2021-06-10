@@ -7,6 +7,11 @@
 // https://code.angularjs.org/1.2.27/docs/api/ng/service/$http#interceptors
 
 
+const d = new Date();
+
+console.log(`sessionTimeoutInterceptor - top ${d.toLocaleTimeString()}`);
+
+
 console.log('sessionTimeoutInterceptor - top - 20191207-0410');
 
 let sessionTimeoutInterceptor_instance = function () {

@@ -159,15 +159,19 @@ namespace DevSitesIndex.Controllers
 
 
         // 09/30/2019 07:01 pm - SSN - Added
-        [Route("get_custom/{id}")]
+        // 06/08/2021 10:47 pm - SSN - [20210608-2247] - [001] - Test line item -  Prep for deployment
+        //[Route("get_custom/{id}")]
+        [Route("getJob/{id}")]
         //[HttpGet("get_custom/{id}")]
         [HttpGet]
-        public Job get_custom(int? id)
+        // public Job get_custom(int? id)
+        public Job getJob(int? id)
         {
 
             try
             {
-                return context.Jobs.Include(r => r.project).Where(r => r.JobID == id).FirstOrDefault();
+                // return context.Jobs.Include(r => r.project)..Where(r => r.JobID == id).FirstOrDefault();
+                return context.Jobs.Include(r => r.project).Include(r => r.job_Lineitems).Where(r => r.JobID == id).FirstOrDefault();
             }
             catch (Exception ex)
             {

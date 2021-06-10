@@ -57,6 +57,10 @@ namespace DevSitesIndex.Services
                 var timeLog = _context.TimeLog
                                             .Where(c => c.TimeLogId == timeLogId)
                                             .Include(r => r.discipline)
+
+                                            // 06/07/2021 06:35 pm - SSN - [20210606-0227] - [021] - Testng for deployment - Line item
+                                            .Include(r=>r.job_Lineitem)
+                                            
                                             .Include(r => r.job).ThenInclude(r => r.project)
                                             .FirstOrDefault();
 
@@ -75,6 +79,11 @@ namespace DevSitesIndex.Services
 
         public TimeLog Update(TimeLog timeLog)
         {
+            // 06/07/2021 06:36 am - SSN - [20210606-0227] - [017] - Testng for deployment
+            // Todo
+            // Copied from Job_LineItemRepository.  Keep in sync.
+
+
 
             // 04/20/2019 06:56 pm - SSN - Convert time passed by javaScript as Utc 
             timeLog.StartTime = timeLog.StartTime.ToLocalTime();
@@ -91,16 +100,21 @@ namespace DevSitesIndex.Services
             // Todo Todo Todo Todo Todo Todo Todo Todo 
             // Todo Todo Todo Todo Todo Todo Todo Todo 
             // Todo Todo Todo Todo Todo Todo Todo Todo
-            
+
 
 
             //////////////////if (timeLog.TimeLogId == 0)
             //////////////////{
 
-              timeLog.discipline = null;
+            timeLog.discipline = null;
 
             //////////////////    // We "include"d projects for displaying titles. We need to exclude them from inserts.
-             timeLog.job = null;
+            timeLog.job = null;
+
+
+            // 06/07/2021 11:40 pm - SSN - [20210606-0227] - [025] - Testng for deployment - Line item
+            timeLog.job_Lineitem = null;
+
 
             //////////////////    _context.TimeLog.Add(timeLog);
 

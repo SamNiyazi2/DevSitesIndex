@@ -72,21 +72,34 @@
     <Content Remove="Pages\Jobs\Index_partial.cshtml" />
     <Content Remove="wwwroot\js.zip" />
     <Content Remove="wwwroot\js\Interceptors\SessonTimeoutInterceptor.ts" />
+    <Content Remove="wwwroot\js\Interfaces\IJob_Lineitem.ts" />
+    <Content Remove="wwwroot\js\Interfaces\ITimelog.ts" />
     <Content Remove="wwwroot\js\Routing\Routing_Config.ts" />
     <Content Remove="wwwroot\js\Shared\SharedUtil.ts" />
     <Content Remove="wwwroot\js\TextArea_util_0718.ts" />
+    <Content Remove="wwwroot\js\Timesheet\LineItem\LineItemController.ts" />
     <Content Remove="wwwroot\js\Users\login.ts" />
     <Content Remove="wwwroot\js\Users\users_main.ts" />
+    <Content Remove="wwwroot\js\Util\autofocus\ssnAutoFocus.ts" />
+    <Content Remove="wwwroot\js\Util\Logger\ILoggerErrorMessage.ts" />
+    <Content Remove="wwwroot\js\Util\ssn_AngularJslogger.ts" />
   </ItemGroup>
   <ItemGroup>
     <None Include="wwwroot\js\__________________Hold4Delete\angular.js" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SSN_DevSites_DAL_Standard\SSN_DevSites_DAL_Standard.csproj" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="wwwroot\js\Interceptors\SessonTimeoutInterceptor.ts" />
+    <TypeScriptCompile Include="wwwroot\js\Interfaces\IJob_Lineitem.ts" />
+    <TypeScriptCompile Include="wwwroot\js\Interfaces\ITimelog.ts" />
     <TypeScriptCompile Include="wwwroot\js\Routing\Routing_Config.ts" />
     <TypeScriptCompile Include="wwwroot\js\Shared\SharedUtil.ts" />
+    <TypeScriptCompile Include="wwwroot\js\Timesheet\LineItem\LineItemController.ts" />
+    <TypeScriptCompile Include="wwwroot\js\Util\autofocus\ssnAutoFocus.ts" />
+    <TypeScriptCompile Include="wwwroot\js\Util\Logger\ILoggerErrorMessage.ts" />
+    <TypeScriptCompile Include="wwwroot\js\Util\Logger\ssn_AngularJslogger.ts" />
     <TypeScriptCompile Include="wwwroot\js\Util\TextArea_util_0718.ts" />
     <TypeScriptCompile Include="wwwroot\js\Users\login.ts" />
     <TypeScriptCompile Include="wwwroot\js\Users\users_main.ts" />

@@ -41,6 +41,8 @@ namespace DevSitesIndex.Pages
             job_Timesheet = _context.TimeLog.Where(r => r.JobId == id)
                                         .OrderByDescending(r2 => r2.StartTime)
                                         .Include(r => r.discipline)
+// 06/07/2021 03:46 pm - SSN - [20210606-0227] - [018] - Testng for deployment
+                                        .Include(r => r.job_Lineitem)
                                         .ToList();
 
             // 08/14/2019 05:02 am - SSN - [20190814-0433] - [004] - Add timesheet totals

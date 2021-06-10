@@ -91,9 +91,11 @@ var timesheetApp_instance = function () {
                     }
                 });
             }
-            $scope.showCreateTimesheetForm = function (jobID) {
-                if (isNaN(jobID)) {
-                    jobID = 0;
+            // 06/08/2021 11:01 pm - SSN - [20210608-2247] - [003] - Test line item -  Prep for deployment
+            // jobId to timelogId_v01
+            $scope.showCreateTimesheetForm = function (timelogId_v01) {
+                if (isNaN(timelogId_v01)) {
+                    timelogId_v01 = 0;
                 }
                 // 05/03/2019 04:10 pm - SSN - [20190503-1539] - [004] - Add link to create timelog
                 $uibModal.open({
@@ -102,8 +104,8 @@ var timesheetApp_instance = function () {
                     backdrop: 'static',
                     keyboard: false,
                     resolve: {
-                        jobId: function () {
-                            return jobID;
+                        timelogId_v01: function () {
+                            return timelogId_v01;
                         }
                     }
                 });

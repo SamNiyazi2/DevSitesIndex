@@ -22,7 +22,7 @@
 
 
         <input type="hidden" name="id" ng-model="editableTimeLog.id" />
-        <input type="hidden" name="timeLogId" ng-model="editableTimeLog.timeLogId" />
+        <input type="hidden" name="timeLogId" ng-model="editableTimeLog.timeLogId" /> 
 
         <fieldset>
 
@@ -32,14 +32,14 @@
             <div class="form-group">
 
                 <label for="lineItemID" class="col-sm-3 control-label">
-                    Line item 33
+                    Line item 333
                 </label>
 
                 <div class="col-sm-9">
-                     
-                    <input type="hidden" name="lineItemID" ng-model="editableTimeLog.lineItemID" ng-required="true" />
 
-                    <dropdown-list-directive key="lineItemID" form-name="timesheetForm" ng-model="editableTimeLog.lineItemID" parentkey="editableTimeLog.jobId" parent-key-name="editableTimeLog.jobId"></dropdown-list-directive>
+                    <input type="hidden" name="lineItemID" ng-model="editableTimeLog.lineItemID" ng-required="true" />
+                    <h4>containerViewValue [{{containerViewValue}}]</h4>
+                    <dropdown-list-directive call-source="20210607-1750" key="lineItemID" form-name="timesheetForm" ng-model="editableTimeLog.lineItemID" parentkey="editableTimeLog.jobId" parent-key-name="editableTimeLog.jobId" add-func="addNewLineItem(editableTimeLog.jobId, containerViewValue )" add-func-source="TimesheetTempaltexx1" container-view-value="containerViewValue" ></dropdown-list-directive>
 
                 </div>
             </div>
@@ -64,7 +64,7 @@
 
                     <input type="hidden" name="disciplineID" ng-model="editableTimeLog.disciplineID" ng-required="true" />
 
-                    <dropdown-list-directive key="disciplineID" form-name="timesheetForm" ng-model="editableTimeLog.disciplineID"></dropdown-list-directive>
+                    <dropdown-list-directive call-source="20210607-1751" key="disciplineID" form-name="timesheetForm" ng-model="editableTimeLog.disciplineID"></dropdown-list-directive>
 
                 </div>
             </div>
@@ -73,7 +73,7 @@
 
 
             <div class="form-group">
-                <label for="StartTime" class="col-sm-3 control-label">Start time</label>
+                <label for="StartTime" class="col-sm-3 control-label"  >Start time</label>
                 <div class="col-sm-9">
 
                     <input type="date" id="StartTime1" name="StartTime" class="form-control" ng-model="editableTimeLog.startTime" />
@@ -106,10 +106,17 @@
     </div>
 
 
- 
+
     <div class="modal-footer">
-         
+
+
         <div class="col-sm-offset-3 col-sm-9">
+            
+            
+            <h4> timesheetForm.$invalid  [{{timesheetForm.$invalid}}]  </h4>
+            <h4> disableSaveButton  [{{disableSaveButton}}]</h4>
+
+
             <input type="button" class="btn btn-default" value="Cancel" ng-click="cancelForm()" />
             <input type="button" class="btn btn-primary" value="Submit" ng-click="submitForm()" ng-disabled="timesheetForm.$invalid || disableSaveButton" />
 

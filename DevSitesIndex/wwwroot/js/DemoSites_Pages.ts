@@ -41,7 +41,7 @@ let DemoSites_Pages = function () {
 
 
 
-        AppInsights_Util.doSetup();
+        AppInsights_Util.doSetup("DemoSites_Pages");
 
 
         var ViewModel = function () {
@@ -68,7 +68,7 @@ let DemoSites_Pages = function () {
             this.saveAndStay = function () {
 
                 try {
-                    
+
 
                     if (this.fieldname_prefix === 'undefined') {
                         throw new Error('fieldname_prefix is undefined');
@@ -84,7 +84,7 @@ let DemoSites_Pages = function () {
 
 
                     var data101 = $('#' + this['inputformid']).serializeArray();
-                    
+
 
                     var ndx = 0;
 

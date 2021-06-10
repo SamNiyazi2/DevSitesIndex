@@ -10,7 +10,7 @@ demosites_index_p1_instance;
 import { AppInsights_Util } from './Util/ApplicationInsights_Monitor';
 // 11/23/2019 08:53 am - SSN 
 import { RestorePreviousPageState_instance } from './Util/RestorePreviousPageState';
-RestorePreviousPageState_instance.doSetup(ngApplicationName);
-AppInsights_Util.doSetup();
+RestorePreviousPageState_instance.doSetup(ngApplicationName, "DemoSites_index_main_20210606_1731");
+AppInsights_Util.doSetup("DemoSies_index_main");
 AppInsights_Util.logEvent("DemoSites_Index_Main", { SourceCode: "20191001-1132-C2", Message: "Loading DemoSites_Index_Main" });
 //# sourceMappingURL=DemoSites_Index_main.js.map

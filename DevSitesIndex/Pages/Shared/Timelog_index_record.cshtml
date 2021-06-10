@@ -26,6 +26,17 @@
         {
             <td>
                 @Html.DisplayFor(modelItem => Model.timelog.job.JobTitle)
+                <p class="cssLineItemDisplay">@Html.DisplayFor(modelItem => Model.timelog.job_Lineitem.LineItem)</p>
+            </td>
+        }
+    }
+
+
+    @{
+        if (Model.servingPage == ServingPage.Job_Timelog)
+        {
+            <td> 
+                <p class="cssLineItemDisplay">@Html.DisplayFor(modelItem => Model.timelog.job_Lineitem.LineItem)</p>
             </td>
         }
     }
@@ -88,8 +99,8 @@
         <td colspan="2"></td>
         @*06/01/2019 02:59 pm - SSN - Added class codeblock2*@
         @* 11/08/2019 07:53 am - SSN - Replaced codeblock2 with workDetail *@
-        <td colspan="5" class="workDetail">
-            @Html.DisplayFor(modelItem => Model.timelog.WorkDetail)
+        <td colspan="5" >
+            <p class="cssTimeLogDetail_p">@Html.DisplayFor(modelItem => Model.timelog.WorkDetail)</p>
         </td>
 
     </tr>

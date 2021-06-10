@@ -16,7 +16,7 @@ var DemoSites_Pages = function () {
     // 11/18/2019 01:26 pm - SSN - [20191118-1316]  Revised
     // Added
     var doSetup = function () {
-        AppInsights_Util.doSetup();
+        AppInsights_Util.doSetup("DemoSites_Pages");
         var ViewModel = function () {
             var _this = this;
             var definitions = document.querySelectorAll("[ko_demosites_pages]");

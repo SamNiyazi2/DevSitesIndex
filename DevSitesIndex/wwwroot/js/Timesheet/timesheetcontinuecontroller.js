@@ -7,13 +7,12 @@ var ngApplicationName = "timesheetApp";
 var timesheetContinueController_instance = function () {
     var timesheetApp = ssn_globals.globals_instance.getInstance_v002('TimesheetContinueController', ngApplicationName);
     // 11/14/2019 03:07 pm - SSN - [20191114-1459] - [002] - ChangeMonitroService
-    console.log('Adding ChangeMonitorService');
     timesheetApp.controller('TimesheetContinueController', ['$scope', '$uibModalInstance', '$http', '$q', 'dataService', '$timeout', 'timelogId', 'changeMonitorService',
         function ($scope, $uibModalInstance, $http, $q, dataService, $timeout, timelogId, changeMonitorService) {
             changeMonitorService.setupMonitor();
             dataService.getTimelog(timelogId).then(getTimelogSuccess, getTimelogError)
                 .catch(getTimelogCatch);
-            $scope.pageTitle = "Continue / Line Item";
+            $scope.pageTitle = "Continue / Line Item - 888-V2";
             // 12/29/2019 11:17 pm - SSN - Adding disableSaveButton 
             $scope.disableSaveButton = false;
             // 09/28/2019 03:59 pm - SSN - [20190928-1256] - [010] - Adding Entity Framework model attribute
@@ -117,28 +116,29 @@ var timesheetContinueController_instance = function () {
                 }
                 $uibModalInstance.dismiss(false); //same as cancel???
             };
-            $scope.getDisciplines = function (lookupValue) {
-                if (lookupValue === null)
-                    lookupValue = "";
-                var deferred = $q.defer();
-                $http({
-                    method: 'GET',
-                    url: 'api/DisciplineAPI'
-                }).then(typeaheadDisciplineSuccess, typeaheadDisciplineError);
-                return deferred.promise;
-                function typeaheadDisciplineSuccess(response) {
-                    var addresses = [];
-                    angular.forEach(response.data, function (item) {
-                        if (item.disciplineShort.toLowerCase().indexOf(lookupValue.toLowerCase()) > -1) {
-                            addresses.push({ id: item.disciplineId, title: item.disciplineShort });
-                        }
-                    });
-                    deferred.resolve(addresses);
-                }
-                function typeaheadDisciplineError(response) {
-                    deferred.reject(response);
-                }
-            };
+            //$scope.getDisciplines = function (lookupValue) {
+            //    if (lookupValue === null) lookupValue = "";
+            //    var deferred = $q.defer();
+            //    $http({
+            //        method: 'GET',
+            //        url: 'api/DisciplineAPI'
+            //    }).then(typeaheadDisciplineSuccess, typeaheadDisciplineError);
+            //    return deferred.promise;
+            //    function typeaheadDisciplineSuccess(response) {
+            //        var addresses = [];
+            //        angular.forEach(response.data,
+            //            function (item) {
+            //                if (item.disciplineShort.toLowerCase().indexOf(lookupValue.toLowerCase()) > -1) {
+            //                    addresses.push({ id: item.disciplineId, title: item.disciplineShort });
+            //                }
+            //            }
+            //        );
+            //        deferred.resolve(addresses);
+            //    }
+            //    function typeaheadDisciplineError(response) {
+            //        deferred.reject(response);
+            //    }
+            //};
         }]);
     return {
         timesheetApp: timesheetApp

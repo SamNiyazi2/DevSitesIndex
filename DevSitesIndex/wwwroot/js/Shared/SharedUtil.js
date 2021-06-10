@@ -5,7 +5,7 @@ import { dataService_instance } from '../DataServices';
 import sessionTimeoutInterceptor from '../Interceptors/SessonTimeoutInterceptor';
 var ngApplicationName = 'timesheetApp';
 function LoadAll() {
-    RestorePreviousPageState_instance.doSetup(ngApplicationName);
+    RestorePreviousPageState_instance.doSetup(ngApplicationName, "SharedUtil_20210606_1732");
     changeMonitorService_instance.doSetup(ngApplicationName);
     dataService_instance.doSetup(ngApplicationName);
     sessionTimeoutInterceptor.doSetup(ngApplicationName);

@@ -10,12 +10,11 @@
 
 import { environment } from '../environment';
 import { AppInsights } from 'applicationinsights-js';
-
-
+ 
 
 var AppInsights_Util = function () {
 
-    
+    var self = {callSource:'NotSet-202106062228'};
 
     var config = {
 
@@ -29,7 +28,9 @@ var AppInsights_Util = function () {
     }
 
 
-    var doSetup = function () {
+    var doSetup = function (callSource:string) {
+
+        self.callSource = callSource;
 
         if (!AppInsights.config) {
 
@@ -37,9 +38,9 @@ var AppInsights_Util = function () {
 
             // 10/11/2019 04:54 pm - SSN - Added check
             if (haveInstrumentationKey()) {
-                
+                 
                 AppInsights.downloadAndSetup(config);
-            } 
+            }  
         }
 
 
@@ -68,6 +69,13 @@ var AppInsights_Util = function () {
     var logPageView = function (name?: string, url?: string, properties?: any, measurements?: any, duration?: number) {
 
         // 10/1/2019 03:45 am - SSN 
+        console.log('ApplicationInsights  - logPageView - 20210606-2223', 'color:yellow');
+        console.log(properties);
+        console.log('---------------------');
+
+        const newProps = { callSource_aim: self.callSource, ...properties };
+        console.log(newProps );
+        console.log('===================');
 
         AppInsights.trackPageView(name, url, properties);//, measurements, duration);
 

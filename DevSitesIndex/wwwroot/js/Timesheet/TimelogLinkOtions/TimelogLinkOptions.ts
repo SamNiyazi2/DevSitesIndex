@@ -44,7 +44,7 @@ var TimelogLinkOptions = function () {
                     // Add servingPage
 
                     $scope.timesheetForm_Edit = function (timelogId, servingPage: Timelog_ServingPage) {
-                        
+
 
                         let modalEdit = $uibModal.open({
 
@@ -171,10 +171,10 @@ var TimelogLinkOptions = function () {
 
                         let TimesheetContinueController_modal = $uibModal.open({
 
-                           // animation: 'slide-in-up',
+                            // animation: 'slide-in-up',
                             templateUrl: '/js/timesheet/templates//timesheetTemplate.html', //?v=' + $scope.versionForHTMLRefresh,
                             controller: 'TimesheetContinueController',
-                          //  windowClass: 'ssn-mobile-modal',
+                            //  windowClass: 'ssn-mobile-modal',
 
                             backdrop: 'static',
                             keyboard: false,
@@ -191,7 +191,7 @@ var TimelogLinkOptions = function () {
                         });
 
 
-                         
+
 
                         // 11/14/2019 02:44 pm - SSN - [20191114-1459] - [007] - ChangeMonitroService
 
@@ -204,7 +204,7 @@ var TimelogLinkOptions = function () {
                         }
 
                         function TimesheetContinueController_modal_cancel(result) {
-                            
+
                             changeMonitorService.reset();
 
                         }
@@ -230,7 +230,12 @@ var TimelogLinkOptions = function () {
                     // 09/28/2019 04:06 pm - SSN - [20190928-1256] - [011] - Adding Entity Framework model attribute
                     // Duplicate - Wrong way to go!
 
-                    $scope.showCreateTimesheetForm = function (jobID) {
+
+                    // 06/08/2021 11:01 pm - SSN - [20210608-2247] - [004] - Test line item -  Prep for deployment
+
+                    // jobId to timelogId_v01
+
+                    $scope.showCreateTimesheetForm = function (timelogId_v01) {
 
 
 
@@ -239,11 +244,17 @@ var TimelogLinkOptions = function () {
                             controller: 'TimesheetController',
 
 
-                            backdrop: false,
+
+                            // 06/08/2021 03:56 pm - SSN - [20210606-0227] - [037] - Testng for deployment - Line item
+                            // backdrop: false,
+
+                            backdrop: 'static',
+                            keyboard: false,
+
 
                             resolve: {
-                                jobId: function () {
-                                    return jobID;
+                                timelogId_v01: function () {
+                                    return timelogId_v01;
                                 }
                             }
                         });
@@ -254,6 +265,32 @@ var TimelogLinkOptions = function () {
 
 
 
+
+
+                    $scope.showCreateTimesheetFormWithJobId = function (jobId) {
+
+
+                        if (isNaN(jobId)) {
+                            jobId = 0;
+                        }
+
+                        $uibModal.open({
+
+                            templateUrl: '/js/timesheet/templates/timesheetTemplate.html',
+                            controller: 'TimesheetCreateController',
+
+                            backdrop: 'static',
+                            keyboard: false,
+
+                            resolve: {
+                                jobId: function () {
+                                    return jobId;
+                                }
+                            }
+                        });
+
+
+                    }
 
 
 

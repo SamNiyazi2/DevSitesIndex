@@ -5,12 +5,14 @@
 
 <div>
 
-    <p>
-        <a href="/jobs/Create?id={{projectId}}" >Create New Job</a>
-    </p>
 
 
     <div ng-controller="jobsIndexController">
+        <h4>projectId [{{projectId}}]  20210609-1702</h4>
+        <p>
+            <a  ng-show="projectId" href="/jobs/Create?id={{projectId}}">Create New Job</a>
+        </p>
+
 
 
         <div ng-if="hasErrors" ng-class="feedbackToUserClassNameSet()" ng-bind-html="errorMessages">

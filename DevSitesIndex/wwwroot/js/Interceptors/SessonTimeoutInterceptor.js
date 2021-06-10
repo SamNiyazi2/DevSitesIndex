@@ -1,6 +1,8 @@
 import { globals_instance } from "../globals";
 // 12/07/2019 03:53 am - SSN - [20191207-0353] - [001] - SessionTimeoutInterceptor
 // https://code.angularjs.org/1.2.27/docs/api/ng/service/$http#interceptors
+var d = new Date();
+console.log("sessionTimeoutInterceptor - top " + d.toLocaleTimeString());
 console.log('sessionTimeoutInterceptor - top - 20191207-0410');
 var sessionTimeoutInterceptor_instance = function () {
     var doSetup = function (currentApplication) {

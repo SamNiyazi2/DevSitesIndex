@@ -188,19 +188,23 @@ namespace DevSitesIndex.Util
                 referrer = referrer_From_ReturnToCallerList;
             }
             else
-            {
-
+            { 
+             
                 referrer = request.Headers["Referer"].ToString();
                 // 01/06/2019 07:52 am - SSN - Comment out.
                 //logger.PostException(new Exception("DemoSites-20191111-1129 - DemoSites to JobIndex Debug"), "20191111-1129-A-2", "(1 of 2) Debugging returnign form Job index to demosites.");
                 //logger.PostException(new Exception("DemoSites-20191111-1129 - DemoSites to JobIndex Debug"), "20191111-1129-B-2", $"(2 of 2) Debugging returnign form Job index to demosites. [{searchText_SSN}] [{referrer_From_ReturnToCallerList}]");
 
-                if (request.Host.Port.HasValue)
-                {
-                    string host = string.Format("{0}://{1}:{2}", request.Scheme, request.Host.Host, request.Host.Port);
-                    logger.PostException(new Exception("DemoSites-20191111-1130 - DemoSites to JobIndex Debug - host"), "20191111-1130", "Debugging returnign form Job index to demosites. (host)");
-                    referrer = referrer.Replace(host, "");
-                }
+
+                // 06/08/2021 03:19 pm - SSN - [20210606-0227] - [034] - Testng for deployment - Line item
+                // Turn off.  Todo
+
+                //if (request.Host.Port.HasValue)
+                //{
+                //    string host = string.Format("{0}://{1}:{2}", request.Scheme, request.Host.Host, request.Host.Port);
+                //    logger.PostException(new Exception("DemoSites-20191111-1130 - DemoSites to JobIndex Debug - host"), "20191111-1130", $"Debugging returning form Job index to demosites. ({host})");
+                //    referrer = referrer.Replace(host, "");
+                //}
             }
 
 

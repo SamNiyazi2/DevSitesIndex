@@ -20,8 +20,6 @@ var timesheetContinueController_instance = function () {
 
     // 11/14/2019 03:07 pm - SSN - [20191114-1459] - [002] - ChangeMonitroService
 
-    console.log('Adding ChangeMonitorService');
-
     timesheetApp.controller('TimesheetContinueController', ['$scope', '$uibModalInstance', '$http', '$q', 'dataService', '$timeout', 'timelogId', 'changeMonitorService',
 
 
@@ -37,7 +35,7 @@ var timesheetContinueController_instance = function () {
 
 
 
-            $scope.pageTitle = "Continue / Line Item";
+            $scope.pageTitle = "Continue / Line Item - 888-V2";
 
             // 12/29/2019 11:17 pm - SSN - Adding disableSaveButton 
             $scope.disableSaveButton = false;
@@ -214,43 +212,43 @@ var timesheetContinueController_instance = function () {
 
 
 
-            $scope.getDisciplines = function (lookupValue) {
+            //$scope.getDisciplines = function (lookupValue) {
 
-                if (lookupValue === null) lookupValue = "";
+            //    if (lookupValue === null) lookupValue = "";
 
-                var deferred = $q.defer();
+            //    var deferred = $q.defer();
 
-                $http({
-                    method: 'GET',
-                    url: 'api/DisciplineAPI'
+            //    $http({
+            //        method: 'GET',
+            //        url: 'api/DisciplineAPI'
 
-                }).then(typeaheadDisciplineSuccess, typeaheadDisciplineError);
+            //    }).then(typeaheadDisciplineSuccess, typeaheadDisciplineError);
 
-                return deferred.promise;
+            //    return deferred.promise;
 
-                function typeaheadDisciplineSuccess(response) {
+            //    function typeaheadDisciplineSuccess(response) {
 
-                    var addresses = [];
+            //        var addresses = [];
 
-                    angular.forEach(response.data,
-                        function (item) {
+            //        angular.forEach(response.data,
+            //            function (item) {
 
-                            if (item.disciplineShort.toLowerCase().indexOf(lookupValue.toLowerCase()) > -1) {
-                                addresses.push({ id: item.disciplineId, title: item.disciplineShort });
-                            }
-                        }
-                    );
+            //                if (item.disciplineShort.toLowerCase().indexOf(lookupValue.toLowerCase()) > -1) {
+            //                    addresses.push({ id: item.disciplineId, title: item.disciplineShort });
+            //                }
+            //            }
+            //        );
 
-                    deferred.resolve(addresses);
+            //        deferred.resolve(addresses);
 
-                }
+            //    }
 
-                function typeaheadDisciplineError(response) {
+            //    function typeaheadDisciplineError(response) {
 
-                    deferred.reject(response);
-                }
+            //        deferred.reject(response);
+            //    }
 
-            };
+            //};
 
 
 

@@ -101,14 +101,35 @@ var TimelogLinkOptions = function () {
                             // 11/27/2019 08:45 am - SSN - Copied from JobIndexController.ts 
                             // 09/28/2019 04:06 pm - SSN - [20190928-1256] - [011] - Adding Entity Framework model attribute
                             // Duplicate - Wrong way to go!
-                            $scope.showCreateTimesheetForm = function (jobID) {
+                            // 06/08/2021 11:01 pm - SSN - [20210608-2247] - [004] - Test line item -  Prep for deployment
+                            // jobId to timelogId_v01
+                            $scope.showCreateTimesheetForm = function (timelogId_v01) {
                                 $uibModal.open({
                                     templateUrl: '/js/timesheet/templates/timesheetTemplate.html',
                                     controller: 'TimesheetController',
-                                    backdrop: false,
+                                    // 06/08/2021 03:56 pm - SSN - [20210606-0227] - [037] - Testng for deployment - Line item
+                                    // backdrop: false,
+                                    backdrop: 'static',
+                                    keyboard: false,
+                                    resolve: {
+                                        timelogId_v01: function () {
+                                            return timelogId_v01;
+                                        }
+                                    }
+                                });
+                            };
+                            $scope.showCreateTimesheetFormWithJobId = function (jobId) {
+                                if (isNaN(jobId)) {
+                                    jobId = 0;
+                                }
+                                $uibModal.open({
+                                    templateUrl: '/js/timesheet/templates/timesheetTemplate.html',
+                                    controller: 'TimesheetCreateController',
+                                    backdrop: 'static',
+                                    keyboard: false,
                                     resolve: {
                                         jobId: function () {
-                                            return jobID;
+                                            return jobId;
                                         }
                                     }
                                 });

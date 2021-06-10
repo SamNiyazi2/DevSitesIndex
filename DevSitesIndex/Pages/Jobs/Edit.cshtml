@@ -13,7 +13,13 @@
 
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    @*
+        // 06/08/2021 03:45 pm - SSN - [20210606-0227] - [035] - Testng for deployment - Line item
+        // Update with changes applied to crate
+    *@
+
+
+    <div class="col-md-4" ng-controller="utilityController" form-name="jobCreateForm">
         @*
             // 09/24/2019 12:51 pm - SSN - [20190924-1134] - [014] - Removing date add/updated from create/edit pages
         *@
@@ -70,7 +76,8 @@
             <div class="form-group">
                 <label asp-for="Job.ProjectID" class="control-label"></label>
                 <input asp-for="Job.ProjectID" type="hidden" />
-                <dropdown-list-directive key="Job.ProjectID" form-name="jobEditForm" autofocus="true"></dropdown-list-directive>
+                <dropdown-list-directive call-source="20210607-1753" key="Job.ProjectID" form-name="jobEditForm" hidden-field-name="Job.ProjectID" ng-model="jobRecord.ProjectID" autofocus="true"></dropdown-list-directive>
+
             </div>
 
 
@@ -113,7 +120,7 @@
     @await Html.PartialAsync("ReturnToCallerLink", Model.returnToCaller)
 
 </div>
-  
+
 
 @section Scripts {
 
@@ -127,4 +134,27 @@
             <script src="~/webpack_build/bundle_jobsIndex.js" asp-append-version="true"></script>
         }
     }
+
+
+    @*// 06/08/2021 03:48 pm - SSN - [20210606-0227] - [036] - Testng for deployment - Line item*@
+
+<script>
+
+    angular.module('timesheetApp')
+    .controller('utilityController', ['$scope', function ($scope) {
+
+
+    $scope.jobRecord  =  @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Job, formatting: Newtonsoft.Json.Formatting.Indented, new Newtonsoft.Json.JsonSerializerSettings
+{
+ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+}));
+
+
+
+    }]);
+
+    </script>
+
 }
+
+

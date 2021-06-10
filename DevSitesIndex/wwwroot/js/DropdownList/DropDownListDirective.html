@@ -1,4 +1,30 @@
-﻿  
+<div class="cssDropdownListDirectiveHelper">
+    keyColumn [{{ vm101.keyColumn           }}] : "@key",
+    parentKeyColumn [{{ vm101.parentKeyColumn     }}] : "=parentkey",
+    parentKeyName [{{ vm101.parentKeyName       }}] : parentKeyName: "@",
+    hiddenFieldName [{{ vm101.hiddenFieldName     }}] : hiddenFieldName: "@",
+    elementName [{{ vm101.elementName         }}] : elementName: "@name",
+    containerViewValue [{{ vm101.containerViewValue  }}] : containerViewValue: "=?",
+
+
+    <h4>ngModel [{{vm101.ngModel}}]</h4>
+    <h4>keyColumn [{{vm101.keyColumn}}]</h4>
+
+
+
+    <h4>
+        vm101.isValidBoolean [{{vm101.isValidBoolean}}]
+    </h4>
+    <h4>
+        vm101.isReady [{{vm101.isReady}}]
+    </h4>
+
+
+
+</div>
+
+
+
 <input type="text"
        ng-model="vm101.disciplineSelected_XXX"
        ng-change="vm101.changing()"
@@ -7,31 +33,27 @@
        typeahead-loading="loadingLocations"
        typeahead-no-results="noResults"
        class="form-control"
-       ng-required="true"
-       blacklist="aaa,coconuts,bananas,pears"
-       name="{{vm101.elementName}}">
+       dropdown-list-directive-input-box="aaa,coconuts,bananas,pears"
+       name="{{vm101.keyColumn}}">
 
- 
+<!--name="{{vm101.tempControlName}}"-->
+
 <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
 
-
 <div ng-show="noResults">
-    <i class="glyphicon glyphicon-remove"></i> No Results Found
+    <i class="glyphicon glyphicon-remove"></i> No Results Found &nbsp; &nbsp; &nbsp; <a ng-show="{{null!=vm101.addFuncSource}}" ng-click="vm101.addFunc()">Add new item</a>
 </div>
 
 
-<p class="has-error" ng-show="vm101.disciplineSelected_XXX.$error.required">Selection is required (22)</p>
+
+<p class="has-error" ng-show="required">Selection is required (22)</p>
 
 
 <span class="has-error" ng-show="vm101.errorTriggered(vm101.blackListErrorName)">
     The input "{{ vm101.disciplineSelected_XXX }}" is invalid
 </span>
 
+<p class="has-error" ng-hide="vm101.isValidBoolean || !vm101.isReady">Selection is required</p>
 
-
-<ng-content ng-if="vm101.isReady">
-    <p class="has-error" ng-show="!vm101.isValidBoolean">Selection is required (1)</p>
-    <p class="has-error" ng-show="vm101.isInvalidDropdownListDirectiveInput">Selection is required (3)</p>
-</ng-content>
 
 

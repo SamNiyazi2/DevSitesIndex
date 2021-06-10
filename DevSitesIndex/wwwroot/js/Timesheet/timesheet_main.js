@@ -29,12 +29,14 @@ PageUpdater_Instance.doSetup(ngApplicationName);
 ////////////////////////////////////////dropdownListDirective_instance.doSetup(null); // Original entry for timelog edit
 ////////////////////////////////////////dropdownListDirective_instance.doSetup(null); // Original entry for timelog edit
 dropdownListDirective_instance.doSetup(ngApplicationName);
+// 06/07/2021 05:00 pm - SSN - [20210606-0227] - [019] - Testng for deployment - Line item
+import { ssn_AngularJslogger } from '../Util/Logger/ssn_AngularJslogger';
+ssn_AngularJslogger.doSetup("timesheet_main", ngApplicationName);
 dataService_instance.doSetup(ngApplicationName);
 // 11/23/2019 08:56 am - SSN
-RestorePreviousPageState_instance.doSetup(ngApplicationName);
+RestorePreviousPageState_instance.doSetup(ngApplicationName, "timesheet_main_20210606_1731");
 // 10/01/2019 11:09 am - SSN - [20191001-0944] - [007] - Adding Application Insights for JavaScript
-console.log("Timesheet_main - 20191001-1110");
-AppInsights_Util.doSetup();
+AppInsights_Util.doSetup("timesheet_main");
 AppInsights_Util.logEvent("Timesheet_main", { SourceCode: "20191001-1112-C", Message: "Loading timesheet_main" });
 AppInsights_Util.logEvent(document.location.hostname, { SourceCode: "20191105-0503", Message: "Loading timesheet_main" });
 // 11/25/2019 05:34 pm - SSN - [20191125-1414] - [011] - Project jobs - filter 

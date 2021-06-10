@@ -21,7 +21,7 @@ var dataService_instance = function () {
                 var _getTimelog = function (id) {
                     var deferred = $q.defer();
                     // 09/24/2019 07:15 am - SSN - [20190924-0401] - [009] - Quick timelog entry
-                    $http.get('/api/timelogapi/get_custom/' + id)
+                    $http.get('/api/timelogapi/getTimelog/' + id)
                         .then(function (result) {
                         deferred.resolve(result.data);
                     }, function (errorMessage) {
@@ -111,7 +111,9 @@ var dataService_instance = function () {
                 // 09/30/2019 07:06 pm - SSN - Adding
                 var _getJob = function (id) {
                     var deferred = $q.defer();
-                    $http.get('/api/jobapi/get_custom/' + id)
+                    // 06/08/2021 10:52 pm - SSN - [20210608-2247] - [002] - Test line item -  Prep for deployment
+                    // $http.get('/api/jobapi/get_custom/' + id)
+                    $http.get('/api/jobapi/getJob/' + id)
                         .then(function (result) {
                         deferred.resolve(result.data);
                     }, function (errorMessage) {
@@ -142,6 +144,17 @@ var dataService_instance = function () {
                     });
                     return deferred.promise;
                 };
+                // 06/07/2021 06:22 am - SSN - [20210606-0227] - [015] - Testng for deployment
+                var addOrUpdateJob_LineItem = function (job_LineItem) {
+                    var deferred = $q.defer();
+                    $http.post('/api/job_lineItemAPI', job_LineItem)
+                        .then(function (result) {
+                        deferred.resolve(result.data);
+                    }, function (error) {
+                        deferred.reject(error);
+                    });
+                    return deferred.promise;
+                };
                 return {
                     devSites: ko.observable(_devSites),
                     getDevSites: _getDevSites,
@@ -155,7 +168,8 @@ var dataService_instance = function () {
                     getJob_Statuses: _getJob_Statuses,
                     getJob: _getJob,
                     timelogRefreshRecord: _TimelogRefreshRecord,
-                    projectsSearchRefreshRecord: _ProjectsSearchRefreshRecord
+                    projectsSearchRefreshRecord: _ProjectsSearchRefreshRecord,
+                    addOrUpdateJob_LineItem: addOrUpdateJob_LineItem
                 };
             }]);
     };

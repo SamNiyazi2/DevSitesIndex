@@ -16,7 +16,7 @@
 
 <hr />
 <div class="row">
-    <div class="col-md-4" ng-controller="utilityController">
+    <div class="col-md-4" ng-controller="utilityController"  form-name="jobCreateForm" >  
 
         @*
 
@@ -48,18 +48,21 @@
 
             *@
 
-
+          
             <div class="form-group">
+               
                 <label asp-for="Job.ProjectID" class="control-label"></label>
                 <input asp-for="Job.ProjectID" type="hidden" />
-                <dropdown-list-directive key="Job.ProjectID" form-name="jobCreateForm" autofocus="true"></dropdown-list-directive>
+              
+                <dropdown-list-directive call-source="20210607-1752" key="Job.ProjectID" form-name="jobCreateForm" hidden-field-name="Job.ProjectID" ng-model="jobRecord.ProjectID" ></dropdown-list-directive>
+
             </div>
 
 
 
             <div class="form-group">
                 <label asp-for="Job.JobTitle" class="control-label"></label>
-                <input asp-for="Job.JobTitle" class="form-control" />
+                <input asp-for="Job.JobTitle" class="form-control" autofocus />
                 <span asp-validation-for="Job.JobTitle" class="text-danger"></span>
             </div>
 
@@ -74,7 +77,7 @@
             <div class="form-group">
                 <label asp-for="Job.Job_StatusID" class="control-label"></label>
 
-                <select asp-for="Job.Job_StatusID" class="form-control" asp-items="Model.job_statusSL"  >
+                <select asp-for="Job.Job_StatusID" class="form-control" asp-items="Model.job_statusSL">
                     <option></option>
                 </select>
 
@@ -109,4 +112,36 @@
             <script src="~/webpack_build/bundle_jobsIndex.js" asp-append-version="true"></script>
         }
     }
+
+
+
+
+    @{await Html.RenderPartialAsync("TimesheetAngularScripts");}
+
+
+
+    <script>
+
+
+
+    angular.module('timesheetApp')
+    .controller('utilityController', ['$scope', function ($scope) {
+
+
+    $scope.jobRecord  =  @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Job, formatting: Newtonsoft.Json.Formatting.Indented, new Newtonsoft.Json.JsonSerializerSettings
+{
+ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+}));
+
+
+
+
+
+
+
+
+    }]);
+ 
+    </script>
+
 }

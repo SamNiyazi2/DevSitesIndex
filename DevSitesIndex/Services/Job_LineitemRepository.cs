@@ -40,20 +40,37 @@ namespace DevSitesIndex.Services
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            if (context != null)
+            {
+                context.Dispose();
+            }
         }
 
 
 
 
         public void Save()
-        {
-            throw new NotImplementedException();
+        { 
+            context.SaveChanges();
         }
 
-        public Job_Lineitem Update(Job_Lineitem dbSet)
+        public Job_Lineitem Update(Job_Lineitem job_LineItem)
         {
-            throw new NotImplementedException();
+            // Copied from TimeLogRepository.  Keep in sync.
+
+            job_LineItem.job = null;
+
+ 
+            if (job_LineItem.LineItemId == 0)
+            {
+                context.Job_Lineitems.Add(job_LineItem);
+            }
+            else
+            {
+                context.Attach(job_LineItem).State = EntityState.Modified;
+            }
+
+            return job_LineItem;
         }
     }
 }
