@@ -49,128 +49,132 @@
 
 </div>
 
-<div ng-controller="utilityController" >
+<div ng-controller="ModalCallSUtilController">
 
-    <div class="col-md-4" ng-controller="utilityController_local">
+    <div ng-controller="utilityController">
 
-        @*form-name="timesheetForm"*@
+        <div class="col-md-4" ng-controller="utilityController_local">
 
-
-        <form method="post" name="timesheetForm" ng-submit="submitForm_1($event,timesheetForm)" action="" novalidate>
-
-            @Html.AntiForgeryToken()
-            <input type="hidden" asp-for="TimeLog.TimeLogId" />
-            <input type="hidden" asp-for="TimeLog.RowVersion" />
-            <input type="hidden" asp-for="TimeLog.DateAdded" />
-
-            @*// 09/21/2019 11:08 am - SSN - Added include job and project to display titles on form.*@
+            @*form-name="timesheetForm"*@
 
 
-            <dt>
-                @Html.DisplayNameFor(model => model.TimeLog.job.project)
-            </dt>
-            <dd>
-                <a asp-page="/projects/Details" asp-route-id="@Model.TimeLog.job.ProjectID">
-                    @Html.DisplayFor(model => model.TimeLog.job.project.ProjectTitle)
-                </a>
-            </dd>
+            <form method="post" name="timesheetForm" ng-submit="submitForm_1($event,timesheetForm)" action="" novalidate>
 
-            <hr />
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="TimeLog.TimeLogId" />
+                <input type="hidden" asp-for="TimeLog.RowVersion" />
+                <input type="hidden" asp-for="TimeLog.DateAdded" />
+
+                @*// 09/21/2019 11:08 am - SSN - Added include job and project to display titles on form.*@
 
 
+                <dt>
+                    @Html.DisplayNameFor(model => model.TimeLog.job.project)
+                </dt>
+                <dd>
+                    <a asp-page="/projects/Details" asp-route-id="@Model.TimeLog.job.ProjectID">
+                        @Html.DisplayFor(model => model.TimeLog.job.project.ProjectTitle)
+                    </a>
+                </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.TimeLog.DateAdded)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.TimeLog.DateAdded)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.TimeLog.DateModified)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.TimeLog.DateModified)
-            </dd>
-
-
-            <hr />
-
-
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <hr />
 
 
 
-            <div class="form-group">
-                <label asp-for="TimeLog.JobId" class="control-label"></label>
-                <input asp-for="TimeLog.JobId" type="hidden" />
-
-                <dropdown-list-directive call-source="20210607-1754" key="TimeLog.JobId" form-name="timesheetForm" hidden-field-name="TimeLog.JobId" ng-model="timeLogRecord.JobId" parentkey="timeLog.job.projectID" parent-key-name="TimeLog.ProjectId"></dropdown-list-directive>
-            </div>
-
-
-
-            <div class="form-group">
-
-                <label asp-for="TimeLog.LineItemID" class="control-label"></label>
-                <input asp-for="TimeLog.LineItemID" type="hidden" />
-
-
-                <dropdown-list-directive call-source="20210607-1755" key="TimeLog.LineItemID" form-name="timesheetForm" hidden-field-name="TimeLog.LineItemID" ng-model="timeLogRecord.LineItemID" parentkey="timeLogRecord.JobId" parent-key-name="TimeLog.JobId"></dropdown-list-directive>
-            </div>
+                <dt>
+                    @Html.DisplayNameFor(model => model.TimeLog.DateAdded)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.TimeLog.DateAdded)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.TimeLog.DateModified)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.TimeLog.DateModified)
+                </dd>
 
 
-
-            <div class="form-group">
-
-                <label asp-for="TimeLog.DisciplineID" class="control-label"></label>
-                <input asp-for="TimeLog.DisciplineID" type="hidden" />
+                <hr />
 
 
-                <dropdown-list-directive call-source="20210607-1756" key="TimeLog.DisciplineID" form-name="timesheetForm" hidden-field-name="TimeLog.DisciplineID" ng-model="timeLogRecord.DisciplineID"></dropdown-list-directive>
-            </div>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
 
 
+                <div class="form-group">
+                    <label asp-for="TimeLog.JobId" class="control-label"></label>
+                    <input asp-for="TimeLog.JobId" type="hidden" />
 
-            <div class="form-group">
-                <label asp-for="TimeLog.StartTime" class="control-label"></label>
-
-                &nbsp; <a cmd-name="set-default-time" jQueryObjectName="#TimeLog_StartTime">Now</a>
-
-                <input asp-for="TimeLog.StartTime" class="form-control" />
-
-                <span asp-validation-for="TimeLog.StartTime" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="TimeLog.TotalSeconds" class="control-label"></label>
-
-                &nbsp; <a cmd-name="set-TotalPeriod" jQueryObjectName="#TimeLog_StartTime" jQueryObjectName2="#TimeLog_TotalSeconds">Now</a>
-
-                <input asp-for="TimeLog.TotalSeconds" class="form-control" />
-
-                <span asp-validation-for="TimeLog.TotalSeconds" class="text-danger"></span>
-            </div>
+                    <dropdown-list-directive call-source="20210607-1754" key="TimeLog.JobId" form-name="timesheetForm" hidden-field-name="TimeLog.JobId" ng-model="timeLogRecord.JobId" parentkey="timeLog.job.projectID" parent-key-name="TimeLog.ProjectId"></dropdown-list-directive>
+                </div>
 
 
-            <div class="form-group">
-                <label asp-for="TimeLog.WorkDetail" class="control-label"></label>
 
-                <textarea cols="40" rows="5" asp-for="TimeLog.WorkDetail" class="form-control">
+                <div class="form-group">
+
+                    <label asp-for="TimeLog.LineItemID" class="control-label"></label>
+                    <input asp-for="TimeLog.LineItemID" type="hidden" />
+
+                    @**@
+                    <dropdown-list-directive call-source="20210607-1755" key="TimeLog.LineItemID" form-name="timesheetForm" hidden-field-name="TimeLog.LineItemID" ng-model="timeLogRecord.LineItemID" parentkey="timeLogRecord.JobId" parent-key-name="TimeLog.JobId" add-func="addNewLineItem(timeLogRecord.JobId, containerViewValue )" add-func-source="edit.cshtml" container-view-value="containerViewValue"></dropdown-list-directive>
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label asp-for="TimeLog.DisciplineID" class="control-label"></label>
+                    <input asp-for="TimeLog.DisciplineID" type="hidden" />
+
+
+                    <dropdown-list-directive call-source="20210607-1756" key="TimeLog.DisciplineID" form-name="timesheetForm" hidden-field-name="TimeLog.DisciplineID" ng-model="timeLogRecord.DisciplineID"></dropdown-list-directive>
+                </div>
+
+
+
+
+                <div class="form-group">
+                    <label asp-for="TimeLog.StartTime" class="control-label"></label>
+
+                    &nbsp; <a cmd-name="set-default-time" jQueryObjectName="#TimeLog_StartTime">Now</a>
+
+                    <input asp-for="TimeLog.StartTime" class="form-control" />
+
+                    <span asp-validation-for="TimeLog.StartTime" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="TimeLog.TotalSeconds" class="control-label"></label>
+
+                    &nbsp; <a cmd-name="set-TotalPeriod" jQueryObjectName="#TimeLog_StartTime" jQueryObjectName2="#TimeLog_TotalSeconds">Now</a>
+
+                    <input asp-for="TimeLog.TotalSeconds" class="form-control" />
+
+                    <span asp-validation-for="TimeLog.TotalSeconds" class="text-danger"></span>
+                </div>
+
+
+                <div class="form-group">
+                    <label asp-for="TimeLog.WorkDetail" class="control-label"></label>
+
+                    <textarea cols="40" rows="5" asp-for="TimeLog.WorkDetail" class="form-control">
 
 </textarea>
 
-                <span asp-validation-for="TimeLog.WorkDetail" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </form>
+                    <span asp-validation-for="TimeLog.WorkDetail" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </form>
+        </div>
+
+
     </div>
 
-
 </div>
-
 <div>
 
     @await Html.PartialAsync("ReturnToCallerLink", Model.returnToCaller)

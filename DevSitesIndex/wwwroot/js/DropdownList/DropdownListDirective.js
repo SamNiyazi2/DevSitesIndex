@@ -33,7 +33,7 @@ var dropdownListDirective_instance = function () {
                         $('html, body').animate({
                             // scrollTop: (elt.first().offset().top)
                             // scrollTop: (elt.first().closest('div').prevAll('div').offset().top)
-                            scrollTop: (elt.first().closest('div').offset().top)
+                            scrollTop: (elt.first().closest('div.form-group').offset().top - 80)
                         }, 500);
                     }
                 };
@@ -43,43 +43,64 @@ var dropdownListDirective_instance = function () {
                     require: 'ngModel',
                     // 06/07/2021 02:04 am - SSN - [20210606-0227] - [014] - Testng for deployment
                     // We are using this for adding new items to master.
-                    link: function (scope, elem, attr, ngModel) {
+                    link: function (scope, elem, attr, ngModel_ctrl) {
+                        var dropdownListDireciveInputBoxInverse = attr["dropdownListDirectiveInputBoxInverse"];
+                        //console.log(`%c 20210610-2118 dropdownListDireciveInputBoxInverse [${dropdownListDireciveInputBoxInverse}]`, 'color:blue;font-size:20pt;');
+                        //console.log(attr);
+                        elem.bind('blur', function (event) {
+                            ngModel_ctrl.$setViewValue(ngModel_ctrl.$modelValue);
+                        });
                         var dropdownListDirectiveInputBox = attr.dropdownListDirectiveInputBox.split(',');
-                        ngModel.$parsers.unshift(function (value) {
-                            console.log('%c *x*x*x*x*x*x*x*x*x*x*x*x*x*x*x', 'color:red;font-size:20px');
-                            var testvalue1 = attr["name"];
-                            var testvalue2 = attr.name + '.dropdownListDirectiveInputBox';
-                            var testvalue3 = dropdownListDirectiveInputBox;
-                            console.log(testvalue1);
-                            console.log('11) -------------------------------');
-                            console.log(testvalue2);
-                            console.log('22) -------------------------------');
-                            console.log(testvalue3);
-                            console.log('33) -------------------------------');
-                            console.log(value);
-                            console.log('44) -------------------------------');
-                            console.log(attr);
-                            console.log('55) -------------------------------');
-                            //ngModel.$setValidity(attr.name + '.dropdownListDirectiveInputBox', dropdownListDirectiveInputBox.indexOf(value) === -1);
-                            ngModel.$setValidity(attr.name, dropdownListDirectiveInputBox.indexOf(value) === -1);
+                        ngModel_ctrl.$parsers.unshift(function (value) {
+                            //const testvalue1 = attr["name"];
+                            //const testvalue2 = attr.name + '.dropdownListDirectiveInputBox';
+                            //const testvalue3 = dropdownListDirectiveInputBox;
+                            //console.log('%c *x*x*x*x*x*x*x*x*x*x*x*x*x*x*x', 'color:red;font-size:20px');
+                            //console.log(`%c ---------------- ngModel_ctrl-------- 565dd ------------------`, 'color:red;font-size:20pt;');
+                            //console.log(ngModel_ctrl);
+                            //console.log(testvalue1);
+                            //console.log('11) -------------------------------');
+                            //console.log(testvalue2);
+                            //console.log('22) -------------------------------');
+                            //console.log(testvalue3)
+                            //console.log('33) -------------------------------');
+                            //console.log(value)
+                            //console.log('44) -------------------------------');
+                            //console.log(attr)
+                            //console.log('55) -------------------------------');
+                            // Do usage. Not implemented in applicatiokn logic.
+                            ngModel_ctrl.$setValidity(attr.name + '.dropdownListDirectiveInputBox', dropdownListDirectiveInputBox.indexOf(value) === -1);
+                            // ngModel.$setValidity(attr.name , dropdownListDirectiveInputBox.indexOf(value) === -1);
                             return value;
                         });
-                        ngModel.$asyncValidators.isValidDropdownDirectiveSelection = function (modelValue, viewValue) {
-                            //console.log('%c 20210609-1357 - isValidDropdownDirectiveSelection ', 'color:yellow');
-                            //console.log(modelValue);
-                            //console.log('1 ---------------------------------');
-                            //console.log(viewValue);
-                            //console.log('2 ---------------------------------');
-                            //console.log(attr);
-                            //console.log('3 attr ---------------------------------');
+                        ngModel_ctrl.$asyncValidators.isValidDropdownDirectiveSelection = function (modelValue, viewValue) {
                             // Does fire.
+                            // modelValue doesn't honor selected value after it has already been set.
+                            // Until we caome up with a way to reset it, disable by bypassing as valid.
+                            //console.log(`%c ---------------- ngModel_ctrl-------- 149 ------------------`, 'color:red;font-size:20pt;');
+                            //console.log(ngModel_ctrl);
+                            //console.log('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx')
+                            //console.log('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXxx')
+                            //console.log(' 144 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXxxc')
+                            //console.log(modelValue);
+                            //console.log('---------------------------------------------')
+                            //console.log(viewValue);
+                            //console.log('=============================================')
                             var deferred = $q.defer();
-                            //if (modelValue ) {
-                            //    deferred.resolve();
-                            //} else {
-                            //    deferred.reject();
-                            //}
-                            deferred.resolve();
+                            var validationResult = modelValue && modelValue.id;
+                            validationResult = !!validationResult;
+                            //console.log('%c dorpdownlistDirecitve isValidDropdownDirectiveSelection', 'color:green;font-size:14pt');
+                            //console.log(`%c dropdownListDireciveInputBoxInverse [${dropdownListDireciveInputBoxInverse}] `, 'color:green;font-size:14pt');
+                            //console.log(`%c validationResult 1 [${validationResult }] `, 'color:green;font-size:14pt');
+                            if (dropdownListDireciveInputBoxInverse)
+                                validationResult = !validationResult;
+                            //console.log(`%c validationResult 2 [${validationResult}] `, 'color:green;font-size:14pt');
+                            if (validationResult) {
+                                deferred.resolve();
+                            }
+                            else {
+                                deferred.reject();
+                            }
                             // return the promise of the asynchronous validator
                             return deferred.promise;
                         };
@@ -90,20 +111,37 @@ var dropdownListDirective_instance = function () {
                 var controller = ['$http', '$q', '$scope', '$rootScope', '$timeout', 'changeMonitorService', 'ssn_logger', function ($http, $q, $scope, $rootScope, $timeout, changeMonitorService, ssn_logger) {
                         var vm = this;
                         vm.isReady = false;
-                        vm.isValidBoolean = true;
+                        // vm.tempControlName = `DropdownListDirective_${vm.callSource}_` + d.getHours() + "_" + d.getMinutes() + "_" + d.getSeconds() + "_" + d.getMilliseconds();
+                        // vm.tempControlName = this.keyColumn;
+                        vm.tempControlName = "DropdownListDirective_" + Math.random() + "_";
+                        vm.blackListErrorName = vm.tempControlName + ".dropdownListDirectiveInputBox";
+                        vm.dropdownListDireciveInputBoxInverse = false;
+                        vm.errorTriggered = function (errorName) {
+                            return !!vm.formName.$error[errorName];
+                        };
+                        vm.errorTriggeredWithControlName = function (controlName, errorName) {
+                            // return vm.formName[controlName].$error[errorName];
+                            // Testing with 'required' return a boolean.  
+                            return (vm.formName[controlName])["$error"][errorName];
+                        };
                         $scope.$on('dropdownListDirective_Change_start', function (events, args) {
                             var isHandled = false;
                             // This fires on start and once on change
-                            if (vm.parentKeyName && vm.parentKeyName == args.keyColumn) {
+                            if (vm.parentKeyName && vm.parentKeyName == args.keyColumn && args.keyValue) {
                                 console.log('---------------------------------------------');
                                 console.log(' vm.parentKeyColumn and args.keyValue before update:');
                                 console.log(vm.parentKeyColumn);
                                 console.log(args.keyValue);
                                 vm.parentKeyColumn = args.keyValue;
                                 isHandled = true;
-                                //console.log('Update vm.parentKeyColumn = args.keyValue');
-                                //console.log(vm.parentKeyColumn);
-                                //console.log(args.keyValue);
+                            }
+                            if ((args.msg == "update dropdown list") && vm.keyColumn && args.keyColumn && (vm.keyColumn.toLowerCase() == args.keyColumn.toLowerCase())) {
+                                ssn_logger.cl_normal({ callSource: '20210610-1708-B', message: "dropdownListDirective_Change_start update dropdown - vm.keyColumn [" + vm.keyColumn + "]  ngModel [" + vm.ngModel + "]   parentKeyColumn [" + vm.parentKeyColumn + "]" }, 'green', true);
+                                console.log('events:', events);
+                                console.log('args', args);
+                                vm.getDisciplines(args.description);
+                                vm.disciplineSelected_XXX = { id: args.id, title: args.description };
+                                isHandled = true;
                             }
                             if (args.msg == "validateThis") {
                                 ssn_logger.cl_normal({ callSource: '20210609-1529', message: 'call validateThis' }, 'blue', true);
@@ -111,23 +149,26 @@ var dropdownListDirective_instance = function () {
                                 isHandled = true;
                             }
                             if (args.msg == "select new value") {
-                                //console.log('update keyColumn jQuery  [select new value]');
-                                //console.log(vm.keyColumn);
-                                console.log("zzzzzz [" + vm.ngModel + "]zzzzzzz NULLIFY zzzzzzzzzzzzzzzzzzzzzzzzzzz", 'color:red;font-weight:bold;');
-                                vm.ngModel = null;
-                                //////////////////////////////////////////////////////////////////$("[name='" + vm.keyColumn + "']").val('');
+                                ////console.log('update keyColumn jQuery  [select new value]');
+                                ////console.log(vm.keyColumn);
+                                //console.log(`zzzzzz    000 zzzzzzz set zero 22 zzzzzzzzzzzzzzzzzzzzzzzzzzz`, 'color:red;font-weight:bold;font-size:20pt;');
+                                //console.log(vm.ngModel);
+                                //console.log('----------------------------------');
+                                vm.ngModel = 0;
+                                //console.log(vm.ngModel);
+                                //console.log('----------------------------------');
+                                if (vm.hiddenFieldName) {
+                                    $("[name='" + vm.hiddenFieldName + "']").val('');
+                                }
                                 //////////////////////////////////////////////////////  vm.disciplineSelected_XXX = "";
                                 isHandled = true;
                             }
                             if (!isHandled) {
-                                //ssn_logger.cl_normal({ callSource: '20210609-0547', message: `dropdownListDirective_Change_start not handled - vm.keyColumn [${vm.keyColumn}]  ngModel [${vm.ngModel}]   parentKeyColumn [${vm.parentKeyColumn}]` }, 'red');
-                                //console.log('events:', events);
-                                //console.log('args', args);
+                                ssn_logger.cl_normal({ callSource: '20210609-0547', message: "dropdownListDirective_Change_start not handled - vm.keyColumn [" + vm.keyColumn + "]  ngModel [" + vm.ngModel + "]   parentKeyColumn [" + vm.parentKeyColumn + "]" }, 'red');
+                                console.log('events:', events);
+                                console.log('args', args);
                             }
                         });
-                        vm.errorTriggered = function (errorName) {
-                            return !!vm.formName.$error[errorName];
-                        };
                         // 11/28/2019 08:29 am - SSN - Adding - Need to initializa for $watch to work.
                         // disciplineSelected_XXX  instead of ngModel because we use an object for selected entry, id and tile. ngModel is usually a key. (The id)
                         vm.disciplineSelected_XXX = "";
@@ -143,7 +184,7 @@ var dropdownListDirective_instance = function () {
                             }
                             else {
                                 //ssn_logger.cl_normal({ callSource: '20210609-1438-C-2', message: `CHANGE vm.keyColumn [${vm.keyColumn}]  ngModel [${vm.ngModel}]   parentKeyColumn [${vm.parentKeyColumn}]` }, 'red');
-                                vm.isReady = true;
+                                // vm.isReady = true;
                             }
                         });
                         $scope.$watch('vm101.parentKeyColumn', function (newValue, oldValue) {
@@ -154,11 +195,12 @@ var dropdownListDirective_instance = function () {
                             //console.log(typeof newValue);
                             //console.log('--------------------------');
                             if (oldValue != newValue && oldValue != null) { // oldValue is null on first call.
-                                vm.isValidBoolean = false;
+                                vm.setIsValidBoolean(false);
                                 //console.log('%c20210608-0054-B - parent key value changed - reset local key   keyColumn [${vm.keyColumn}]  parentKeyColumn [${vm.parentKeyColumn}]', 'color:yellow;font-size:20px;');
                                 //console.log('%c20210608-0054 - parent key value changed - reset local key', 'color:red;font-size:20px;');
                                 //console.log('%c20210608-0054 - parent key value changed - reset local key', 'color:yellow;font-size:20px;');
-                                vm.ngModel = undefined;
+                                // vm.ngModel = undefined;
+                                vm.ngModel = 0;
                                 vm.disciplineSelected_XXX = "";
                                 if (vm.hiddenFieldName) {
                                     //console.log('%c20210609-1512 - hiddenFieldName - parent key value changed - reset local key', 'color:red;font-size:20px;');
@@ -169,8 +211,20 @@ var dropdownListDirective_instance = function () {
                         //$scope.$watch('vm101.disciplineSelected_XXX', function (newValue: LookupRecord, oldValue) {
                         $scope.$watch('vm101.disciplineSelected_XXX', function (newValue, oldValue) {
                             // Works 
+                            //console.log("TTTTTTTTTTTTXXXXXXXXXXXXXXXXXXX");
+                            //console.log('%c' + ' disciplineSelected_XXX', 'color:cyan;font-size:20pt;');
+                            //console.log(oldValue);
+                            //console.log('------------------------------------------');
+                            //console.log(newValue);
+                            //console.log('%c ------------------------------------------','color:red;font-size:20pt;');
+                            //console.log(vm.ngModel);
+                            //console.log('%c ------------------------------------------', 'color:red;font-size:20pt;');
+                            //console.log('------------------------------------------');
+                            //console.log('============================================');
                             if (newValue && newValue.id) {
                                 vm.ngModel = newValue.id;
+                                //console.log(`%c ---------------- -------- 395 ------------------`, 'color:red;font-size:20pt;');
+                                //console.log( vm.ngModel  );
                                 if (vm.hiddenFieldName) {
                                     $("[name='" + vm.hiddenFieldName + "']").val(newValue.id);
                                 }
@@ -180,11 +234,11 @@ var dropdownListDirective_instance = function () {
                                     changeMonitorService.doSetHaveChange(true);
                                 }
                             }
-                            vm.isValidBoolean = false;
+                            vm.setIsValidBoolean(false);
                             if (newValue) {
                                 if (newValue.id) {
                                     if (newValue.id > 0) {
-                                        vm.isValidBoolean = true;
+                                        vm.setIsValidBoolean(true);
                                     }
                                 }
                             }
@@ -252,18 +306,20 @@ var dropdownListDirective_instance = function () {
                             $scope.$broadcast('dropdownListDirective_Change_start', { msg: 'select new value', keyColumn: vm.keyColumn, keyValue: vm.ngModel });
                         };
                         vm.validateThis = function () {
-                            //ssn_logger.cl_normal({ callSource: '20210609-0534', message: `validateThis  start  vm.keyColumn [${vm.keyColumn}]  ngModel [${vm.ngModel}]   parentKeyColumn [${vm.parentKeyColumn}]` }, 'yellow');
                             vm.setupUrl();
-                            vm.isValidBoolean = false;
+                            vm.setIsValidBoolean(false);
                             if (vm.ngModel > 0) {
                                 vm.getDisciplineCurrent(vm.ngModel).then(vm.currentDisplineLookupSuccess, vm.currentDisplineLookupError);
-                                vm.isValidBoolean = true;
-                                $scope.$broadcast('dropdownListDirective_Change_start', { msg: 'Has valid value', keyColumn: vm.keyColumn, keyValue: vm.ngModel });
+                                vm.setIsValidBoolean(true);
+                                // $scope.$broadcast('dropdownListDirective_Change_start', { msg: 'Has valid value', keyColumn: vm.keyColumn, keyValue: vm.ngModel });
                             }
                             else {
                                 ssn_logger.cl_normal({ callSource: '20210609-0528', message: "validateThis: vm.keyColumn [" + vm.keyColumn + "]  ngModel [" + vm.ngModel + "]   parentKeyColumn [" + vm.parentKeyColumn + "]" }, 'red');
+                                if (vm.containerViewValue) {
+                                    vm.disciplineSelected_XXX = { title: vm.containerViewValue };
+                                }
+                                vm.isReady = true;
                             }
-                            vm.isReady = true;
                         };
                         vm.currentDisplineLookupSuccess = function (data) {
                             if (data) {
@@ -287,13 +343,12 @@ var dropdownListDirective_instance = function () {
                         };
                         // Called from view input element
                         vm.getDisciplines = function (lookupValue) {
-                            ssn_logger.cl_normal({ callSource: "20210609-1532", message: "getDisciplines  getDisciplines " }, "white", true);
                             try {
                                 vm.containerViewValue = lookupValue;
                             }
                             catch (ex) {
-                                ssn_logger.cl_normal({ callSource: "20210607-1607-A", message: "Update containerViewValue" }, "yellow");
-                                ssn_logger.cl_normal({ callSource: "20210607-1607-B", message: vm.callSource }, "yellow");
+                                ssn_logger.cl_normal({ callSource: "20210607-1607-A", message: "getDiscipline call to assign containerViewValue failed" }, "Red");
+                                ssn_logger.cl_error({ callSource: "20210612-0041", message: "getDiscipline call to assign containerViewValue failed [" + lookupValue + "]" });
                             }
                             vm.setupUrl();
                             if (lookupValue === null)
@@ -305,25 +360,24 @@ var dropdownListDirective_instance = function () {
                             }).then(typeaheadDisciplineSuccess, typeaheadDisciplineError);
                             return deferred.promise;
                             function typeaheadDisciplineSuccess(response) {
-                                ssn_logger.cl_normal({ callSource: "20210609-1547", message: "Got data for [" + vm.callSource }, "yellow", true);
-                                var addresses = [];
+                                vm.addresses = [];
                                 angular.forEach(response.data, function (item) {
-                                    // 09/16/2019 05:13 am - SSN - [20190916-0355] - [006] - Adding JobAPI controller
-                                    // While development in progress
                                     if (item.disciplineId) {
                                         if (item.disciplineShort.toLowerCase().indexOf(lookupValue.toLowerCase()) > -1) {
-                                            addresses.push({ id: item.disciplineId, title: item.disciplineShort });
+                                            vm.addresses.push({ id: item.disciplineId, title: item.disciplineShort });
                                         }
                                     }
                                     if (item.ta_id) {
                                         if (item.ta_description.toLowerCase().indexOf(lookupValue.toLowerCase()) > -1) {
-                                            addresses.push({ id: item.ta_id, title: item.ta_description });
+                                            vm.addresses.push({ id: item.ta_id, title: item.ta_description });
                                         }
                                     }
                                 });
-                                console.log('20210609-1548 20210609-1548 20210609-1548 ');
-                                console.log(addresses);
-                                deferred.resolve(addresses);
+                                if (vm.addresses.length == 1) {
+                                    //  vm.disciplineSelected_XXX = vm.addresses[0];
+                                    vm.ngModel = vm.addresses[0].id;
+                                }
+                                deferred.resolve(vm.addresses);
                             }
                             function typeaheadDisciplineError(response) {
                                 ssn_logger.cl_normal({ callSource: "20210608-2139", message: "typeaheadDisciplineError" }, "red");
@@ -361,6 +415,7 @@ var dropdownListDirective_instance = function () {
                                 //console.log(`%c getDisciplineCurrent  222 keyColumn[${vm.keyColumn}]  lookupID  [${lookupID}] success`, 'color:green');
                                 //console.log(response.data);
                                 deferred.resolve(response.data);
+                                vm.isReady = true;
                             }
                             function typeaheadDisciplineError(response) {
                                 console.log("%c getDisciplineCurrent 202 lookupID  [" + lookupID + "] error", 'color:red');
@@ -372,7 +427,13 @@ var dropdownListDirective_instance = function () {
                         vm.formErrors = function () {
                             return vm.formName;
                         };
-                        /////////////////////////////    $timeout(() => vm.validateThis(), 1000);
+                        vm.formErrorsByControl = function (controlName, errorName) {
+                            return (vm.formName[controlName])["$error"][errorName];
+                        };
+                        vm.setIsValidBoolean = function (setting) {
+                            vm.isValidBoolean = vm.dropdownListDireciveInputBoxInverse ? !setting : setting;
+                        };
+                        vm.setIsValidBoolean(true);
                     }];
                 return {
                     restrict: "E",
@@ -384,26 +445,19 @@ var dropdownListDirective_instance = function () {
                     scope: {
                         callSource: "@",
                         keyColumn: "@key",
-                        // 12/10/2020 05:46 pm - SSN - [20201210-1625] - [005] - Update Timelog edit MVC
                         parentKeyColumn: "=parentkey",
                         parentKeyName: "@",
                         formName: "=",
                         hiddenFieldName: "@",
                         ngModel: "=",
-                        // 06/08/2021 12:47 am - SSN - [20210606-0227] - [026] - Testng for deployment - Line item
-                        // Clean up
-                        ////name: "@"
-                        //                    elementName: "@name",
-                        // 06/06/2021 02:49 am - SSN - [20210606-0227] - [002] - Testng for deployment
                         addFunc: "&",
                         addFuncSource: "@",
+                        // Holder for typed in value, if it doesn't exist, so it can be copied to the add form.
                         containerViewValue: "=?",
+                        dropdownListDireciveInputBoxInverse: "@"
                     },
                     link: {
                         pre: function (scope, el, attrs, ctrl) {
-                            // vm.tempControlName = `DropdownListDirective_${vm.callSource}_` + d.getHours() + "_" + d.getMinutes() + "_" + d.getSeconds() + "_" + d.getMilliseconds();
-                            ctrl.tempControlName = this.keyColumn;
-                            ctrl.blackListErrorName = ctrl.tempControlName + ".dropdownListDirectiveInputBox";
                         },
                         post: function (scope, el, attrs, ctrl) {
                             try {
@@ -443,8 +497,6 @@ var dropdownListDirective_instance = function () {
                             //        scope.$broadcast('dropdownListDirective_Change_start', { msg: 'Has valid value', keyColumn: this.keyColumn, keyValue: this.ngModel });
                             //    }
                             //});
-                            // $timeout(() => vm.validateThis(), 1000);
-                            /////////////////////////////////////// scope.$broadcast('dropdownListDirective_Change_start', { msg: 'validateThis' });
                         }
                     }
                 };

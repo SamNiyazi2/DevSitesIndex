@@ -611,17 +611,19 @@ menuPipe_101::after {
     }
 
 .cssTimeLogDetail_p {
+    
     margin: 0px;
     padding: 0px;
     background-color: #f0f0f0;
     max-width: 100%;
     white-space: pre-wrap;
     padding: 5px 20px;
-    max-height: 100px;
-    overflow-y: scroll;
+    max-height: 80px;
+    overflow-y:hidden;
 }
 
     .cssTimeLogDetail_p:hover {
+   
         max-height: none;
     }
 
@@ -646,3 +648,52 @@ menuPipe_101::after {
     .cssDropdownListDirectiveHelper:hover {
         max-height: none;
     }
+
+.cssTimelogOptions_TD{
+    min-width: 80px;
+}
+
+.cssTimelogOptions {
+    position: absolute;
+    z-index: 1;
+    font-size: 8pt;
+    max-height: 40px;
+    overflow-y: hidden;
+    padding: 10px;
+    border: 2px solid transparent;
+}
+
+    .cssTimelogOptions:hover {
+        z-index: 2;
+        max-height: none;
+        background-color: #d8eeef;
+        border: 2px solid #04376e;
+    }
+
+
+@media (max-width:560px) {
+    .cssTimelogOptions {
+        padding: 10px;
+        position: initial;
+        font-size: 8pt;
+        max-height: none;
+        padding: 10px;
+        z-index: initial;
+        border: 2px solid transparent;
+    }
+
+        .cssTimelogOptions:hover {
+            z-index:initial;
+            max-height: none;
+            background-color:white;
+            border: none;
+        }
+}
+
+
+.cssTimelogOptions a {
+display:block;
+padding:3px;
+}
+
+ 

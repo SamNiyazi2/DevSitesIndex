@@ -7,6 +7,9 @@
     containerViewValue [{{ vm101.containerViewValue  }}] : containerViewValue: "=?",
 
 
+    <h4 style="white-space:pre">form.$valid[{{vm101.formName|json}}]</h4>
+
+    <h4 style="white-space:pre">form.$valid[{{vm101.formName.$valid}}]</h4>
     <h4>ngModel [{{vm101.ngModel}}]</h4>
     <h4>keyColumn [{{vm101.keyColumn}}]</h4>
 
@@ -20,10 +23,41 @@
     </h4>
 
 
+    <p style="white-space:pre">
+        {{(vm101.formErrorsByControl(vm101.tempControlName,"required"))|json}}
+
+    </p>
+
+
+    <p style="white-space:pre">
+        $scope.addresses {{vm101.addresses|json}}
+
+    </p>
+
+    <p>vm101.dropdownListDireciveInputBoxInverse [{{vm101.dropdownListDireciveInputBoxInverse}}]</p>
+   
+    
+    <h4 style="white-space:pre">
+        Dirty    {{ vm101.formName[vm101.tempControlName].$dirty}}
+    </h4>
+
 
 </div>
 
 
+<!--<p>vm101.dropdownListDireciveInputBoxInverse [{{vm101.dropdownListDireciveInputBoxInverse}}]</p>
+
+<h4>
+    vm101.isReady [{{vm101.isReady}}]
+</h4>
+
+<h4>ngModel [{{vm101.ngModel}}]</h4>
+
+<h4 style="white-space:pre">form.$valid[{{vm101.formName.$valid}}]</h4>-->
+
+
+
+<!--<h4 style="white-space:pre">form.$valid[{{vm101.formName|json}}]</h4>-->
 
 <input type="text"
        ng-model="vm101.disciplineSelected_XXX"
@@ -34,26 +68,35 @@
        typeahead-no-results="noResults"
        class="form-control"
        dropdown-list-directive-input-box="aaa,coconuts,bananas,pears"
-       name="{{vm101.keyColumn}}">
+       dropdown-list-directive-input-box-inverse="{{vm101.dropdownListDireciveInputBoxInverse}}"
+       name="{{vm101.tempControlName}}"
+       ng-required="{{true}}">
+ 
 
-<!--name="{{vm101.tempControlName}}"-->
+<i ng-show="loadingLocations " class="glyphicon glyphicon-refresh"></i>
 
-<i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
-
-<div ng-show="noResults">
+<div ng-show="noResults  && !vm101.dropdownListDireciveInputBoxInverse">
     <i class="glyphicon glyphicon-remove"></i> No Results Found &nbsp; &nbsp; &nbsp; <a ng-show="{{null!=vm101.addFuncSource}}" ng-click="vm101.addFunc()">Add new item</a>
 </div>
 
 
+ 
 
-<p class="has-error" ng-show="required">Selection is required (22)</p>
+<ng-content ng-show="vm101.isReady ">
+
+    <p class="has-error" ng-show="required">Selection is required (22)</p>
 
 
-<span class="has-error" ng-show="vm101.errorTriggered(vm101.blackListErrorName)">
-    The input "{{ vm101.disciplineSelected_XXX }}" is invalid
-</span>
+    <span class="has-error" ng-show="vm101.errorTriggered(vm101.blackListErrorName)">
+        The input "{{ vm101.disciplineSelected_XXX }}" is invalid
+    </span>
 
-<p class="has-error" ng-hide="vm101.isValidBoolean || !vm101.isReady">Selection is required</p>
+    <p class="has-error" ng-hide="vm101.isValidBoolean">Selection is required (3)</p>
+    <p class="has-error" ng-show="vm101.errorTriggeredWithControlName (vm101.tempControlName,'required')">Selection is required (2)</p>
 
+    <p class="has-error" ng-show="vm101.errorTriggeredWithControlName (vm101.tempControlName,'dropdownListDirectiveInputBox')">Invalid input</p>
+
+
+</ng-content>
 
 

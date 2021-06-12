@@ -24,19 +24,22 @@
     @{
         if (Model.servingPage == ServingPage.Timelog)
         {
-            <td>
+            <td> 
                 @Html.DisplayFor(modelItem => Model.timelog.job.JobTitle)
-                <p class="cssLineItemDisplay">@Html.DisplayFor(modelItem => Model.timelog.job_Lineitem.LineItem)</p>
+                @if (Model.timelog.job_Lineitem != null)
+                {
+                    <p class="cssLineItemDisplay">@Html.DisplayFor(modelItem => Model.timelog.job_Lineitem.LineItem)</p>
+                }
             </td>
         }
-    }
 
-
-    @{
         if (Model.servingPage == ServingPage.Job_Timelog)
         {
             <td> 
-                <p class="cssLineItemDisplay">@Html.DisplayFor(modelItem => Model.timelog.job_Lineitem.LineItem)</p>
+                @if (Model.timelog.job_Lineitem != null)
+                {
+                    <p class="cssLineItemDisplay">@Html.DisplayFor(modelItem => Model.timelog.job_Lineitem.LineItem)</p>
+                }
             </td>
         }
     }
@@ -54,37 +57,45 @@
         @Html.DisplayFor(modelItem => Model.timelog.DateModified)
     </td>
 
-    <td class="indexNowrapCol">
+    @*class="indexNowrapCol"*@
 
-        <a asp-page="/timelogs/Edit" asp-route-id="@Model.timelog.TimeLogId">Edit</a>
+    <td class="cssTimelogOptions_TD">
 
 
-        <strong>
+        <span class="cssTimelogOptions">
 
-            ||
-            <a asp-page="/timelogs/Details" asp-route-id="@Model.timelog.TimeLogId">Entry's Details</a>
+            <a asp-page="/timelogs/Edit" asp-route-id="@Model.timelog.TimeLogId">Edit</a>
 
-            @{
-                if (Model.servingPage == ServingPage.Timelog)
-                {
-                    <span>|</span>
-                    <a asp-page="/jobs/details" asp-route-id="@Model.timelog.JobId">Job's Details</a>
-                    <span>|</span>
-                    <a asp-page="/projects/details" asp-route-id="@Model.timelog.job.ProjectID">Project's Details</a>
+
+            <strong>
+
+
+                <a asp-page="/timelogs/Details" asp-route-id="@Model.timelog.TimeLogId">Entry's Details</a>
+
+                @{
+                    if (Model.servingPage == ServingPage.Timelog)
+                    {
+
+                        <a asp-page="/jobs/details" asp-route-id="@Model.timelog.JobId">Job's Details</a>
+
+                        <a asp-page="/projects/details" asp-route-id="@Model.timelog.job.ProjectID">Project's Details</a>
+                    }
                 }
-            }
-
-            ||
-
-        </strong>
-
-        <a asp-page="/timelogs/Delete" asp-route-id="@Model.timelog.TimeLogId">Delete</a>
-
-        <br />
 
 
 
-        @{await Html.RenderPartialAsync("Timelog_Row_Options", Model); }
+            </strong>
+
+            <a asp-page="/timelogs/Delete" asp-route-id="@Model.timelog.TimeLogId">Delete</a>
+
+            <br />
+
+
+
+            @{await Html.RenderPartialAsync("Timelog_Row_Options", Model); }
+
+
+        </span>
 
     </td>
 </tr>
@@ -99,7 +110,7 @@
         <td colspan="2"></td>
         @*06/01/2019 02:59 pm - SSN - Added class codeblock2*@
         @* 11/08/2019 07:53 am - SSN - Replaced codeblock2 with workDetail *@
-        <td colspan="5" >
+        <td colspan="5">
             <p class="cssTimeLogDetail_p">@Html.DisplayFor(modelItem => Model.timelog.WorkDetail)</p>
         </td>
 

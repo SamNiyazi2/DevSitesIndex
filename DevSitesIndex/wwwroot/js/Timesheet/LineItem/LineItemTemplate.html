@@ -1,6 +1,6 @@
 ﻿<!--// 06/06/2021 05:29 am - SSN - [20210606-0227] - [007] - Testng for deployment-->
 
- 
+
 <form name="lineItemForm" novalidate>
 
     <div class="modal-header">
@@ -39,33 +39,27 @@
 
         <fieldset>
 
-
-
             <div class="form-group">
 
                 <label for="lineItemID" class="col-sm-3 control-label">
                     Line item 777
                 </label>
-            
-                <div class="col-sm-9">
 
-                  <input type="text" ng-model="editableJob_LineItem.lineItem" class="form-control"/>
+                <div class="col-sm-9">
+  
+                    <dropdown-list-directive call-source="20210610-1832"
+                                             key="lineItemID"
+                                             form-name="lineItemForm"
+                                             ng-model="defaultValue"
+                                             parentkey="editableJob_LineItem.jobId"
+                                             parent-key-name="editableJob_LineItem.jobId"
+                                             container-view-value="defaultValue"
+                                             line_item_no_duplicate
+                                             dropdown-list-direcive-input-box-inverse="{{true}}"></dropdown-list-directive>
+
 
                 </div>
-            </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
+            </div> 
 
 
         </fieldset>
@@ -77,14 +71,7 @@
 
     </div>
 
-
-
-
-
-
-
-
-
+     
 
 
 
@@ -93,7 +80,7 @@
 
         <div class="col-sm-offset-3 col-sm-9">
             <input type="button" class="btn btn-default" value="Cancel" ng-click="cancelForm()" />
-            <input type="button" class="btn btn-primary" value="Submit" ng-click="submitForm()" ng-disabled="timesheetForm.$invalid || disableSaveButton" />
+            <input type="button" class="btn btn-primary" value="Submit" ng-click="submitForm()" ng-disabled="lineItemForm.$invalid || disableSaveButton" />
 
         </div>
 

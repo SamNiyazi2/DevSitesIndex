@@ -59,9 +59,9 @@ var jobsIndexController_instance = function () {
             var _fieldList = [
                 __assign({}, columnBag_defaults, { columnName: 'projectTitle_ForActivity', caption: 'Project Title' }),
                 __assign({}, columnBag_defaults, { columnName: 'jobTitle', caption: 'Job Title' }),
-                __assign({}, columnBag_defaults, { columnName: 'dateAdded', caption: 'Date Added' }),
-                __assign({}, columnBag_defaults, { columnName: 'dateUpdated', caption: 'Date Updated' }),
-                __assign({}, columnBag_defaults, { columnName: 'activityAge', caption: 'Activity Age', columnNameSelected: 'activityAge', desc: true }),
+                __assign({}, columnBag_defaults, { columnName: 'dateAdded', caption: 'Date Added', cssForTableHead: 'hidden-xs' }),
+                __assign({}, columnBag_defaults, { columnName: 'dateUpdated', caption: 'Date Updated', cssForTableHead: 'hidden-xs' }),
+                __assign({}, columnBag_defaults, { columnName: 'activityAge', caption: 'Activity Age', cssForTableHead: 'hidden-xs', columnNameSelected: 'activityAge', desc: true }),
             ];
             if ($scope.hideProjectTitle) {
                 _fieldList.splice(0, 1);

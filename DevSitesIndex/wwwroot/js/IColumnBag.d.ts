@@ -8,4 +8,5 @@ export default interface IColumnBag {
     caption: string;
     job_statuses_selected: number[];
     fk_filter: number;
+    cssForTableHead?: string;
 }

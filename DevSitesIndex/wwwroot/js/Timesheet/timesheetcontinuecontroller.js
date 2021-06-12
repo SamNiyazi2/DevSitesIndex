@@ -30,41 +30,16 @@ var timesheetContinueController_instance = function () {
                 }
             };
             function getTimelogSuccess(data) {
-                console.log('456----------------------------');
-                console.log('456----------------------------');
-                console.log('456----------------------------');
-                console.log('456----------------------------');
-                console.log(data);
-                console.log('456----------------------------');
-                console.log('456----------------------------');
-                console.log('456----------------------------');
-                console.log('456----------------------------');
                 var data2 = data;
                 util.site_instance.fnConverDate(data2);
                 var timeNow = new Date();
                 timeNow.setMilliseconds(0);
                 $scope.timeLog = data2;
-                // 05/19/2019 02:41 pm - SSN - [20190519-1412] - [003] - Continue work on adding continue option for timesheet record
-                // set TimeLogId = 0
                 $scope.timeLog.timeLogId = 0;
                 $scope.timeLog.startTime = timeNow;
-                // 07/02/2019 09:17 am - SSN - Added nullify dateModified 
                 $scope.timeLog.dateModified = null;
-                // 05/21/2019 07:31 am - SSN - Forgotten
                 $scope.timeLog.totalSeconds = null;
                 $scope.editableTimeLog = angular.copy($scope.timeLog);
-                console.log('xxxxxxxxxxxxx Takeout getDisciplines');
-                console.log('xxxxxxxxxxxxx Takeout getDisciplines');
-                console.log('xxxxxxxxxxxxx Takeout getDisciplines');
-                console.log('xxxxxxxxxxxxx Takeout getDisciplines');
-                console.log('xxxxxxxxxxxxx Takeout getDisciplines');
-                console.log('xxxxxxxxxxxxx Takeout getDisciplines');
-                console.log('xxxxxxxxxxxxx Takeout getDisciplines');
-                console.log('xxxxxxxxxxxxx Takeout getDisciplines');
-                setTimeout(function () {
-                    $scope.getDisciplines(data2.discipline.disciplineShort);
-                    $scope.disciplineSelected = { id: data2.discipline.disciplineId, title: data2.discipline.disciplineShort };
-                }, 500);
             }
             function getTimelogError(data) {
                 var temp = data;
@@ -116,29 +91,6 @@ var timesheetContinueController_instance = function () {
                 }
                 $uibModalInstance.dismiss(false); //same as cancel???
             };
-            //$scope.getDisciplines = function (lookupValue) {
-            //    if (lookupValue === null) lookupValue = "";
-            //    var deferred = $q.defer();
-            //    $http({
-            //        method: 'GET',
-            //        url: 'api/DisciplineAPI'
-            //    }).then(typeaheadDisciplineSuccess, typeaheadDisciplineError);
-            //    return deferred.promise;
-            //    function typeaheadDisciplineSuccess(response) {
-            //        var addresses = [];
-            //        angular.forEach(response.data,
-            //            function (item) {
-            //                if (item.disciplineShort.toLowerCase().indexOf(lookupValue.toLowerCase()) > -1) {
-            //                    addresses.push({ id: item.disciplineId, title: item.disciplineShort });
-            //                }
-            //            }
-            //        );
-            //        deferred.resolve(addresses);
-            //    }
-            //    function typeaheadDisciplineError(response) {
-            //        deferred.reject(response);
-            //    }
-            //};
         }]);
     return {
         timesheetApp: timesheetApp

@@ -31,7 +31,9 @@ var timesheetController_instance = function () {
                 $scope.editableTimeLog = data;
                 var timeNow = new Date();
                 timeNow.setMilliseconds(0);
+                $scope.editableTimeLog.timeLogId = 0;
                 $scope.editableTimeLog.startTime = timeNow;
+                $scope.editableTimeLog.totalSeconds = null;
             }
             function getTimelogError(err) {
                 console.error('TimesheetController - gotJobError -  20210606-0540-B ');
@@ -78,27 +80,27 @@ var timesheetController_instance = function () {
                 }
                 $uibModalInstance.dismiss(); //same as cancel???
             };
-            $scope.addNewLineItem = function (jobID, containerViewValue) {
-                ssn_logger.cl_normal({ callSource: '20210609-1807-A', message: "Calling addNewLineItem" }, 'yellow', true);
-                ssn_logger.cl_normal({ callSource: '20210609-1807-B', message: "jobID: [" + jobID + "]" }, 'yellow', true);
-                ssn_logger.cl_normal({ callSource: '20210609-1807-c', message: "containerViewValue: [" + containerViewValue + "]" }, 'yellow', true);
-                $uibModal.open({
-                    templateUrl: '/js/timesheet/LineItem/LineItemTemplate.html',
-                    controller: 'LineItemController',
-                    // 06/08/2021 03:57 pm - SSN - [20210606-0227] - [038] - Testng for deployment - Line item
-                    // backdrop: false,
-                    backdrop: 'static',
-                    keyboard: false,
-                    resolve: {
-                        jobId: function () {
-                            return jobID;
-                        },
-                        containerViewValue: function () {
-                            return containerViewValue;
-                        }
-                    }
-                });
-            };
+            //$scope.addNewLineItem = function (jobID, containerViewValue) {
+            //    ssn_logger.cl_normal({ callSource: '20210609-1807-A', message:`Calling addNewLineItem` }, 'yellow', true);
+            //    ssn_logger.cl_normal({ callSource: '20210609-1807-B', message:`jobID: [${jobID}]` }, 'yellow', true);
+            //    ssn_logger.cl_normal({ callSource: '20210609-1807-c', message: `containerViewValue: [${containerViewValue}]` }, 'yellow', true);
+            //    $uibModal.open({
+            //        templateUrl: '/js/timesheet/LineItem/LineItemTemplate.html',
+            //        controller: 'LineItemController',
+            //        // 06/08/2021 03:57 pm - SSN - [20210606-0227] - [038] - Testng for deployment - Line item
+            //        // backdrop: false,
+            //        backdrop: 'static',
+            //        keyboard: false,
+            //        resolve: {
+            //            jobId: function () {
+            //                return jobID;
+            //            },
+            //            containerViewValue: function () {
+            //                return containerViewValue;
+            //            }
+            //        }
+            //    });
+            //}
         }]);
     return {
         timesheetApp: timesheetApp

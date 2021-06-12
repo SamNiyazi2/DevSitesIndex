@@ -82,9 +82,9 @@ var jobsIndexController_instance = function () {
             let _fieldList: IColumnBag[] = [
                 { ...columnBag_defaults, columnName: 'projectTitle_ForActivity', caption: 'Project Title' },
                 { ...columnBag_defaults, columnName: 'jobTitle', caption: 'Job Title' },
-                { ...columnBag_defaults, columnName: 'dateAdded', caption: 'Date Added' },
-                { ...columnBag_defaults, columnName: 'dateUpdated', caption: 'Date Updated' },
-                { ...columnBag_defaults, columnName: 'activityAge', caption: 'Activity Age', columnNameSelected: 'activityAge', desc: true },
+                { ...columnBag_defaults, columnName: 'dateAdded', caption: 'Date Added', cssForTableHead: 'hidden-xs' },
+                { ...columnBag_defaults, columnName: 'dateUpdated', caption: 'Date Updated', cssForTableHead: 'hidden-xs' },
+                { ...columnBag_defaults, columnName: 'activityAge', caption: 'Activity Age', cssForTableHead: 'hidden-xs', columnNameSelected: 'activityAge', desc: true },
             ];
 
             if ($scope.hideProjectTitle) {

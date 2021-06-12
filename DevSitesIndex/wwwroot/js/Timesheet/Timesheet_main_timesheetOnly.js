@@ -8,6 +8,7 @@ import { timesheetCreateController_instance } from '../Timesheet/TimesheetCreate
 import { TimelogLinkOptions } from './TimelogLinkOtions/TimelogLinkOptions';
 import { lineItemController_instance } from './LineItem/LineItemController';
 import { ssn_auto_focus } from '../Util/autofocus/ssnAutoFocus';
+import { ModalCallsUtil } from '../Shared/ModalCallsUtil';
 var doSetup = function (ngApplicationName) {
     TimelogLinkOptions.doSetup(ngApplicationName);
     timesheetController_instance.timesheetApp;
@@ -18,6 +19,7 @@ var doSetup = function (ngApplicationName) {
     timesheetCreateController_instance.timesheetApp;
     lineItemController_instance.doSetup();
     ssn_auto_focus.doSetup("Timesheet_main_timesheetOnly", ngApplicationName);
+    ModalCallsUtil.doSetup("Timesheet_main_timesheetOnly", ngApplicationName);
 };
 export { doSetup };
 //# sourceMappingURL=Timesheet_main_timesheetOnly.js.map

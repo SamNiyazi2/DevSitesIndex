@@ -75,6 +75,7 @@
     <Content Remove="wwwroot\js\Interfaces\IJob_Lineitem.ts" />
     <Content Remove="wwwroot\js\Interfaces\ITimelog.ts" />
     <Content Remove="wwwroot\js\Routing\Routing_Config.ts" />
+    <Content Remove="wwwroot\js\Shared\ModalCallsUtil.ts" />
     <Content Remove="wwwroot\js\Shared\SharedUtil.ts" />
     <Content Remove="wwwroot\js\TextArea_util_0718.ts" />
     <Content Remove="wwwroot\js\Timesheet\LineItem\LineItemController.ts" />
@@ -95,6 +96,7 @@
     <TypeScriptCompile Include="wwwroot\js\Interfaces\IJob_Lineitem.ts" />
     <TypeScriptCompile Include="wwwroot\js\Interfaces\ITimelog.ts" />
     <TypeScriptCompile Include="wwwroot\js\Routing\Routing_Config.ts" />
+    <TypeScriptCompile Include="wwwroot\js\Shared\ModalCallsUtil.ts" />
     <TypeScriptCompile Include="wwwroot\js\Shared\SharedUtil.ts" />
     <TypeScriptCompile Include="wwwroot\js\Timesheet\LineItem\LineItemController.ts" />
     <TypeScriptCompile Include="wwwroot\js\Util\autofocus\ssnAutoFocus.ts" />

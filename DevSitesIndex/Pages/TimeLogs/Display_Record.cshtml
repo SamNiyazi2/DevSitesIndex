@@ -24,12 +24,19 @@
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => Model.job.JobTitle)-------------------------------5
+                    @Html.DisplayNameFor(model => Model.job.JobTitle)
                 </dt>
                 <dd>
                     <a asp-page="/jobs/Details" asp-route-id="@Model.JobId">
                         @Html.DisplayFor(model => Model.job.JobTitle)
                     </a>
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => Model.job_Lineitem.LineItem)
+                </dt>
+                <dd>
+                         @Html.DisplayFor(model => Model.job_Lineitem.LineItem)
                 </dd>
 
                 <dt>

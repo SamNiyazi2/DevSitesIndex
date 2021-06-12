@@ -13,6 +13,7 @@ import * as tostr from "toastr";
 import { ILoggerModule } from "../Util/Logger/ILoggerErrorMessage";
 
 import * as util from '../site';
+import { ITimelogJS } from "../Interfaces/ITimelog";
 
 
 
@@ -64,12 +65,12 @@ var timesheetController_instance = function () {
                 util.site_instance.fnConverDate(data);
 
                 $scope.editableTimeLog = data;
-
-
+                   
                 let timeNow = new Date();
                 timeNow.setMilliseconds(0);
-
+                $scope.editableTimeLog.timeLogId = 0;
                 $scope.editableTimeLog.startTime = timeNow;
+                $scope.editableTimeLog.totalSeconds = null;
                 
 
             }
@@ -169,41 +170,41 @@ var timesheetController_instance = function () {
 
             
 
-            $scope.addNewLineItem = function (jobID, containerViewValue) {
+            //$scope.addNewLineItem = function (jobID, containerViewValue) {
 
-                ssn_logger.cl_normal({ callSource: '20210609-1807-A', message:`Calling addNewLineItem` }, 'yellow', true);
-                ssn_logger.cl_normal({ callSource: '20210609-1807-B', message:`jobID: [${jobID}]` }, 'yellow', true);
-                ssn_logger.cl_normal({ callSource: '20210609-1807-c', message: `containerViewValue: [${containerViewValue}]` }, 'yellow', true);
-
-
-                $uibModal.open({
-                    templateUrl: '/js/timesheet/LineItem/LineItemTemplate.html',
-                    controller: 'LineItemController',
+            //    ssn_logger.cl_normal({ callSource: '20210609-1807-A', message:`Calling addNewLineItem` }, 'yellow', true);
+            //    ssn_logger.cl_normal({ callSource: '20210609-1807-B', message:`jobID: [${jobID}]` }, 'yellow', true);
+            //    ssn_logger.cl_normal({ callSource: '20210609-1807-c', message: `containerViewValue: [${containerViewValue}]` }, 'yellow', true);
 
 
-                    // 06/08/2021 03:57 pm - SSN - [20210606-0227] - [038] - Testng for deployment - Line item
-                    // backdrop: false,
-
-                    backdrop: 'static',
-                    keyboard: false,
+            //    $uibModal.open({
+            //        templateUrl: '/js/timesheet/LineItem/LineItemTemplate.html',
+            //        controller: 'LineItemController',
 
 
-                    resolve: {
-                        jobId: function () {
-                            return jobID;
-                        },
-                        containerViewValue: function () {
-                            return containerViewValue;
-                        }
-                    }
+            //        // 06/08/2021 03:57 pm - SSN - [20210606-0227] - [038] - Testng for deployment - Line item
+            //        // backdrop: false,
 
-                });
+            //        backdrop: 'static',
+            //        keyboard: false,
 
 
+            //        resolve: {
+            //            jobId: function () {
+            //                return jobID;
+            //            },
+            //            containerViewValue: function () {
+            //                return containerViewValue;
+            //            }
+            //        }
+
+            //    });
 
 
 
-            }
+
+
+            //}
 
 
 

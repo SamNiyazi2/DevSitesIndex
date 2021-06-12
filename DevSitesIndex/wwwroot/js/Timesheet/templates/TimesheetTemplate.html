@@ -1,129 +1,129 @@
 ﻿<!--// 04/12/2019 03:57 am - SSN - [20190412-0142] - TimesheetApp-->
-
-<form name="timesheetForm" novalidate>
-
-    <div class="modal-header">
-        <h2>{{pageTitle}}  <span style="font-size:16px;" ng-if="versionForHTMLRefresh">(Ver. {{versionForHTMLRefresh}})</span></h2>
-        <table>
-            <tr>
-                <td>Project </td>
-                <td>{{editableTimeLog.job.project.projectTitle}}</td>
-            </tr>
-            <tr>
-                <td>Job</td>
-                <td>{{editableTimeLog.job.jobTitle}}</td>
-            </tr>
-
-        </table>
-
-    </div>
-
-    <div class="modal-body">
+<div ng-controller="ModalCallSUtilController">
 
 
-        <input type="hidden" name="id" ng-model="editableTimeLog.id" />
-        <input type="hidden" name="timeLogId" ng-model="editableTimeLog.timeLogId" /> 
+    <form name="timesheetForm" novalidate>
 
-        <fieldset>
+        <div class="modal-header">
+            <h2>{{pageTitle}}  <span style="font-size:16px;" ng-if="versionForHTMLRefresh">(Ver. {{versionForHTMLRefresh}})</span></h2>
+            <table>
+                <tr>
+                    <td>Project </td>
+                    <td>{{editableTimeLog.job.project.projectTitle}}</td>
+                </tr>
+                <tr>
+                    <td>Job</td>
+                    <td>{{editableTimeLog.job.jobTitle}}</td>
+                </tr>
 
-
-            <!-- 04/13/2021 07:59 pm - SSN -->
-
-            <div class="form-group">
-
-                <label for="lineItemID" class="col-sm-3 control-label">
-                    Line item 333
-                </label>
-
-                <div class="col-sm-9">
-
-                    <input type="hidden" name="lineItemID" ng-model="editableTimeLog.lineItemID" ng-required="true" />
-                    <h4>containerViewValue [{{containerViewValue}}]</h4>
-                    <dropdown-list-directive call-source="20210607-1750" key="lineItemID" form-name="timesheetForm" ng-model="editableTimeLog.lineItemID" parentkey="editableTimeLog.jobId" parent-key-name="editableTimeLog.jobId" add-func="addNewLineItem(editableTimeLog.jobId, containerViewValue )" add-func-source="TimesheetTempaltexx1" container-view-value="containerViewValue" ></dropdown-list-directive>
-
-                </div>
-            </div>
-
-
-
-
-
-
-            <!--<legend>Basic Information</legend>-->
-            <!--// 04/13/2019 10:56 am - SSN - [20190413-1037] - Add discipline lookup-->
-            <!-- 11/26/2019 02:43 am - SSN - Replaced TypeAhead with directive -->
-
-
-            <div class="form-group">
-
-                <label for="disciplineID" class="col-sm-3 control-label">
-                    Discipline
-                </label>
-
-                <div class="col-sm-9">
-
-                    <input type="hidden" name="disciplineID" ng-model="editableTimeLog.disciplineID" ng-required="true" />
-
-                    <dropdown-list-directive call-source="20210607-1751" key="disciplineID" form-name="timesheetForm" ng-model="editableTimeLog.disciplineID"></dropdown-list-directive>
-
-                </div>
-            </div>
-
-
-
-
-            <div class="form-group">
-                <label for="StartTime" class="col-sm-3 control-label"  >Start time</label>
-                <div class="col-sm-9">
-
-                    <input type="date" id="StartTime1" name="StartTime" class="form-control" ng-model="editableTimeLog.startTime" />
-                    <input type="time" id="StartTime2" name="StartTime" class="form-control" ng-model="editableTimeLog.startTime" />
-
-                </div>
-            </div>
-
-
-
-            <div class="form-group">
-                <label for="WorkDetail" class="col-sm-3 control-label">Work Detail</label>
-                <div class="col-sm-9">
-
-                    <textarea name="WorkDetail" id="WorkDetail" class="form-control" rows="5" cols="40" ng-model="editableTimeLog.workDetail" autofocus></textarea>
-                </div>
-            </div>
-
-
-
-        </fieldset>
-
-
-        <!-- 09/28/2019 04:11 pm - SSN - [20190928-1256] - [012] - Adding Entity Framework model attribute -->
-        <!-- Adding feedbackToUser-->
-        <div ng-if="feedbackToUserText" ng-class="feedbackToUserClassNameSet()">
-            {{feedbackToUserText}}
-        </div>
-
-    </div>
-
-
-
-    <div class="modal-footer">
-
-
-        <div class="col-sm-offset-3 col-sm-9">
-            
-            
-            <h4> timesheetForm.$invalid  [{{timesheetForm.$invalid}}]  </h4>
-            <h4> disableSaveButton  [{{disableSaveButton}}]</h4>
-
-
-            <input type="button" class="btn btn-default" value="Cancel" ng-click="cancelForm()" />
-            <input type="button" class="btn btn-primary" value="Submit" ng-click="submitForm()" ng-disabled="timesheetForm.$invalid || disableSaveButton" />
+            </table>
 
         </div>
 
-    </div>
+        <div class="modal-body">
+
+
+            <input type="hidden" name="id" ng-model="editableTimeLog.id" />
+            <input type="hidden" name="timeLogId" ng-model="editableTimeLog.timeLogId" />
+
+            <fieldset>
+
+
+                <!-- 04/13/2021 07:59 pm - SSN -->
+
+                <div class="form-group">
+
+                    <label for="lineItemID" class="col-sm-3 control-label">
+                        Line item 333
+                    </label>
+
+                    <div class="col-sm-9">
+
+                        <input type="hidden" name="lineItemID" ng-model="editableTimeLog.lineItemID" ng-required="true" />
+                      
+                        <dropdown-list-directive call-source="20210607-1750" key="lineItemID" form-name="timesheetForm" ng-model="editableTimeLog.lineItemID" parentkey="editableTimeLog.jobId" parent-key-name="editableTimeLog.jobId" add-func="addNewLineItem(editableTimeLog.jobId, containerViewValue )" add-func-source="TimesheetTempaltexx1" container-view-value="containerViewValue"></dropdown-list-directive>
+
+                    </div>
+                </div>
 
 
 
-</form>
+
+
+
+                <!--<legend>Basic Information</legend>-->
+                <!--// 04/13/2019 10:56 am - SSN - [20190413-1037] - Add discipline lookup-->
+                <!-- 11/26/2019 02:43 am - SSN - Replaced TypeAhead with directive -->
+
+
+                <div class="form-group">
+
+                    <label for="disciplineID" class="col-sm-3 control-label">
+                        Discipline
+                    </label>
+
+                    <div class="col-sm-9">
+
+                        <input type="hidden" name="disciplineID" ng-model="editableTimeLog.disciplineID" ng-required="true" />
+
+                        <dropdown-list-directive call-source="20210607-1751" key="disciplineID" form-name="timesheetForm" ng-model="editableTimeLog.disciplineID"></dropdown-list-directive>
+
+                    </div>
+                </div>
+
+
+
+
+                <div class="form-group">
+                    <label for="StartTime" class="col-sm-3 control-label">Start time</label>
+                    <div class="col-sm-9">
+
+                        <input type="date" id="StartTime1" name="StartTime" class="form-control" ng-model="editableTimeLog.startTime" />
+                        <input type="time" id="StartTime2" name="StartTime" class="form-control" ng-model="editableTimeLog.startTime" />
+
+                    </div>
+                </div>
+
+
+
+                <div class="form-group">
+                    <label for="WorkDetail" class="col-sm-3 control-label">Work Detail</label>
+                    <div class="col-sm-9">
+
+                        <textarea name="WorkDetail" id="WorkDetail" class="form-control" rows="5" cols="40" ng-model="editableTimeLog.workDetail" autofocus></textarea>
+                    </div>
+                </div>
+
+
+
+            </fieldset>
+
+
+            <!-- 09/28/2019 04:11 pm - SSN - [20190928-1256] - [012] - Adding Entity Framework model attribute -->
+            <!-- Adding feedbackToUser-->
+            <div ng-if="feedbackToUserText" ng-class="feedbackToUserClassNameSet()">
+                {{feedbackToUserText}}
+            </div>
+
+        </div>
+
+
+
+        <div class="modal-footer">
+
+
+            <div class="col-sm-offset-3 col-sm-9">
+
+                <input type="button" class="btn btn-default" value="Cancel" ng-click="cancelForm()" />
+                <input type="button" class="btn btn-primary" value="Submit" ng-click="submitForm()" ng-disabled="timesheetForm.$invalid || disableSaveButton" />
+
+            </div>
+
+        </div>
+
+
+
+    </form>
+
+
+</div>
