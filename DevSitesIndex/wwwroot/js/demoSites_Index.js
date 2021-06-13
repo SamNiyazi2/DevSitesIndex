@@ -16,8 +16,9 @@ var ssn_devsite_angular_module_instance = function () {
         // $scope.data = [];
         $scope.data = dataService;
         $scope.isBusy2 = true;
-        //    $http.get('./api/demositesapi')
-        dataService.getDevSites()
+        // 06/13/2021 08:35 am - SSN - [20210613-0452] - [012] - Adding tags to DevSite
+        // Temp Todo
+        dataService.getDevSites(50, 1)
             .then(function (result) {
             $scope.data_local = ko.observable($scope.data.devSites());
         }, function (ex) {

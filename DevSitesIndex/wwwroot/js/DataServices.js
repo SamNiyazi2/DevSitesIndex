@@ -6,14 +6,25 @@ var dataService_instance = function () {
         var ssn_devsite_angular_module = globals.globals_instance.getInstance_v002('DataServices', currentApplication);
         ssn_devsite_angular_module.factory("dataService", ['$http', '$q', function ($http, $q) {
                 var _devSites = [];
-                var _getDevSites = function () {
+                var _getDevSites = function (recordsPerPage, currentPage) {
                     var deferred = $q.defer();
-                    $http.get('/api/demositesapi')
+                    $http.get("/api/demositesapi/" + recordsPerPage + "/" + currentPage)
                         .then(function (result) {
                         angular.copy(result.data, _devSites);
                         deferred.resolve();
                     }, function () {
                         deferred.reject();
+                    });
+                    return deferred.promise;
+                };
+                // 06/13/2021 10:29 am - SSN - [20210613-0452] - [018] - Adding tags to DevSite
+                var _getDevSitesCount = function () {
+                    var deferred = $q.defer();
+                    $http.get("/api/demositesapi/recordcount")
+                        .then(function (result) {
+                        deferred.resolve(result);
+                    }, function () {
+                        deferred.reject(0);
                     });
                     return deferred.promise;
                 };
@@ -158,6 +169,7 @@ var dataService_instance = function () {
                 return {
                     devSites: ko.observable(_devSites),
                     getDevSites: _getDevSites,
+                    getDevSitesCount: _getDevSitesCount,
                     addDevSite: _addDevSite,
                     // 09/06/2019 04:44 pm - SSN - [20190906-0518] - [002] - Angular - editMode div content
                     updateDevSite: _updateDevSite,

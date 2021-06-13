@@ -11,10 +11,15 @@ namespace DevSitesIndex.Services
     public interface IDevSitesIndexRepository
     {
 
-        IEnumerable<DevSite> GetDevSites();
+        // 06/13/2021 08:00 am - SSN - [20210613-0452] - [009] - Adding tags to DevSite
+        IEnumerable<DevSite> GetDevSites(int recordsPerPage, int currentPage);
 
         // 08/12/2019 08:36 pm - SSN - [20190812-2024] - [002] - DevSites FullText search
         Task<IEnumerable<DevSite>> GetDevSites(string searchText);
+
+
+        // 06/13/2021 10:25 am - SSN - [20210613-0452] - [017] - Adding tags to DevSite
+        int GetDevSitesCount();
 
 
         Task<DevSite> UpdateDevSiteAsync(DevSite devSite);

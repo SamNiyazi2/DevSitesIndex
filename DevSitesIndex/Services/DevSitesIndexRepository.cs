@@ -19,15 +19,20 @@ namespace DevSitesIndex.Services
         }
 
 
-        public IEnumerable<DevSite> GetDevSites()
+        public IEnumerable<DevSite> GetDevSites(int recordsPerPage, int currentPage)
         {
+            // 06/13/2021 07:57 am - SSN - [20210613-0452] - [008] - Adding tags to DevSite
+            int recordsToSkip = recordsPerPage * (currentPage - 1);
             // 11/03/2018 08:05 am - SSN - order
             // return _context.DevSites.ToList();
             // 04/20/2019 11:13 am - SSN - [20190420-1109] - Add AsNoTracking to index pages
 
             // 09/10/2019 02:28 am - SSN - 
             // IEnumerable<DevSite> devSites = _context.DevSites.OrderByDescending(r => r.DateUpdated ?? r.DateAdded).AsNoTracking().ToList();
-            IEnumerable<DevSite> devSites = _context.DevSites.OrderByDescending(r => r.LastActivityDate).AsNoTracking().ToList();
+            IEnumerable<DevSite> devSites = _context
+                .DevSites
+                .Include(r => r.DevSiteTechnologies)
+                .OrderByDescending(r => r.LastActivityDate).Skip(recordsToSkip).Take(recordsPerPage).AsNoTracking().ToList();
 
             return devSites;
         }
@@ -45,7 +50,11 @@ namespace DevSitesIndex.Services
         }
 
 
-
+        // 06/13/2021 10:25 am - SSN - [20210613-0452] - [017] - Adding tags to DevSite
+        public int GetDevSitesCount()
+        {
+            return _context.DevSites.Count();
+        }
 
         public DevSite GetDevSite(int devSiteID)
         {
@@ -93,7 +102,8 @@ namespace DevSitesIndex.Services
         {
             try
             {
-                if (_context.SaveChanges() > 0) return default(Exception);
+                if (_context.SaveChanges() > 0)
+                    return default(Exception);
 
                 return new Exception("20190930-0906 - Failed to save record.");
             }

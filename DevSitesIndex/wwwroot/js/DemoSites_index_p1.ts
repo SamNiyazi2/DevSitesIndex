@@ -45,6 +45,12 @@ var demosites_index_p1_instance = function () {
 
         self.errorMessage = ko.observable();
 
+        // 06/13/2021 08:49 am - SSN - [20210613-0452] - [015] - Adding tags to DevSite
+
+        self.recordsPerPage_KO = ko.observable(10);
+        self.currentPage_KO = ko.observable(1);
+        self.devSitesCount_KO = ko.observable(-1);
+
         // 06/06/2019 05:44 pm - SSN - Moved from index_p1.cshtml - Update
         //  this.devSitesJSON = ko.observableArray(@Html.Raw(Model.devSitesJSON));
 
@@ -52,16 +58,40 @@ var demosites_index_p1_instance = function () {
 
 
         // 06/06/2019 05:44 pm - SSN - Moved from index_p1.cshtml - Update
-        this.loadData = function () {
+        // 06/13/2021 08:44 am - SSN - [20210613-0452] - [014] - Adding tags to DevSite
+        // Adding recordsPerPage and currentPage
+        this.loadData = function (recordsPerPage: number, currentPage: number) {
             let self = this;
+
 
             // 09/09/2019 10:35 pm - SSN - [20190909-2136] - [005] - Select top 15
 
             // $.getJSON("/api/demositesapi", function (data) {
-            $.getJSON("/api/demositesapi/top?recordCount=15", function (data) {
+            // $.getJSON("/api/demositesapi/top?recordCount=15", function (data) {
+            $.getJSON(`/api/demositesapi/${recordsPerPage}/${currentPage}`, function (data) {
 
                 self.devSitesJSON.removeAll();
                 self.devSitesJSON(data);
+
+                document.querySelector('#topTitle').scrollIntoView({
+                    behavior: 'smooth'
+                });
+
+            });
+
+
+
+
+            $.getJSON("/api/demositesapi/recordcount", function (data) {
+                 
+                self.devSitesCount_KO(data);
+
+            }).fail(function (response) {
+                console.log('demositesapi - System error - 20210613-1036');
+                console.error(response);
+                self.SearchResultsFeedback_KO('System failure.');
+                self.SearchResultsFeedback_ClassName_KO("alert alert-danger");
+
             });
 
         }
@@ -78,6 +108,59 @@ var demosites_index_p1_instance = function () {
             return recordCount;
 
         };
+
+
+        // 06/13/2021 09:00 am - SSN - [20210613-0452] - [016] - Adding tags to DevSite
+
+        this.onFirstPageKnockout = function () {
+
+            return self.currentPage_KO() == 1;
+        }
+
+        this.onLastPageKnockout = function () {
+            
+            return self.currentPage_KO()>=  self.totalPageCount();
+        }
+
+        this.totalPageCount = function () {
+            return Math.ceil(self.devSitesCount_KO() / self.recordsPerPage_KO());
+        }
+
+        this.displayCurrentPageNumberAndTotalPages = function () {
+            const currentPage = self.currentPage_KO();
+            const totalPageCount = self.totalPageCount();
+
+            return `Page ${currentPage} of ${totalPageCount}`;
+        }
+
+        this.getCurrentPage = function () {
+            return self.currentPage_KO();
+        }
+
+        this.prevDevSitePage = function () {
+
+            let currentPage = self.currentPage_KO();
+
+            currentPage = currentPage-- < 1 ? 1 : currentPage;
+
+            self.currentPage_KO(currentPage);
+
+            self.loadData(self.recordsPerPage_KO(), self.currentPage_KO());
+        }
+
+        this.nextDevSitePage = function () {
+
+            let currentPage = self.currentPage_KO();
+            currentPage = currentPage++ > self.totalPageCount() ? self.totalPageCount() : currentPage;
+
+            self.currentPage_KO(currentPage);
+            self.loadData(self.recordsPerPage_KO(), self.currentPage_KO());
+
+        }
+
+
+
+
 
 
         // 09/08/2019 08:07 pm - SSN - [20190908-0001] - [009] - Concurrency
@@ -132,7 +215,8 @@ var demosites_index_p1_instance = function () {
             self.SearchResultsFeedback_KO('');
             self.SearchResultsFeedback_ClassName_KO("");
             self.SearchText_KO("");
-            self.loadData();
+            self.currentPage_KO(1);
+            self.loadData(self.recordsPerPage_KO(), self.currentPage_KO());
         }
 
         // 08/12/2019 05:57 am - SSN - [20190812-0515] - [005] - Apply fulltext search
@@ -141,6 +225,9 @@ var demosites_index_p1_instance = function () {
         this.onSubmit = function () {
 
             let searchText = self.SearchText_KO();
+
+
+            self.devSitesCount_KO(-2);
 
 
             if (searchText === undefined) {
@@ -193,6 +280,16 @@ var demosites_index_p1_instance = function () {
             //    self.devSitesJSON(response);
             //});
 
+
+
+
+
+
+
+
+
+
+
             $.ajax({
                 type: "POST",
                 data: data,
@@ -216,7 +313,7 @@ var demosites_index_p1_instance = function () {
 
 
                 if (!self.prefixPreWithShowHideAnchor_DontCall_KO()) {
-                    setTimeout(() => util.site_instance.prefixPreWithShowHideAnchor('20200102-1533') , 2000);
+                    setTimeout(() => util.site_instance.prefixPreWithShowHideAnchor('20200102-1533'), 2000);
                 }
                 else {
                     // 08/21/2019 01:48 pm - SSN - [20190821-1348] [001] - Added
@@ -271,7 +368,7 @@ var demosites_index_p1_instance = function () {
 
     ko.applyBindings(vm);
 
-    vm.loadData();
+    vm.loadData(vm.recordsPerPage_KO(), vm.currentPage_KO());
 
 
 

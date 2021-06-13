@@ -28,12 +28,11 @@ var dataService_instance = function () {
 
             var _devSites = [];
 
-            var _getDevSites = function () {
+            var _getDevSites = function (recordsPerPage:number, currentPage:number) {
 
                 var deferred = $q.defer();
-
-
-                $http.get('/api/demositesapi')
+ 
+                $http.get(`/api/demositesapi/${recordsPerPage}/${currentPage}`)
                     .then(function (result) {
 
                         angular.copy(result.data, _devSites);
@@ -41,6 +40,25 @@ var dataService_instance = function () {
                     },
                         function () {
                             deferred.reject();
+                        });
+
+                return deferred.promise;
+            };
+
+
+            // 06/13/2021 10:29 am - SSN - [20210613-0452] - [018] - Adding tags to DevSite
+
+            var _getDevSitesCount = function () {
+
+                var deferred = $q.defer();
+
+                $http.get(`/api/demositesapi/recordcount`)
+                    .then(function (result) {
+                         
+                        deferred.resolve(result);
+                    },
+                        function () {
+                            deferred.reject(0);
                         });
 
                 return deferred.promise;
@@ -300,6 +318,7 @@ var dataService_instance = function () {
 
                 devSites: ko.observable(_devSites),
                 getDevSites: _getDevSites,
+                getDevSitesCount: _getDevSitesCount,
                 addDevSite: _addDevSite,
                 // 09/06/2019 04:44 pm - SSN - [20190906-0518] - [002] - Angular - editMode div content
                 updateDevSite: _updateDevSite,

@@ -21,17 +21,35 @@ var demosites_index_p1_instance = function () {
         //////this.currentItem = {};
         self.currentItem = ko.observable();
         self.errorMessage = ko.observable();
+        // 06/13/2021 08:49 am - SSN - [20210613-0452] - [015] - Adding tags to DevSite
+        self.recordsPerPage_KO = ko.observable(10);
+        self.currentPage_KO = ko.observable(1);
+        self.devSitesCount_KO = ko.observable(-1);
         // 06/06/2019 05:44 pm - SSN - Moved from index_p1.cshtml - Update
         //  this.devSitesJSON = ko.observableArray(@Html.Raw(Model.devSitesJSON));
         this.devSitesJSON = ko.observableArray([]);
         // 06/06/2019 05:44 pm - SSN - Moved from index_p1.cshtml - Update
-        this.loadData = function () {
+        // 06/13/2021 08:44 am - SSN - [20210613-0452] - [014] - Adding tags to DevSite
+        // Adding recordsPerPage and currentPage
+        this.loadData = function (recordsPerPage, currentPage) {
             var self = this;
             // 09/09/2019 10:35 pm - SSN - [20190909-2136] - [005] - Select top 15
             // $.getJSON("/api/demositesapi", function (data) {
-            $.getJSON("/api/demositesapi/top?recordCount=15", function (data) {
+            // $.getJSON("/api/demositesapi/top?recordCount=15", function (data) {
+            $.getJSON("/api/demositesapi/" + recordsPerPage + "/" + currentPage, function (data) {
                 self.devSitesJSON.removeAll();
                 self.devSitesJSON(data);
+                document.querySelector('#topTitle').scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+            $.getJSON("/api/demositesapi/recordcount", function (data) {
+                self.devSitesCount_KO(data);
+            }).fail(function (response) {
+                console.log('demositesapi - System error - 20210613-1036');
+                console.error(response);
+                self.SearchResultsFeedback_KO('System failure.');
+                self.SearchResultsFeedback_ClassName_KO("alert alert-danger");
             });
         };
         // 08/16/2019 04:25 pm - SSN - [20190816-1625] - [001] - Correct logic for getting record count to show no search results message
@@ -39,6 +57,36 @@ var demosites_index_p1_instance = function () {
             var recordCount = self.devSitesJSON().length;
             // self.devSitesJSON
             return recordCount;
+        };
+        // 06/13/2021 09:00 am - SSN - [20210613-0452] - [016] - Adding tags to DevSite
+        this.onFirstPageKnockout = function () {
+            return self.currentPage_KO() == 1;
+        };
+        this.onLastPageKnockout = function () {
+            return self.currentPage_KO() >= self.totalPageCount();
+        };
+        this.totalPageCount = function () {
+            return Math.ceil(self.devSitesCount_KO() / self.recordsPerPage_KO());
+        };
+        this.displayCurrentPageNumberAndTotalPages = function () {
+            var currentPage = self.currentPage_KO();
+            var totalPageCount = self.totalPageCount();
+            return "Page " + currentPage + " of " + totalPageCount;
+        };
+        this.getCurrentPage = function () {
+            return self.currentPage_KO();
+        };
+        this.prevDevSitePage = function () {
+            var currentPage = self.currentPage_KO();
+            currentPage = currentPage-- < 1 ? 1 : currentPage;
+            self.currentPage_KO(currentPage);
+            self.loadData(self.recordsPerPage_KO(), self.currentPage_KO());
+        };
+        this.nextDevSitePage = function () {
+            var currentPage = self.currentPage_KO();
+            currentPage = currentPage++ > self.totalPageCount() ? self.totalPageCount() : currentPage;
+            self.currentPage_KO(currentPage);
+            self.loadData(self.recordsPerPage_KO(), self.currentPage_KO());
         };
         // 09/08/2019 08:07 pm - SSN - [20190908-0001] - [009] - Concurrency
         // Renamed del-confirm del_confirm_p1
@@ -71,13 +119,15 @@ var demosites_index_p1_instance = function () {
             self.SearchResultsFeedback_KO('');
             self.SearchResultsFeedback_ClassName_KO("");
             self.SearchText_KO("");
-            self.loadData();
+            self.currentPage_KO(1);
+            self.loadData(self.recordsPerPage_KO(), self.currentPage_KO());
         };
         // 08/12/2019 05:57 am - SSN - [20190812-0515] - [005] - Apply fulltext search
         // https://stackoverflow.com/questions/16245905/fetching-or-sending-data-from-a-form-using-knockout-js
         //self.onSubmit = function () {
         this.onSubmit = function () {
             var searchText = self.SearchText_KO();
+            self.devSitesCount_KO(-2);
             if (searchText === undefined) {
                 self.SearchResultsFeedback_KO('Input is required for search.');
                 self.SearchResultsFeedback_ClassName_KO("alert-warning");
@@ -162,7 +212,7 @@ var demosites_index_p1_instance = function () {
     };
     var vm = new ViewModel();
     ko.applyBindings(vm);
-    vm.loadData();
+    vm.loadData(vm.recordsPerPage_KO(), vm.currentPage_KO());
 }();
 var stringStartsWith = function (string, startsWith) {
     string = string || "";
