@@ -13,7 +13,7 @@ namespace DevSitesIndex.Entities
         public int JobId { get; set; }
         public int DevSiteId { get; set; }
 
-        public Job Job { get; set; }
-        public DevSite DevSite { get; set; }
+        public virtual Job Job { get; set; }
+        public virtual DevSite DevSite { get; set; }
     }
 }

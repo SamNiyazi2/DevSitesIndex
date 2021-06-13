@@ -553,6 +553,24 @@ namespace DevSitesIndex.Entities
         }
 
 
+        private static void setup_DevSiteTechnologies(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<DevSiteTechnology>(entity =>
+            {
+
+
+                entity.HasOne(d => d.DevSite)
+                            .WithMany(p => p.DevSiteTechnologies)
+                            .HasForeignKey(d => d.DevSiteId)
+                            .HasConstraintName("FK_SiteTechnologies_DevSites");
+
+                entity.HasOne(d => d.Technology)
+                            .WithMany(p => p.DevSiteTechnologies)
+                            .HasForeignKey(d => d.TechnologyId)
+                            .HasConstraintName("FK_SiteTechnologies_Technologies");
+            });
+        }
+
         // 09/16/2019 11:38 am - SSN - [20190916-1123] - [003] - Adding job status
 
         private static void setup_Job_Status(ModelBuilder modelBuilder)
@@ -600,6 +618,11 @@ namespace DevSitesIndex.Entities
 
         // 09/16/2019 11:44 am - SSN - [20190916-1123] - [004] - Adding job status
         public DbSet<Job_Status> Job_Statuses { get; set; }
+
+        
+        // 06/13/2021 08:39 am - SSN - [20210613-0452] - [013] - Adding tags to DevSite
+        public DbSet<DevSiteTechnology> DevSiteTechnologies { get; set; }
+
 
     }
 }

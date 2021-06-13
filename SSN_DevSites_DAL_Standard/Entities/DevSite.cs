@@ -159,6 +159,11 @@ namespace DevSitesIndex.Entities
         public virtual ICollection<DevSiteCodeReference> DevSiteCodeReferences { get; set; }
 
 
+        // 06/13/2021 07:16 am - SSN - [20210613-0452] - [005] - Adding tags to DevSite
+
+        public virtual ICollection<DevSiteTechnology> DevSiteTechnologies { get; set; }
+        public virtual ICollection<Job_DevSite> JobDevSites { get; set; }
+
     }
 
 
