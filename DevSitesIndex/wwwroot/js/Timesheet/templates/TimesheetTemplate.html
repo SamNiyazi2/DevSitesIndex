@@ -41,7 +41,7 @@
 
                         <input type="hidden" name="lineItemID" ng-model="editableTimeLog.lineItemID" ng-required="true" />
                       
-                        <dropdown-list-directive call-source="20210607-1750" key="lineItemID" form-name="timesheetForm" ng-model="editableTimeLog.lineItemID" parentkey="editableTimeLog.jobId" parent-key-name="editableTimeLog.jobId" add-func="addNewLineItem(editableTimeLog.jobId, containerViewValue )" add-func-source="TimesheetTempaltexx1" container-view-value="containerViewValue"></dropdown-list-directive>
+                        <dropdown-list-directive call-source="20210607-1750" key="lineItemID" form-name="timesheetForm" ng-model="editableTimeLog.lineItemID" parentkey="editableTimeLog.jobId" parent-key-name="editableTimeLog.jobId" add-func="addNewLineItem(editableTimeLog.jobId, containerViewValue )" add-func-source="TimesheetTempaltexx1" container-view-value="containerViewValue" autofocus="true" ></dropdown-list-directive>
 
                     </div>
                 </div>
@@ -66,7 +66,7 @@
 
                         <input type="hidden" name="disciplineID" ng-model="editableTimeLog.disciplineID" ng-required="true" />
 
-                        <dropdown-list-directive call-source="20210607-1751" key="disciplineID" form-name="timesheetForm" ng-model="editableTimeLog.disciplineID"></dropdown-list-directive>
+                        <dropdown-list-directive call-source="20210607-1751" key="disciplineID" form-name="timesheetForm" ng-model="editableTimeLog.disciplineID"  autofocus="true" ></dropdown-list-directive>
 
                     </div>
                 </div>

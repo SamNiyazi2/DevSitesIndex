@@ -54,12 +54,13 @@ namespace DevSitesIndex.Controllers
 
         // 12/03/2019 03:03 am - SSN - [20191202-2353] - [008] - DisplayCode - Adding
         // Create method for VSTS
+        // 06/13/2021 04:04 am - SSN - [20210613-0039] - [003] - VSTS Code - Refactoring
         [HttpGet("VSTSCode")]
-        public async Task<RequestResult> VSTSCode(string url, bool doDebug, bool useFileSystem = false)
+        // public async Task<RequestResult> VSTSCode(string url, bool doDebug, bool useFileSystem = false)
+        public async Task<RequestResult> VSTSCode(VSTSCodeRequest _VSTSCodeRequest)
         {
             string userName = configuration["vsts_username"];
             string token = configuration["vsts_token"];
-
 
             RequestResult requestResult_init = new RequestResult();
 
@@ -67,25 +68,17 @@ namespace DevSitesIndex.Controllers
             {
                 requestResult_init.finalResult = "Missing VSTS credentials.";
                 requestResult_init.haveError = true;
-                logger.PostException(new Exception("Missing VSTS credentials"), "20191203-2257", "Missing VSTS credential for VSTSCode display");
+                await logger.PostException(new Exception("Missing VSTS credentials"), "20191203-2257", "Missing VSTS credential for VSTSCode display");
                 return requestResult_init;
             }
 
-            string vstsAccount = "samniyazi";
-            string projectName = "Training Track";
-            string repository = "433fe932-11f3-4919-831b-234c1dab4d8d";
 
+            string url_base = string.Format("https://dev.azure.com/{0}/{1}/_apis/git/repositories/{2}/items?path={3}&api-version=5.1",
+                     _VSTSCodeRequest.vstsAccount,
+                     _VSTSCodeRequest.projectName,
+                     _VSTSCodeRequest.repository,
+                     _VSTSCodeRequest.filePath);
 
-
-            // path=/DevSitesIndex/wwwroot/js/DemoSites_index_p1.ts
-            string path = "/DevSitesIndex/wwwroot/js/DemoSites_index_p1.ts";
-
-            // Wrong url - string url_base = string.Format("https://{0}.VisualStudio.com/defaultcollection/{1}/_apis/git/repositories/{2}/items?api-version=5.1", vstsAccount, projectName, repository);
-            string url_base = string.Format("https://dev.azure.com/{0}/{1}/_apis/git/repositories/{2}/items?path={3}&api-version=5.1", vstsAccount, projectName, repository, path);
-
-
-            // &recursionLevel=full  <---- Only when listing all items  - URL does not work here when tested. 
-            // 'responseStream.ReadTimeout' threw an exception of type 'System.InvalidOperationException'
 
             string base64AuthInfo = Convert.ToBase64String(Encoding.ASCII.GetBytes(string.Format("{0}:{1}", userName, token)));
 
@@ -93,7 +86,6 @@ namespace DevSitesIndex.Controllers
 
             // 12/03/2019 04:49 am - SSN - [20191202-2353] - [019] - DisplayCode - Adding
             // https://docs.microsoft.com/en-us/aspnet/core/fundamentals/http-requests?view=aspnetcore-3.0
-
 
             try
             {
@@ -106,6 +98,7 @@ namespace DevSitesIndex.Controllers
                 requestResult_init.finalResult = ex.Message;
                 await logger.PostException(ex, "20191203-0901", "Failed to call DisplayCodeContrller - VSTSCode");
             }
+
 
 
             return requestResult_init;
@@ -185,6 +178,20 @@ namespace DevSitesIndex.Controllers
             }
 
             return requestResult_init;
+        }
+
+
+        public class VSTSCodeRequest
+        {
+            public string url { get; set; }
+            public bool doDebug { get; set; }
+            public bool useFileSystem { get; set; }
+
+            public string vstsAccount { get; set; }
+            public string projectName { get; set; }
+            public string repository { get; set; }
+            public string filePath { get; set; }
+
         }
 
 
@@ -372,7 +379,8 @@ namespace DevSitesIndex.Controllers
 
         public void add()
         {
-            if (currentCodeBlock == null || currentCodeBlock.isDirty_v02()) codeBlocks.Add(new CodeBlock());
+            if (currentCodeBlock == null || currentCodeBlock.isDirty_v02())
+                codeBlocks.Add(new CodeBlock());
         }
 
 
@@ -437,7 +445,8 @@ namespace DevSitesIndex.Controllers
 
             if (text.Contains("highlight ["))
             {
-                if (debugRegex) currentCodeBlock.sb.AppendLine("------------- Regex  begin");
+                if (debugRegex)
+                    currentCodeBlock.sb.AppendLine("------------- Regex  begin");
 
                 Regex r = new Regex(@".*highlight \[(?<aaa>.*)\].*", RegexOptions.IgnoreCase);
                 Match m = r.Match(text);
@@ -445,18 +454,21 @@ namespace DevSitesIndex.Controllers
 
                 while (m.Success)
                 {
-                    if (debugRegex) currentCodeBlock.sb.AppendLine($"Match {++matchCount}");
+                    if (debugRegex)
+                        currentCodeBlock.sb.AppendLine($"Match {++matchCount}");
                     for (int i = 1; i <= 2; i++)
                     {
                         Group g = m.Groups[i];
-                        if (debugRegex) currentCodeBlock.sb.AppendLine("Group" + i + "='" + encodeOpeningTag(g.Value) + "'");
+                        if (debugRegex)
+                            currentCodeBlock.sb.AppendLine("Group" + i + "='" + encodeOpeningTag(g.Value) + "'");
 
 
                         CaptureCollection cc = g.Captures;
                         for (int j = 0; j < cc.Count; j++)
                         {
                             Capture c = cc[j];
-                            if (debugRegex) currentCodeBlock.sb.AppendLine("Capture" + j + "='" + encodeOpeningTag(c.Value) + "', Position=" + c.Index);
+                            if (debugRegex)
+                                currentCodeBlock.sb.AppendLine("Capture" + j + "='" + encodeOpeningTag(c.Value) + "', Position=" + c.Index);
 
                             // Remove software return
                             string c_stripped = c.Value.Replace(char.ConvertFromUtf32(141), "");
@@ -467,14 +479,16 @@ namespace DevSitesIndex.Controllers
                     m = m.NextMatch();
 
                 }
-                if (debugRegex) currentCodeBlock.sb.AppendLine("------------- Regex end");
+                if (debugRegex)
+                    currentCodeBlock.sb.AppendLine("------------- Regex end");
             }
 
 
             // 11/10/2018 11:56 am - SSN - Adding alarm
             if (text.Contains("alarm ["))
             {
-                if (debugRegex) currentCodeBlock.sb.AppendLine("------------- Regex  begin (102-alarm)");
+                if (debugRegex)
+                    currentCodeBlock.sb.AppendLine("------------- Regex  begin (102-alarm)");
 
                 Regex r = new Regex(@".*alarm \[(?<aaa>.*)\].*", RegexOptions.IgnoreCase);
                 Match m = r.Match(text);
@@ -482,18 +496,21 @@ namespace DevSitesIndex.Controllers
 
                 while (m.Success)
                 {
-                    if (debugRegex) currentCodeBlock.sb.AppendLine($"Match {++matchCount}");
+                    if (debugRegex)
+                        currentCodeBlock.sb.AppendLine($"Match {++matchCount}");
                     for (int i = 1; i <= 2; i++)
                     {
                         Group g = m.Groups[i];
-                        if (debugRegex) currentCodeBlock.sb.AppendLine("Group" + i + "='" + encodeOpeningTag(g.Value) + "'");
+                        if (debugRegex)
+                            currentCodeBlock.sb.AppendLine("Group" + i + "='" + encodeOpeningTag(g.Value) + "'");
 
 
                         CaptureCollection cc = g.Captures;
                         for (int j = 0; j < cc.Count; j++)
                         {
                             Capture c = cc[j];
-                            if (debugRegex) currentCodeBlock.sb.AppendLine("Capture" + j + "='" + encodeOpeningTag(c.Value) + "', Position=" + c.Index);
+                            if (debugRegex)
+                                currentCodeBlock.sb.AppendLine("Capture" + j + "='" + encodeOpeningTag(c.Value) + "', Position=" + c.Index);
 
                             // Remove software return
                             string c_stripped = c.Value.Replace(char.ConvertFromUtf32(141), "");
@@ -504,7 +521,8 @@ namespace DevSitesIndex.Controllers
                     m = m.NextMatch();
 
                 }
-                if (debugRegex) currentCodeBlock.sb.AppendLine("------------- Regex end");
+                if (debugRegex)
+                    currentCodeBlock.sb.AppendLine("------------- Regex end");
             }
 
 
@@ -545,7 +563,8 @@ namespace DevSitesIndex.Controllers
             foreach (string s in list.OrderByDescending(r => r.Length))
             {
 
-                if (string.IsNullOrEmpty(s)) continue;
+                if (string.IsNullOrEmpty(s))
+                    continue;
 
                 // Error CS1656  Cannot assign to 's' because it is a 'foreach iteration variable'   
 
@@ -586,13 +605,15 @@ namespace DevSitesIndex.Controllers
         // 09/27/2018 03:41 am - SSN
         public static string doReplacement_step02_JavaScriptComment_Highlight_Begin(string input)
         {
-            if (input.Trim() == "//ha//") return "<n>"; // if we only have request to open block with no comments, we won't need the backslashes.
+            if (input.Trim() == "//ha//")
+                return "<n>"; // if we only have request to open block with no comments, we won't need the backslashes.
 
             return doReplacement_Apply(ref input, @"(//ha//)(.*)$", "<n>// $2");
         }
         public static string doReplacement_step02_JavaScriptComment_Highlight_End(string input)
         {
-            if (input.Trim() == "//hz//") return "</n>"; // if we only have request to close block with no comments, just close block.
+            if (input.Trim() == "//hz//")
+                return "</n>"; // if we only have request to close block with no comments, just close block.
 
             return doReplacement_Apply(ref input, @"(//hz//)(.*)$", "// $2 </n>");
         }
@@ -616,13 +637,17 @@ namespace DevSitesIndex.Controllers
                     partNo++;
 
                     sb_final.AppendLine("");
-                    if (displayCodeBlocks) sb_final.AppendLine($"*************** Part [{partNo}] - Begin");
-                    if (displayCodeBlocks) sb_final.AppendLine("");
+                    if (displayCodeBlocks)
+                        sb_final.AppendLine($"*************** Part [{partNo}] - Begin");
+                    if (displayCodeBlocks)
+                        sb_final.AppendLine("");
 
                     sb_final.Append(cb.sb);
 
-                    if (displayCodeBlocks) sb_final.AppendLine("");
-                    if (displayCodeBlocks) sb_final.AppendLine($"*************** Part [{partNo}] - End");
+                    if (displayCodeBlocks)
+                        sb_final.AppendLine("");
+                    if (displayCodeBlocks)
+                        sb_final.AppendLine($"*************** Part [{partNo}] - End");
                     sb_final.AppendLine("");
                 }
             }

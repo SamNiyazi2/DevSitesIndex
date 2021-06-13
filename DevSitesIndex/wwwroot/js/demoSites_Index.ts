@@ -216,7 +216,9 @@ var ssn_devsite_angular_module_instance = function () {
 
         return {
             templateUrl: './js/devsiteTags/dev-site-tags.html',
-            scope: true,
+            scope: {
+                theTags: "="
+            },
             controller: function ($scope) {
 
 
@@ -224,8 +226,16 @@ var ssn_devsite_angular_module_instance = function () {
                 $scope.addingDevSiteTag = false;
                 $scope.removingDevSiteTag = false;
 
+                if ($scope.theTags === undefined) {
+                    $scope.theTags = [];
+                }
 
-                $scope.theTags = ["C#", "ASP.NET", "Entity Framework"];
+                console.log('20210613-0335  ');
+                console.log('20210613-0335 d ');
+                console.log($scope.theTags)
+
+
+               // $scope.theTags = [...$scope.theTags  , "C#", "ASP.NET", "Entity Framework"];
 
                 $scope.addDevSiteTag = function () {
                     $scope.addingDevSiteTag = true;

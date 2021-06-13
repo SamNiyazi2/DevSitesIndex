@@ -10,7 +10,9 @@ import { IScope } from "angular";
 interface IScope_local extends IScope {
 
     continue_or_lineItem_caption: string,
-    showClockoutOption: boolean
+    showClockoutOption: boolean,
+    totalSeconds: any,
+    timelogId: any
 }
 
 
@@ -199,11 +201,17 @@ var TimelogLinkOptions = function () {
                         TimesheetContinueController_modal.result.then(TimesheetContinueController_modal_save, TimesheetContinueController_modal_cancel);
                         function TimesheetContinueController_modal_save(result) {
 
+                            console.log('%c TimelogLinkOptions - TimesheetContinueController_modal_save - 20210612-0155', 'color:yellow;font-size:14pt');
+
+
                             changeMonitorService.reset();
 
                         }
 
                         function TimesheetContinueController_modal_cancel(result) {
+
+                            console.log('%c TimelogLinkOptions - TimesheetContinueController_modal_cancel - 20210612-0156', 'color:yellow;font-size:14pt');
+
 
                             changeMonitorService.reset();
 
@@ -328,17 +336,11 @@ var TimelogLinkOptions = function () {
 
                 link: function (scope: IScope_local, el, attrs) {
 
-
-
-                    let totalSeconds_fromAttr = attrs['totalSeconds'];
-
-
-                    let haveOpenRecord = totalSeconds_fromAttr === undefined;
+                    let haveOpenRecord = scope.timelogId && scope.totalSeconds === undefined;
 
                     scope.showClockoutOption = haveOpenRecord;
 
                     scope.continue_or_lineItem_caption = !haveOpenRecord ? "Continue" : "Line item";
-
 
                 }
 

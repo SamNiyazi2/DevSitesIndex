@@ -130,6 +130,15 @@ var lineItemController_instance = function () {
 
                 $scope.editableJob_LineItem.lineItem = $scope.defaultValue;
 
+                if ($scope.editableJob_LineItem.lineItem == "0") {
+
+                    toastr.error("Failed to save record.  See console log.");
+
+                    $scope.disableSaveButton = false;
+                    return;
+
+                }
+
 
                 var promise = null;
 

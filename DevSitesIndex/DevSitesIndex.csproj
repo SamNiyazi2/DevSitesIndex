@@ -84,6 +84,7 @@
     <Content Remove="wwwroot\js\Util\autofocus\ssnAutoFocus.ts" />
     <Content Remove="wwwroot\js\Util\Logger\ILoggerErrorMessage.ts" />
     <Content Remove="wwwroot\js\Util\ssn_AngularJslogger.ts" />
+    <Content Remove="timesheetsSupport7\src\app\util\VSTSCode\VSTSCode.ts" />
   </ItemGroup>
   <ItemGroup>
     <None Include="wwwroot\js\__________________Hold4Delete\angular.js" />
@@ -105,6 +106,7 @@
     <TypeScriptCompile Include="wwwroot\js\Util\TextArea_util_0718.ts" />
     <TypeScriptCompile Include="wwwroot\js\Users\login.ts" />
     <TypeScriptCompile Include="wwwroot\js\Users\users_main.ts" />
+    <TypeScriptCompile Include="timesheetsSupport7\src\app\util\VSTSCode\VSTSCode.ts" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services" />

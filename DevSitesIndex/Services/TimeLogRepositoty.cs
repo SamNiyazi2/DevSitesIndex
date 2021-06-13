@@ -35,6 +35,7 @@ namespace DevSitesIndex.Services
             // return _context.TimeLog.OrderByDescending(r => r.DateModified ?? r.DateAdded).AsNoTracking().ToList();
             IQueryable<TimeLog> result = _context.TimeLog
                 .Include(r => r.job).ThenInclude(r => r.project)
+                .Include(r => r.job_Lineitem)
                 .Include(r => r.discipline)
 
                 // 10/21/2019 08:33 pm - SSN - [20191021-2033] - [001] - Revise timelog search returned result

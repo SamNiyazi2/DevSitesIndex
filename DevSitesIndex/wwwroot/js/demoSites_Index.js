@@ -122,11 +122,19 @@ var ssn_devsite_angular_module_instance = function () {
     ssn_devsite_angular_module.directive('devSiteTags', function () {
         return {
             templateUrl: './js/devsiteTags/dev-site-tags.html',
-            scope: true,
+            scope: {
+                theTags: "="
+            },
             controller: function ($scope) {
                 $scope.addingDevSiteTag = false;
                 $scope.removingDevSiteTag = false;
-                $scope.theTags = ["C#", "ASP.NET", "Entity Framework"];
+                if ($scope.theTags === undefined) {
+                    $scope.theTags = [];
+                }
+                console.log('20210613-0335  ');
+                console.log('20210613-0335 d ');
+                console.log($scope.theTags);
+                // $scope.theTags = [...$scope.theTags  , "C#", "ASP.NET", "Entity Framework"];
                 $scope.addDevSiteTag = function () {
                     $scope.addingDevSiteTag = true;
                 };

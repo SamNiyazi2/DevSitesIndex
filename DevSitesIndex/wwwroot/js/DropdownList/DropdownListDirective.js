@@ -108,7 +108,7 @@ var dropdownListDirective_instance = function () {
                 };
             }]);
         downdownList_angular_module.directive('dropdownListDirective', ['ssn_logger', '$timeout', function (ssn_logger, $timeout) {
-                var controller = ['$http', '$q', '$scope', '$rootScope', '$timeout', 'changeMonitorService', 'ssn_logger', function ($http, $q, $scope, $rootScope, $timeout, changeMonitorService, ssn_logger) {
+                var controller = ['$window', '$http', '$q', '$scope', '$rootScope', '$timeout', 'changeMonitorService', 'ssn_logger', function ($window, $http, $q, $scope, $rootScope, $timeout, changeMonitorService, ssn_logger) {
                         var vm = this;
                         vm.isReady = false;
                         // vm.tempControlName = `DropdownListDirective_${vm.callSource}_` + d.getHours() + "_" + d.getMinutes() + "_" + d.getSeconds() + "_" + d.getMilliseconds();
@@ -124,6 +124,27 @@ var dropdownListDirective_instance = function () {
                             // Testing with 'required' return a boolean.  
                             return (vm.formName[controlName])["$error"][errorName];
                         };
+                        // ssss
+                        $scope.$on('dropdownListDirective_autofocus', function (events, args) {
+                            console.log('%c ' + '20210612-0317 - dropdownListDirective_autofocus ', 'color:yellow;font-size:20pt');
+                            //  inputObj.focus();
+                            console.log(events);
+                            console.log(args);
+                            if (args.msg === "doSetFocus" && args.jqueryObjectRef) {
+                                console.log('VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV');
+                                console.log(args.jqueryObjectRef);
+                                args.jqueryObjectRef.focus();
+                                console.log(args.jqueryObjectRef);
+                                console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
+                            }
+                        });
+                        //$window.addEvent
+                        //angular.element($window).on('blur', function () {
+                        //    console.log('%c ' + 'DropdownListDirective - blur triggered');
+                        //    console.log('%c ' + 'DropdownListDirective - blur triggered 2');
+                        //    console.log('%c ' + 'DropdownListDirective - blur triggered 4');
+                        //    console.log('%c ' + 'DropdownListDirective - blur triggered 6');
+                        //});
                         $scope.$on('dropdownListDirective_Change_start', function (events, args) {
                             var isHandled = false;
                             // This fires on start and once on change
@@ -256,7 +277,7 @@ var dropdownListDirective_instance = function () {
                                     vm.APIUrlSingleRecord = '/api/DisciplineAPI';
                                     break;
                                 // 12/10/2020 04:32 pm - SSN - [20201210-1625] - [002] - Update Timelog edit MVC
-                                case 'timelog.lineitemid':
+                                ///////////////////////////////////////case 'timelog.lineitemid':
                                 case 'lineitemid':
                                     vm.APIUrlListAll = '/api/job_LineItem/typeahead_jobrecords';
                                     vm.APIUrlSingleRecord = '/api/job_LineItem/typeahead';
@@ -375,7 +396,9 @@ var dropdownListDirective_instance = function () {
                                 });
                                 if (vm.addresses.length == 1) {
                                     //  vm.disciplineSelected_XXX = vm.addresses[0];
-                                    vm.ngModel = vm.addresses[0].id;
+                                    // 06/12/2021 01:15 pm - SSN - Testing if can get over preventing users from altering single matches.
+                                    //////////////// vm.disciplineSelected_XXX = { id: vm.addresses[0].id };
+                                    // vm.ngModel = vm.addresses[0].id;
                                 }
                                 deferred.resolve(vm.addresses);
                             }
@@ -482,7 +505,18 @@ var dropdownListDirective_instance = function () {
                                     if (attrs.autofocus.toLowerCase() === "true") {
                                         var inputObj = elem.find('input[type=text]').filter(':visible:first');
                                         if (inputObj.val() === "") {
-                                            inputObj.focus();
+                                            //  inputObj.focus();
+                                            if (scope.formName) {
+                                                console.log('%c ' + '20210612-0353 - setfocus ', 'color:yellow;font-size:14pt;');
+                                                console.log('%c ' + 'thisformName:', 'color:yellow;font-size:14pt;');
+                                                console.log(scope.formName);
+                                                console.log('%c ' + 'thisformName.$touched', 'color:yellow;font-size:14pt;');
+                                                console.log('%c ' + scope.formName.$touched, 'color:yellow;font-size:14pt;');
+                                                scope.$broadcast('dropdownListDirective_autofocus', { msg: 'doSetFocus', jqueryObjectRef: inputObj });
+                                            }
+                                            else {
+                                                console.log('%c ' + '20210612-0353 - setfocus  - NO FORM NAME', 'color:red;font-size:14pt;');
+                                            }
                                         }
                                     }
                                 };

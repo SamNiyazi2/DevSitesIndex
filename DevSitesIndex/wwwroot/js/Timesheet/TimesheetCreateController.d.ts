@@ -1,4 +1,3 @@
-/// <reference types="toastr" />
 import * as angular from "angular";
 declare var timesheetCreateController_instance: {
     timesheetApp: angular.IModule;

@@ -21,6 +21,12 @@ interface LookupRecord {
     id: number
 }
 
+interface IScope_DDLD extends angular.IScope {
+
+    formName: any
+}
+
+
 // Add autofocus="true" to set focus
 
 var dropdownListDirective_instance = function () {
@@ -98,14 +104,14 @@ var dropdownListDirective_instance = function () {
 
                     const dropdownListDireciveInputBoxInverse = attr["dropdownListDirectiveInputBoxInverse"];
 
-                     
+
 
                     //console.log(`%c 20210610-2118 dropdownListDireciveInputBoxInverse [${dropdownListDireciveInputBoxInverse}]`, 'color:blue;font-size:20pt;');
                     //console.log(attr);
 
 
                     elem.bind('blur', (event) => {
-                         
+
                         ngModel_ctrl.$setViewValue(ngModel_ctrl.$modelValue)
 
                     });
@@ -187,13 +193,13 @@ var dropdownListDirective_instance = function () {
 
 
                         if (validationResult) {
-                            
+
                             deferred.resolve();
                         } else {
-                            
+
                             deferred.reject();
                         }
-                         
+
                         // return the promise of the asynchronous validator
                         return deferred.promise;
                     }
@@ -212,13 +218,13 @@ var dropdownListDirective_instance = function () {
         downdownList_angular_module.directive('dropdownListDirective', ['ssn_logger', '$timeout', function (ssn_logger, $timeout) {
 
 
-            var controller = ['$http', '$q', '$scope', '$rootScope', '$timeout', 'changeMonitorService', 'ssn_logger', function ($http, $q, $scope, $rootScope, $timeout, changeMonitorService, ssn_logger: ILoggerModule) {
+            var controller = ['$window', '$http', '$q', '$scope', '$rootScope', '$timeout', 'changeMonitorService', 'ssn_logger', function ($window, $http, $q, $scope, $rootScope, $timeout, changeMonitorService, ssn_logger: ILoggerModule) {
 
                 var vm = this;
 
                 vm.isReady = false;
 
- 
+
 
                 // vm.tempControlName = `DropdownListDirective_${vm.callSource}_` + d.getHours() + "_" + d.getMinutes() + "_" + d.getSeconds() + "_" + d.getMilliseconds();
                 // vm.tempControlName = this.keyColumn;
@@ -240,6 +246,46 @@ var dropdownListDirective_instance = function () {
                     // Testing with 'required' return a boolean.  
                     return (vm.formName[controlName])["$error"][errorName];
                 }
+
+
+
+                // ssss
+
+                $scope.$on('dropdownListDirective_autofocus', function (events, args) {
+
+
+                    console.log('%c ' + '20210612-0317 - dropdownListDirective_autofocus ', 'color:yellow;font-size:20pt')
+                    //  inputObj.focus();
+                    console.log(events);
+                    console.log(args);
+
+                    if (args.msg === "doSetFocus" && args.jqueryObjectRef) {
+
+                        console.log('VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV');
+
+                        console.log(args.jqueryObjectRef)
+
+                        args.jqueryObjectRef.focus();
+
+                        console.log(args.jqueryObjectRef)
+                        console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
+
+                    }
+
+
+
+                });
+
+
+                //$window.addEvent
+                //angular.element($window).on('blur', function () {
+
+                //    console.log('%c ' + 'DropdownListDirective - blur triggered');
+                //    console.log('%c ' + 'DropdownListDirective - blur triggered 2');
+                //    console.log('%c ' + 'DropdownListDirective - blur triggered 4');
+                //    console.log('%c ' + 'DropdownListDirective - blur triggered 6');
+
+                //});
 
 
 
@@ -424,7 +470,7 @@ var dropdownListDirective_instance = function () {
 
                     if (oldValue != newValue && oldValue != null) { // oldValue is null on first call.
 
-                        vm.setIsValidBoolean (false);
+                        vm.setIsValidBoolean(false);
 
                         //console.log('%c20210608-0054-B - parent key value changed - reset local key   keyColumn [${vm.keyColumn}]  parentKeyColumn [${vm.parentKeyColumn}]', 'color:yellow;font-size:20px;');
                         //console.log('%c20210608-0054 - parent key value changed - reset local key', 'color:red;font-size:20px;');
@@ -491,7 +537,7 @@ var dropdownListDirective_instance = function () {
                     }
 
 
-                     vm.setIsValidBoolean(false);
+                    vm.setIsValidBoolean(false);
 
                     if (newValue) {
 
@@ -534,7 +580,7 @@ var dropdownListDirective_instance = function () {
 
 
                         // 12/10/2020 04:32 pm - SSN - [20201210-1625] - [002] - Update Timelog edit MVC
-                        case 'timelog.lineitemid':
+                        ///////////////////////////////////////case 'timelog.lineitemid':
                         case 'lineitemid':
 
                             vm.APIUrlListAll = '/api/job_LineItem/typeahead_jobrecords';
@@ -630,9 +676,9 @@ var dropdownListDirective_instance = function () {
 
 
                     vm.setupUrl();
-                     
+
                     vm.setIsValidBoolean(false);
- 
+
 
                     if (vm.ngModel > 0) {
 
@@ -640,7 +686,7 @@ var dropdownListDirective_instance = function () {
 
                         vm.setIsValidBoolean(true);
 
-                       // $scope.$broadcast('dropdownListDirective_Change_start', { msg: 'Has valid value', keyColumn: vm.keyColumn, keyValue: vm.ngModel });
+                        // $scope.$broadcast('dropdownListDirective_Change_start', { msg: 'Has valid value', keyColumn: vm.keyColumn, keyValue: vm.ngModel });
 
                     } else {
 
@@ -703,13 +749,13 @@ var dropdownListDirective_instance = function () {
                 // Called from view input element
                 vm.getDisciplines = function (lookupValue) {
 
-             
+
                     try {
 
                         vm.containerViewValue = lookupValue;
 
                     } catch (ex) {
-                       
+
                         ssn_logger.cl_normal({ callSource: "20210607-1607-A", message: "getDiscipline call to assign containerViewValue failed" }, "Red");
 
                         ssn_logger.cl_error({ callSource: "20210612-0041", message: `getDiscipline call to assign containerViewValue failed [${lookupValue}]` });
@@ -734,13 +780,13 @@ var dropdownListDirective_instance = function () {
 
                     function typeaheadDisciplineSuccess(response) {
 
-                   
+
                         vm.addresses = [];
 
                         angular.forEach(response.data,
 
                             function (item) {
- 
+
 
                                 if (item.disciplineId) {
 
@@ -759,12 +805,16 @@ var dropdownListDirective_instance = function () {
                             }
                         );
 
- 
+
 
                         if (vm.addresses.length == 1) {
-                          
+
                             //  vm.disciplineSelected_XXX = vm.addresses[0];
-                            vm.ngModel = vm.addresses[0].id;
+
+
+                            // 06/12/2021 01:15 pm - SSN - Testing if can get over preventing users from altering single matches.
+                            //////////////// vm.disciplineSelected_XXX = { id: vm.addresses[0].id };
+                            // vm.ngModel = vm.addresses[0].id;
 
                         }
 
@@ -862,9 +912,9 @@ var dropdownListDirective_instance = function () {
                 vm.formErrorsByControl = function (controlName, errorName) {
                     return (vm.formName[controlName])["$error"][errorName];
                 }
-                 
 
-                vm.setIsValidBoolean = function (setting: Boolean){
+
+                vm.setIsValidBoolean = function (setting: Boolean) {
 
                     vm.isValidBoolean = vm.dropdownListDireciveInputBoxInverse ? !setting : setting;
 
@@ -892,28 +942,28 @@ var dropdownListDirective_instance = function () {
                     callSource: "@",
 
                     keyColumn: "@key",
-                     
+
                     parentKeyColumn: "=parentkey",
                     parentKeyName: "@",
-                     
-                    formName: "=",  
+
+                    formName: "=",
 
                     hiddenFieldName: "@",
 
                     ngModel: "=",
 
- 
+
                     addFunc: "&",
                     addFuncSource: "@",
 
                     // Holder for typed in value, if it doesn't exist, so it can be copied to the add form.
                     containerViewValue: "=?",
 
-                    dropdownListDireciveInputBoxInverse:"@"
+                    dropdownListDireciveInputBoxInverse: "@"
                 },
 
                 link: {
-                    pre: function (scope, el, attrs, ctrl) {
+                    pre: function (scope: IScope_DDLD, el, attrs, ctrl) {
 
 
 
@@ -921,7 +971,7 @@ var dropdownListDirective_instance = function () {
 
                     ,
                     post:
-                        function (scope, el, attrs, ctrl) {
+                        function (scope: IScope_DDLD, el, attrs, ctrl) {
 
 
                             try {
@@ -960,19 +1010,39 @@ var dropdownListDirective_instance = function () {
 
                             if (attrs.autofocus) {
 
-                                let setfocusFunc = function (elem) {
+                                let setfocusFunc = (elem) => {
 
                                     if (attrs.autofocus.toLowerCase() === "true") {
 
                                         let inputObj = elem.find('input[type=text]').filter(':visible:first');
                                         if (inputObj.val() === "") {
-                                            inputObj.focus();
+
+                                            //  inputObj.focus();
+
+                                            if (scope.formName) {
+
+                                                console.log('%c ' + '20210612-0353 - setfocus ', 'color:yellow;font-size:14pt;')
+                                                console.log('%c ' + 'thisformName:', 'color:yellow;font-size:14pt;')
+                                                console.log(scope.formName)
+
+                                                console.log('%c ' + 'thisformName.$touched', 'color:yellow;font-size:14pt;')
+                                                console.log('%c ' + scope.formName.$touched, 'color:yellow;font-size:14pt;')
+
+                                                scope.$broadcast('dropdownListDirective_autofocus', { msg: 'doSetFocus', jqueryObjectRef: inputObj });
+
+                                            }
+                                            else {
+                                                console.log('%c ' + '20210612-0353 - setfocus  - NO FORM NAME', 'color:red;font-size:14pt;')
+
+                                            }
                                         }
 
                                     }
                                 };
 
                                 $timeout(function () { setfocusFunc(el); }, 1000);
+
+
 
                             }
 
@@ -992,7 +1062,7 @@ var dropdownListDirective_instance = function () {
                             //});
 
 
-                            
+
 
                         }
                 }

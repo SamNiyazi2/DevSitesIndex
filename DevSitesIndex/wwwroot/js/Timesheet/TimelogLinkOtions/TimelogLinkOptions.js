@@ -92,9 +92,11 @@ var TimelogLinkOptions = function () {
                                 // 11/14/2019 02:44 pm - SSN - [20191114-1459] - [007] - ChangeMonitroService
                                 TimesheetContinueController_modal.result.then(TimesheetContinueController_modal_save, TimesheetContinueController_modal_cancel);
                                 function TimesheetContinueController_modal_save(result) {
+                                    console.log('%c TimelogLinkOptions - TimesheetContinueController_modal_save - 20210612-0155', 'color:yellow;font-size:14pt');
                                     changeMonitorService.reset();
                                 }
                                 function TimesheetContinueController_modal_cancel(result) {
+                                    console.log('%c TimelogLinkOptions - TimesheetContinueController_modal_cancel - 20210612-0156', 'color:yellow;font-size:14pt');
                                     changeMonitorService.reset();
                                 }
                             };
@@ -142,8 +144,7 @@ var TimelogLinkOptions = function () {
                         jobId: '@'
                     },
                     link: function (scope, el, attrs) {
-                        var totalSeconds_fromAttr = attrs['totalSeconds'];
-                        var haveOpenRecord = totalSeconds_fromAttr === undefined;
+                        var haveOpenRecord = scope.timelogId && scope.totalSeconds === undefined;
                         scope.showClockoutOption = haveOpenRecord;
                         scope.continue_or_lineItem_caption = !haveOpenRecord ? "Continue" : "Line item";
                     }
