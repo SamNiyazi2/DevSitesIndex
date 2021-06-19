@@ -10,11 +10,10 @@ pool:
   name: ssn-self-hosted-pool-20210604
 
 variables:
-  buildConfiguration: 'Release'
-  RestoreBuildProjects:'**/*.csproj' 
+  buildConfiguration: Release
+  RestoreBuildProjects: '**/*.csproj'
 
 steps:
-
 - task: DotNetCoreCLI@2
   displayName: Restore
   inputs:
