@@ -37,6 +37,12 @@ steps:
     webpack
   displayName: 'npm install root 2'
 
+
+- script: |
+    cd devsitesindex
+    webpack
+  displayName: 'Webpack for AngularJS'
+
 - task: DotNetCoreCLI@2
   displayName: Build
   inputs:
