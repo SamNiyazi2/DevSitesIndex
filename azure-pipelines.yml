@@ -21,20 +21,20 @@ steps:
   inputs:
     command: restore
     projects: '$(RestoreBuildProjects)'
-  enabled: false
+  enabled: true
 
 
 - script: |
     cd devsitesindex
     npm install
     webpack
-  displayName: 'npm install root 2'
+  displayName: 'npm install root AngularJS'
 
 
 - script: |
     cd devsitesindex
     webpack
-  displayName: 'Webpack for AngularJS'
+  displayName: 'Build AngularJS'
 
 - script: |
     cd DevSitesIndex\timesheetsSupport7
@@ -46,14 +46,14 @@ steps:
 - script: |
     cd DevSitesIndex\timesheetsSupport7
     ssn_build_prod
-  displayName: 'Webpack for Angular 7'
+  displayName: 'Build Angular 7'
 
 - task: DotNetCoreCLI@2
   displayName: Build
   inputs:
     projects: '$(RestoreBuildProjects)'
     arguments: '--configuration $(BuildConfiguration)'
-  enabled: false
+  enabled: true
 
 - task: DotNetCoreCLI@2
   displayName: Publish
@@ -62,7 +62,7 @@ steps:
     publishWebProjects: True
     arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)'
     zipAfterPublish: True
-  enabled: false
+  enabled: True
 
 - task: AzureWebApp@1
   displayName: 'Azure Web App Deploy: $(WebAppName) '
@@ -71,11 +71,12 @@ steps:
     appType: webApp
     appName: '$(WebAppName)'
     package: '$(build.artifactstagingdirectory)/**/*.zip'
-  enabled: false
+  enabled: True
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact'
   inputs:
     PathtoPublish: '$(build.artifactstagingdirectory)'
   condition: succeededOrFailed()
-  enabled: false
+  enabled: True
+  
