@@ -28,7 +28,7 @@ steps:
   inputs:
     command: custom
     verbose: false
-    customCommand: 'install'
+    customCommand: 'install devsitesindex'
   enabled: true
 
 - task: DotNetCoreCLI@2
