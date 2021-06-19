@@ -271,3 +271,6 @@ __pycache__/
 /DevSitesIndex/TESTS-Chrome_79.0.3945_(Windows_10.0.0).xml
 /l12.txt
 /l21.txt
+/DevSitesIndex/wwwroot/dist/*
+**/*.d.ts
+/DevSitesIndex/wwwroot/webpack_build/*
