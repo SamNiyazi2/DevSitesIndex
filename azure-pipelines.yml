@@ -31,11 +31,10 @@ steps:
     customCommand: 'install devsitesindex'
   enabled: false
 
---job:
-  displayName: 'npm install root 2'
-  script: |
+- script: |
     cd devsitesindex
     npm install
+  displayName: 'npm install root 2'
 
 - task: DotNetCoreCLI@2
   displayName: Build
