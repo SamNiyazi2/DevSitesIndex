@@ -1,0 +1,26 @@
+commit 10466d3f9d5ab7001474aed00ead5cd5915f7924
+Author: Sam Niyazi <sam2003@niyazi.com>
+Date:   Fri Aug 14 09:52:00 2020 -0500
+
+    First commit since 12/30/2019 (2)
+
+commit e7393caddd8ab1a9eabc6732e46ecc808e472c49
+Merge: 01620e6 b1273bf
+Author: Sam Niyazi <sam2003@niyazi.com>
+Date:   Fri Aug 14 09:51:18 2020 -0500
+
+    First deployment since 12/30/2019
+
+commit 01620e6ee392bc3fe4c1749aadfaf35fcdfe0fb1
+Merge: c926216 3c7c00e
+Author: Sam Niyazi <sam2003@niyazi.com>
+Date:   Sun Oct 6 14:58:38 2019 -0500
+
+    Merge branch 'master' into master2
+
+commit c926216481b473b802b1240b3b1bc4910b09d389
+Merge: 66c3eba ece2a1a
+Author: Sam Niyazi <sam2003@niyazi.com>
+Date:   Wed Oct 2 08:57:25 2019 -0500
+
+    Merge with master.
