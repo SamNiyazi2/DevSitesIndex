@@ -34,6 +34,7 @@ steps:
 - script: |
     cd devsitesindex
     npm install
+    webpack
   displayName: 'npm install root 2'
 
 - task: DotNetCoreCLI@2
