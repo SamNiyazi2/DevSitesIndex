@@ -73,7 +73,6 @@
     <Folder Include="node_modules\" />
     <Folder Include="node_modules_hack\" />
     <Folder Include="wwwroot\jstest\" />
-    <Folder Include="wwwroot\webpack_build\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="libman.json" />
