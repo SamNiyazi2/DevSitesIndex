@@ -12,14 +12,14 @@ import { changeMonitorService_instance } from '../Util/ChangeMonitor/ChangeMonit
 import { PageUpdater_Instance } from '../Util/PageUpdater';
 
 
-import { dataService_instance } from '../DataServices';
+import { dataService_instance } from '../shared/DataServices';
 import { dropdownListDirective_instance } from '../DropdownList/DropdownListDirective';
 import { AppInsights_Util } from '../Util/ApplicationInsights_Monitor';
 import { RestorePreviousPageState_instance } from '../Util/RestorePreviousPageState';
 
 // 12/07/2019 04:09 am - SSN - [20191207-0353] - [002] - SessionTimeoutInterceptor
 
-import sessionTimeoutInterceptor from '../Interceptors/SessonTimeoutInterceptor';
+import sessionTimeoutInterceptor from '../Interceptors/SessionTimeoutInterceptor';
 
 
 // 12/07/2019 08:07 am - SSN - [20191207-0704] - [004] - AngularJS - Routing - Authentication
@@ -48,14 +48,6 @@ PageUpdater_Instance.doSetup(ngApplicationName);
 // 11/16/2019 06:27 pm - SSN - [20191116-1516] - [006] - Timelog edit (AngularJS client version)
 
 // 11/25/2019 11:34 pm - SSN - [20191125-2153] - [005] - Job create - Replace dropdown with dropdownListDirective
-
-////////////////////////////////////////dropdownListDirective_instance.doSetup(null); // Original entry for timelog edit
-////////////////////////////////////////dropdownListDirective_instance.doSetup(null); // Original entry for timelog edit
-////////////////////////////////////////dropdownListDirective_instance.doSetup(null); // Original entry for timelog edit
-////////////////////////////////////////dropdownListDirective_instance.doSetup(null); // Original entry for timelog edit
-////////////////////////////////////////dropdownListDirective_instance.doSetup(null); // Original entry for timelog edit
-////////////////////////////////////////dropdownListDirective_instance.doSetup(null); // Original entry for timelog edit
-////////////////////////////////////////dropdownListDirective_instance.doSetup(null); // Original entry for timelog edit
 
 
 dropdownListDirective_instance.doSetup(ngApplicationName);

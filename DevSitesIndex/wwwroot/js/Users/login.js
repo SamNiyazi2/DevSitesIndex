@@ -38,7 +38,7 @@ var loginController_instance = function () {
                 }
                 if (promise) {
                     promise.then(function (data) {
-                        $scope.timeLog = angular.copy($scope.editableTimeLog);
+                        angular.copy($scope.editableTimeLog, $scope.timeLog);
                         $uibModalInstance.close();
                         toastr.info("Record saved.");
                         function refreshRecord_Sucess(result) {
@@ -48,7 +48,6 @@ var loginController_instance = function () {
                             console.error(result);
                         }
                     }, function (error) {
-                        var test2 = error;
                         console.log(error);
                         toastr.error("Failed to save record.");
                         toastr.warning("Error posted to console.");

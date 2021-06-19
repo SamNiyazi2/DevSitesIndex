@@ -55,6 +55,14 @@ namespace DevSitesIndex.Entities
         [Display(Name = "Work Detail")]
         public string WorkDetail { get; set; }
 
+
+        [Display(Name = "Work Detail Pre-LineItem")]
+        public string WorkDetail_PreLineItem { get; set; }
+
+        [Display(Name = "Work Detail Post-LineItem")]
+        public string WorkDetail_PostLineItem { get; set; }
+
+
         [Display(Name = "Job Title")]
         public Job job { get; set; }
 

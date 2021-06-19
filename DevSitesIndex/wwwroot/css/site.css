@@ -202,6 +202,10 @@ a[cmd-name="showsibling"] {
     font-size: 14pt;
 }
 
+div {
+    border-radius: 3px;
+}
+
 /*// 03/29/2019 10:03 pm - SSN - Add div siteTitleDiv title to give space*/
 .siteTitleDiv {
     padding: 8px 8px 20px 8px;
@@ -500,7 +504,7 @@ alarm {
 
     50% {
         background-color: yellow;
-        font-size: 32px;
+        font-size: 24px;
     }
 
     100% {
@@ -516,7 +520,7 @@ alarm {
 
     50% {
         background-color: yellow;
-        font-size: 32px;
+        font-size: 24px;
     }
 
     100% {
@@ -525,6 +529,53 @@ alarm {
 }
 
 
+
+
+
+
+/* 06/18/2021 01:19 am - SSN - Hightlight timesheet table row change*/
+
+.cssHilight102 {
+    -webkit-animation-name: example_102; /* Safari 4.0 - 8.0 */
+    -webkit-animation-duration: 5s; /* Safari 4.0 - 8.0 */
+    /*    animation-name: example;
+
+    animation-duration: 4s;
+*/
+    /* https://www.w3schools.com/cssref/tryit.asp?filename=trycss_anim_font-size */
+    -webkit-animation: example_102 5s ease-in-out; /* Chrome, Safari, Opera */
+    /*animation: mymove 5s  ease-in-out;*/
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes example_102 {
+    0% {
+        background-color: transparent;
+    }
+
+    50% {
+        background-color: #ececd2;
+    }
+
+    100% {
+        background-color: transparent;
+    }
+}
+
+/* Standard syntax */
+@keyframes example_102 {
+    0% {
+        background-color: transparent;
+    }
+
+    50% {
+        background-color: #ececd2;
+    }
+
+    100% {
+        background-color: transparent;
+    }
+}
 
 
 
@@ -611,7 +662,6 @@ menuPipe_101::after {
     }
 
 .cssTimeLogDetail_p {
-    
     margin: 0px;
     padding: 0px;
     background-color: #f0f0f0;
@@ -619,11 +669,10 @@ menuPipe_101::after {
     white-space: pre-wrap;
     padding: 5px 20px;
     max-height: 80px;
-    overflow-y:hidden;
+    overflow-y: hidden;
 }
 
     .cssTimeLogDetail_p:hover {
-   
         max-height: none;
     }
 
@@ -636,20 +685,19 @@ menuPipe_101::after {
     overflow-y: auto;
     margin: 4px;
     padding: 5px;
-    font-family:'Courier New';
-    font-size:12px;
-    background-color:#fff;
-    border:1px solid #ccc;
-    white-space:pre;
-
-    display:none;
+    font-family: 'Courier New';
+    font-size: 12px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    white-space: pre;
+    display: none;
 }
 
     .cssDropdownListDirectiveHelper:hover {
         max-height: none;
     }
 
-.cssTimelogOptions_TD{
+.cssTimelogOptions_TD {
     min-width: 80px;
 }
 
@@ -683,17 +731,45 @@ menuPipe_101::after {
     }
 
         .cssTimelogOptions:hover {
-            z-index:initial;
+            z-index: initial;
             max-height: none;
-            background-color:white;
+            background-color: white;
             border: none;
         }
 }
 
 
 .cssTimelogOptions a {
-display:block;
-padding:3px;
+    display: block;
+    padding: 3px;
 }
 
- 
+
+.csstypeahead select {
+    position: absolute;
+    background-color: white;
+    overflow: hidden;
+    border: 1px #ddd solid;
+}
+
+    .csstypeahead select option {
+        padding: 2px 5px;
+    }
+
+.cssHidden {
+    visibility: collapse;
+}
+
+.cssDebugCode {
+    white-space: pre;
+}
+
+.cssSiteUrlQRCode_base {
+    position:fixed;
+    top: 10px;
+    right: 10px;
+}
+
+.cssSiteUrlQRCode {
+    width: 20px;
+}

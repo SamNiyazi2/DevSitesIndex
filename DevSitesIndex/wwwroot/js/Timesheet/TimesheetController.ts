@@ -121,9 +121,7 @@ var timesheetController_instance = function () {
 
                     promise.then(
                         function (data) {
-
-                            $scope.timeLog = angular.copy($scope.editableTimeLog);
-
+  
                             $uibModalInstance.close();
 
                             toastr.info("Clocked-in");

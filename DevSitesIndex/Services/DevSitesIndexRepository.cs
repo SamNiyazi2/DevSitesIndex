@@ -31,8 +31,12 @@ namespace DevSitesIndex.Services
             // IEnumerable<DevSite> devSites = _context.DevSites.OrderByDescending(r => r.DateUpdated ?? r.DateAdded).AsNoTracking().ToList();
             IEnumerable<DevSite> devSites = _context
                 .DevSites
-                .Include(r => r.DevSiteTechnologies)
-                .OrderByDescending(r => r.LastActivityDate).Skip(recordsToSkip).Take(recordsPerPage).AsNoTracking().ToList();
+
+                .Include(r => r.DevSiteTechnologies).ThenInclude(r2 => r2.Technology)
+
+              // 06/14/2021 07:00 pm - SSN - [20210613-0452] - [034] - Adding tags to DevSite
+              // .OrderByDescending(r => r.LastActivityDate).Skip(recordsToSkip).Take(recordsPerPage).AsNoTracking().ToList();
+              .OrderByDescending(r => r.LastActivityDate).Skip(recordsToSkip).Take(recordsPerPage).AsNoTracking();
 
             return devSites;
         }
@@ -43,9 +47,20 @@ namespace DevSitesIndex.Services
         public async Task<IEnumerable<DevSite>> GetDevSites(string searchText)
         {
 
-            var devSites = await _context.DevSites.FromSql("DemoSites.DevSites_FullTextSearch {0}", searchText).AsNoTracking().ToListAsync<DevSite>();
+            // 06/14/2021 04:17 pm - SSN - [20210613-0452] - [029] - Adding tags to DevSite
+            // var devSites = await _context.DevSites.FromSql("DemoSites.DevSites_FullTextSearch {0}", searchText).AsNoTracking().ToListAsync<DevSite>();
 
-            // return _context.DevSites.OrderByDescending(r => r.DateUpdated ?? r.DateAdded).AsNoTracking().ToList();
+            // List<int> listDevSites2 = _context.DevSites.FromSql("DemoSites.DevSites_FullTextSearch {0}", searchText).Select(r => r.Id).ToList();
+            var devSites_a = await _context.DevSites.FromSql("DemoSites.DevSites_FullTextSearch {0}", searchText).AsNoTracking().ToListAsync<DevSite>();
+
+            List<int> listDevSites2 = devSites_a.Select(r => r.Id).ToList();
+
+            var devSites = _context.DevSites.Join (listDevSites2, r1 => r1.Id, r2 => r2, (target, source) => target)
+                            .Include(r => r.DevSiteTechnologies).ThenInclude(r2 => r2.Technology)
+                            .OrderByDescending(r => r.LastActivityDate).AsNoTracking().ToList();
+
+
+
             return devSites;
         }
 

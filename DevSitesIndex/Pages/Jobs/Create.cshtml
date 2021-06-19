@@ -18,6 +18,8 @@
 <div class="row">
     <div class="col-md-4" ng-controller="utilityController"  form-name="jobCreateForm" >  
 
+ 
+
         @*
 
             // 11/25/2019 09:56 pm - SSN - [20191125-2153] - [001] - Job create - Replace dropdown with dropdownListDirective
@@ -25,7 +27,7 @@
 
         *@
 
-        <form method="post" name="jobCreateForm" action="">
+        <form method="post" name="jobCreateForm" action="" novalidate ng-submit="submitForm_1($event,jobCreateForm)" >
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
 
@@ -62,7 +64,17 @@
 
             <div class="form-group">
                 <label asp-for="Job.JobTitle" class="control-label"></label>
-                <input asp-for="Job.JobTitle" class="form-control" autofocus />
+
+                @*<input asp-for="Job.JobTitle" class="form-control" autofocus />*@
+                <input asp-for="Job.JobTitle"  />
+                
+                <h4 class="cssDebugCode">jobRecord.jobTitle [{{jobRecord.jobTitle}}]</h4>
+
+
+                <dropdown-list-directive call-source="20210617-1109" key="Job.JobId" form-name="jobCreateForm" hidden-field-name="Job.JobTitle"   ng-model="jobRecord.jobTitle" parentkey="jobRecord.ProjectID" parent-key-name="Job.ProjectId" dropdown-list-directive-input-box-inverse="{{true}}"></dropdown-list-directive>
+
+
+
                 <span asp-validation-for="Job.JobTitle" class="text-danger"></span>
             </div>
 
@@ -87,7 +99,7 @@
 
 
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Create" class="btn btn-default"  />
             </div>
         </form>
     </div>

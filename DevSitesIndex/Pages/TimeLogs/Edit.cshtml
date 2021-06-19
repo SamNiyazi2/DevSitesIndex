@@ -56,7 +56,7 @@
         <div class="col-md-4" ng-controller="utilityController_local">
 
             @*form-name="timesheetForm"*@
-
+           
 
             <form method="post" name="timesheetForm" ng-submit="submitForm_1($event,timesheetForm)" action="" novalidate>
 
@@ -64,7 +64,8 @@
                 <input type="hidden" asp-for="TimeLog.TimeLogId" />
                 <input type="hidden" asp-for="TimeLog.RowVersion" />
                 <input type="hidden" asp-for="TimeLog.DateAdded" />
-
+                <input type="hidden" asp-for="TimeLog.job.ProjectID" ng-model="timeLogRecord.job.ProjectID"/>
+ 
                 @*// 09/21/2019 11:08 am - SSN - Added include job and project to display titles on form.*@
 
 
@@ -105,8 +106,10 @@
                 <div class="form-group">
                     <label asp-for="TimeLog.JobId" class="control-label"></label>
                     <input asp-for="TimeLog.JobId" type="hidden" />
+                    <input asp-for="TimeLog.job.JobTitle" type="hidden" />
 
-                    <dropdown-list-directive call-source="20210607-1754" key="TimeLog.JobId" form-name="timesheetForm" hidden-field-name="TimeLog.JobId" ng-model="timeLogRecord.JobId" parentkey="timeLog.job.projectID" parent-key-name="TimeLog.ProjectId"></dropdown-list-directive>
+                    <dropdown-list-directive call-source="20210607-1754" key="TimeLog.JobId" form-name="timesheetForm" hidden-field-name="TimeLog.JobId" ng-model="timeLogRecord.JobId" parentkey="timeLogRecord.job.ProjectID" parent-key-name="TimeLog.ProjectId" ></dropdown-list-directive>
+
                 </div>
 
 

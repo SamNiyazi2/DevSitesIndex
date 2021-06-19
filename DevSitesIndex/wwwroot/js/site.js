@@ -95,6 +95,11 @@ var site_instance_NS;
                     document.location.href = e.target.href + "&returnToCallerKey=" + returnToCallerKey;
                 });
             });
+            var imgSiteUrlQRCode = 0;
+            $('#imgSiteUrlQRCode').click(function (e) {
+                imgSiteUrlQRCode++;
+                $(e.target).toggleClass('cssSiteUrlQRCode');
+            });
             // 09/21/2019 12:27 pm - SSN - [201909-1227] Revise to accommodate Babel/Webpack
             // function p(str1, len, char) {
             var p = function (str1, len, char) {

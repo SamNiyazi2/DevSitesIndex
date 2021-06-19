@@ -1,7 +1,6 @@
 /// <reference path="../../../node_modules/@types/toastr/index.d.ts" />
 // 06/09/2021 04:43 pm - SSN - [20210608-2247] - [009] - Test line item -  Prep for deployment
 import * as globals from "../globals";
-import * as angular from "angular";
 var timesheetCreateController_instance = function () {
     var timesheetApp = globals.globals_instance.getInstance_v002('TimesheetCreateController', "timesheetApp");
     timesheetApp.controller('TimesheetCreateController', ['$uibModal', '$scope', '$uibModalInstance', '$http', '$q', 'dataService', 'changeMonitorService', 'ssn_logger', 'jobId',
@@ -23,10 +22,6 @@ var timesheetCreateController_instance = function () {
             };
             dataService.getJob(jobId).then(getJobSuccess, getJobError).catch(getJobCatch);
             function getJobSuccess(data) {
-                console.log('20210609-0526');
-                console.log('20210609-0526 1');
-                console.log('20210609-0526 3');
-                console.log('20210609-0526 4');
                 console.log(data);
                 var timeLog = {
                     jobId: data.jobID,
@@ -66,7 +61,6 @@ var timesheetCreateController_instance = function () {
                 }
                 if (promise) {
                     promise.then(function (data) {
-                        $scope.timeLog = angular.copy($scope.editableTimeLog);
                         $uibModalInstance.close();
                         toastr.info("Clocked-in");
                     }, function (error) {

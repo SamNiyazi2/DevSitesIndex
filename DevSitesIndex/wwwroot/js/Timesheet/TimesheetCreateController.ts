@@ -56,11 +56,7 @@ var timesheetCreateController_instance = function () {
 
             function getJobSuccess(data) {
 
-                console.log('20210609-0526')
-                console.log('20210609-0526 1')
-                console.log('20210609-0526 3')
-                console.log('20210609-0526 4')
-
+            
                 console.log(data);
 
                 const timeLog: ITimelogJS = {
@@ -73,7 +69,7 @@ var timesheetCreateController_instance = function () {
                     }
                 };
 
-
+              
                 //                util.site_instance.fnConverDate(data);
 
                 $scope.editableTimeLog = timeLog;
@@ -134,8 +130,6 @@ var timesheetCreateController_instance = function () {
 
                     promise.then(
                         function (data) {
-
-                            $scope.timeLog = angular.copy($scope.editableTimeLog);
 
                             $uibModalInstance.close();
 

@@ -4,7 +4,7 @@
 
 import { headerWithSort_instance } from '../Util/HeaderWithSort';
 import { pagingDirective_instance } from '../Util/pagingDirective';
-import { dataService_instance } from '../DataServices';
+import { dataService_instance } from '../shared/DataServices';
 import { jobStatusDirective_instance } from './JobStatusDirective';
 import { jobsIndexController_instance } from '../Jobs/JobsIndexController';
 import { jobStatusChangeRecord_instance } from './JobStatusChangeRecord';

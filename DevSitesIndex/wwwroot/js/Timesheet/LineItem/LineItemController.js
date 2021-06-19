@@ -3,11 +3,13 @@
 'use strict';
 import * as globals from "../../globals";
 import { AppInsights_Util } from '../../Util/ApplicationInsights_Monitor';
+import { DDLD_CONSTANTS } from '../../DropdownList/DropdownListDirectiveConstants';
+import { BROADCAST_IDENTIFIERS } from '../../Shared/Broadcast_Identifers';
 AppInsights_Util.doSetup("LineItemController");
 var lineItemController_instance = function () {
-    var timesheetApp = globals.globals_instance.getInstance_v002('LineItemController', "timesheetApp");
-    var doSetup = function () {
-        timesheetApp.controller('LineItemController', ['$q', '$uibModalInstance', '$rootScope', '$scope', 'dataService', 'changeMonitorService', 'ssn_logger', 'jobId', 'containerViewValue', lineItemControllerFunction]);
+    var doSetup = function (ngApplicationName) {
+        var angularApp = globals.globals_instance.getInstance_v002('LineItemController', ngApplicationName);
+        angularApp.controller('LineItemController', ['$q', '$uibModalInstance', '$rootScope', '$scope', 'dataService', 'changeMonitorService', 'ssn_logger', 'jobId', 'containerViewValue', lineItemControllerFunction]);
         function lineItemControllerFunction($q, $uibModalInstance, $rootScope, $scope, dataService, changeMonitorService, ssn_logger, jobId, containerViewValue) {
             $scope.defaultValue = containerViewValue;
             AppInsights_Util.logEvent("DemoSites_20210606_1514", { SourceCode: "20210606-1514", Message: "Init" });
@@ -44,21 +46,24 @@ var lineItemController_instance = function () {
             function getJobError(err) {
                 console.error('LineItemController - getJobError - 20210606-0611-B ');
                 console.log(err);
+                toastr.error("Failed to load record.  See console log.");
                 ssn_logger.cl_error({ callSource: "20210620-1721", message: "LineItemController - getJobError - Failed to get record", errorObject: err });
             }
             function getJobCatch(err) {
-                ssn_logger.cl_error({ callSource: "20210606-0611-C-2-2", message: "LineItemController -getJobCatch - Failed to get record", errorObject: err });
+                console.error('LineItemController - getJobError - 20210606-0611-D ');
+                console.log(err);
                 toastr.error("Failed to load record.  See console log.");
+                ssn_logger.cl_error({ callSource: "20210606-0611-C-2-2", message: "LineItemController -getJobCatch - Failed to get record", errorObject: err });
             }
             $scope.submitForm = function () {
                 if ($scope.disableSaveButton)
                     return;
                 $scope.disableSaveButton = true;
-                var test = $scope.editableJob_LineItem;
                 $scope.editableJob_LineItem.lineItem = $scope.defaultValue;
                 if ($scope.editableJob_LineItem.lineItem == "0") {
                     toastr.error("Failed to save record.  See console log.");
                     $scope.disableSaveButton = false;
+                    ssn_logger.cl_error({ callSource: "20210615-0401", message: "LineItem new entry error - saving '0' record " });
                     return;
                 }
                 var promise = null;
@@ -66,11 +71,7 @@ var lineItemController_instance = function () {
                     promise = dataService.addOrUpdateJob_LineItem($scope.editableJob_LineItem);
                     if (promise) {
                         promise.then(function (data) {
-                            ssn_logger.cl_normal({ callSource: "20210606-2259-C", message: "Show value" }, 'yellow');
-                            console.log('HHHHHHHHHHHHH-lineitemcontroller');
-                            console.log(data);
-                            console.log($scope.editableJob_LineItem);
-                            $rootScope.$broadcast('dropdownListDirective_Change_start', { msg: 'update dropdown list', keyColumn: "lineItemId", id: data.lineItemId, description: data.lineItem });
+                            $rootScope.$broadcast(BROADCAST_IDENTIFIERS.DROPDOWN_LIST_DIRECTIVE, { msg: DDLD_CONSTANTS.UPDATE_DROPDOWN_LIST, keyColumn: "lineItemId", id: data.lineItemId, description: data.lineItem });
                             $uibModalInstance.close();
                             toastr.info("Line item saved.");
                         }, function (error) {
@@ -80,11 +81,12 @@ var lineItemController_instance = function () {
                             toastr.error("Failed to save record.  See console log.");
                             $scope.feedbackToUserClassNameCase = 2;
                             $scope.feedbackToUserText = error.data;
+                            ssn_logger.cl_error({ callSource: "20210606-2055", message: "function > error", errorObject: error });
                         });
                     }
                 }
-                catch (e) {
-                    ssn_logger.cl_error({ callSource: "20210606-2052", message: "function > error", errorObject: e });
+                catch (error) {
+                    ssn_logger.cl_error({ callSource: "20210606-2052", message: "function > error", errorObject: error });
                     toastr.error("Failed to save record.  See console log.");
                 }
             };
@@ -93,43 +95,43 @@ var lineItemController_instance = function () {
                     if (!confirm('You have unsaved changes? Are you sure you want to cancel?'))
                         return;
                 }
-                $uibModalInstance.dismiss(); //same as cancel???
+                $uibModalInstance.dismiss();
             };
         }
+        angularApp.directive('lineItemNoDuplicate', ["$q", "ssn_logger", function ($q, ssn_logger) {
+                return {
+                    require: 'ngModel',
+                    link: function (scope, elem, attr, ngModel_ctrl) {
+                        ngModel_ctrl.$parsers.unshift(function (value) {
+                            console.log('%c *x*x*x*x*x*x*x*x*x*x*x*x*x*x*x', 'color:red;font-size:20px');
+                            console.log("%c ---------------- ngModel_ctrl--------  ------------------", 'color:red;font-size:20pt;');
+                            console.log(ngModel_ctrl);
+                            var testvalue1 = attr["name"];
+                            console.log('11) -------------------------------');
+                            console.log(testvalue1);
+                            console.log('22) -------------------------------');
+                            console.log(value);
+                            console.log('44) -------------------------------');
+                            console.log(attr);
+                            console.log('55) -------------------------------');
+                            ngModel_ctrl.$setValidity(attr.name, false);
+                            return value;
+                        });
+                        ngModel_ctrl.$asyncValidators.duplicateLineItem = function (modelValue, viewValue) {
+                            // We are taking care of duplicates by invering the logic in the DropdownListDirective.
+                            var deferred = $q.defer();
+                            //if (modelValue && modelValue.id) {
+                            //    deferred.resolve();
+                            //} else {
+                            //    deferred.reject();
+                            //}
+                            deferred.resolve();
+                            return deferred.promise;
+                        };
+                    }
+                };
+            }]);
     };
-    timesheetApp.directive('lineItemNoDuplicate', ["$q", "ssn_logger", function ($q, ssn_logger) {
-            return {
-                require: 'ngModel',
-                link: function (scope, elem, attr, ngModel_ctrl) {
-                    ngModel_ctrl.$parsers.unshift(function (value) {
-                        console.log('%c *x*x*x*x*x*x*x*x*x*x*x*x*x*x*x', 'color:red;font-size:20px');
-                        console.log("%c ---------------- ngModel_ctrl--------  ------------------", 'color:red;font-size:20pt;');
-                        console.log(ngModel_ctrl);
-                        var testvalue1 = attr["name"];
-                        console.log('11) -------------------------------');
-                        console.log(testvalue1);
-                        console.log('22) -------------------------------');
-                        console.log(value);
-                        console.log('44) -------------------------------');
-                        console.log(attr);
-                        console.log('55) -------------------------------');
-                        ngModel_ctrl.$setValidity(attr.name, false);
-                        return value;
-                    });
-                    ngModel_ctrl.$asyncValidators.duplicateLineItem = function (modelValue, viewValue) {
-                        // We are taking care of duplicates by invering the logic in the DropdownListDirective.
-                        var deferred = $q.defer();
-                        //if (modelValue && modelValue.id) {
-                        //    deferred.resolve();
-                        //} else {
-                        //    deferred.reject();
-                        //}
-                        deferred.resolve();
-                        return deferred.promise;
-                    };
-                }
-            };
-        }]);
     return {
         doSetup: doSetup
     };

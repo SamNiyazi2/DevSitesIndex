@@ -1,15 +1,15 @@
 // 05/19/2019 09:45 am - SSN - [20190519-0837] - [005] - Adding timesheet "Continue" option
 // Copied from Clockout.
 import * as ssn_globals from "../globals";
-import * as angular from 'angular';
 import * as util from '../site';
 var ngApplicationName = "timesheetApp";
 var timesheetContinueController_instance = function () {
     var timesheetApp = ssn_globals.globals_instance.getInstance_v002('TimesheetContinueController', ngApplicationName);
     // 11/14/2019 03:07 pm - SSN - [20191114-1459] - [002] - ChangeMonitroService
-    timesheetApp.controller('TimesheetContinueController', ['$scope', '$uibModalInstance', '$http', '$q', 'dataService', '$timeout', 'timelogId', 'changeMonitorService',
-        function ($scope, $uibModalInstance, $http, $q, dataService, $timeout, timelogId, changeMonitorService) {
+    timesheetApp.controller('TimesheetContinueController', ['$rootScope', '$scope', '$uibModalInstance', '$http', '$q', 'dataService', '$timeout', 'TimesheetTableRefreshController', 'timelogId', 'changeMonitorService',
+        function ($rootScope, $scope, $uibModalInstance, $http, $q, dataService, $timeout, TimesheetTableRefreshController, timelogId, changeMonitorService) {
             changeMonitorService.setupMonitor();
+            $scope.timelogId_OriginalRecord = timelogId;
             dataService.getTimelog(timelogId).then(getTimelogSuccess, getTimelogError)
                 .catch(getTimelogCatch);
             $scope.pageTitle = "Continue / Line Item - 888-V2";
@@ -30,16 +30,14 @@ var timesheetContinueController_instance = function () {
                 }
             };
             function getTimelogSuccess(data) {
-                var data2 = data;
-                util.site_instance.fnConverDate(data2);
+                util.site_instance.fnConverDate(data);
                 var timeNow = new Date();
                 timeNow.setMilliseconds(0);
-                $scope.timeLog = data2;
-                $scope.timeLog.timeLogId = 0;
-                $scope.timeLog.startTime = timeNow;
-                $scope.timeLog.dateModified = null;
-                $scope.timeLog.totalSeconds = null;
-                $scope.editableTimeLog = angular.copy($scope.timeLog);
+                data.timeLogId = 0;
+                data.startTime = timeNow;
+                data.dateModified = null;
+                data.totalSeconds = null;
+                $scope.editableTimeLog = data;
             }
             function getTimelogError(data) {
                 var temp = data;
@@ -54,23 +52,32 @@ var timesheetContinueController_instance = function () {
                 console.log('timesheetContinueController - submitForm - (101)');
                 var test = $scope.editableTimeLog;
                 var promise = null;
+                var newRecord = true;
                 if ($scope.editableTimeLog.timeLogId === 0) {
                     promise = dataService.insertTimeLog($scope.editableTimeLog);
                 }
                 else {
                     promise = dataService.updateTimeLog($scope.editableTimeLog);
+                    newRecord = false;
                 }
                 if (promise) {
                     // 05/21/2019 11:56 am - SSN - Tested OK.
                     promise.then(function (data) {
-                        var test1 = data;
-                        $scope.timeLog = angular.copy($scope.editableTimeLog);
                         $uibModalInstance.close(true);
                         toastr.info("Record added.  Reloading page...");
+                        // 06/7/2021 11:48 pm - SSN - Replacing location.reload with TimeLog_Index_Insert
+                        console.log('timesheetContinueController.ts - replacing location.reload with TimeLog_Index_Insert', 'color:red;font-size:16pt');
+                        console.log(data.timeLogId);
+                        console.log(data);
                         // 05/21/2019 12:54 pm - SSN - Reload page.
-                        $timeout(function () {
-                            location.reload();
-                        }, 1000);
+                        //$timeout(() => {
+                        //    location.reload();
+                        //}, 1000);
+                        var servingPage = ssn_globals.Timelog_ServingPage.Timelog;
+                        // Update original record we compied from (timeLogId passed in)
+                        TimesheetTableRefreshController.refreshTimesheetTable(servingPage, $scope.timelogId_OriginalRecord, false);
+                        // Add new record
+                        TimesheetTableRefreshController.refreshTimesheetTable(servingPage, data.timeLogId, newRecord);
                     }, function (error) {
                         $scope.disableSaveButton = false;
                         console.log(error);

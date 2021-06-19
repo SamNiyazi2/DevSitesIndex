@@ -1,4 +1,4 @@
 declare var lineItemController_instance: {
-    doSetup: () => void;
+    doSetup: (ngApplicationName: any) => void;
 };
 export { lineItemController_instance };

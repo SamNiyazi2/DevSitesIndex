@@ -59,17 +59,17 @@
 
             @*
 
-                    11/28/2019 07:36 am - SSN - Replaced with dropdown-list-directive
+            11/28/2019 07:36 am - SSN - Replaced with dropdown-list-directive
 
-                    <div class="form-group">
-                    <label asp-for="Job.ProjectID" class="control-label"></label>
+            <div class="form-group">
+            <label asp-for="Job.ProjectID" class="control-label"></label>
 
-                    <select asp-for="Job.ProjectID" class="form-control" asp-items="Model.projectsSL" autofocus>
-                        <option></option>
-                    </select>
+            <select asp-for="Job.ProjectID" class="form-control" asp-items="Model.projectsSL" autofocus>
+                <option></option>
+            </select>
 
-                    <span asp-validation-for="Job.ProjectID" class="text-danger"></span>
-                </div>*@
+            <span asp-validation-for="Job.ProjectID" class="text-danger"></span>
+        </div>*@
 
 
 
@@ -82,9 +82,17 @@
 
 
 
+
+
+            <div class="form-group">
+                <label asp-for="Job.JobTitle" class="control-label"></label>
+                <input asp-for="Job.JobTitle" class="form-control" />
+                <span asp-validation-for="Job.JobTitle" class="text-danger"></span>
+            </div>
+
             @*
 
-                // 09/18/2019 08:20 am - SSN - [20190918-0817] - [002] - Adding paging for angular lists
+        // 09/18/2019 08:20 am - SSN - [20190918-0817] - [002] - Adding paging for angular lists
 
             *@
             <div class="form-group">
@@ -96,14 +104,6 @@
 
                 <span asp-validation-for="Job.Job_StatusID" class="text-danger"></span>
             </div>
-
-
-            <div class="form-group">
-                <label asp-for="Job.JobTitle" class="control-label"></label>
-                <input asp-for="Job.JobTitle" class="form-control" />
-                <span asp-validation-for="Job.JobTitle" class="text-danger"></span>
-            </div>
-
 
 
             <div class="form-group">

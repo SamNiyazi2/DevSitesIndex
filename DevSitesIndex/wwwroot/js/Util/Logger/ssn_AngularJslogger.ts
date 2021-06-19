@@ -23,17 +23,17 @@ const ssn_AngularJslogger = function () {
 
 
 
-            const cl_normal = function (msg: ILoggerMessage, color: string, load: boolean=false) {
+            const cl_normal = function (msg: ILoggerMessage, color: string, loud: boolean = false) {
 
                 let style = `color:${color};`;
-                if (load) {
-                     style += `font-size:12px;font-weight:bold;`;
+                if (loud) {
+                    style += `font-size:12px;font-weight:bold;`;
                 }
 
-                console.log("%c-----------------------------", style );
-                console.log("%c" + msg.callSource, style );
-                console.log("%c" + msg.message, style );
-                console.log("%c=============================", style );
+                console.log("%c-----------------------------", style);
+                console.log("%c" + msg.callSource, style);
+                console.log("%c" + msg.message, style);
+                console.log("%c=============================", style);
             }
 
 
@@ -41,14 +41,18 @@ const ssn_AngularJslogger = function () {
 
                 const style = 'color:red;font-size:16px;font-weight:bold;';
 
-                console.log("%c-----------------------------", style );
-                console.log("%c" + callSource, style );
-                console.log("%c" + errorMsg.callSource, style );
-                console.log("%c" + errorMsg.message, style );
-                console.log(errorMsg.errorObject); 
-                console.log("%c-----------------------------", style );
+                console.log("%c-----------------------------", style);
+                console.log("%c" + callSource, style);
+                console.log("%c" + errorMsg.callSource, style);
+                console.log("%c" + errorMsg.message, style);
+                console.log(errorMsg.errorObject);
+                console.log("%c-----------------------------", style);
 
-                AppInsights_Util.logException( errorMsg.errorObject, { SourceCode1: `ssn-angjs-[${callSource}]`, SourceCode2: errorMsg.callSource, Message: errorMsg.message });
+                // 06/15/2021 08:38 am - SSN - [20210613-0452] - [048] - Adding tags to DevSite
+
+                let props = { SourceCode1: `ssn-angjs-[${callSource}]`, SourceCode2: errorMsg.callSource, Message: errorMsg.message };
+              
+                AppInsights_Util.logException(errorMsg.errorObject, props);
 
             }
 

@@ -75,33 +75,18 @@ var timesheetClockoutController_instance = function () {
 
 
             function getTimelogSuccess(data) {
-
-
-
-                console.log ( '123----------------------------')
-                console.log ( '123----------------------------')
-                console.log ( data)
-                console.log('123----------------------------')
-                console.log ( '123----------------------------')
-                console.log( '123----------------------------')
-
-
+ 
 
                 let timeNow = new Date();
 
                 timeNow.setMilliseconds(0);
-                // timeNow.setSeconds(0);
-
+              
                 data.stopTime = timeNow;
-
-                let data2 = data;
-
-
-                util.site_instance.fnConverDate(data2);
-                $scope.timeLog = data2;
-
-                $scope.editableTimeLog = angular.copy($scope.timeLog);
-
+ 
+                util.site_instance.fnConverDate(data);
+                $scope.timeLog = data;
+                 
+                $scope.editableTimeLog = data;
             }
 
             function getTimelogError(data) {
@@ -156,12 +141,7 @@ var timesheetClockoutController_instance = function () {
 
                     promise.then(
                         function (data) {
-
-                            var test1 = data;
-
-                            $scope.timeLog = angular.copy($scope.editableTimeLog);
-
-
+ 
                             $uibModalInstance.close();
                             toastr.info("Clocked-out");
 

@@ -13,7 +13,10 @@ using Newtonsoft.Json.Serialization;
 namespace DevSitesIndex.Controllers
 {
     [Route("api/[controller]")]
-    public class DemoSitesAPIController : Controller
+    // 06/15/2021 11:41 pm - SSN - [20210613-0452] - [054] - Adding tags to DevSite
+    // Add ApiController and Controller to ControllerBase
+    [ApiController]
+    public class DemoSitesAPIController : ControllerBase
     {
 
 

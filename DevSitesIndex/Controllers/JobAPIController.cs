@@ -47,6 +47,17 @@ namespace DevSitesIndex.Controllers
         }
 
 
+        // 06/17/2021 11:24 am - SSN - 
+        [Route("typeahead_projectRecords/{projectId}")]
+        [HttpGet]
+        public IEnumerable<TypeAheadRecord> Get_TA_ProjectRecords(int? projectId)
+        {
+            IEnumerable<Job> entity = _entityRepository.GetAll().Where(r => r.ProjectID == projectId);
+
+            return entity.Select(r => new TypeAheadRecord(r.JobID, r.JobTitle));
+        }
+
+
         [Route("typeahead/{id}")]
         [HttpGet]
         public TypeAheadRecord Get_TA(int? id)

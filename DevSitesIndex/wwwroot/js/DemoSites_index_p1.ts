@@ -11,6 +11,7 @@
 
 import * as util from '../js/site';
 
+import * as angular from 'angular';
 
 
 var demosites_index_p1_instance = function () {
@@ -47,7 +48,7 @@ var demosites_index_p1_instance = function () {
 
         // 06/13/2021 08:49 am - SSN - [20210613-0452] - [015] - Adding tags to DevSite
 
-        self.recordsPerPage_KO = ko.observable(10);
+        self.recordsPerPage_KO = ko.observable(3);
         self.currentPage_KO = ko.observable(1);
         self.devSitesCount_KO = ko.observable(-1);
 
@@ -72,7 +73,7 @@ var demosites_index_p1_instance = function () {
 
                 self.devSitesJSON.removeAll();
                 self.devSitesJSON(data);
-
+ 
                 document.querySelector('#topTitle').scrollIntoView({
                     behavior: 'smooth'
                 });
@@ -83,7 +84,7 @@ var demosites_index_p1_instance = function () {
 
 
             $.getJSON("/api/demositesapi/recordcount", function (data) {
-                 
+
                 self.devSitesCount_KO(data);
 
             }).fail(function (response) {
@@ -118,8 +119,8 @@ var demosites_index_p1_instance = function () {
         }
 
         this.onLastPageKnockout = function () {
-            
-            return self.currentPage_KO()>=  self.totalPageCount();
+
+            return self.currentPage_KO() >= self.totalPageCount();
         }
 
         this.totalPageCount = function () {
@@ -146,16 +147,42 @@ var demosites_index_p1_instance = function () {
             self.currentPage_KO(currentPage);
 
             self.loadData(self.recordsPerPage_KO(), self.currentPage_KO());
+
+            self.applyDisplayRequirements();
+            
+            self.updateAngularJSParts();
         }
 
         this.nextDevSitePage = function () {
 
             let currentPage = self.currentPage_KO();
+
             currentPage = currentPage++ > self.totalPageCount() ? self.totalPageCount() : currentPage;
 
             self.currentPage_KO(currentPage);
+
             self.loadData(self.recordsPerPage_KO(), self.currentPage_KO());
 
+            self.applyDisplayRequirements();
+
+            self.updateAngularJSParts();
+
+        }
+
+
+        // 06/15/2021 12:13 am - SSN - [20210613-0452] - [037] - Adding tags to DevSite
+
+        this.updateAngularJSParts = function () {
+
+            setTimeout(() => {
+                
+                const _element = angular.element($("[dev-site-tags-compiler]"));
+                const scope_temp = _element.scope();
+
+                scope_temp.$broadcast("call_devSiteTagsCompiler", { msg: 'doRecompileList' });
+
+            }, 1000);
+        
         }
 
 
@@ -217,16 +244,44 @@ var demosites_index_p1_instance = function () {
             self.SearchText_KO("");
             self.currentPage_KO(1);
             self.loadData(self.recordsPerPage_KO(), self.currentPage_KO());
+
+
+
+            self.applyDisplayRequirements();
+
+            self.updateAngularJSParts();
+
         }
+
+
+
+        // 06/14/2021 03:46 pm - SSN - [20210613-0452] - [028] - Adding tags to DevSite
+        this.applyDisplayRequirements = function () {
+
+       
+            if (!self.prefixPreWithShowHideAnchor_DontCall_KO()) {
+                setTimeout(() => util.site_instance.prefixPreWithShowHideAnchor('20200102-1533'), 2000);
+            }
+            else {
+                // 08/21/2019 01:48 pm - SSN - [20190821-1348] [001] - Added
+                setTimeout(util.site_instance.showCollapsedDivs, 2000);
+
+            }
+
+        }
+
+
+
 
         // 08/12/2019 05:57 am - SSN - [20190812-0515] - [005] - Apply fulltext search
         // https://stackoverflow.com/questions/16245905/fetching-or-sending-data-from-a-form-using-knockout-js
         //self.onSubmit = function () {
-        this.onSubmit = function () {
-
+        this.onSubmitDemoSiteSearch = function () {
+            
             let searchText = self.SearchText_KO();
 
-
+            self.SearchResultsFeedback_KO('');
+            self.SearchResultsFeedback_ClassName_KO('');
             self.devSitesCount_KO(-2);
 
 
@@ -249,45 +304,13 @@ var demosites_index_p1_instance = function () {
             }
 
 
-            //var data = JSON.stringify(
-            //    {
-            //        SearchText: self.SearchText_KO()
-            //    }); // prepare request data
-
-
-            // 09/10/2019 04:20 am - SSN - [20190910-0147] - [009] - WARNING: Tried to load angular more than once.
-            // "SearchText": self.SearchText_KO()
-
-            // 12/20/2019 05:06 pm - SSN - [20191220-1706] Adding resetSearch
             var data_pre = {
-                // 12/20/2019 05:06 pm - SSN - [20191220-1706] Adding resetSearch
                 "SearchText": self.SearchText_KO()
             };
 
             var data = JSON.stringify(data_pre);
 
-
-            //$.post("/echo/json", data, function (response) // sends 'post' request
-            //{
-            //    // on success callback
-            //    self.responseJSON(response);
-            //})
-
-
-            //$.post("/api/demositesapi/Search", data, function (response) {
-
-            //    self.devSitesJSON.removeAll();
-            //    self.devSitesJSON(response);
-            //});
-
-
-
-
-
-
-
-
-
+            
 
 
             $.ajax({
@@ -300,9 +323,7 @@ var demosites_index_p1_instance = function () {
 
                 self.devSitesJSON.removeAll();
                 self.devSitesJSON(response);
-
-                // 08/21/2019 12:14 pm - SSN - [20190821-1210] - [002] - SearchResultsFeedback_KO
-
+                
                 self.SearchResultsFeedback_KO('');
                 self.SearchResultsFeedback_ClassName_KO("");
 
@@ -312,23 +333,31 @@ var demosites_index_p1_instance = function () {
                 }
 
 
-                if (!self.prefixPreWithShowHideAnchor_DontCall_KO()) {
-                    setTimeout(() => util.site_instance.prefixPreWithShowHideAnchor('20200102-1533'), 2000);
-                }
-                else {
-                    // 08/21/2019 01:48 pm - SSN - [20190821-1348] [001] - Added
-                    setTimeout(util.site_instance.showCollapsedDivs, 2000);
-
-                }
+                self.applyDisplayRequirements();
+                
+                self.updateAngularJSParts();
 
 
             }).fail(function (response) {
                 // 12/20/2019 05:06 pm - SSN - [20191220-1706] Adding resetSearch
+
+
                 console.log('demositesapi Search filaure - 20210422-1422');
                 console.info(data);
                 console.error(response);
-                self.SearchResultsFeedback_KO('Search error.  Possibly syntax error.');
+                let errorMessage = 'Search failure. ';
+
+                if (response.responseJSON['Exception:Message']) {
+                    errorMessage += ` Error from server: [${response.responseJSON['Exception:Message']}]`;
+                }
+
+                self.SearchResultsFeedback_KO(errorMessage);
                 self.SearchResultsFeedback_ClassName_KO("alert alert-danger");
+
+
+
+                self.devSitesJSON.removeAll();
+
 
             });
 
@@ -384,9 +413,7 @@ var stringStartsWith = function (string, startsWith) {
     return string.substring(0, startsWith.length) === startsWith;
 };
 
-
-
-// 09/21/2019 07:16 am - SSN - [20190921-0357] - [010] - Creating multiple entry for Webpack
+ 
 
 export { demosites_index_p1_instance };
 

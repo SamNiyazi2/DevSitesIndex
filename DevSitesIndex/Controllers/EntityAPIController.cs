@@ -20,6 +20,9 @@ using SSN_GenUtil_StandardLib;
 namespace DevSitesIndex.Controllers
 {
     [Route("api/[controller]")]
+    // 06/16/2021 02:52 am - SSN - [20210613-0452] - [060] - Adding tags to DevSite
+    // Controller to ControllerBase Wouldn't work since we are passing views in some calls (To update timelog and projects updated table raws)
+    // abstract public class EntityAPIController<T> : Controller
     abstract public class EntityAPIController<T> : Controller
     {
 
@@ -80,14 +83,14 @@ namespace DevSitesIndex.Controllers
             {
 
 
-            _entityRepository.Update(value);
+                _entityRepository.Update(value);
 
-            // 09/29/2019 09:50 am - SSN - [20190928-1256] - [017] - Adding Entity Framework model attribute
-            // if (!_entityRepository.Save())
-            // 11/16/2019 08:03 pm - SSN - [20191116-1516] - [010] - Timelog edit (AngularJS client version)
-            // Leave exception handling to repository
-            // Exception ex = _entityRepository.Save();
-            _entityRepository.Save();
+                // 09/29/2019 09:50 am - SSN - [20190928-1256] - [017] - Adding Entity Framework model attribute
+                // if (!_entityRepository.Save())
+                // 11/16/2019 08:03 pm - SSN - [20191116-1516] - [010] - Timelog edit (AngularJS client version)
+                // Leave exception handling to repository
+                // Exception ex = _entityRepository.Save();
+                _entityRepository.Save();
 
 
 
@@ -125,11 +128,29 @@ namespace DevSitesIndex.Controllers
         //{
         //}
 
-        //// DELETE api/<controller>/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
+
+        // DELETE api/<controller>/5
+        [HttpDelete("{id}")]
+        public ActionResult Delete(int id)
+        {
+            try
+            {
+                _entityRepository.Delete(id);
+                _entityRepository.Save();
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandler_SSN eh = new SSN_GenUtil_StandardLib.ExceptionHandler_SSN();
+
+                ExceptionsList el = eh.HandleException_GetExAsSB_v02(ex);
+
+                string message = el.Message_ToStringBuilder().ToString();
+                return BadRequest(string.Format("Failed to delete record.  (DemoSite-20210616-2134)  {0}", message));
+
+            }
+        }
 
 
     }

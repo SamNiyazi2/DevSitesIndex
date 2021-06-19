@@ -54,6 +54,11 @@ var AppInsights_Util = function () {
     };
     var logException = function (exception, props, handledAt) {
         // 10/1/2019 03:45 am - SSN 
+        // 06/15/2021 08:08 am - SSN - [20210613-0452] - [047] - Adding tags to DevSite
+        // AppInsights.trackException(exception, handledAt, props);
+        if (exception) {
+            props = __assign({}, props, exception);
+        }
         AppInsights.trackException(exception, handledAt, props);
     };
     return {

@@ -26,7 +26,7 @@
 
 *@
 
-<form data-bind="submit: onSubmit">
+<form data-bind="submit: onSubmitDemoSiteSearch">
 
     <div class="form-group">
         <label class="control-label">Search</label>
@@ -172,10 +172,15 @@
 @*
     Knockout Template
 *@
-<div id="list-container">
+@*
+    <!-- 06/13/2021 09:37 pm - SSN - [20210613-0452] - [019] - Adding tags to DevSite -->
+        ng-controller="utilityController"
+*@
+
+<div id="list-container" data-ng-controller="demoSiteIndexController_101" dev-site-tags-compiler>
 
 
-    <div data-ng-controller="demoSiteIndexController_101" dev-site-tags-compiler>
+    <div data-ng-controller="utilityController">
 
         <div data-bind="template: {name: 'list-template', foreach: devSitesJSON }"></div>
 
@@ -239,7 +244,9 @@
 
 
                 @*04/15/2021 12:34 pm - SSN - Adding devsittags*@
-                <dev-site-tags the-tags="devSiteTechnologies"></dev-site-tags>
+
+                @*<dev-site-tags data-bind="attr: {  'the-tags' : ko.toJSON($data.devSiteTechnologies.map(r=> r.technology)) }"></dev-site-tags>*@
+                <dev-site-tags data-bind="attr: {  'the-tags' : ko.toJSON($data) }"></dev-site-tags>
 
                 <!-- ko if: $data.solution_Details -->
                 @*02/05/2019 02:11 pm - SSN - Testing decoding html*@

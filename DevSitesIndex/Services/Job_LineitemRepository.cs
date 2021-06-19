@@ -38,22 +38,6 @@ namespace DevSitesIndex.Services
         }
 
 
-        public void Dispose()
-        {
-            if (context != null)
-            {
-                context.Dispose();
-            }
-        }
-
-
-
-
-        public void Save()
-        { 
-            context.SaveChanges();
-        }
-
         public Job_Lineitem Update(Job_Lineitem job_LineItem)
         {
             // Copied from TimeLogRepository.  Keep in sync.
@@ -72,5 +56,27 @@ namespace DevSitesIndex.Services
 
             return job_LineItem;
         }
+
+
+        public void Save()
+        {
+            context.SaveChanges();
+        }
+
+
+        public void Delete(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public void Dispose()
+        {
+            if (context != null)
+            {
+                context.Dispose();
+            }
+        } 
+
     }
 }

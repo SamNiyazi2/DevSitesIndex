@@ -23,37 +23,6 @@ namespace DevSitesIndex.Controllers
 
 
 
-        [Route("typeahead_jobrecords/{jobId}")]
-        [HttpGet]
-        public IEnumerable<TypeAheadRecord> Get_TA_JobRecords(int? jobId)
-        {
-
-            IEnumerable<Job_Lineitem> entity = _entityRepository.GetAll().Where(r => r.JobId == jobId);
-
-            return entity.Select(r => new TypeAheadRecord(r.LineItemId, r.LineItem));
-        }
-
-
-        [Route("typeahead/{id}")]
-        [HttpGet]
-        public TypeAheadRecord Get_TA(int? id)
-        {
-
-            TypeAheadRecord entity = default(TypeAheadRecord);
-
-            if (id.HasValue)
-            {
-                Job_Lineitem r = _entityRepository.GetRecord(id.Value);
-                if (r != null)
-                {
-                    entity = new TypeAheadRecord(r.LineItemId, r.LineItem);
-                }
-            }
-            return entity;
-
-        }
-
-
 
     }
 }

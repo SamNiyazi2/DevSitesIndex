@@ -11,10 +11,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using DevSitesIndex.Services;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json.Serialization;
-using Newtonsoft.Json.Converters;
+
 using Microsoft.AspNetCore.Identity;
 
+using System.Text.Json;
 
 // 08/12/2019 09:50 am - SSN - [20190812-0945] - [003] - Add identity
 
@@ -33,6 +33,9 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 
 using Microsoft.AspNetCore.Routing;
 using System.Security.Claims;
+using Microsoft.ApplicationInsights;
+using System.Net;
+using Microsoft.AspNetCore.Diagnostics;
 
 namespace DevSitesIndex
 {
@@ -258,7 +261,7 @@ namespace DevSitesIndex
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("Managers", policy =>
-                                  policy.RequireClaim( ClaimTypes.Role,"Manager"));
+                                  policy.RequireClaim(ClaimTypes.Role, "Manager"));
 
                 options.AddPolicy("EmployeeOnly", policy =>
                                   policy.RequireClaim(ClaimTypes.Role, "Employee"));
@@ -312,7 +315,7 @@ namespace DevSitesIndex
 
 
             // 10/02/2019 01:45 pm - SSN - [20191002-1118] - [008] - Adding Angular 7 test app
-            
+
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
@@ -456,16 +459,93 @@ namespace DevSitesIndex
                     }
                     firstRequest = false;
                 }
-                await next();
 
 
-
-                //After going down the pipeline check if we 404'd. 
-                if (context.Response.StatusCode == StatusCodes.Status404NotFound)
+                // 06/13/2021 11:09 pm - SSN - [20210613-0452]-[027] - Adding tags to DevSite
+                // Add try/catch
+                try
                 {
-                    // await context.Response.WriteAsync("Woops! We 404'd");
-                  
-                    context.Response.Redirect($"/home/error/{context.Response.StatusCode}");
+                    await next();
+
+                }
+                catch (Exception ex)
+                {
+
+                    bool isJsonRequest = context.Request.Headers.Values.Any(s => s.ToString().ToLower().Contains("application/json"));
+
+
+                    Console.ForegroundColor = ConsoleColor.Red;
+
+                    Console.WriteLine("");
+                    Console.WriteLine("===========================================================================");
+                    Console.WriteLine("Middleware captured error-20210613-2346");
+
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("---------------------------------------------------------------------------");
+                    Console.WriteLine($"isJsonRequest [{isJsonRequest}] ");
+                    Console.WriteLine("---------------------------------------------------------------------------");
+
+                    Console.WriteLine(ex);
+
+                    Console.WriteLine("===========================================================================");
+                    Console.WriteLine("");
+
+                    Console.ResetColor();
+
+                    TelemetryClient telemetry = new TelemetryClient();
+                    Dictionary<string, string> dic = new Dictionary<string, string>
+                                        {
+                                            { "ErrorCode", "DemoSite-20210613-2326" },
+                                            { "ErrorMessage", "Startup middleware capture" }
+                                        };
+
+                    telemetry.TrackEvent("DemoSite-MissedStep-20210615-2311", dic);
+
+                    telemetry.TrackException(ex, dic);
+
+
+                    Dictionary<string, string> dic2 = new Dictionary<string, string>();
+
+                    dic2.Add("ErrorCode", "DemoSite-20210614-1656");
+                    dic2.Add("ErrorMessage", "Startup middleware capture with ex");
+                    addExceptionData(ex, dic2);
+
+                    Exception innerException = ex.InnerException;
+                    int innerExNo = 0;
+                    while (innerException != null)
+                    {
+                        innerExNo++;
+                      addExceptionData(innerException, dic2, innerExNo);
+
+                        innerException = innerException.InnerException;
+                    }
+
+                    JsonSerializerOptions options = new JsonSerializerOptions();
+
+                    //                  string jsonErrorMessage = JsonSerializer.Serialize<Dictionary<string, string>>(dic2);
+
+                    string jsonErrorMessage = JsonSerializer.Serialize(getErrorObject(ex));
+
+                    if (context.Request.Headers.Values.Any(s => s.ToString().ToLower().Contains("application/json")))
+                    {
+                        // context.Response.Redirect("/error?mw=1140");
+
+
+                        // 06/15/2021 08:07 pm - SSN - [20210613-0452] - [051] - Adding tags to DevSite
+                        // Response has already been started. This creates an exception.  Response has already started.
+                        // context.Response.ContentType = "application/json";
+                        // context.Response.StatusCode = 500;
+
+                        // 06/16/2021 12:13 am - SSN - [20210613-0452] - [058] - Adding tags to DevSite
+
+                        await context.Response.WriteAsync(jsonErrorMessage);
+
+
+                    }
+                    else
+                    {
+                        throw;
+                    }
                 }
 
 
@@ -473,7 +553,7 @@ namespace DevSitesIndex
 
             });
 
-            
+
 
 
             app.UseStaticFiles();
@@ -641,6 +721,31 @@ namespace DevSitesIndex
 
 
         }
+        class CustomErrorInfo
+        {
+            public string Source { get; set; }
+            public string Message { get; set; }
+            //            public string StackTrace { get; set; }
+        }
+
+        private CustomErrorInfo getErrorObject(Exception ex)
+        {
+            return new CustomErrorInfo
+            {
+                Source = ex.Source,
+                Message = ex.Message
+            };
+        }
+
+        private static void addExceptionData(Exception ex, Dictionary<string, string> dic2, int innerExNo = 0)
+        {
+            string innerExNoString = innerExNo == 0 ? "" : innerExNo.ToString();
+
+            dic2.Add($"Exception_Message{innerExNoString}", ex.Message);
+            dic2.Add($"Exception_Source{innerExNoString}", ex.Source);
+            dic2.Add($"Exception_TargetSite{innerExNoString}", ex.TargetSite.Name);
+            //  dic2.Add($"Exception_StackTrace{innerExNoString}", ex.StackTrace);
+        }
     }
 
 
@@ -656,4 +761,24 @@ namespace DevSitesIndex
     {
         public string[] Site { get; set; }
     }
+
+
+    // https://blog.jonblankenship.com/2020/04/12/global-exception-handling-in-aspnet-core-api/
+
+    public class ErrorHandlingMiddleWare_1001
+    {
+        private readonly RequestDelegate next;
+
+        public ErrorHandlingMiddleWare_1001(RequestDelegate _next)
+        {
+            next = _next;
+        }
+
+
+
+
+
+    }
+
 }
+

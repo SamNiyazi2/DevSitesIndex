@@ -31,6 +31,9 @@ var timesheetApp_instance = function () {
 
         $scope.$on('TimeLog_Index_Refresh', function (event, item) {
 
+            console.log('%c TimeLog_Index_Refresh - 20210617-2353 - Compare with INSERT ', 'color:yellow;font-size:12pt');
+            console.log(event);
+            console.log(item);
 
             $("#" + item.tr_2_id).remove();
 
@@ -38,8 +41,43 @@ var timesheetApp_instance = function () {
 
             $compile($("#" + item.tr_1_id).contents())($scope);
 
+            hightlightRawsAffected(item);
+
+
         });
 
+
+        $scope.$on('TimeLog_Index_Insert', function (event, item) {
+
+            $("#timesheet_index_tbody").prepend(item.html);
+
+
+            $compile($("#" + item.tr_1_id).contents())($scope);
+
+
+            document.querySelector('#topOfTimesheetTable').scrollIntoView({
+                behavior: 'smooth'
+            });
+
+
+            hightlightRawsAffected(item);
+
+
+        });
+
+
+
+        function hightlightRawsAffected(item) {
+
+
+            // We assume that the logic remains the same for naming rows.  Bad idea!
+            const rowId1 = item.tr_1_id;
+            const rowId2 = item.tr_1_id.substring(0, item.tr_1_id.length - 1) + '2';
+
+            $("#" + rowId1).addClass("cssHilight102");
+            $("#" + rowId2).addClass("cssHilight102");
+             
+        }
 
 
         $scope.timesheetForm_ClockOut = function (timelogId) {
@@ -209,7 +247,7 @@ var timesheetApp_instance = function () {
 
 
         }
-        
+
 
 
 

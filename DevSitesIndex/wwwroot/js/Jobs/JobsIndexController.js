@@ -1,6 +1,6 @@
 /// <reference path="../../../node_modules/@types/jquery/jquery.d.ts" /> 
 /// <reference path="../../../node_modules/@types/angular/index.d.ts" /> 
-/// <reference path="../DataServices.ts"/>
+/// <reference path="../shared/DataServices.ts"/>
 var __assign = (this && this.__assign) || function () {
     __assign = Object.assign || function(t) {
         for (var s, i = 1, n = arguments.length; i < n; i++) {

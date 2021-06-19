@@ -32,7 +32,7 @@ namespace site_instance_NS {
         // 08/31/2020 04:29 am - SSN - [20200831-0417] - [002] - Disable collapsable divs with no content
 
         disableEmptyCollapsableDivs() {
-             
+
 
             // 09/04/2020 01:55 am - SSN - [20200904-0155] apply to a only - Was hiding mobile hamberger menu.
 
@@ -40,11 +40,11 @@ namespace site_instance_NS {
 
                 let divId = $(obj1).attr('aria-controls');
 
-                 
-                let childrenCount=    $("#" + divId).children().length ;
-  
-                if (childrenCount=== 0) {
-                    $(obj1).css( 'color', 'orange' );
+
+                let childrenCount = $("#" + divId).children().length;
+
+                if (childrenCount === 0) {
+                    $(obj1).css('color', 'orange');
                     $(obj1).css('font-size', '24pt');
 
                     $(obj1).replaceWith(function () {
@@ -53,7 +53,7 @@ namespace site_instance_NS {
 
                 }
             });
-             
+
 
         }
 
@@ -156,10 +156,17 @@ namespace site_instance_NS {
 
                 });
 
+            });
 
 
+            let imgSiteUrlQRCode = 0; 
 
+            $('#imgSiteUrlQRCode').click((e) => {
 
+                imgSiteUrlQRCode++;
+
+                $(e.target).toggleClass('cssSiteUrlQRCode');
+                 
 
             });
 
@@ -214,7 +221,7 @@ namespace site_instance_NS {
 
             $(document).ready(() => {
 
-             
+
                 $('.navbar li a').bind('contextmenu click', (e) => {
 
                     console.log('20210414-1007 - context menu');
@@ -223,8 +230,8 @@ namespace site_instance_NS {
                 });
 
 
-                    $('.navbar li a').bind('mousedown', (e) => {
-                    
+                $('.navbar li a').bind('mousedown', (e) => {
+
                     switch (e.which) {
                         case 1:
                             console.log('Left mouse button is pressed');
@@ -286,7 +293,7 @@ namespace site_instance_NS {
             $('pre').each(function (aa) {
 
                 let autoCollapse = $(this).attr('ssn-auto-collapse');
-                if (autoCollapse === "false") { return;};
+                if (autoCollapse === "false") { return; };
 
                 $(this).hide();
 
@@ -476,7 +483,7 @@ if (window["site_routine_run"] === 1) {
 
 
 
-        
+
     });
 
 }

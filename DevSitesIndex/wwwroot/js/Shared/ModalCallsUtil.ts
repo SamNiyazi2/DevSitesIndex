@@ -25,41 +25,73 @@ const ModalCallsUtil = function () {
 
 
 
-              //  ssn_logger.cl_normal({ callSource: '20210610-0024', message: 'ModalCallsUtil doSetup' }, 'yellow', true);
+                //  ssn_logger.cl_normal({ callSource: '20210610-0024', message: 'ModalCallsUtil doSetup' }, 'yellow', true);
 
 
 
-            $scope.addNewLineItem = function (jobID, containerViewValue) {
+                $scope.addNewLineItem = function (jobID, containerViewValue) {
 
 
-                ssn_logger.cl_normal({ callSource: '20210610-0043-A', message: 'Calling addNewLineItem' }, 'yellow', true);
-                ssn_logger.cl_normal({ callSource: '20210610-0043-B', message: `jobID [${jobID}]` }, 'yellow', true);
-                ssn_logger.cl_normal({ callSource: '20210610-0043-C', message: `containerViewValue [${containerViewValue}]` }, 'yellow', true);
+                    ssn_logger.cl_normal({ callSource: '20210610-0043-A', message: 'Calling addNewLineItem' }, 'yellow', true);
+                    ssn_logger.cl_normal({ callSource: '20210610-0043-B', message: `jobID [${jobID}]` }, 'yellow', true);
+                    ssn_logger.cl_normal({ callSource: '20210610-0043-C', message: `containerViewValue [${containerViewValue}]` }, 'yellow', true);
 
 
-                $uibModal.open({
-                    templateUrl: '/js/timesheet/LineItem/LineItemTemplate.html',
-                    controller: 'LineItemController',
+                    $uibModal.open({
+                        templateUrl: '/js/timesheet/LineItem/LineItemTemplate.html',
+                        controller: 'LineItemController',
 
-                    backdrop: 'static',
-                    keyboard: false,
+                        backdrop: 'static',
+                        keyboard: false,
 
 
-                    resolve: {
-                        jobId: function () {
-                            return jobID;
-                        },
-                        containerViewValue: function () {
-                            return containerViewValue;
+                        resolve: {
+                            jobId: function () {
+                                return jobID;
+                            },
+                            containerViewValue: function () {
+                                return containerViewValue;
+                            }
                         }
-                    }
 
-                });
-                 
-            }
+                    });
 
-                 
-        }]);
+                }
+
+
+
+
+                // 06/15/2021 03:25 am - SSN - [20210613-0452] - [040] - Adding tags to DevSite
+
+
+                $scope.addNewTechnology = function (containerViewValue) {
+
+
+                    ssn_logger.cl_normal({ callSource: '20210615-0326-A', message: 'Calling addNewTechnology ' }, 'yellow', true); 
+                    ssn_logger.cl_normal({ callSource: '20210615-0326-C', message: `containerViewValue [${containerViewValue}]` }, 'yellow', true);
+
+
+                    $uibModal.open({
+                        templateUrl: '/js/Technology/TechnologyCreate.html',
+                        controller: 'TechnologyController',
+
+                        backdrop: 'static',
+                        keyboard: false,
+
+
+                        resolve: {
+                            
+                            containerViewValue: function () {
+                                return containerViewValue;
+                            }
+                        }
+
+                    });
+
+                }
+
+
+            }]);
 
 
     }

@@ -8,9 +8,11 @@
 // 05/04/2019 09:58 am - SSN - Since having to import angular when converting to a module
 
 
-import * as   IColumnBagTemp from './IColumnBag';
+import * as   IColumnBagTemp from '../Interfaces/IColumnBag';
+import { ITechnology } from '../Interfaces/ITechnology';
+import { IDevSiteTechnology } from '../Interfaces/IDevSiteTechnology';
 
-import * as   globals from './globals';
+import * as   globals from '../globals';
 
 import * as angular from "angular";
 
@@ -26,20 +28,42 @@ var dataService_instance = function () {
 
         ssn_devsite_angular_module.factory("dataService", ['$http', '$q', function ($http, $q) {
 
-            var _devSites = [];
 
-            var _getDevSites = function (recordsPerPage:number, currentPage:number) {
+            var _getDevSites = function (recordsPerPage: number, currentPage: number) {
 
                 var deferred = $q.defer();
- 
+
                 $http.get(`/api/demositesapi/${recordsPerPage}/${currentPage}`)
                     .then(function (result) {
 
-                        angular.copy(result.data, _devSites);
-                        deferred.resolve();
+                        deferred.resolve(result.data);
                     },
-                        function () {
-                            deferred.reject();
+                        function (error) {
+
+                            console.error('%c ' + 'dataservice getDevSites error', 'color:red;font-size:13pt;');
+                            console.log(error);
+
+                            deferred.reject(error);
+                        });
+
+                return deferred.promise;
+            };
+
+
+
+            // 06/15/2021 05:10 am - SSN - [20210613-0452] - [045] - Adding tags to DevSite
+
+            var _getDevSite = function (devSiteId: number) {
+
+                var deferred = $q.defer();
+
+                $http.get(`/api/demositesapi/${devSiteId}`)
+                    .then(function (result) {
+
+                        deferred.resolve(result.data);
+                    },
+                        function (error) {
+                            deferred.reject(error);
                         });
 
                 return deferred.promise;
@@ -54,11 +78,11 @@ var dataService_instance = function () {
 
                 $http.get(`/api/demositesapi/recordcount`)
                     .then(function (result) {
-                         
+
                         deferred.resolve(result);
                     },
-                        function () {
-                            deferred.reject(0);
+                        function (error) {
+                            deferred.reject(error);
                         });
 
                 return deferred.promise;
@@ -78,9 +102,9 @@ var dataService_instance = function () {
 
                         deferred.resolve(result.data);
                     },
-                        function (errorMessage) {
+                        function (error) {
                             deferred.reject({ Error: 'Failed call to get timelog [20190829-1819]' });
-                            console.error(errorMessage);
+                            console.error(error);
                         });
 
                 return deferred.promise;
@@ -100,9 +124,9 @@ var dataService_instance = function () {
 
                         deferred.resolve(result.data);
                     },
-                        function (errorMessage) {
+                        function (error) {
                             deferred.reject({ Error: 'Failed call to get timelog [20191119-0201]' });
-                            console.error(errorMessage);
+                            console.error(error);
                         });
 
                 return deferred.promise;
@@ -118,8 +142,8 @@ var dataService_instance = function () {
 
                         deferred.resolve(result.data);
                     },
-                        function () {
-                            deferred.reject();
+                        function (error) {
+                            deferred.reject(error);
                         });
 
                 return deferred.promise;
@@ -141,8 +165,8 @@ var dataService_instance = function () {
 
                         deferred.resolve(result.data);
                     },
-                        function () {
-                            deferred.reject();
+                        function (error) {
+                            deferred.reject(error);
                         });
 
                 return deferred.promise;
@@ -313,11 +337,89 @@ var dataService_instance = function () {
 
 
 
+            // 06/15/2021 06:00 pm - SSN - [20210613-0452] - [049] - Adding tags to DevSite
+
+            var addOrUpdateTechnology = function (technology: ITechnology) {
+
+
+                var deferred = $q.defer();
+
+                $http.post('/api/technologyAPI', technology)
+                    .then(function (result) {
+
+                        deferred.resolve(result.data);
+                    },
+                        function (error) {
+
+                            deferred.reject(error);
+                        });
+
+                return deferred.promise;
+
+            };
+
+
+            function getHttpPostPromise(url, body) {
+
+                var deferred = $q.defer();
+
+                $http.post(url, body)
+                    .then(function (result) {
+
+                        deferred.resolve(result.data);
+                    },
+                        function (error) {
+
+                            deferred.reject(error);
+                        });
+
+                return deferred.promise;
+
+            }
+
+
+            // 06/16/2021 08:42 pm - SSN - [20210613-0452] - [105] - Adding tags to DevSite
+            function getHttpDeletePromise(url, id) {
+
+                var deferred = $q.defer();
+
+                $http.delete(`${url}/${id}`)
+                    .then(function (result) {
+
+                        deferred.resolve(result.data);
+                    },
+                        function (error) {
+
+                            deferred.reject(error);
+                        });
+
+                return deferred.promise;
+
+            }
+
+
+            // 06/16/2021 02:59 am - SSN - [20210613-0452] - [061] - Adding tags to DevSite
+
+            var addDevSiteTechnology = function (devSiteTechnology: IDevSiteTechnology) {
+
+                return getHttpPostPromise('/api/DevSitetechnologyAPI/post_custom', devSiteTechnology);
+
+            };
+
+
+            // 06/16/2021 08:33 pm - SSN - [20210613-0452] - [103] - Adding tags to DevSite
+
+            var deleteDevSiteTechnology = function (id: number) {
+
+                return getHttpDeletePromise('/api/DevSitetechnologyAPI', id);
+
+            };
+
 
             return {
 
-                devSites: ko.observable(_devSites),
                 getDevSites: _getDevSites,
+                getDevSite: _getDevSite,
                 getDevSitesCount: _getDevSitesCount,
                 addDevSite: _addDevSite,
                 // 09/06/2019 04:44 pm - SSN - [20190906-0518] - [002] - Angular - editMode div content
@@ -331,7 +433,10 @@ var dataService_instance = function () {
                 getJob: _getJob,
                 timelogRefreshRecord: _TimelogRefreshRecord,
                 projectsSearchRefreshRecord: _ProjectsSearchRefreshRecord,
-                addOrUpdateJob_LineItem
+                addOrUpdateJob_LineItem,
+                addOrUpdateTechnology,
+                addDevSiteTechnology,
+                deleteDevSiteTechnology
 
             };
 

@@ -25,10 +25,6 @@ namespace DevSitesIndex.Services
             this.logger = logger;
         }
 
-        public void Dispose()
-        {
-            throw new NotImplementedException();
-        }
 
         public IQueryable<Project> GetAll()
         {
@@ -102,15 +98,31 @@ namespace DevSitesIndex.Services
             return databag;
         }
 
-        public void Save()
-        {
-            throw new NotImplementedException();
-        }
 
         public Project Update(Project dbSet)
         {
             throw new NotImplementedException();
         }
+
+
+        public void Save()
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public void Delete(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public void Dispose()
+        {
+            throw new NotImplementedException();
+        }
+
+
     }
 
     public class Project_Search_Record

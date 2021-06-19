@@ -97,6 +97,8 @@ namespace DevSitesIndex.Entities
                 PropertyInfo property_DateAdded = properties.FirstOrDefault(p => p.GetCustomAttributes(false).Any(a => a.GetType() == typeof(Entities.EFCoreShadowProperty.Models.DateAddedAttribute)));
                 PropertyInfo property_DateUpdated = properties.FirstOrDefault(p => p.GetCustomAttributes(false).Any(a => a.GetType() == typeof(Entities.EFCoreShadowProperty.Models.DateUpdatedAttribute)));
 
+                PropertyInfo property_NoDateUpdated = properties.FirstOrDefault(p => p.GetCustomAttributes(false).Any(a => a.GetType() == typeof(Entities.EFCoreShadowProperty.Models.NoDateUpdatedAttribute)));
+
                 //object dateUpdatedPro = entry.Entity.GetType().GetCustomAttributes(typeof(Entities.EFCoreShadowProperty.Models.DateUpdatedAttribute), true).FirstOrDefault();
                 // if (entry.Entity.GetType().GetCustomAttributes(typeof(EFCoreShadowProperty.Models.AuditableAttribute), true).Length > 0)
                 //if (entry.Properties.Any(r => r.Metadata.Name == "LastModifiedOn"))
@@ -108,9 +110,9 @@ namespace DevSitesIndex.Entities
                 }
 
 
-                if (property_DateUpdated == null)
+                if (property_DateUpdated == null && property_NoDateUpdated == null)
                 {
-                    throw new Exception($"20190928-1444 - No DateUpdated attribute on {type.Name}.");
+                    throw new Exception($"20190928-1444 - No 'DateUpdated' and not 'NoDateUpdated' attribute on {type.Name}.");
                 }
 
 
@@ -119,7 +121,7 @@ namespace DevSitesIndex.Entities
                     entry.Property(property_DateAdded.Name).CurrentValue = timestamp;
                 }
 
-                if (entry.State == EntityState.Modified && property_DateUpdated != null)
+                if (entry.State == EntityState.Modified && property_DateUpdated != null )
                 {
                     entry.Property(property_DateAdded.Name).IsModified = false;
                     entry.Property(property_DateUpdated.Name).CurrentValue = timestamp;
@@ -526,6 +528,11 @@ namespace DevSitesIndex.Entities
                .Property(p => p.DateAdded)
                .HasColumnType("datetime2(0)");
 
+            // 06/16/2021 09:52 pm - SSN - [20210613-0452] - [106] - Adding tags to DevSite
+            modelBuilder.Entity<Technology>()
+             .HasIndex(c => c.Description)
+                .IsUnique()
+                .HasName("Technology_Description_Unique_2153");
 
 
         }
@@ -557,7 +564,9 @@ namespace DevSitesIndex.Entities
         {
             modelBuilder.Entity<DevSiteTechnology>(entity =>
             {
-
+                entity.HasIndex(e => new { e.DevSiteId, e.TechnologyId })
+                   .HasName("IX_DevSiteTechnologies")
+                   .IsUnique();
 
                 entity.HasOne(d => d.DevSite)
                             .WithMany(p => p.DevSiteTechnologies)
@@ -568,6 +577,9 @@ namespace DevSitesIndex.Entities
                             .WithMany(p => p.DevSiteTechnologies)
                             .HasForeignKey(d => d.TechnologyId)
                             .HasConstraintName("FK_SiteTechnologies_Technologies");
+
+              
+
             });
         }
 
@@ -598,8 +610,15 @@ namespace DevSitesIndex.Entities
         // 09/01/2019 12:35 pm - SSN Pluralize Company, Discipline, Job, SoftwareCode and Project.
 
         public DbSet<SoftwareCode> SoftwareCodes { get; set; }
-        public DbSet<DevSite> DevSites { get; set; }
-        public DbSet<Technology> Technologies { get; set; }
+
+
+        public DbSet<DevSite> DevSites => Set<DevSite>();   
+
+
+
+        public DbSet<Technology> Technologies => Set<Technology>();
+
+
         public DbSet<Company> Companies { get; set; }
         public DbSet<Job> Jobs { get; set; }
 
@@ -619,9 +638,9 @@ namespace DevSitesIndex.Entities
         // 09/16/2019 11:44 am - SSN - [20190916-1123] - [004] - Adding job status
         public DbSet<Job_Status> Job_Statuses { get; set; }
 
-        
+
         // 06/13/2021 08:39 am - SSN - [20210613-0452] - [013] - Adding tags to DevSite
-        public DbSet<DevSiteTechnology> DevSiteTechnologies { get; set; }
+        public DbSet<DevSiteTechnology> DevSiteTechnologies => Set<DevSiteTechnology>();
 
 
     }

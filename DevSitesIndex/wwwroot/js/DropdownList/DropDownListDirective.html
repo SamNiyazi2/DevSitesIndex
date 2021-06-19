@@ -1,100 +1,47 @@
-<div class="cssDropdownListDirectiveHelper">
-    keyColumn [{{ vm101.keyColumn           }}] : "@key",
-    parentKeyColumn [{{ vm101.parentKeyColumn     }}] : "=parentkey",
-    parentKeyName [{{ vm101.parentKeyName       }}] : parentKeyName: "@",
-    hiddenFieldName [{{ vm101.hiddenFieldName     }}] : hiddenFieldName: "@",
-    elementName [{{ vm101.elementName         }}] : elementName: "@name",
-    containerViewValue [{{ vm101.containerViewValue  }}] : containerViewValue: "=?",
 
-
-    <h4 style="white-space:pre">form.$valid[{{vm101.formName|json}}]</h4>
-
-    <h4 style="white-space:pre">form.$valid[{{vm101.formName.$valid}}]</h4>
-    <h4>ngModel [{{vm101.ngModel}}]</h4>
-    <h4>keyColumn [{{vm101.keyColumn}}]</h4>
-
-
-
-    <h4>
-        vm101.isValidBoolean [{{vm101.isValidBoolean}}]
-    </h4>
-    <h4>
-        vm101.isReady [{{vm101.isReady}}]
-    </h4>
-
-
-    <p style="white-space:pre">
-        {{(vm101.formErrorsByControl(vm101.tempControlName,"required"))|json}}
-
-    </p>
-
-
-    <p style="white-space:pre">
-        $scope.addresses {{vm101.addresses|json}}
-
-    </p>
-
-    <p>vm101.dropdownListDireciveInputBoxInverse [{{vm101.dropdownListDireciveInputBoxInverse}}]</p>
-   
-    
-    <h4 style="white-space:pre">
-        Dirty    {{ vm101.formName[vm101.tempControlName].$dirty}}
-    </h4>
-
-
-</div>
-
-
-<!--<p>vm101.dropdownListDireciveInputBoxInverse [{{vm101.dropdownListDireciveInputBoxInverse}}]</p>
-
-<h4>
-    vm101.isReady [{{vm101.isReady}}]
-</h4>
-
-<h4>ngModel [{{vm101.ngModel}}]</h4>
-
-<h4 style="white-space:pre">form.$valid[{{vm101.formName.$valid}}]</h4>-->
-
-
-
-<!--<h4 style="white-space:pre">form.$valid[{{vm101.formName|json}}]</h4>-->
 
 <input type="text"
        ng-model="vm101.disciplineSelected_XXX"
        ng-change="vm101.changing()"
        placeholder="Select..."
-       uib-typeahead="discipline as discipline.title for discipline in vm101.getDisciplines($viewValue) "
+       uib-typeahead="discipline as discipline.title for discipline in vm101.getDisciplines($viewValue)"
        typeahead-loading="loadingLocations"
        typeahead-no-results="noResults"
+       typeahead-on-select="vm101.typeaheadOnSelect($item,$model,$label)"
        class="form-control"
        dropdown-list-directive-input-box="aaa,coconuts,bananas,pears"
-       dropdown-list-directive-input-box-inverse="{{vm101.dropdownListDireciveInputBoxInverse}}"
+       dropdown-list-directive-input-box-inverse="{{vm101.dropdownListDirectiveInputBoxInverse}}"
        name="{{vm101.tempControlName}}"
+       key-column="{{vm101.keyColumn}}"
        ng-required="{{true}}">
- 
+
 
 <i ng-show="loadingLocations " class="glyphicon glyphicon-refresh"></i>
 
-<div ng-show="noResults  && !vm101.dropdownListDireciveInputBoxInverse">
-    <i class="glyphicon glyphicon-remove"></i> No Results Found &nbsp; &nbsp; &nbsp; <a ng-show="{{null!=vm101.addFuncSource}}" ng-click="vm101.addFunc()">Add new item</a>
+<div ng-show="noResults && vm101.dropdownListDirectiveInputBoxInverse != 'true'">
+    <i class="glyphicon glyphicon-remove"></i> &nbsp; No Results Found
 </div>
 
 
- 
-
 <ng-content ng-show="vm101.isReady ">
-
     <p class="has-error" ng-show="required">Selection is required (22)</p>
-
-
     <span class="has-error" ng-show="vm101.errorTriggered(vm101.blackListErrorName)">
-        The input "{{ vm101.disciplineSelected_XXX }}" is invalid
+        The input "{{
+ vm101.disciplineSelected_XXX
+        }}" is invalid
     </span>
 
-    <p class="has-error" ng-hide="vm101.isValidBoolean">Selection is required (3)</p>
     <p class="has-error" ng-show="vm101.errorTriggeredWithControlName (vm101.tempControlName,'required')">Selection is required (2)</p>
 
     <p class="has-error" ng-show="vm101.errorTriggeredWithControlName (vm101.tempControlName,'dropdownListDirectiveInputBox')">Invalid input</p>
+
+    <p class="has-error" ng-show="vm101.errorTriggeredWithControlName (vm101.tempControlName,'isValidDropdownDirectiveSelection')">
+        Invalid seletion. (4)
+
+        <span ng-show="noResults && vm101.dropdownListDirectiveInputBoxInverse != 'true' && vm101.addFuncSource">
+            &nbsp; &nbsp; &nbsp; <a ng-click="vm101.addFunc()">Add new item</a>
+        </span>
+    </p>
 
 
 </ng-content>

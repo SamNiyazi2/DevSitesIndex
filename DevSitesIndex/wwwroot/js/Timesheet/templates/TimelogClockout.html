@@ -35,6 +35,7 @@
             <input type="hidden" name="id" ng-model="editableTimeLog.id" />
             <input type="hidden" name="timeLogId" ng-model="editableTimeLog.timeLogId" />
 
+
             <fieldset>
 
 
@@ -48,7 +49,8 @@
                     <div class="col-sm-9">
 
                         <!--<input type="hidden" name="jobId" ng-model="editableTimeLog.jobId" ng-required="true" />-->
-                        <dropdown-list-directive call-source="20210607-1746" key="jobId" form-name="timesheetForm" ng-model="editableTimeLog.jobId"></dropdown-list-directive>
+                        <dropdown-list-directive call-source="20210607-1746" key="jobId" form-name="timesheetForm" ng-model="editableTimeLog.jobId" parentkey="editableTimeLog.job.project.projectID" parent-key-name="static"></dropdown-list-directive>
+
 
                     </div>
                 </div>
@@ -56,7 +58,8 @@
 
 
                 <!-- 04/14/2021 06:11 am - SSN -->
-
+ 
+               
                 <div class="form-group">
 
                     <label for="lineItemID" class="col-sm-3 control-label">

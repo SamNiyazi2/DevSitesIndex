@@ -85,7 +85,12 @@ var DemoSites_Pages = function () {
                             $("#devSiteSaveStatus").css({ 'background-color': 'yellow' });
                             console.error("Error-20190328-0704");
                             console.error('Todo');
+                            console.error('error:');
                             console.error(error);
+                            console.error('textStatus:');
+                            console.error(textStatus);
+                            console.error('errorThrown:');
+                            console.error(errorThrown);
                             AppInsights_Util.logException(new Error(errorThrown), { SourceCode: "20200904-0813", Message: "DemoSites_pages.error (SaS)" });
                         }
                     });

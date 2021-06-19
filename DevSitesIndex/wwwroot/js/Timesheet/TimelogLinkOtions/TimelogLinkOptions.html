@@ -6,7 +6,7 @@
 
 <ng-content ng-if="timelogId">
 
-    <a ng-click="timesheetForm_Edit(timelogId, servingPage)">Edit (A)</a> (102)
+    <a ng-click="timesheetForm_Edit(timelogId, servingPage)">Edit</a>
 
     <span ng-If="showClockoutOption">
 
@@ -21,10 +21,13 @@
 
 
     <!--Either by timelogId -->
-    <a ng-show="timelogId" ng-click="showCreateTimesheetForm(timelogId)">Clock-in</a>
+    <!--
+        Coverted by timesheetForm_ClockContinue above (On timesheet index)
+        <a ng-show="timelogId" ng-click="showCreateTimesheetForm(timelogId)">Clock-in (1301)</a>
 
+        -->
     <!--or by jobId -->
-    <a ng-show="jobId && !timelogId" ng-click="showCreateTimesheetFormWithJobId(jobId)">Clock-in</a>
+    <a ng-show="jobId && !timelogId" ng-click="showCreateTimesheetFormWithJobId(jobId)">Clock-in  (1302)</a>
 
 
 </ng-content>

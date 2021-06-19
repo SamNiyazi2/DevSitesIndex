@@ -2,7 +2,6 @@
 // 04/12/2019 03:57 am - SSN - [20190412-0142] - TimesheetApp
 // 09/18/2019 11:13 am - SSN - [20190918-0943] - [008] - Adding job status option to index
 import * as globals from "../globals";
-import * as angular from "angular";
 import * as util from '../site';
 var timesheetController_instance = function () {
     var timesheetApp = globals.globals_instance.getInstance_v002('TimesheetController', "timesheetApp");
@@ -58,7 +57,6 @@ var timesheetController_instance = function () {
                 }
                 if (promise) {
                     promise.then(function (data) {
-                        $scope.timeLog = angular.copy($scope.editableTimeLog);
                         $uibModalInstance.close();
                         toastr.info("Clocked-in");
                     }, function (error) {

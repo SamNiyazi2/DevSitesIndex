@@ -8,6 +8,7 @@ var sessionTimeoutInterceptor_instance = function () {
     var doSetup = function (currentApplication) {
         console.log('sessionTimeoutInterceptor - function top - 20191207-0411');
         var angularjs_module = globals_instance.getInstance_v002('SessionTimeoutInterceptor', currentApplication);
+        // 06/18/2021 08:41 am - SSN - Adding ssn_logger
         angularjs_module.config([
             '$httpProvider',
             function ($httpProvider) {
@@ -16,8 +17,9 @@ var sessionTimeoutInterceptor_instance = function () {
                     '$q',
                     '$rootScope',
                     '$location',
+                    'ssn_logger',
                     //  'userSession',
-                    function ($q, $rootScope, $location) {
+                    function ($q, $rootScope, $location, ssn_logger) {
                         console.log('sessionTimeoutInterceptor - Main function - 20191207-0412-MF');
                         var service = {
                             // run this function before making requests
@@ -33,16 +35,17 @@ var sessionTimeoutInterceptor_instance = function () {
                                 ////////////return $q.reject(config);
                             },
                             requestError: function (rejection) {
-                                console.log('sessionTimeoutIntercepter - requestError - 20200821-1046-001');
+                                console.error('sessionTimeoutIntercepter - requestError - 20200821-1046-001');
                                 return $q.reject(rejection);
                             },
                             response: function (result) {
-                                console.log('sessionTimeoutIntercepter - response - 20200821-1046-002');
+                                /////////////////////////////// console.log('sessionTimeoutIntercepter - response - 20200821-1046-002');
                                 return result;
                             },
-                            responseError: function (response) {
-                                console.log('sessionTimeoutIntercepter - responseError - 20200821-1046-003');
-                                return $q.reject(response);
+                            responseError: function (error) {
+                                console.error('sessionTimeoutIntercepter - responseError - 20200821-1046-003');
+                                ssn_logger.cl_error({ callSource: "20210618-0853", message: "SessionTimeoutInterceptor", errorObject: error });
+                                return $q.reject(error);
                             }
                         };
                         return service;
@@ -57,4 +60,4 @@ var sessionTimeoutInterceptor_instance = function () {
     };
 }();
 export default sessionTimeoutInterceptor_instance;
-//# sourceMappingURL=SessonTimeoutInterceptor.js.map
+//# sourceMappingURL=SessionTimeoutInterceptor.js.map

@@ -7,9 +7,9 @@ import { RestorePreviousPageState_instance } from '../Util/RestorePreviousPageSt
 
 import { changeMonitorService_instance } from '../Util/ChangeMonitor/ChangeMonitorService';
 
-import { dataService_instance } from '../DataServices';
+import { dataService_instance } from './DataServices';
 
-import sessionTimeoutInterceptor from '../Interceptors/SessonTimeoutInterceptor';
+import sessionTimeoutInterceptor from '../Interceptors/SessionTimeoutInterceptor';
 
 
 const ngApplicationName = 'timesheetApp';

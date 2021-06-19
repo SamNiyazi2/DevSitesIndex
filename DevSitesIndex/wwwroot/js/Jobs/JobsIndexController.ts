@@ -1,12 +1,12 @@
 ﻿
 /// <reference path="../../../node_modules/@types/jquery/jquery.d.ts" /> 
 /// <reference path="../../../node_modules/@types/angular/index.d.ts" /> 
-/// <reference path="../DataServices.ts"/>
+/// <reference path="../shared/DataServices.ts"/>
 
 
 
 import * as angular from 'angular'
-import IColumnBag from '../IColumnBag';
+import IColumnBag from '../Interfaces/IColumnBag';
 import * as ssn_globals from "../globals";
 
 import { jobStatusDisplayDirective_instance } from "../Util/JobStatusDisplayDirective";

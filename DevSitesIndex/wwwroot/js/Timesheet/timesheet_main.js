@@ -5,12 +5,12 @@
 import { changeMonitorService_instance } from '../Util/ChangeMonitor/ChangeMonitorService';
 // 11/20/2019 04:40 am - SSN - [20191120-0429] - [002] - Timelog index clock-out refresh updated row
 import { PageUpdater_Instance } from '../Util/PageUpdater';
-import { dataService_instance } from '../DataServices';
+import { dataService_instance } from '../shared/DataServices';
 import { dropdownListDirective_instance } from '../DropdownList/DropdownListDirective';
 import { AppInsights_Util } from '../Util/ApplicationInsights_Monitor';
 import { RestorePreviousPageState_instance } from '../Util/RestorePreviousPageState';
 // 12/07/2019 04:09 am - SSN - [20191207-0353] - [002] - SessionTimeoutInterceptor
-import sessionTimeoutInterceptor from '../Interceptors/SessonTimeoutInterceptor';
+import sessionTimeoutInterceptor from '../Interceptors/SessionTimeoutInterceptor';
 // 12/07/2019 08:07 am - SSN - [20191207-0704] - [004] - AngularJS - Routing - Authentication
 import { routing_config_instance } from '../Routing/Routing_Config';
 routing_config_instance.doSetup();
@@ -21,13 +21,6 @@ changeMonitorService_instance.doSetup(ngApplicationName);
 PageUpdater_Instance.doSetup(ngApplicationName);
 // 11/16/2019 06:27 pm - SSN - [20191116-1516] - [006] - Timelog edit (AngularJS client version)
 // 11/25/2019 11:34 pm - SSN - [20191125-2153] - [005] - Job create - Replace dropdown with dropdownListDirective
-////////////////////////////////////////dropdownListDirective_instance.doSetup(null); // Original entry for timelog edit
-////////////////////////////////////////dropdownListDirective_instance.doSetup(null); // Original entry for timelog edit
-////////////////////////////////////////dropdownListDirective_instance.doSetup(null); // Original entry for timelog edit
-////////////////////////////////////////dropdownListDirective_instance.doSetup(null); // Original entry for timelog edit
-////////////////////////////////////////dropdownListDirective_instance.doSetup(null); // Original entry for timelog edit
-////////////////////////////////////////dropdownListDirective_instance.doSetup(null); // Original entry for timelog edit
-////////////////////////////////////////dropdownListDirective_instance.doSetup(null); // Original entry for timelog edit
 dropdownListDirective_instance.doSetup(ngApplicationName);
 // 06/07/2021 05:00 pm - SSN - [20210606-0227] - [019] - Testng for deployment - Line item
 import { ssn_AngularJslogger } from '../Util/Logger/ssn_AngularJslogger';

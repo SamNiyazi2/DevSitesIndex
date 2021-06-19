@@ -25,6 +25,22 @@ var ModalCallsUtil = function () {
                         }
                     });
                 };
+                // 06/15/2021 03:25 am - SSN - [20210613-0452] - [040] - Adding tags to DevSite
+                $scope.addNewTechnology = function (containerViewValue) {
+                    ssn_logger.cl_normal({ callSource: '20210615-0326-A', message: 'Calling addNewTechnology ' }, 'yellow', true);
+                    ssn_logger.cl_normal({ callSource: '20210615-0326-C', message: "containerViewValue [" + containerViewValue + "]" }, 'yellow', true);
+                    $uibModal.open({
+                        templateUrl: '/js/Technology/TechnologyCreate.html',
+                        controller: 'TechnologyController',
+                        backdrop: 'static',
+                        keyboard: false,
+                        resolve: {
+                            containerViewValue: function () {
+                                return containerViewValue;
+                            }
+                        }
+                    });
+                };
             }]);
     };
     return {
