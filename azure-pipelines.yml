@@ -39,13 +39,13 @@ steps:
 - script: |
     cd DevSitesIndex\timesheetsSupport7
     npm install
-    webpack
-  displayName: 'npm install timesheetsSupport7'
+    ssn_run_webpack_prod
+  displayName: 'npm install Angular 7'
 
 
 - script: |
     cd DevSitesIndex\timesheetsSupport7
-    webpack
+    ssn_build_prod
   displayName: 'Webpack for Angular 7'
 
 - task: DotNetCoreCLI@2
