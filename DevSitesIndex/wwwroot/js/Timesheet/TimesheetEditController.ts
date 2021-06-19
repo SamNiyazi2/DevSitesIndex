@@ -111,19 +111,7 @@ var timesheetEditController_instance = function () {
 
 
                 var test = $scope.editableTimeLog;
-
-
-
-                console.log('20210607-1852');
-                console.log(test);
-
-                console.log('------------------------------------------');
-
-                console.log($scope.editableTimeLog);
-
-                console.log('------------------------------------------');
-
-                 
+                  
 
                 if ($scope.editableTimeLog.stopTime) {
                     $scope.editableTimeLog.totalSeconds = ($scope.editableTimeLog.stopTime - $scope.editableTimeLog.startTime) / 1000;
