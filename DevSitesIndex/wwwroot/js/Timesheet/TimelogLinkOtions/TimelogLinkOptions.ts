@@ -247,7 +247,7 @@ var TimelogLinkOptions = function () {
 
 
 
-                        $uibModal.open({
+                        const TimesheetController_modal  = $uibModal.open({
                             templateUrl: '/js/timesheet/templates/timesheetTemplate.html',
                             controller: 'TimesheetController',
 
@@ -267,6 +267,39 @@ var TimelogLinkOptions = function () {
                             }
                         });
 
+
+
+
+
+
+                        // 06/19/2021 07:01 am - SSN - Capture modal results
+
+
+                        TimesheetController_modal.result.then(TimesheetController_modal_save, TimesheetController_modal_cancel);
+
+                        function TimesheetController_modal_save(result) {
+
+                            console.log('%c TimelogLinkOptions - TimesheetController save - 20210619-0702', 'color:yellow;font-size:14pt');
+
+
+                            changeMonitorService.reset();
+
+                        }
+
+                        function TimesheetController_modal_cancel(result) {
+
+                            console.log('%c TimelogLinkOptions - TimesheetController cancel - 20210619-0703', 'color:red;font-size:14pt');
+
+
+                            changeMonitorService.reset();
+
+                        }
+
+
+
+
+
+
                     };
 
 
@@ -282,7 +315,8 @@ var TimelogLinkOptions = function () {
                             jobId = 0;
                         }
 
-                        $uibModal.open({
+
+                        const TimesheetCreateController_modal =  $uibModal.open({
 
                             templateUrl: '/js/timesheet/templates/timesheetTemplate.html',
                             controller: 'TimesheetCreateController',
@@ -296,6 +330,42 @@ var TimelogLinkOptions = function () {
                                 }
                             }
                         });
+
+
+
+
+                        // 06/19/2021 07:03 am - SSN - Capture modal results
+
+
+                        TimesheetCreateController_modal.result.then(TimesheetCreateController_modal_save, TimesheetCreateController_modal_cancel);
+
+                        function TimesheetCreateController_modal_save(result) {
+
+                            console.log('%c TimelogLinkOptions - TimesheetCreateController save - 20210619-0704', 'color:yellow;font-size:14pt');
+
+
+                            changeMonitorService.reset();
+
+                        }
+
+                        function TimesheetCreateController_modal_cancel(result) {
+
+                            console.log('%c TimelogLinkOptions - TimesheetCreateController cancel - 20210619-0705', 'color:red;font-size:14pt');
+
+
+                            changeMonitorService.reset();
+
+                        }
+
+
+
+
+
+
+
+
+
+
 
 
                     }

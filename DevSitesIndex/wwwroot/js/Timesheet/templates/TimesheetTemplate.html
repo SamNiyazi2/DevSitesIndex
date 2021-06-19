@@ -1,8 +1,8 @@
 ﻿<!--// 04/12/2019 03:57 am - SSN - [20190412-0142] - TimesheetApp-->
 <div ng-controller="ModalCallSUtilController">
-
-
-    <form name="timesheetForm" novalidate>
+    
+     
+    <form name="timesheetForm" ssn-auto-focus  novalidate>
 
         <div class="modal-header">
             <h2>{{pageTitle}}  <span style="font-size:16px;" ng-if="versionForHTMLRefresh">(Ver. {{versionForHTMLRefresh}})</span></h2>
@@ -41,7 +41,7 @@
 
                         <input type="hidden" name="lineItemID" ng-model="editableTimeLog.lineItemID" ng-required="true" />
                       
-                        <dropdown-list-directive call-source="20210607-1750" key="lineItemID" form-name="timesheetForm" ng-model="editableTimeLog.lineItemID" parentkey="editableTimeLog.jobId" parent-key-name="editableTimeLog.jobId" add-func="addNewLineItem(editableTimeLog.jobId, containerViewValue )" add-func-source="TimesheetTempaltexx1" container-view-value="containerViewValue" autofocus="true" ></dropdown-list-directive>
+                        <dropdown-list-directive call-source="20210607-1750" key="lineItemID" form-name="timesheetForm" ng-model="editableTimeLog.lineItemID" parentkey="editableTimeLog.jobId" parent-key-name="editableTimeLog.jobId" add-func="addNewLineItem(editableTimeLog.jobId, containerViewValue )" add-func-source="TimesheetTempaltexx1" container-view-value="containerViewValue"  ></dropdown-list-directive>
 
                     </div>
                 </div>
@@ -66,7 +66,7 @@
 
                         <input type="hidden" name="disciplineID" ng-model="editableTimeLog.disciplineID" ng-required="true" />
 
-                        <dropdown-list-directive call-source="20210607-1751" key="disciplineID" form-name="timesheetForm" ng-model="editableTimeLog.disciplineID"  autofocus="true" ></dropdown-list-directive>
+                        <dropdown-list-directive call-source="20210607-1751" key="disciplineID" form-name="timesheetForm" ng-model="editableTimeLog.disciplineID"   ></dropdown-list-directive>
 
                     </div>
                 </div>
@@ -90,7 +90,7 @@
                     <label for="WorkDetail" class="col-sm-3 control-label">Work Detail</label>
                     <div class="col-sm-9">
 
-                        <textarea name="WorkDetail" id="WorkDetail" class="form-control" rows="5" cols="40" ng-model="editableTimeLog.workDetail" autofocus></textarea>
+                        <textarea name="WorkDetail" id="WorkDetail" class="form-control" rows="5" cols="40" ng-model="editableTimeLog.workDetail" ></textarea>
                     </div>
                 </div>
 

@@ -24,7 +24,7 @@ var timesheetApp_instance = function () {
     // 11/14/2019 03:35 pm - SSN - [20191114-1459] - [005] - ChangeMonitroService
     // Inject changeMonitorService
 
-    timesheetApp.controller("timesheetController", ['$scope', '$uibModal', 'changeMonitorService', '$compile', function ($scope, $uibModal, changeMonitorService, $compile) {
+    timesheetApp.controller("timesheetController", ['$scope', '$uibModal', 'changeMonitorService', '$compile','ssn_logger',  function ($scope, $uibModal, changeMonitorService, $compile, ssn_logger) {
 
 
         // 11/19/2019 06:43 am - SSN - [20191119-0048] Added to re-bind ng-click
@@ -110,12 +110,19 @@ var timesheetApp_instance = function () {
 
             function modalClockout_save(result) {
 
+
+                ssn_logger.cl_normal({ callSource: "20210619-0626", message: "Closing modalClockout" }, "red", true);
+
+
+
                 changeMonitorService.reset();
             }
 
 
 
             function modalClockout_cancel(result) {
+
+                ssn_logger.cl_normal({ callSource: "20210619-0627", message: "Cancel modalClockout" }, "yellow", true);
 
                 changeMonitorService.reset();
             }
@@ -161,7 +168,11 @@ var timesheetApp_instance = function () {
 
 
             TimesheetContinueController_modal.result.then(TimesheetContinueController_modal_save, TimesheetContinueController_modal_cancel);
+
             function TimesheetContinueController_modal_save(result) {
+
+                ssn_logger.cl_normal({ callSource: "20210619-0628-A", message: "save TimesheetContinue" }, "yellow", true);
+                ssn_logger.cl_normal({ callSource: "20210619-0628-B", message: result }, "yellow", true);
 
                 changeMonitorService.reset();
 
@@ -169,6 +180,8 @@ var timesheetApp_instance = function () {
 
             function TimesheetContinueController_modal_cancel(result) {
 
+                ssn_logger.cl_normal({ callSource: "20210619-0629", message: "cancel TimesheetContinue" }, "yellow", true);
+                ssn_logger.cl_normal({ callSource: "20210619-0629-B", message: result }, "yellow", true);
                 changeMonitorService.reset();
 
             }
@@ -184,6 +197,10 @@ var timesheetApp_instance = function () {
 
 
             $scope.$on('modal.closing', function (event, reason, closed) {
+
+                ssn_logger.cl_normal({ callSource: "20210619-0630-A", message: "Modal closing hook" }, "yellow", true);
+                ssn_logger.cl_normal({ callSource: "20210619-0630-B", message: reason }, "yellow", true);
+                ssn_logger.cl_normal({ callSource: "20210619-0630-C", message: closed }, "yellow", true);
 
                 var message = "You are about to leave the edit view. Uncaught reason. Are you sure?";
 
@@ -225,8 +242,8 @@ var timesheetApp_instance = function () {
 
             // 05/03/2019 04:10 pm - SSN - [20190503-1539] - [004] - Add link to create timelog
 
-
-            $uibModal.open({
+            // 06/19/2021 06:31 am - SSN - Capture open return results
+            const showCreateTimesheetForm_modal =  $uibModal.open({
 
                 templateUrl: '/js/timesheet/templates/timesheetTemplate.html',
                 controller: 'TimesheetController',
@@ -240,6 +257,27 @@ var timesheetApp_instance = function () {
                     }
                 }
             });
+
+
+            showCreateTimesheetForm_modal.result.then(showCreateTimesheetForm_modal_save, showCreateTimesheetForm_modal_cancel);
+
+            function showCreateTimesheetForm_modal_save(result) {
+
+                ssn_logger.cl_normal({ callSource: "20210619-0633", message: "save showCreateTimesheetForm" }, "yellow", true);
+
+                changeMonitorService.reset();
+
+            }
+
+            function showCreateTimesheetForm_modal_cancel(result) {
+
+                ssn_logger.cl_normal({ callSource: "20210619-0634", message: "save showCreateTimesheetForm" }, "red", true);
+
+                changeMonitorService.reset();
+
+            }
+
+
 
 
         }
@@ -277,6 +315,10 @@ var timesheetApp_instance = function () {
 
             function modalEdit_save(result) {
 
+
+
+                ssn_logger.cl_normal({ callSource: "20210619-0639", message: "save TimesheetEditController" }, "yellow", true);
+
                 changeMonitorService.reset();
 
             }
@@ -285,6 +327,7 @@ var timesheetApp_instance = function () {
 
             function modalEdit_cancel(result) {
 
+                ssn_logger.cl_normal({ callSource: "20210619-0640", message: "save TimesheetEditController" }, "red", true);
                 changeMonitorService.reset();
             }
 

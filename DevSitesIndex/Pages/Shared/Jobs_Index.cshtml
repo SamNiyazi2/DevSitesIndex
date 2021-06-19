@@ -10,6 +10,7 @@
     <div ng-controller="jobsIndexController">
 
         <p>
+            <a ng-hide="projectId" href="/jobs/Create">Create New Job</a>
             <a ng-show="projectId" href="/jobs/Create?id={{projectId}}">Create New Job</a>
         </p>
 
@@ -104,8 +105,8 @@
 
                                 </strong>
 
-                                <a href="/jobs/Delete?id={{job.jobID}}">Delete</a>  
-                                 
+                                <a href="/jobs/Delete?id={{job.jobID}}">Delete</a>
+
 
                                 <timelog-link-options job-id="{{job.jobID}}" timelog-id="" total-seconds="" serving-page="Projects_Search"></timelog-link-options>
                             </div>

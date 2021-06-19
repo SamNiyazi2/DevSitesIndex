@@ -1,5 +1,6 @@
 ﻿
 // 06/08/2021 02:44 pm - SSN - [20210606-0227] - [030] - Testng for deployment - Line item
+// 06/19/2021 06:07 am - SSN - Revised to be form-based.
 
 import * as angular from 'angular'
 
@@ -18,30 +19,51 @@ const ssn_auto_focus = function () {
     const doSetup = function (callSource: string, applicationName: string) {
 
         var Jobs_Angular_Module: angular.IModule = ssn_globals.globals_instance.getInstance_v002('ssn_set_focus', applicationName);
+          
+        Jobs_Angular_Module.directive('ssnAutoFocus', ['$rootScope', '$timeout', 'ssn_logger', function ($rootScope, $timeout, ssn_logger: ILoggerModule) {
 
-
-        Jobs_Angular_Module.directive('ssnAutoFocus', ['ssn_logger', function (ssn_logger: ILoggerModule) {
-
-
-            ssn_logger.cl_normal({ callSource: '2021008-1509', message: 'ssnAutoFocus in directive' }, 'yellow');
-
-
+   
             return {
 
-                restrict: 'A',
-                // link: function (scope: IScope_Custom, elem, attrs) {
+                restrict: 'A', 
 
                 link: function (scope, elem, attrs) {
 
-                    ssn_logger.cl_normal({ callSource: '2021008-1526-d', message: 'ssnAutoFocus firing' }, 'cyan');
+                    scope.$on('$destroy', function () {
+                         
 
-                    //if (scope.objectList == null) {
+                    });
+                     
 
-                    //}
-                    elem.focus();
+                    $rootScope.ssnAutoFocus_alreadySet = true;
 
+                    const setFocus = function () {
+
+                        let focusAlreadySet = false;
+
+                        angular.forEach(elem[0], function (obj) {
+                             
+                            if (focusAlreadySet) return;
+  
+                            if (obj.type.toLowerCase() !="hidden" && (  obj.tagName.toLowerCase() == "input" || obj.tagName.toLowerCase() == "textarea")) {
+                                 
+                                if (obj.value == "") { 
+                                    
+                                    obj.focus();
+                                    focusAlreadySet = true;
+                                    return;
+                                }
+                            }
+                        });
+
+                    }
+                     
+                    $timeout(() => setFocus(), 1000);
+                     
                 }
             }
+
+
         }]);
 
     }

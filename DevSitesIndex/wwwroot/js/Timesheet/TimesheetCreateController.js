@@ -80,25 +80,6 @@ var timesheetCreateController_instance = function () {
                 }
                 $uibModalInstance.dismiss(); //same as cancel???
             };
-            //$scope.addNewLineItem = function (jobID, containerViewValue) {
-            //    ssn_logger.cl_normal({ callSource: '20210609-1801-A', message: 'Calling addNewLineItem' }, 'yellow', true);
-            //    ssn_logger.cl_normal({ callSource: '20210609-1801-B', message: `jobID [${jobID}]` }, 'yellow', true);
-            //    ssn_logger.cl_normal({ callSource: '20210609-1801-C', message: `containerViewValue [${containerViewValue}]` }, 'yellow', true);
-            //    $uibModal.open({
-            //        templateUrl: '/js/timesheet/LineItem/LineItemTemplate.html',
-            //        controller: 'LineItemController',
-            //        backdrop: 'static',
-            //        keyboard: false,
-            //        resolve: {
-            //            jobId: function () {
-            //                return jobID;
-            //            },
-            //            containerViewValue: function () {
-            //                return containerViewValue;
-            //            }
-            //        }
-            //    });
-            //}
         }]);
     return {
         timesheetApp: timesheetApp

@@ -84,18 +84,18 @@ insert into @table2
 
 
 
-if @step = 11
-	begin
-			update demosites.timelog		
-				set WorkDetail = bb.WorkDetail 
-			from (
-             select aa.timelogid, WorkDetail from @table2 aa
-			 inner join [Testing_DB_Download_20210611_v04].[DemoSites].[TimeLog] bb
-				on aa.timelogid = bb.TimeLogId
-				where len ( aa.lineitem) > 200
-			) as bb 
-			where demosites.timelog.timelogid = bb.timelogid
-   end
+--if @step = 11
+--	begin
+--			update demosites.timelog		
+--				set WorkDetail = bb.WorkDetail 
+--			from (
+--             select aa.timelogid, WorkDetail from @table2 aa
+--			 inner join [Testing_DB_Download_20210611_v04].[DemoSites].[TimeLog] bb
+--				on aa.timelogid = bb.TimeLogId
+--				where len ( aa.lineitem) > 200
+--			) as bb 
+--			where demosites.timelog.timelogid = bb.timelogid
+--  end
 
 
 

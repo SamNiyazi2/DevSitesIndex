@@ -106,7 +106,7 @@ var TimelogLinkOptions = function () {
                             // 06/08/2021 11:01 pm - SSN - [20210608-2247] - [004] - Test line item -  Prep for deployment
                             // jobId to timelogId_v01
                             $scope.showCreateTimesheetForm = function (timelogId_v01) {
-                                $uibModal.open({
+                                var TimesheetController_modal = $uibModal.open({
                                     templateUrl: '/js/timesheet/templates/timesheetTemplate.html',
                                     controller: 'TimesheetController',
                                     // 06/08/2021 03:56 pm - SSN - [20210606-0227] - [037] - Testng for deployment - Line item
@@ -119,12 +119,22 @@ var TimelogLinkOptions = function () {
                                         }
                                     }
                                 });
+                                // 06/19/2021 07:01 am - SSN - Capture modal results
+                                TimesheetController_modal.result.then(TimesheetController_modal_save, TimesheetController_modal_cancel);
+                                function TimesheetController_modal_save(result) {
+                                    console.log('%c TimelogLinkOptions - TimesheetController save - 20210619-0702', 'color:yellow;font-size:14pt');
+                                    changeMonitorService.reset();
+                                }
+                                function TimesheetController_modal_cancel(result) {
+                                    console.log('%c TimelogLinkOptions - TimesheetController cancel - 20210619-0703', 'color:red;font-size:14pt');
+                                    changeMonitorService.reset();
+                                }
                             };
                             $scope.showCreateTimesheetFormWithJobId = function (jobId) {
                                 if (isNaN(jobId)) {
                                     jobId = 0;
                                 }
-                                $uibModal.open({
+                                var TimesheetCreateController_modal = $uibModal.open({
                                     templateUrl: '/js/timesheet/templates/timesheetTemplate.html',
                                     controller: 'TimesheetCreateController',
                                     backdrop: 'static',
@@ -135,6 +145,16 @@ var TimelogLinkOptions = function () {
                                         }
                                     }
                                 });
+                                // 06/19/2021 07:03 am - SSN - Capture modal results
+                                TimesheetCreateController_modal.result.then(TimesheetCreateController_modal_save, TimesheetCreateController_modal_cancel);
+                                function TimesheetCreateController_modal_save(result) {
+                                    console.log('%c TimelogLinkOptions - TimesheetCreateController save - 20210619-0704', 'color:yellow;font-size:14pt');
+                                    changeMonitorService.reset();
+                                }
+                                function TimesheetCreateController_modal_cancel(result) {
+                                    console.log('%c TimelogLinkOptions - TimesheetCreateController cancel - 20210619-0705', 'color:red;font-size:14pt');
+                                    changeMonitorService.reset();
+                                }
                             };
                         }],
                     scope: {
