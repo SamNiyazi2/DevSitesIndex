@@ -23,13 +23,6 @@ steps:
     projects: '$(RestoreBuildProjects)'
   enabled: false
 
-- task: Npm@1
-  displayName: 'npm install root'
-  inputs:
-    command: custom
-    verbose: false
-    customCommand: 'install devsitesindex'
-  enabled: false
 
 - script: |
     cd devsitesindex
@@ -42,6 +35,18 @@ steps:
     cd devsitesindex
     webpack
   displayName: 'Webpack for AngularJS'
+
+- script: |
+    cd DevSitesIndex\timesheetsSupport7
+    npm install
+    webpack
+  displayName: 'npm install timesheetsSupport7'
+
+
+- script: |
+    cd DevSitesIndex\timesheetsSupport7
+    webpack
+  displayName: 'Webpack for Angular 7'
 
 - task: DotNetCoreCLI@2
   displayName: Build
