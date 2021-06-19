@@ -21,12 +21,22 @@ steps:
   inputs:
     command: restore
     projects: '$(RestoreBuildProjects)'
+  enabled: false
+
+- task: Npm@1
+  displayName: 'npm install root'
+  inputs:
+    command: custom
+    verbose: false
+    customCommand: 'install'
+  enabled: true
 
 - task: DotNetCoreCLI@2
   displayName: Build
   inputs:
     projects: '$(RestoreBuildProjects)'
     arguments: '--configuration $(BuildConfiguration)'
+  enabled: false
 
 - task: DotNetCoreCLI@2
   displayName: Publish
@@ -35,7 +45,8 @@ steps:
     publishWebProjects: True
     arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)'
     zipAfterPublish: True
-    
+  enabled: false
+
 - task: AzureWebApp@1
   displayName: 'Azure Web App Deploy: $(WebAppName) '
   inputs:
@@ -43,9 +54,11 @@ steps:
     appType: webApp
     appName: '$(WebAppName)'
     package: '$(build.artifactstagingdirectory)/**/*.zip'
+  enabled: false
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact'
   inputs:
     PathtoPublish: '$(build.artifactstagingdirectory)'
   condition: succeededOrFailed()
+  enabled: false
