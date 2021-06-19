@@ -35,47 +35,54 @@
         @Html.DisplayFor(modelItem => Model.timelog.DateModified)
     </td>
 
-    <td class="indexNowrapCol" style="min-width:210px;">
 
-        <a asp-page="/timelogs/Edit" asp-route-id="@Model.timelog.TimeLogId">Edit</a> |
-        <a asp-page="/timelogs/Details" asp-route-id="@Model.timelog.TimeLogId">Details</a> |
-        <a asp-page="/timelogs/Delete" asp-route-id="@Model.timelog.TimeLogId">Delete</a> |
+    @*<td class="indexNowrapCol" style="min-width:210px;">*@
+    <td class="cssTimelogOptions_TD">
 
 
-        @*06/05/2019 08:37 pm - SSN - [20190605-2037] - [001] - Copying timelog links from timelog index*@
-
-        <br />
+        <p class="cssTimelogOptions">
 
 
+            <a asp-page="/timelogs/Edit" asp-route-id="@Model.timelog.TimeLogId">Edit</a>
+            <a asp-page="/timelogs/Details" asp-route-id="@Model.timelog.TimeLogId">Details</a>
+            <a asp-page="/timelogs/Delete" asp-route-id="@Model.timelog.TimeLogId">Delete</a>
 
-        @*
-                        //  11/20/2019 05:51 am - SSN - [20191120-0532] - [002] - Job Timelog index - update on change
-            // Add Edit
-        *@
-        <a ng-click="timesheetForm_Edit(@Model.timelog.TimeLogId)">Edit (A)</a>
-        <span ng-If="'@Model.timelog.TotalSeconds' <= 0 ">
-            <a ng-click="timesheetForm_ClockOut(@Model.timelog.TimeLogId)" class="alert-warning">Clock-out</a> |
-        </span>
+
+            @*06/05/2019 08:37 pm - SSN - [20190605-2037] - [001] - Copying timelog links from timelog index*@
+
+            <br />
 
 
 
+            @*
+                            //  11/20/2019 05:51 am - SSN - [20191120-0532] - [002] - Job Timelog index - update on change
+                // Add Edit
+            *@
+            <a ng-click="timesheetForm_Edit(@Model.timelog.TimeLogId)">Edit (A)</a>
+
+            <span ng-If="'@Model.timelog.TotalSeconds' <= 0 ">
+                <a ng-click="timesheetForm_ClockOut(@Model.timelog.TimeLogId)" class="alert-warning">Clock-out</a>
+            </span>
+             
+
+
+            @{
+                string caption = (Model.timelog.TotalSeconds ?? 0) > 0 ? "Continue" : "Line Item";
+
+            }
+            <a ng-click="timesheetForm_ClockContinue(@Model.timelog.TimeLogId)" class="alert-warning">@caption</a>
 
 
 
-        @{
-            string caption = (Model.timelog.TotalSeconds ?? 0) > 0 ? "Continue" : "Line Item";
-
-        }
-        <a ng-click="timesheetForm_ClockContinue(@Model.timelog.TimeLogId)" class="alert-warning">@caption</a>
-
-
-
+        </p>
 
 
 
 
     </td>
 </tr>
+
+
 @if (!string.IsNullOrWhiteSpace(Model.timelog.WorkDetail))
 {
 

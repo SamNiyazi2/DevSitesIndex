@@ -2,7 +2,6 @@
 // 05/19/2019 12:18 pm - SSN - [20190519-1132] - [003] - Address definitely typed errors
 // 09/21/2019 11:52 am  - SSN - Upgrading to use Babel/WWebpack
 import * as ssn_globals from "../globals";
-import * as angular from 'angular';
 import * as util from '../site';
 var timesheetClockoutController_instance = function () {
     // 05/19/2019 10:06 am - SSN - [20190519-0837] - [006] - Adding timesheet "Continue" option
@@ -44,12 +43,10 @@ var timesheetClockoutController_instance = function () {
             function getTimelogSuccess(data) {
                 var timeNow = new Date();
                 timeNow.setMilliseconds(0);
-                // timeNow.setSeconds(0);
                 data.stopTime = timeNow;
-                var data2 = data;
-                util.site_instance.fnConverDate(data2);
-                $scope.timeLog = data2;
-                $scope.editableTimeLog = angular.copy($scope.timeLog);
+                util.site_instance.fnConverDate(data);
+                $scope.timeLog = data;
+                $scope.editableTimeLog = data;
             }
             function getTimelogError(data) {
                 console.error('timesheetClockOutController - 20190922-1426');
@@ -80,8 +77,6 @@ var timesheetClockoutController_instance = function () {
                 }
                 if (promise) {
                     promise.then(function (data) {
-                        var test1 = data;
-                        $scope.timeLog = angular.copy($scope.editableTimeLog);
                         $uibModalInstance.close();
                         toastr.info("Clocked-out");
                         // 11/25/2019 06:38 pm - SSN - [20191125-1803] - [002] - clock-out is not updating index row

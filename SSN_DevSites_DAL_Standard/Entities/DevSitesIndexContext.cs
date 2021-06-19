@@ -97,6 +97,8 @@ namespace DevSitesIndex.Entities
                 PropertyInfo property_DateAdded = properties.FirstOrDefault(p => p.GetCustomAttributes(false).Any(a => a.GetType() == typeof(Entities.EFCoreShadowProperty.Models.DateAddedAttribute)));
                 PropertyInfo property_DateUpdated = properties.FirstOrDefault(p => p.GetCustomAttributes(false).Any(a => a.GetType() == typeof(Entities.EFCoreShadowProperty.Models.DateUpdatedAttribute)));
 
+                PropertyInfo property_NoDateUpdated = properties.FirstOrDefault(p => p.GetCustomAttributes(false).Any(a => a.GetType() == typeof(Entities.EFCoreShadowProperty.Models.NoDateUpdatedAttribute)));
+
                 //object dateUpdatedPro = entry.Entity.GetType().GetCustomAttributes(typeof(Entities.EFCoreShadowProperty.Models.DateUpdatedAttribute), true).FirstOrDefault();
                 // if (entry.Entity.GetType().GetCustomAttributes(typeof(EFCoreShadowProperty.Models.AuditableAttribute), true).Length > 0)
                 //if (entry.Properties.Any(r => r.Metadata.Name == "LastModifiedOn"))
@@ -108,9 +110,9 @@ namespace DevSitesIndex.Entities
                 }
 
 
-                if (property_DateUpdated == null)
+                if (property_DateUpdated == null && property_NoDateUpdated == null)
                 {
-                    throw new Exception($"20190928-1444 - No DateUpdated attribute on {type.Name}.");
+                    throw new Exception($"20190928-1444 - No 'DateUpdated' and not 'NoDateUpdated' attribute on {type.Name}.");
                 }
 
 
@@ -119,7 +121,7 @@ namespace DevSitesIndex.Entities
                     entry.Property(property_DateAdded.Name).CurrentValue = timestamp;
                 }
 
-                if (entry.State == EntityState.Modified && property_DateUpdated != null)
+                if (entry.State == EntityState.Modified && property_DateUpdated != null )
                 {
                     entry.Property(property_DateAdded.Name).IsModified = false;
                     entry.Property(property_DateUpdated.Name).CurrentValue = timestamp;
@@ -209,6 +211,11 @@ namespace DevSitesIndex.Entities
 
             setup_Job(modelBuilder);
 
+
+            // 12/10/2020 06:48 am - SSN - [20201210-0618] - [004] - Adding Job_LineItems table
+            setup_Job_Lineitem(modelBuilder);
+
+
             setup_Timelog(modelBuilder);
 
             setup_Technology(modelBuilder);
@@ -276,7 +283,43 @@ namespace DevSitesIndex.Entities
               .Property(b => b.Job_StatusID)
               .HasDefaultValueSql("1");
 
+
+            // 12/10/2020 06:28 am - SSN - [20201210-0618] - [002] - Adding Job_LineItems table
+
+            modelBuilder.Entity<Job>()
+                .HasMany<Job_Lineitem>(s => s.job_Lineitems)
+                .WithOne(g => g.job)
+                .HasForeignKey(t => t.JobId);
+
+
         }
+
+        // 12/10/2020 06:48 am - SSN - [20201210-0618] - [005] - Adding Job_LineItems table
+        // Todo
+        private static void setup_Job_Lineitem(ModelBuilder modelBuilder)
+        {
+
+            modelBuilder.Entity<Job_Lineitem>()
+                .Property(x => x.LineItem)
+                .IsRequired()
+                .HasMaxLength(200);
+
+            modelBuilder.Entity<Job_Lineitem>()
+                .HasIndex(x => new { x.JobId, x.LineItem })
+                .HasName("Job_Lineitem_JobId_LineItem_Unique")
+                .IsUnique();
+
+            modelBuilder.Entity<Job_Lineitem>()
+                .Property(p => p.DateAdded)
+                .HasColumnType("datetime2(0)");
+
+            modelBuilder.Entity<Job_Lineitem>()
+                .Property(p => p.DateModified)
+                .HasColumnType("datetime2(0)");
+
+
+        }
+
 
 
         // 04/19/2019 07:07 pm - SSN - Added configuration
@@ -288,19 +331,27 @@ namespace DevSitesIndex.Entities
                 .HasForeignKey(s => s.JobId);
 
 
+
+            // 12/10/2020 09:00 am - SSN - [20201210-0618] - [008] - Adding Job_LineItems table
+            modelBuilder.Entity<TimeLog>()
+                .HasOne<Job_Lineitem>(s => s.job_Lineitem)
+                .WithMany(g => g.timelogs)
+                .HasForeignKey(s => s.LineItemID);
+
+
+
             // 05/30/2019 11:39 am - SSN - Adding datetime2(0) DateAdded and DateModified and StartTime.
             modelBuilder.Entity<TimeLog>()
-           .Property(p => p.DateAdded)
-           .HasColumnType("datetime2(0)");
+               .Property(p => p.DateAdded)
+               .HasColumnType("datetime2(0)");
 
             modelBuilder.Entity<TimeLog>()
-           .Property(p => p.DateModified)
-           .HasColumnType("datetime2(0)");
-
+               .Property(p => p.DateModified)
+               .HasColumnType("datetime2(0)");
 
             modelBuilder.Entity<TimeLog>()
-           .Property(p => p.StartTime)
-           .HasColumnType("datetime2(0)");
+               .Property(p => p.StartTime)
+               .HasColumnType("datetime2(0)");
 
         }
 
@@ -389,14 +440,14 @@ namespace DevSitesIndex.Entities
 
             // 05/30/2019 11:39 am - SSN - Adding datetime2(0) DateAdded 
             modelBuilder.Entity<Company>()
-           .Property(p => p.DateAdded)
-           .HasColumnType("datetime2(0)");
+               .Property(p => p.DateAdded)
+               .HasColumnType("datetime2(0)");
 
             // 09/13/2019 11:35 pm - SSN - Added unique
             modelBuilder.Entity<Company>()
-           .HasIndex(x => new { x.CompanyName })
-           .HasName("Job_CompanyName_Unique")
-           .IsUnique();
+               .HasIndex(x => new { x.CompanyName })
+               .HasName("Job_CompanyName_Unique")
+               .IsUnique();
 
 
         }
@@ -412,18 +463,18 @@ namespace DevSitesIndex.Entities
 
             // 05/30/2019 11:36 am - SSN - Adding datetime2(0) DateAdded and DateUpdated
             modelBuilder.Entity<Project>()
-           .Property(p => p.DateAdded)
-           .HasColumnType("datetime2(0)");
+               .Property(p => p.DateAdded)
+               .HasColumnType("datetime2(0)");
 
             modelBuilder.Entity<Project>()
-           .Property(p => p.DateModified)
-           .HasColumnType("datetime2(0)");
+               .Property(p => p.DateModified)
+               .HasColumnType("datetime2(0)");
 
             // 09/16/2019 09:59 am - SSN - Added
             modelBuilder.Entity<Project>()
-           .HasIndex(c => new { c.CompanyID, c.ProjectTitle })
-           .IsUnique()
-           .HasName("Project_CompanyID_ProjectTitle_IsUnique");
+               .HasIndex(c => new { c.CompanyID, c.ProjectTitle })
+               .IsUnique()
+               .HasName("Project_CompanyID_ProjectTitle_IsUnique");
 
 
         }
@@ -455,8 +506,8 @@ namespace DevSitesIndex.Entities
 
             // 05/30/2019 11:43 am - SSN - Adding datetime2(0) DateAdded and DateModified
             modelBuilder.Entity<ReferenceSite>()
-           .Property(p => p.DateAdded)
-           .HasColumnType("datetime2(0)");
+               .Property(p => p.DateAdded)
+               .HasColumnType("datetime2(0)");
 
 
         }
@@ -474,9 +525,14 @@ namespace DevSitesIndex.Entities
 
             // 05/30/2019 11:36 am - SSN - Adding datetime2(0) DateAdded  
             modelBuilder.Entity<Technology>()
-           .Property(p => p.DateAdded)
-           .HasColumnType("datetime2(0)");
+               .Property(p => p.DateAdded)
+               .HasColumnType("datetime2(0)");
 
+            // 06/16/2021 09:52 pm - SSN - [20210613-0452] - [106] - Adding tags to DevSite
+            modelBuilder.Entity<Technology>()
+             .HasIndex(c => c.Description)
+                .IsUnique()
+                .HasName("Technology_Description_Unique_2153");
 
 
         }
@@ -503,6 +559,29 @@ namespace DevSitesIndex.Entities
 
         }
 
+
+        private static void setup_DevSiteTechnologies(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<DevSiteTechnology>(entity =>
+            {
+                entity.HasIndex(e => new { e.DevSiteId, e.TechnologyId })
+                   .HasName("IX_DevSiteTechnologies")
+                   .IsUnique();
+
+                entity.HasOne(d => d.DevSite)
+                            .WithMany(p => p.DevSiteTechnologies)
+                            .HasForeignKey(d => d.DevSiteId)
+                            .HasConstraintName("FK_SiteTechnologies_DevSites");
+
+                entity.HasOne(d => d.Technology)
+                            .WithMany(p => p.DevSiteTechnologies)
+                            .HasForeignKey(d => d.TechnologyId)
+                            .HasConstraintName("FK_SiteTechnologies_Technologies");
+
+              
+
+            });
+        }
 
         // 09/16/2019 11:38 am - SSN - [20190916-1123] - [003] - Adding job status
 
@@ -531,10 +610,21 @@ namespace DevSitesIndex.Entities
         // 09/01/2019 12:35 pm - SSN Pluralize Company, Discipline, Job, SoftwareCode and Project.
 
         public DbSet<SoftwareCode> SoftwareCodes { get; set; }
-        public DbSet<DevSite> DevSites { get; set; }
-        public DbSet<Technology> Technologies { get; set; }
+
+
+        public DbSet<DevSite> DevSites => Set<DevSite>();   
+
+
+
+        public DbSet<Technology> Technologies => Set<Technology>();
+
+
         public DbSet<Company> Companies { get; set; }
         public DbSet<Job> Jobs { get; set; }
+
+        // 12/10/2020 07:10 am - SSN - [20201210-0618] - [006] - Adding Job_LineItems table
+        public DbSet<Job_Lineitem> Job_Lineitems { get; set; }
+
         public DbSet<Project> Projects { get; set; }
         public DbSet<ReferenceSite> ReferenceSites { get; set; }
         public DbSet<CodeReference> CodeReferences { get; set; }
@@ -547,6 +637,11 @@ namespace DevSitesIndex.Entities
 
         // 09/16/2019 11:44 am - SSN - [20190916-1123] - [004] - Adding job status
         public DbSet<Job_Status> Job_Statuses { get; set; }
+
+
+        // 06/13/2021 08:39 am - SSN - [20210613-0452] - [013] - Adding tags to DevSite
+        public DbSet<DevSiteTechnology> DevSiteTechnologies => Set<DevSiteTechnology>();
+
 
     }
 }

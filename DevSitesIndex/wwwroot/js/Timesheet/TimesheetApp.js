@@ -10,10 +10,29 @@ var timesheetApp_instance = function () {
     timesheetApp.controller("timesheetController", ['$scope', '$uibModal', 'changeMonitorService', '$compile', function ($scope, $uibModal, changeMonitorService, $compile) {
             // 11/19/2019 06:43 am - SSN - [20191119-0048] Added to re-bind ng-click
             $scope.$on('TimeLog_Index_Refresh', function (event, item) {
+                console.log('%c TimeLog_Index_Refresh - 20210617-2353 - Compare with INSERT ', 'color:yellow;font-size:12pt');
+                console.log(event);
+                console.log(item);
                 $("#" + item.tr_2_id).remove();
                 $("#" + item.tr_1_id).replaceWith(item.html);
                 $compile($("#" + item.tr_1_id).contents())($scope);
+                hightlightRawsAffected(item);
             });
+            $scope.$on('TimeLog_Index_Insert', function (event, item) {
+                $("#timesheet_index_tbody").prepend(item.html);
+                $compile($("#" + item.tr_1_id).contents())($scope);
+                document.querySelector('#topOfTimesheetTable').scrollIntoView({
+                    behavior: 'smooth'
+                });
+                hightlightRawsAffected(item);
+            });
+            function hightlightRawsAffected(item) {
+                // We assume that the logic remains the same for naming rows.  Bad idea!
+                var rowId1 = item.tr_1_id;
+                var rowId2 = item.tr_1_id.substring(0, item.tr_1_id.length - 1) + '2';
+                $("#" + rowId1).addClass("cssHilight102");
+                $("#" + rowId2).addClass("cssHilight102");
+            }
             $scope.timesheetForm_ClockOut = function (timelogId) {
                 // 04/29/2019 04:16 pm - SSN - [20190429-1616] - [001] - Timesheet - stop / continue
                 // 05/03/2019 03:54 pm - SSN - [20190503-1539] - [004] - Add link to create timelog
@@ -91,9 +110,11 @@ var timesheetApp_instance = function () {
                     }
                 });
             }
-            $scope.showCreateTimesheetForm = function (jobID) {
-                if (isNaN(jobID)) {
-                    jobID = 0;
+            // 06/08/2021 11:01 pm - SSN - [20210608-2247] - [003] - Test line item -  Prep for deployment
+            // jobId to timelogId_v01
+            $scope.showCreateTimesheetForm = function (timelogId_v01) {
+                if (isNaN(timelogId_v01)) {
+                    timelogId_v01 = 0;
                 }
                 // 05/03/2019 04:10 pm - SSN - [20190503-1539] - [004] - Add link to create timelog
                 $uibModal.open({
@@ -102,8 +123,8 @@ var timesheetApp_instance = function () {
                     backdrop: 'static',
                     keyboard: false,
                     resolve: {
-                        jobId: function () {
-                            return jobID;
+                        timelogId_v01: function () {
+                            return timelogId_v01;
                         }
                     }
                 });

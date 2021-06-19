@@ -19,15 +19,24 @@ namespace DevSitesIndex.Services
         }
 
 
-        public IEnumerable<DevSite> GetDevSites()
+        public IEnumerable<DevSite> GetDevSites(int recordsPerPage, int currentPage)
         {
+            // 06/13/2021 07:57 am - SSN - [20210613-0452] - [008] - Adding tags to DevSite
+            int recordsToSkip = recordsPerPage * (currentPage - 1);
             // 11/03/2018 08:05 am - SSN - order
             // return _context.DevSites.ToList();
             // 04/20/2019 11:13 am - SSN - [20190420-1109] - Add AsNoTracking to index pages
 
             // 09/10/2019 02:28 am - SSN - 
             // IEnumerable<DevSite> devSites = _context.DevSites.OrderByDescending(r => r.DateUpdated ?? r.DateAdded).AsNoTracking().ToList();
-            IEnumerable<DevSite> devSites = _context.DevSites.OrderByDescending(r => r.LastActivityDate).AsNoTracking().ToList();
+            IEnumerable<DevSite> devSites = _context
+                .DevSites
+
+                .Include(r => r.DevSiteTechnologies).ThenInclude(r2 => r2.Technology)
+
+              // 06/14/2021 07:00 pm - SSN - [20210613-0452] - [034] - Adding tags to DevSite
+              // .OrderByDescending(r => r.LastActivityDate).Skip(recordsToSkip).Take(recordsPerPage).AsNoTracking().ToList();
+              .OrderByDescending(r => r.LastActivityDate).Skip(recordsToSkip).Take(recordsPerPage).AsNoTracking();
 
             return devSites;
         }
@@ -38,14 +47,29 @@ namespace DevSitesIndex.Services
         public async Task<IEnumerable<DevSite>> GetDevSites(string searchText)
         {
 
-            var devSites = await _context.DevSites.FromSql("DemoSites.DevSites_FullTextSearch {0}", searchText).AsNoTracking().ToListAsync<DevSite>();
+            // 06/14/2021 04:17 pm - SSN - [20210613-0452] - [029] - Adding tags to DevSite
+            // var devSites = await _context.DevSites.FromSql("DemoSites.DevSites_FullTextSearch {0}", searchText).AsNoTracking().ToListAsync<DevSite>();
 
-            // return _context.DevSites.OrderByDescending(r => r.DateUpdated ?? r.DateAdded).AsNoTracking().ToList();
+            // List<int> listDevSites2 = _context.DevSites.FromSql("DemoSites.DevSites_FullTextSearch {0}", searchText).Select(r => r.Id).ToList();
+            var devSites_a = await _context.DevSites.FromSql("DemoSites.DevSites_FullTextSearch {0}", searchText).AsNoTracking().ToListAsync<DevSite>();
+
+            List<int> listDevSites2 = devSites_a.Select(r => r.Id).ToList();
+
+            var devSites = _context.DevSites.Join (listDevSites2, r1 => r1.Id, r2 => r2, (target, source) => target)
+                            .Include(r => r.DevSiteTechnologies).ThenInclude(r2 => r2.Technology)
+                            .OrderByDescending(r => r.LastActivityDate).AsNoTracking().ToList();
+
+
+
             return devSites;
         }
 
 
-
+        // 06/13/2021 10:25 am - SSN - [20210613-0452] - [017] - Adding tags to DevSite
+        public int GetDevSitesCount()
+        {
+            return _context.DevSites.Count();
+        }
 
         public DevSite GetDevSite(int devSiteID)
         {
@@ -93,7 +117,8 @@ namespace DevSitesIndex.Services
         {
             try
             {
-                if (_context.SaveChanges() > 0) return default(Exception);
+                if (_context.SaveChanges() > 0)
+                    return default(Exception);
 
                 return new Exception("20190930-0906 - Failed to save record.");
             }

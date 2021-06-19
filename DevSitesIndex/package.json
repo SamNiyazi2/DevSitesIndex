@@ -42,7 +42,9 @@
     "phantomjs-prebuilt": "^2.1.16",
     "source-map-loader": "^0.2.4",
     "ts-loader": "^6.1.0",
-    "typescript": "^3.6.3"
+    "typescript": "^3.6.3",
+    "webpack": "^4.46.0",
+    "webpack-cli": "^3.3.12"
   },
   "dependencies": {
     "applicationinsights-js": "^1.0.20",

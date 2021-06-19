@@ -12,10 +12,9 @@ import { environment } from '../environment';
 import { AppInsights } from 'applicationinsights-js';
 
 
-
 var AppInsights_Util = function () {
 
-    
+    var self = { callSource: 'NotSet-202106062228' };
 
     var config = {
 
@@ -29,7 +28,9 @@ var AppInsights_Util = function () {
     }
 
 
-    var doSetup = function () {
+    var doSetup = function (callSource: string) {
+
+        self.callSource = callSource;
 
         if (!AppInsights.config) {
 
@@ -37,9 +38,9 @@ var AppInsights_Util = function () {
 
             // 10/11/2019 04:54 pm - SSN - Added check
             if (haveInstrumentationKey()) {
-                
+
                 AppInsights.downloadAndSetup(config);
-            } 
+            }
         }
 
 
@@ -49,7 +50,7 @@ var AppInsights_Util = function () {
     var doTest = function () {
 
         // 10/1/2019 03:45 am - SSN 
-       
+
         /* example: track page view */
         AppInsights.trackPageView(
             "FirstPage-20191001-1015", /* (optional) page name */
@@ -68,6 +69,13 @@ var AppInsights_Util = function () {
     var logPageView = function (name?: string, url?: string, properties?: any, measurements?: any, duration?: number) {
 
         // 10/1/2019 03:45 am - SSN 
+        console.log('ApplicationInsights  - logPageView - 20210606-2223', 'color:yellow');
+        console.log(properties);
+        console.log('---------------------');
+
+        const newProps = { callSource_aim: self.callSource, ...properties };
+        console.log(newProps);
+        console.log('===================');
 
         AppInsights.trackPageView(name, url, properties);//, measurements, duration);
 
@@ -76,14 +84,21 @@ var AppInsights_Util = function () {
     var logEvent = function (name: string, properties?: any, measurements?: any) {
 
         // 10/1/2019 03:45 am - SSN 
- 
+
         AppInsights.trackEvent(name, properties, measurements);
 
     }
 
-    var logException = function (exception: Error, props?: any, handledAt?: string) {
+    var logException = function (exception: any | any, props?: any, handledAt?: string) {
 
         // 10/1/2019 03:45 am - SSN 
+        // 06/15/2021 08:08 am - SSN - [20210613-0452] - [047] - Adding tags to DevSite
+        // AppInsights.trackException(exception, handledAt, props);
+
+        if (exception) {
+
+            props = { ...props, ...exception };
+        }
 
         AppInsights.trackException(exception, handledAt, props);
 

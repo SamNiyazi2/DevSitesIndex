@@ -76,6 +76,20 @@ namespace DevSitesIndex.Controllers
 
 
 
+        // 06/08/2021 11:59 am - SSN - [20210606-0227] - [028] - Testng for deployment - Line item
+        public JsonResult Project_duplicate_Check([Bind(Prefix = "Project.ProjectTitle")] string projectTitle, [Bind(Prefix = "Project.ProjectID")] int projectID)
+        {
+            Project r = _context.Projects.Where(e => e.ProjectTitle== projectTitle && e.ProjectID != projectID).FirstOrDefault();
+
+            if (r != null)
+            {
+                return Json(data: $"Project title is already on <a href='/projects/Details?id={r.ProjectID}' target='jobewin{r.ProjectID}' >file</a>.");
+            }
+            return Json(data: true);
+
+        }
+
+
         // 09/13/2019 11:38 pm - SSN - Added
         // 09/24/2019 11:47 am - SSN - [20190924-1134] - [007] - Removing date add/updated from create/edit pages
         // Wasn't checking ID

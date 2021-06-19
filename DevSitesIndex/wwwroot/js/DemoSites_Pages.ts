@@ -41,7 +41,7 @@ let DemoSites_Pages = function () {
 
 
 
-        AppInsights_Util.doSetup();
+        AppInsights_Util.doSetup("DemoSites_Pages");
 
 
         var ViewModel = function () {
@@ -68,7 +68,7 @@ let DemoSites_Pages = function () {
             this.saveAndStay = function () {
 
                 try {
-                    
+
 
                     if (this.fieldname_prefix === 'undefined') {
                         throw new Error('fieldname_prefix is undefined');
@@ -84,7 +84,7 @@ let DemoSites_Pages = function () {
 
 
                     var data101 = $('#' + this['inputformid']).serializeArray();
-                    
+
 
                     var ndx = 0;
 
@@ -156,7 +156,12 @@ let DemoSites_Pages = function () {
 
                             console.error("Error-20190328-0704");
                             console.error('Todo');
+                            console.error('error:');
                             console.error(error);
+                            console.error('textStatus:');
+                            console.error(textStatus);
+                            console.error('errorThrown:');
+                            console.error(errorThrown);
 
 
                             AppInsights_Util.logException(new Error(errorThrown), { SourceCode: "20200904-0813", Message: "DemoSites_pages.error (SaS)" });

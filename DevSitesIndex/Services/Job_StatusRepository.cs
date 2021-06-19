@@ -40,6 +40,10 @@ namespace DevSitesIndex.Services
         }
 
 
+        public void Delete(int id)
+        {
+            throw new NotImplementedException();
+        }
 
 
         #region IDisposable Support
@@ -62,6 +66,8 @@ namespace DevSitesIndex.Services
         {
             Dispose(true);
         }
+
+
         #endregion
 
 

@@ -55,8 +55,33 @@ namespace DevSitesIndex.Entities
         [Display(Name = "Work Detail")]
         public string WorkDetail { get; set; }
 
+
+        [Display(Name = "Work Detail Pre-LineItem")]
+        public string WorkDetail_PreLineItem { get; set; }
+
+        [Display(Name = "Work Detail Post-LineItem")]
+        public string WorkDetail_PostLineItem { get; set; }
+
+
         [Display(Name = "Job Title")]
         public Job job { get; set; }
+
+
+
+
+        // 12/10/2020 09:08 am - SSN - [20201210-0618] - [009] - Adding Job_LineItems table
+
+        [Display(Name = "Line item ID")]
+        ////////////////////////////////////////////////////// [Required]
+        public int? LineItemID { get; set; }
+
+
+        // 12/10/2020 08:57 am - SSN - [20201210-0618] - [007] - Adding Job_LineItems table
+
+        [Display(Name = "Line item")]
+        public Job_Lineitem job_Lineitem { get; set; }
+
+
 
 
         // 11/16/2019 02:20 pm - SSN - [20191116-1419] - [001] - Add RowVersion  to Timelog.
@@ -99,7 +124,7 @@ namespace DevSitesIndex.Entities
                 return TotalSeconds.StopTime_AsString(StartTime);
             }
         }
-
+         
 
 
     }

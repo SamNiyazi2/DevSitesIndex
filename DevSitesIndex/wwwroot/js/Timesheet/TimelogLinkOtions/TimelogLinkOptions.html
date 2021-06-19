@@ -3,27 +3,32 @@
 // Created:
 -->
 
+
 <ng-content ng-if="timelogId">
 
-    <a ng-click="timesheetForm_Edit(timelogId, servingPage)">Edit (A)</a>
+    <a ng-click="timesheetForm_Edit(timelogId, servingPage)">Edit</a>
 
     <span ng-If="showClockoutOption">
-        &nbsp; | &nbsp;
+
         <a ng-click="timesheetForm_ClockOut(timelogId, servingPage)" class="alert-warning">Clock-out</a>
     </span>
 
-
-    &nbsp; | &nbsp;
     <a ng-click="timesheetForm_ClockContinue(timelogId, servingPage)" class="alert-warning">{{continue_or_lineItem_caption}}</a>
 
 </ng-content>
 
 <ng-content ng-if="jobId && !showClockoutOption">
 
-    <span ng-if="timelogId">
-        &nbsp; | &nbsp;
-    </span>
-     
-    <a ng-click="showCreateTimesheetForm(jobId)">Clock-in</a>
+
+    <!--Either by timelogId -->
+    <!--
+        Coverted by timesheetForm_ClockContinue above (On timesheet index)
+        <a ng-show="timelogId" ng-click="showCreateTimesheetForm(timelogId)">Clock-in (1301)</a>
+
+        -->
+    <!--or by jobId -->
+    <a ng-show="jobId && !timelogId" ng-click="showCreateTimesheetFormWithJobId(jobId)">Clock-in  (1302)</a>
+
 
 </ng-content>
+ 

@@ -77,10 +77,13 @@ namespace DevSitesIndex.Controllers
         public IActionResult Error()
         {
 
+
+
             // 12/07/2019 01:57 pm - SSN - [20191207-0704] - [009] - AngularJS - Routing - Authentication
             StringBuilder sb_master = new StringBuilder();
             sb_master.AppendLine("DevSitesIndex Error Page");
 
+            ModelState.AddModelError("", "Tracking-20210608-1406");
 
             // 08/22/2019 03:26 pm - SSN
 
@@ -89,8 +92,14 @@ namespace DevSitesIndex.Controllers
             // Get the details of the exception that occurred
             var exceptionFeature = HttpContext.Features.Get<IExceptionHandlerPathFeature>();
 
-            if (exceptionFeature != null)
+            if (exceptionFeature == null)
             {
+                ModelState.AddModelError("", "Tracking-20210608-1407");
+                sb_master.AppendLine("No exceptionFeature"); 
+            }
+            else
+            {
+                ModelState.AddModelError("", "Tracking-20210608-1408");
                 // Get which route the exception occurred at
                 string routeWhereExceptionOccurred = exceptionFeature.Path;
 
@@ -115,6 +124,8 @@ namespace DevSitesIndex.Controllers
                 if (exceptionThatOccurred.InnerException != null)
                 {
 
+                    ModelState.AddModelError("", "Tracking-20210608-1409");
+
                     sb_master.AppendLine($"Error-2a [{exceptionThatOccurred.InnerException.Message}]");
                     sb_master.AppendLine($"Error-2b [{exceptionThatOccurred.InnerException.StackTrace}]");
 
@@ -123,8 +134,10 @@ namespace DevSitesIndex.Controllers
                     string errorMessageToLookFor = "The DELETE statement conflicted with the REFERENCE constraint";
                     if (exceptionThatOccurred.InnerException.Message.Contains(errorMessageToLookFor))
                     {
+                        ModelState.AddModelError("", "Tracking-20210608-1410");
+
                         StringBuilder sb = new StringBuilder();
-                        sb.Append(string.Format("<p>{0}</p>", "This site is work in progress.&nbsp; The delete ation you took is currently being handled by this exception handler."));
+                        sb.Append(string.Format("<p>{0}</p>", "This site is a work in progress.&nbsp; The delete ation you took is currently being handled by this exception handler."));
                         sb.Append(string.Format("<p>{0}</p>", "An option to authorized users to delete is in the works."));
                         sb.Append(string.Format("<p>{0}</p>", "Thank you for reviewing the site."));
                         ViewData["Feedback"] = sb.ToString();
@@ -133,8 +146,14 @@ namespace DevSitesIndex.Controllers
 
                 }
 
-                if (env.IsDevelopment())
+                if (!env.IsDevelopment())
                 {
+                    ModelState.AddModelError("", $"Tracking-20210608-1411 - EnvironmentName [{env.EnvironmentName}]");
+                }
+                else
+                {
+
+                    ModelState.AddModelError("", "Tracking-20210608-1412 - IsDevelopment");
 
                     Exception ex = exceptionThatOccurred;
 
@@ -157,6 +176,14 @@ namespace DevSitesIndex.Controllers
             }
 
             logger.PostException(new Exception(sb_master.ToString()), "20191207-1402", "DevSitesIndex - Home error captured error");
+
+
+            // 06/08/2021 01:53 pm - SSN - [20210606-0227] - [029] - Testng for deployment - Line item
+           
+            if (Request.Headers.Values.Any(s => s.ToString().ToLower().Contains("application/json")))
+            {
+                return BadRequest(ModelState);
+            }
 
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }

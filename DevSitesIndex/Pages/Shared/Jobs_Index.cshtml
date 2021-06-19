@@ -5,12 +5,14 @@
 
 <div>
 
-    <p>
-        <a href="/jobs/Create?id={{projectId}}" >Create New Job</a>
-    </p>
 
 
     <div ng-controller="jobsIndexController">
+
+        <p>
+            <a ng-show="projectId" href="/jobs/Create?id={{projectId}}">Create New Job</a>
+        </p>
+
 
 
         <div ng-if="hasErrors" ng-class="feedbackToUserClassNameSet()" ng-bind-html="errorMessages">
@@ -39,7 +41,7 @@
 
                 <thead ng-controller="utilityController">
                     <tr ng-show="databag.jobs.length>0">
-                        <th header-with-sort columnlist="item" sortmethod="$parent.$parent.sortMethod101(item)" ng-repeat="item in fieldsList"></th>
+                        <th header-with-sort columnlist="item" sortmethod="$parent.$parent.sortMethod101(item)" class="{{item.cssForTableHead}}" ng-repeat="item in fieldsList"></th>
                     </tr>
                 </thead>
 
@@ -86,23 +88,27 @@
 
 
 
-                        <td class="indexNowrapCol">
-                            <a href="/jobs/Edit?id={{job.jobID}}">Edit</a>
-                            ||
-                            <strong>
-
-                                <a href="/jobs/Details?id={{job.jobID}}">Job's Details</a>
-                                |
-                                <a href="/projects/Details?id={{job.projectID}}">Project's Details</a>
-
-                            </strong>
-                            ||
-                            <a href="/jobs/Delete?id={{job.jobID}}">Delete</a> |
+                        @*<td class="indexNowrapCol">*@
+                        <td class="cssTimelogOptions_TD">
 
 
+                            <div class="cssTimelogOptions">
 
-                            <timelog-link-options job-id="{{job.jobID}}" timelog-id="" total-seconds="" serving-page="Projects_Search"></timelog-link-options>
+                                <a href="/jobs/Edit?id={{job.jobID}}">Edit</a>
 
+                                <strong>
+
+                                    <a href="/jobs/Details?id={{job.jobID}}">Job's Details</a>
+
+                                    <a ng-hide="projectId" href="/projects/Details?id={{job.projectID}}">Project's Details</a>
+
+                                </strong>
+
+                                <a href="/jobs/Delete?id={{job.jobID}}">Delete</a>  
+                                 
+
+                                <timelog-link-options job-id="{{job.jobID}}" timelog-id="" total-seconds="" serving-page="Projects_Search"></timelog-link-options>
+                            </div>
 
                         </td>
 

@@ -216,13 +216,18 @@ namespace DevSitesIndex.Controllers
 
 
         // 09/24/2019 05:10 am - SSN - [20190924-0401] - [003] - Quick timelog entry
-
-        [HttpGet("get_custom/{id}")]
-        public TimeLog Get_custom(int id)
+        // 06/08/2021 11:14 pm - SSN - [20210608-2247] - [007] - Test line item -  Prep for deployment
+        // [HttpGet("get_custom/{id}")]
+        [HttpGet("getTimelog/{id}")]
+        public TimeLog GetTimelog(int id)
         {
             JobRepository jobRepository = new JobRepository(context);
             TimeLog entity = _entityRepository.GetRecord(id);
-            entity.job.timelogs = null;
+
+            if (entity != null && entity.job != null)
+            {
+                entity.job.timelogs = null;
+            }
 
             return entity;
         }
@@ -236,7 +241,7 @@ namespace DevSitesIndex.Controllers
         {
             TimeLog timelog = _entityRepository.GetRecord(id);
 
-            Timelog_index_record r = new Timelog_index_record { timelog = timelog, servingPage = servingPage};
+            Timelog_index_record r = new Timelog_index_record { timelog = timelog, servingPage = servingPage };
 
             try
             {

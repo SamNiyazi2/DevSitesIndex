@@ -125,6 +125,27 @@ namespace DevSitesIndex.Migrations
                     b.ToTable("DevSiteCodeReference");
                 });
 
+            modelBuilder.Entity("DevSitesIndex.Entities.DevSiteTechnology", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DateAdded");
+
+                    b.Property<int>("DevSiteId");
+
+                    b.Property<int>("TechnologyId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DevSiteId");
+
+                    b.HasIndex("TechnologyId");
+
+                    b.ToTable("DevSiteTechnologies");
+                });
+
             modelBuilder.Entity("DevSitesIndex.Entities.Discipline", b =>
                 {
                     b.Property<int>("DisciplineId")
@@ -210,6 +231,37 @@ namespace DevSitesIndex.Migrations
                     b.HasIndex("JobId");
 
                     b.ToTable("Job_DevSites");
+                });
+
+            modelBuilder.Entity("DevSitesIndex.Entities.Job_Lineitem", b =>
+                {
+                    b.Property<int>("LineItemId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DateAdded")
+                        .HasColumnType("datetime2(0)");
+
+                    b.Property<DateTime?>("DateModified")
+                        .HasColumnType("datetime2(0)");
+
+                    b.Property<int>("JobId");
+
+                    b.Property<string>("LineItem")
+                        .IsRequired()
+                        .HasMaxLength(200);
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
+
+                    b.HasKey("LineItemId");
+
+                    b.HasIndex("JobId", "LineItem")
+                        .IsUnique()
+                        .HasName("Job_Lineitem_JobId_LineItem_Unique");
+
+                    b.ToTable("Job_Lineitems");
                 });
 
             modelBuilder.Entity("DevSitesIndex.Entities.Job_Status", b =>
@@ -313,11 +365,17 @@ namespace DevSitesIndex.Migrations
                     b.Property<DateTime>("DateAdded")
                         .HasColumnType("datetime2(0)");
 
+                    b.Property<DateTime?>("DateModified");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(100);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Description")
+                        .IsUnique()
+                        .HasName("Technology_Description_Unique_2153");
 
                     b.ToTable("Technologies");
                 });
@@ -338,6 +396,8 @@ namespace DevSitesIndex.Migrations
 
                     b.Property<int>("JobId");
 
+                    b.Property<int?>("LineItemID");
+
                     b.Property<byte[]>("RowVersion")
                         .IsConcurrencyToken()
                         .ValueGeneratedOnAddOrUpdate();
@@ -349,11 +409,17 @@ namespace DevSitesIndex.Migrations
 
                     b.Property<string>("WorkDetail");
 
+                    b.Property<string>("WorkDetail_PostLineItem");
+
+                    b.Property<string>("WorkDetail_PreLineItem");
+
                     b.HasKey("TimeLogId");
 
                     b.HasIndex("DisciplineID");
 
                     b.HasIndex("JobId");
+
+                    b.HasIndex("LineItemID");
 
                     b.ToTable("TimeLog");
                 });
@@ -379,6 +445,19 @@ namespace DevSitesIndex.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
+            modelBuilder.Entity("DevSitesIndex.Entities.DevSiteTechnology", b =>
+                {
+                    b.HasOne("DevSitesIndex.Entities.DevSite", "DevSite")
+                        .WithMany("DevSiteTechnologies")
+                        .HasForeignKey("DevSiteId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("DevSitesIndex.Entities.Technology", "Technology")
+                        .WithMany("DevSiteTechnologies")
+                        .HasForeignKey("TechnologyId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
             modelBuilder.Entity("DevSitesIndex.Entities.Job", b =>
                 {
                     b.HasOne("DevSitesIndex.Entities.Job_Status", "job_Status")
@@ -395,12 +474,20 @@ namespace DevSitesIndex.Migrations
             modelBuilder.Entity("DevSitesIndex.Entities.Job_DevSite", b =>
                 {
                     b.HasOne("DevSitesIndex.Entities.DevSite", "DevSite")
-                        .WithMany()
+                        .WithMany("JobDevSites")
                         .HasForeignKey("DevSiteId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("DevSitesIndex.Entities.Job", "Job")
                         .WithMany()
+                        .HasForeignKey("JobId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("DevSitesIndex.Entities.Job_Lineitem", b =>
+                {
+                    b.HasOne("DevSitesIndex.Entities.Job", "job")
+                        .WithMany("job_Lineitems")
                         .HasForeignKey("JobId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
@@ -424,6 +511,10 @@ namespace DevSitesIndex.Migrations
                         .WithMany("timelogs")
                         .HasForeignKey("JobId")
                         .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("DevSitesIndex.Entities.Job_Lineitem", "job_Lineitem")
+                        .WithMany("timelogs")
+                        .HasForeignKey("LineItemID");
                 });
 #pragma warning restore 612, 618
         }

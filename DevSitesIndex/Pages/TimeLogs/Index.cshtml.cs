@@ -72,7 +72,12 @@ namespace DevSitesIndex.Pages.TimeLogs
 
             IQueryable<TimeLog> _timelog = _context.TimeLog
                 .Include(t => t.discipline)
+
+                // 06/06/2021 02:27 am - SSN - [20210606-0227] - [001] - Testng for deployment
+                .Include(t => t.job_Lineitem )
+                
                 .Include(t => t.job);
+                
 
             TimeLog = await PaginatedList<TimeLog>.GetSourcePage(_timelog, columnName, desc, pageIndex, 10);
 

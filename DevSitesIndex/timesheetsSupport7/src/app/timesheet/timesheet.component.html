@@ -34,14 +34,12 @@
 
 <div class="row">
 
-  <div *ngFor="let timesheet of timesheets" class="col-md-5">
+  <div *ngFor="let timesheet of timesheets" class="col-md-12">
 
     <!-- timesheetThumnail: template variable -->
     <app-thumbnail #timesheetThumbnail [timesheet]="timesheet" (eventClick)="handleThumbnailClick($event)"></app-thumbnail>
-    <button class="btn btn-info" (click)="timesheetThumbnail.testFunction()">Call thumbnail test</button>
-    <br />
-    <br />
-    <br />
+    <!--<button class="btn btn-info" (click)="timesheetThumbnail.testFunction()">Call thumbnail test</button>-->
+ 
   </div>
 
 </div>

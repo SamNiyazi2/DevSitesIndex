@@ -21,11 +21,30 @@
 
     if (User.Identity.IsAuthenticated)
     {
+        <p>20210612-2329-A</p>
         if (DevSitesIndex.Areas.Identity.Util.ClaimUtil.hasClaim(this.Context, "Role", "Manager"))
         {
-            <pre cmd-ssn="displayCode" url="http://p3013.nonbs.net:3013/CodeReferences" doDebug=false></pre>
+            <pre title="Application Insights monitor"
+                 cmd-ssn="displayCode"
+                 url="http://p3013.nonbs.net:3013/CodeReferences"
+                 doDebug=false
+                 vstsAccount="samniyazi"
+                 projectName="Training Track"
+                 repository="433fe932-11f3-4919-831b-234c1dab4d8d"
+                 filePath="/DevSitesIndex/wwwroot/js/util/ApplicationInsights_Monitor.ts"></pre>
+
+            <pre title="SharedUtil"
+                 cmd-ssn="displayCode"
+                 url="http://p3013.nonbs.net:3013/CodeReferences"
+                 doDebug=false
+                 vstsAccount="samniyazi"
+                 projectName="Training Track"
+                 repository="433fe932-11f3-4919-831b-234c1dab4d8d"
+                 filePath="/DevSitesIndex/wwwroot/js/shared/sharedUtil.ts"></pre>
+
         }
 
+        <p>20210612-2329-B</p>
 
         if (DevSitesIndex.Areas.Identity.Util.ClaimUtil.hasClaim(this.Context, "Role", "TestUser"))
         {
@@ -34,7 +53,6 @@
             </div>
 
         }
-
     }
 }
 

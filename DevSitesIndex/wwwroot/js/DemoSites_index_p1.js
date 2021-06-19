@@ -4,6 +4,7 @@
 /// <reference path="../../node_modules/@types/jquery/index.d.ts" />
 /// <reference path="../../node_modules/@types/knockout/index.d.ts" /> 
 import * as util from '../js/site';
+import * as angular from 'angular';
 var demosites_index_p1_instance = function () {
     // Knockout related
     var ViewModel = function () {
@@ -21,17 +22,35 @@ var demosites_index_p1_instance = function () {
         //////this.currentItem = {};
         self.currentItem = ko.observable();
         self.errorMessage = ko.observable();
+        // 06/13/2021 08:49 am - SSN - [20210613-0452] - [015] - Adding tags to DevSite
+        self.recordsPerPage_KO = ko.observable(3);
+        self.currentPage_KO = ko.observable(1);
+        self.devSitesCount_KO = ko.observable(-1);
         // 06/06/2019 05:44 pm - SSN - Moved from index_p1.cshtml - Update
         //  this.devSitesJSON = ko.observableArray(@Html.Raw(Model.devSitesJSON));
         this.devSitesJSON = ko.observableArray([]);
         // 06/06/2019 05:44 pm - SSN - Moved from index_p1.cshtml - Update
-        this.loadData = function () {
+        // 06/13/2021 08:44 am - SSN - [20210613-0452] - [014] - Adding tags to DevSite
+        // Adding recordsPerPage and currentPage
+        this.loadData = function (recordsPerPage, currentPage) {
             var self = this;
             // 09/09/2019 10:35 pm - SSN - [20190909-2136] - [005] - Select top 15
             // $.getJSON("/api/demositesapi", function (data) {
-            $.getJSON("/api/demositesapi/top?recordCount=15", function (data) {
+            // $.getJSON("/api/demositesapi/top?recordCount=15", function (data) {
+            $.getJSON("/api/demositesapi/" + recordsPerPage + "/" + currentPage, function (data) {
                 self.devSitesJSON.removeAll();
                 self.devSitesJSON(data);
+                document.querySelector('#topTitle').scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+            $.getJSON("/api/demositesapi/recordcount", function (data) {
+                self.devSitesCount_KO(data);
+            }).fail(function (response) {
+                console.log('demositesapi - System error - 20210613-1036');
+                console.error(response);
+                self.SearchResultsFeedback_KO('System failure.');
+                self.SearchResultsFeedback_ClassName_KO("alert alert-danger");
             });
         };
         // 08/16/2019 04:25 pm - SSN - [20190816-1625] - [001] - Correct logic for getting record count to show no search results message
@@ -39,6 +58,48 @@ var demosites_index_p1_instance = function () {
             var recordCount = self.devSitesJSON().length;
             // self.devSitesJSON
             return recordCount;
+        };
+        // 06/13/2021 09:00 am - SSN - [20210613-0452] - [016] - Adding tags to DevSite
+        this.onFirstPageKnockout = function () {
+            return self.currentPage_KO() == 1;
+        };
+        this.onLastPageKnockout = function () {
+            return self.currentPage_KO() >= self.totalPageCount();
+        };
+        this.totalPageCount = function () {
+            return Math.ceil(self.devSitesCount_KO() / self.recordsPerPage_KO());
+        };
+        this.displayCurrentPageNumberAndTotalPages = function () {
+            var currentPage = self.currentPage_KO();
+            var totalPageCount = self.totalPageCount();
+            return "Page " + currentPage + " of " + totalPageCount;
+        };
+        this.getCurrentPage = function () {
+            return self.currentPage_KO();
+        };
+        this.prevDevSitePage = function () {
+            var currentPage = self.currentPage_KO();
+            currentPage = currentPage-- < 1 ? 1 : currentPage;
+            self.currentPage_KO(currentPage);
+            self.loadData(self.recordsPerPage_KO(), self.currentPage_KO());
+            self.applyDisplayRequirements();
+            self.updateAngularJSParts();
+        };
+        this.nextDevSitePage = function () {
+            var currentPage = self.currentPage_KO();
+            currentPage = currentPage++ > self.totalPageCount() ? self.totalPageCount() : currentPage;
+            self.currentPage_KO(currentPage);
+            self.loadData(self.recordsPerPage_KO(), self.currentPage_KO());
+            self.applyDisplayRequirements();
+            self.updateAngularJSParts();
+        };
+        // 06/15/2021 12:13 am - SSN - [20210613-0452] - [037] - Adding tags to DevSite
+        this.updateAngularJSParts = function () {
+            setTimeout(function () {
+                var _element = angular.element($("[dev-site-tags-compiler]"));
+                var scope_temp = _element.scope();
+                scope_temp.$broadcast("call_devSiteTagsCompiler", { msg: 'doRecompileList' });
+            }, 1000);
         };
         // 09/08/2019 08:07 pm - SSN - [20190908-0001] - [009] - Concurrency
         // Renamed del-confirm del_confirm_p1
@@ -71,13 +132,29 @@ var demosites_index_p1_instance = function () {
             self.SearchResultsFeedback_KO('');
             self.SearchResultsFeedback_ClassName_KO("");
             self.SearchText_KO("");
-            self.loadData();
+            self.currentPage_KO(1);
+            self.loadData(self.recordsPerPage_KO(), self.currentPage_KO());
+            self.applyDisplayRequirements();
+            self.updateAngularJSParts();
+        };
+        // 06/14/2021 03:46 pm - SSN - [20210613-0452] - [028] - Adding tags to DevSite
+        this.applyDisplayRequirements = function () {
+            if (!self.prefixPreWithShowHideAnchor_DontCall_KO()) {
+                setTimeout(function () { return util.site_instance.prefixPreWithShowHideAnchor('20200102-1533'); }, 2000);
+            }
+            else {
+                // 08/21/2019 01:48 pm - SSN - [20190821-1348] [001] - Added
+                setTimeout(util.site_instance.showCollapsedDivs, 2000);
+            }
         };
         // 08/12/2019 05:57 am - SSN - [20190812-0515] - [005] - Apply fulltext search
         // https://stackoverflow.com/questions/16245905/fetching-or-sending-data-from-a-form-using-knockout-js
         //self.onSubmit = function () {
-        this.onSubmit = function () {
+        this.onSubmitDemoSiteSearch = function () {
             var searchText = self.SearchText_KO();
+            self.SearchResultsFeedback_KO('');
+            self.SearchResultsFeedback_ClassName_KO('');
+            self.devSitesCount_KO(-2);
             if (searchText === undefined) {
                 self.SearchResultsFeedback_KO('Input is required for search.');
                 self.SearchResultsFeedback_ClassName_KO("alert-warning");
@@ -91,27 +168,10 @@ var demosites_index_p1_instance = function () {
                     return;
                 }
             }
-            //var data = JSON.stringify(
-            //    {
-            //        SearchText: self.SearchText_KO()
-            //    }); // prepare request data
-            // 09/10/2019 04:20 am - SSN - [20190910-0147] - [009] - WARNING: Tried to load angular more than once.
-            // "SearchText": self.SearchText_KO()
-            // 12/20/2019 05:06 pm - SSN - [20191220-1706] Adding resetSearch
             var data_pre = {
-                // 12/20/2019 05:06 pm - SSN - [20191220-1706] Adding resetSearch
                 "SearchText": self.SearchText_KO()
             };
             var data = JSON.stringify(data_pre);
-            //$.post("/echo/json", data, function (response) // sends 'post' request
-            //{
-            //    // on success callback
-            //    self.responseJSON(response);
-            //})
-            //$.post("/api/demositesapi/Search", data, function (response) {
-            //    self.devSitesJSON.removeAll();
-            //    self.devSitesJSON(response);
-            //});
             $.ajax({
                 type: "POST",
                 data: data,
@@ -121,23 +181,26 @@ var demosites_index_p1_instance = function () {
             }).done(function (response) {
                 self.devSitesJSON.removeAll();
                 self.devSitesJSON(response);
-                // 08/21/2019 12:14 pm - SSN - [20190821-1210] - [002] - SearchResultsFeedback_KO
                 self.SearchResultsFeedback_KO('');
                 self.SearchResultsFeedback_ClassName_KO("");
                 if (response.length === 0) {
                     self.SearchResultsFeedback_KO('Search returned no records.');
                     self.SearchResultsFeedback_ClassName_KO("alert-warning");
                 }
-                if (!self.prefixPreWithShowHideAnchor_DontCall_KO()) {
-                    setTimeout(function () { return util.site_instance.prefixPreWithShowHideAnchor('20200102-1533'); }, 2000);
-                }
-                else {
-                    // 08/21/2019 01:48 pm - SSN - [20190821-1348] [001] - Added
-                    setTimeout(util.site_instance.showCollapsedDivs, 2000);
-                }
+                self.applyDisplayRequirements();
+                self.updateAngularJSParts();
             }).fail(function (response) {
                 // 12/20/2019 05:06 pm - SSN - [20191220-1706] Adding resetSearch
+                console.log('demositesapi Search filaure - 20210422-1422');
+                console.info(data);
                 console.error(response);
+                var errorMessage = 'Search failure. ';
+                if (response.responseJSON['Exception:Message']) {
+                    errorMessage += " Error from server: [" + response.responseJSON['Exception:Message'] + "]";
+                }
+                self.SearchResultsFeedback_KO(errorMessage);
+                self.SearchResultsFeedback_ClassName_KO("alert alert-danger");
+                self.devSitesJSON.removeAll();
             });
         };
         this.getClassForDemoState = function (forDemo_v2) {
@@ -158,7 +221,7 @@ var demosites_index_p1_instance = function () {
     };
     var vm = new ViewModel();
     ko.applyBindings(vm);
-    vm.loadData();
+    vm.loadData(vm.recordsPerPage_KO(), vm.currentPage_KO());
 }();
 var stringStartsWith = function (string, startsWith) {
     string = string || "";
@@ -166,6 +229,5 @@ var stringStartsWith = function (string, startsWith) {
         return false;
     return string.substring(0, startsWith.length) === startsWith;
 };
-// 09/21/2019 07:16 am - SSN - [20190921-0357] - [010] - Creating multiple entry for Webpack
 export { demosites_index_p1_instance };
 //# sourceMappingURL=DemoSites_index_p1.js.map

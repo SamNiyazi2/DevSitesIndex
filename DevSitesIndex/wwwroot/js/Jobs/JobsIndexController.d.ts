@@ -1,5 +1,4 @@
-/// <reference path="../DataServices.d.ts" />
-/// <reference types="jquery/jquery" />
+/// <reference path="../shared/DataServices.d.ts" />
 import * as angular from 'angular';
 declare var jobsIndexController_instance: {
     Jobs_Angular_Module: angular.IModule;

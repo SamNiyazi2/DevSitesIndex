@@ -95,6 +95,11 @@ var site_instance_NS;
                     document.location.href = e.target.href + "&returnToCallerKey=" + returnToCallerKey;
                 });
             });
+            var imgSiteUrlQRCode = 0;
+            $('#imgSiteUrlQRCode').click(function (e) {
+                imgSiteUrlQRCode++;
+                $(e.target).toggleClass('cssSiteUrlQRCode');
+            });
             // 09/21/2019 12:27 pm - SSN - [201909-1227] Revise to accommodate Babel/Webpack
             // function p(str1, len, char) {
             var p = function (str1, len, char) {
@@ -121,6 +126,31 @@ var site_instance_NS;
             $('.modal').on('show', function () {
                 $(this).draggable({
                     handle: ".modal-header"
+                });
+            });
+            $(document).ready(function () {
+                $('.navbar li a').bind('contextmenu click', function (e) {
+                    console.log('20210414-1007 - context menu');
+                    console.log(e);
+                });
+                $('.navbar li a').bind('mousedown', function (e) {
+                    switch (e.which) {
+                        case 1:
+                            console.log('Left mouse button is pressed');
+                            break;
+                        case 2:
+                            console.log('Middle mouse button is pressed');
+                            break;
+                        case 3:
+                            console.log('Right mouse button is pressed   208  ');
+                            console.log($(e.target));
+                            break;
+                        default:
+                            alert('Nothing');
+                    }
+                    //if ($(this.mobileNavbarMenuOption.nativeElement).is(':visible')) {
+                    //    $(this.mobileNavbarMenuOption.nativeElement).trigger('click');
+                    //}
                 });
             });
         };

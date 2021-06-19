@@ -125,6 +125,9 @@ namespace DevSitesIndex.Pages.DevSites
 
                 IQueryable<DevSite> _DevSites;
 
+                // 06/14/2021 07:04 pm - SSN - [20210613-0452] - [035] - Adding tags to DevSite (Posted note in SQL)
+                // Todo
+                // Can't use repository. Conflict with IEnumerable and querable PaginatedList 
                 if (string.IsNullOrWhiteSpace(SearchText))
                 {
                     _DevSites = _context.DevSites.Include(r => r.SoftwareCode).OrderByDescending(r => r.DateUpdated ?? r.DateAdded);

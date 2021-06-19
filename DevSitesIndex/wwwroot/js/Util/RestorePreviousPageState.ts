@@ -13,13 +13,13 @@ import { globals_instance } from "../globals";
 
 var RestorePreviousPageState_instance = function () {
 
- 
-    var doSetup = function (ngApplicationName) {
+ // 06/06/2021 05:29 pm - SSN - [20210606-0227] - [009] - Testng for deployment
+// callSource_parent
+
+    var doSetup = function (ngApplicationName:string, callSource_parent: string) {
 
 
-         
-
-        AppInsights_Util.logEvent("DemoSites_20191228_2228", { SourceCode: "20191228-2210", Message: "doSetup" });
+        AppInsights_Util.logEvent("DemoSites_20191228_2228", { SourceCode: "20191228-2210", Message: "doSetup", CallSource_parent: callSource_parent});
 
          
         var angular_module: angular.IModule = globals_instance.getInstance_v002('RestorePreviousPageState', ngApplicationName);

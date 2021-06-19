@@ -5,6 +5,7 @@
 import * as ssn_globals from "../globals";
 import * as angular from 'angular'
 import * as util from '../site';
+import { ILoggerModule } from "../Util/Logger/ILoggerErrorMessage";
 
 
 var timesheetEditController_instance = function () {
@@ -15,15 +16,10 @@ var timesheetEditController_instance = function () {
 
 
     // 11/19/2019 12:48 am - SSN - [20191119-0048] Adding $compile for dynamically loaded view
-    // 11/22/2019 02:18 pm - SSN - [20191121-0503] - [015] - Timelog edit options on project search
-    // Injecting Servingpage
 
-    timesheetApp.controller('TimesheetEditController', ['$scope', '$uibModalInstance', '$http', '$q', 'dataService', 'changeMonitorService', 'timelogId', '$timeout', '$rootScope', 'servingPage',
+    timesheetApp.controller('TimesheetEditController', ['$uibModal', '$scope', '$uibModalInstance', '$http', '$q', 'dataService', 'changeMonitorService', 'TimesheetTableRefreshController', 'timelogId', '$timeout', '$rootScope', 'ssn_logger', 'servingPage',
 
-        // 11/25/2019 04:03 pm - SSN - [20191125-1414] - [006] - Project jobs - filter 
-        // Remove function name
-        //        function TimesheetController($scope, $uibModalInstance, $http, $q, dataService, changeMonitorService, timelogId, $timeout, $rootScope, servingPage: ssn_globals.Timelog_ServingPage) {
-        function ($scope, $uibModalInstance, $http, $q, dataService, changeMonitorService, timelogId, $timeout, $rootScope, servingPage: ssn_globals.Timelog_ServingPage) {
+        function ($uibModal, $scope, $uibModalInstance, $http, $q, dataService, changeMonitorService, TimesheetTableRefreshController, timelogId, $timeout, $rootScope, ssn_logger: ILoggerModule, servingPage: ssn_globals.Timelog_ServingPage) {
 
 
             $timeout(() => {
@@ -31,13 +27,13 @@ var timesheetEditController_instance = function () {
                 util.site_instance.setDefaults();
             }, 600);
 
-
+            $scope.disableSaveButton = false;
 
             dataService.getTimelog(timelogId).then(getTimelogSuccess, getTimelogError)
                 .catch(getTimelogCatch);
 
 
-            $scope.pageTitle = "Edit [" + servingPage + ']';
+            $scope.pageTitle = "Edit [" + servingPage + '] 111-01';
 
 
             $scope.feedbackToUserText = "";
@@ -63,8 +59,6 @@ var timesheetEditController_instance = function () {
                 let timeNow = new Date();
 
                 timeNow.setMilliseconds(0);
-                //timeNow.setSeconds(0);
-
 
                 $scope.editableTimeLog.stopTime = timeNow;
 
@@ -76,23 +70,13 @@ var timesheetEditController_instance = function () {
 
                 let timeNow = new Date();
 
-                timeNow.setMilliseconds(0);
                 timeNow.setSeconds(0);
 
-                let data2 = data;
+                util.site_instance.fnConverDate(data);
 
-                util.site_instance.fnConverDate(data2);
-                $scope.timeLog = data2;
+                $scope.timeLog = data;
 
-
-                $scope.editableTimeLog = angular.copy($scope.timeLog);
-
-
-                $timeout(() => {
-                    //  $scope.getDisciplines(data2.discipline.disciplineShort);
-                    $scope.disciplineSelected = { id: data2.discipline.disciplineId, title: data2.discipline.disciplineShort };
-                }
-                    , 500);
+                $scope.editableTimeLog = data;
 
 
             }
@@ -120,13 +104,26 @@ var timesheetEditController_instance = function () {
 
             $scope.submitForm = function () {
 
+                $scope.disableSaveButton = true;
+
                 $scope.feedbackToUserText = "";
                 $scope.feedbackToUserClassNameCase = "";
 
 
                 var test = $scope.editableTimeLog;
 
-                var promise = null;
+
+
+                console.log('20210607-1852');
+                console.log(test);
+
+                console.log('------------------------------------------');
+
+                console.log($scope.editableTimeLog);
+
+                console.log('------------------------------------------');
+
+                 
 
                 if ($scope.editableTimeLog.stopTime) {
                     $scope.editableTimeLog.totalSeconds = ($scope.editableTimeLog.stopTime - $scope.editableTimeLog.startTime) / 1000;
@@ -134,93 +131,57 @@ var timesheetEditController_instance = function () {
 
 
                 if ($scope.editableTimeLog.timeLogId === 0) {
-                    promise = dataService.insertTimeLog($scope.editableTimeLog);
+
+                    dataService.insertTimeLog($scope.editableTimeLog).then(insertTimeLogSuccess, insertTimeLogError).catch(insertTimeLogCatch);
+                    
                 }
                 else {
-                    promise = dataService.updateTimeLog($scope.editableTimeLog);
+                    dataService.updateTimeLog($scope.editableTimeLog).then(insertTimeLogSuccess, insertTimeLogError).catch(insertTimeLogCatch);
                 }
 
-                if (promise) {
 
-                    promise.then(
-                        function (data) {
+                function insertTimeLogSuccess(data) {
 
-                            var test1 = data;
-
-                            $scope.timeLog = angular.copy($scope.editableTimeLog);
+                    $uibModalInstance.close();
+                    toastr.info("Record saved.");
 
 
-                            $uibModalInstance.close();
-                            toastr.info("Record saved.");
+                    // 06/18/2021 02:03 am - SSN - Replace redunant code
 
-                            // Refactor [20191120-0438] - Begin
+                    TimesheetTableRefreshController.refreshTimesheetTable(servingPage, $scope.editableTimeLog.timeLogId, false);
 
-                            let id_temp = $scope.editableTimeLog.timeLogId;
+                }
 
+                function insertTimeLogError(error) {
 
+                    console.log(error);
 
+                    toastr.error("Failed to save record.");
+                    toastr.warning("Error posted to console.");
 
-                            // 11/22/2019 04:09 pm - SSN - [20191121-0503] - [019] - Timelog edit options on project search
+                    $scope.feedbackToUserClassNameCase = 2;
+                    $scope.feedbackToUserText = error.data;
+                    
+                    $scope.disableSaveButton = false;
 
+                    ssn_logger.cl_error({ callSource: "20210618-0909", message: `Failed to save timesheet record `, errorObject: error });
 
-                            let haveMatch_on_servingPage = false;
+                }
 
+                function insertTimeLogCatch(error) {
 
-                            if (
-                                ssn_globals.Timelog_ServingPage_checkvalue(servingPage, ssn_globals.Timelog_ServingPage.Timelog)
-                                ||
-                                ssn_globals.Timelog_ServingPage_checkvalue(servingPage, ssn_globals.Timelog_ServingPage.Job_Timelog)
-                            ) {
-                                dataService.timelogRefreshRecord(id_temp, servingPage).then(refreshRecord_Sucess, refreshRecord_Error);
-                                haveMatch_on_servingPage = true;
-                            }
+                    console.log(error);
 
+                    toastr.error("Failed to save record.");
+                    toastr.warning("Error posted to console.");
 
-                            if (ssn_globals.Timelog_ServingPage_checkvalue(servingPage, ssn_globals.Timelog_ServingPage.Projects_Search)) {
-                                dataService.projectsSearchRefreshRecord(id_temp, servingPage).then(refreshRecord_Sucess, refreshRecord_Error);
-                                haveMatch_on_servingPage = true;
-                            }
+                    $scope.feedbackToUserClassNameCase = 2;
+                    $scope.feedbackToUserText = error.data;
+                    
+                    $scope.disableSaveButton = false;
 
+                    ssn_logger.cl_error({ callSource: "20210618-0910", message: `Failed to save timesheet record `, errorObject: error });
 
-                            if (!haveMatch_on_servingPage) {
-                                console.log('No match for servingPage to refresh page ***** 20191122-1949');
-                                console.log('No match for servingPage to refresh page ***** 20191122-1949');
-                                console.log('No match for servingPage to refresh page ***** 20191122-1949');
-                                console.log('No match for servingPage to refresh page ***** 20191122-1949');
-                                console.log('No match for servingPage to refresh page ***** 20191122-1949');
-                                console.log('No match for servingPage to refresh page ***** 20191122-1949');
-                            }
-
-
-
-                            function refreshRecord_Sucess(result) {
-
-                                $rootScope.$broadcast('TimeLog_Index_Refresh', result);
-
-                            }
-
-                            function refreshRecord_Error(result) {
-
-                                console.error(result);
-
-                            }
-
-                            // Refactor [20191120-0438] - End
-
-                        },
-                        function (error) {
-
-                            var test2 = error;
-
-                            console.log(error);
-
-                            toastr.error("Failed to save record.");
-                            toastr.warning("Error posted to console.");
-
-                            $scope.feedbackToUserClassNameCase = 2;
-                            $scope.feedbackToUserText = error.data;
-
-                        });
                 }
 
 
@@ -237,113 +198,16 @@ var timesheetEditController_instance = function () {
 
             };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            //$scope.getDisciplines = function (lookupValue) {
-
-            //    if (lookupValue === null) lookupValue = "";
-
-            //    var deferred = $q.defer();
-
-            //    $http({
-            //        method: 'GET',
-            //        url: 'api/DisciplineAPI'
-
-            //    }).then(typeaheadDisciplineSuccess, typeaheadDisciplineError);
-
-            //    return deferred.promise;
-
-            //    function typeaheadDisciplineSuccess(response) {
-
-            //        var addresses = [];
-
-            //        angular.forEach(response.data,
-            //            function (item) {
-
-            //                if (item.disciplineShort.toLowerCase().indexOf(lookupValue.toLowerCase()) > -1) {
-            //                    addresses.push({ id: item.disciplineId, title: item.disciplineShort });
-            //                }
-            //            }
-            //        );
-
-            //        deferred.resolve(addresses);
-
-            //    }
-
-            //    function typeaheadDisciplineError(response) {
-
-            //        deferred.reject(response);
-            //    }
-
-            //};
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+             
 
 
 
 
         }]);
+
+
+
+
 
 
     return {

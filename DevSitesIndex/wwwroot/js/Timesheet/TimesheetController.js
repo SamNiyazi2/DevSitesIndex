@@ -1,19 +1,17 @@
-import * as globals from "../globals";
-import * as angular from "angular";
-/// <reference path="../../../../node_modules/@types/toastr/index.d.ts" />
+/// <reference path="../../../node_modules/@types/toastr/index.d.ts" />
 // 04/12/2019 03:57 am - SSN - [20190412-0142] - TimesheetApp
 // 09/18/2019 11:13 am - SSN - [20190918-0943] - [008] - Adding job status option to index
+import * as globals from "../globals";
+import * as util from '../site';
 var timesheetController_instance = function () {
     var timesheetApp = globals.globals_instance.getInstance_v002('TimesheetController', "timesheetApp");
-    // 09/30/2019 06:56 pm - SSN - (Inject jobId)
-    // 11/28/2019 02:58 am - SSN - [20191128-0247] - [002] - Clock-in not saving - Add changeMonitorService
-    timesheetApp.controller('TimesheetController', ['$scope', '$uibModalInstance', '$http', '$q', 'dataService', 'changeMonitorService', 'jobId',
-        function ($scope, $uibModalInstance, $http, $q, dataService, changeMonitorService, jobId) {
+    timesheetApp.controller('TimesheetController', ['$uibModal', '$scope', '$uibModalInstance', '$http', '$q', 'dataService', 'changeMonitorService', 'ssn_logger', 'timelogId_v01',
+        function ($uibModal, $scope, $uibModalInstance, $http, $q, dataService, changeMonitorService, ssn_logger, timelogId_v01) {
             changeMonitorService.setupMonitor();
-            // 12/29/2019 11:21 pm - SSN - Adding disableSaveButton 
+            // 05/03/2019 05:54 pm - SSN - [20190503-1539] - [012] - Add link to create timelog 
+            // Add pageTitle
+            $scope.pageTitle = "Clock-in - 1201";
             $scope.disableSaveButton = false;
-            // 11/28/2019 02:47 am - SSN - [20191128-0247] - [001] - Clock-in not saving
-            // Adding feedback
             $scope.feedbackToUserText = "";
             $scope.feedbackToUserClassNameCase = "";
             $scope.feedbackToUserClassNameSet = function () {
@@ -26,42 +24,30 @@ var timesheetController_instance = function () {
                         return "";
                 }
             };
-            dataService.getJob(jobId).then(getJobSuccess, getJobError).catch(getJobCatch);
-            function getJobSuccess(data) {
-                $scope.editableTimeLog.job = {};
-                $scope.editableTimeLog.job.jobTitle = data.jobTitle;
-                $scope.editableTimeLog.job.project = {};
-                $scope.editableTimeLog.job.project.projectTitle = data.project.projectTitle;
+            dataService.getTimelog(timelogId_v01).then(getTimelogSuccess, getTimelogError).catch(getTimelogCatch);
+            function getTimelogSuccess(data) {
+                util.site_instance.fnConverDate(data);
+                $scope.editableTimeLog = data;
+                var timeNow = new Date();
+                timeNow.setMilliseconds(0);
+                $scope.editableTimeLog.timeLogId = 0;
+                $scope.editableTimeLog.startTime = timeNow;
+                $scope.editableTimeLog.totalSeconds = null;
             }
-            function getJobError(data) {
-                console.error('TimeshetController - getJobSuccess  -  20190930-2106-B ');
-                console.log(data);
+            function getTimelogError(err) {
+                console.error('TimesheetController - gotJobError -  20210606-0540-B ');
+                console.log(err);
+                ssn_logger.cl_error({ callSource: '20210608-2306-a-1', message: 'Failed to get Timelogs record.', errorObject: err });
             }
-            function getJobCatch(data) {
-                console.error('TimeshetController - getJobSuccess  -  20190930-2106-C ');
-                console.log(data);
+            function getTimelogCatch(err) {
+                console.error('TimesheetController - getJobCatch -  20210606-0540-C ');
+                console.log(err);
+                ssn_logger.cl_error({ callSource: '20210608-2306-a-2', message: 'Failed to get Timelogs record.', errorObject: err });
             }
-            $scope.disciplineSelected = { id: 0, title: '' };
-            // 05/03/2019 05:54 pm - SSN - [20190503-1539] - [012] - Add link to create timelog 
-            // Add pageTitle
-            $scope.pageTitle = "Clock-in";
-            var timeNow = new Date();
-            timeNow.setMilliseconds(0);
-            // timeNow.setSeconds(0);
-            $scope.timeLog = {
-                timeLogId: 0,
-                id: 0,
-                startTime: timeNow,
-                workDetail: "",
-                disciplineId: '2',
-                jobId: jobId
-            };
-            $scope.editableTimeLog = angular.copy($scope.timeLog);
             $scope.submitForm = function () {
                 if ($scope.disableSaveButton)
                     return;
                 $scope.disableSaveButton = true;
-                var test = $scope.editableTimeLog;
                 var promise = null;
                 if ($scope.editableTimeLog.id === 0) {
                     promise = dataService.insertTimeLog($scope.editableTimeLog);
@@ -71,7 +57,6 @@ var timesheetController_instance = function () {
                 }
                 if (promise) {
                     promise.then(function (data) {
-                        $scope.timeLog = angular.copy($scope.editableTimeLog);
                         $uibModalInstance.close();
                         toastr.info("Clocked-in");
                     }, function (error) {
@@ -93,9 +78,30 @@ var timesheetController_instance = function () {
                 }
                 $uibModalInstance.dismiss(); //same as cancel???
             };
+            //$scope.addNewLineItem = function (jobID, containerViewValue) {
+            //    ssn_logger.cl_normal({ callSource: '20210609-1807-A', message:`Calling addNewLineItem` }, 'yellow', true);
+            //    ssn_logger.cl_normal({ callSource: '20210609-1807-B', message:`jobID: [${jobID}]` }, 'yellow', true);
+            //    ssn_logger.cl_normal({ callSource: '20210609-1807-c', message: `containerViewValue: [${containerViewValue}]` }, 'yellow', true);
+            //    $uibModal.open({
+            //        templateUrl: '/js/timesheet/LineItem/LineItemTemplate.html',
+            //        controller: 'LineItemController',
+            //        // 06/08/2021 03:57 pm - SSN - [20210606-0227] - [038] - Testng for deployment - Line item
+            //        // backdrop: false,
+            //        backdrop: 'static',
+            //        keyboard: false,
+            //        resolve: {
+            //            jobId: function () {
+            //                return jobID;
+            //            },
+            //            containerViewValue: function () {
+            //                return containerViewValue;
+            //            }
+            //        }
+            //    });
+            //}
         }]);
     return {
-        timesheetApp_TimesheetController: timesheetApp
+        timesheetApp: timesheetApp
     };
 }();
 export { timesheetController_instance };

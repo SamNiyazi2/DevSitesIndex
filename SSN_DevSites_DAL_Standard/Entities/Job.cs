@@ -147,8 +147,12 @@ namespace DevSitesIndex.Entities
         // 09/16/2019 11:27 am - SSN - Added virtual
         public virtual ICollection<TimeLog> timelogs { get; set; }
 
-        
-        
+
+        // 12/10/2020 06:42 am - SSN - [20201210-0618] - [003] - Adding Job_LineItems table
+        public virtual ICollection<Job_Lineitem> job_Lineitems { get; set; }
+
+
+
     }
 
 

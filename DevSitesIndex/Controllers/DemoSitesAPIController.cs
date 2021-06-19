@@ -13,7 +13,10 @@ using Newtonsoft.Json.Serialization;
 namespace DevSitesIndex.Controllers
 {
     [Route("api/[controller]")]
-    public class DemoSitesAPIController : Controller
+    // 06/15/2021 11:41 pm - SSN - [20210613-0452] - [054] - Adding tags to DevSite
+    // Add ApiController and Controller to ControllerBase
+    [ApiController]
+    public class DemoSitesAPIController : ControllerBase
     {
 
 
@@ -30,15 +33,24 @@ namespace DevSitesIndex.Controllers
 
 
         // GET: api/<controller>
-        [Route("/api/demositesapi")]
+        [Route("/api/demositesapi/{recordsPerPage}/{currentPage}")]
         [HttpGet]
-        public IEnumerable<DevSite> Get()
+        public IEnumerable<DevSite> Get(int recordsPerPage, int currentPage)
         {
+            recordsPerPage = recordsPerPage > 10 ? 10 : recordsPerPage;
+            currentPage = currentPage < 1 ? 1 : currentPage;
 
-            IEnumerable<DevSite> devSites_1 = _devSitesIndexRepository.GetDevSites();
+            IEnumerable<DevSite> devSites_1 = _devSitesIndexRepository.GetDevSites(recordsPerPage, currentPage);
             return devSites_1;
         }
 
+
+        [Route("/api/demositesapi/recordcount")]
+        [HttpGet]
+        public int GetDevSitesCount()
+        {
+            return _devSitesIndexRepository.GetDevSitesCount();
+        }
 
 
 
@@ -49,8 +61,10 @@ namespace DevSitesIndex.Controllers
         public IEnumerable<DevSite> GetTop(int? recordCount)
         {
             // System.Threading.Thread.Sleep(2000);
+            int _recordCount = recordCount ?? 15;
+            _recordCount = _recordCount > 10 ? 10 : _recordCount;
 
-            IEnumerable<DevSite> devSites_1 = Get();
+            IEnumerable<DevSite> devSites_1 = Get(_recordCount, 1);
 
             if (recordCount.HasValue)
                 devSites_1 = devSites_1.Take(recordCount.Value);

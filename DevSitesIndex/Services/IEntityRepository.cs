@@ -28,6 +28,10 @@ namespace DevSitesIndex.Services
         void Save();
 
 
+        // 06/16/2021 08:37 pm - SSN - [20210613-0452] - [104] - Adding tags to DevSite
+        void Delete(int id);
+
+
         void Dispose();
     }
 }

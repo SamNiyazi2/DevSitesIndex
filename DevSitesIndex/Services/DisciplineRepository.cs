@@ -73,6 +73,12 @@ namespace DevSitesIndex.Services
         }
 
 
+        public void Delete(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+
         public void Dispose()
         {
             if (_context != null)

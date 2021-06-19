@@ -29,6 +29,13 @@ namespace DevSitesIndex.Entities
         public class DateUpdatedAttribute : Attribute
         {
         }
+
+        // 06/16/2021 04:14 am - SSN - [20210613-0452] - [101] - Adding tags to DevSite
+        // Added to allow for relation tables with no DateModifid field.
+        [AttributeUsage(AttributeTargets.Property)]
+        public class NoDateUpdatedAttribute : Attribute
+        {
+        }
     }
 
 }

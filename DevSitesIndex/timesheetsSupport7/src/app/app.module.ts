@@ -65,6 +65,7 @@ import { LoginComponent } from './users/login/login.component'
 import { RegisterComponent } from './users/register/register.component';
 import { IComponentBase } from './interfaces/ComponentBase';
 import { MainSiteMenuComponent } from './nav/main-site-menu/main-site-menu.component';
+import { VSTSCodeUtil } from './util/VSTSCode/VSTSCode';
 
 
 // 10/10/2019 11:45 pm - SSN - [20191010-1354] - [003] - M11 - Understanding Angular's Dependency Injection
@@ -80,113 +81,115 @@ const toastr: Toastr = window['toastr'];
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    TestComponentComponent,
-    TimesheetComponent,
-    ThumbnailComponent,
-    HeaderComponent,
-    TimelogComponent,
+    declarations: [
+        AppComponent,
+        TestComponentComponent,
+        TimesheetComponent,
+        ThumbnailComponent,
+        HeaderComponent,
+        TimelogComponent,
 
-    CreateTimelogComponent,
+        CreateTimelogComponent,
 
-    TimesheetMenuComponent,
+        TimesheetMenuComponent,
 
-    E404Component,
+        E404Component,
 
-    ProjectsListComponent,
+        ProjectsListComponent,
 
-    ProjectJobsListComponent,
+        ProjectJobsListComponent,
 
-    ProjectCreateJobComponent,
+        ProjectCreateJobComponent,
 
-    ProjectJobDetailComponent,
+        ProjectJobDetailComponent,
 
-    JobStatusPipe,
+        JobStatusPipe,
 
-    TimelogModalComponent,
+        TimelogModalComponent,
 
-    ModalTriggerDirective,
+        ModalTriggerDirective,
 
-    AppPageV02Custom,
+        AppPageV02Custom,
 
-    DefaultPagePartsComponent,
+        DefaultPagePartsComponent,
 
-    DashboardComponent,
+        DashboardComponent,
 
-    BubbleChartComponent,
+        BubbleChartComponent,
 
-    LineChartComponent,
+        LineChartComponent,
 
-    PieChartComponent,
+        PieChartComponent,
 
-    BarChartComponent,
+        BarChartComponent,
 
-    LoginComponent,
+        LoginComponent,
 
-    RegisterComponent,
+        RegisterComponent,
 
-    MainSiteMenuComponent
+        MainSiteMenuComponent,
 
-  ],
-  imports: [
+        VSTSCodeUtil
 
-    // 10/02/2019 05:47 pm - SSN - [20191002-1118] - [012] - Adding Angular 7 test app
-    // Did this solve problem with "ERROR Error: The selector "app-root" did not match any elements"  - Removed app-root from _layout.cshtml
-    // putting back in
-    BrowserModule,
+    ],
+    imports: [
 
-    // 10/03/2019 05:00 pm - SSN - [20191003-1557] - [006] - Adding data service to Angular7
-    HttpClientModule,
+        // 10/02/2019 05:47 pm - SSN - [20191002-1118] - [012] - Adding Angular 7 test app
+        // Did this solve problem with "ERROR Error: The selector "app-root" did not match any elements"  - Removed app-root from _layout.cshtml
+        // putting back in
+        BrowserModule,
 
-    AppRoutingModule,
+        // 10/03/2019 05:00 pm - SSN - [20191003-1557] - [006] - Adding data service to Angular7
+        HttpClientModule,
 
-    // 10/09/2019 01:45 am - SSN - [20191009-0144] - [001] - M07-09 - Template-based form validation
-    FormsModule, ReactiveFormsModule,
+        AppRoutingModule,
 
-    ChartsModule
+        // 10/09/2019 01:45 am - SSN - [20191009-0144] - [001] - M07-09 - Template-based form validation
+        FormsModule, ReactiveFormsModule,
 
-  ],
+        ChartsModule
 
-  // 10/03/2019 04:03 pm - SSN - [20191003-1557] - [003] - Adding data service to Angular7
-  // 10/06/2019 01:39 pm - SSN - [20191006-1211] - [007] - Adding Angular 7 - TimelogRouteActivatorService
-  // 10/06/2019 05:05 pm - SSN - [20191006-1643] - [003] - Adding Angular 7 - Observables and resolvers - TimesheetResolverService
+    ],
 
-  providers: [DataService,
+    // 10/03/2019 04:03 pm - SSN - [20191003-1557] - [003] - Adding data service to Angular7
+    // 10/06/2019 01:39 pm - SSN - [20191006-1211] - [007] - Adding Angular 7 - TimelogRouteActivatorService
+    // 10/06/2019 05:05 pm - SSN - [20191006-1643] - [003] - Adding Angular 7 - Observables and resolvers - TimesheetResolverService
 
-    // 10/10/2019 11:46 pm - SSN - [20191010-1354] - [004] - M11 - Understanding Angular's Dependency Injection
-    //ToastrService,
-    {
-      provide: TOASTR_TOKEN,
-      useValue: toastr
-    },
+    providers: [DataService,
 
-    // 10/21/2019 06:11 am - SSN - [20191021-0444] - [006] - M12 - Creating directives and advanced components in Angular.
-    {
-      provide: JQ_TOKEN,
-      useValue: jQuery
-    },
+        // 10/10/2019 11:46 pm - SSN - [20191010-1354] - [004] - M11 - Understanding Angular's Dependency Injection
+        //ToastrService,
+        {
+            provide: TOASTR_TOKEN,
+            useValue: toastr
+        },
 
-    TimelogRouteActivatorService,
-    TimesheetResolverService,
+        // 10/21/2019 06:11 am - SSN - [20191021-0444] - [006] - M12 - Creating directives and advanced components in Angular.
+        {
+            provide: JQ_TOKEN,
+            useValue: jQuery
+        },
 
-    {
-      provide: 'canDeactivateCreateTimelog',
-      useValue: checkDirtyState
-    },
+        TimelogRouteActivatorService,
+        TimesheetResolverService,
 
-    AuthenticateService,
+        {
+            provide: 'canDeactivateCreateTimelog',
+            useValue: checkDirtyState
+        },
 
-    // 11/01/2019 05:47 am - SSN - [20191101-0526] - [002] - Check login status
+        AuthenticateService,
 
-    { provide: HTTP_INTERCEPTORS, useClass: CheckLoginService, multi: true }
+        // 11/01/2019 05:47 am - SSN - [20191101-0526] - [002] - Check login status
 
-
-
-  ],
+        { provide: HTTP_INTERCEPTORS, useClass: CheckLoginService, multi: true }
 
 
-  bootstrap: [AppComponent]
+
+    ],
+
+
+    bootstrap: [AppComponent]
 
 })
 export class AppModule { }
@@ -197,16 +200,16 @@ export class AppModule { }
 
 export function checkDirtyState(component: IComponentBase) {
 
-  if (typeof (component.isDirty) != 'boolean') {
-    console.error("property isDirty does not exists on component:");
-    console.error(component);
+    if (typeof (component.isDirty) != 'boolean') {
+        console.error("property isDirty does not exists on component:");
+        console.error(component);
+        return true;
+    }
+
+    if (component.isDirty) {
+
+        return window.confirm("You have not saved your changes. Do you really want to cancel?")
+    }
+
     return true;
-  }
-
-  if (component.isDirty) {
-
-    return window.confirm("You have not saved your changes. Do you really want to cancel?")
-  }
-
-  return true;
 }

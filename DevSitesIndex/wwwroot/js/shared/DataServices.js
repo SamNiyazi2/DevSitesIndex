@@ -1,19 +1,40 @@
 // 04/12/2019 02:35 pm - SSN - [20190412-1126] - Timelog - save data - Rename module to ssn_devsite_angular_module
-import * as globals from './globals';
-import * as angular from "angular";
+import * as globals from '../globals';
 var dataService_instance = function () {
     var doSetup = function (currentApplication) {
         var ssn_devsite_angular_module = globals.globals_instance.getInstance_v002('DataServices', currentApplication);
         ssn_devsite_angular_module.factory("dataService", ['$http', '$q', function ($http, $q) {
-                var _devSites = [];
-                var _getDevSites = function () {
+                var _getDevSites = function (recordsPerPage, currentPage) {
                     var deferred = $q.defer();
-                    $http.get('/api/demositesapi')
+                    $http.get("/api/demositesapi/" + recordsPerPage + "/" + currentPage)
                         .then(function (result) {
-                        angular.copy(result.data, _devSites);
-                        deferred.resolve();
-                    }, function () {
-                        deferred.reject();
+                        deferred.resolve(result.data);
+                    }, function (error) {
+                        console.error('%c ' + 'dataservice getDevSites error', 'color:red;font-size:13pt;');
+                        console.log(error);
+                        deferred.reject(error);
+                    });
+                    return deferred.promise;
+                };
+                // 06/15/2021 05:10 am - SSN - [20210613-0452] - [045] - Adding tags to DevSite
+                var _getDevSite = function (devSiteId) {
+                    var deferred = $q.defer();
+                    $http.get("/api/demositesapi/" + devSiteId)
+                        .then(function (result) {
+                        deferred.resolve(result.data);
+                    }, function (error) {
+                        deferred.reject(error);
+                    });
+                    return deferred.promise;
+                };
+                // 06/13/2021 10:29 am - SSN - [20210613-0452] - [018] - Adding tags to DevSite
+                var _getDevSitesCount = function () {
+                    var deferred = $q.defer();
+                    $http.get("/api/demositesapi/recordcount")
+                        .then(function (result) {
+                        deferred.resolve(result);
+                    }, function (error) {
+                        deferred.reject(error);
                     });
                     return deferred.promise;
                 };
@@ -21,12 +42,12 @@ var dataService_instance = function () {
                 var _getTimelog = function (id) {
                     var deferred = $q.defer();
                     // 09/24/2019 07:15 am - SSN - [20190924-0401] - [009] - Quick timelog entry
-                    $http.get('/api/timelogapi/get_custom/' + id)
+                    $http.get('/api/timelogapi/getTimelog/' + id)
                         .then(function (result) {
                         deferred.resolve(result.data);
-                    }, function (errorMessage) {
+                    }, function (error) {
                         deferred.reject({ Error: 'Failed call to get timelog [20190829-1819]' });
-                        console.error(errorMessage);
+                        console.error(error);
                     });
                     return deferred.promise;
                 };
@@ -38,9 +59,9 @@ var dataService_instance = function () {
                     $http.get('/api/timelogapi/RefreshRecord/' + id + "?servingPage=" + servingPage)
                         .then(function (result) {
                         deferred.resolve(result.data);
-                    }, function (errorMessage) {
+                    }, function (error) {
                         deferred.reject({ Error: 'Failed call to get timelog [20191119-0201]' });
-                        console.error(errorMessage);
+                        console.error(error);
                     });
                     return deferred.promise;
                 };
@@ -49,8 +70,8 @@ var dataService_instance = function () {
                     $http.post('/api/demositesapi', devSite)
                         .then(function (result) {
                         deferred.resolve(result.data);
-                    }, function () {
-                        deferred.reject();
+                    }, function (error) {
+                        deferred.reject(error);
                     });
                     return deferred.promise;
                 };
@@ -63,8 +84,8 @@ var dataService_instance = function () {
                     $http.post('/api/demositesapi', devSite)
                         .then(function (result) {
                         deferred.resolve(result.data);
-                    }, function () {
-                        deferred.reject();
+                    }, function (error) {
+                        deferred.reject(error);
                     });
                     return deferred.promise;
                 };
@@ -111,7 +132,9 @@ var dataService_instance = function () {
                 // 09/30/2019 07:06 pm - SSN - Adding
                 var _getJob = function (id) {
                     var deferred = $q.defer();
-                    $http.get('/api/jobapi/get_custom/' + id)
+                    // 06/08/2021 10:52 pm - SSN - [20210608-2247] - [002] - Test line item -  Prep for deployment
+                    // $http.get('/api/jobapi/get_custom/' + id)
+                    $http.get('/api/jobapi/getJob/' + id)
                         .then(function (result) {
                         deferred.resolve(result.data);
                     }, function (errorMessage) {
@@ -142,9 +165,61 @@ var dataService_instance = function () {
                     });
                     return deferred.promise;
                 };
+                // 06/07/2021 06:22 am - SSN - [20210606-0227] - [015] - Testng for deployment
+                var addOrUpdateJob_LineItem = function (job_LineItem) {
+                    var deferred = $q.defer();
+                    $http.post('/api/job_lineItemAPI', job_LineItem)
+                        .then(function (result) {
+                        deferred.resolve(result.data);
+                    }, function (error) {
+                        deferred.reject(error);
+                    });
+                    return deferred.promise;
+                };
+                // 06/15/2021 06:00 pm - SSN - [20210613-0452] - [049] - Adding tags to DevSite
+                var addOrUpdateTechnology = function (technology) {
+                    var deferred = $q.defer();
+                    $http.post('/api/technologyAPI', technology)
+                        .then(function (result) {
+                        deferred.resolve(result.data);
+                    }, function (error) {
+                        deferred.reject(error);
+                    });
+                    return deferred.promise;
+                };
+                function getHttpPostPromise(url, body) {
+                    var deferred = $q.defer();
+                    $http.post(url, body)
+                        .then(function (result) {
+                        deferred.resolve(result.data);
+                    }, function (error) {
+                        deferred.reject(error);
+                    });
+                    return deferred.promise;
+                }
+                // 06/16/2021 08:42 pm - SSN - [20210613-0452] - [105] - Adding tags to DevSite
+                function getHttpDeletePromise(url, id) {
+                    var deferred = $q.defer();
+                    $http.delete(url + "/" + id)
+                        .then(function (result) {
+                        deferred.resolve(result.data);
+                    }, function (error) {
+                        deferred.reject(error);
+                    });
+                    return deferred.promise;
+                }
+                // 06/16/2021 02:59 am - SSN - [20210613-0452] - [061] - Adding tags to DevSite
+                var addDevSiteTechnology = function (devSiteTechnology) {
+                    return getHttpPostPromise('/api/DevSitetechnologyAPI/post_custom', devSiteTechnology);
+                };
+                // 06/16/2021 08:33 pm - SSN - [20210613-0452] - [103] - Adding tags to DevSite
+                var deleteDevSiteTechnology = function (id) {
+                    return getHttpDeletePromise('/api/DevSitetechnologyAPI', id);
+                };
                 return {
-                    devSites: ko.observable(_devSites),
                     getDevSites: _getDevSites,
+                    getDevSite: _getDevSite,
+                    getDevSitesCount: _getDevSitesCount,
                     addDevSite: _addDevSite,
                     // 09/06/2019 04:44 pm - SSN - [20190906-0518] - [002] - Angular - editMode div content
                     updateDevSite: _updateDevSite,
@@ -155,7 +230,11 @@ var dataService_instance = function () {
                     getJob_Statuses: _getJob_Statuses,
                     getJob: _getJob,
                     timelogRefreshRecord: _TimelogRefreshRecord,
-                    projectsSearchRefreshRecord: _ProjectsSearchRefreshRecord
+                    projectsSearchRefreshRecord: _ProjectsSearchRefreshRecord,
+                    addOrUpdateJob_LineItem: addOrUpdateJob_LineItem,
+                    addOrUpdateTechnology: addOrUpdateTechnology,
+                    addDevSiteTechnology: addDevSiteTechnology,
+                    deleteDevSiteTechnology: deleteDevSiteTechnology
                 };
             }]);
     };

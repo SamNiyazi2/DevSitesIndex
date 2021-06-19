@@ -66,6 +66,7 @@ fieldset {
 
 
 
+
 /* 11/08/20190 07:40 am - SSN - Take out min-height and height */
 
 
@@ -173,7 +174,7 @@ td, .siteDiv {
 .info_bad {
     padding: 5px 20px;
     color: black;
-    background-color: lightcoral;
+    background-color: #EAA19A;
 }
 
 .solution_details {
@@ -199,6 +200,10 @@ a[cmd-name="showsibling"] {
 
 .siteTitle {
     font-size: 14pt;
+}
+
+div {
+    border-radius: 3px;
 }
 
 /*// 03/29/2019 10:03 pm - SSN - Add div siteTitleDiv title to give space*/
@@ -499,7 +504,7 @@ alarm {
 
     50% {
         background-color: yellow;
-        font-size: 32px;
+        font-size: 24px;
     }
 
     100% {
@@ -515,7 +520,7 @@ alarm {
 
     50% {
         background-color: yellow;
-        font-size: 32px;
+        font-size: 24px;
     }
 
     100% {
@@ -524,6 +529,53 @@ alarm {
 }
 
 
+
+
+
+
+/* 06/18/2021 01:19 am - SSN - Hightlight timesheet table row change*/
+
+.cssHilight102 {
+    -webkit-animation-name: example_102; /* Safari 4.0 - 8.0 */
+    -webkit-animation-duration: 5s; /* Safari 4.0 - 8.0 */
+    /*    animation-name: example;
+
+    animation-duration: 4s;
+*/
+    /* https://www.w3schools.com/cssref/tryit.asp?filename=trycss_anim_font-size */
+    -webkit-animation: example_102 5s ease-in-out; /* Chrome, Safari, Opera */
+    /*animation: mymove 5s  ease-in-out;*/
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes example_102 {
+    0% {
+        background-color: transparent;
+    }
+
+    50% {
+        background-color: #ececd2;
+    }
+
+    100% {
+        background-color: transparent;
+    }
+}
+
+/* Standard syntax */
+@keyframes example_102 {
+    0% {
+        background-color: transparent;
+    }
+
+    50% {
+        background-color: #ececd2;
+    }
+
+    100% {
+        background-color: transparent;
+    }
+}
 
 
 
@@ -593,6 +645,131 @@ alarm {
 
 menuPipe_101::after {
     content: ' |';
-    padding: 0 10px!important;
-   
+    padding: 0 10px !important;
+}
+
+
+
+
+.cssLineItemDisplay {
+    font-size: 13px;
+    padding: 5px;
+    background-color: #f0f9ff;
+}
+
+    .cssLineItemDisplay:empty {
+        visibility: collapse;
+    }
+
+.cssTimeLogDetail_p {
+    margin: 0px;
+    padding: 0px;
+    background-color: #f0f0f0;
+    max-width: 100%;
+    white-space: pre-wrap;
+    padding: 5px 20px;
+    max-height: 80px;
+    overflow-y: hidden;
+}
+
+    .cssTimeLogDetail_p:hover {
+        max-height: none;
+    }
+
+    .cssTimeLogDetail_p:empty {
+        visibility: collapse;
+    }
+
+.cssDropdownListDirectiveHelper {
+    max-height: 40px;
+    overflow-y: auto;
+    margin: 4px;
+    padding: 5px;
+    font-family: 'Courier New';
+    font-size: 12px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    white-space: pre;
+    display: none;
+}
+
+    .cssDropdownListDirectiveHelper:hover {
+        max-height: none;
+    }
+
+.cssTimelogOptions_TD {
+    min-width: 80px;
+}
+
+.cssTimelogOptions {
+    position: absolute;
+    z-index: 1;
+    font-size: 8pt;
+    max-height: 40px;
+    overflow-y: hidden;
+    padding: 10px;
+    border: 2px solid transparent;
+}
+
+    .cssTimelogOptions:hover {
+        z-index: 2;
+        max-height: none;
+        background-color: #d8eeef;
+        border: 2px solid #04376e;
+    }
+
+
+@media (max-width:560px) {
+    .cssTimelogOptions {
+        padding: 10px;
+        position: initial;
+        font-size: 8pt;
+        max-height: none;
+        padding: 10px;
+        z-index: initial;
+        border: 2px solid transparent;
+    }
+
+        .cssTimelogOptions:hover {
+            z-index: initial;
+            max-height: none;
+            background-color: white;
+            border: none;
+        }
+}
+
+
+.cssTimelogOptions a {
+    display: block;
+    padding: 3px;
+}
+
+
+.csstypeahead select {
+    position: absolute;
+    background-color: white;
+    overflow: hidden;
+    border: 1px #ddd solid;
+}
+
+    .csstypeahead select option {
+        padding: 2px 5px;
+    }
+
+.cssHidden {
+    visibility: collapse;
+}
+
+.cssDebugCode {
+    white-space: pre;
+}
+
+.cssSiteUrlQRCode_base {
+    position:fixed;
+    top: 10px;
+    right: 10px;
+}
+
+.cssSiteUrlQRCode {
+    width: 20px;
 }

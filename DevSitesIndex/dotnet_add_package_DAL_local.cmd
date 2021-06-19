@@ -28,7 +28,9 @@ echo:
 echo: Calling dotnet add package....
 echo:
 echo:
-dotnet add DevSitesIndex.csproj package SSN_DevSites_DAL_Standard -s c:\sams_nuget
+: 8:09 AM 12/10/2020 Updated c:\sams_nuget with c:\sams_nuget\packages.
+echo:
+dotnet add DevSitesIndex.csproj package SSN_DevSites_DAL_Standard -s c:\sams_nuget\packages
 echo:
 echo:
 echo Done.

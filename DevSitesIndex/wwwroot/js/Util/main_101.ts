@@ -14,102 +14,70 @@ $(function () {
 
 
     // 09/26/2018 02:11 am - SSN 
+    // 06/13/2021 02:59 am - SSN - [20210613-0039] - [002] - VSTS Code - Refactoring
+
     $('[cmd-ssn="displayCode"]').each(function (a, b) {
 
-        var url = $(b).attr('url');
-        var doDebug = $(b).attr('doDebug');
-        var defaultTitle = $(b).attr('defaultTitle');
+         
+        var div = $("<div>Click to load code.</div>");
 
-        // 10/25/2018 07:07 am - SSN - Adding
-        var useFileSystem = $(b).attr('useFileSystem');
-
-        // 01/01/2019 08:52 pm - SSN https
-        var protocol = location.protocol;
-        var localhostPort = '56580';
-
-        if (protocol.toLowerCase() == 'https:') {
-            localhostPort = '44365';
-        }
-        $.ajax({
-            type: "get",
-            // 01/01/2019 09:33 pm - SSN
-            // url: 'http://devsites.nonbs.org/displaycode', 
-
-            // 12/02/2019 11:53 pm - SSN - [20191202-2353] - [001] - DisplayCode - Adding
-
-            // url: protocol + '//devsites.nonbs.org/displaycode',
-
-            // 12/03/2019 03:05 am - SSN - [20191202-2353] - [009] - DisplayCode - Adding
-            // url: '/api/displaycode/',
-            url: '/api/displayCode/VSTSCode/',
-
-            // url: 'http://localhost:56580/displaycode',
-            // url: protocol + '//localhost:' + localhostPort  + '/displaycode',
-            data: { url: url, doDebug: doDebug, useFileSystem: useFileSystem },
-
-            // 12/03/2019 09:08 am - SSN - DisplayCode - Adding
-            //dataType: 'text',
-            dataType: 'json',
-            success: function (data, status, xhr) {
+        $(b).append(div);
 
 
-                if (typeof (defaultTitle) === "string") {
+        $(b).bind('click', function (event) {
 
-                    var div_defaultTitle = $("<h3>" + defaultTitle + "</h3>");
-                    $(b).append(div_defaultTitle);
-                }
+             
 
+            const attrs = {};
 
-                var anchor = $("<a cmd-ssn='showCode' >Show code</a>")
-                $(b).append(anchor);
+            for (let x = 0; x < b.attributes.length; x++) {
 
-                var div = $("<div></div>");
-                div.html(data["finalResult"]);
-                div.hide();
-                div.on('dblclick', function () {
-                    anchor.trigger('click');
-                });
-
-
-
-                var div_title = $("<div>" + url + "</div>");
-                $(b).append(div_title);
-                $(b).append(div);
-
-                anchor.on('click', function () {
-                    var text = anchor.text();
-                    if (text == "Show code") {
-                        div.show();
-                        div_title.hide();
-                        anchor.text('Hide code');
-                    }
-                    else {
-                        div.hide();
-                        div_title.show();
-                        anchor.text('Show code');
-
-                    }
-                });
-
-                anchor.on('dblclick', function () {
-
-                    //							$("[cmd-ssn=showCode]").each( function () { 
-                    $("[cmd-ssn=displayCode]").each(function (a, b) {
-                        $(b).find('div').first().hide();
-                        $(b).find('a').text('Show code');
-
-                    });
-
-
-                });
-
+                attrs[(b.attributes[x].name).replace('-', '_')] = b.attributes[x].value;
 
             }
+              
+            //// 01/01/2019 08:52 pm - SSN https
+            //var protocol = location.protocol;
+            //var localhostPort = '56580';
+
+            //if (protocol.toLowerCase() == 'https:') {
+            //    localhostPort = '44365';
+            //}
+
+            $.ajax({
+                type: "get",
+                
+                url: '/api/displayCode/VSTSCode/',
+                 
+                data: attrs,
+ 
+                dataType: 'json',
+                success: function (data, status, xhr) {
+
+                    
+                    div.html(data["finalResult"]);
+                    
+ 
+                    
+
+                },
+                error: function (error) {
+
+                    console.log('Failed ajax call - 20210613-0023');
+                    console.log(error);
+
+                }
+            });
+
         });
 
 
-
     });
+
+
+
+
+
 
 
     $('[cmd-SSN="doCopy"]').on('click', function () {

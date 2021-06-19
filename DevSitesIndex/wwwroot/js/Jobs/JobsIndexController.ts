@@ -1,12 +1,12 @@
 ﻿
 /// <reference path="../../../node_modules/@types/jquery/jquery.d.ts" /> 
 /// <reference path="../../../node_modules/@types/angular/index.d.ts" /> 
-/// <reference path="../DataServices.ts"/>
+/// <reference path="../shared/DataServices.ts"/>
 
 
 
 import * as angular from 'angular'
-import IColumnBag from '../IColumnBag';
+import IColumnBag from '../Interfaces/IColumnBag';
 import * as ssn_globals from "../globals";
 
 import { jobStatusDisplayDirective_instance } from "../Util/JobStatusDisplayDirective";
@@ -82,9 +82,9 @@ var jobsIndexController_instance = function () {
             let _fieldList: IColumnBag[] = [
                 { ...columnBag_defaults, columnName: 'projectTitle_ForActivity', caption: 'Project Title' },
                 { ...columnBag_defaults, columnName: 'jobTitle', caption: 'Job Title' },
-                { ...columnBag_defaults, columnName: 'dateAdded', caption: 'Date Added' },
-                { ...columnBag_defaults, columnName: 'dateUpdated', caption: 'Date Updated' },
-                { ...columnBag_defaults, columnName: 'activityAge', caption: 'Activity Age', columnNameSelected: 'activityAge', desc: true },
+                { ...columnBag_defaults, columnName: 'dateAdded', caption: 'Date Added', cssForTableHead: 'hidden-xs' },
+                { ...columnBag_defaults, columnName: 'dateUpdated', caption: 'Date Updated', cssForTableHead: 'hidden-xs' },
+                { ...columnBag_defaults, columnName: 'activityAge', caption: 'Activity Age', cssForTableHead: 'hidden-xs', columnNameSelected: 'activityAge', desc: true },
             ];
 
             if ($scope.hideProjectTitle) {

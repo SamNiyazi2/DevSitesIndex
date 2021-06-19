@@ -6,11 +6,9 @@
 
 
 <h3>Timesheet</h3>
-@*
-    // 09/02/2019 03:12 pm - SSN - [20190902-1512] - [001] - Add link to create a timelog entry from jobs detail
-*@
+
 <p>
-    <a ng-click="showCreateTimesheetForm(@Model.Job.JobID)">Clock-in (Current Job)</a> &nbsp; | &nbsp;
+    <a ng-click="showCreateTimesheetFormWithJobId(@Model.Job.JobID)">Clock-in (Current Job)</a> &nbsp; | &nbsp;
 
     <a asp-page="/jobs/Create" asp-route-id="@Model.Job.ProjectID">Create New Job</a>
 </p>
@@ -41,6 +39,9 @@ else
                     @Html.DisplayNameFor(modelItem => Model.job_Timesheet[0].TotalSeconds_ToTimeSpanFormat_T)
                 </td>
                 <td>
+                    @Html.DisplayNameFor(modelItem => Model.job_Timesheet[0].job_Lineitem.LineItem)
+                </td>
+                <td>
                     @Html.DisplayNameFor(modelItem => Model.job_Timesheet[0].discipline.DisciplineShort)
                 </td>
                 <td>
@@ -59,12 +60,6 @@ else
             @foreach (var item in Model.job_Timesheet)
             {
 
-
-                @*
-                    // 11/20/2019 06:11 am - SSN - [20191120-0532] - [004] - Job Timelog index - update on change
-                    // Added
-                *@
-                @*@await Html.PartialAsync("Job_Timelog_Record", item);*@
                 @await Html.PartialAsync("Timelog_index_record", new Shared.Timelog_index_record { timelog = item, servingPage = ServingPage.Job_Timelog });
 
             }

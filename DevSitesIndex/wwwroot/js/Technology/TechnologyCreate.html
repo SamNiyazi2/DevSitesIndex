@@ -1,0 +1,72 @@
+﻿<!--
+    // 06/15/2021 04:15 am - SSN - [20210613-0452] - [044] - Adding tags to DevSite
+    -->
+
+
+<form name="TechnologyForm" novalidate>
+
+ 
+
+    <div class="modal-header">
+
+        <h2>{{pageTitle}} 20210615-0415</h2>
+  
+    </div>
+     
+     
+
+    <div class="modal-body">
+
+ 
+
+        <fieldset>
+
+            <div class="form-group">
+
+                <label for="description" class="col-sm-3 control-label">
+                    Technology 0615-0427
+                </label>
+
+                <div class="col-sm-9">
+
+                    <dropdown-list-directive call-source="20210615-0428"
+                                             name="description"
+                                             key="technologyId"
+                                             form-name="technologyForm"
+                                             ng-model="defaultValue"
+                                             container-view-value="defaultValue"
+                                             line_item_no_duplicate
+                                             dropdown-list-directive-input-box-inverse="{{true}}"></dropdown-list-directive>
+
+
+                </div>
+            </div>
+
+
+        </fieldset>
+
+
+        <div ng-if="feedbackToUserText" ng-class="feedbackToUserClassNameSet()">
+            {{feedbackToUserText}}
+        </div>
+
+    </div>
+
+
+
+
+
+
+    <div class="modal-footer">
+
+        <div class="col-sm-offset-3 col-sm-9">
+            <input type="button" class="btn btn-default" value="Cancel" ng-click="cancelForm()" />
+            <input type="button" class="btn btn-primary" value="Submit" ng-click="submitForm()" ng-disabled="technologyForm.$invalid || disableSaveButton" />
+
+        </div>
+
+    </div>
+
+
+
+</form>

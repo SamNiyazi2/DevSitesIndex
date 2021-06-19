@@ -74,7 +74,7 @@ var loginController_instance = function () {
                         function (data) {
 
 
-                            $scope.timeLog = angular.copy($scope.editableTimeLog);
+                            angular.copy($scope.editableTimeLog, $scope.timeLog );
 
 
                             $uibModalInstance.close();
@@ -98,8 +98,6 @@ var loginController_instance = function () {
 
                         },
                         function (error) {
-
-                            var test2 = error;
 
                             console.log(error);
 

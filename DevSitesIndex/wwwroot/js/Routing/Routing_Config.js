@@ -34,6 +34,7 @@ var routing_config_instance = function () {
     // 12/07/2019 08:02 am - SSN - [20191207-0704] - [003] - AngularJS - Routing - Authentication
     // Source: https://stackoverflow.com/questions/17209203/angularjs-protecting-routes-with-angularjs-depending-if-the-user-is-authorized
     var doSetup_b = function () {
+        console.log('Routing_Config.ts - 20210417-0819');
         angularJS_module.config(function ($routeProvider) {
             $routeProvider
                 .when('/needsauthorisation', {
@@ -51,6 +52,11 @@ var routing_config_instance = function () {
                 if (rejection === 'Not Authenticated') {
                     $location.path('/');
                 }
+            });
+            // 04/17/2021 08:20 am - SSN - Adding for record
+            $rootScope.$on('$routeChangeStart', function (event, next, current) {
+                // https://weblogs.asp.net/dwahlin/dynamically-loading-controllers-and-views-with-angularjs-and-requirejs
+                console.log('20210417-0822: $routeChangeStart - Incomplete authentication check');
             });
         }).factory('AuthService', function ($q) {
             return {

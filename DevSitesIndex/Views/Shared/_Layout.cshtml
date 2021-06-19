@@ -106,6 +106,19 @@
 
 
                     <partial name="_LoginPartial" />
+                    @{
+
+                        QRCoder.QRCode_EntryPoint qrCode = new QRCoder.QRCode_EntryPoint();
+
+                        DevSitesIndex.Controllers.QRCodeHolder qrModel = new DevSitesIndex.Controllers.QRCodeHolder();
+
+                        string stringToEncode = Context.Request.Scheme + "://" + Context.Request.Host + Context.Request.Path + Context.Request.QueryString;
+
+                        qrModel.QRCodeContent = qrCode.RenderQrCode(stringToEncode);
+
+
+                        <partial name="api/QRCodeView/ShowQRCode" model="@qrModel" />
+                    }
 
 
                 </div>

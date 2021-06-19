@@ -10,7 +10,9 @@ import { IScope } from "angular";
 interface IScope_local extends IScope {
 
     continue_or_lineItem_caption: string,
-    showClockoutOption: boolean
+    showClockoutOption: boolean,
+    totalSeconds: any,
+    timelogId: any
 }
 
 
@@ -44,7 +46,7 @@ var TimelogLinkOptions = function () {
                     // Add servingPage
 
                     $scope.timesheetForm_Edit = function (timelogId, servingPage: Timelog_ServingPage) {
-                        
+
 
                         let modalEdit = $uibModal.open({
 
@@ -171,10 +173,10 @@ var TimelogLinkOptions = function () {
 
                         let TimesheetContinueController_modal = $uibModal.open({
 
-                           // animation: 'slide-in-up',
+                            // animation: 'slide-in-up',
                             templateUrl: '/js/timesheet/templates//timesheetTemplate.html', //?v=' + $scope.versionForHTMLRefresh,
                             controller: 'TimesheetContinueController',
-                          //  windowClass: 'ssn-mobile-modal',
+                            //  windowClass: 'ssn-mobile-modal',
 
                             backdrop: 'static',
                             keyboard: false,
@@ -191,7 +193,7 @@ var TimelogLinkOptions = function () {
                         });
 
 
-                         
+
 
                         // 11/14/2019 02:44 pm - SSN - [20191114-1459] - [007] - ChangeMonitroService
 
@@ -199,12 +201,18 @@ var TimelogLinkOptions = function () {
                         TimesheetContinueController_modal.result.then(TimesheetContinueController_modal_save, TimesheetContinueController_modal_cancel);
                         function TimesheetContinueController_modal_save(result) {
 
+                            console.log('%c TimelogLinkOptions - TimesheetContinueController_modal_save - 20210612-0155', 'color:yellow;font-size:14pt');
+
+
                             changeMonitorService.reset();
 
                         }
 
                         function TimesheetContinueController_modal_cancel(result) {
-                            
+
+                            console.log('%c TimelogLinkOptions - TimesheetContinueController_modal_cancel - 20210612-0156', 'color:yellow;font-size:14pt');
+
+
                             changeMonitorService.reset();
 
                         }
@@ -230,7 +238,12 @@ var TimelogLinkOptions = function () {
                     // 09/28/2019 04:06 pm - SSN - [20190928-1256] - [011] - Adding Entity Framework model attribute
                     // Duplicate - Wrong way to go!
 
-                    $scope.showCreateTimesheetForm = function (jobID) {
+
+                    // 06/08/2021 11:01 pm - SSN - [20210608-2247] - [004] - Test line item -  Prep for deployment
+
+                    // jobId to timelogId_v01
+
+                    $scope.showCreateTimesheetForm = function (timelogId_v01) {
 
 
 
@@ -239,11 +252,17 @@ var TimelogLinkOptions = function () {
                             controller: 'TimesheetController',
 
 
-                            backdrop: false,
+
+                            // 06/08/2021 03:56 pm - SSN - [20210606-0227] - [037] - Testng for deployment - Line item
+                            // backdrop: false,
+
+                            backdrop: 'static',
+                            keyboard: false,
+
 
                             resolve: {
-                                jobId: function () {
-                                    return jobID;
+                                timelogId_v01: function () {
+                                    return timelogId_v01;
                                 }
                             }
                         });
@@ -254,6 +273,32 @@ var TimelogLinkOptions = function () {
 
 
 
+
+
+                    $scope.showCreateTimesheetFormWithJobId = function (jobId) {
+
+
+                        if (isNaN(jobId)) {
+                            jobId = 0;
+                        }
+
+                        $uibModal.open({
+
+                            templateUrl: '/js/timesheet/templates/timesheetTemplate.html',
+                            controller: 'TimesheetCreateController',
+
+                            backdrop: 'static',
+                            keyboard: false,
+
+                            resolve: {
+                                jobId: function () {
+                                    return jobId;
+                                }
+                            }
+                        });
+
+
+                    }
 
 
 
@@ -291,17 +336,11 @@ var TimelogLinkOptions = function () {
 
                 link: function (scope: IScope_local, el, attrs) {
 
-
-
-                    let totalSeconds_fromAttr = attrs['totalSeconds'];
-
-
-                    let haveOpenRecord = totalSeconds_fromAttr === undefined;
+                    let haveOpenRecord = scope.timelogId && scope.totalSeconds === undefined;
 
                     scope.showClockoutOption = haveOpenRecord;
 
                     scope.continue_or_lineItem_caption = !haveOpenRecord ? "Continue" : "Line item";
-
 
                 }
 
