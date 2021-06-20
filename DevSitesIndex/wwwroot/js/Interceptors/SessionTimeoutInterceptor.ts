@@ -20,7 +20,7 @@ let sessionTimeoutInterceptor_instance = function () {
     var doSetup = function (currentApplication: string) {
 
 
-        console.log('sessionTimeoutInterceptor - function top - 20191207-0411');
+        console.log('%c sessionTimeoutInterceptor - function top - 20191207-0411', 'color:blue;');
 
 
         var angularjs_module = globals_instance.getInstance_v002('SessionTimeoutInterceptor', currentApplication);
@@ -36,10 +36,9 @@ let sessionTimeoutInterceptor_instance = function () {
                 var interceptor = [
                     '$q',
                     '$rootScope',
-                    '$location',
-                    'ssn_logger',
+                    '$location', 
                     //  'userSession',
-                    function ($q, $rootScope, $location, ssn_logger) { // , userSession
+                    function ($q, $rootScope, $location) { // , userSession
 
 
                         console.log('sessionTimeoutInterceptor - Main function - 20191207-0412-MF');
@@ -62,9 +61,12 @@ let sessionTimeoutInterceptor_instance = function () {
                                 ////////////return $q.reject(config);
 
                             },
-                            requestError: function (rejection) {
-                                console.error('sessionTimeoutIntercepter - requestError - 20200821-1046-001');
-                                return $q.reject(rejection);
+                            requestError: function (error) {
+
+                                console.error('%c sessionTimeoutIntercepter - requestError - 20200821-1046-001', 'color:red;font-size:20pt');
+                                console.error(error);
+                                return $q.reject(error);
+
                             },
                             response: function (result) {
                                 /////////////////////////////// console.log('sessionTimeoutIntercepter - response - 20200821-1046-002');
@@ -72,10 +74,9 @@ let sessionTimeoutInterceptor_instance = function () {
                             },
                             responseError: function (error) {
 
-                                console.error('sessionTimeoutIntercepter - responseError - 20200821-1046-003');
-
-                                ssn_logger.cl_error({ callSource: "20210618-0853", message: `SessionTimeoutInterceptor`, errorObject: error });
-
+                                console.error('%c sessionTimeoutIntercepter - responseError - 20200821-1046-003', 'color:red;font-size:20pt');
+                                console.error(error);
+                                  
                                 return $q.reject(error);
                             }
 
