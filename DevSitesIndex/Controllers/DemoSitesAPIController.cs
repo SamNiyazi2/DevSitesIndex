@@ -37,7 +37,7 @@ namespace DevSitesIndex.Controllers
         [HttpGet]
         public IEnumerable<DevSite> Get(int recordsPerPage, int currentPage)
         {
-            recordsPerPage = recordsPerPage > 10 ? 10 : recordsPerPage;
+            recordsPerPage = recordsPerPage > 25 ? 25 : recordsPerPage;
             currentPage = currentPage < 1 ? 1 : currentPage;
 
             IEnumerable<DevSite> devSites_1 = _devSitesIndexRepository.GetDevSites(recordsPerPage, currentPage);

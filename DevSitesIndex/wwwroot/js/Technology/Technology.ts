@@ -45,7 +45,7 @@ const TechnologyController_instance = function () {
 
             changeMonitorService.setupMonitor();
 
-            $scope.pageTitle = "Technology-001";
+            $scope.pageTitle = "Technology";
 
             $scope.disableSaveButton = false;
 

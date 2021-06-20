@@ -274,3 +274,5 @@ __pycache__/
 /DevSitesIndex/wwwroot/dist/*
 **/*.d.ts
 /DevSitesIndex/wwwroot/webpack_build/*
+**/*.js
+**/*.js.map

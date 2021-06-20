@@ -332,11 +332,7 @@ var ssn_devsite_angular_module_instance = function () {
 
                 });
 
-
-
-
-                console.log('demosites_index - devsiteTags - 20210615-0518');
-                console.log($scope.theTags);
+                 
 
                 $scope.addingDevSiteTag = false;
                 $scope.removingDevSiteTag = false;

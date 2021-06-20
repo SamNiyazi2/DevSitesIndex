@@ -48,7 +48,7 @@ var demosites_index_p1_instance = function () {
 
         // 06/13/2021 08:49 am - SSN - [20210613-0452] - [015] - Adding tags to DevSite
 
-        self.recordsPerPage_KO = ko.observable(3);
+        self.recordsPerPage_KO = ko.observable(25);
         self.currentPage_KO = ko.observable(1);
         self.devSitesCount_KO = ko.observable(-1);
 
