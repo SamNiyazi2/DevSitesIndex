@@ -4,31 +4,34 @@
 -->
 
 
-<ng-content ng-if="timelogId">
+<div ng-controller="ModalCallSUtilController">
 
-    <a ng-click="timesheetForm_Edit(timelogId, servingPage)">Edit</a>
+    <ng-content ng-if="timelogId">
 
-    <span ng-If="showClockoutOption">
+        <a ng-click="timesheetForm_Edit(timelogId, servingPage)">Edit</a>
 
-        <a ng-click="timesheetForm_ClockOut(timelogId, servingPage)" class="alert-warning">Clock-out</a>
-    </span>
+        <span ng-If="showClockoutOption">
 
-    <a ng-click="timesheetForm_ClockContinue(timelogId, servingPage)" class="alert-warning">{{continue_or_lineItem_caption}}</a>
+            <a ng-click="timesheetForm_ClockOut(timelogId, servingPage)" class="alert-warning">Clock-out</a>
+        </span>
 
-</ng-content>
+        <a ng-click="timesheetForm_ClockContinue(timelogId, servingPage)" class="alert-warning">{{continue_or_lineItem_caption}}</a>
 
-<ng-content ng-if="jobId && !showClockoutOption">
+    </ng-content>
 
-
-    <!--Either by timelogId -->
-    <!--
-        Coverted by timesheetForm_ClockContinue above (On timesheet index)
-        <a ng-show="timelogId" ng-click="showCreateTimesheetForm(timelogId)">Clock-in (1301)</a>
-
-        -->
-    <!--or by jobId -->
-    <a ng-show="jobId && !timelogId" ng-click="showCreateTimesheetFormWithJobId(jobId)">Clock-in  (1302)</a>
+    <ng-content ng-if="jobId && !showClockoutOption">
 
 
-</ng-content>
- 
+        <!--Either by timelogId -->
+        <!--
+            Coverted by timesheetForm_ClockContinue above (On timesheet index)
+            <a ng-show="timelogId" ng-click="showCreateTimesheetForm(timelogId)">Clock-in (1301)</a>
+
+            -->
+        <!--or by jobId -->
+        <a ng-show="jobId && !timelogId" ng-click="showCreateTimesheetFormWithJobId(jobId)">Clock-in  (1302)</a>
+
+
+    </ng-content>
+
+</div>
