@@ -581,15 +581,7 @@ var dropdownListDirective_instance = function () {
                     console.log(oldValue);
 
 
-
-                    console.log('%c shows null for both values ', 'color:red');
-
-                    console.log('vm.$modelValue:');
-                    console.log(vm.$modelValue);
-
-                    console.log('vm.$viewValue:');
-                    console.log(vm.$viewValue);
-
+ 
 
                     if (newValue && newValue.id) {
 
