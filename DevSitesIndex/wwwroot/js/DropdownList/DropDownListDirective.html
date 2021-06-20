@@ -23,7 +23,7 @@
 </div>
 
 
-<ng-content ng-show="vm101.isReady ">
+<ng-content ng-show="vm101.controlIsDirety ( vm101.tempControlName) ">
     <p class="has-error" ng-show="required">Selection is required (22)</p>
     <span class="has-error" ng-show="vm101.errorTriggered(vm101.blackListErrorName)">
         The input "{{

@@ -264,8 +264,6 @@ var dropdownListDirective_instance = function () {
 
                 var vm = this;
 
-                vm.isReady = false;
-
 
                 // 06/18/2021 07:55 pm - SSN
                 // Move outside function to post new entries.  Looking to update typeahead on addition on new entries so "No results found" could disappear
@@ -279,6 +277,14 @@ var dropdownListDirective_instance = function () {
                 vm.blackListErrorName = vm.tempControlName + ".dropdownListDirectiveInputBox";
 
                 vm.dropdownListDirectiveInputBoxInverse = false;
+
+
+                vm.controlIsDirety = function (controlName) {
+                    if (!vm.formName) {
+                        return;
+                    }
+                    return vm.formName[controlName].$dirty;
+                }
 
 
                 vm.errorTriggered = function (errorName) {
@@ -515,12 +521,7 @@ var dropdownListDirective_instance = function () {
                     } else {
 
                         ssn_logger.cl_normal({ callSource: '20210609-1438-C-2', message: `CHANGE vm.keyColumn [${vm.keyColumn}]  ngModel [${vm.ngModel}]   parentKeyColumn [${vm.parentKeyColumn}]` }, 'red');
-
-
-
-                        // vm.isReady = true;
-
-
+                        
                     }
 
                 });
@@ -581,7 +582,7 @@ var dropdownListDirective_instance = function () {
                     console.log(oldValue);
 
 
- 
+
 
                     if (newValue && newValue.id) {
 
@@ -799,7 +800,6 @@ var dropdownListDirective_instance = function () {
                             vm.disciplineSelected_XXX = { title: vm.containerViewValue };
 
                         }
-                        vm.isReady = true;
                     }
 
 
@@ -1023,7 +1023,6 @@ var dropdownListDirective_instance = function () {
 
                         deferred.resolve(response.data);
 
-                        vm.isReady = true;
                     }
 
                     function typeaheadDisciplineError(response) {
