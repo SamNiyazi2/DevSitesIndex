@@ -1031,7 +1031,7 @@ var dropdownListDirective_instance = function () {
 
                         console.log(response);
 
-                        ssn_logger.cl_error({ callSource: '20210608-1316', message: `Failed call to [${localUrl}]` });
+                        ssn_logger.cl_error({ callSource: '20210608-1316-B', message: `Failed call to [${localUrl}]` , errorObject: response});
 
                         deferred.reject(response);
 
@@ -1045,7 +1045,7 @@ var dropdownListDirective_instance = function () {
 
                         console.log(response);
 
-                        ssn_logger.cl_error({ callSource: '20210608-1316', message: `Failed call to [${localUrl}]` });
+                        ssn_logger.cl_error({ callSource: '20210608-1316-B', message: `Failed call to [${localUrl}]`, errorObject: response});
 
                         deferred.reject(response);
 
