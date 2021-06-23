@@ -5,7 +5,7 @@ import * as util from '../js/site';
 
 import { demoSites_index_p3_instance } from "./DemoSites_index_p3"
 
-import { dataService_instance } from './shared/DataServices';
+import { dataService_instance } from './Shared/DataServices';
 
 import { ssn_devsite_angular_module_instance } from './demoSites_Index';
 

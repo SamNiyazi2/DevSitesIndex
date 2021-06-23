@@ -400,44 +400,67 @@ namespace site_instance_NS {
         }
 
 
+        isDateObject(value) {
+            if (!value) return;
+
+            const _protoTypeToString = Object.prototype.toString.call(value);
+
+            console.log(`%c isDateObject - 20210622-0334 [${_protoTypeToString}]`, 'color:yellow;font-size:12pt');
+
+            return (value && _protoTypeToString == "[object Date]");
+
+        }
+
+        // Todo-SSN - 06/22/2021 03:07 am - SSN - [20210622-0054] - [002] - Address timezone issue (JavaScript vs MVC time)
+
+        fnDateToISODateString(input) {
+
+            console.log('%c fnDateToISODateString 20210622-0307-A', 'color:yellow;font-size:12');
+
+            if (typeof input !== "object") return input;
+
+            console.log('%c fnDateToISODateString 20210622-0307-B', 'color:yellow;font-size:12');
+
+            for (var key in input) {
+
+                console.log('%c fnDateToISODateString 20210622-0307-C', 'color:yellow;font-size:12');
+
+//                if (!input.hasOwnProperty(key)) continue;
+
+                var value = input[key];
+                var type = typeof value;
+                console.log(`%c fnDateToISODateString 20210622-0307-C   [${type}]`, 'color:yellow;font-size:12');
+                console.log(` isDateObject [${this.isDateObject(value)}]`);
+                console.log(value);
+
+                if (this.isDateObject(value) ) {
+                    console.log('%c fnDateToISODateString 20210622-0307-DDD', 'color:red;font-size:24');
+
+                    console.log(new Date(value));
+                    console.log(new Date(value).toISOString());
+                    console.log('%c fnDateToISODateString 20210622-0307-DDD', 'color:magenta;font-size:24');
+
+                    input[key] = new Date(value).toISOString();
+
+                }
+                else if (type === "object") {
+                    this.fnConverDate(value);
+                }
+            }
+
+        }
+
+        
 
 
 
 
-        //$(function () {
-
-        //    setDefaults();
-
-
-        //    // 04/29/2019 07:36 pm - SSN - [20190429-1748] - [006] - Angular clock out popup  - End
-        //    // 09/10/2019 08:53 pm - SSN - Replaced
-        //    // 09/11/2019 07:08 am - SSN - DevSiteIndex p1 data is coming after document is ready.
-        //    setTimeout(prefixPreWithShowHideAnchor, 2000);
-
-
-        //});
-
-
-
-
-
-
-        //return {
-
-        //    fnConverDate: fnConverDate,
-        //    showCollapsedDivs: showCollapsedDivs,
-        //    prefixPreWithShowHideAnchor: prefixPreWithShowHideAnchor
-
-
-        //};
-
-        //}();
+         
     }
 
 }
 
-//export { site_instance };
-
+ 
 
 let site_instance = new site_instance_NS.site_Class();
 export { site_instance };
@@ -450,7 +473,6 @@ export { site_instance };
 
 
 if (typeof (window["site_routine_run"]) != "number") {
-
     window["site_routine_run"] = 0;
 }
 
@@ -458,7 +480,6 @@ window["site_routine_run"] = window["site_routine_run"] + 1;
 
 
 if (window["site_routine_run"] === 1) {
-
 
     $(function () {
 
@@ -471,6 +492,7 @@ if (window["site_routine_run"] === 1) {
         // 09/10/2019 08:53 pm - SSN - Replaced
         // 09/11/2019 07:08 am - SSN - DevSiteIndex p1 data is coming after document is ready.
         setTimeout(() => {
+
             site_instance.prefixPreWithShowHideAnchor('20200102-1534-2');
 
             // 08/31/2020 04:32 am - SSN - [20200831-0417] - [003] - Disable collapsable divs with no content

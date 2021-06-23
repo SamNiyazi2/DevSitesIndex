@@ -35,7 +35,7 @@
 
 
         <!--<input type="hidden" name="timeLogId" ng-model="editableJob_LineItem.lineItemId" />
-        <input type="hidden" name="timeLogId" ng-model="editableJob_LineItem.jobId" />-->
+    <input type="hidden" name="timeLogId" ng-model="editableJob_LineItem.jobId" />-->
 
         <fieldset>
 
@@ -46,7 +46,7 @@
                 </label>
 
                 <div class="col-sm-9">
-  
+
                     <dropdown-list-directive call-source="20210610-1832"
                                              key="lineItemID"
                                              form-name="lineItemForm"
@@ -59,15 +59,16 @@
 
 
                 </div>
-            </div> 
+            </div>
 
 
         </fieldset>
 
 
         <div ng-if="feedbackToUserText" ng-class="feedbackToUserClassNameSet()">
-            {{feedbackToUserText}}
+            <div ng-bind-html="feedbackToUserText"></div>
         </div>
+
 
     </div>
 

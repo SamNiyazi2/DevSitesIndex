@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DevSitesIndex.Entities;
+using DevSitesIndex.Pages;
 using DevSitesIndex.Util;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SSN_GenUtil_StandardLib;
 
@@ -15,14 +17,26 @@ namespace DevSitesIndex.Services
     {
         private readonly DevSitesIndexContext _context;
         private readonly ILogger_SSN logger;
+        private readonly UserManager<IdentityUser> userManager;
+        private readonly IValidationSharedUtil validationSharedUtil;
 
         // 09/26/2019 10:56 am - SSN - [20190926-1047] - [002] - Debugging: timelog not posting
         // Add logged to post error messages.
 
-        public TimeLogRepository(DevSitesIndexContext context, ILogger_SSN logger)
+        // Todo-SSN - 06/23/2021 03:26 am - SSN - [20210623-0158] - [005] - Limit user access to their timesheet records
+        // Added aspNetUsersRepository and IValidationSharedUtil validationSharedUtil
+        private readonly IEntityRepository<AspNetUsers> aspNetUsersRepository;
+
+        public TimeLogRepository(DevSitesIndexContext context, ILogger_SSN logger, IValidationSharedUtil validationSharedUtil)
         {
             this._context = context;
             this.logger = logger;
+            this.userManager = userManager;
+            this.validationSharedUtil = validationSharedUtil;
+
+
+            this.aspNetUsersRepository = new AspNetUsersRepository(context, logger);
+
         }
 
 
@@ -60,8 +74,8 @@ namespace DevSitesIndex.Services
                                             .Include(r => r.discipline)
 
                                             // 06/07/2021 06:35 pm - SSN - [20210606-0227] - [021] - Testng for deployment - Line item
-                                            .Include(r=>r.job_Lineitem)
-                                            
+                                            .Include(r => r.job_Lineitem)
+
                                             .Include(r => r.job).ThenInclude(r => r.project)
                                             .FirstOrDefault();
 
@@ -78,8 +92,9 @@ namespace DevSitesIndex.Services
         }
 
 
-        public TimeLog Update(TimeLog timeLog)
+        public TimeLog Update(TimeLog timeLog, System.Security.Claims.ClaimsPrincipal user)
         {
+
             // 06/07/2021 06:36 am - SSN - [20210606-0227] - [017] - Testng for deployment
             // Todo
             // Copied from Job_LineItemRepository.  Keep in sync.
@@ -87,7 +102,22 @@ namespace DevSitesIndex.Services
 
 
             // 04/20/2019 06:56 pm - SSN - Convert time passed by javaScript as Utc 
+            // 06/22/2021 12:54 am - SSN - [20210622-0054] - [001] - Address timezone issue (JavaScript vs MVC time)
+
+            // Todo [20210622-0054] - [001] - Are we in the clear?
+
+            // JavaScript fix - 
             timeLog.StartTime = timeLog.StartTime.ToLocalTime();
+
+
+            string userName = user.Identity.Name;
+            string friendlyErrorMessage = "Failed to save record. ";
+            string exceptionMesssage = $"demosites-20210621-1417 - Timelog record user id mismatch [{timeLog.FK_UserID }] <> [[[currentUser_PkUserId]]]  TimelogID [{timeLog.TimeLogId}]";
+            string callSource = "demosites-20210621-0301";
+
+            timeLog.FK_UserID = validationSharedUtil.getCurrentUser_PK_UserID(aspNetUsersRepository, userName, timeLog.FK_UserID,
+                friendlyErrorMessage, exceptionMesssage, callSource).GetAwaiter().GetResult();
+
 
 
 

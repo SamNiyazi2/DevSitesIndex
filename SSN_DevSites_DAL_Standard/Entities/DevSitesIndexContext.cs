@@ -226,6 +226,13 @@ namespace DevSitesIndex.Entities
 
             setup_Job_Status(modelBuilder);
 
+
+            setup_AspNetUsers(modelBuilder);
+            setup_AspNetUserLogins(modelBuilder);
+            setup_AspNetUserRoles(modelBuilder);
+            setup_AspNetUserTokens(modelBuilder);
+
+
             DisableGlobalCascadeDelete(modelBuilder);
 
 
@@ -430,6 +437,14 @@ namespace DevSitesIndex.Entities
                // entity.Property(e => e.WorkDetailPostLineItem).HasColumnName("WorkDetail_PostLineItem");
 
                // entity.Property(e => e.WorkDetailPreLineItem).HasColumnName("WorkDetail_PreLineItem");
+
+
+               // Todo-SSN - 06/23/2021 09:05 am - SSN - [20210623-0158] - [014] - Limit user access to their timesheet records
+
+               entity.HasIndex(c => c.StartTime)
+                             .IsUnique()
+                             .HasName("IX_TimeLog_StartTime_Unique");
+
 
            });
 
@@ -788,6 +803,53 @@ namespace DevSitesIndex.Entities
 
 
 
+
+
+        // 06/21/2021 08:42 am - SSN - [20210620-2108] - [025] - Update TimeLog create option to use DrowndownListDirective
+        private void setup_AspNetUsers(ModelBuilder modelBuilder)
+        {
+
+            modelBuilder.Entity<AspNetUsers>(entity =>
+            {
+
+                entity.ToTable("AspNetUsers", "dbo");
+                entity.Property(e => e.PkUserId)
+                    .HasColumnName("PK_UserID");
+
+            });
+
+        }
+
+
+        // 06/21/2021 03:53 am - SSN - [20210620-2108] - [017] - Update TimeLog create option to use DrowndownListDirective
+        private void setup_AspNetUserLogins(ModelBuilder modelBuilder)
+        {
+
+            modelBuilder.Entity<AspNetUserLogins>()
+                .HasKey(x => new { x.LoginProvider, x.ProviderKey })
+                .HasName("PK_AspNetUserLogins");
+        }
+
+
+        // 06/21/2021 04:15 am - SSN - [20210620-2108] - [020] - Update TimeLog create option to use DrowndownListDirective
+        private void setup_AspNetUserRoles(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<AspNetUserRoles>()
+                .HasKey(x => new { x.UserId, x.RoleId })
+                .HasName("PK_AspNetUserRoles");
+        }
+
+
+        // 06/21/2021 04:20 am - SSN - [20210620-2108] - [021] - Update TimeLog create option to use DrowndownListDirective
+        private void setup_AspNetUserTokens(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<AspNetUserTokens>()
+                .HasKey(x => new { x.UserId, x.LoginProvider, x.Name })
+                .HasName("PK_AspNetUserTokens");
+        }
+
+
+
         // 09/01/2019 12:35 pm - SSN Pluralize Company, Discipline, Job, SoftwareCode and Project.
 
         public DbSet<SoftwareCode> SoftwareCodes { get; set; }
@@ -822,6 +884,23 @@ namespace DevSitesIndex.Entities
 
         // 06/13/2021 08:39 am - SSN - [20210613-0452] - [013] - Adding tags to DevSite
         public DbSet<DevSiteTechnology> DevSiteTechnologies => Set<DevSiteTechnology>();
+
+
+
+
+
+        // 06/21/2021 02:40 am - SSN - [20210620-2108] - [013] - Update TimeLog create option to use DrowndownListDirective
+
+        public virtual DbSet<AspNetRoleClaims> AspNetRoleClaims { get; set; }
+        public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
+        public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
+        public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
+        public virtual DbSet<AspNetUserRoles> AspNetUserRoles { get; set; }
+        public virtual DbSet<AspNetUserTokens> AspNetUserTokens { get; set; }
+        public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
+        public virtual DbSet<DevSiteCodeReference> DevSiteCodeReference { get; set; }
+
+
 
 
     }

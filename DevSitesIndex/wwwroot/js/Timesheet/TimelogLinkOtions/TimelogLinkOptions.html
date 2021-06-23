@@ -8,11 +8,11 @@
 
     <ng-content ng-if="timelogId">
 
-        <a ng-click="timesheetForm_Edit(timelogId, servingPage)">Edit</a>
+        <a ng-click="timesheetForm_Edit(timelogId, servingPage)" ng-show="userHasAccess()">Edit (0623-0158)</a>
 
         <span ng-If="showClockoutOption">
 
-            <a ng-click="timesheetForm_ClockOut(timelogId, servingPage)" class="alert-warning">Clock-out</a>
+            <a ng-click="timesheetForm_ClockOut(timelogId, servingPage)" class="alert-warning"  ng-show="userHasAccess()">Clock-out  (0623-0158)</a>
         </span>
 
         <a ng-click="timesheetForm_ClockContinue(timelogId, servingPage)" class="alert-warning">{{continue_or_lineItem_caption}}</a>

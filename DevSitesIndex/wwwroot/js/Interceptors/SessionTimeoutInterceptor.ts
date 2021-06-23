@@ -25,11 +25,22 @@ let sessionTimeoutInterceptor_instance = function () {
 
         var angularjs_module = globals_instance.getInstance_v002('SessionTimeoutInterceptor', currentApplication);
 
-        // 06/18/2021 08:41 am - SSN - Adding ssn_logger
+        // Todo-SSN - 06/23/2021 04:35 am - SSN - [20210623-0158] - [009] - Limit user access to their timesheet records
+        // Adding $compilerProvider aHrefSanitizationWhitelist imgSrcSanitizationWhitelist
 
-        angularjs_module.config([
-            '$httpProvider',
-            function ($httpProvider) {
+        // 06/18/2021 08:41 am - SSN - Adding ssn_logger (Failed)
+
+        angularjs_module.config(['$httpProvider','$compileProvider',
+
+            function ($httpProvider, $compileProvider) {
+ 
+                //https://stackoverflow.com/questions/15637133/unsafe-link-in-angular
+
+                // $compileProvider.urlSanitizationWhiteList(/^\s*(https?|mailto):/);
+                $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|local|data|chrome-extensions|ssnalert):/);
+                $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|local|data|chrome-extensions|ssnalert):/);
+
+
 
                 // 08/21/2020 10:53 am - SSN - Adding $location
 

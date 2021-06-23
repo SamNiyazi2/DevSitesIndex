@@ -99,7 +99,7 @@ namespace DevSitesIndex.Services
         }
 
 
-        public Project Update(Project dbSet)
+        public Project Update(Project dbSet, System.Security.Claims.ClaimsPrincipal user)
         {
             throw new NotImplementedException();
         }

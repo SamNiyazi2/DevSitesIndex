@@ -34,7 +34,7 @@ namespace DevSitesIndex.Services
             throw new NotImplementedException();
         }
 
-        public Job_Status Update(Job_Status dbSet)
+        public Job_Status Update(Job_Status dbSet, System.Security.Claims.ClaimsPrincipal user)
         {
             throw new NotImplementedException();
         }

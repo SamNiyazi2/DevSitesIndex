@@ -1,9 +1,9 @@
 ﻿
-// 09/13/2019 05:48 am - SSN - [20190913-0548] - [001] - Crate generic dropdown list directive
+// 09/13/2019 05:48 am - SSN - [20190913-0548] - [001] - Create generic dropdown list directive
 
 /// <reference path="../../../node_modules/@types/jquery/jquery.d.ts" /> 
 /// <reference path="../../../node_modules/@types/angular/index.d.ts" />
-/// <reference path="../shared/DataServices.ts"/>
+/// <reference path="../Shared/DataServices.ts"/>
 
 
 // 09/20/2019 10:52 am - SSN - Added import angular
@@ -14,7 +14,7 @@ import * as angular from 'angular';
 
 
 import * as ssn_globals from '../globals';
-import { dataService_instance } from '../shared/DataServices';
+import { dataService_instance } from '../Shared/DataServices';
 import { ILoggerModule } from '../Util/Logger/ILoggerErrorMessage';
 import { DDLD_CONSTANTS } from './DropdownListDirectiveConstants';
 import { BROADCAST_IDENTIFIERS } from '../Shared/Broadcast_Identifers';
@@ -23,9 +23,23 @@ interface LookupRecord {
     id: number
 }
 
+// 06/20/2021 11:14 pm - SSN - [20210620-2108] - [006] - Update TimeLog create option to use DrowndownListDirective
+// Add IDropdownListDataSourceRecord and vm101 to IScope_DDLD.  Using to help user when they type a valid selection but escape the list and tab out of the field.
+// Add ngModel
+
+interface IDropdownListDataSourceRecord {
+    id: number;
+    title: string
+}
+
 interface IScope_DDLD extends angular.IScope {
 
-    formName: any
+    formName: any,
+    vm101: {
+        addresses: IDropdownListDataSourceRecord[]
+    },
+    ngModel
+
 }
 
 
@@ -56,7 +70,18 @@ var dropdownListDirective_instance = function () {
 
                     console.log(form);
 
+                    // 06/21/2021 09:48 pm - SSN - [20210620-2108] - [027] - Update TimeLog create option to use DrowndownListDirective
+                    // To trigger form to show error messages.
+                    angular.forEach(form, function (control, o1, o2) {
 
+                        if (control) {
+                            if (typeof (control.$setDirty) == 'function') {
+                                control.$setDirty();
+                            }
+                        }
+
+
+                    });
 
                     event.preventDefault();
                     scrollIntoAppView();
@@ -109,46 +134,15 @@ var dropdownListDirective_instance = function () {
                 // 06/07/2021 02:04 am - SSN - [20210606-0227] - [014] - Testng for deployment
                 // We are using this for adding new items to master.
 
-                link: function (scope, elem, attr, ngModel_ctrl) {
+                link: function (scope: IScope_DDLD, elem, attr, ngModel_ctrl: angular.IController) {
 
                     const dropdownListDirectiveInputBoxInverse = attr["dropdownListDirectiveInputBoxInverse"];
                     const keyColumn = attr["keyColumn"];
-
-                    console.log('%c dropdownListDirectiveInputBox link - 20210617-1916', 'color:yellow;font-size:14pt;');
-
-                    console.log('dropdownListDirectiveInputBoxInverse:');
-                    console.log(dropdownListDirectiveInputBoxInverse);
-                    console.log('keyColumn:');
-                    console.log(keyColumn);
-
-
-                    //console.log(`%c 20210610-2118 dropdownListDirectiveInputBoxInverse [${dropdownListDirectiveInputBoxInverse}]`, 'color:blue;font-size:20pt;');
-                    //console.log(attr);
-
+  
+                    // This clears the errors except for the uib-typeahead "No reulsts" message.
+                    // Tested with adding new entries.
 
                     elem.bind('blur', (event) => {
-
-                        console.log('%c dropdown blur - 20210617-1805 ', 'color:yellow;font-size:10pt;');
-
-
-
-                        console.log('ngModel_ctrl.$modelValue');
-                        console.log(ngModel_ctrl.$modelValue);
-
-
-                        console.log('ngModel_ctrl.$viewValue');
-                        console.log(ngModel_ctrl.$viewValue);
-
-                        console.log('ngModel_ctrl');
-                        console.log(ngModel_ctrl);
-
-
-
-
-
-
-
-
 
 
                         //  This updates the view to reflect the new item but does not update the typeahead source. ("No results found" is displayed)
@@ -157,7 +151,34 @@ var dropdownListDirective_instance = function () {
                             ngModel_ctrl.$setViewValue(ngModel_ctrl.$modelValue)
                         }
                         else {
+
                             console.log('%c dropdown blur - NOT setting modelValue 20210618-0340', 'color:RED;font-size:14pt;');
+
+                            // If user tabs out of the field withot selecting an enter, after they have typed in a valid entry, we will select it for them.
+                            if (ngModel_ctrl.$viewValue && ngModel_ctrl.$viewValue != "") {
+
+                                console.log('%c dropdown blur - Selecting on user\'s behalf ( check ) 20210620-2301-A', 'color:yellow;font-size:14pt;');
+
+                                const matchingRecords = scope.vm101.addresses.filter(r => r.title.toLowerCase().trim() == ngModel_ctrl.$viewValue.trim().toLowerCase());
+
+                                if (matchingRecords && matchingRecords.length == 1) {
+
+                                    console.log('%c dropdown blur - Selecting on user\'s behalf ( Sucess ) 20210620-2301-B', 'color:green;font-size:14pt;');
+                                    console.log('%c INCOMPLETE 20210620-2301-zB', 'color:RED;font-size:14pt;');
+
+                                    // ngModel_ctrl.$setViewValue(matchingRecords[0].title);
+                                    console.log(matchingRecords);
+                                    console.log(elem);
+
+
+                                } else {
+
+                                    console.log('%c dropdown blur - Selecting on user\'s behalf ( failure ) 20210620-2301-C', 'color:red;font-size:14pt;');
+
+                                }
+
+                            }
+
                         }
 
 
@@ -213,6 +234,8 @@ var dropdownListDirective_instance = function () {
 
 
 
+                    // This triggers an error if we don't have an entry selected from the dropdown list. (An object with n id)
+
                     ngModel_ctrl.$asyncValidators.isValidDropdownDirectiveSelection = function (modelValue, viewValue) {
 
                         // Does fire.
@@ -223,8 +246,16 @@ var dropdownListDirective_instance = function () {
                         console.log('ngModel_ctrl.$dirty:')
                         console.log(ngModel_ctrl.$dirty)
 
-                        let validationResult = true;
 
+                        console.log('modelValue:')
+                        console.log(modelValue)
+
+
+                        console.log('viewValue:')
+                        console.log(viewValue)
+
+
+                        let validationResult = true;
 
                         var deferred = $q.defer();
 
@@ -279,13 +310,13 @@ var dropdownListDirective_instance = function () {
                 vm.dropdownListDirectiveInputBoxInverse = false;
 
 
-                vm.controlIsDirety = function (controlName) {
+
+                vm.controlRef = function (controlName) {
                     if (!vm.formName) {
                         return;
                     }
-                    return vm.formName[controlName].$dirty;
+                    return vm.formName[controlName];
                 }
-
 
                 vm.errorTriggered = function (errorName) {
                     if (!vm.formName) {
@@ -403,25 +434,6 @@ var dropdownListDirective_instance = function () {
                         vm.addresses.push({ id: args.id, title: args.description });
 
 
-                        ///////////////////////////////////////////////     vm.ngModel.$setViewValue(args.description)
-
-
-                        //$timeout(() => {
-
-                        //    console.log('20210618-0330 - setViewValue ');
-                        //    vm.ngModel = "";
-                        //}
-                        //    , 1000);
-
-
-                        //$timeout(() => {
-
-                        //    console.log('20210618-0330 - setViewValue ');
-                        //    vm.ngModel = args.description ;
-                        //}
-                        //    , 2000);
-
-
 
                         isHandled = true;
 
@@ -521,7 +533,7 @@ var dropdownListDirective_instance = function () {
                     } else {
 
                         ssn_logger.cl_normal({ callSource: '20210609-1438-C-2', message: `CHANGE vm.keyColumn [${vm.keyColumn}]  ngModel [${vm.ngModel}]   parentKeyColumn [${vm.parentKeyColumn}]` }, 'red');
-                        
+
                     }
 
                 });
@@ -586,12 +598,9 @@ var dropdownListDirective_instance = function () {
 
                     if (newValue && newValue.id) {
 
-
-
                         vm.ngModel = newValue.id;
 
                         console.log(`%c setting ngModel [${vm.ngModel}]  keyColumn [${vm.keyColumn}] 20210617-1213`, 'color:cyan;font-size:12pt');
-
 
 
 
@@ -811,13 +820,6 @@ var dropdownListDirective_instance = function () {
 
                 vm.currentDisplineLookupSuccess = function (data) {
 
-                    console.log('%c currentDisplineLookupSuccess - 20210617-1051', 'color:yellow');
-                    console.log('%c update vm.disciplineSelected_XXX  20210618-1918', 'color:yellow;font-size:12pt;');
-                    console.log('%c check data.disciplineid data.ta_id ', 'color:red;font-size:12pt;');
-
-                    console.log(data);
-
-
                     if (data) {
 
                         if (data.disciplineId) {
@@ -879,18 +881,14 @@ var dropdownListDirective_instance = function () {
 
 
 
-                    if ($scope.queryIsInProgress) {
-                        return $scope.deferred_getDisciplineQuery.promise;
-                    } else {
-                        return executeQuery();
-                    }
+
+                    return executeQuery();
 
 
 
                     function executeQuery() {
 
-                        $scope.queryIsInProgress = true;
-                        $scope.deferred_getDisciplineQuery = $q.defer();
+                        const deferred = $q.defer();
 
 
                         console.log(' ');
@@ -900,20 +898,15 @@ var dropdownListDirective_instance = function () {
                         console.log(vm.APIUrlListAll);
 
 
+                        $http({
+                            method: 'GET',
+                            url: vm.APIUrlListAll
 
-                        // Debounce
-                        $timeout(() => {
-
-                            $http({
-                                method: 'GET',
-                                url: vm.APIUrlListAll
-
-                            }).then(typeaheadDisciplineSuccess, typeaheadDisciplineError);
-
-                        }, 500);
+                        }).then(typeaheadDisciplineSuccess, typeaheadDisciplineError);
 
 
-                        return $scope.deferred_getDisciplineQuery.promise;
+
+                        return deferred.promise;
 
 
                         function typeaheadDisciplineSuccess(response) {
@@ -945,32 +938,18 @@ var dropdownListDirective_instance = function () {
                             );
 
 
-
-                            if (vm.addresses.length == 1) {
-
-                                //  vm.disciplineSelected_XXX = vm.addresses[0];
-
-
-                                // 06/12/2021 01:15 pm - SSN - Testing if can get over preventing users from altering single matches.
-                                //////////////// vm.disciplineSelected_XXX = { id: vm.addresses[0].id };
-                                // vm.ngModel = vm.addresses[0].id;
-
-                            }
-
-
-                            $scope.deferred_getDisciplineQuery.resolve(vm.addresses);
-
-                            $scope.queryIsInProgress = false;
+                            deferred.resolve(vm.addresses);
 
                         }
+
+
 
                         function typeaheadDisciplineError(error) {
 
                             ssn_logger.cl_normal({ callSource: "20210608-2139", message: "typeaheadDisciplineError" }, "red", true);
                             ssn_logger.cl_error({ callSource: "20210608-2140", message: "typeaheadDisciplineError", errorObject: error });
 
-                            $scope.deferred_getDisciplineQuery.reject(error);
-                            $scope.queryIsInProgress = false;
+                            deferred.reject(error);
 
                         }
 
@@ -1031,7 +1010,7 @@ var dropdownListDirective_instance = function () {
 
                         console.log(response);
 
-                        ssn_logger.cl_error({ callSource: '20210608-1316-B', message: `Failed call to [${localUrl}]` , errorObject: response});
+                        ssn_logger.cl_error({ callSource: '20210608-1316-B', message: `Failed call to [${localUrl}]`, errorObject: response });
 
                         deferred.reject(response);
 
@@ -1045,7 +1024,7 @@ var dropdownListDirective_instance = function () {
 
                         console.log(response);
 
-                        ssn_logger.cl_error({ callSource: '20210608-1316-B', message: `Failed call to [${localUrl}]`, errorObject: response});
+                        ssn_logger.cl_error({ callSource: '20210608-1316-B', message: `Failed call to [${localUrl}]`, errorObject: response });
 
                         deferred.reject(response);
 

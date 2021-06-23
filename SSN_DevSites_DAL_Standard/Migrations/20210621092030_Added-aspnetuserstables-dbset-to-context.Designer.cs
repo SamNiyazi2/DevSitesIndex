@@ -4,14 +4,16 @@ using DevSitesIndex.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DevSitesIndex.Migrations
 {
     [DbContext(typeof(DevSitesIndexContext))]
-    partial class DevSitesIndexContextModelSnapshot : ModelSnapshot
+    [Migration("20210621092030_Added-aspnetuserstables-dbset-to-context")]
+    partial class Addedaspnetuserstablesdbsettocontext
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -149,8 +151,7 @@ namespace DevSitesIndex.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed");
 
-                    b.Property<int>("PkUserId")
-                        .HasColumnName("PK_UserID");
+                    b.Property<int>("PkUserId");
 
                     b.Property<string>("SecurityStamp");
 
@@ -160,7 +161,7 @@ namespace DevSitesIndex.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AspNetUsers","dbo");
+                    b.ToTable("AspNetUsers");
                 });
 
             modelBuilder.Entity("DevSitesIndex.Entities.CodeReference", b =>
@@ -565,10 +566,6 @@ namespace DevSitesIndex.Migrations
                     b.HasIndex("JobId");
 
                     b.HasIndex("LineItemID");
-
-                    b.HasIndex("StartTime")
-                        .IsUnique()
-                        .HasName("IX_TimeLog_StartTime_Unique");
 
                     b.ToTable("TimeLog");
                 });

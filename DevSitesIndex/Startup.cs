@@ -36,6 +36,7 @@ using System.Security.Claims;
 using Microsoft.ApplicationInsights;
 using System.Net;
 using Microsoft.AspNetCore.Diagnostics;
+using DevSitesIndex.Pages;
 
 namespace DevSitesIndex
 {
@@ -185,7 +186,7 @@ namespace DevSitesIndex
 
             services.AddScoped<IDevSitesIndexRepository, DevSitesIndexRepository>();
 
-
+     
 
 
 
@@ -209,6 +210,12 @@ namespace DevSitesIndex
             // 11/07/2019 08:20 pm - SSN - make Singleton
             // services.AddTransient<SSN_GenUtil_StandardLib.ILogger_SSN, SSN_GenUtil_StandardLib.SSN_Logger>();
             services.AddSingleton<SSN_GenUtil_StandardLib.ILogger_SSN, SSN_GenUtil_StandardLib.SSN_Logger>();
+
+
+
+
+            // 06/21/2021 01:36 pm - SSN - [20210620-2108] - [026] - Update TimeLog create option to use DrowndownListDirective
+            services.AddScoped<IValidationSharedUtil, ValidationSharedUtil>();
 
 
 
@@ -350,7 +357,7 @@ namespace DevSitesIndex
 
 
 
-            //// 09/13/2019 01:32 pm - SSN - [20190913-0548] - [008] - Crate generic dropdown list directive
+            //// 09/13/2019 01:32 pm - SSN - [20190913-0548] - [008] - Create generic dropdown list directive
             //// Todo:  Need to take out after resolving problem posting form from DropdownListDirective.ts
             ////services.AddMvc();
             //services.AddMvc().AddRazorPagesOptions(o =>

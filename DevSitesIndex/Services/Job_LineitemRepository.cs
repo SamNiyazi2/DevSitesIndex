@@ -38,7 +38,7 @@ namespace DevSitesIndex.Services
         }
 
 
-        public Job_Lineitem Update(Job_Lineitem job_LineItem)
+        public Job_Lineitem Update(Job_Lineitem job_LineItem, System.Security.Claims.ClaimsPrincipal user)
         {
             // Copied from TimeLogRepository.  Keep in sync.
 

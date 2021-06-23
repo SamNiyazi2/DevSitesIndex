@@ -1,5 +1,4 @@
-
-
+ 
 <input type="text"
        ng-model="vm101.disciplineSelected_XXX"
        ng-change="vm101.changing()"
@@ -8,37 +7,37 @@
        typeahead-loading="loadingLocations"
        typeahead-no-results="noResults"
        typeahead-on-select="vm101.typeaheadOnSelect($item,$model,$label)"
+       typeahead-select-on-blur="true"
+       typeahead-select-on-exact="true"
+       ng-model-options="{ debounce: 100 }"
        class="form-control"
        dropdown-list-directive-input-box="aaa,coconuts,bananas,pears"
        dropdown-list-directive-input-box-inverse="{{vm101.dropdownListDirectiveInputBoxInverse}}"
        name="{{vm101.tempControlName}}"
        key-column="{{vm101.keyColumn}}"
-       ng-required="{{true}}">
+       ng-required="{{true}}">**
+
 
 
 <i ng-show="loadingLocations " class="glyphicon glyphicon-refresh"></i>
 
 <div ng-show="noResults && vm101.dropdownListDirectiveInputBoxInverse != 'true'">
     <i class="glyphicon glyphicon-remove"></i> &nbsp; No Results Found
+    <span ng-show="vm101.parentKeyName && !vm101.parentKeyColumn" class="alert alert-info">  &nbsp; &nbsp; You need to select the previous field first.</span>
 </div>
 
 
-<ng-content ng-show="vm101.controlIsDirety ( vm101.tempControlName) ">
-    <p class="has-error" ng-show="required">Selection is required (22)</p>
-    <span class="has-error" ng-show="vm101.errorTriggered(vm101.blackListErrorName)">
-        The input "{{
- vm101.disciplineSelected_XXX
-        }}" is invalid
-    </span>
 
-    <p class="has-error" ng-show="vm101.errorTriggeredWithControlName (vm101.tempControlName,'required')">Selection is required (2)</p>
+<ng-content ng-show="vm101.controlRef (vm101.tempControlName).$dirty ">
+  
 
     <p class="has-error" ng-show="vm101.errorTriggeredWithControlName (vm101.tempControlName,'dropdownListDirectiveInputBox')">Invalid input</p>
+     
 
-    <p class="has-error" ng-show="vm101.errorTriggeredWithControlName (vm101.tempControlName,'isValidDropdownDirectiveSelection')">
-        Invalid seletion. (4)
+    <p class="has-error" ng-show="vm101.controlRef (vm101.tempControlName).$invalid">
+        selection is required. (5)
 
-        <span ng-show="noResults && vm101.dropdownListDirectiveInputBoxInverse != 'true' && vm101.addFuncSource">
+        <span ng-show="noResults && ( !vm101.dropdownListDirectiveInputBoxInverse || vm101.dropdownListDirectiveInputBoxInverse != 'true' ) && vm101.addFuncSource">
             &nbsp; &nbsp; &nbsp; <a ng-click="vm101.addFunc()">Add new item</a>
         </span>
     </p>

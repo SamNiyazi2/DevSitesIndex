@@ -20,7 +20,7 @@ namespace DevSitesIndex.Services
         T GetRecord(int id);
 
         // 09/29/2019 09:49 am - SSN - [20190928-1256] - [016] - Adding Entity Framework model attribute
-        T Update(T dbSet);
+        T Update(T dbSet, System.Security.Claims.ClaimsPrincipal user);
 
 
         // 11/16/2019 08:02 pm - SSN - [20191116-1516] - [009] - Timelog edit (AngularJS client version)

@@ -76,6 +76,7 @@ var timesheetEditController_instance = function () {
 
                 $scope.timeLog = data;
 
+
                 $scope.editableTimeLog = data;
 
 
@@ -110,8 +111,7 @@ var timesheetEditController_instance = function () {
                 $scope.feedbackToUserClassNameCase = "";
 
 
-                var test = $scope.editableTimeLog;
-                  
+               
 
                 if ($scope.editableTimeLog.stopTime) {
                     $scope.editableTimeLog.totalSeconds = ($scope.editableTimeLog.stopTime - $scope.editableTimeLog.startTime) / 1000;

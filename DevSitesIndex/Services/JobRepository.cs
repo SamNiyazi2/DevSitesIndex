@@ -35,7 +35,7 @@ namespace DevSitesIndex.Services
         }
 
 
-        public Job Update(Job job)
+        public Job Update(Job job, System.Security.Claims.ClaimsPrincipal user)
         {
             Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<Job> r = null;
             try

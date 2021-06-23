@@ -51,7 +51,8 @@ var TimelogLinkOptions = function () {
                     timelogId: "@",
                     totalSeconds: "@",
                     servingPage: '@',
-                    jobId: '@'
+                    jobId: '@',
+                    userHasAccess:"&"
 
                 },
 

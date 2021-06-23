@@ -6,7 +6,7 @@
 
 /// <reference path="../../node_modules/@types/jquery/jquery.d.ts" />
 /// <reference path="../../node_modules/@types//knockout/index.d.ts" />
-/// <reference path="../js/shared/DataServices.ts"/>
+/// <reference path="../js/Shared/DataServices.ts"/>
 /// <reference path="../../node_modules_hack/SSN_jquery_modal.d.ts" />
 
 
@@ -315,7 +315,7 @@ var ssn_devsite_angular_module_instance = function () {
                 }
             },
 
-            controller: ["$rootScope", "$scope", "dataService", function ($rootScope, $scope, dataService) {
+            controller: ["$sce", "$rootScope", "$scope", "dataService", function ($sce, $rootScope, $scope, dataService) {
 
                 const vm = this;
 
@@ -332,7 +332,7 @@ var ssn_devsite_angular_module_instance = function () {
 
                 });
 
-                 
+
 
                 $scope.addingDevSiteTag = false;
                 $scope.removingDevSiteTag = false;
@@ -342,14 +342,14 @@ var ssn_devsite_angular_module_instance = function () {
 
                 $scope.addDevSiteTag = function (devSiteTechnologySelectedRecord_forEdit) {
 
-// If we pass an object, then we are editing; otherwise, adding a new tag
+                    // If we pass an object, then we are editing; otherwise, adding a new tag
                     $scope.devSiteTechnologySelectedRecord = devSiteTechnologySelectedRecord_forEdit
 
                     $scope.containerViewValue = "";
 
                     $scope.editableDevSite = $scope.devSiteTechnologySelectedRecord;
 
-                    if (!$scope.editableDevSite ) {
+                    if (!$scope.editableDevSite) {
 
                         $scope.editableDevSite = {
                             id: 0, // Needs to be zero for add to work.
@@ -359,7 +359,7 @@ var ssn_devsite_angular_module_instance = function () {
                         };
 
                     }
-                     console.log(`%c addDevSiteTag (or edit)`, 'color:yellow');
+                    console.log(`%c addDevSiteTag (or edit)`, 'color:yellow');
                     console.log($scope.devSiteTechnologySelectedRecord);
 
 
@@ -430,8 +430,8 @@ var ssn_devsite_angular_module_instance = function () {
 
                         const newOrUpdatedRecord = { id: data[0].id, technology: { description: data[0].technology.description } };
 
-                        let existingRecordIndex = $scope.theTags.devSiteTechnologies.findIndex(r=> r.id== data[0].id );
-                        if (existingRecordIndex >-1) {
+                        let existingRecordIndex = $scope.theTags.devSiteTechnologies.findIndex(r => r.id == data[0].id);
+                        if (existingRecordIndex > -1) {
 
                             console.log('%c  demoSites_ondex - 20210616-0344 - CHECK ', 'color:green;font-size:14pt;');
 
@@ -445,7 +445,7 @@ var ssn_devsite_angular_module_instance = function () {
 
 
                         } else {
-                            $scope.theTags.devSiteTechnologies.push(newOrUpdatedRecord );
+                            $scope.theTags.devSiteTechnologies.push(newOrUpdatedRecord);
                         }
 
                         //   $scope.theTags.push($scope.newDevSiteTag);
@@ -462,7 +462,7 @@ var ssn_devsite_angular_module_instance = function () {
 
                         $scope.feedbackToUserClassNameCase = 2;
 
-                        $scope.feedbackToUserText = error.data;
+                        $scope.feedbackToUserText = $sce.trustAsHtml(error.data);
 
                         $scope.disableSaveButton = false;
 
@@ -476,7 +476,7 @@ var ssn_devsite_angular_module_instance = function () {
 
                         $scope.feedbackToUserClassNameCase = 2;
 
-                        $scope.feedbackToUserText = error.data;
+                        $scope.feedbackToUserText = $sce.trustAsHtml(error.data);
 
                         $scope.disableSaveButton = false;
                     }
@@ -495,7 +495,7 @@ var ssn_devsite_angular_module_instance = function () {
                     $scope.addingDevSiteTag = false;
 
                     $scope.feedbackToUserClassNameCase = 0;
-                    $scope.feedbackToUserText = ""; 
+                    $scope.feedbackToUserText = "";
                     $scope.editableDevSite = {};
 
 
@@ -536,7 +536,7 @@ var ssn_devsite_angular_module_instance = function () {
 
                         $scope.feedbackToUserClassNameCase = 2;
 
-                        $scope.feedbackToUserText = error.data;
+                        $scope.feedbackToUserText = $sce.trustAsHtml(error.data);
                     }
 
                     function deleteDevSiteTechnologyCatch(error) {

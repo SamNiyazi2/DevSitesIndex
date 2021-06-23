@@ -116,5 +116,28 @@ namespace DevSitesIndex.Controllers
             return identityUser != null;
         }
 
+
+        // Todo-SSN - 06/23/2021 04:04 am - SSN - [20210623-0158] - [006] - Limit user access to their timesheet records
+        [Route("getCurrentUser")]
+        public UserInfo GetCurrentUser()
+        {
+            UserInfo userInfo = new UserInfo();
+            if (User?.Identity != null )
+            {
+                userInfo.UserName = User.Identity.Name;
+                userInfo.IsAuthenticated = User.Identity.IsAuthenticated;
+            }
+
+            return userInfo;
+
+        }
+
+
+        public class UserInfo
+        {
+            public string UserName { get; set; }
+            public bool IsAuthenticated { get; set; }
+        }
+
     }
 }

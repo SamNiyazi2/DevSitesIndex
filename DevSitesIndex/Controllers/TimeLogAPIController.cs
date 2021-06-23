@@ -1,7 +1,8 @@
 ﻿using DevSitesIndex.Entities;
+using DevSitesIndex.Pages;
 using DevSitesIndex.Pages.Shared;
 using DevSitesIndex.Services;
-using DevSitesIndex.Util;
+using DevSitesIndex.Util; 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using SSN_GenUtil_StandardLib;
@@ -27,9 +28,10 @@ namespace DevSitesIndex.Controllers
         // Add logger
 
         // 09/30/2019 07:47 pm - SSN - Adding logger and call to base
-        public TimeLogAPIController(DevSitesIndexContext context, ILogger_SSN logger) : base(context, logger)
+        public TimeLogAPIController(DevSitesIndexContext context, ILogger_SSN logger, IValidationSharedUtil validationSharedUtil) : base(context, logger)
         {
-            _entityRepository = new TimeLogRepository(context, logger);
+            _entityRepository = new TimeLogRepository(context, logger, validationSharedUtil);
+
         }
 
 
@@ -43,7 +45,8 @@ namespace DevSitesIndex.Controllers
         {
 
             // if (options == null) options = new Tempparam();
-            if (sqlStatsRecord == null) sqlStatsRecord = new SqlStatsRecord();
+            if (sqlStatsRecord == null)
+                sqlStatsRecord = new SqlStatsRecord();
             sqlStatsRecord.RecordsPerPage_Default = 20;
 
             Util.ExecuteStoredProcedure exec = new Util.ExecuteStoredProcedure(context, logger);
@@ -185,7 +188,8 @@ namespace DevSitesIndex.Controllers
 
             exec.CloseConnection();
 
-            if (results != null) return results.ToList();
+            if (results != null)
+                return results.ToList();
 
             return null;
 

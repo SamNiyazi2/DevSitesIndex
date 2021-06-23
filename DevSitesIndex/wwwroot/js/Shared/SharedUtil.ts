@@ -11,11 +11,16 @@ import { dataService_instance } from './DataServices';
 
 import sessionTimeoutInterceptor from '../Interceptors/SessionTimeoutInterceptor';
 
+import {DateTimeService_Instance  }  from './DateTimeService';
 
-const ngApplicationName = 'timesheetApp';
 
+// Todo-SSN - 06/23/2021 05:00 am - SSN - [20210623-0158] - [011] - Limit user access to their timesheet records
+// Pass in ngApplicationName
 
-function LoadAll() {
+function LoadAll(ngApplicationName) {
+
+    // const ngApplicationName = 'timesheetApp';
+
 
     RestorePreviousPageState_instance.doSetup(ngApplicationName, "SharedUtil_20210606_1732");
 
@@ -24,6 +29,8 @@ function LoadAll() {
     dataService_instance.doSetup(ngApplicationName);
 
     sessionTimeoutInterceptor.doSetup(ngApplicationName);
+
+    DateTimeService_Instance.doSetup(ngApplicationName);
 
 }
 

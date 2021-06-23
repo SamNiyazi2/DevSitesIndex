@@ -32,8 +32,9 @@
 
 
             <div ng-if="feedbackToUserText" ng-class="feedbackToUserClassNameSet()">
-                {{feedbackToUserText}}
+                <div ng-bind-html="feedbackToUserText"></div>
             </div>
+
             <button class="btn btn-default" ng-click="cancelNewDevsiteTag()">Cancel</button>
             <button class="btn btn-primary" ng-click="saveNewDevsiteTag()" ng-disabled="devSiteTagsForm.$invalid || disableSaveButton">Save</button>
 
@@ -46,7 +47,7 @@
         <p>Confirm that you want the tag [{{devSiteTechnologySelectedRecord.technology.description}}] removed</p>
 
         <div ng-if="feedbackToUserText" ng-class="feedbackToUserClassNameSet()">
-            {{feedbackToUserText}}
+            <div ng-bind-html="feedbackToUserText"></div>
         </div>
 
         <button class="btn btn-danger" ng-click="confirmedRemoveDevSiteTag()">Remove</button>

@@ -37,7 +37,7 @@ namespace DevSitesIndex.Services
 
 
 
-        public DevSiteTechnology Update(DevSiteTechnology devSiteTechnology)
+        public DevSiteTechnology Update(DevSiteTechnology devSiteTechnology, System.Security.Claims.ClaimsPrincipal user)
         {
 
             if (devSiteTechnology.Id == 0)

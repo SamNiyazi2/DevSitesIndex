@@ -773,3 +773,25 @@ menuPipe_101::after {
 .cssSiteUrlQRCode {
     width: 20px;
 }
+
+noscript{
+    height:100%;
+    width:100%;
+    top:0px;
+    left:0px;
+    margin:0px;
+    border:0px;
+    padding:0px;
+    color:red;
+    position:fixed;
+    z-index:1;
+    background-color:black;
+}
+
+noscript h3{
+
+    color:green;
+    top: 30px;
+    left:30px;
+    position:fixed;
+}

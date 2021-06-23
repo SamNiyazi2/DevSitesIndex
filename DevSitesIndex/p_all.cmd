@@ -1,16 +1,16 @@
 @echo off
 
-start "DAL" C:\Sams_p\DevSitesIndex\SSN_DevSites_DAL_Standard\p.cmd
+start "DAL" %~dp0\..\SSN_DevSites_DAL_Standard\p.cmd
 
 
-start "DevSitesIndex" C:\Sams_p\DevSitesIndex\DevSitesIndex\p.cmd
+start "DevSitesIndex" %~dp0\p.cmd
  
-start  "ssn_run_webpack" C:\Sams_p\DevSitesIndex\DevSitesIndex\ssn_run_webpack.cmd
+start  "ssn_run_webpack" %~dp0\ssn_run_webpack.cmd
 
 
 
-start "timesheetsSupport7" C:\Sams_p\DevSitesIndex\DevSitesIndex\timesheetsSupport7\p.cmd
-call C:\Sams_p\DevSitesIndex\DevSitesIndex\timesheetsSupport7\ssn_build.cmd
+start "timesheetsSupport7" %~dp0\timesheetsSupport7\p.cmd
+call %~dp0\timesheetsSupport7\ssn_build.cmd
 
 
 :end

@@ -35,7 +35,7 @@ namespace DevSitesIndex.Services
         }
 
 
-        public Discipline Update(Discipline discipline)
+        public Discipline Update(Discipline discipline, System.Security.Claims.ClaimsPrincipal user)
         {
             Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<Discipline> r = null;
             try

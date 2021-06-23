@@ -2,53 +2,160 @@
 @model DevSitesIndex.Pages.TimeLogs.CreateModel
 
 @{
-    ViewData["Title"] = "Create Timelog";
+    ViewData["Title"] = "Create Timelog -- 20210620-2107";
+
+
+    // 06/20/2021 09:08 pm - SSN - [20210620-2108] - [001] - Update TimeLog create option to use DrowndownListDirective
+    // ng-controller="utilityController"
+
+    // Add to form tag name="timesheetForm" ng-submit="submitForm_1($event,timesheetForm)" action="" novalidate>
+
+    ViewBag.InitModule_Full = "data-ng-app=\"timesheetApp\"";
+
 }
 
 <h2>@ViewData["Title"]</h2>
 
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="TimeLog.JobId" class="control-label"></label>
-                <select asp-for="TimeLog.JobId" class="form-control" asp-items="ViewBag.JobId" autofocus>
-                    <option></option>
-                </select>
-                <span asp-validation-for="TimeLog.JobId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TimeLog.DisciplineID" class="control-label"></label>
-                <select asp-for="TimeLog.DisciplineID" class="form-control" asp-items="ViewBag.DisciplineID">
-                    <option></option>
-                </select>
-                @*06/01/2019 05:29 pm - SSN - Left out*@
-                <span asp-validation-for="TimeLog.DisciplineID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TimeLog.StartTime" class="control-label"></label>  <a cmd-name="set-default-time" jQueryObjectName="#TimeLog_StartTime">Now</a>
-                <input asp-for="TimeLog.StartTime" class="form-control" />
-                <span asp-validation-for="TimeLog.StartTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TimeLog.TotalSeconds" class="control-label"></label>
-                <input asp-for="TimeLog.TotalSeconds" class="form-control" />
-                <span asp-validation-for="TimeLog.TotalSeconds" class="text-danger"></span>
-            </div>
 
-            <div class="form-group">
-                <label asp-for="TimeLog.WorkDetail" class="control-label"></label>
-                <input asp-for="TimeLog.WorkDetail" class="form-control" />
-                <span asp-validation-for="TimeLog.WorkDetail" class="text-danger"></span>
+
+
+<ng-content ng-controller="utilityController_local">
+
+    <ng-content ng-controller="ModalCallSUtilController">
+
+        <div class="row" ng-controller="utilityController">
+
+            <div class="col-md-4">
+
+                <form method="post" name="timesheetForm" action="" novalidate ng-submit="submitForm_1($event,timesheetForm)" ssn-auto-focus>
+
+
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    @*<hr />
+                    <hr />
+
+                    <div asp-validation-summary="All" class="text-danger"></div>*@
+
+
+
+
+                    @*
+
+                        // 06/20/2021 09:19 pm - SSN - [20210620-2108] - [002] - Update TimeLog create option to use DrowndownListDirective
+                        // Adding Project
+
+
+                    *@ 
+
+
+                    <div class="form-group">
+
+                        <label asp-for="TimeLog.job.project.ProjectTitle" class="control-label"></label>
+
+                        <input name="TimeLog.job.ProjectID" type="hidden" />
+
+                        <dropdown-list-directive call-source="20210620-2120" key="job.ProjectID" form-name="timesheetForm" hidden-field-name="TimeLog.job.ProjectID" ng-model="timeLogRecord.job.ProjectID"></dropdown-list-directive>
+
+                        <span asp-validation-for="TimeLog.job.project.ProjectTitle" class="text-danger"></span>
+
+                    </div>
+
+
+
+
+
+                    <div class="form-group">
+                        <label asp-for="TimeLog.JobId" class="control-label"></label>
+
+                        @*
+
+                                <select asp-for="TimeLog.JobId" class="form-control" asp-items="ViewBag.JobId" autofocus>
+                                <option></option>
+                            </select>
+                        *@
+
+                        <input asp-for="TimeLog.JobId" type="hidden" />
+
+                        <dropdown-list-directive call-source="20210620-2122" key="TimeLog.JobId" form-name="timesheetForm" hidden-field-name="TimeLog.JobId" ng-model="timeLogRecord.JobId" parentkey="timeLogRecord.job.ProjectID" parent-key-name="TimeLog.ProjectId"></dropdown-list-directive>
+
+                        <span asp-validation-for="TimeLog.job.JobTitle" class="text-danger"></span>
+                    </div>
+
+
+
+
+
+                    <div class="form-group">
+
+                        <label asp-for="TimeLog.LineItemID" class="control-label"></label>
+
+                        <input asp-for="TimeLog.LineItemID" type="hidden" />
+
+                        <dropdown-list-directive call-source="20210621-0148" key="LineItemID" form-name="timesheetForm" hidden-field-name="TimeLog.LineItemID" ng-model="timeLogRecord.LineItemID" parentkey="timeLogRecord.JobId" parent-key-name="TimeLog.JobId" add-func="addNewLineItem(timeLogRecord.JobId, containerViewValue )" add-func-source="edit.cshtml" container-view-value="containerViewValue"></dropdown-list-directive>
+
+                        <span asp-validation-for="TimeLog.job_Lineitem.LineItem" class="text-danger"></span>
+                    </div>
+
+
+
+
+                    <div class="form-group">
+
+                        <label asp-for="TimeLog.DisciplineID" class="control-label"></label>
+
+                        @*
+                                    // 06/21/2021 05:56 am - SSN - [20210620-2108] - [023] - Update TimeLog create option to use DrowndownListDirective
+                            // Replaced
+                                                                <select asp-for="TimeLog.DisciplineID" class="form-control" asp-items="ViewBag.DisciplineID">
+                                                                    <option></option>
+                                                                </select>
+
+                                                                <span asp-validation-for="TimeLog.DisciplineID" class="text-danger"></span>
+
+                        *@
+
+                        <input asp-for="TimeLog.DisciplineID" type="hidden" />
+
+                        <dropdown-list-directive call-source="20210621-0558" key="disciplineID" form-name="timesheetForm" hidden-field-name="TimeLog.DisciplineID" ng-model="timeLogRecord.DisciplineID"></dropdown-list-directive>
+
+
+                        <span asp-validation-for="TimeLog.discipline.DisciplineShort" class="text-danger"></span>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="TimeLog.StartTime" class="control-label"></label>  <a cmd-name="set-default-time" jQueryObjectName="#TimeLog_StartTime">Now</a>
+                        <input asp-for="TimeLog.StartTime" class="form-control" />
+                        <span asp-validation-for="TimeLog.StartTime" class="text-danger"></span>
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <label asp-for="TimeLog.WorkDetail" class="control-label"></label>
+
+                        <textarea cols="40" rows="5" asp-for="TimeLog.WorkDetail" class="form-control" accesskey="l"></textarea>
+
+                        <span asp-validation-for="TimeLog.WorkDetail" class="text-danger"></span>
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-default" />
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </form>
-    </div>
-</div>
+        </div>
+
+
+    </ng-content>
+
+</ng-content>
+
+
 
 <div>
     @*<a asp-page="Index">Back to List</a>*@
@@ -56,5 +163,35 @@
 </div>
 
 @section Scripts {
+
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+
+
+    @*// 06/20/2021 09:25 pm - SSN - [20210620-2108] - [003] - Update TimeLog create option to use DrowndownListDirective
+
+        //    #region [20210620-2108] - [003] - Update TimeLog create option to use DrowndownListDirective*@
+
+
+    @{await Html.RenderPartialAsync("TimesheetAngularScripts");}
+
+    <script>
+
+        angular.module('timesheetApp')
+            .controller('utilityController_local', ['$scope', function ($scope) {
+
+             $scope.timeLogRecord  =  @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.TimeLog, formatting: Newtonsoft.Json.Formatting.Indented, new Newtonsoft.Json.JsonSerializerSettings
+                             {
+                                 ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                             }));
+
+}]);
+
+    </script>
+
+    @*//    #endregion [20210620-2108] - [003] - Update TimeLog create option to use DrowndownListDirective*@
+
 }
+
+
+

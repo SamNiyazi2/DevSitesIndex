@@ -10,6 +10,9 @@ using Microsoft.AspNetCore.Authorization;
 using SSN_GenUtil_StandardLib;
 using System.ComponentModel.DataAnnotations;
 using DevSitesIndex.Util;
+using DevSitesIndex.Services;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 // 04/08/2019 12:43 am - SSN - [20190407-2345] - TimeLog
 
@@ -23,6 +26,8 @@ namespace DevSitesIndex.Pages.TimeLogs
     {
         private readonly DevSitesIndex.Entities.DevSitesIndexContext _context;
         private readonly ILogger_SSN logger;
+        private readonly IEntityRepository<AspNetUsers> aspNetUsersRepository;
+
 
 
         // 11/04/2019 02:04 pm - SSN - [20191104-0844] - [023] - Prevent delete option on timesheet related forms 
@@ -30,12 +35,25 @@ namespace DevSitesIndex.Pages.TimeLogs
         public ReturnToCaller returnToCaller = new ReturnToCaller();
 
 
+        [BindProperty]
+        public TimeLog TimeLog { get; set; }
+
+        public IValidationSharedUtil validationSharedUtil { get; }
+
+
         // 09/27/2019 02:48 pm - SSN - [20190927-0634] - [025] - Testing
         // Added SSN_GenUtil_StandardLib.logger
-        public CreateModel(DevSitesIndex.Entities.DevSitesIndexContext context, ILogger_SSN logger)
+        // 06/21/2021 02:31 am - SSN - [20210620-2108] - [011] - Update TimeLog create option to use DrowndownListDirective
+        // Added SignInManager<IdentityUser> signInManager to get PK_UserID
+        // Added IEntityRepository<AspNetUsers> aspNetUsersRepository
+        public CreateModel(DevSitesIndex.Entities.DevSitesIndexContext context, ILogger_SSN logger, IValidationSharedUtil _validationSharedUtil)
         {
             _context = context;
             this.logger = logger;
+            validationSharedUtil = _validationSharedUtil;
+
+            this.aspNetUsersRepository = new AspNetUsersRepository(context, logger);
+
         }
 
         public IActionResult OnGet()
@@ -57,6 +75,7 @@ namespace DevSitesIndex.Pages.TimeLogs
             return Page();
         }
 
+
         // 06/01/2019 05:28 pm - SSN - Refactor to reload on validation failure.
         private void setupPageRequirements()
         {
@@ -68,44 +87,66 @@ namespace DevSitesIndex.Pages.TimeLogs
             ViewData["JobId"] = new SelectList(_context.Jobs.OrderBy(r => r.JobTitle), "JobID", "JobTitle");
         }
 
-        [BindProperty]
-        public TimeLog TimeLog { get; set; }
+
 
         public async Task<IActionResult> OnPostAsync()
         {
+            // 06/21/2021 01:28 am - SSN - [20210620-2108] - [009] - Update TimeLog create option to use DrowndownListDirective
+
             if (!ModelState.IsValid)
             {
                 setupPageRequirements();
-                return Page();
+
+                validationSharedUtil.RemoveErrorsForValidFields(TimeLog, ModelState);
+
+                // If still invalid...
+                if (!ModelState.IsValid)
+                {
+                    return Page();
+                }
             }
 
 
-
-            // 09/27/2019 02:47 pm - SSN - [20190927-0634] - [024] - Testing
-            // Replaced
-            //_context.TimeLog.Add(TimeLog);
-            //await _context.SaveChangesAsync();
+            TimeLog.job = null;
+            TimeLog.discipline = null;
+            TimeLog.job_Lineitem = null;
 
 
-            //  Exception ex = await SharedUtil.save_v02(_context, TimeLog, logger);
 
-            //if (ex != null)
-            //{
-            //    ModelState.AddModelError("", "Failed to save record.");
-            //    ModelState.AddModelError("", ex.Message);
-            //    Exception iex = ex.InnerException;
-            //    while (iex != null)
-            //    {
-            //        ModelState.AddModelError("", iex.Message);
-            //        iex = iex.InnerException;
-            //    }
-            //    return Page();
-            //}
 
-            // 09/28/2019 02:37 pm - SSN - [20190928-1256] - [004] - Adding Entity Framework model attribute
+            try
+            {
+                string userName = User.Identity.Name;
+                string friendlyErrorMessage = "Failed to save record. ";
+                string exceptionMesssage = $"demosites-20210621-0302 - Timelog record user id mismatch [{TimeLog.FK_UserID }] <> [[[currentUser_PkUserId]]]  TimelogID [{TimeLog.TimeLogId}]";
+                string callSource = "demosites-20210621-0301";
 
-            _context.TimeLog.Add(TimeLog);
-            await _context.SaveChangesAsync();
+                TimeLog.FK_UserID = await validationSharedUtil.getCurrentUser_PK_UserID(aspNetUsersRepository, userName, TimeLog.FK_UserID, friendlyErrorMessage, exceptionMesssage, callSource);
+
+                TimeLogRepository timeLogRepository = new TimeLogRepository(_context, logger, validationSharedUtil);
+
+                timeLogRepository.Update(TimeLog,User);
+                timeLogRepository.Save();
+
+            }
+            catch (Exception ex)
+            {
+                //SSN_GenUtil_StandardLib.ExceptionHandler_SSN eh = new SSN_GenUtil_StandardLib.ExceptionHandler_SSN();
+
+                //SSN_GenUtil_StandardLib.ExceptionsList el = eh.HandleException_GetExAsSB_v02(ex);
+
+                //string message = el.Message_ToStringBuilder_v02(ExceptionsList.Enum_OutputFormat.HTML).ToString();
+
+                ModelState.AddExceptions(ex);
+
+                await logger.PostException(ex, "20210621-0212", "Failed to save timelog record (mvc)");
+
+                TimeLog.job = TimeLog.JobId > 0 ? _context.Jobs.Find(TimeLog.JobId) : new Job();
+
+                return Page();
+
+            }
+
 
 
             // 11/13/2019 09:43 pm - SSN - [20191113-1946] - [008] - ReturnToCaller
@@ -113,7 +154,6 @@ namespace DevSitesIndex.Pages.TimeLogs
             return Redirect(returnToCaller.getReturnToCallerUrl_Final(HttpContext));
 
         }
-
 
     }
 

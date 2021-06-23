@@ -6,8 +6,11 @@ import * as x from '../Shared/SharedUtil';
 
 import { loginController_instance } from "./login";
 
-x.LoadAll();
+
+const ngApplicationName = "timesheetApp";
 
 
-loginController_instance.angularApp;
+x.LoadAll(ngApplicationName);
+
+loginController_instance.doSetup(ngApplicationName);
 

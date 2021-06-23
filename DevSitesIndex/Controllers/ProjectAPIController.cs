@@ -148,7 +148,7 @@ namespace DevSitesIndex.Controllers
             {
 
 
-                TimeLogRepository timeLogRepository = new TimeLogRepository(context, logger);
+                TimeLogRepository timeLogRepository = new TimeLogRepository(context, logger, null);
                 TimeLog timelog = timeLogRepository.GetRecord(id);
 
                 r.project_Search_Record = new DevSitesIndex.Services.Project_Search_Record

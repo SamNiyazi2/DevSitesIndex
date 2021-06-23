@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Configuration;
 using SSN_GenUtil_StandardLib;
 using DevSitesIndex.Util;
+using DevSitesIndex.Services;
 
 
 // 04/08/2019 12:43 am - SSN - [20190407-2345] - TimeLog 
@@ -28,27 +29,40 @@ namespace DevSitesIndex.Pages.TimeLogs
         private readonly IConfiguration _configuration;
         private readonly ILogger_SSN logger;
 
+        // Todo-SSN - 06/23/2021 03:25 am - SSN - [20210623-0158] - [004] - Limit user access to their timesheet records
+// Todo: Take out
+        private readonly IEntityRepository<AspNetUsers> aspNetUsersRepository;
+
         // 11/04/2019 10:11 am - SSN - [20191104-0844] - [008] - Prevent delete option on timesheet related forms 
         // Return to caller
         public ReturnToCaller returnToCaller = new ReturnToCaller();
 
-        // 09/13/2019 06:22 am - SSN - [20190913-0548] - [007] - Crate generic dropdown list directive - IConfiguration configuration
+        // 09/13/2019 06:22 am - SSN - [20190913-0548] - [007] - Create generic dropdown list directive - IConfiguration configuration
 
         // 09/27/2019 02:06 pm - SSN - [20190927-0634] - [018] - Testing
         // Added logger
-        public EditModel(DevSitesIndex.Entities.DevSitesIndexContext context, IConfiguration configuration, ILogger_SSN logger)
-        {
-            _configuration = configuration;
-            this.logger = logger;
-            _context = context;
-
-        }
 
         [BindProperty]
         public TimeLog TimeLog { get; set; }
 
-        // 09/13/2019 06:21 am - SSN - [20190913-0548] - [006] - Crate generic dropdown list directive
-        public bool Timesheet_Dropdown_20190913_0624 { get; set; }
+        // 09/13/2019 06:21 am - SSN - [20190913-0548] - [006] - Create generic dropdown list directive
+        // Todo-SSN - 06/23/2021 03:24 am - SSN - [20210623-0158] - [003] - Limit user access to their timesheet records
+// Todo: Take out
+        public IValidationSharedUtil _validationSharedUtil { get; }
+
+
+
+        public EditModel(DevSitesIndex.Entities.DevSitesIndexContext context, IConfiguration configuration, ILogger_SSN logger, IValidationSharedUtil validationSharedUtil)
+        {
+            _configuration = configuration;
+            this.logger = logger;
+            _validationSharedUtil = validationSharedUtil;
+            _context = context;
+
+            // Todo-SSN - 06/23/2021 03:24 am - SSN - [20210623-0158] - [003] - Limit user access to their timesheet records
+            // Todo : take out
+            this.aspNetUsersRepository = new AspNetUsersRepository(context, logger);
+        }
 
 
         public async Task<IActionResult> OnGetAsync(int? id)
@@ -66,7 +80,8 @@ namespace DevSitesIndex.Pages.TimeLogs
             TimeLog = await _context.TimeLog
                 .Include(t => t.discipline)
                 .Include(t => t.job).ThenInclude(j => j.project)
-                .Include(t => t.job).SingleOrDefaultAsync(m => m.TimeLogId == id);
+                .Include(t => t.job_Lineitem)
+                .SingleOrDefaultAsync(m => m.TimeLogId == id);
 
             if (TimeLog == null)
             {
@@ -102,59 +117,38 @@ namespace DevSitesIndex.Pages.TimeLogs
         //public async Task<IActionResult> OnPostAsync()
         public async Task<IActionResult> OnPost()
         {
-            setupRequiredData();
-            setupRequiredData_OnFailure();
+
+            TimeLog temp = TimeLog;
 
             if (!ModelState.IsValid)
             {
-                return Page();
+
+                _validationSharedUtil.RemoveErrorsForValidFields(TimeLog, ModelState);
+
+                if (!ModelState.IsValid)
+                {
+                    setupRequiredData();
+                    setupRequiredData_OnFailure();
+
+                    return Page();
+                }
             }
 
-            //_context.Attach(TimeLog).State = EntityState.Modified;
-
-            //try
-            //{
-            //    await _context.SaveChangesAsync();
-            //}
-            //catch (DbUpdateConcurrencyException)
-            //{
-            //    if (!TimeLogExists(TimeLog.TimeLogId))
-            //    {
-            //        return NotFound();
-            //    }
-            //    else
-            //    {
-            //        throw;
-            //    }
-            //}
-
-            // 04/20/2019 09:31 am - SSN - [20190420-0931] - Return exception
-
-            // 09/27/2019 02:06 pm - SSN - [20190927-0634] - [019] - Testing
-            // Renamed v02 and added logger
-
-
-
-
-
-            // 09/28/2019 03:10 pm - SSN - [20190928-1256] - [006] - Adding Entity Framework model attribute
-
-            //  Exception ex = await SharedUtil.save_v02(_context, TimeLog, logger);
-            //if (ex != null)
-            //            {
-            //                ModelState.AddModelError("", "Failed to save record.");
-            //                ModelState.AddModelError("", ex.Message);
-            //                Exception iex = ex.InnerException;
-            //                while (iex != null)
-            //                {
-            //                    ModelState.AddModelError("", iex.Message);
-            //                    iex = iex.InnerException;
-            //                }
-            //                return Page();
-            //            }
 
             try
             {
+
+                TimeLog.discipline = null;
+                TimeLog.job = null;
+                TimeLog.job_Lineitem = null;
+
+                string userName = User.Identity.Name;
+                string friendlyErrorMessage = "Failed to save record. ";
+                string exceptionMesssage = $"demosites-20210621-1417 - Timelog record user id mismatch [{TimeLog.FK_UserID }] <> [[[currentUser_PkUserId]]]  TimelogID [{TimeLog.TimeLogId}]";
+                string callSource = "demosites-20210621-0301";
+
+                TimeLog.FK_UserID = await _validationSharedUtil.getCurrentUser_PK_UserID(aspNetUsersRepository, userName, TimeLog.FK_UserID, friendlyErrorMessage, exceptionMesssage, callSource);
+
 
                 _context.Attach(TimeLog).State = EntityState.Modified;
 
@@ -167,6 +161,10 @@ namespace DevSitesIndex.Pages.TimeLogs
                     ModelState.AddModelError("", iex.Message);
                     iex = iex.InnerException;
                 }
+
+                TimeLog.discipline = TimeLog.DisciplineID > 0 ? _context.Disciplines.Find(TimeLog.DisciplineID) : new Discipline();
+                TimeLog.job = TimeLog.JobId> 0 ? _context.Jobs.Find(TimeLog.JobId) : new Job();
+                TimeLog.job_Lineitem = TimeLog.LineItemID> 0 ? _context.Job_Lineitems.Find(TimeLog.LineItemID) : new Job_Lineitem();
 
                 return Page();
             }

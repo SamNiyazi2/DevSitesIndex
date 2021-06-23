@@ -58,8 +58,8 @@
 
 
                 <!-- 04/14/2021 06:11 am - SSN -->
- 
-               
+
+
                 <div class="form-group">
 
                     <label for="lineItemID" class="col-sm-3 control-label">
@@ -134,7 +134,7 @@
                     <label for="WorkDetail" class="col-sm-3 control-label">Work Detail</label>
                     <div class="col-sm-9">
 
-                        <textarea name="WorkDetail" id="WorkDetail" class="form-control" rows="5" cols="40" ng-model="editableTimeLog.workDetail" ></textarea>
+                        <textarea name="WorkDetail" id="WorkDetail" class="form-control" rows="5" cols="40" ng-model="editableTimeLog.workDetail"></textarea>
                     </div>
                 </div>
 
@@ -144,8 +144,7 @@
 
 
             <div ng-if="feedbackToUserText" ng-class="feedbackToUserClassNameSet()">
-                {{feedbackToUserText}}
-                <div [innerHtml]="feedbackToUserText"></div>
+                <div ng-bind-html="feedbackToUserText"></div>
             </div>
 
         </div>

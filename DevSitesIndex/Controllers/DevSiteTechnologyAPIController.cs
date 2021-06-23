@@ -47,7 +47,8 @@ namespace DevSitesIndex.Controllers
             }
             else if (returnedResultsType.Equals(typeof(BadRequestObjectResult)))
             {
-                return returnedResults;
+                BadRequestObjectResult badRequest = returnedResults as BadRequestObjectResult;
+                return BadRequest(badRequest.Value);
             }
             else
             {

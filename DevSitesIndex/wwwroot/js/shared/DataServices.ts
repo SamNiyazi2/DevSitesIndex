@@ -15,6 +15,7 @@ import { IDevSiteTechnology } from '../Interfaces/IDevSiteTechnology';
 import * as   globals from '../globals';
 
 import * as angular from "angular";
+import { ssn_AngularJslogger } from '../Util/Logger/ssn_AngularJslogger';
 
 
 var dataService_instance = function () {
@@ -248,10 +249,7 @@ var dataService_instance = function () {
             // 09/30/2019 07:06 pm - SSN - Adding
             var _getJob = function (id) {
 
-
-
                 var deferred = $q.defer();
-
 
                 // 06/08/2021 10:52 pm - SSN - [20210608-2247] - [002] - Test line item -  Prep for deployment
                 // $http.get('/api/jobapi/get_custom/' + id)
@@ -358,6 +356,31 @@ var dataService_instance = function () {
 
             };
 
+            // Todo-SSN - 06/23/2021 04:10 am - SSN - [20210623-0158] - [007] - Limit user access to their timesheet records
+
+            function getHttpGetPromise(url) {
+
+                var deferred = $q.defer();
+                $http.get(url)
+                    .then(function (result) {
+
+                        deferred.resolve(result.data);
+                    },
+                        function (error) {
+
+                            deferred.reject({ Error: 'Failed call to get current user [20210623-0413]' });
+
+                            console.log(`%c 20210623-0415:  Error calling ${url}`)
+                            console.error(error);
+
+
+                        });
+
+                return deferred.promise;
+            }
+
+
+
 
             function getHttpPostPromise(url, body) {
 
@@ -416,6 +439,13 @@ var dataService_instance = function () {
             };
 
 
+            // Todo-SSN - 06/23/2021 04:17 am - SSN - [20210623-0158] - [008] - Limit user access to their timesheet records
+            const getCurrentUser = function () {
+                return getHttpGetPromise('/api/IdentitySupport/GetCurrentUser');
+            }
+
+
+
             return {
 
                 getDevSites: _getDevSites,
@@ -436,7 +466,8 @@ var dataService_instance = function () {
                 addOrUpdateJob_LineItem,
                 addOrUpdateTechnology,
                 addDevSiteTechnology,
-                deleteDevSiteTechnology
+                deleteDevSiteTechnology,
+                getCurrentUser
 
             };
 

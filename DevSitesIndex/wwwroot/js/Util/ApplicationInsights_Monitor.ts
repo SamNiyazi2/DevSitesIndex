@@ -96,12 +96,42 @@ var AppInsights_Util = function () {
         // AppInsights.trackException(exception, handledAt, props);
 
         if (exception) {
-
             props = { ...props, ...exception };
         }
 
+        // 06/22/2021 02:16 am - SSN - Merge objects. Leave out functions.
+        props = step0(props);
+
+
         AppInsights.trackException(exception, handledAt, props);
 
+    }
+
+    //  Source C:\Sams_Projects\JavaScript\Spread\Spread_106.js
+
+    const step1 = function (z2, a, z) {
+
+        if (typeof (z[a]) != 'function') {
+
+            if (typeof (z[a]) == 'object') {
+                z2 = { ...z2, ...(step0(z[a])) };
+            }
+            else {
+                z2[a] = z[a]
+            }
+        }
+        return z2;
+    }
+
+
+    const step0 = function (z) {
+
+        let z2 = {};
+
+        for (const a in z) {
+            z2 = step1(z2, a, z);
+        }
+        return z2;
     }
 
 

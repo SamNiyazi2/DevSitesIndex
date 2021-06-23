@@ -24,13 +24,16 @@ var timesheetApp_instance = function () {
     // 11/14/2019 03:35 pm - SSN - [20191114-1459] - [005] - ChangeMonitroService
     // Inject changeMonitorService
 
-    timesheetApp.controller("timesheetController", ['$scope', '$uibModal', 'changeMonitorService', '$compile','ssn_logger',  function ($scope, $uibModal, changeMonitorService, $compile, ssn_logger) {
+    timesheetApp.controller("timesheetController", ['$scope', '$timeout', '$uibModal', 'changeMonitorService', '$compile', 'ssn_logger', 'dataService', function ($scope, $timeout, $uibModal, changeMonitorService, $compile, ssn_logger, dataService) {
+
+
+
 
 
         // 11/19/2019 06:43 am - SSN - [20191119-0048] Added to re-bind ng-click
 
         $scope.$on('TimeLog_Index_Refresh', function (event, item) {
- 
+
             $("#" + item.tr_2_id).remove();
 
             $("#" + item.tr_1_id).replaceWith(item.html);
@@ -72,9 +75,71 @@ var timesheetApp_instance = function () {
 
             $("#" + rowId1).addClass("cssHilight102");
             $("#" + rowId2).addClass("cssHilight102");
-             
+
         }
 
+
+        // Todo-SSN - 06/23/2021 05:51 am - SSN - [20210623-0158] - [012] - Limit user access to their timesheet records
+        $scope.currentUser = null;
+        $scope.callingService = false;
+        $scope.CounterCallSource = 0;
+ 
+        $scope.userHasAccess = function () {
+
+            if ($scope.callingService) { return false; }
+
+            if ($scope.CounterCallSource < 4) {
+
+                if ($scope.currentUser == null) {
+                    
+                    $scope.CounterCallSource++;
+
+                    $scope.callingService = true;
+                    dataService.getCurrentUser().then(getCurrentUserSuccess, getCurrentUserError).catch(getCurrentUserCatch);
+                }
+
+            } 
+
+             return $scope.currentUser && $scope.currentUser.isAuthenticated ;
+
+
+            function getCurrentUserSuccess(data) {
+ 
+                $scope.currentUser = data;
+                $scope.callingService = false;
+
+            };
+
+
+            function getCurrentUserError(error) {
+
+                console.log('%c getCurrentUser error - 20210623-0609 ', 'color:red;font-size:32pt');
+                console.log(error);
+
+                $scope.currentUser = null;
+                $scope.callingService = false;
+                
+                ssn_logger.cl_error({ callSource: "20210623-0744", message: `Call to getCurrentUser failed.`, errorObject: error });
+
+
+            };
+
+
+            function getCurrentUserCatch(error) {
+
+                console.log('%c getCurrentUser error - 20210623-0610 ', 'color:red;font-size:32pt');
+                console.log(error);
+                $scope.currentUser = null;
+                $scope.callingService = false;
+
+
+                ssn_logger.cl_error({ callSource: "20210623-0745", message: `Call to getCurrentUser failed.`, errorObject: error });
+
+            };
+
+
+
+        }
 
         $scope.timesheetForm_ClockOut = function (timelogId) {
 
@@ -243,7 +308,7 @@ var timesheetApp_instance = function () {
             // 05/03/2019 04:10 pm - SSN - [20190503-1539] - [004] - Add link to create timelog
 
             // 06/19/2021 06:31 am - SSN - Capture open return results
-            const showCreateTimesheetForm_modal =  $uibModal.open({
+            const showCreateTimesheetForm_modal = $uibModal.open({
 
                 templateUrl: '/js/timesheet/templates/timesheetTemplate.html',
                 controller: 'TimesheetController',

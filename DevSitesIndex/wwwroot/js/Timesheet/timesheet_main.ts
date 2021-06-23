@@ -6,20 +6,23 @@
 // 11/14/2019 03:20 pm - SSN - [20191114-1459] - [004] - ChangeMonitroService
 
 //import { ChangeMonitor_Util } from '../Util/ChangeMonitor';
-import { changeMonitorService_instance } from '../Util/ChangeMonitor/ChangeMonitorService';
+
+/////////////////////////////////////////////////////////////////import { changeMonitorService_instance } from '../Util/ChangeMonitor/ChangeMonitorService';
 
 // 11/20/2019 04:40 am - SSN - [20191120-0429] - [002] - Timelog index clock-out refresh updated row
 import { PageUpdater_Instance } from '../Util/PageUpdater';
 
 
-import { dataService_instance } from '../shared/DataServices';
+//////////////////////////////////////////////////////////import { dataService_instance } from '../Shared/DataServices';
 import { dropdownListDirective_instance } from '../DropdownList/DropdownListDirective';
 import { AppInsights_Util } from '../Util/ApplicationInsights_Monitor';
-import { RestorePreviousPageState_instance } from '../Util/RestorePreviousPageState';
+
+
+//////////////////////////////////import { RestorePreviousPageState_instance } from '../Util/RestorePreviousPageState';
 
 // 12/07/2019 04:09 am - SSN - [20191207-0353] - [002] - SessionTimeoutInterceptor
 
-import sessionTimeoutInterceptor from '../Interceptors/SessionTimeoutInterceptor';
+/////////////////////////////////////////////////////import sessionTimeoutInterceptor from '../Interceptors/SessionTimeoutInterceptor';
 
 
 // 12/07/2019 08:07 am - SSN - [20191207-0704] - [004] - AngularJS - Routing - Authentication
@@ -33,13 +36,18 @@ routing_config_instance.doSetup();
 
 const ngApplicationName = 'timesheetApp';
 
-sessionTimeoutInterceptor.doSetup(ngApplicationName);
+//////////////////////////////////////////////////sessionTimeoutInterceptor.doSetup(ngApplicationName);
+
+
+import * as _sharedUtil from '../Shared/SharedUtil';
+
+_sharedUtil.LoadAll(ngApplicationName);
 
 
 
 
 //ChangeMonitor_Util
-changeMonitorService_instance.doSetup(ngApplicationName);
+//////////////////////////////////////////////////////////changeMonitorService_instance.doSetup(ngApplicationName);
 
 
 PageUpdater_Instance.doSetup(ngApplicationName);
@@ -66,11 +74,11 @@ ssn_AngularJslogger.doSetup("timesheet_main",ngApplicationName);
 
 
 
-dataService_instance.doSetup(ngApplicationName);
+//////////////////////////////////////////////////////////dataService_instance.doSetup(ngApplicationName);
 
 
 // 11/23/2019 08:56 am - SSN
-RestorePreviousPageState_instance.doSetup(ngApplicationName, "timesheet_main_20210606_1731");
+////////////////////////////////////////////////////////////////RestorePreviousPageState_instance.doSetup(ngApplicationName, "timesheet_main_20210606_1731");
 
 
 // 10/01/2019 11:09 am - SSN - [20191001-0944] - [007] - Adding Application Insights for JavaScript

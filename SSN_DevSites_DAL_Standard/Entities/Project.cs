@@ -28,7 +28,7 @@ namespace DevSitesIndex.Entities
 
 
         [DisplayName("Project Title")]
-        [Required(ErrorMessage = "Title is required")]
+        [Required(ErrorMessage = "{0} is required")]
         // 06/08/2021 11:58 am - SSN - [20210606-0227] - [027] - Testng for deployment - Line item
         [Remote(action: "Project_duplicate_Check", controller: "RemoteDataValidation", AdditionalFields = "ProjectID", HttpMethod = "POST")]
         public string ProjectTitle { get; set; }

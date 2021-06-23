@@ -32,7 +32,7 @@ namespace DevSitesIndex.Services
         }
 
 
-        public Technology Update(Technology technology)
+        public Technology Update(Technology technology, System.Security.Claims.ClaimsPrincipal user)
         {
 
             // 06/15/2021 07:28 pm - SSN - [20210613-0452] - [050] - Adding tags to DevSite

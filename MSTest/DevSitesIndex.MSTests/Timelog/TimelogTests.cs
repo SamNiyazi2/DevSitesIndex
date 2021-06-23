@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Mvc.Routing;
+using DevSitesIndex.Pages;
 
 // 10/25/2019 10:45 pm - SSN - [20191025-2245] - [001] - Initial tests
 
@@ -38,7 +39,7 @@ namespace DevSitesIndex.MSTests.Timelog
 
 
         [TestMethod]
-        [Ignore]
+       // [Ignore]
         public async Task TestMethod1()
         {
 
@@ -81,6 +82,8 @@ namespace DevSitesIndex.MSTests.Timelog
 
             Mock<DbSet<TimeLog>> mockDbSet = new Mock<DbSet<TimeLog>>();
 
+            Mock<IValidationSharedUtil> mockValidationSharedUtil = new Mock<IValidationSharedUtil>();
+
 
 
             // createModel.TimeLog = new TimeLog();
@@ -101,7 +104,7 @@ namespace DevSitesIndex.MSTests.Timelog
             //    Url = new UrlHelper(actionContext)
             //};
 
-            Pages.TimeLogs.CreateModel createModel = new Pages.TimeLogs.CreateModel(mockDBContext.Object, logger);
+            Pages.TimeLogs.CreateModel createModel = new Pages.TimeLogs.CreateModel(mockDBContext.Object, logger, mockValidationSharedUtil.Object);
             createModel.TimeLog = timelog;
 
 
@@ -132,11 +135,13 @@ namespace DevSitesIndex.MSTests.Timelog
 
             ILogger_SSN logger = new SSN_Logger();
 
+            Mock<IValidationSharedUtil> mockValidationSharedUtil = new Mock<IValidationSharedUtil>();
+
             using (var db = new DevSitesIndexContext(TestUtil.TestDbContextOptions(), configuration, logger))
             {
 
 
-                Pages.TimeLogs.CreateModel createModel = new Pages.TimeLogs.CreateModel(db, logger);
+                Pages.TimeLogs.CreateModel createModel = new Pages.TimeLogs.CreateModel(db, logger, mockValidationSharedUtil.Object);
                 createModel.TimeLog = new TimeLog();
 
                 createModel.TimeLog.JobId = 1005;

@@ -7,7 +7,7 @@ let ngApplicationName = 'demoSites_Index';
 
 import { demosites_index_p1_instance } from "./DemoSites_index_p1"
 
-import { dataService_instance } from './shared/DataServices';
+import { dataService_instance } from './Shared/DataServices';
 
 import { ssn_devsite_angular_module_instance } from './demoSites_Index';
 
@@ -26,9 +26,18 @@ import { AppInsights_Util } from './Util/ApplicationInsights_Monitor';
 
 
 // 11/23/2019 08:53 am - SSN 
-import { RestorePreviousPageState_instance } from './Util/RestorePreviousPageState';
+//import { RestorePreviousPageState_instance } from './Util/RestorePreviousPageState';
 
-RestorePreviousPageState_instance.doSetup(ngApplicationName, "DemoSites_index_main_20210606_1731");
+//RestorePreviousPageState_instance.doSetup(ngApplicationName, "DemoSites_index_main_20210606_1731");
+
+
+
+// Todo-SSN - 06/23/2021 04:45 am - SSN - [20210623-0158] - [010] - Limit user access to their timesheet records
+// Replaces some of existing calls
+import * as _sharedUtil from './Shared/SharedUtil';
+
+_sharedUtil.LoadAll(ngApplicationName);
+
 
 
 
@@ -46,8 +55,8 @@ import { ssn_AngularJslogger } from './Util/Logger/ssn_AngularJslogger';
 ssn_AngularJslogger.doSetup('jobIndex_main', ngApplicationName);
 
 
-import { changeMonitorService_instance } from './Util/ChangeMonitor/ChangeMonitorService';
-changeMonitorService_instance.doSetup(ngApplicationName);
+//import { changeMonitorService_instance } from './Util/ChangeMonitor/ChangeMonitorService';
+//changeMonitorService_instance.doSetup(ngApplicationName);
 
 
 
@@ -58,4 +67,5 @@ TechnologyController_instance.doSetup(ngApplicationName);
 
 import { ModalCallsUtil } from './Shared/ModalCallsUtil';
 ModalCallsUtil.doSetup("DemoSites_Index_main", ngApplicationName);
+
 

@@ -24,6 +24,7 @@ namespace DevSitesIndex.Entities
 
 
         [Display(Name = "Line Item")]
+        [Required]
         public string LineItem { get; set; }
 
 

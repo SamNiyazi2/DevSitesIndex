@@ -83,7 +83,7 @@ namespace DevSitesIndex.Controllers
             {
 
 
-                _entityRepository.Update(value);
+                _entityRepository.Update(value,User);
 
                 // 09/29/2019 09:50 am - SSN - [20190928-1256] - [017] - Adding Entity Framework model attribute
                 // if (!_entityRepository.Save())
@@ -110,7 +110,7 @@ namespace DevSitesIndex.Controllers
 
                 SSN_GenUtil_StandardLib.ExceptionsList el = eh.HandleException_GetExAsSB_v02(ex);
 
-                string message = el.Message_ToStringBuilder().ToString();
+                string message = el.Message_ToStringBuilder_v02(ExceptionsList.Enum_OutputFormat.HTML).ToString();
                 return BadRequest(string.Format("Failed to save record.  (DemoSite-20190521-1150-ZZZ)  {0}", message));
 
             }
@@ -146,7 +146,7 @@ namespace DevSitesIndex.Controllers
 
                 ExceptionsList el = eh.HandleException_GetExAsSB_v02(ex);
 
-                string message = el.Message_ToStringBuilder().ToString();
+                string message = el.Message_ToStringBuilder_v02(ExceptionsList.Enum_OutputFormat.HTML).ToString();
                 return BadRequest(string.Format("Failed to delete record.  (DemoSite-20210616-2134)  {0}", message));
 
             }

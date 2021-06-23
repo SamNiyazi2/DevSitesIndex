@@ -17,7 +17,7 @@
 
     <div class="modal-body">
 
- 
+
 
         <fieldset>
 
@@ -47,8 +47,9 @@
 
 
         <div ng-if="feedbackToUserText" ng-class="feedbackToUserClassNameSet()">
-            {{feedbackToUserText}}
+            <div ng-bind-html="feedbackToUserText"></div>
         </div>
+
 
     </div>
 

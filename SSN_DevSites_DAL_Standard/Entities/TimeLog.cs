@@ -12,21 +12,31 @@ namespace DevSitesIndex.Entities
 {
     public class TimeLog : IBaseEntity
     {
+
+        // 06/20/2021 09:32 pm - SSN - [20210620-2108] - [004] - Update TimeLog create option to use DrowndownListDirective
+        public TimeLog()
+        {
+            discipline = new Discipline();
+            job = new Job();
+            job_Lineitem = new Job_Lineitem();
+        }
+
+
         // 09/28/2019 11:18 am - SSN - [20190927-0634] - [1005] - Testing
         // Adding key for save method lookup
         [Key]
         public int TimeLogId { get; set; }
 
         [Display(Name = "Job Title")]
-        [Required] // 09/13/2019 11:26 pm - SSN - Forgotten
+        [Required(ErrorMessage = "Job title is required")] // 09/13/2019 11:26 pm - SSN - Forgotten
         public int JobId { get; set; }
 
         [Display(Name = "Discipline")]
-        [Required] // 09/13/2019 11:26 pm - SSN - Forgotten
+        [Required(ErrorMessage = "{0} is required")] // 09/13/2019 11:26 pm - SSN - Forgotten
         public int DisciplineID { get; set; }
 
         [Display(Name = "Start Time")]
-        [Required] // 09/13/2019 11:26 pm - SSN - Forgotten
+        [Required(ErrorMessage = "{0} is required")] // 09/13/2019 11:26 pm - SSN - Forgotten
         // 09/28/2019 11:18 am - SSN - [20190927-0634] - [1005] - Testing
         // Adding key for save method lookup
         public DateTime StartTime { get; set; }
@@ -68,10 +78,10 @@ namespace DevSitesIndex.Entities
         [Display(Name = "Line item ID")]
         ////////////////////////////////////////////////////// [Required]
         public int? LineItemID { get; set; }
-        
+
 
         // 06/20/2021 10:53 am - SSN - [20210620-1053] - [001] - Add UserID to TimeLog table 
-        [Required]
+        [Required(ErrorMessage = "User ID is required (222)")]
         public int FK_UserID { get; set; }
 
 
@@ -134,7 +144,7 @@ namespace DevSitesIndex.Entities
 
 
 
-       
+
 
     }
 }
