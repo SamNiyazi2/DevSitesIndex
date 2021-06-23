@@ -17,7 +17,7 @@ namespace DevSitesIndex.Pages
             int record_FK_UserID,
             string friendlyErrorMessage, string exceptionMesssage, string callSource);
 
-        void RemoveErrorsForValidFields(TimeLog timeLog, ModelStateDictionary modelState);
+        void RemoveErrorsForValidFields<T>(T timeLog, ModelStateDictionary modelState);
     }
 
     public class ValidationSharedUtil : IValidationSharedUtil
@@ -66,18 +66,20 @@ namespace DevSitesIndex.Pages
 
 
 
-        public void RemoveErrorsForValidFields(TimeLog timeLog, ModelStateDictionary modelState)
+        public void RemoveErrorsForValidFields<T>(T entity, ModelStateDictionary modelState)
         {
+
             List<string> dropList = new List<string>();
 
-            if (timeLog.job.ProjectID > 0)
-            { dropList.Add(".job.project."); }
-            if (timeLog.JobId > 0)
-            { dropList.Add(".job."); }
-            if (timeLog.LineItemID > 0)
-            { dropList.Add(".job_lineitem."); }
-            if (timeLog.DisciplineID > 0)
-            { dropList.Add(".discipline."); }
+            if (entity.GetType().Equals(typeof(TimeLog)))
+            {
+                process_TimeLog(dropList, entity as TimeLog);
+            }
+
+            if (entity.GetType().Equals(typeof(Job)))
+            {
+                process_Job(dropList, entity as Job);
+            }
 
             List<string> keysToRemove = modelState.Keys.Where(r => dropList.Any(r2 => r.ToLower().Contains(r2))).ToList();
 
@@ -87,6 +89,23 @@ namespace DevSitesIndex.Pages
             }
         }
 
+        private static void process_TimeLog(List<string> dropList, TimeLog timeLog)
+        {
+            if (timeLog.job.ProjectID > 0)
+            { dropList.Add(".job.project."); }
+            if (timeLog.JobId > 0)
+            { dropList.Add(".job."); }
+            if (timeLog.LineItemID > 0)
+            { dropList.Add(".job_lineitem."); }
+            if (timeLog.DisciplineID > 0)
+            { dropList.Add(".discipline."); }
+        }
+
+        private static void process_Job(List<string> dropList, Job job)
+        {
+            if (job.ProjectID > 0)
+            { dropList.Add(".project."); }
+        }
 
     }
 

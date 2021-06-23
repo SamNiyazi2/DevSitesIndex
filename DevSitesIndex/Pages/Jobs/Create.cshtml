@@ -13,11 +13,9 @@
 <h2>@ViewData["Title"] </h2>
 
 
-
 <hr />
 <div class="row">
-    <div class="col-md-4" ng-controller="utilityController"  form-name="jobCreateForm" >  
-
+    <div class="col-md-4" ng-controller="utilityController" form-name="jobCreateForm">
  
 
         @*
@@ -27,36 +25,19 @@
 
         *@
 
-        <form method="post" name="jobCreateForm" action="" novalidate ng-submit="submitForm_1($event,jobCreateForm)" >
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <form method="post" name="jobCreateForm" action="" novalidate ng-submit="submitForm_1($event,jobCreateForm)">
+
+            @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <hr/>*@
+            <div asp-validation-summary="All" class="text-danger"></div>
 
 
-            @*
-                // 11/25/2019 09:56 pm - SSN - [20191125-2153] - [002] - Job create - Replace dropdown with dropdownListDirective
-
-
-                <div class="form-group">
-                    <label asp-for="Job.ProjectID" class="control-label"></label>
-
-                    @.*<select asp-for="Job.ProjectID" class="form-control" asp-items="ViewBag.ProjectID"></select>*.@
-
-                    @.*09/14/2019 12:28 am - SSN - Remove "Please select" from option and leave blank. Added placeholder*.@
-                    <select asp-for="Job.ProjectID" class="form-control" asp-items="Model.projectsSL" autofocus>
-                        <option></option>
-                    </select>
-                    <span asp-validation-for="Job.ProjectID" class="text-danger"></span>
-                </div>
-
-
-            *@
-
-          
             <div class="form-group">
-               
+
                 <label asp-for="Job.ProjectID" class="control-label"></label>
                 <input asp-for="Job.ProjectID" type="hidden" />
-              
-                <dropdown-list-directive call-source="20210607-1752" key="Job.ProjectID" form-name="jobCreateForm" hidden-field-name="Job.ProjectID" ng-model="jobRecord.ProjectID" ></dropdown-list-directive>
+
+                <dropdown-list-directive call-source="20210607-1752" key="Job.ProjectID" form-name="jobCreateForm" hidden-field-name="Job.ProjectID" ng-model="jobRecord.ProjectID"></dropdown-list-directive>
 
             </div>
 
@@ -68,9 +49,7 @@
                 @*<input asp-for="Job.JobTitle" class="form-control" autofocus />*@
                 <input asp-for="Job.JobTitle" type="hidden" />
 
-
-                <dropdown-list-directive call-source="20210617-1109" key="Job.JobId"     form-name="jobCreateForm" hidden-field-name="Job.JobTitle"  ng-model="jobRecord.jobTitle"  parentkey="jobRecord.ProjectID"         parent-key-name="Job.ProjectId"       dropdown-list-directive-input-box-inverse="{{true}}" ></dropdown-list-directive>
-
+                <dropdown-list-directive call-source="20210617-1109" key="Job.JobId" form-name="jobCreateForm" hidden-field-name="Job.JobTitle" ng-model="jobRecord.jobTitle" parentkey="jobRecord.ProjectID" parent-key-name="Job.ProjectId" dropdown-list-directive-input-box-inverse="{{true}}"></dropdown-list-directive>
 
                 <span asp-validation-for="Job.JobTitle" class="text-danger"></span>
             </div>
@@ -80,7 +59,6 @@
             @*
 
                 // 09/18/2019 09:22 am - SSN - [20190918-0817] - [006] - Adding paging for angular lists
-
 
             *@
             <div class="form-group">
@@ -96,7 +74,7 @@
 
 
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default"  />
+                <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </form>
     </div>
@@ -131,26 +109,18 @@
 
     <script>
 
+        angular.module('timesheetApp')
+            .controller('utilityController', ['$scope', function ($scope) {
 
+                $scope.jobRecord  =  @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Job, formatting: Newtonsoft.Json.Formatting.Indented, new Newtonsoft.Json.JsonSerializerSettings
+                            {
+                                ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                            }));
 
-    angular.module('timesheetApp')
-    .controller('utilityController', ['$scope', function ($scope) {
+        }]);
 
-
-    $scope.jobRecord  =  @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Job, formatting: Newtonsoft.Json.Formatting.Indented, new Newtonsoft.Json.JsonSerializerSettings
-{
-ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-}));
-
-
-
-
-
-
-
-
-    }]);
- 
     </script>
 
 }
+
+

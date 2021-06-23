@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using DevSitesIndex.Entities;
 using Microsoft.AspNetCore.Authorization;
 using DevSitesIndex.Util;
+using SSN_GenUtil_StandardLib;
 
 namespace DevSitesIndex.Pages.Jobs
 {
@@ -19,6 +20,7 @@ namespace DevSitesIndex.Pages.Jobs
     {
 
         private readonly DevSitesIndex.Entities.DevSitesIndexContext _context;
+        private readonly IValidationSharedUtil validationSharedUtil;
 
         // 11/04/2019 01:45 pm - SSN - [20191104-0844] - [020] - Prevent delete option on timesheet related forms 
         // Return to caller
@@ -33,9 +35,11 @@ namespace DevSitesIndex.Pages.Jobs
         public SelectList job_statusSL { get; set; }
 
 
-        public CreateModel(DevSitesIndex.Entities.DevSitesIndexContext context)
+        // 06/23/2021 12:28 pm - SSN - Added ILogger_SSN and IValidationSharedUtil 
+        public CreateModel(DevSitesIndex.Entities.DevSitesIndexContext context, ILogger_SSN logger, IValidationSharedUtil _validationSharedUtil)
         {
             _context = context;
+            validationSharedUtil = _validationSharedUtil;
         }
 
         public IActionResult OnGet(int? id)
@@ -76,11 +80,25 @@ namespace DevSitesIndex.Pages.Jobs
 
         public async Task<IActionResult> OnPostAsync()
         {
+
+
             if (!ModelState.IsValid)
             {
-                setupPageRequirements();
-                return Page();
+                validationSharedUtil.RemoveErrorsForValidFields(Job, ModelState);
+
+                if (!ModelState.IsValid)
+                {
+
+                    setupPageRequirements();
+
+                    Job.project = _context.Projects.Find(Job.ProjectID) ?? new Project();
+
+                    return Page();
+
+                }
             }
+
+            Job.project = null;
 
             _context.Jobs.Add(Job);
 
