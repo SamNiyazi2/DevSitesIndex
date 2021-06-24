@@ -23,11 +23,16 @@ const ssn_AngularJslogger = function () {
 
 
 
-            const cl_normal = function (msg: ILoggerMessage, color: string, loud: boolean = false) {
+            const cl_normal = function (msg: ILoggerMessage, color: string, loud: boolean = false, fontSize: number = null) {
 
                 let style = `color:${color};`;
                 if (loud) {
                     style += `font-size:12px;font-weight:bold;`;
+
+                }
+
+                if (fontSize) {
+                    style += `font-size:${fontSize}px`;
                 }
 
                 console.log("%c-----------------------------", style);
@@ -51,7 +56,7 @@ const ssn_AngularJslogger = function () {
                 // 06/15/2021 08:38 am - SSN - [20210613-0452] - [048] - Adding tags to DevSite
 
                 let props = { SourceCode1: `ssn-angjs-[${callSource}]`, SourceCode2: errorMsg.callSource, Message: errorMsg.message };
-              
+
                 AppInsights_Util.logException(errorMsg.errorObject, props);
 
             }

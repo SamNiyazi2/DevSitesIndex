@@ -28,7 +28,7 @@ var ssn_devsite_angular_module_instance = function () {
 
     // 09/21/2019 08:23 am - SSN - [20190921-0357] - [012] - Creating multiple entry for Webpack
     // = function
-    var demoSiteIndexController_101 = function ($scope, $http, $window, dataService) {
+    var demoSiteIndexController_101 = function ($scope, $http, $window, dataService, ssn_logger) {
 
         $scope.Title = "Title set in Angular controller.";
 
@@ -51,7 +51,11 @@ var ssn_devsite_angular_module_instance = function () {
                     console.error("20190910-0101 - demosites_index");
                     console.log(ex)
                     alert('failed call to api/demositesapi (20180831-0940) - See console.');
-                })
+
+
+                    ssn_logger.cl_error({ callSource: "20210624-0119", message: `Failed to getDevSites`, errorObject: ex });
+
+            })
             .then(function () {
 
                 $scope.isBusy2 = false;
@@ -154,7 +158,7 @@ var ssn_devsite_angular_module_instance = function () {
 
 
 
-    ssn_devsite_angular_module.controller("demoSiteIndexController_101", ['$scope', '$http', '$window', 'dataService', demoSiteIndexController_101]);
+    ssn_devsite_angular_module.controller("demoSiteIndexController_101", ['$scope', '$http', '$window', 'dataService', 'ssn_logger',  demoSiteIndexController_101]);
 
     // 09/21/2019 08:23 am - SSN - [20190921-0357] - [012] - Creating multiple entry for Webpack
     // function devSiteUpdateController  
@@ -315,7 +319,7 @@ var ssn_devsite_angular_module_instance = function () {
                 }
             },
 
-            controller: ["$sce", "$rootScope", "$scope", "dataService", function ($sce, $rootScope, $scope, dataService) {
+            controller: ["$sce", "$rootScope", "$scope", "dataService", "ssn_logger", function ($sce, $rootScope, $scope, dataService, ssn_logger) {
 
                 const vm = this;
 
@@ -359,9 +363,18 @@ var ssn_devsite_angular_module_instance = function () {
                         };
 
                     }
-                    console.log(`%c addDevSiteTag (or edit)`, 'color:yellow');
+
+                    $scope.editableDevSite = { technologyId: -444 };
+
+
+                    console.log(`%c addDevSiteTag (or edit) - 20210621-0233`, 'color:yellow');
+
+                    console.log('$scope.devSiteTechnologySelectedRecord:');
                     console.log($scope.devSiteTechnologySelectedRecord);
 
+                    console.log('$scope.editableDevSite:');
+                    console.log($scope.editableDevSite);
+                     
 
                     $scope.addingDevSiteTag = true;
                 }
@@ -385,38 +398,62 @@ var ssn_devsite_angular_module_instance = function () {
 
                     console.log('%c ' + 'saveNewDevsiteTag 0616-0236', 'color:yellow;font-size:12pt');
 
+                    
+
+                    console.log('vm.ctrl:')
+                    console.log(vm.ctrl);
+
+
                     console.log('$scope.editableDevSite:')
                     console.log($scope.editableDevSite)
+                     
+
+
+
+                    //////////////////////////////////////  console.log(`DevSiteID : [${$scope.theTags.id}] technologyId: [${$scope.editableDevSite.technology.id}] `)
+                    console.log(`DevSiteID : [${$scope.theTags.id}] technologyId: [${$scope.editableDevSite.technologyId}] `)
+
+
+
 
 
                     console.log('---------------------------------------');
                     console.log('%c $scope.devSiteTechnologySelectedRecord 20210616-2224', 'color:yellow');
-                    console.log($scope.devSiteTechnologySelectedRecord);
-                    console.log('---------------------------------------');
+                   
 
+                /////////////////////////////    console.log($scope.theTags);
 
-                    console.log(`DevSiteID : [${$scope.theTags.id}] technologyId: [${$scope.editableDevSite.technology.id}] `)
-
-                    console.log('---------------------------------------');
-                    console.log('%c $scope.devSiteTechnologySelectedRecord 20210616-2224', 'color:yellow');
-                    console.log($scope.devSiteTechnologySelectedRecord);
-                    console.log('---------------------------------------');
-
-                    console.log($scope.theTags);
                     console.log($scope.editableDevSite);
 
                     const newRec: IDevSiteTechnology = {
                         id: $scope.editableDevSite.id,
                         devSiteId: $scope.theTags.id,
-                        technologyId: $scope.editableDevSite.technology.id
+                        ////////////////////////////////////// technologyId: $scope.editableDevSite.technology.id
+                        technologyId: $scope.editableDevSite.technologyId
                     };
 
                     console.log('%c  demoSites_ondex - 20210616-0339', 'color:yellow;font-size:14pt;');
                     console.log(newRec);
 
 
-                    dataService.addDevSiteTechnology(newRec).then(addDevSiteTechnologySuccess, addDevSiteTechnologyError).catch(addDevSiteTechnologyCatch);
 
+
+                    if (newRec.devSiteId <= 0 || newRec.technologyId <= 0) {
+
+                        $scope.feedbackToUserClassNameCase = 2;
+
+                        $scope.feedbackToUserText = $sce.trustAsHtml("Lost system keys. See console log.");
+                        console.error('Lost keys 20210624-0255');
+
+                        $scope.disableSaveButton = false;
+
+                        return;
+                    }
+
+
+
+                    dataService.addDevSiteTechnology(newRec).then(addDevSiteTechnologySuccess, addDevSiteTechnologyError).catch(addDevSiteTechnologyCatch);
+                    
 
 
 
@@ -424,13 +461,13 @@ var ssn_devsite_angular_module_instance = function () {
 
                         console.log('%c  demoSites_ondex - 20210616-0344 - Success', 'color:green;font-size:14pt;');
                         console.log(data);
-                        console.log(data[0]);
 
                         $scope.disableSaveButton = false;
 
-                        const newOrUpdatedRecord = { id: data[0].id, technology: { description: data[0].technology.description } };
+                        const newOrUpdatedRecord = { id: data.id, technology: { description: data.technology.description } };
 
-                        let existingRecordIndex = $scope.theTags.devSiteTechnologies.findIndex(r => r.id == data[0].id);
+                        let existingRecordIndex = $scope.theTags.devSiteTechnologies.findIndex(r => r.id == data.id);
+
                         if (existingRecordIndex > -1) {
 
                             console.log('%c  demoSites_ondex - 20210616-0344 - CHECK ', 'color:green;font-size:14pt;');
@@ -466,6 +503,11 @@ var ssn_devsite_angular_module_instance = function () {
 
                         $scope.disableSaveButton = false;
 
+
+
+                        ssn_logger.cl_error({ callSource: "20210624-0115", message: `Failed to save DevSite tag`, errorObject: error , other:error});
+
+
                     }
 
 
@@ -479,6 +521,8 @@ var ssn_devsite_angular_module_instance = function () {
                         $scope.feedbackToUserText = $sce.trustAsHtml(error.data);
 
                         $scope.disableSaveButton = false;
+
+                        ssn_logger.cl_error({ callSource: "20210624-0117", message: `Failed to save DevSite tag`, errorObject: error, other: error });
                     }
 
 
@@ -537,6 +581,9 @@ var ssn_devsite_angular_module_instance = function () {
                         $scope.feedbackToUserClassNameCase = 2;
 
                         $scope.feedbackToUserText = $sce.trustAsHtml(error.data);
+
+                        ssn_logger.cl_error({ callSource: "20210624-0118", message: `Failed to delete DevSite tag`, errorObject: error, other: error });
+
                     }
 
                     function deleteDevSiteTechnologyCatch(error) {
@@ -544,6 +591,7 @@ var ssn_devsite_angular_module_instance = function () {
                         console.log('%c deleteDrvSiteTechnologyCatch 20210616-2056', 'color:red');
                         console.log(error);
 
+                        ssn_logger.cl_error({ callSource: "20210624-0119", message: `Failed to delete DevSite tag`, errorObject: error, other: error });
                     }
 
 

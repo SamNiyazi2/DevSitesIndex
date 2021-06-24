@@ -138,7 +138,7 @@ var dropdownListDirective_instance = function () {
 
                     const dropdownListDirectiveInputBoxInverse = attr["dropdownListDirectiveInputBoxInverse"];
                     const keyColumn = attr["keyColumn"];
-  
+
                     // This clears the errors except for the uib-typeahead "No reulsts" message.
                     // Tested with adding new entries.
 
@@ -159,28 +159,42 @@ var dropdownListDirective_instance = function () {
 
                                 console.log('%c dropdown blur - Selecting on user\'s behalf ( check ) 20210620-2301-A', 'color:yellow;font-size:14pt;');
 
-                                const matchingRecords = scope.vm101.addresses.filter(r => r.title.toLowerCase().trim() == ngModel_ctrl.$viewValue.trim().toLowerCase());
 
-                                if (matchingRecords && matchingRecords.length == 1) {
+                                console.log('ngModel_ctrl.$viewValue :')
+                                console.log(ngModel_ctrl.$viewValue)
 
-                                    console.log('%c dropdown blur - Selecting on user\'s behalf ( Sucess ) 20210620-2301-B', 'color:green;font-size:14pt;');
-                                    console.log('%c INCOMPLETE 20210620-2301-zB', 'color:RED;font-size:14pt;');
+                                console.log('ngModel_ctrl.$modelValue:')
+                                console.log(ngModel_ctrl.$modelValue)
 
-                                    // ngModel_ctrl.$setViewValue(matchingRecords[0].title);
-                                    console.log(matchingRecords);
-                                    console.log(elem);
+                                if (ngModel_ctrl && ngModel_ctrl.$viewValue) {
+
+                                    const matchingRecords = scope.vm101.addresses.filter(r => r.title.toLowerCase().trim() == ngModel_ctrl.$viewValue.trim().toLowerCase());
+
+                                    if (matchingRecords && matchingRecords.length == 1) {
+
+                                        console.log('%c dropdown blur - Selecting on user\'s behalf ( Sucess ) 20210620-2301-B', 'color:green;font-size:14pt;');
+                                        console.log('%c INCOMPLETE 20210620-2301-zB', 'color:RED;font-size:14pt;');
+
+                                        // ngModel_ctrl.$setViewValue(matchingRecords[0].title);
+                                        console.log(matchingRecords);
+                                        console.log(elem);
 
 
-                                } else {
+                                    } else {
 
-                                    console.log('%c dropdown blur - Selecting on user\'s behalf ( failure ) 20210620-2301-C', 'color:red;font-size:14pt;');
+                                        console.log('%c dropdown blur - Selecting on user\'s behalf ( failure ) 20210620-2301-C', 'color:red;font-size:14pt;');
+
+                                    }
+                                }
+                                else {
+                                    
+                                    console.log('%c dropdown blur - Selecting on user\'s behalf ( failure - $viewValue) 20210624-0319', 'color:red;font-size:14pt;');
 
                                 }
 
                             }
 
                         }
-
 
 
                         if (dropdownListDirectiveInputBoxInverse && dropdownListDirectiveInputBoxInverse == "true") {
@@ -242,7 +256,7 @@ var dropdownListDirective_instance = function () {
                         // modelValue doesn't honor selected value after it has already been set.
                         // Until we caome up with a way to reset it, disable by bypassing as valid.
 
-                        console.log('20210618-1815');
+                        console.log('20210618-1815  - blue validator isValidDropdownDirectiveSelection');
                         console.log('ngModel_ctrl.$dirty:')
                         console.log(ngModel_ctrl.$dirty)
 
@@ -516,7 +530,7 @@ var dropdownListDirective_instance = function () {
 
                 $scope.$watch('vm101.ngModel', function (newValue, oldValue) {
 
-                    ssn_logger.cl_normal({ callSource: '20210609-1438', message: `CHANGE vm.keyColumn [${vm.keyColumn}]  ngModel [${vm.ngModel}]   parentKeyColumn [${vm.parentKeyColumn}]` }, 'yellow');
+                    ssn_logger.cl_normal({ callSource: '20210609-1438', message: `watch ngModel:  vm.keyColumn [${vm.keyColumn}]  ngModel [${vm.ngModel}]   parentKeyColumn [${vm.parentKeyColumn}]` }, 'yellow;font-size:12pt;');
 
                     console.log(oldValue);
                     console.log(newValue);
@@ -581,7 +595,7 @@ var dropdownListDirective_instance = function () {
                 $scope.$watch('vm101.disciplineSelected_XXX', function (newValue, oldValue) {
 
 
-                    console.log(`%c vm101.disciplineSelected_XXX watch - 20210617-1227`, 'color:cyan;font-size:12pt');
+                    console.log(`%c vm101.disciplineSelected_XXX watch - 20210617-1227`, 'color:cyan;font-size:12px');
 
                     console.log('%c shows null for new value ', 'color:red');
 
@@ -600,7 +614,7 @@ var dropdownListDirective_instance = function () {
 
                         vm.ngModel = newValue.id;
 
-                        console.log(`%c setting ngModel [${vm.ngModel}]  keyColumn [${vm.keyColumn}] 20210617-1213`, 'color:cyan;font-size:12pt');
+                        console.log(`%c setting ngModel [${vm.ngModel}]  keyColumn [${vm.keyColumn}] watch disciplineSelected_XXX 20210617-1213`, 'color:cyan;font-size:10pt');
 
 
 
@@ -770,7 +784,7 @@ var dropdownListDirective_instance = function () {
 
                     vm.ngModel = item.id;
 
-                    console.log(`%c setting ngModel [${vm.ngModel}]  keyColumn [${vm.keyColumn}]  20210617-1212`, 'color:cyan;font-size:12pt');
+                    console.log(`%c setting ngModel [${vm.ngModel}]  keyColumn [${vm.keyColumn}]  >>> typeaheadSelect <<< - 20210617-1212`, 'color:cyan;font-size:12pt');
                     console.log('item:');
                     console.log(item);
                     console.log('-----------------------');

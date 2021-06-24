@@ -84,6 +84,20 @@ namespace DevSitesIndex
                 //});
 
 
+                // 06/23/2021 10:48 pm - SSN - Added clearProviders to reduce logging from ASP.NET Core
+                // https://weblog.west-wind.com/posts/2018/Dec/31/Dont-let-ASPNET-Core-Default-Console-Logging-Slow-your-App-down
+                logging.ClearProviders();
+
+                
+                IConfigurationSection temp =  hostingContext.Configuration.GetSection("Logging");
+                logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
+                logging.AddDebug();
+                logging.AddEventSourceLogger();
+
+                if ( Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == EnvironmentName.Development)
+                {
+                    logging.AddConsole();
+                }
 
 
                 logging.AddProvider(
@@ -91,8 +105,7 @@ namespace DevSitesIndex
                                                new SSN_GenUtil_StandardLib.SSN_LoggerProviderConfiguration
                                                {
                                                    Color = ConsoleColor.Yellow,
-                                                   LogLevel = LogLevel.Information
-
+                                                   LogLevel = LogLevel.Warning
                                                }
                                        ));
 
@@ -100,8 +113,15 @@ namespace DevSitesIndex
                 {
                     r.Color = ConsoleColor.Red;
                     r.LogLevel = LogLevel.Debug;
-
+                    
                 });
+
+
+                // 06/23/2021 10:01 pm - SSN - Added to reduce noise.
+                // https://stackoverflow.com/questions/42079956/suppress-sql-queries-logging-in-entity-framework-core
+                // https://docs.microsoft.com/en-us/ef/core/logging-events-diagnostics/simple-logging
+                logging.AddFilter("Microsoft.EntityFrameworkCore.Database.Command", LogLevel.Warning);
+
 
 
                 #endregion Moving a copy to SSN_GenUtil_StandardLib 

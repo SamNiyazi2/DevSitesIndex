@@ -13,6 +13,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Text;
 using SSN_GenUtil_StandardLib;
 using System.Threading;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 
 // 07/29/2018 03:31 pm - SSN - Copied
@@ -73,7 +74,20 @@ namespace DevSitesIndex.Entities
 
         }
 
-
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            // 06/23/2021 10:12 pm - SSN - Reduce noise.
+            // Testing.
+            // https://docs.microsoft.com/en-us/ef/core/logging-events-diagnostics/simple-logging#changing-the-log-level-for-an-event
+            optionsBuilder.ConfigureWarnings(b =>
+            {
+                b.Log(
+                    (RelationalEventId.CommandError)
+                    );
+                b.Ignore(CoreEventId.DetachedLazyLoadingWarning);
+            });
+            base.OnConfiguring(optionsBuilder);
+        }
 
         // 09/28/2019 02:08 pm - SSN - [20190928-1256] - [003] - Adding Entity Framework model attribute
         // Implementing SaveChanges and SaveChangesAsync

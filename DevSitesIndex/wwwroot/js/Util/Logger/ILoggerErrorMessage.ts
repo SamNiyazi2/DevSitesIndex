@@ -20,7 +20,7 @@ export interface ILoggerErrorMessage {
 
 export interface ILoggerModule {
 
-    cl_normal(msg: ILoggerMessage, color: string, load?: boolean): void,
+    cl_normal(msg: ILoggerMessage, color: string, load?: boolean, fontSize?:number): void,
     cl_error(msg: ILoggerErrorMessage)
 
 }

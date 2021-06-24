@@ -34,6 +34,13 @@ namespace DevSitesIndex.Controllers
         public new ActionResult Post([FromBody]  DevSiteTechnology value)
         {
 
+            DevSiteTechnology duplicateRecord = context.DevSiteTechnologies.Include(r => r.Technology).FirstOrDefault(r => r.DevSiteId == value.DevSiteId && r.TechnologyId == value.TechnologyId);
+
+            if (duplicateRecord != null)
+            {
+                return BadRequest("Duplicate record (20210624-0246-ssn)");
+            }
+
             var returnedResults = base.Post(value);
             Type returnedResultsType = returnedResults.GetType();
 
@@ -42,7 +49,7 @@ namespace DevSitesIndex.Controllers
                 OkObjectResult returnedOK = base.Post(value) as OkObjectResult;
                 DevSiteTechnology rec = returnedOK.Value as DevSiteTechnology;
 
-                return Ok(context.DevSiteTechnologies.Where(r => r.Id == rec.Id).Include(r => r.Technology));
+                return Ok(context.DevSiteTechnologies.Where(r => r.Id == rec.Id).Include(r => r.Technology).FirstOrDefault());
 
             }
             else if (returnedResultsType.Equals(typeof(BadRequestObjectResult)))
