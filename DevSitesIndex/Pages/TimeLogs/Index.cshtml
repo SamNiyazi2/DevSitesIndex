@@ -34,8 +34,80 @@
 <div>
 
     <div ng-controller="timesheetController">
-        
-        
+
+        <i class="glyphicon" ng-class="getFilterContainerClass()" style="font-size:16pt;" ng-click="showFilter = !showFilter"></i>
+
+        <div class="row">
+
+            <div class="col-md-4">
+
+                <div class="cssShowFilterContainer" ng-class="{cssShowFilterContainer_On: showFilter , cssShowFilterContainer_Off: (showFilter !==undefined && !showFilter) }">
+
+
+                    <form name="timelogIndexForm" action="" method="post" novalidate>
+
+                        <div>
+
+                            <fieldset>
+
+                                <div class="form-group">
+                                    <label class="control-label">Start Date</label>
+                                    <input asp-for="startDate" type="date" class="form-control" />
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label class="control-label">End Date</label>
+                                    <input asp-for="endDate" type="date" class="form-control" />
+                                </div>
+
+
+
+                                <div class="form-group">
+
+                                    <label class="control-label">Project Title</label>
+                                    <input asp-for="projectID" type="hidden" />
+
+                                    <dropdown-list-directive call-source="20210625-1115" key="Job.ProjectID" form-name="timelogIndexForm" hidden-field-name="projectID" ng-model="projectID"></dropdown-list-directive>
+
+                                </div>
+
+
+
+
+                                <div class="form-group">
+
+                                    <label class="control-label">Job Title</label>
+                                    <input asp-for="jobID" type="hidden" />
+
+                                    <dropdown-list-directive call-source="20210625-1116" key="Job.JobId" form-name="timelogIndexForm" hidden-field-name="jobID" ng-model="jobID" parentkey="projectID" parent-key-name="Job.ProjectId"></dropdown-list-directive>
+
+                                </div>
+
+
+
+
+
+                                @*<timelog-filter-options-directive
+                                    start-date-input="[name=startDate]"
+                                    start-date="startDate"
+                                    end-date-input="[name=endDate]"
+                                    end-date="endDate"
+
+                                    ></timelog-filter-options-directive>*@
+
+                                <input type="submit" value="Search" class="btn btn-info" />
+                                <input type="button" value="Search" class="btn btn-default" ng-click="showFilter = !showFilter " />
+
+                            </fieldset>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
         <table class="table">
             <thead>
                 <tr>
@@ -70,4 +142,26 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("TimesheetAngularScripts");}
+
+
+
+    <script>
+
+        angular.module('timesheetApp')
+            .controller('timesheetController', ['$scope', function ($scope) {
+
+                $scope.projectID = "@Model.projectID";
+                $scope.jobID = "@Model.jobID";
+
+                $scope.showFilter = undefined;
+
+                $scope.getFilterContainerClass = function () {
+
+                    return $scope.showFilter ? 'glyphicon-remove' : 'glyphicon-filter';
+                }
+
+            }]);
+
+    </script>
+
 }

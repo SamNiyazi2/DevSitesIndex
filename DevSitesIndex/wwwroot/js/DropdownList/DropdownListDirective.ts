@@ -187,7 +187,7 @@ var dropdownListDirective_instance = function () {
                                     }
                                 }
                                 else {
-                                    
+
                                     console.log('%c dropdown blur - Selecting on user\'s behalf ( failure - $viewValue) 20210624-0319', 'color:red;font-size:14pt;');
 
                                 }
@@ -413,7 +413,7 @@ var dropdownListDirective_instance = function () {
                         } else {
 
                             ssn_logger.cl_error({
-                                callSource: '20210617-2154', message: `hiddenFieldName not defined while updating [${args.keyColumn}]} vm.CallSource [${vm.callSource}]`
+                                callSource: '20210617-2154', message: `hiddenFieldName not defined while updating [${args.keyColumn}] vm.CallSource [${vm.callSource}]`
                             });
 
                         }
@@ -441,7 +441,7 @@ var dropdownListDirective_instance = function () {
 
                         ///////////////////////////////////////////////////////////////////////////  vm.getDisciplines(args.description);
 
-                        vm.disciplineSelected_XXX = { id: args.id, title: args.description };
+                        vm.disciplineSelected_XYZ = { id: args.id, title: args.description };
 
 
                         ssn_logger.cl_normal({ callSource: '20210618-1952', message: `[${BROADCAST_IDENTIFIERS.DROPDOWN_LIST_DIRECTIVE}] adding new entry to 'addresses'` }, 'red', true);
@@ -491,8 +491,12 @@ var dropdownListDirective_instance = function () {
                             $("[name='" + vm.hiddenFieldName + "']").val('');
 
                         }
+                        // Todo
+                        // Todo
+                        // Todo
+                        // Todo
 
-                        ////////////////////////////////////////////////////////  vm.disciplineSelected_XXX = "";
+                        ////////////////////////////////////////////////////////  vm.disciplineSelected_XYZ = "";
 
                         isHandled = true;
                     }
@@ -515,10 +519,10 @@ var dropdownListDirective_instance = function () {
 
 
                 // 11/28/2019 08:29 am - SSN - Adding - Need to initializa for $watch to work.
-                // disciplineSelected_XXX  instead of ngModel because we use an object for selected entry, id and tile. ngModel is usually a key. (The id)
+                // disciplineSelected_XYZ  instead of ngModel because we use an object for selected entry, id and tile. ngModel is usually a key. (The id)
 
 
-                vm.disciplineSelected_XXX = "";
+                vm.disciplineSelected_XYZ = "";
 
                 $scope.$on('$destroy', function () {
 
@@ -537,7 +541,14 @@ var dropdownListDirective_instance = function () {
 
                     // 06/13/2021 10:12 pm - SSN - [20210613-0452] - [022] - Adding tags to DevSite
 
+                    // 06/25/2021 01:14 am - SSN - Replaced
+                    // When replaced with validation against oldValue and oldValue is an input string (not a key id), textbox is not updated with new value.
                     if (newValue) {
+                        // Todo
+                        // Todo
+                        // Todo
+                        // Todo
+                        //if ((oldValue && newValue && oldValue != newValue) || (!oldValue && newValue)) {
                         // if (newValue != undefined) {
 
                         ssn_logger.cl_normal({ callSource: '20210609-1438-B', message: `CHANGE vm.keyColumn [${vm.keyColumn}]  ngModel [${vm.ngModel}]   parentKeyColumn [${vm.parentKeyColumn}]` }, 'green');
@@ -575,7 +586,7 @@ var dropdownListDirective_instance = function () {
 
 
 
-                        vm.disciplineSelected_XXX = "";
+                        vm.disciplineSelected_XYZ = "";
 
                         if (vm.hiddenFieldName) {
 
@@ -591,15 +602,15 @@ var dropdownListDirective_instance = function () {
                 });
 
 
-                //$scope.$watch('vm101.disciplineSelected_XXX', function (newValue: LookupRecord, oldValue) {
-                $scope.$watch('vm101.disciplineSelected_XXX', function (newValue, oldValue) {
+                //$scope.$watch('vm101.disciplineSelected_XYZ', function (newValue: LookupRecord, oldValue) {
+                $scope.$watch('vm101.disciplineSelected_XYZ', function (newValue, oldValue) {
 
 
-                    console.log(`%c vm101.disciplineSelected_XXX watch - 20210617-1227`, 'color:cyan;font-size:12px');
+                    console.log(`%c vm101.disciplineSelected_XYZ watch - 20210617-1227`, 'color:cyan;font-size:12px');
 
                     console.log('%c shows null for new value ', 'color:red');
 
-                    console.log(vm.disciplineSelected_XXX);
+                    console.log(vm.disciplineSelected_XYZ);
 
                     console.log('newValue:');
                     console.log(newValue);
@@ -614,7 +625,7 @@ var dropdownListDirective_instance = function () {
 
                         vm.ngModel = newValue.id;
 
-                        console.log(`%c setting ngModel [${vm.ngModel}]  keyColumn [${vm.keyColumn}] watch disciplineSelected_XXX 20210617-1213`, 'color:cyan;font-size:10pt');
+                        console.log(`%c setting ngModel [${vm.ngModel}]  keyColumn [${vm.keyColumn}] watch disciplineSelected_XYZ 20210617-1213`, 'color:cyan;font-size:10pt');
 
 
 
@@ -779,7 +790,7 @@ var dropdownListDirective_instance = function () {
                     console.log(label)
 
 
-                    vm.disciplineSelected_XXX = item;
+                    vm.disciplineSelected_XYZ = item;
 
 
                     vm.ngModel = item.id;
@@ -820,7 +831,10 @@ var dropdownListDirective_instance = function () {
                         ssn_logger.cl_normal({ callSource: '20210609-0528', message: `validateThis: vm.keyColumn [${vm.keyColumn}]  ngModel [${vm.ngModel}]   parentKeyColumn [${vm.parentKeyColumn}]` }, 'yellow');
 
                         if (vm.containerViewValue) {
-                            vm.disciplineSelected_XXX = { title: vm.containerViewValue };
+
+                            ssn_logger.cl_normal({ callSource: '20210625-0306', message: `validateThis: Updating disiplineSelected_XXX with [${vm.containerViewValue}] vm.keyColumn [${vm.keyColumn}]  ngModel [${vm.ngModel}]   parentKeyColumn [${vm.parentKeyColumn}]` }, 'red', false, 32);
+
+                            vm.disciplineSelected_XYZ = { title: vm.containerViewValue };
 
                         }
                     }
@@ -838,13 +852,13 @@ var dropdownListDirective_instance = function () {
 
                         if (data.disciplineId) {
 
-                            vm.disciplineSelected_XXX = { id: data.disciplineId, title: data.disciplineShort };
+                            vm.disciplineSelected_XYZ = { id: data.disciplineId, title: data.disciplineShort };
 
                         }
 
                         if (data.ta_id) {
 
-                            vm.disciplineSelected_XXX = { id: data.ta_id, title: data.ta_description };
+                            vm.disciplineSelected_XYZ = { id: data.ta_id, title: data.ta_description };
 
                         }
 

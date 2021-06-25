@@ -20,6 +20,18 @@ const DateTimeService_Instance = function () {
         angularApp.factory("DateTimeService", [function () {
 
 
+            const isDateObject = function (value) {
+
+                if (!value) return;
+
+                const _protoTypeToString = Object.prototype.toString.call(value);
+                  
+                return (value && _protoTypeToString == "[object Date]");
+
+            }
+
+
+
             const getCurrentUTCTime = function () {
 
 
@@ -32,9 +44,47 @@ const DateTimeService_Instance = function () {
                 return timeNow.getTime() - (timeNow.getTimezoneOffset() * 60 * 1000);
             };
 
+ 
+
+            const getDateAs_YYYY_MM_DD = function (date: Date) {
+
+                console.log('%c getDateAs_YYYY_MM_DD ', 'color:yellow;font-size:20pt')
+                console.log(date);
+                console.log(typeof date);
+
+                if (typeof (date) == 'string') {
+                    date = new Date(date);
+                }
+                
+                return (date.getFullYear()) + '-' + (date.getMonth() + 1).toString().padStart(2, '0') + '-' + date.getDate().toString().padStart(2, '0');
+
+            }
+
+
+            const getDateAs_MM_DD_YYYY = function (date: Date) {
+
+                if (typeof (date) == "string") {
+                    date = new Date(date);
+                }
+
+                console.log('$c getDateAs_MM_DD_YYYY ', 'color:yellow;font-size:24pt')
+                console.log('$c getDateAs_MM_DD_YYYY ', 'color:yellow;font-size:24pt')
+                console.log('$c getDateAs_MM_DD_YYYY ', 'color:yellow;font-size:24pt')
+                console.log('$c getDateAs_MM_DD_YYYY ', 'color:yellow;font-size:24pt')
+
+
+
+                return (date.getMonth() + 1).toString().padStart(2, '0') + '/' + date.getDate().toString().padStart(2, '0')  + "/" + (date.getFullYear());
+
+
+            }
+
 
             return {
-                getCurrentUTCTime
+                getCurrentUTCTime,
+                getDateAs_YYYY_MM_DD,
+                getDateAs_MM_DD_YYYY,
+                isDateObject
             };
 
 

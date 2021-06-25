@@ -11,20 +11,20 @@
 
   // // 04/29/2019 04:19 pm - SSN - We have started using site.ts
 
-  ,
-  {
-    "outputFileName": "wwwroot/js/site.min.js",
-    "inputFiles": [
-      "wwwroot/js/site.js" 
-    ],
-    // Optionally specify minification options
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    // Optionally generate .map file
-    "sourceMap": true
-  }
+  //,
+  //{
+    //"outputFileName": "wwwroot/js/site.min.js",
+    //"inputFiles": [
+    //  "wwwroot/js/site.js" 
+    //],
+    //// Optionally specify minification options
+    //"minify": {
+    //  "enabled": true,
+    //  "renameLocals": true
+    //},
+    //// Optionally generate .map file
+    //"sourceMap": true
+  //}
 
 
 ]

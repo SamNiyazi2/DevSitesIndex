@@ -101,6 +101,7 @@
     <None Include="wwwroot\js\__________________Hold4Delete\angular.js" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ApplicationInsights\SuccessfulDependencyFilter.cs" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="wwwroot\js\DropdownList\DropdownListDirectiveConstants.ts" />

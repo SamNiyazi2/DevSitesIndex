@@ -629,6 +629,68 @@ alarm {
 }
 
 
+
+
+
+
+/* 06/25/2021 12:03 pm - SSN - Timelog index filter option */
+
+.cssShowFilterContainer {
+    opacity: 0;
+    height: 0px;
+}
+
+.cssShowFilterContainer_Off {
+    animation-name: closeFilterContainer;
+    animation-duration: 1s;
+    opacity: 0;
+    height: 0px;
+}
+
+.cssShowFilterContainer_On {
+    animation-name: openFilterContainer;
+    animation-duration: 1s;
+    opacity: 1;
+    height: 390px;
+}
+
+
+
+@keyframes openFilterContainer {
+    0% {
+        opacity: 0;
+        height: 0px;
+    }
+
+    100% {
+        opacity: 1;
+        height: 390px;
+    }
+}
+
+@keyframes closeFilterContainer {
+    0% {
+        opacity: 1;
+        height: 390px;
+    }
+
+    100% {
+        opacity: 0;
+        height: 0px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
 /* 09/04/2020 09:00 am - SSN - [20200904-0540] - [011] - Ading save-and-stay option to codereference
     Moved from DevSites.edit.cshtml to share with codereference save-and-stay
 */
@@ -765,7 +827,7 @@ menuPipe_101::after {
 }
 
 .cssSiteUrlQRCode_base {
-    position:fixed;
+    position: fixed;
     top: 10px;
     right: 10px;
 }
@@ -774,24 +836,23 @@ menuPipe_101::after {
     width: 20px;
 }
 
-noscript{
-    height:100%;
-    width:100%;
-    top:0px;
-    left:0px;
-    margin:0px;
-    border:0px;
-    padding:0px;
-    color:red;
-    position:fixed;
-    z-index:1;
-    background-color:black;
+noscript {
+    height: 100%;
+    width: 100%;
+    top: 0px;
+    left: 0px;
+    margin: 0px;
+    border: 0px;
+    padding: 0px;
+    color: red;
+    position: fixed;
+    z-index: 1;
+    background-color: black;
 }
 
-noscript h3{
-
-    color:green;
-    top: 30px;
-    left:30px;
-    position:fixed;
-}
+    noscript h3 {
+        color: green;
+        top: 30px;
+        left: 30px;
+        position: fixed;
+    }

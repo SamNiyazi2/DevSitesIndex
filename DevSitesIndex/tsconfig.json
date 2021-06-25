@@ -28,7 +28,8 @@
     "sourceMap": true,
 
     //"target": "es2016",
-    "target": "es5",
+    // "target": "es5",
+    "target": "es2017", // 06/25/202 06:33 am - SSN - for padStart
 
 
     // 09/18/2019 09:51 am - SSN - https://www.logicbig.com/tutorials/misc/typescript/ts-config-json.html
@@ -53,7 +54,7 @@
 
   "exclude": [
     "node_modules",
-    "timesheetsSupport7" 
+    "timesheetsSupport7"
   ],
 
   // 09/19/2019 04:08 am - SSN - [20190919-0354] - [004] - Putting things back - Cleanup from implementing AMD - Adding tsconfig.json     "alwaysStrict": true,
@@ -80,6 +81,6 @@
 
   //  "https": null, //blog.rendall.dev/posts/2019/1/14/problem-typescript-adds-objectdefinepropertyexports-esmodule-value-true/
 
-  "lib": [ "dom", "es5", "es6" ]
+  "lib": [ "dom", "es5", "es6" , "es2017" ] // 06/25/202 06:33 am - SSN - es2017 for padStart
 
 }

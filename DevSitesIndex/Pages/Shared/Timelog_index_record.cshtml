@@ -24,13 +24,14 @@
     @{
         if (Model.servingPage == ServingPage.Timelog)
         {
-            <td> 
-                @Html.DisplayFor(modelItem => Model.timelog.job.JobTitle)
-                @if (Model.timelog.job_Lineitem != null)
-                {
-                    <p class="cssLineItemDisplay">@Html.DisplayFor(modelItem => Model.timelog.job_Lineitem.LineItem)</p>
-                }
-            </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.timelog.job.project.ProjectTitle)<br/>
+        @Html.DisplayFor(modelItem => Model.timelog.job.JobTitle)
+        @if (Model.timelog.job_Lineitem != null)
+        {
+            <p class="cssLineItemDisplay">@Html.DisplayFor(modelItem => Model.timelog.job_Lineitem.LineItem)</p>
+        }
+    </td>
         }
 
         if (Model.servingPage == ServingPage.Job_Timelog)
