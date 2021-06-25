@@ -35,79 +35,88 @@
 
     <div ng-controller="timesheetController">
 
-        <i class="glyphicon" ng-class="getFilterContainerClass()" style="font-size:16pt;" ng-click="showFilter = !showFilter"></i>
-
-        <div class="row">
-
-            <div class="col-md-4">
-
-                <div class="cssShowFilterContainer" ng-class="{cssShowFilterContainer_On: showFilter , cssShowFilterContainer_Off: (showFilter !==undefined && !showFilter) }">
+        <ng-content ng-controller="timesheetController_temp">
 
 
-                    <form name="timelogIndexForm" action="" method="post" novalidate>
+            <i class="glyphicon" ng-class="getFilterContainerClass()" style="font-size:16pt;" ng-click="showFilter = !showFilter"></i>
 
-                        <div>
+            <div class="row">
 
-                            <fieldset>
+                <div class="col-md-4">
 
-                                <div class="form-group">
-                                    <label class="control-label">Start Date</label>
-                                    <input asp-for="startDate" type="date" class="form-control" />
-                                </div>
+                    <div class="cssShowFilterContainer" ng-class="{cssShowFilterContainer_On: showFilter , cssShowFilterContainer_Off: (showFilter !==undefined && !showFilter) }">
 
 
-                                <div class="form-group">
-                                    <label class="control-label">End Date</label>
-                                    <input asp-for="endDate" type="date" class="form-control" />
-                                </div>
+                        <form name="timelogIndexForm" action="" method="post" novalidate>
+
+                            <div>
+
+                                <fieldset>
+
+                                    <div class="form-group">
+                                        <label class="control-label">Start Date</label>
+                                        <input asp-for="startDate" type="date" class="form-control" />
+                                    </div>
 
 
-
-                                <div class="form-group">
-
-                                    <label class="control-label">Project Title</label>
-                                    <input asp-for="projectID" type="hidden" />
-
-                                    <dropdown-list-directive call-source="20210625-1115" key="Job.ProjectID" form-name="timelogIndexForm" hidden-field-name="projectID" ng-model="projectID"></dropdown-list-directive>
-
-                                </div>
+                                    <div class="form-group">
+                                        <label class="control-label">End Date</label>
+                                        <input asp-for="endDate" type="date" class="form-control" />
+                                    </div>
 
 
 
+                                    <div class="form-group">
 
-                                <div class="form-group">
+                                        <label class="control-label">Project Title</label>
+                                        <input asp-for="projectID" type="hidden" />
 
-                                    <label class="control-label">Job Title</label>
-                                    <input asp-for="jobID" type="hidden" />
+                                        <dropdown-list-directive call-source="20210625-1115" key="Job.ProjectID" form-name="timelogIndexForm" hidden-field-name="projectID" ng-model="projectID"></dropdown-list-directive>
 
-                                    <dropdown-list-directive call-source="20210625-1116" key="Job.JobId" form-name="timelogIndexForm" hidden-field-name="jobID" ng-model="jobID" parentkey="projectID" parent-key-name="Job.ProjectId"></dropdown-list-directive>
-
-                                </div>
+                                    </div>
 
 
 
 
+                                    <div class="form-group">
 
-                                @*<timelog-filter-options-directive
-                                    start-date-input="[name=startDate]"
-                                    start-date="startDate"
-                                    end-date-input="[name=endDate]"
-                                    end-date="endDate"
+                                        <label class="control-label">Job Title</label>
+                                        <input asp-for="jobID" type="hidden" />
 
-                                    ></timelog-filter-options-directive>*@
+                                        <dropdown-list-directive call-source="20210625-1116" key="Job.JobId" form-name="timelogIndexForm" hidden-field-name="jobID" ng-model="jobID" parentkey="projectID" parent-key-name="Job.ProjectId"></dropdown-list-directive>
 
-                                <input type="submit" value="Search" class="btn btn-info" />
-                                <input type="button" value="Search" class="btn btn-default" ng-click="showFilter = !showFilter " />
+                                    </div>
 
-                            </fieldset>
-                        </div>
 
-                    </form>
 
+
+
+                                    @*<timelog-filter-options-directive
+                                        start-date-input="[name=startDate]"
+                                        start-date="startDate"
+                                        end-date-input="[name=endDate]"
+                                        end-date="endDate"
+
+                                        ></timelog-filter-options-directive>*@
+
+                                    <input type="submit" value="Search" class="btn btn-info" />
+                                    <input type="button" value="Search" class="btn btn-default" ng-click="showFilter = !showFilter " />
+
+                                </fieldset>
+                            </div>
+
+                        </form>
+
+                    </div>
                 </div>
+
             </div>
 
-        </div>
+
+        </ng-content>
+
+
+
         <table class="table">
             <thead>
                 <tr>
@@ -148,7 +157,7 @@
     <script>
 
         angular.module('timesheetApp')
-            .controller('timesheetController', ['$scope', function ($scope) {
+            .controller('timesheetController_temp', ['$scope', function ($scope) {
 
                 $scope.projectID = "@Model.projectID";
                 $scope.jobID = "@Model.jobID";
