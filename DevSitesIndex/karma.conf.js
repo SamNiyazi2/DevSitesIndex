@@ -30,7 +30,7 @@ module.exports = function (config) {
             'wwwroot/lib/Angular_1_7/angular.js',
             'wwwroot/lib/Angular_1_7/angular-mocks.js',
             'wwwroot/lib/jquery/dist/jquery.js',
-            'wwwroot/lib/knockout.js', 
+            'wwwroot/lib/knockout/knockout.js', 
             { pattern: 'karma-test-context.js', watched: false }
         ],
 

@@ -8,6 +8,7 @@
 
 /// <reference path="../../node_modules/@types/jquery/index.d.ts" />
 /// <reference path="../../node_modules/@types/knockout/index.d.ts" /> 
+/// <reference path="../../node_modules/@types/knockout.mapping/index.d.ts" /> 
 
 /// <reference path="../../node_modules_hack/SSN_jquery_modal.d.ts" />
 

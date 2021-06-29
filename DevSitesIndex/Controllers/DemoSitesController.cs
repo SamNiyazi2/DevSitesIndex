@@ -24,7 +24,7 @@ namespace DevSitesIndex.Controllers
 
         // 06/13/2021 08:04 am - SSN - [20210613-0452] - [010] - Adding tags to DevSite
 
-        const int DEFAULT_RECORDS_PER_PAGE_TEMP = 50;
+        const int DEFAULT_RECORDS_PER_PAGE_TEMP = 53;
         const int DEFAULT_CURRNT_PAGE_TEMP = 1;
 
 

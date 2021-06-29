@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -16,7 +17,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.6" />
     <PackageReference Include="microsoft.extensions.identity.core" Version="2.2.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
-    <PackageReference Include="ssn_genutil_standardlib" Version="1.0.31" />
+    <PackageReference Include="SSN_GenUtil_StandardLib" Version="1.0.35" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Extensions.Logging.Console">

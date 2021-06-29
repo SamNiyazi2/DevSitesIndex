@@ -139,7 +139,7 @@
 @*<div data-bind="visible: devSitesJSON.length == 0">*@
 
 <div class="padded" data-bind="visible: getRecordCount() > 0 ">
-    <div>Record count:  <span data-bind="text: getRecordCount() "></span> </div>
+    <div>Record count:  <span data-bind="text: getRecordCount() "></span></div>
 </div>
 
 <div data-bind="visible: getRecordCount() ==0 ">
@@ -189,7 +189,14 @@
 
             <button data-bind="click: prevDevSitePage , enable: !onFirstPageKnockout() " class="btn btn-default" accesskey="P">Previous Page</button>
             &nbsp; <span data-bind="text: displayCurrentPageNumberAndTotalPages()"></span> &nbsp;
-            <button data-bind="click: nextDevSitePage , enable: !onLastPageKnockout()" class="btn btn-default" accesskey="N">Next Page</button>
+
+
+            <button data-bind="click: gotoDevSitePage " class="btn btn-default">Goto Page</button>
+            <input data-bind="value : currentPage_KO" style="max-width:40px" maxlength="4" />
+
+            <button data-bind="click: nextDevSitePage , enable: !onLastPageKnockout() " class="btn btn-default" accesskey="N">Next Page</button>
+
+            &nbsp; &nbsp; <span>Records per page:&nbsp; <input data-bind="value : SelectedRecordsPerPage_KO" style="max-width:40px" maxlength="4" /></span>
 
         </div>
 
@@ -224,8 +231,8 @@
 
 
                             @*
-                                // 03/19/2019 07:04 pm - SSN - [20190319-1904]
-                                // 08/14/2019 06:48 am - SSN - [20190814-0609] - [002] - Revise demo site index docAge
+            // 03/19/2019 07:04 pm - SSN - [20190319-1904]
+            // 08/14/2019 06:48 am - SSN - [20190814-0609] - [002] - Revise demo site index docAge
                             *@
 
                             <p class="small">
@@ -255,7 +262,9 @@
                         @*04/15/2021 12:34 pm - SSN - Adding devsittags*@
 
                         @*<dev-site-tags data-bind="attr: {  'the-tags' : ko.toJSON($data.devSiteTechnologies.map(r=> r.technology)) }"></dev-site-tags>*@
-                        <dev-site-tags data-bind="attr: {  'the-tags' : ko.toJSON($data) }"></dev-site-tags>
+ 
+                        @* Conflict with HTML in Solution_Detail. Seperate. *@
+                        <dev-site-tags data-bind="attr: {  'the-tags' : ko.toJSON($data.devSiteTechnologies ), 'id': $data.id }"></dev-site-tags> 
 
                         <!-- ko if: $data.solution_Details -->
                         @*02/05/2019 02:11 pm - SSN - Testing decoding html*@
@@ -272,13 +281,13 @@
 
                             @*
 
-                                    //12/13/2019 05:18 am - SSN - Turn off
+                //12/13/2019 05:18 am - SSN - Turn off
 
-                                    <a href="#" class=""
-                                   data-bind="click: $parent.showJob">Show Job</a>
+                <a href="#" class=""
+               data-bind="click: $parent.showJob">Show Job</a>
 
-                                <a href="#" class=""
-                                   data-bind="click: $parent.requestDelConfirm">Delete</a>*@
+            <a href="#" class=""
+               data-bind="click: $parent.requestDelConfirm">Delete</a>*@
 
                             <a class=""
                                data-bind="attr: {href: '/devsites/details?id=' + id , target:'devsiteIndexWindow' + id } ">Detail</a>

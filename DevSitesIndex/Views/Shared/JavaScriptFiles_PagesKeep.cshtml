@@ -1,10 +1,10 @@
 ﻿@*03/27/2019 03:39 pm - SSN - Having trouble with date fields (link to calendar). Using same files for productoin Also put site.min.css back in*@
 @*
 
-    // 09/19/2019 01:37 am - SSN - [20190919-0114] - [003] - Adding requirejs - Clean up scripts between views and pages
-Removed from pages _layout and did the same for views.  Copied views javascript files to JavaScriptFiles.cshtml and plan to use for both, views and pages.
+        // 09/19/2019 01:37 am - SSN - [20190919-0114] - [003] - Adding requirejs - Clean up scripts between views and pages
+    Removed from pages _layout and did the same for views.  Copied views javascript files to JavaScriptFiles.cshtml and plan to use for both, views and pages.
 
-    DO NOT UPDATE THIS FILE.
+        DO NOT UPDATE THIS FILE.
 
 *@
 
@@ -59,9 +59,12 @@ Removed from pages _layout and did the same for views.  Copied views javascript 
 
 
 @*// 04/12/2019 01:53 am - SSN - [20190412-0142] - TimesheetApp - Replaced - End*@
+@*// 06/29/2021 07:48 am - SSN - Moving after adding in anoter knockout file *@
 
+@*<script src="~/lib/knockout.js"></script>*@
+<script src="~/lib/knockout/knockout.js"></script>
+<script src="~/lib/knockout/knockout.mapping-latest.js"></script>
 
-<script src="~/lib/knockout.js"></script>
 
 @*// 04/20/2019 11:28 am - SSN - [20190420-1128] Added toastr *@
 

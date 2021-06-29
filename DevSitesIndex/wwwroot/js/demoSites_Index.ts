@@ -40,26 +40,31 @@ var ssn_devsite_angular_module_instance = function () {
 
         // 06/13/2021 08:35 am - SSN - [20210613-0452] - [012] - Adding tags to DevSite
         // Temp Todo
-        dataService.getDevSites(50, 1)
-            .then(function (result) {
+        // 06/29/2021 09:32 am - SSN - Are we calling this multiple times? Todo?
+        // Take out 
+        //dataService.getDevSites(54, 1)
+        //    .then(function (result) {
 
-                $scope.data_local = ko.observable(result.data);
+        //        $scope.data_local = ko.observable(result.data);
 
-            },
-                function (ex) {
+        //    },
+        //        function (ex) {
 
-                    console.error("20190910-0101 - demosites_index");
-                    console.log(ex)
-                    alert('failed call to api/demositesapi (20180831-0940) - See console.');
+        //            console.error("20190910-0101 - demosites_index");
+        //            console.log(ex)
+        //            alert('failed call to api/demositesapi (20180831-0940) - See console.');
 
 
-                    ssn_logger.cl_error({ callSource: "20210624-0119", message: `Failed to getDevSites`, errorObject: ex });
+        //            ssn_logger.cl_error({ callSource: "20210624-0119", message: `Failed to getDevSites`, errorObject: ex });
 
-            })
-            .then(function () {
+        //    })
+        //    .then(function () {
 
-                $scope.isBusy2 = false;
-            });
+        //        $scope.isBusy2 = false;
+        //    });
+
+
+
 
 
         // 04/07/2019 12:51 pm - SSN - [20190407-1250] - Adding AngularJS call to edit DevSite
@@ -272,6 +277,7 @@ var ssn_devsite_angular_module_instance = function () {
 
                 $timeout(function () {
 
+                    console.log('%c devSiteTagsCompiler link', 'color:cyan;font-size:20pt;');
 
                     $compile(element.contents())(scope);
 
@@ -299,7 +305,8 @@ var ssn_devsite_angular_module_instance = function () {
 
     // 04/15/2021 11:33 am - SSN - Adding projcet tags
     interface IScope_Custom extends angular.IScope {
-        theTags: any
+        theTags: any,
+        devSiteId:number
     }
 
     ssn_devsite_angular_module.directive('devSiteTags', function () {
@@ -309,10 +316,12 @@ var ssn_devsite_angular_module_instance = function () {
             templateUrl: './js/devsiteTags/dev-site-tags.html',
 
             scope: {
-                theTags: "="
+                theTags: "=",
+                devSiteId:"@id"
             },
 
             link: function (scope: IScope_Custom, elem, attrs) {
+                 
 
                 if (scope.theTags === undefined) {
                     scope.theTags = {};
@@ -411,9 +420,16 @@ var ssn_devsite_angular_module_instance = function () {
 
 
                     //////////////////////////////////////  console.log(`DevSiteID : [${$scope.theTags.id}] technologyId: [${$scope.editableDevSite.technology.id}] `)
-                    console.log(`DevSiteID : [${$scope.theTags.id}] technologyId: [${$scope.editableDevSite.technologyId}] `)
+                    //console.log(`DevSiteID : [${$scope.theTags.id}] technologyId: [${$scope.editableDevSite.technologyId}] `)
+                    console.log(`DevSiteID : [${$scope.devSiteId}] technologyId: [${$scope.editableDevSite.technologyId}] `)
 
 
+                    console.log('%c 20210629-0833 debug devSiteTags - 20210629-0813', 'color:red;font-size:20pt;');
+                    console.log('%c devSiteId ', 'color:yellow;font-size:20pt;');
+                    console.log($scope.devSiteId);
+                    console.log($scope.theTags);
+                    console.log('-----------------------');
+                    console.log('-----------------------');
 
 
 
@@ -427,7 +443,7 @@ var ssn_devsite_angular_module_instance = function () {
 
                     const newRec: IDevSiteTechnology = {
                         id: $scope.editableDevSite.id,
-                        devSiteId: $scope.theTags.id,
+                        devSiteId: $scope.devSiteId,
                         ////////////////////////////////////// technologyId: $scope.editableDevSite.technology.id
                         technologyId: $scope.editableDevSite.technologyId
                     };
@@ -466,23 +482,23 @@ var ssn_devsite_angular_module_instance = function () {
 
                         const newOrUpdatedRecord = { id: data.id, technology: { description: data.technology.description } };
 
-                        let existingRecordIndex = $scope.theTags.devSiteTechnologies.findIndex(r => r.id == data.id);
+                        let existingRecordIndex = $scope.theTags.findIndex(r => r.id == data.id);
 
                         if (existingRecordIndex > -1) {
 
                             console.log('%c  demoSites_ondex - 20210616-0344 - CHECK ', 'color:green;font-size:14pt;');
 
-                            console.log($scope.theTags.devSiteTechnologies)
+                            console.log($scope.theTags)
 
 
-                            $scope.theTags.devSiteTechnologies.splice(existingRecordIndex, 1, newOrUpdatedRecord);
+                            $scope.theTags.splice(existingRecordIndex, 1, newOrUpdatedRecord);
 
 
-                            console.log($scope.theTags.devSiteTechnologies)
+                            console.log($scope.theTags)
 
 
                         } else {
-                            $scope.theTags.devSiteTechnologies.push(newOrUpdatedRecord);
+                            $scope.theTags.push(newOrUpdatedRecord);
                         }
 
                         //   $scope.theTags.push($scope.newDevSiteTag);
@@ -568,7 +584,7 @@ var ssn_devsite_angular_module_instance = function () {
 
                         console.log('%c deleteDevSiteTechnologySuccess 20210616-2055', 'color:yellow');
                         console.log(data);
-                        $scope.theTags.devSiteTechnologies = $scope.theTags.devSiteTechnologies.filter(t => t.id !== $scope.devSiteTechnologySelectedRecord.id);
+                        $scope.theTags = $scope.theTags.filter(t => t.id !== $scope.devSiteTechnologySelectedRecord.id);
                         $scope.removingDevSiteTag = false;
 
                     }

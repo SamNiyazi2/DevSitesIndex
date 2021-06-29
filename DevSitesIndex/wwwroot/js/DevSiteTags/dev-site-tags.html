@@ -3,7 +3,7 @@
 <div ng-controller="ModalCallSUtilController">
 
     <div class="cssDevsiteTags">
-        <ng-content ng-repeat="x in theTags.devSiteTechnologies track by x.id">
+        <ng-content ng-repeat="x in theTags track by x.id">
             <span class="indexNowrapOption">
                 <tag>{{x.technology.description}}</tag>
                 <i class="glyphicon glyphicon-pencil" ng-click="addDevSiteTag(x)" title="Update this tag"></i>

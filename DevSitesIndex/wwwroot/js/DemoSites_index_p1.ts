@@ -7,11 +7,16 @@
 
 /// <reference path="../../node_modules/@types/jquery/index.d.ts" />
 /// <reference path="../../node_modules/@types/knockout/index.d.ts" /> 
+/// <reference path="../../node_modules/@types/knockout.mapping/index.d.ts" /> 
 
 
 import * as util from '../js/site';
 
 import * as angular from 'angular';
+
+
+const CURRENT_PAGE_NO = 1; // for testing
+const RECORDS_PER_PAGE = 4;
 
 
 var demosites_index_p1_instance = function () {
@@ -48,9 +53,13 @@ var demosites_index_p1_instance = function () {
 
         // 06/13/2021 08:49 am - SSN - [20210613-0452] - [015] - Adding tags to DevSite
 
-        self.recordsPerPage_KO = ko.observable(25);
-        self.currentPage_KO = ko.observable(1);
+        self.recordsPerPage_KO = ko.observable(RECORDS_PER_PAGE);
+        self.currentPage_KO = ko.observable(CURRENT_PAGE_NO);
         self.devSitesCount_KO = ko.observable(-1);
+
+
+        // 06/29/2021 08:47 am - SSN - Added
+        self.SelectedRecordsPerPage_KO = ko.observable(RECORDS_PER_PAGE);
 
         // 06/06/2019 05:44 pm - SSN - Moved from index_p1.cshtml - Update
         //  this.devSitesJSON = ko.observableArray(@Html.Raw(Model.devSitesJSON));
@@ -73,12 +82,38 @@ var demosites_index_p1_instance = function () {
 
                 self.devSitesJSON.removeAll();
                 self.devSitesJSON(data);
- 
-                document.querySelector('#topTitle').scrollIntoView({
-                    behavior: 'smooth'
-                });
+
+
+                // 06/29/2021 10:11 am - SSN
+                //document.querySelector('#topTitle').scrollIntoView({
+                //    behavior: 'smooth'
+                //});
+
+                const topTitle = document.querySelector('#topTitle');
+                // Not applied in P2 * P3.
+                if (topTitle) {
+
+                    topTitle.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+
+
+                // 06/29/2021 07:38 am - SSN - Testing filtering out elements for populating devsite tags
+                // Not applied - TEstin.
+                var mapping = {
+                    'ignore': ["solution_Details_PRE_Encoded"]
+                }
+                var viewModel = ko.mapping.fromJS(data, mapping);
+
+
+
 
             });
+
+
+
+
 
 
 
@@ -138,20 +173,26 @@ var demosites_index_p1_instance = function () {
             return self.currentPage_KO();
         }
 
+
+
         this.prevDevSitePage = function () {
 
             let currentPage = self.currentPage_KO();
 
             currentPage = currentPage-- < 1 ? 1 : currentPage;
 
-            self.currentPage_KO(currentPage);
-
-            self.loadData(self.recordsPerPage_KO(), self.currentPage_KO());
-
-            self.applyDisplayRequirements();
-            
-            self.updateAngularJSParts();
+            this.gotoDevSitePage_UTIL(currentPage);
         }
+
+
+        this.gotoDevSitePage = function () {
+
+            let currentPage = self.currentPage_KO();
+
+            this.gotoDevSitePage_UTIL(currentPage);
+
+        }
+
 
         this.nextDevSitePage = function () {
 
@@ -159,15 +200,37 @@ var demosites_index_p1_instance = function () {
 
             currentPage = currentPage++ > self.totalPageCount() ? self.totalPageCount() : currentPage;
 
+            this.gotoDevSitePage_UTIL(currentPage);
+
+        }
+
+
+
+
+        this.gotoDevSitePage_UTIL = function (currentPage: number) {
+
+
+            console.log('%c Testing value of current page - 20210629-0946', 'color:yellow;font-size:20pt;');
+            console.log(currentPage);
+            console.log(typeof (currentPage));
+            console.log(' ');
+            console.log(' ');
+            console.log('  ');
+
             self.currentPage_KO(currentPage);
 
-            self.loadData(self.recordsPerPage_KO(), self.currentPage_KO());
+            self.recordsPerPage_KO(self.SelectedRecordsPerPage_KO())
+
+            self.loadData(self.SelectedRecordsPerPage_KO(), self.currentPage_KO());
 
             self.applyDisplayRequirements();
 
             self.updateAngularJSParts();
 
+
         }
+
+
 
 
         // 06/15/2021 12:13 am - SSN - [20210613-0452] - [037] - Adding tags to DevSite
@@ -175,14 +238,14 @@ var demosites_index_p1_instance = function () {
         this.updateAngularJSParts = function () {
 
             setTimeout(() => {
-                
+
                 const _element = angular.element($("[dev-site-tags-compiler]"));
                 const scope_temp = _element.scope();
 
                 scope_temp.$broadcast("call_devSiteTagsCompiler", { msg: 'doRecompileList' });
 
             }, 1000);
-        
+
         }
 
 
@@ -258,7 +321,7 @@ var demosites_index_p1_instance = function () {
         // 06/14/2021 03:46 pm - SSN - [20210613-0452] - [028] - Adding tags to DevSite
         this.applyDisplayRequirements = function () {
 
-       
+
             if (!self.prefixPreWithShowHideAnchor_DontCall_KO()) {
                 setTimeout(() => util.site_instance.prefixPreWithShowHideAnchor('20200102-1533'), 2000);
             }
@@ -277,7 +340,8 @@ var demosites_index_p1_instance = function () {
         // https://stackoverflow.com/questions/16245905/fetching-or-sending-data-from-a-form-using-knockout-js
         //self.onSubmit = function () {
         this.onSubmitDemoSiteSearch = function () {
-            
+
+
             let searchText = self.SearchText_KO();
 
             self.SearchResultsFeedback_KO('');
@@ -310,7 +374,7 @@ var demosites_index_p1_instance = function () {
 
             var data = JSON.stringify(data_pre);
 
-            
+
 
 
             $.ajax({
@@ -323,7 +387,7 @@ var demosites_index_p1_instance = function () {
 
                 self.devSitesJSON.removeAll();
                 self.devSitesJSON(response);
-                
+
                 self.SearchResultsFeedback_KO('');
                 self.SearchResultsFeedback_ClassName_KO("");
 
@@ -334,7 +398,7 @@ var demosites_index_p1_instance = function () {
 
 
                 self.applyDisplayRequirements();
-                
+
                 self.updateAngularJSParts();
 
 
@@ -413,7 +477,7 @@ var stringStartsWith = function (string, startsWith) {
     return string.substring(0, startsWith.length) === startsWith;
 };
 
- 
+
 
 export { demosites_index_p1_instance };
 
