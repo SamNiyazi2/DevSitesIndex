@@ -98,7 +98,7 @@
 
                             @await Html.PartialAsync("CodeReference_partial", item)
 
-                            <pre class="codeblock2">
+                                <pre class="codeblock2">
      
  
                 @{
@@ -111,11 +111,17 @@
                         // 11/23/2019 06:31 pm - SSN - Problem with $/{/}
                         // @Html.Raw(Model.HighlightText(System.Net.WebUtility.HtmlEncode(item.CodeBlock)))
                         //@Html.Raw(Model.HighlightText(System.Net.WebUtility.HtmlEncode(item.CodeBlock_Encoded)))
-                        @Html.Raw(Model.HighlightText(item.CodeBlock_Encoded))
+
+
+                        // 07/04/2021 05:48 am - SSN 
+                        // @Html.Raw(Model.HighlightText(item.CodeBlock_Encoded))
+                        @Model.HighlightText(item.CodeBlock_Encoded)
                     }
-                    else
-                    {
-                        @Html.Raw(item.CodeBlock_Encoded)
+                        else
+                        {
+                            // 07/04/2021 05:48 am - SSN 
+                        // @Html.Raw(item.CodeBlock_Encoded)
+                        @item.CodeBlock_Encoded
                     }
 
                 }
