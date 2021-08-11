@@ -25,8 +25,10 @@ goto end
 
 :build
 
-ng build --watch   --aot=true  
-
+rem 08/11/2021 07:01 am - SSN - Replaced
+rem ng build --watch   --aot=true  
+call npm run build
+echo Done build.
 
 
 :end

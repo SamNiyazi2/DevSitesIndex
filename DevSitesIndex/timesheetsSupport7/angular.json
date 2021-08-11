@@ -29,11 +29,17 @@
               "src/styles.css"
             ],
             "scripts": [
- 
-              "node_modules/toastr/build/toastr.min.js"
 
-            ],
-            "es5BrowserSupport": true
+                "node_modules/toastr/build/toastr.min.js"
+
+            ]
+// 08/11/2021 07:16 am - SSN - After updating to 11.
+//  Schema validation failed with the following errors:
+//  Data path "" should NOT have additional properties(es5BrowserSupport).
+//,
+//"es5BrowserSupport": true
+
+
           },
           "configurations": {
             "production": {

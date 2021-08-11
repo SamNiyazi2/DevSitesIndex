@@ -19,7 +19,7 @@
       "dom"
     ]
   },
-  "include": [ "src/**/*", "../../SSN_DevSites_DAL_Standard/Entities/Testing_AspNetUsersManualContext.cs", "../../SSN_DevSites_DAL_Standard/Entities/Testing_AspNetUsersContext.cs", "../../SSN_DevSites_DAL_Standard/Entities/AspNetUsers.cs", "../../SSN_DevSites_DAL_Standard/Entities/AspNetUserLogins.cs" ],
+//  "include": [ "src/**/*",  ],
   "exclude": [
     "node_modules"
   ]
