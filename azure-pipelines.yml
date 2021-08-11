@@ -60,11 +60,7 @@ steps:
 - script: |
     cd DevSitesIndex\timesheetsSupport7
     npm install
-    echo *********
-    echo *********
-    ssn_run_webpack_prod
-    echo *********
-    echo *********
+    
   displayName: 'npm install Angular 7'
 
 
