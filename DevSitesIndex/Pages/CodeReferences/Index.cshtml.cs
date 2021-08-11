@@ -150,7 +150,9 @@ namespace DevSitesIndex.Pages.CodeReferences
 
             foreach (string w in tempArray)
             {
-                s = s.Replace(w, $"<i>{w}</i>", StringComparison.CurrentCultureIgnoreCase);
+                // 08/11/2021 10:01 am - SSN - Replace <i> with <n>
+                // s = s.Replace(w, $"<i>{w}</i>", StringComparison.CurrentCultureIgnoreCase);
+                s = s.Replace(w, $"<n>{w}</n>", StringComparison.CurrentCultureIgnoreCase);
             }
 
             return s;
