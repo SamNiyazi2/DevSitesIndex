@@ -25,20 +25,6 @@ steps:
     projects: '$(RestoreBuildProjects)'
   enabled: true
 
-- script: |
-    cd devsitesindex
-     
-    cd
-    echo *** Testing 1
-  displayName: 'Testing path 1 -  echo cd'
-
-- script: |
-
-    cd DevSitesIndex\timesheetsSupport7
-    ssn_run_webpack_prod.cmd
-    cd
-    echo *** Testing 2
-  displayName: 'Testing path 2 -  echo cd'
 
 
 - script: |
@@ -47,6 +33,9 @@ steps:
     npm install
 
   displayName: 'npm install root AngularJS'
+  enabled: false
+
+
 
 - script: |
 
@@ -54,7 +43,14 @@ steps:
     ssn_run_webpack_prod.cmd
  
   displayName: 'Build AngularJS'
+  enabled: false
 
+
+- script: |
+    cd DevSitesIndex\timesheetsSupport7
+    npm install -g @angular/cli
+    
+  displayName: 'npm install @Angular/cli'
 
 
 - script: |
