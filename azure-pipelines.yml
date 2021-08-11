@@ -37,6 +37,8 @@ steps:
     cd devsitesindex
     webpack
   displayName: 'Build AngularJS'
+  # 08/11/2021 03:17 am - SSN - Disable. webpack?
+  enabled: false
 
 - script: |
     cd DevSitesIndex\timesheetsSupport7
