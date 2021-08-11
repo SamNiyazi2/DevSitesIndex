@@ -51,6 +51,7 @@ steps:
     npm install -g @angular/cli
     
   displayName: 'npm install @Angular/cli'
+  enabled: false
 
 
 - script: |
