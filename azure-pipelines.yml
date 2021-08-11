@@ -44,8 +44,12 @@ steps:
 - script: |
 
     cd DevSitesIndex
+    npm install
     ssn_run_webpack_prod.cmd
     cd
+    echo *** Testing 2
+    echo *** Testing 2
+    echo *** Testing 2
     echo *** Testing 2
   displayName: 'Testing path 2 -  echo cd'
 
