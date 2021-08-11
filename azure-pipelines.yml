@@ -25,11 +25,31 @@ steps:
     projects: '$(RestoreBuildProjects)'
   enabled: true
 
+- script: |
+    cd devsitesindex
+    webpack
+    cd
+    echo *** Testing 1
+  displayName: 'Testing path 1 -  echo cd'
 
 - script: |
     cd devsitesindex
+    ssn_run_webpack_prod.cmd
+    cd
+    echo *** Testing 2
+  displayName: 'Testing path 2 -  echo cd'
+
+
+- script: |
+    cd devsitesindex
+    echo *********
     npm install
+    echo *********
+    echo *********
+    echo *********
     webpack
+    echo *********
+    echo *********
   displayName: 'npm install root AngularJS'
 
 
@@ -40,17 +60,22 @@ steps:
 
 
 - script: |
-    cd devsitesindex
-    webpack
+
+    cd DevSitesIndex\timesheetsSupport7
+    
     cd
-    echo *** Testing
-  displayName: 'Testing path -  echo cd'
+    echo *** Testing 4
+  displayName: 'Testing path 4 -  echo cd'
 
 
 - script: |
     cd DevSitesIndex\timesheetsSupport7
     npm install
+    echo *********
+    echo *********
     ssn_run_webpack_prod
+    echo *********
+    echo *********
   displayName: 'npm install Angular 7'
 
 
