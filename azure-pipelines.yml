@@ -45,43 +45,16 @@ steps:
 
     cd DevSitesIndex
     npm install
-    ssn_run_webpack_prod.cmd
-    cd
-    echo *** Testing 2
-    echo *** Testing 2
-    echo *** Testing 2
-    echo *** Testing 2
-  displayName: 'Testing path 2 -  echo cd'
 
-
-- script: |
-    echo *********
-    echo *********
-
-    cd DevSitesIndex
-
-    echo *********
-    npm install
-    echo *********
-    echo *********
-    echo *********
- 
   displayName: 'npm install root AngularJS'
 
-
 - script: |
-    cd devsitesindex
-    webpack
+
+    cd DevSitesIndex
+    ssn_run_webpack_prod.cmd
+ 
   displayName: 'Build AngularJS'
 
-
-- script: |
-
-    cd DevSitesIndex\timesheetsSupport7
-    
-    cd
-    echo *** Testing 4
-  displayName: 'Testing path 4 -  echo cd'
 
 
 - script: |
