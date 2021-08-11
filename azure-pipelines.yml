@@ -33,7 +33,7 @@ steps:
     npm install
 
   displayName: 'npm install root AngularJS'
-  enabled: false
+  enabled: true
 
 
 
@@ -43,15 +43,9 @@ steps:
     ssn_run_webpack_prod.cmd
  
   displayName: 'Build AngularJS'
-  enabled: false
+  enabled: true
 
-
-- script: |
-    cd DevSitesIndex\timesheetsSupport7
-    npm install -g @angular/cli
-    
-  displayName: 'npm install @Angular/cli'
-
+ 
 
 - script: |
     cd DevSitesIndex\timesheetsSupport7
@@ -70,7 +64,7 @@ steps:
   inputs:
     projects: '$(RestoreBuildProjects)'
     arguments: '--configuration $(BuildConfiguration)'
-  enabled: false
+  enabled: true
 
 - task: DotNetCoreCLI@2
   displayName: Publish
@@ -79,7 +73,7 @@ steps:
     publishWebProjects: True
     arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)'
     zipAfterPublish: True
-  enabled: false
+  enabled: true
 
 - task: AzureWebApp@1
   displayName: 'Azure Web App Deploy: $(WebAppName) '
@@ -88,12 +82,12 @@ steps:
     appType: webApp
     appName: '$(WebAppName)'
     package: '$(build.artifactstagingdirectory)/**/*.zip'
-  enabled: false
+  enabled: true
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact'
   inputs:
     PathtoPublish: '$(build.artifactstagingdirectory)'
   condition: succeededOrFailed()
-  enabled: false
+  enabled: true
   
