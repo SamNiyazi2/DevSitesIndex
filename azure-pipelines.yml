@@ -37,8 +37,15 @@ steps:
     cd devsitesindex
     webpack
   displayName: 'Build AngularJS'
-  # 08/11/2021 03:17 am - SSN - Disable. webpack?
-  enabled: false
+
+
+- script: |
+    cd devsitesindex
+    webpack
+    cd
+    echo *** Testing
+  displayName: 'Testing path -  echo cd'
+
 
 - script: |
     cd DevSitesIndex\timesheetsSupport7
@@ -57,7 +64,7 @@ steps:
   inputs:
     projects: '$(RestoreBuildProjects)'
     arguments: '--configuration $(BuildConfiguration)'
-  enabled: true
+  enabled: false
 
 - task: DotNetCoreCLI@2
   displayName: Publish
@@ -66,7 +73,7 @@ steps:
     publishWebProjects: True
     arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)'
     zipAfterPublish: True
-  enabled: True
+  enabled: false
 
 - task: AzureWebApp@1
   displayName: 'Azure Web App Deploy: $(WebAppName) '
@@ -75,12 +82,12 @@ steps:
     appType: webApp
     appName: '$(WebAppName)'
     package: '$(build.artifactstagingdirectory)/**/*.zip'
-  enabled: True
+  enabled: false
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact'
   inputs:
     PathtoPublish: '$(build.artifactstagingdirectory)'
   condition: succeededOrFailed()
-  enabled: True
+  enabled: false
   
