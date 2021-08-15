@@ -1,26 +1,40 @@
 {
-  "compileOnSave": false,
-  "compilerOptions": {
-    "baseUrl": "./",
-    "outDir": "./dist/out-tsc",
-    "sourceMap": true,
-    "declaration": false,
-    "module": "es2015",
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "importHelpers": true,
-    "target": "es5",
-    "typeRoots": [
-      "node_modules/@types"
+    "compileOnSave": false,
+    "compilerOptions": {
+        "baseUrl": "./",
+        "outDir": "./dist/out-tsc",
+        "sourceMap": true,
+        "declaration": false,
+        "module": "es2015",
+        "moduleResolution": "node",
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "importHelpers": true,
+        "target": "es5",
+        "typeRoots": [
+            "node_modules/@types"
+        ],
+        "lib": [
+            "es2018",
+            "dom"
+        ]
+    },
+    //  "include": [ "src/**/*",  ],
+    "exclude": [
+        "node_modules"
     ],
-    "lib": [
-      "es2018",
-      "dom"
-    ]
-  },
-//  "include": [ "src/**/*",  ],
-  "exclude": [
-    "node_modules"
-  ]
+
+    // 08/15/2021 03:42 pm - SSN
+    // Error: ./src/main.ts
+    // Module build failed (from ./node_modules/@ngtools/webpack/src/ivy/index.js):
+    // TypeError: angularCompiler.getDiagnosticsForFile is not a function
+    //     at C:\Sams_P\DevSitesIndex\DevSitesIndex\timesheetsSupport7\node_modules\@ngtools\webpack\src\ivy// \plugin.js:384:60
+    //     at processTicksAndRejections (internal/process/task_queues.js:93:5)
+    //  @ multi ./src/main.ts main[0]
+
+    "angularCompilerOptions": {
+        "enableIvy": false
+    }
+
+
 }
