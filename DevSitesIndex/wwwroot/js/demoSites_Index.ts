@@ -220,25 +220,16 @@ var ssn_devsite_angular_module_instance = function () {
                 //$templateCache.removeAll();
 
                 $scope.$on("$destroy", function () {
-
-                    console.log('%c ' + 'Destroy firing for devSiteTagsCompiler devSiteTagsCompiler', 'color:red;font-size:14pt');
-                    console.log('%c ' + 'Destroy firing for devSiteTagsCompiler devSiteTagsCompiler', 'color:red;font-size:14pt');
-                    console.log('%c ' + 'Destroy firing for devSiteTagsCompiler devSiteTagsCompiler', 'color:red;font-size:14pt');
-                    console.log('%c ' + 'Destroy firing for devSiteTagsCompiler devSiteTagsCompiler', 'color:red;font-size:14pt');
+                     
 
                 });
 
 
                 $scope.$on("call_devSiteTagsCompiler", function (event, args) {
-
-                    console.log('%c ' + 'call_devSiteTagsCompiler 20210614-2345', 'color:red;font-size:14pt');
-                    console.log(event);
-                    console.log(args);
+                     
 
                     if (args.msg && args.msg == "doRecompileList") {
-
-                        console.log('%c ' + 'Call doRecompileList - 20210614-2347', 'color:yellow;font-size:14pt');
-
+                        
                         $scope.doRecompileList();
                     }
 
@@ -246,23 +237,13 @@ var ssn_devsite_angular_module_instance = function () {
 
 
                 $scope.doRecompileList = function () {
-
-                    console.log('%c ' + 'Process doRecompileList  20210614-1949', 'color:yellow;font-size:12pt');
-
-                    //$scope.$destroy();
-                    //$scope.$new();
-
-
-
+   
                     while ($rootScope.listOfAddedDirectives.length > 0) {
-                        console.log('20210615-0436 ===========')
-                        console.log(`Destroying scopes.... [${$rootScope.listOfAddedDirectives.length}]`)
 
                         const _tempScope = $rootScope.listOfAddedDirectives.pop();
                         _tempScope.$destroy();
                     }
-
-
+ 
                     $scope.$broadcast('call-to-compile', { key: 'Calling-from-doRecompileList' });
 
                 }
@@ -275,19 +256,16 @@ var ssn_devsite_angular_module_instance = function () {
 
             link: function (scope, element, attrs) {
 
-                $timeout(function () {
-
-                    console.log('%c devSiteTagsCompiler link', 'color:cyan;font-size:20pt;');
+                $timeout(function () { 
 
                     $compile(element.contents())(scope);
 
                 }, 2000);
 
 
-                scope.$on('call-to-compile', function (event, args) {
+                scope.$on('call-to-compile', function (event, args) { 
 
-
-                    console.log('%c ' + 'devSiteTagsCompiler - all-to-compile', 'color:red;font-size:10pt');
+                    console.log('%c ' + 'devSiteTagsCompiler - call-to-compile', 'color:red;font-size:10pt');
                     console.log(event);
                     console.log(args);
                     console.log('--------------------------------------');
@@ -339,9 +317,7 @@ var ssn_devsite_angular_module_instance = function () {
                 $rootScope.listOfAddedDirectives.push($scope);
 
 
-                $scope.$on("$destroy", function () {
-
-                    console.log('%c ' + 'Destroy firing for devSiteTags', 'color:yellow;font-size:14pt');
+                $scope.$on("$destroy", function () { 
 
                 });
 

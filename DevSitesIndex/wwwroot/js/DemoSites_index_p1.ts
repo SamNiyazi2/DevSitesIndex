@@ -210,13 +210,6 @@ var demosites_index_p1_instance = function () {
         this.gotoDevSitePage_UTIL = function (currentPage: number) {
 
 
-            console.log('%c Testing value of current page - 20210629-0946', 'color:yellow;font-size:20pt;');
-            console.log(currentPage);
-            console.log(typeof (currentPage));
-            console.log(' ');
-            console.log(' ');
-            console.log('  ');
-
             self.currentPage_KO(currentPage);
 
             self.recordsPerPage_KO(self.SelectedRecordsPerPage_KO())
@@ -402,23 +395,35 @@ var demosites_index_p1_instance = function () {
                 self.updateAngularJSParts();
 
 
-            }).fail(function (response) {
+            }).fail(function (error) {
                 // 12/20/2019 05:06 pm - SSN - [20191220-1706] Adding resetSearch
+                 
+
+                console.log('demositesapi Search fialure - 20210422-1422');
+
+                console.log(error);
+                console.log(error.responseJSON);
 
 
-                console.log('demositesapi Search filaure - 20210422-1422');
-                console.info(data);
-                console.error(response);
+
+
                 let errorMessage = 'Search failure. ';
 
-                if (response.responseJSON['Exception:Message']) {
-                    errorMessage += ` Error from server: [${response.responseJSON['Exception:Message']}]`;
+                if (error.responseJSON) {
+
+                    if (error.responseJSON['Exception:Message']) {
+                        errorMessage += ` Error from server: [${error.responseJSON['Exception:Message']}]`;
+                    }
+
+                    // 08/15/2021 02:19 pm - SSN
+                    if (error.responseJSON['errorMessage']) {
+                        errorMessage += ` <br/>Error from server: [${error.responseJSON.errorMessage}]`;
+                    }
+
                 }
 
                 self.SearchResultsFeedback_KO(errorMessage);
                 self.SearchResultsFeedback_ClassName_KO("alert alert-danger");
-
-
 
                 self.devSitesJSON.removeAll();
 

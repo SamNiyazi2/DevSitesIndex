@@ -547,6 +547,8 @@ namespace DevSitesIndex
 
                         await context.Response.WriteAsync(jsonErrorMessage);
 
+                        // 08/15/2021 01:57 pm - SSN - Added. 
+                        await next();
 
                     }
                     else

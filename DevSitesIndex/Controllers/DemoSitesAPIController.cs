@@ -90,13 +90,25 @@ namespace DevSitesIndex.Controllers
         }
         [Route("/api/demositesapi/Search")]
         [HttpPost]
-        public async Task<IEnumerable<DevSite>> SearchAsync([FromBody] SearchObj obj1)
+        // 08/15/2021 02:01 pm - SSN - Change return type to handle errors.
+        //public async Task<IEnumerable<DevSite>> SearchAsync([FromBody] SearchObj obj1)
+        public async Task<ActionResult<IEnumerable<DevSite>>> SearchAsync([FromBody] SearchObj obj1)
         {
-            var searchText = obj1?.SearchText ?? "";
+             
+            try
+            {
 
-            IEnumerable<DevSite> devSites_1 = await _devSitesIndexRepository.GetDevSites(searchText);
+                var searchText = obj1?.SearchText ?? "";
 
-            return devSites_1;
+                IEnumerable<DevSite> devSites_1 = await _devSitesIndexRepository.GetDevSites(searchText);
+
+                return Ok(devSites_1);
+            }
+            catch (Exception ex )
+            {
+                return BadRequest(new { ErrorMessage= $"Failed to process request: {ex.Message}" });
+            }
+
 
         }
 
