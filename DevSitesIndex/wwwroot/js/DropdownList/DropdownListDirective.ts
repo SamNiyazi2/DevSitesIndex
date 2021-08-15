@@ -68,8 +68,6 @@ var dropdownListDirective_instance = function () {
 
                 if (!form.$valid) {
 
-                    console.log(form);
-
                     // 06/21/2021 09:48 pm - SSN - [20210620-2108] - [027] - Update TimeLog create option to use DrowndownListDirective
                     // To trigger form to show error messages.
                     angular.forEach(form, function (control, o1, o2) {
@@ -364,16 +362,6 @@ var dropdownListDirective_instance = function () {
 
                     // This fires on start and once on change
 
-                    console.log(`%c [${BROADCAST_IDENTIFIERS.DROPDOWN_LIST_DIRECTIVE}] 20210619-0323`, 'color:blue;font-size:12pt');
-                    console.log(events);
-                    console.log(args);
-                    console.log('-----------------------------');
-
-
-
-
-
-
 
                     if (args.msg === DDLD_CONSTANTS.DO_SET_FOCUS && args.jqueryObjectRef) {
 
@@ -534,40 +522,21 @@ var dropdownListDirective_instance = function () {
 
                 $scope.$watch('vm101.ngModel', function (newValue, oldValue) {
 
-                    ssn_logger.cl_normal({ callSource: '20210609-1438', message: `watch ngModel:  vm.keyColumn [${vm.keyColumn}]  ngModel [${vm.ngModel}]   parentKeyColumn [${vm.parentKeyColumn}]` }, 'yellow;font-size:12pt;');
-
-                    console.log(oldValue);
-                    console.log(newValue);
 
                     // 06/13/2021 10:12 pm - SSN - [20210613-0452] - [022] - Adding tags to DevSite
 
                     // 06/25/2021 01:14 am - SSN - Replaced
                     // When replaced with validation against oldValue and oldValue is an input string (not a key id), textbox is not updated with new value.
                     if (newValue) {
-                        // Todo
-                        // Todo
-                        // Todo
-                        // Todo
-                        //if ((oldValue && newValue && oldValue != newValue) || (!oldValue && newValue)) {
-                        // if (newValue != undefined) {
-
-                        ssn_logger.cl_normal({ callSource: '20210609-1438-B', message: `CHANGE vm.keyColumn [${vm.keyColumn}]  ngModel [${vm.ngModel}]   parentKeyColumn [${vm.parentKeyColumn}]` }, 'green');
 
                         vm.validateThis();
 
-                    } else {
-
-                        ssn_logger.cl_normal({ callSource: '20210609-1438-C-2', message: `CHANGE vm.keyColumn [${vm.keyColumn}]  ngModel [${vm.ngModel}]   parentKeyColumn [${vm.parentKeyColumn}]` }, 'red');
-
-                    }
+                    } 
 
                 });
 
 
                 $scope.$watch('vm101.parentKeyColumn', function (newValue, oldValue) {
-
-
-                    ssn_logger.cl_normal({ callSource: '20210617-1845', message: 'vm101.parentKeyColumn - watch' }, 'yellow', true);
 
 
                     if (oldValue != newValue && oldValue != null) { // oldValue is null on first call.
@@ -580,7 +549,6 @@ var dropdownListDirective_instance = function () {
 
                         vm.ngModel = -1020;
 
-                        console.log(`%c vm101.parentKeyColumn - setting ngModel [${vm.ngModel}]  keyColumn [${vm.keyColumn}]  20210617-1214`, 'color:cyan;font-size:12pt');
 
                         //vm.ngModel = -1;
 
@@ -589,9 +557,6 @@ var dropdownListDirective_instance = function () {
                         vm.disciplineSelected_XYZ = "";
 
                         if (vm.hiddenFieldName) {
-
-                            console.log(`%c vm101.parentKeyColumn - setting ngModel [${vm.ngModel}]  keyColumn [${vm.keyColumn}]  20210617-1847 - blank out [${vm.hiddenFieldName}]`, 'color:cyan;font-size:12pt');
-
 
                             $("[name='" + vm.hiddenFieldName + "']").val('');
 
@@ -606,32 +571,11 @@ var dropdownListDirective_instance = function () {
                 $scope.$watch('vm101.disciplineSelected_XYZ', function (newValue, oldValue) {
 
 
-                    console.log(`%c vm101.disciplineSelected_XYZ watch - 20210617-1227`, 'color:cyan;font-size:12px');
-
-                    console.log('%c shows null for new value ', 'color:red');
-
-                    console.log(vm.disciplineSelected_XYZ);
-
-                    console.log('newValue:');
-                    console.log(newValue);
-
-                    console.log('oldValue:');
-                    console.log(oldValue);
-
-
-
-
                     if (newValue && newValue.id) {
 
                         vm.ngModel = newValue.id;
 
-                        console.log(`%c setting ngModel [${vm.ngModel}]  keyColumn [${vm.keyColumn}] watch disciplineSelected_XYZ 20210617-1213`, 'color:cyan;font-size:10pt');
-
-
-
                         if (vm.hiddenFieldName) {
-
-                            console.log(`%c setting ngModel [${vm.ngModel}]  keyColumn [${vm.keyColumn}] update vm.hiddenFieldName  [${vm.hiddenFieldName}]  with [${newValue.id}] 20210618-2008`, 'color:red;font-size:12pt');
 
                             $("[name='" + vm.hiddenFieldName + "']").val(newValue.id);
 
@@ -781,25 +725,9 @@ var dropdownListDirective_instance = function () {
 
                 vm.typeaheadOnSelect = function (item, model, label) {
 
-                    console.log(`%c typeaheadOnSelect 20210616-2237 `);
-                    console.log('item xxxxxxxxx:')
-                    console.log(item)
-                    console.log('model:')
-                    console.log(model)
-                    console.log('label:')
-                    console.log(label)
-
-
                     vm.disciplineSelected_XYZ = item;
 
-
                     vm.ngModel = item.id;
-
-                    console.log(`%c setting ngModel [${vm.ngModel}]  keyColumn [${vm.keyColumn}]  >>> typeaheadSelect <<< - 20210617-1212`, 'color:cyan;font-size:12pt');
-                    console.log('item:');
-                    console.log(item);
-                    console.log('-----------------------');
-                    console.log(' ');
 
                 }
 
@@ -813,9 +741,6 @@ var dropdownListDirective_instance = function () {
 
                     // 06/13/2021 10:39 pm - SSN - [20210613-0452] - [026] - Adding tags to DevSite
 
-
-                    console.log('%c DropdownListDirective vm.validateThis - 20210617-1043  ', 'color:yellow');
-                    console.log(vm.ngModel);
 
                     if (vm.ngModel > 0) {
                         // if (vm.ngModel != undefined) {
@@ -889,7 +814,6 @@ var dropdownListDirective_instance = function () {
                 // Called from view input element
                 vm.getDisciplines = function (lookupValue) {
 
-                    console.log('%c getDisciplines  20210618-1919', 'color:yellow;font-size:16pt;');
 
                     try {
                         // For adding new entries
@@ -917,13 +841,6 @@ var dropdownListDirective_instance = function () {
                     function executeQuery() {
 
                         const deferred = $q.defer();
-
-
-                        console.log(' ');
-                        console.log('%c getDisciplines - 20210617-1119 ', 'color:yellow');
-
-                        console.log('vm.APIUrlListAll:');
-                        console.log(vm.APIUrlListAll);
 
 
                         $http({
