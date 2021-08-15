@@ -25,15 +25,23 @@ namespace DevSitesIndex.Pages.Jobs
         private readonly DevSitesIndex.Entities.DevSitesIndexContext _context;
         private readonly ILogger_SSN logger;
 
+        // 08/14/2021 11:26 pm - SSN - [20210814-2328] - Added
+        private readonly IValidationSharedUtil validationSharedUtil;
+
+
+
         // 11/04/2019 09:41 am - SSN - [20191104-0844] - [005] - Prevent delete option on timesheet related forms 
         // Return to caller
 
         public ReturnToCaller returnToCaller = new ReturnToCaller();
 
 
-        public EditModel(DevSitesIndex.Entities.DevSitesIndexContext context, ILogger_SSN logger)
+        public EditModel(DevSitesIndex.Entities.DevSitesIndexContext context, ILogger_SSN logger, IValidationSharedUtil _validationSharedUtil)
         {
             _context = context;
+
+            validationSharedUtil = _validationSharedUtil;
+
             this.logger = logger;
         }
 
@@ -75,7 +83,7 @@ namespace DevSitesIndex.Pages.Jobs
             logger.TrackPageView("DemoSite-20190915-0941");
 
 
-            DoPageSetup();
+            setupPageRequirements();
 
 
 
@@ -100,7 +108,10 @@ namespace DevSitesIndex.Pages.Jobs
         }
 
 
-        private void DoPageSetup()
+
+        // 08/14/2021 11:25 pm - SSN - [20210814-2328] - Renamed 
+        // private void DoPageSetup()
+        private void setupPageRequirements()
         {
             // ViewData["ProjectID"] = new SelectList(_context.Project, "ProjectID", "ProjectID");
             // 05/03/2019 05:35 am - SSN - Add order
@@ -113,16 +124,34 @@ namespace DevSitesIndex.Pages.Jobs
 
         public async Task<IActionResult> OnPostAsync()
         {
-            DoPageSetup();
+            setupPageRequirements();
 
 
+            // 08/14/2021 11:25 pm - SSN - [20210814-2328] - Update
+
+            //if (!ModelState.IsValid)
+            //{
+            //    return Page();
+            //}
             if (!ModelState.IsValid)
             {
-                return Page();
+                validationSharedUtil.RemoveErrorsForValidFields(Job, ModelState);
+
+                if (!ModelState.IsValid)
+                {
+
+                    setupPageRequirements();
+
+                    Job.project = _context.Projects.Find(Job.ProjectID) ?? new Project();
+
+                    return Page();
+
+                }
             }
 
 
-
+            // 08/14/2021 11:25 pm - SSN - [20210814-2328] - Update
+            Job.project = null;
 
 
             _context.Attach(Job).State = EntityState.Modified;

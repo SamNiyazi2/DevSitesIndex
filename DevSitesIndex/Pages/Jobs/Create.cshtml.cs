@@ -20,6 +20,7 @@ namespace DevSitesIndex.Pages.Jobs
     {
 
         private readonly DevSitesIndex.Entities.DevSitesIndexContext _context;
+        private readonly ILogger_SSN logger;
         private readonly IValidationSharedUtil validationSharedUtil;
 
         // 11/04/2019 01:45 pm - SSN - [20191104-0844] - [020] - Prevent delete option on timesheet related forms 
@@ -39,6 +40,7 @@ namespace DevSitesIndex.Pages.Jobs
         public CreateModel(DevSitesIndex.Entities.DevSitesIndexContext context, ILogger_SSN logger, IValidationSharedUtil _validationSharedUtil)
         {
             _context = context;
+            this.logger = logger;
             validationSharedUtil = _validationSharedUtil;
         }
 
