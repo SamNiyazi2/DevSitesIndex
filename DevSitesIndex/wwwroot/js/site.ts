@@ -61,17 +61,14 @@ namespace site_instance_NS {
 
         // 09/21/2019 12:27 pm - SSN - [201909-1227] Revise to accommodate Babel/Webpack
         setDefaults() {
-
-            console.log('%c ubsude setDefaults', 'color:green;font-size:20pt;')
-
+              
             $("[cmd-name]").on('click', function (e) {
 
                 var cmdName = $(this).attr('cmd-name');
                 var popupName = $(this).attr('popup-name');
                 var jQueryObjectName = $(this).attr('jQueryObjectName');
                 var jQueryObjectName2 = $(this).attr('jQueryObjectName2');
-
-
+                 
                 if (cmdName === "open-popup") {
 
                     $(popupName).modal({ backdrop: 'static', keyboard: false });
@@ -168,6 +165,8 @@ namespace site_instance_NS {
                 imgSiteUrlQRCode++;
 
                 $(e.target).toggleClass('cssSiteUrlQRCode');
+                $(e.target).toggleClass('cssSiteUrlQRCode_on');
+           
 
 
             });
