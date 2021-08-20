@@ -18,7 +18,7 @@ $(function () {
 
     $('[cmd-ssn="displayCode"]').each(function (a, b) {
 
-         
+
         var div = $("<div>Click to load code.</div>");
 
         $(b).append(div);
@@ -26,7 +26,7 @@ $(function () {
 
         $(b).bind('click', function (event) {
 
-             
+
 
             const attrs = {};
 
@@ -35,7 +35,7 @@ $(function () {
                 attrs[(b.attributes[x].name).replace('-', '_')] = b.attributes[x].value;
 
             }
-              
+
             //// 01/01/2019 08:52 pm - SSN https
             //var protocol = location.protocol;
             //var localhostPort = '56580';
@@ -46,19 +46,19 @@ $(function () {
 
             $.ajax({
                 type: "get",
-                
+
                 url: '/api/displayCode/VSTSCode/',
-                 
+
                 data: attrs,
- 
+
                 dataType: 'json',
                 success: function (data, status, xhr) {
 
-                    
+
                     div.html(data["finalResult"]);
-                    
- 
-                    
+
+
+
 
                 },
                 error: function (error) {
@@ -145,6 +145,29 @@ $(function () {
 
 
     });
+
+
+
+    // 08/19/2021 06:01 - SSN - Swap css HTML theme.
+ 
+    $('[cmd-ssn="swapcsstheme"]').on('click', function (e) {
+         
+        let htmlTag = document.getElementsByTagName('html');
+
+        if (htmlTag.length > 0) {
+
+            let currentTheme = htmlTag[0].getAttribute('theme');
+          
+            currentTheme = currentTheme == 'Dark'?'Light':'Dark';
+          
+            htmlTag[0].setAttribute('theme', currentTheme); 
+
+            e.target.textContent = currentTheme == 'Dark'?'Light':'Dark';
+        }
+
+    });
+
+
 
 });
 

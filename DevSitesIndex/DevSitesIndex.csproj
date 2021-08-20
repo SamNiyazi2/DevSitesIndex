@@ -49,7 +49,6 @@
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="SSNSendGridStandardUtil" Version="1.0.2" />
     <PackageReference Include="ssn_20210617_QRCoder.NET" Version="1.0.0" />
-    <PackageReference Include="SSN_DevSites_DAL_Standard" Version="1.0.138" />
     <PackageReference Include="System.Text.Json" Version="5.0.2" />
     <PackageReference Include="toastr" Version="2.1.1" />
     <PackageReference Include="underscore.js" Version="1.8.3" />
@@ -101,6 +100,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ApplicationInsights\SuccessfulDependencyFilter.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SSN_DevSites_DAL_Standard\SSN_DevSites_DAL_Standard.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="SSN_GenUtil_StandardLib">

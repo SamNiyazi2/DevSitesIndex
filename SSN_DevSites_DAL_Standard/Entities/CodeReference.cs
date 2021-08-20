@@ -30,7 +30,10 @@ namespace DevSitesIndex.Entities
         // public string CodeBlock_Encoded => RE_Util.EncodeContentOfPreTag(CodeBlock);
         // 12/13/2019 10:18 am - SSN - Replaced for <n>
         //        public string CodeBlock_Encoded => RE_Util.EncodeContent_AllContent(CodeBlock);
-        public string CodeBlock_Encoded => RE_Util.EncodeContent_PreContent(CodeBlock);
+        // 08/09/2021 06:51 pm - SSN - Again, for <n>, setting back to AllContent
+        // public string CodeBlock_Encoded => RE_Util.EncodeContent_PreContent(CodeBlock);
+        // WE DON'T WANT TO HAVE TO ENCODE IN HTML. We need to highlight search results. (<n>).
+        public string CodeBlock_Encoded => RE_Util.EncodeContent_AllContent(CodeBlock);
 
 
 

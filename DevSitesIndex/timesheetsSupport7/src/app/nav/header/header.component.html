@@ -48,6 +48,21 @@
 
             </ul>
 
+
+
+
+
+            <!--@* 08/19/2021 06:28 pm - SSN - Adding swapcsstheme *@-->
+            <!-- Does not work.  We can't use AngularJS modules. -->
+            <!--<ul class="nav navbar-nav" style="float:right">
+
+                <li><a cmd-ssn="swapcsstheme">Light</a></li>
+
+            </ul>-->
+
+
+
+
             <ul class="nav navbar-nav " style="float:right;">
                 <li *ngIf="!authenticateService.isAuthenticated()">
                     <a [routerLink]="['/user/login']">Login</a>
@@ -68,6 +83,10 @@
 
             <span [innerHtml]="QRCodeContent">
             </span>
+
+
+
+
 
 
         </div>

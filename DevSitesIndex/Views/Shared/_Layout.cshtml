@@ -2,7 +2,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html theme="Dark" >
 
 <head>
 
@@ -87,7 +87,7 @@
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         @*
-                            <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+            <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                         *@
 
                         <li><a asp-area="" asp-controller="DemoSites" asp-action="Index">Sites</a></li>
@@ -122,6 +122,15 @@
 
                         <partial name="api/QRCodeView/ShowQRCode" model="@qrModel" />
                     }
+
+
+
+                    @* 08/19/2021 06:28 pm - SSN - Adding swapcsstheme *@
+                    <ul class="nav navbar-nav" style="float:right">
+
+                        <li><a cmd-ssn="swapcsstheme">Light</a></li>
+
+                    </ul>
 
 
                 </div>
@@ -160,6 +169,10 @@
     @RenderSection("Scripts", required: false)
 
     @await Html.PartialAsync("ApplicationVersion")
+
+
+    @* 08/19/2021 06:08 pm - SSN - Added mainly to pickup swapcssthem.  Currenlty, file is only used in contact.cshtml. *@
+    <script src="/webpack_build/bundle_main_101.js" asp-append-version="true"></script>
 
 
 </body>

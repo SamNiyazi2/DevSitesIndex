@@ -856,3 +856,10 @@ noscript {
         left: 30px;
         position: fixed;
     }
+
+
+/* 08/19/2021 05:38 pm - SSN - Add dark theme*/
+/* https://dev.to/akhilarjun/one-line-dark-mode-using-css-24li */
+html[theme='Dark'] {
+    filter: invert(1) hue-rotate(180deg);
+}

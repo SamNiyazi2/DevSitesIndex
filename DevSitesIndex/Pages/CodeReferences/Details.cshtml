@@ -53,17 +53,16 @@
 
         <dd>
             @*03/29/2019 02:52 am - Added pre block*@
+
             <pre ssn-auto-collapse="false">
      
-@*
-// 01/02/2020 03:15 pm - SSN - Replace with CodeBlock_Encoded    
-            @Html.DisplayFor(model => model.CodeReference.CodeBlock)
+@*--
+            08/19/2021 06:15 pm - SSN - Why did we change this? - Did pre has something to do with it?
+            @Model.CodeReference.CodeBlock_Encoded
+*@
 
-// 0/04/2021 05:45 am - SSN - 
                 @Html.Raw(Model.CodeReference.CodeBlock_Encoded)
 
-*@
-            @Model.CodeReference.CodeBlock_Encoded
 
 </pre>
         </dd>
