@@ -152,21 +152,27 @@ td, .siteDiv {
 
 .siteDiv {
     border-bottom: 10px solid white;
+    background-color: #ddd;
 }
 
 .forDemo_Yes {
     background-color: #f0faf0;
+    background-color: #98fa98;
 }
+
+ 
 
 .forDemo_No {
     background-color: #f7edf3;
+    background-color: #fadcdc;
 }
 
 .forDemo_Undecided {
     background-color: #faf9f0;
+    background-color: #faf2aa;
 }
 
-
+ 
 
 
 .info_good {
@@ -878,7 +884,7 @@ noscript {
 /*filter: invert(1) hue-rotate(180deg);*/
 html[theme='Dark'] {
     background-color: black;
-    filter: invert(1) hue-rotate(180deg);
+    filter: invert(100%) hue-rotate(180deg);
 }
 
 .fixed_anchor {
