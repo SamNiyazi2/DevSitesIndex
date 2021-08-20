@@ -1,10 +1,10 @@
 ﻿
 html{
-    height:100%;
+    min-height:100vh; /* 100% does not fill body*/
 }
 
 body {
-    height:100%;
+    min-height: 100vh; /* 100% does not fill body*/
     padding-top: 50px;
     padding-bottom: 20px;
     overflow-y: scroll;
@@ -870,3 +870,18 @@ html[theme='Dark'] {
     filter: invert(1) hue-rotate(180deg);
     
 }
+
+
+.fixed_anchor {
+    left: 10px;
+    position: fixed;
+    display: inline-block;
+    height: 30px;
+    width: 36px;
+    padding: 5px;
+}
+
+    .fixed_anchor a {
+        color: yellow !important;
+    }
+

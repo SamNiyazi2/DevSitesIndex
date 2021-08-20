@@ -208,8 +208,7 @@ var demosites_index_p1_instance = function () {
 
 
         this.gotoDevSitePage_UTIL = function (currentPage: number) {
-
-
+            
             self.currentPage_KO(currentPage);
 
             self.recordsPerPage_KO(self.SelectedRecordsPerPage_KO())
@@ -219,7 +218,8 @@ var demosites_index_p1_instance = function () {
             self.applyDisplayRequirements();
 
             self.updateAngularJSParts();
-
+            
+            util.site_instance.setDefaults();
 
         }
 
@@ -397,7 +397,7 @@ var demosites_index_p1_instance = function () {
 
             }).fail(function (error) {
                 // 12/20/2019 05:06 pm - SSN - [20191220-1706] Adding resetSearch
-                 
+
 
                 console.log('demositesapi Search fialure - 20210422-1422');
 

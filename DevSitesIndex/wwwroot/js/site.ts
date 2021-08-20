@@ -62,6 +62,8 @@ namespace site_instance_NS {
         // 09/21/2019 12:27 pm - SSN - [201909-1227] Revise to accommodate Babel/Webpack
         setDefaults() {
 
+            console.log('%c ubsude setDefaults', 'color:green;font-size:20pt;')
+
             $("[cmd-name]").on('click', function (e) {
 
                 var cmdName = $(this).attr('cmd-name');
@@ -159,14 +161,14 @@ namespace site_instance_NS {
             });
 
 
-            let imgSiteUrlQRCode = 0; 
+            let imgSiteUrlQRCode = 0;
 
             $('#imgSiteUrlQRCode').click((e) => {
 
                 imgSiteUrlQRCode++;
 
                 $(e.target).toggleClass('cssSiteUrlQRCode');
-                 
+
 
             });
 
@@ -189,11 +191,31 @@ namespace site_instance_NS {
 
             // 03/14/2019 10:28 am - SSN
 
-            $(window).on('scroll', function () {
-                var y = $(window).scrollTop();
+            let lastScrollTop = -1;
 
-                if (y > 0) {
-                    $('.fixed_anchor').fadeIn('slow');
+            $(window).on('scroll', function () {
+
+                let currentScrollTop = $(window).scrollTop();
+
+                lastScrollTop = currentScrollTop;
+
+                var y = lastScrollTop;
+
+                if (y > window.innerHeight) {
+
+                    $('.fixed_anchor ').fadeIn('slow');
+
+                    if (navigator.userAgent.toLowerCase().indexOf('firefox') >= 0) {
+                        $('.fixed_anchor').css('position', 'sticky');
+                        $('.fixed_anchor').css('left', '-20');
+                        $('.fixed_anchor').css('background-color', 'brown');
+                    } else {
+
+                        $('.fixed_anchor').css('background-color', 'red');
+                    }
+
+                    $('.fixed_anchor').css('top', '400px');
+
                 } else {
                     $('.fixed_anchor').fadeOut('slow');
                 }
@@ -425,7 +447,7 @@ namespace site_instance_NS {
 
                 console.log('%c fnDateToISODateString 20210622-0307-C', 'color:yellow;font-size:12');
 
-//                if (!input.hasOwnProperty(key)) continue;
+                //                if (!input.hasOwnProperty(key)) continue;
 
                 var value = input[key];
                 var type = typeof value;
@@ -433,7 +455,7 @@ namespace site_instance_NS {
                 console.log(` isDateObject [${this.isDateObject(value)}]`);
                 console.log(value);
 
-                if (this.isDateObject(value) ) {
+                if (this.isDateObject(value)) {
                     console.log('%c fnDateToISODateString 20210622-0307-DDD', 'color:red;font-size:24');
 
                     console.log(new Date(value));
@@ -450,17 +472,17 @@ namespace site_instance_NS {
 
         }
 
-        
 
 
 
 
-         
+
+
     }
 
 }
 
- 
+
 
 let site_instance = new site_instance_NS.site_Class();
 export { site_instance };

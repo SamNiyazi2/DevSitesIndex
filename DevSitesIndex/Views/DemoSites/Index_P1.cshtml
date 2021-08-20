@@ -34,7 +34,7 @@
         <span asp-validation-for="SearchText" class="text-danger"></span>
 
     </div>
-    <div  data-bind="visible: SearchResultsFeedback_KO() != ''">
+    <div data-bind="visible: SearchResultsFeedback_KO() != ''">
         <div data-bind=" attr:{class: SearchResultsFeedback_ClassName_KO}, html: SearchResultsFeedback_KO "></div>
     </div>
 
@@ -151,17 +151,13 @@
     12/02/2019 04:07 am - SSN - Adding - copied from CorReferences - Todo Todo Todo - Refactor
     Begin
 *@
-<div class="fixed_anchor" hidden>
-    <a cmd-name="smooth-scroll" jQueryObjectName="#topTitle">Top</a>
+
+<div class="fixed_anchor" cmd-name="smooth-scroll" jQueryObjectName="#topTitle">
+    <a >Top</a>
 </div>
 
 
-<style>
-    .fixed_anchor {
-        left: 10px;
-        position: fixed;
-    }
-</style>
+
 @*
     12/02/2019 04:07 am - SSN - Adding - copied from CorReferences - Todo Todo Todo - Refactor
     End
@@ -231,8 +227,8 @@
 
 
                             @*
-            // 03/19/2019 07:04 pm - SSN - [20190319-1904]
-            // 08/14/2019 06:48 am - SSN - [20190814-0609] - [002] - Revise demo site index docAge
+                                // 03/19/2019 07:04 pm - SSN - [20190319-1904]
+                                // 08/14/2019 06:48 am - SSN - [20190814-0609] - [002] - Revise demo site index docAge
                             *@
 
                             <p class="small">
@@ -262,9 +258,9 @@
                         @*04/15/2021 12:34 pm - SSN - Adding devsittags*@
 
                         @*<dev-site-tags data-bind="attr: {  'the-tags' : ko.toJSON($data.devSiteTechnologies.map(r=> r.technology)) }"></dev-site-tags>*@
- 
+
                         @* Conflict with HTML in Solution_Detail. Seperate. *@
-                        <dev-site-tags data-bind="attr: {  'the-tags' : ko.toJSON($data.devSiteTechnologies ), 'id': $data.id }"></dev-site-tags> 
+                        <dev-site-tags data-bind="attr: {  'the-tags' : ko.toJSON($data.devSiteTechnologies ), 'id': $data.id }"></dev-site-tags>
 
                         <!-- ko if: $data.solution_Details -->
                         @*02/05/2019 02:11 pm - SSN - Testing decoding html*@
@@ -281,13 +277,13 @@
 
                             @*
 
-                //12/13/2019 05:18 am - SSN - Turn off
+                                    //12/13/2019 05:18 am - SSN - Turn off
 
-                <a href="#" class=""
-               data-bind="click: $parent.showJob">Show Job</a>
+                                    <a href="#" class=""
+                                   data-bind="click: $parent.showJob">Show Job</a>
 
-            <a href="#" class=""
-               data-bind="click: $parent.requestDelConfirm">Delete</a>*@
+                                <a href="#" class=""
+                                   data-bind="click: $parent.requestDelConfirm">Delete</a>*@
 
                             <a class=""
                                data-bind="attr: {href: '/devsites/details?id=' + id , target:'devsiteIndexWindow' + id } ">Detail</a>
