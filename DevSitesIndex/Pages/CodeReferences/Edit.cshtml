@@ -8,6 +8,19 @@
 <h2>@ViewData["Title"]</h2>
 
 <hr />
+
+
+@*
+        // 09/04/2020 05:43 am - SSN - [20200904-0540] - [002] - Ading save-and-stay option to codereference
+    // 08/20/2021 11:54 am - SSN - Moved to root.  Impact of html[theme="Dark"]
+*@
+@if (Model.CodeReference.Id > 0)
+{
+    @await Html.PartialAsync("SaveAndStayControl", Model.SaveAndStayModel)
+}
+
+
+
 <div class="row">
     <div class="col-md-4">
 
@@ -77,17 +90,13 @@
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>
 
-            @*
-                // 09/04/2020 05:43 am - SSN - [20200904-0540] - [002] - Ading save-and-stay option to codereference
-            *@
-            @if (Model.CodeReference.Id > 0)
-            {
-                @await Html.PartialAsync("SaveAndStayControl", Model.SaveAndStayModel)
-            }
 
         </form>
     </div>
 </div>
+
+
+
 
 <div>
     <a asp-page="index">Back to List</a>

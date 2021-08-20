@@ -18,7 +18,7 @@
 <div class="row">
     <div class="col-md-4">
         @*
-            // 09/24/2019 01:34 pm - SSN - [20190924-1134] - [023] - Removing date add/updated from create/edit pages
+        // 09/24/2019 01:34 pm - SSN - [20190924-1134] - [023] - Removing date add/updated from create/edit pages
         *@
         <dl class="dl-horizontal">
             <dt>
@@ -39,6 +39,17 @@
                 }
             }
         </dl>
+
+
+        @*// 08/20/2021 12:30 pm - SSN - Moved to root.  Impact of html[theme="Dark"]*@
+
+        @if (Model.DevSite.Id > 0)
+        {
+            // 09/04/2020 05:58 am - SSN - [20200904-0540] - [006] - Ading save-and-stay option to codereference
+            // Pass model
+            @await Html.PartialAsync("SaveAndStayControl", Model.SaveAndStayModel)
+        }
+
 
 
         <form method="post" id="devSiteForm">
@@ -111,16 +122,16 @@
 
 
             @*
-                09/13/2019 04:30 am - SSN - [20190913-0421] - [001]
-                Moved down
+            09/13/2019 04:30 am - SSN - [20190913-0421] - [001]
+            Moved down
             *@
 
 
 
             <div class="form-group">
                 @*
-                    // 08/26/2020 07:48 pm - SSN - [20200826-1927] - [003] - Format textarea for edit
-                    Adding ssn_FitInScreen="DevSite_Solution_Details
+                // 08/26/2020 07:48 pm - SSN - [20200826-1927] - [003] - Format textarea for edit
+                Adding ssn_FitInScreen="DevSite_Solution_Details
                 *@
 
 
@@ -140,14 +151,6 @@
                 <input cmd-name="debug-mvc-angular" type="submit" value="Save" class="btn btn-default" />
 
             </div>
-
-
-            @if (Model.DevSite.Id > 0)
-            {
-                // 09/04/2020 05:58 am - SSN - [20200904-0540] - [006] - Ading save-and-stay option to codereference
-                // Pass model
-                @await Html.PartialAsync("SaveAndStayControl", Model.SaveAndStayModel)
-            }
 
         </form>
     </div>

@@ -157,22 +157,30 @@ td, .siteDiv {
 
 .forDemo_Yes {
     background-color: #f0faf0;
+}
+
+html[theme='Dark'] .forDemo_Yes {
     background-color: #98fa98;
 }
 
- 
 
 .forDemo_No {
     background-color: #f7edf3;
+}
+
+html[theme='Dark'] .forDemo_No {
     background-color: #fadcdc;
 }
 
 .forDemo_Undecided {
     background-color: #faf9f0;
-    background-color: #faf2aa;
 }
 
- 
+html[theme='Dark'] .forDemo_Undecided {
+    background-color: #DEDE14;
+    /*filter: invert(100%) hue-rotate(180deg);*/
+}
+
 
 
 .info_good {
@@ -705,14 +713,23 @@ alarm {
     Moved from DevSites.edit.cshtml to share with codereference save-and-stay
 */
 
-.fixed_101_sas {
-    top: 250px;
-    left: 10px;
-    position: fixed;
+div.fixed_101_sas {
     z-index: 999;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 400px;
+    /*margin-left:calc(-7vw + 20px );*/
     background-color: white;
+    display: inline-block;
+    height: 30px;
+    padding: 5px;
 }
 
+
+    div.fixed_101_sas a {
+        width: 400px;
+        color: red !important;
+    }
 
 
 menuPipe_101::after {
