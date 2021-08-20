@@ -841,9 +841,13 @@ menuPipe_101::after {
     width: 32px;
 }
 
-.cssSiteUrlQRCode_on {
+.cssSiteUrlQRCode_Dark {
     filter: invert(100%) !important;
     width: 200px;
+}
+
+.cssSiteUrlQRCode_Light {
+    width: 400px;
 }
 
 

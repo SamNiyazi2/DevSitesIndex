@@ -165,8 +165,16 @@ namespace site_instance_NS {
                 imgSiteUrlQRCode++;
 
                 $(e.target).toggleClass('cssSiteUrlQRCode');
-                $(e.target).toggleClass('cssSiteUrlQRCode_on');
-           
+
+                let htmlTag = document.getElementsByTagName('html');
+
+                if (htmlTag.length > 0) {
+
+                    let currentTheme = htmlTag[0].getAttribute('theme');
+
+                    $(e.target).toggleClass('cssSiteUrlQRCode_' + currentTheme );
+
+                }
 
 
             });
