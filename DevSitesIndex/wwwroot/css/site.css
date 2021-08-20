@@ -1,6 +1,10 @@
 ﻿
+html{
+    height:100%;
+}
 
 body {
+    height:100%;
     padding-top: 50px;
     padding-bottom: 20px;
     overflow-y: scroll;
@@ -860,6 +864,9 @@ noscript {
 
 /* 08/19/2021 05:38 pm - SSN - Add dark theme*/
 /* https://dev.to/akhilarjun/one-line-dark-mode-using-css-24li */
+/*filter: invert(1) hue-rotate(180deg);*/
 html[theme='Dark'] {
+    background-color: black;
     filter: invert(1) hue-rotate(180deg);
+    
 }
