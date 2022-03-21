@@ -36,7 +36,7 @@ namespace DevSitesIndex.Controllers
         //   private readonly ILogger_SSN logger;
         private readonly ILogger<RegisterModel> logger;
         // 03/21/2022 03:42 pm - SSN - [20220321-1408] - [020] - Takeout TelemetryClient - Use logger
-        private readonly SSN_Logger logger2;
+        private readonly ILogger_SSN logger2;
 
 
         private readonly UserManager<IdentityUser> userManager;
@@ -47,7 +47,7 @@ namespace DevSitesIndex.Controllers
 
         // Todo_SSN: Replace ILogger with ILogger_SSN - Compare
 
-        public IdentitySupportController(ILogger<RegisterModel> logger, UserManager<IdentityUser> userManager, IEmailSender emailSender, IHostingEnvironment env, SSN_Logger _logger2)
+        public IdentitySupportController(ILogger<RegisterModel> logger, UserManager<IdentityUser> userManager, IEmailSender emailSender, IHostingEnvironment env, ILogger_SSN _logger2)
         {
             this.userManager = userManager;
             this.emailSender = emailSender;

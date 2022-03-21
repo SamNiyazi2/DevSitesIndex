@@ -15,12 +15,12 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
     public class ConfirmEmailModel : PageModel
     {
         private readonly UserManager<IdentityUser> userManager;
-        private readonly SSN_Logger logger;
+        private readonly ILogger_SSN logger;
 
 
         // 03/21/2022 03:25 pm - SSN - [20220321-1408] - [016] - Takeout TelemetryClient - Use logger
         // Add logger
-        public ConfirmEmailModel(UserManager<IdentityUser> _userManager, SSN_Logger _logger)
+        public ConfirmEmailModel(UserManager<IdentityUser> _userManager, ILogger_SSN _logger)
         {
             userManager = _userManager;
             logger = _logger;

@@ -41,7 +41,9 @@ namespace DevSitesIndex.Util
 
         static ReturnToCaller()
         {
-            logger = new SSN_Logger();
+            // 03/21/2022 06:05 pm - SSN - [20220321-1408] - [023] - Takeout TelemetryClient - Use logger
+            //  logger = new SSN_Logger();
+            logger = (ILogger_SSN)GetMeSomeServiceLocator.Instance.GetService(typeof(ILogger_SSN));
         }
 
 
@@ -188,8 +190,8 @@ namespace DevSitesIndex.Util
                 referrer = referrer_From_ReturnToCallerList;
             }
             else
-            { 
-             
+            {
+
                 referrer = request.Headers["Referer"].ToString();
                 // 01/06/2019 07:52 am - SSN - Comment out.
                 //logger.PostException(new Exception("DemoSites-20191111-1129 - DemoSites to JobIndex Debug"), "20191111-1129-A-2", "(1 of 2) Debugging returnign form Job index to demosites.");

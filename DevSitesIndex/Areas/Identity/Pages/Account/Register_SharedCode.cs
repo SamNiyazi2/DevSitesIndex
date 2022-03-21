@@ -29,9 +29,9 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
 
         private readonly ILogger<RegisterModel> _logger;
         // 03/21/2022 02:35 pm - SSN - [20220321-1408] - [010] - Takeout TelemetryClient - Use logger
-        private readonly SSN_Logger logger2;
+        private readonly ILogger_SSN logger2;
 
-        public Register_SharedCode(UserManager<IdentityUser> userManager, ILogger<RegisterModel> logger, IEmailSender emailSender, IHostingEnvironment env, SSN_Logger logger2)
+        public Register_SharedCode(UserManager<IdentityUser> userManager, ILogger<RegisterModel> logger, IEmailSender emailSender, IHostingEnvironment env, ILogger_SSN logger2)
         {
             _userManager = userManager;
             _emailSender = emailSender;

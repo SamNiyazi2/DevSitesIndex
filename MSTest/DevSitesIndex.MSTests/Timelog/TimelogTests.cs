@@ -73,7 +73,10 @@ namespace DevSitesIndex.MSTests.Timelog
 
             IConfigurationRoot configuration = TestUtil.GetConfiguration();
 
-            ILogger_SSN logger = new SSN_Logger();
+
+            // 03/21/2022 06:14 pm - SSN - [20220321-1408] - [025] - Takeout TelemetryClient - Use logger
+            //ILogger_SSN logger = new SSN_Logger();
+            ILogger_SSN logger = (ILogger_SSN)GetMeSomeServiceLocator.Instance.GetService(typeof(ILogger_SSN));
 
 
             DbContextOptions<DevSitesIndexContext> options = new DbContextOptions<DevSitesIndexContext>();
@@ -133,7 +136,9 @@ namespace DevSitesIndex.MSTests.Timelog
 
             IConfigurationRoot configuration = TestUtil.GetConfiguration();
 
-            ILogger_SSN logger = new SSN_Logger();
+            // 03/21/2022 06:14 pm - SSN - [20220321-1408] - [024] - Takeout TelemetryClient - Use logger
+            // ILogger_SSN logger = new SSN_Logger();
+            ILogger_SSN logger =   (ILogger_SSN)GetMeSomeServiceLocator.Instance.GetService(typeof(ILogger_SSN));
 
             Mock<IValidationSharedUtil> mockValidationSharedUtil = new Mock<IValidationSharedUtil>();
 

@@ -32,14 +32,14 @@ namespace DevSitesIndex.Controllers
         // Added loger
 
 
-        public DemoSitesController(IDevSitesIndexRepository devSitesIndexRepository, SSN_Logger logger)
+        public DemoSitesController(IDevSitesIndexRepository devSitesIndexRepository, ILogger_SSN logger)
         {
             _devSitesIndexRepository = devSitesIndexRepository;
             this.logger = logger;
         }
 
         private readonly IDevSitesIndexRepository _devSitesIndexRepository;
-        private readonly SSN_Logger logger;
+        private readonly ILogger_SSN logger;
 
         // 03/10/2022 01:58 pm - SSN - [20220310-1358] - [001] - Allow anonymous 
 

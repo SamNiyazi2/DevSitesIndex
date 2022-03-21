@@ -27,7 +27,7 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IEmailSender _emailSender;
         private readonly IHostingEnvironment env;
-        private readonly SSN_Logger logger2;
+        private readonly ILogger_SSN logger2;
 
         // 09/05/2019 05:29 am - SSN - [20190904-1845] - [011] - Enforce email confirmation
         // Added IHostingEnvironment
@@ -43,7 +43,7 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
             IHostingEnvironment env,
-            SSN_Logger logger2)
+            ILogger_SSN logger2)
         {
             _userManager = userManager;
             _signInManager = signInManager;

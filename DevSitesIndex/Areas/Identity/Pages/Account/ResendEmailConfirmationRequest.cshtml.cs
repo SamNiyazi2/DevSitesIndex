@@ -27,13 +27,13 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IEmailSender _emailSender;
         private readonly IHostingEnvironment _env;
-        private readonly SSN_Logger logger;
+        private readonly ILogger_SSN logger;
 
         public ResendEmailConfirmationRequestModel(
          UserManager<IdentityUser> userManager,
          IEmailSender emailSender,
          IHostingEnvironment env,
-         SSN_Logger logger)
+         ILogger_SSN logger)
         {
             _userManager = userManager;
             _emailSender = emailSender;

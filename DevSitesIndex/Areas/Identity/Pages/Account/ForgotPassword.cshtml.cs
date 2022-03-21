@@ -21,11 +21,11 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IEmailSender _emailSender;
-        private readonly SSN_Logger logger;
+        private readonly ILogger_SSN logger;
 
         // 03/21/2022 03:31 pm - SSN - [20220321-1408] - [019] - Takeout TelemetryClient - Use logger
         // Add logger
-        public ForgotPasswordModel(UserManager<IdentityUser> userManager, IEmailSender emailSender, SSN_Logger logger)
+        public ForgotPasswordModel(UserManager<IdentityUser> userManager, IEmailSender emailSender, ILogger_SSN logger)
         {
             _userManager = userManager;
             _emailSender = emailSender;
