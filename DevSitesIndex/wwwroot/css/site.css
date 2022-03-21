@@ -151,16 +151,11 @@ td, .siteDiv {
 }
 
 .siteDiv {
-    border-bottom: 10px solid white;
-    background-color: #ddd;
+    border-bottom: 10px solid white; 
 }
 
 .forDemo_Yes {
     background-color: #f0faf0;
-}
-
-html[theme='Dark'] .forDemo_Yes {
-    background-color: #98fa98;
 }
 
 
@@ -168,20 +163,11 @@ html[theme='Dark'] .forDemo_Yes {
     background-color: #f7edf3;
 }
 
-html[theme='Dark'] .forDemo_No {
-    background-color: #fadcdc;
-}
 
 .forDemo_Undecided {
     background-color: #faf9f0;
 }
-
-html[theme='Dark'] .forDemo_Undecided {
-    background-color: #DEDE14;
-    /*filter: invert(100%) hue-rotate(180deg);*/
-}
-
-
+ 
 
 .info_good {
     padding: 5px 20px;
@@ -718,7 +704,7 @@ div.fixed_101_sas {
     position: -webkit-sticky;
     position: sticky;
     top: 400px;
-    /*margin-left:calc(-7vw + 20px );*/
+    margin-left: calc(-7vw + 20px );
     background-color: white;
     display: inline-block;
     height: 30px;
@@ -896,23 +882,4 @@ noscript {
     }
 
 
-/* 08/19/2021 05:38 pm - SSN - Add dark theme*/
-/* https://dev.to/akhilarjun/one-line-dark-mode-using-css-24li */
-/*filter: invert(1) hue-rotate(180deg);*/
-html[theme='Dark'] {
-    background-color: black;
-    filter: invert(100%) hue-rotate(180deg);
-}
-
-.fixed_anchor {
-    left: 10px;
-    position: fixed;
-    display: inline-block;
-    height: 30px;
-    width: 36px;
-    padding: 5px;
-}
-
-    .fixed_anchor a {
-        color: yellow !important;
-    }
+ 

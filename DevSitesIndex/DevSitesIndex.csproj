@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <UserSecretsId>d333cece-1c61-46c9-bdce-fbf359723d24</UserSecretsId>
-    <TypeScriptToolsVersion>3.1</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>4.3</TypeScriptToolsVersion>
     <LangVersion>7.2</LangVersion>
     <ApplicationInsightsResourceId>/subscriptions/d6723a94-6723-4e85-b988-03bf28d6ea51/resourcegroups/DevSitesIndex20190127--0929-redeploy-rg/providers/microsoft.insights/components/DevSitesIndex20190127__0929_redeploy_v02</ApplicationInsightsResourceId>
   </PropertyGroup>
@@ -49,6 +49,7 @@
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="SSNSendGridStandardUtil" Version="1.0.2" />
     <PackageReference Include="ssn_20210617_QRCoder.NET" Version="1.0.0" />
+    <PackageReference Include="SSN_DevSites_DAL_Standard" Version="1.0.139" />
     <PackageReference Include="System.Text.Json" Version="5.0.2" />
     <PackageReference Include="toastr" Version="2.1.1" />
     <PackageReference Include="underscore.js" Version="1.8.3" />
@@ -101,7 +102,6 @@
     <Content Include="ApplicationInsights\SuccessfulDependencyFilter.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SSN_DevSites_DAL_Standard\SSN_DevSites_DAL_Standard.csproj" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="wwwroot\js\DropdownList\DropdownListDirectiveConstants.ts" />

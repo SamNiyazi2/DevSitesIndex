@@ -16,7 +16,9 @@ namespace DevSitesIndex.Pages.DevSites
 
     // 08/12/2019 12:21 pm - SSN - [20190812-0945] - [014] - Add identity
     // Add Authorize    public class CreateModel : PageModel
-    [Authorize]
+    // 03/10/2022 08:59 pm - SSN - [20220310-1358] - [018] - Allow anonymous
+//    [Authorize]
+
     public class IndexModel : PageModel
     {
 
@@ -91,7 +93,7 @@ namespace DevSitesIndex.Pages.DevSites
             }
             catch (Exception ex)
             {
-                logger.PostException(ex, "DevSites index post error", "20191228-1740");
+                await logger.PostException(ex, "DevSites index post error", "20191228-1740");
                 ModelState.AddModelError("SearchText", "Invalid syntax (SQL Server fulltext) (002)");
             }
 

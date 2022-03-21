@@ -82,6 +82,8 @@ namespace DevSitesIndex.Entities
 
 
 
+        // 03/20/2022 07:04 pm - SSN - [20220320-1726] - [010] - 03 - Update jobs related objects to show total hours
+        // take out.
 
         public DateTime _LastActivityDate;
 
@@ -130,20 +132,32 @@ namespace DevSitesIndex.Entities
 
         // 08/20/2019 12:52 pm - SSN - [20190820-1252] - [001] - Added
 
+        [DisplayName("Total Hours (1)")]
+        // 03/20/2022 05:46 pm - SSN - [20220320-1726] - [002] - 03 - Update jobs related objects to show total hours
+        //                                                     [NotMapped]
+        //                                                      public int? TotalSeconds { get; set; }
+        public int? JobTotalSeconds { get; set; }
+
         [DisplayName("Total Hours")]
-        [NotMapped]
-        public int? TotalSeconds { get; set; }
-
-
-        [NotMapped]
-        [Display(Name = "Duration")]
-        public string TotalSeconds_ToTimeSpanFormat_T
+        public string JobTotalHours
         {
             get
             {
-                return TotalSeconds.SecondsToTimeDuration();
+                return JobTotalSeconds.SecondsToTimeDuration();
             }
         }
+
+        // 03/20/2022 08:00 pm - SSN - [20220320-1726] - [014] - 03 - Update jobs related objects to show total hours
+        // Replaced with JobTotalHours
+        //[NotMapped]
+        //[Display(Name = "Duration")]
+        //public string TotalSeconds_ToTimeSpanFormat_T
+        //{
+        //    get
+        //    {
+        //        return JobTotalSeconds.SecondsToTimeDuration();
+        //    }
+        //}
 
 
         #endregion NotMapped properties

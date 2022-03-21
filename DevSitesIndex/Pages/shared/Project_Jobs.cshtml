@@ -26,7 +26,7 @@
     <div ng-controller="jobsIndexController">
 
         @*
-            // 11/25/2019 02:14 pm - SSN - [20191125-1414] - [001] - Project jobs - filter
+        // 11/25/2019 02:14 pm - SSN - [20191125-1414] - [001] - Project jobs - filter
         *@
 
 
@@ -40,6 +40,7 @@
         </div>
 
         <div class="padded" style="background-color:#eee" ng-click="showOriginalTable=!showOriginalTable">Show MVC table (Testing)</div>
+         
 
         <ng-content ng-if="showOriginalTable">
 
@@ -56,7 +57,9 @@
                             @Html.DisplayFor(modelItem => item.DateUpdated)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.TotalSeconds_ToTimeSpanFormat_T)
+                            @*// 03/20/2022 07:58 pm - SSN - [20220320-1726] - [013] - 03 - Update jobs related objects to show total hours
+                            @Html.DisplayFor(modelItem => item.TotalSeconds_ToTimeSpanFormat_T)*@
+                            @Html.DisplayFor(modelItem => item.JobTotalHours)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.JobTitle)
@@ -64,8 +67,8 @@
 
                         <td>
                             @*
-                                05/03/2019 05:37 pm - SSN - [20190503-1539] - [010] - Add link to create timelog
-                                Prefix with /jobs
+                            05/03/2019 05:37 pm - SSN - [20190503-1539] - [010] - Add link to create timelog
+                            Prefix with /jobs
                             *@
                             <a asp-page="/jobs/Edit" asp-route-id="@item.JobID">Edit  (0623-0158)</a> |
                             <a asp-page="/jobs/Details" asp-route-id="@item.JobID">Details</a> |
@@ -83,8 +86,7 @@
             </table>
 
         </ng-content>
-
-
+         
         @await Html.PartialAsync("Jobs_Index")
 
     </div>

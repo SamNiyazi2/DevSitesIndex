@@ -18,13 +18,14 @@ namespace DevSitesIndex.Controllers
     [ApiController]
     public class DevSiteTechnologyAPIController : EntityAPIController<DevSiteTechnology>
     {
-        private readonly DevSitesIndexContext context;
-        private readonly ILogger_SSN logger;
+
+        //private readonly DevSitesIndexContext context;
+        //private readonly ILogger_SSN logger;
 
         public DevSiteTechnologyAPIController(DevSitesIndexContext context, ILogger_SSN logger) : base(context, logger)
         {
-            this.context = context;
-            this.logger = logger;
+            //this.context = context;
+            //this.logger = logger;
 
             _entityRepository = new DevSiteTechnologyRepository(context, logger);
         }

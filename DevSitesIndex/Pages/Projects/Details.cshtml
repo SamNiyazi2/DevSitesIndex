@@ -42,8 +42,18 @@
         <dd>
             @Html.DisplayFor(model => model.Project.company.CompanyName)
         </dd>
+
+@*// 03/20/2022 02:38 pm - SSN - [20220320-1420] - [003] - 02 - Update code to use modified projects table - ProjectToalSeconds*@ 
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Project.ProjectTotalHours)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Project.ProjectTotalHours)
+        </dd>
+
     </dl>
-</div>
+</div> 
 <div>
     <a asp-page="./Edit" asp-route-id="@Model.Project.ProjectID">Edit</a> |
 

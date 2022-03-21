@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using SSN_GenUtil_StandardLib;
 
 // 11/06/2019 07:10 am - SSN - [20191104-0607] - [019] - Registration - Client 
 //using Microsoft.Extensions.Logging;
@@ -22,16 +23,24 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
     {
 
         private readonly UserManager<IdentityUser> _userManager;
-        private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
         private readonly IHostingEnvironment env;
 
-        public Register_SharedCode(UserManager<IdentityUser> userManager, ILogger<RegisterModel> logger, IEmailSender emailSender, IHostingEnvironment env)
+
+        private readonly ILogger<RegisterModel> _logger;
+        // 03/21/2022 02:35 pm - SSN - [20220321-1408] - [010] - Takeout TelemetryClient - Use logger
+        private readonly SSN_Logger logger2;
+
+        public Register_SharedCode(UserManager<IdentityUser> userManager, ILogger<RegisterModel> logger, IEmailSender emailSender, IHostingEnvironment env, SSN_Logger logger2)
         {
             _userManager = userManager;
-            _logger = logger;
             _emailSender = emailSender;
             this.env = env;
+
+
+            _logger = logger;
+            this.logger2 = logger2;
+
         }
 
 
@@ -44,7 +53,8 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
 
         }
 
-        TelemetryClient telemetry = new TelemetryClient();
+        // 03/21/2022 02:30 pm - SSN - [20220321-1408] - [009] - Takeout TelemetryClient - Use logger
+        // TelemetryClient telemetry = new TelemetryClient();
 
         public async Task<Regiseration_Result> createUser(IUrlHelper urlHelper, RegisterModel.InputModel Input)
         {
@@ -58,7 +68,8 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
             {
                 _logger.LogInformation("User created a new account with password.");
 
-                telemetry.TrackEvent($"DemoSite-20191105-1913 - New registration  ");
+                // telemetry.TrackEvent($"DemoSite-20191105-1913 - New registration  ");
+                logger2.TrackEvent($"DemoSite-20191105-1913-B - New registration  ");
 
                 //  Feedbackw_util.PageContent pageContent = new Feedbackw_util.PageContent();
                 regiseration_Result.pageContent = new PageContent();
@@ -67,7 +78,7 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
                 regiseration_Result.pageContent.AddMessage("Thank you for taking the time to review the site.");
 
 
-                Email.EmailSenders es = new Email.EmailSenders(_userManager, _emailSender, env);
+                Email.EmailSenders es = new Email.EmailSenders(_userManager, _emailSender, env, logger2);
                 await es.SendEmailConfirmationRequest(urlHelper, user);
 
             }

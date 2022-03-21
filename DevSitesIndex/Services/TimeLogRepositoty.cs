@@ -29,11 +29,8 @@ namespace DevSitesIndex.Services
 
         public TimeLogRepository(DevSitesIndexContext context, ILogger_SSN logger, IValidationSharedUtil validationSharedUtil)
         {
-            this._context = context;
             this.logger = logger;
-            this.userManager = userManager;
             this.validationSharedUtil = validationSharedUtil;
-
 
             this.aspNetUsersRepository = new AspNetUsersRepository(context, logger);
 

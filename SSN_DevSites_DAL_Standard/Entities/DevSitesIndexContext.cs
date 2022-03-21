@@ -55,15 +55,22 @@ namespace DevSitesIndex.Entities
                 catch (Exception ex)
                 {
                     // 08/28/2019 08:35 am - SSN - [20190828-0819] - [003] - Adding Application Insights
-                    TelemetryClient telemetry = new TelemetryClient();
+
+                    // 03/21/2022 02:08 pm - SSN - [20220321-1408] - [001] - Takeout TelemetryClient - Use logger
+                    // TelemetryClient telemetry = new TelemetryClient();
 
                     try
                     {
-                        Dictionary<string, string> dic = new Dictionary<string, string>();
-                        dic.Add("ErrorCode", "DemoSite-20190828-0837");
-                        dic.Add("ErrorMessage", "DevSiteIndexContext Migration failed");
 
-                        telemetry.TrackException(ex, dic);
+                        //    Dictionary<string, string> dic = new Dictionary<string, string>();
+                        //    dic.Add("ErrorCode", "DemoSite-20190828-0837");
+                        //    dic.Add("ErrorMessage", "DevSiteIndexContext Migration failed");
+
+
+                        //telemetry.TrackException(ex, dic);
+
+                        logger.PostException(ex, "DemoSite-20190828-0837-B", "DevSiteIndexContext Migration failed");
+
                     }
                     catch (Exception)
                     {

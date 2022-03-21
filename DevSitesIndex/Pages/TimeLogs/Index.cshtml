@@ -3,6 +3,10 @@
 
 @{
     ViewData["Title"] = "Timelog Index";
+
+    // 03/10/2022 02:13 pm - SSN - [20220310-1358] - [007] - Allow anonymous
+    bool IsAuthenticated = HttpContext.User.Identity.IsAuthenticated;
+
 }
 
 @section styles {
@@ -15,10 +19,19 @@
 
 <h2>@ViewData["Title"]</h2>
 
-<p>
-    <a asp-page="Create">Create New Timelog Record</a>
-</p>
+@{
 
+    // 03/10/2022 02:15 pm - SSN - [20220310-1358] - [008] - Allow anonymous 
+
+    if (IsAuthenticated)
+    {
+
+        <p>
+            <a asp-page="Create">Create New Timelog Record</a>
+        </p>
+
+    }
+}
 
 
 @{

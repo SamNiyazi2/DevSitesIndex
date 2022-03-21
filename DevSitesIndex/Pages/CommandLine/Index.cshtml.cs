@@ -51,8 +51,10 @@ namespace DevSitesIndex.Pages.CommandLine
 
             string commandWindowPassword = configuration["CommandWindowPassword"];
 
+            // 03/10/2022 08:51 pm - SSN - [20220310-1358] - [017] - Allow anonymous
+            // string.IsNullOrWhiteSpace(commandWindowPassword) 
 
-            if (AccessKey != commandWindowPassword)
+            if (string.IsNullOrWhiteSpace(commandWindowPassword) || AccessKey != commandWindowPassword)
             {
                 Results_Error = "Invalid key.";
             }

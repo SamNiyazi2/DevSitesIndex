@@ -35,6 +35,9 @@ namespace DevSitesIndex.Controllers
         // Todo-SSN: ILogger_SSN
         //   private readonly ILogger_SSN logger;
         private readonly ILogger<RegisterModel> logger;
+        // 03/21/2022 03:42 pm - SSN - [20220321-1408] - [020] - Takeout TelemetryClient - Use logger
+        private readonly SSN_Logger logger2;
+
 
         private readonly UserManager<IdentityUser> userManager;
         private readonly IEmailSender emailSender;
@@ -44,12 +47,15 @@ namespace DevSitesIndex.Controllers
 
         // Todo_SSN: Replace ILogger with ILogger_SSN - Compare
 
-        public IdentitySupportController(ILogger<RegisterModel> logger, UserManager<IdentityUser> userManager, IEmailSender emailSender, IHostingEnvironment env)
+        public IdentitySupportController(ILogger<RegisterModel> logger, UserManager<IdentityUser> userManager, IEmailSender emailSender, IHostingEnvironment env, SSN_Logger _logger2)
         {
-            this.logger = logger;
             this.userManager = userManager;
             this.emailSender = emailSender;
             this.env = env;
+
+            this.logger = logger;
+            logger2 = _logger2;
+
         }
 
 
@@ -62,7 +68,7 @@ namespace DevSitesIndex.Controllers
 
             if (ModelState.IsValid)
             {
-                Register_SharedCode register_SharedCode = new Register_SharedCode(userManager, logger, emailSender, env);
+                Register_SharedCode register_SharedCode = new Register_SharedCode(userManager, logger, emailSender, env, logger2);
 
                 Register_SharedCode.Regiseration_Result result = await register_SharedCode.createUser(this.Url, inputModel);
 
@@ -110,7 +116,7 @@ namespace DevSitesIndex.Controllers
         // 11/06/2019 02:29 pm - SSN - [20191104-0607] - [024] - Registration - Client 
         [Route("IsEmailOnFile")]
         [HttpPost]
-        public async Task<bool> IsEmailOnFile([FromBody]  RegisterModel.InputModel inputModel)
+        public async Task<bool> IsEmailOnFile([FromBody] RegisterModel.InputModel inputModel)
         {
             IdentityUser identityUser = await userManager.FindByEmailAsync(inputModel.Email);
             return identityUser != null;
@@ -122,7 +128,7 @@ namespace DevSitesIndex.Controllers
         public UserInfo GetCurrentUser()
         {
             UserInfo userInfo = new UserInfo();
-            if (User?.Identity != null )
+            if (User?.Identity != null)
             {
                 userInfo.UserName = User.Identity.Name;
                 userInfo.IsAuthenticated = User.Identity.IsAuthenticated;

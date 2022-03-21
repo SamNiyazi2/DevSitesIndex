@@ -42,11 +42,28 @@
                         @Html.DisplayFor(model => model.Job.DateAdded)
                     </dd>
 
+                    @{
+                        if (Model.Job.DateUpdated != null)
+                        {
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Job.DateUpdated)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.Job.DateUpdated)
+                            </dd>
+
+                        }
+
+
+                    }
+
+                    @*// 03/20/2022 06:10 pm - SSN - [20220320-1726] - [007] - 03 - Update jobs related objects to show total hours*@
+
                     <dt>
-                        @Html.DisplayNameFor(model => model.Job.DateUpdated)
+                        @Html.DisplayNameFor(model => model.Job.JobTotalSeconds)
                     </dt>
                     <dd>
-                        @Html.DisplayFor(model => model.Job.DateUpdated)
+                        @Html.DisplayFor(model => model.Job.JobTotalHours)
                     </dd>
                 </dl>
             </div>
@@ -96,8 +113,8 @@
 
 
 
-    @*06/05/2019 08:38 pm - SSN - [20190605-2037] - [002] - Copying timelog links from timelog index*@
+@*06/05/2019 08:38 pm - SSN - [20190605-2037] - [002] - Copying timelog links from timelog index*@
 
-    @section Scripts {
-        @{await Html.RenderPartialAsync("TimesheetAngularScripts");}
-    }
+@section Scripts {
+    @{await Html.RenderPartialAsync("TimesheetAngularScripts");}
+}

@@ -8,7 +8,7 @@
 
 <div class="row">
     <div class="col-md-4">
-        <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+        <form asp-route-returnUrl="@Model.ReturnUrl" method="post" name="registrationForm143">
             <h4>Create a new account.</h4>
             <hr />
             <div asp-validation-summary="All" class="text-danger"></div>
@@ -27,11 +27,64 @@
                 <input asp-for="Input.ConfirmPassword" class="form-control" />
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
-            <button type="submit" class="btn btn-default">Register</button>
+            <button type="button" class="btn btn-default" onclick="onClick(event)" id="idSubmit">Register</button>
+            <h1><input asp-for="ReCaptcha_ReturnedToken" hidden /></h1>
         </form>
     </div>
 </div>
 
+
 @section Scripts {
+
+
     <partial name="_ValidationScriptsPartial" />
+
+    @*// 03/20/2022 10:36 pm - SSN - [20220320-2236] - [001] - Add ReCaptcha to the registration page*@
+
+    <script src="https://www.google.com/recaptcha/api.js?render=@Model.ReCaptchaKey"></script>
+
+
+    <script>
+
+        function onClick(e) {
+
+            $("#idSubmit").attr('disabled', 'disabled');
+
+            let currentForm = document.forms["registrationForm143"] ;
+
+            let jQuryForm = $("[name=registrationForm143]");
+
+            jQuryForm.validate();
+             
+
+            if (!jQuryForm.valid()) {
+                  
+                $("#idSubmit").removeAttr('disabled'); 
+                return;
+            }
+
+            e.preventDefault();
+
+
+            grecaptcha.ready(function () {
+
+                grecaptcha.execute('@Model.ReCaptchaKey', { action: 'homepage' }).then(function (token) {
+
+                    $("#ReCaptcha_ReturnedToken").val(token);
+
+
+                    jQuryForm.submit();
+
+                });
+
+                $("#idSubmit").removeAttr('disabled');
+
+            });
+
+        }
+
+
+    </script>
+
+
 }

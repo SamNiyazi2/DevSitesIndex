@@ -162,7 +162,7 @@ namespace DevSitesIndex.Pages.TimeLogs
                     iex = iex.InnerException;
                 }
 
-                TimeLog.discipline = TimeLog.DisciplineID > 0 ? _context.Disciplines.Find(TimeLog.DisciplineID) : new Discipline();
+                TimeLog.discipline = TimeLog.DisciplineID > 0 ? _context.Disciplines.Find(TimeLog.DisciplineID) : new Entities.Discipline();
                 TimeLog.job = TimeLog.JobId> 0 ? _context.Jobs.Find(TimeLog.JobId) : new Job();
                 TimeLog.job_Lineitem = TimeLog.LineItemID> 0 ? _context.Job_Lineitems.Find(TimeLog.LineItemID) : new Job_Lineitem();
 

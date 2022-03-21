@@ -9,20 +9,27 @@ using DevSitesIndex.Entities;
 using Microsoft.AspNetCore.Authorization;
 using DevSitesIndex.Models;
 using Microsoft.ApplicationInsights;
+using SSN_GenUtil_StandardLib;
 
 namespace DevSitesIndex.Pages.TimeLogs
 {
 
     // 08/12/2019 12:21 pm - SSN - [20190812-0945] - [014] - Add identity
     // Add Authorize
-    [Authorize]
+    // 03/10/2022 02:12 pm - SSN - [20220310-1358] - [006] - Allow anonymous 
+    // [Authorize]
     public class IndexModel : PageModel
     {
-        private readonly DevSitesIndex.Entities.DevSitesIndexContext _context;
 
-        public IndexModel(DevSitesIndex.Entities.DevSitesIndexContext context)
+        // 03/21/2022 02:21 pm - SSN - [20220321-1408] - [004] - Takeout TelemetryClient - Use logger
+
+        private readonly DevSitesIndex.Entities.DevSitesIndexContext context;
+        private readonly ILogger_SSN logger;
+
+        public IndexModel(DevSitesIndex.Entities.DevSitesIndexContext _context, ILogger_SSN _logger)
         {
-            _context = context;
+            this.context = _context;
+            this.logger = _logger;
         }
 
 
@@ -55,7 +62,7 @@ namespace DevSitesIndex.Pages.TimeLogs
 
 
         // 06/25/2021 04:03 am - SSN - Testing setting date range
-        public async Task OnPostAsync(string columnName, string desc, int? pageIndex) 
+        public async Task OnPostAsync(string columnName, string desc, int? pageIndex)
         {
             await processAsync(columnName, desc, pageIndex);
         }
@@ -80,10 +87,13 @@ namespace DevSitesIndex.Pages.TimeLogs
 
             // 08/28/2019 08:19 am - SSN - [20190828-0819] - [001] - Adding Application Insights
 
-            TelemetryClient telemetry = new TelemetryClient();
-            // Removed 08/29/2019 12:58 pm - telemetry.TrackEvent("DemoSite-20190828-0802: Timelog Index");
-            telemetry.TrackPageView("DemoSite-20190828-0818: Timelog Index");
+            // 03/21/2022 02:19 pm - SSN - [20220321-1408] - [003] - Takeout TelemetryClient - Use logger
 
+            //TelemetryClient telemetry = new TelemetryClient();
+            //// Removed 08/29/2019 12:58 pm - telemetry.TrackEvent("DemoSite-20190828-0802: Timelog Index");
+            //telemetry.TrackPageView("DemoSite-20190828-0818: Timelog Index");
+
+            logger.TrackPageView("DemoSite-20190828-0818-B: Timelog Index");
 
 
             columnName = columnName ?? "StartTime";
@@ -173,7 +183,7 @@ namespace DevSitesIndex.Pages.TimeLogs
             }
             else
             {
-                jobID = jobId_filter ;
+                jobID = jobId_filter;
             }
 
 
@@ -190,7 +200,7 @@ namespace DevSitesIndex.Pages.TimeLogs
 
 
 
-            IQueryable<TimeLog> _timelog = _context.TimeLog
+            IQueryable<TimeLog> _timelog = context.TimeLog
                 .Include(t => t.discipline)
 
                 // 06/06/2021 02:27 am - SSN - [20210606-0227] - [001] - Testng for deployment
@@ -231,7 +241,7 @@ namespace DevSitesIndex.Pages.TimeLogs
 
 
         }
-        
+
 
     }
 }

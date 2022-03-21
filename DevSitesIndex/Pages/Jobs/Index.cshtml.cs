@@ -19,23 +19,25 @@ namespace DevSitesIndex.Pages.Jobs
 
     // 08/12/2019 12:21 pm - SSN - [20190812-0945] - [014] - Add identity
     // Add Authorize    public class CreateModel : PageModel
-    [Authorize]
+    // 03/10/2022 09:03 pm - SSN - [20220310-1358] - [019] - Allow anonymous
+    // [Authorize]
+
     public class IndexModel : PageModel
     {
-//        private readonly DevSitesIndex.Entities.DevSitesIndexContext _context;
+        //        private readonly DevSitesIndex.Entities.DevSitesIndexContext _context;
 
-//        public IndexModel(DevSitesIndex.Entities.DevSitesIndexContext context)
-//        {
-//            _context = context;
-//        }
+        //        public IndexModel(DevSitesIndex.Entities.DevSitesIndexContext context)
+        //        {
+        //            _context = context;
+        //        }
 
-//        // 08/29/2019 12:54 pm - SSN - [20190829-1253] - [002] - Adding paging and sorting to jobs index
-//        //public IList<Job> Job { get; set; }
-//        public PaginatedList<Job> Job { get; set; }
-//        public PageUtil pageUtil { get; set; }
+        //        // 08/29/2019 12:54 pm - SSN - [20190829-1253] - [002] - Adding paging and sorting to jobs index
+        //        //public IList<Job> Job { get; set; }
+        //        public PaginatedList<Job> Job { get; set; }
+        //        public PageUtil pageUtil { get; set; }
 
 
-//        // 11/13/2019 09:59 pm - SSN - [20191113-1946] - [011] - ReturnToCaller
+        //        // 11/13/2019 09:59 pm - SSN - [20191113-1946] - [011] - ReturnToCaller
         public string returnToCallerKey { get; set; }
 
 

@@ -148,8 +148,9 @@ namespace DevSitesIndex
         public static IWebHostBuilder include_UseApplicationInsights(this IWebHostBuilder x)
         {
 
-
+            // 03/21/2022 01:22 pm - SSN - From warnings
             x.UseApplicationInsights();
+            //AddApplicationInsights();
 
             return x;
         }

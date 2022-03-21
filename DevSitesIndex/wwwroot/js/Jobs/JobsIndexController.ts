@@ -85,6 +85,10 @@ var jobsIndexController_instance = function () {
                 { ...columnBag_defaults, columnName: 'dateAdded', caption: 'Date Added', cssForTableHead: 'hidden-xs' },
                 { ...columnBag_defaults, columnName: 'dateUpdated', caption: 'Date Updated', cssForTableHead: 'hidden-xs' },
                 { ...columnBag_defaults, columnName: 'activityAge', caption: 'Activity Age', cssForTableHead: 'hidden-xs', columnNameSelected: 'activityAge', desc: true },
+
+                // 03/20/2022 05:08 pm - SSN - [20220320-1420] - [008] - 02 - Update code to use modified projects table - ProjectToalSeconds
+                { ...columnBag_defaults, columnName: 'jobTotalHours', caption: 'Hours', desc: true },
+
             ];
 
             if ($scope.hideProjectTitle) {
@@ -114,13 +118,23 @@ var jobsIndexController_instance = function () {
 
 
 
-                console.log('jobsIndexController.ts - 20200814-0903');
+                console.log('%c jobsIndexController.ts - 20200814-0903', 'color:blue;font-size:20pt;');
                 console.log(columnBag);
+                console.log('%c DIR DIR - 20200814-0903', 'color:blue;font-size:20pt;');
+                console.dir(columnBag);
 
                 dataService.getJobs(columnBag).then(getJobsSuccess, getJobsError).catch(getTimelogCatch);
 
 
                 function getJobsSuccess(data) {
+
+
+                    console.log('%c jobsIndexController.ts - 20220320-1843', 'color:blue;font-size:14pt;');
+                    console.log(data);
+                    console.log('%c DIR DIR - 20220320-1844', 'color:blue;font-size:14pt;');
+                    console.dir(data);
+
+
 
                     $scope.fieldsList.forEach(r => {
                         r.desc = null;

@@ -14,7 +14,8 @@ namespace DevSitesIndex.Pages.Projects
 
     // 08/12/2019 12:21 pm - SSN - [20190812-0945] - [014] - Add identity
     // Add Authorize    public class CreateModel : PageModel
-    [Authorize]
+    // 03/10/2022 02:19 pm - SSN - [20220310-1358] - [010] - Allow anonymous 
+    // [Authorize]
     public class DetailsModel : PageModel
     {
         private readonly DevSitesIndex.Entities.DevSitesIndexContext _context;

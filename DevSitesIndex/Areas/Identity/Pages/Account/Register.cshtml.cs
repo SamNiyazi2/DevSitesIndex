@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text.Encodings.Web;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using DevSitesIndex.Util;
 using Microsoft.ApplicationInsights;
@@ -12,7 +16,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
+using SSN_GenUtil_StandardLib;
 
 namespace DevSitesIndex.Areas.Identity.Pages.Account
 {
@@ -21,35 +25,67 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
-        private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
         private readonly IHostingEnvironment env;
+        private readonly SSN_Logger logger2;
 
         // 09/05/2019 05:29 am - SSN - [20190904-1845] - [011] - Enforce email confirmation
         // Added IHostingEnvironment
+
+
+        private readonly ILogger<RegisterModel> _logger;
+        // 03/21/2022 02:38 pm - SSN - [20220321-1408] - [012] - Takeout TelemetryClient - Use logger
+
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
-            IHostingEnvironment env)
+            IHostingEnvironment env,
+            SSN_Logger logger2)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _logger = logger;
             _emailSender = emailSender;
             this.env = env;
+
+
+            _logger = logger;
+            this.logger2 = logger2;
+
+
         }
 
         // 09/04/2019 10:41 pm - SSN - [20190904-1845] - [009] - Enforce email confirmation
-        TelemetryClient telemetry = new TelemetryClient();
+
+        // 03/21/2022 02:37 pm - SSN - [20220321-1408] - [011] - Takeout TelemetryClient - Use logger
+
+        // TelemetryClient telemetry = new TelemetryClient();
 
 
         [BindProperty]
         public InputModel Input { get; set; }
 
         public string ReturnUrl { get; set; }
+
+        // 03/20/2022 11:17 pm - SSN - [20220320-2236] - [002] - Add ReCaptcha to the registration page
+
+        public string ReCaptchaKey
+        {
+            get
+            {
+                string reCaptchaKey = Startup.Configuration["ReCaptcha:key"];
+                return reCaptchaKey;
+
+            }
+        }
+
+
+        [BindProperty]
+        public string ReCaptcha_ReturnedToken { get; set; }
+
+
 
         public class InputModel
         {
@@ -75,10 +111,18 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
             ReturnUrl = returnUrl;
         }
 
+
+
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
+
             returnUrl = returnUrl ?? Url.Content("~/");
-            if (ModelState.IsValid)
+
+
+            bool isValidReCaptcha = validateReCaptcha();
+
+
+            if (ModelState.IsValid && isValidReCaptcha)
             {
                 var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
                 var result = await _userManager.CreateAsync(user, Input.Password);
@@ -104,7 +148,10 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
                     //await _signInManager.SignInAsync(user, isPersistent: false);
                     //return LocalRedirect(returnUrl);
 
-                    telemetry.TrackEvent($"DemoSite-20190904-2242 - New registration   ");
+                    //  [20220321-1408] - [011]
+
+                    // telemetry.TrackEvent($"DemoSite-20190904-2242 - New registration   ");
+                    logger2.TrackEvent($"DemoSite-20190904-2242-B - New registration   ");
 
 
 
@@ -119,7 +166,7 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
 
                     ////////////////////geturl(user);
 
-                    Email.EmailSenders es = new Email.EmailSenders(_userManager, _emailSender, env);
+                    Email.EmailSenders es = new Email.EmailSenders(_userManager, _emailSender, env, logger2);
 
                     // 11/05/2019 06:59 pm - SSN - [20191104-0607] - [017] - Registration - Client 
                     // await es.SendEmailConfirmationRequest( this.Url ,Request,  user);
@@ -147,6 +194,72 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
 
 
 
+
+        // 03/20/2022 11:31 pm - SSN - [20220320-2236] - [003] - Add ReCaptcha to the registration page
+        // Testing
+
+        #region ReCaptcha validation
+
+        class GoogleResponse
+        {
+            public bool success { get; set; }
+            public string challenge_ts { get; set; }
+            public string hostname { get; set; }
+            public string action { get; set; }
+
+            [JsonPropertyName("error-codes")]
+            public string[] errorCodes { get; set; } = { };
+
+        }
+
+        private bool validateReCaptcha()
+        {
+            bool isValid = false;
+
+            using (HttpClient client = new HttpClient())
+            {
+
+                var url2 = string.Format("{0}?secret={1}&response={2}", "https://www.google.com/recaptcha/api/siteverify", Startup.Configuration["ReCaptcha:secret"], ReCaptcha_ReturnedToken);
+
+                HttpResponseMessage response = client.PostAsync(url2, null).Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string contentString = response.Content.ReadAsStringAsync().Result;
+
+                    var stringReader = new System.IO.StringReader(contentString);
+                    GoogleResponse googleResponse = JsonSerializer.Deserialize<GoogleResponse>(stringReader.ReadToEnd());
+                    isValid = googleResponse.success;
+
+
+                    Dictionary<string, string> bag = new Dictionary<string, string>();
+                    bag.Add("action", googleResponse.action);
+                    bag.Add("challenge_ts", googleResponse.challenge_ts);
+                    bag.Add("hostname", googleResponse.hostname);
+                    bag.Add("success", googleResponse.success.ToString());
+                    int errorCount = 0;
+                    foreach (string errorMessage in googleResponse.errorCodes)
+                    {
+                        errorCount++;
+                        bag.Add($"Error {errorCount}", errorMessage);
+                    }
+
+
+                    // telemetry.TrackEvent($"DemoSite-20220321-1253 - New registration  - ReCaptcha ", bag);
+                    logger2.TrackEvent($"DemoSite-20220321-1253-B - New registration  - ReCaptcha ", bag);
+
+                }
+                else
+                {
+                    // telemetry.TrackEvent($"DemoSite-20220321-1258 - New registration  - ReCaptcha response failed {response.StatusCode }");
+                    logger2.TrackEvent($"DemoSite-20220321-1258-B - New registration  - ReCaptcha response failed {response.StatusCode }");
+                }
+            }
+
+            return isValid;
+        }
+
+        #endregion ReCaptcha validation
 
     }
 }

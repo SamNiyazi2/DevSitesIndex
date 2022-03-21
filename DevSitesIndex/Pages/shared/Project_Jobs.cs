@@ -44,10 +44,13 @@ namespace DevSitesIndex.Pages
                                   TotalSeconds = t.Sum(r => r.TotalSeconds)
                               }).ToList();
 
-            foreach (var r in project_Jobs)
-            {
-                r.TotalSeconds = Jobs_Timesheet_Totals.Where(r2 => r2.JobId == r.JobID).Sum(r3 => r3.TotalSeconds);
-            }
+
+            // 03/20/2022 05:48 pm - SSN - [20220320-1726] - [003] - 03 - Update jobs related objects to show total hours
+            // Take out
+            //foreach (var r in project_Jobs)
+            //{
+            //    r.TotalSeconds = Jobs_Timesheet_Totals.Where(r2 => r2.JobId == r.JobID).Sum(r3 => r3.TotalSeconds);
+            //}
 
         }
     }

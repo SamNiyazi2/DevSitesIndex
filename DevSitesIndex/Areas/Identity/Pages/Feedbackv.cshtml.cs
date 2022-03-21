@@ -16,7 +16,8 @@ namespace DevSitesIndex.Areas.Identity
     {
 
 
-        static TelemetryClient telemetry = new TelemetryClient();
+        // 03/21/2022 03:30 pm - SSN - [20220321-1408] - [018] - Takeout TelemetryClient - Use logger
+        // static TelemetryClient telemetry = new TelemetryClient();
 
         public PageContent pageContent = new PageContent();
 

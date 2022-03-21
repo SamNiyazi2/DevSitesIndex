@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using SSN_GenUtil_StandardLib;
 
 // 09/05/2019 06:44 pm - SSN - [20190905-1835] - [004] - Resetting password process
 
@@ -20,18 +21,23 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IEmailSender _emailSender;
+        private readonly SSN_Logger logger;
 
-        public ForgotPasswordModel(UserManager<IdentityUser> userManager, IEmailSender emailSender)
+        // 03/21/2022 03:31 pm - SSN - [20220321-1408] - [019] - Takeout TelemetryClient - Use logger
+        // Add logger
+        public ForgotPasswordModel(UserManager<IdentityUser> userManager, IEmailSender emailSender, SSN_Logger logger)
         {
             _userManager = userManager;
             _emailSender = emailSender;
+            this.logger = logger;
         }
 
         [BindProperty]
         public InputModel Input { get; set; }
 
 
-        TelemetryClient telemetry = new TelemetryClient();
+        // 03/21/2022 03:31 pm - SSN - [20220321-1408] - [019] - Takeout TelemetryClient - Use logger
+        // TelemetryClient telemetry = new TelemetryClient();
 
         public class InputModel
         {
@@ -42,8 +48,9 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync()
         {
-
-            telemetry.TrackEvent("DemoSite-20190905-1844 - ForgotPassword");
+            // [20220321-1408] - [019]
+            // telemetry.TrackEvent("DemoSite-20190905-1844 - ForgotPassword");
+            logger.TrackEvent("DemoSite-20190905-1844 - ForgotPassword");
 
             if (ModelState.IsValid)
             {
@@ -53,7 +60,11 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
                 if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
                 {
                     // Don't reveal that the user does not exist or is not confirmed
-                    telemetry.TrackEvent($"DemoSite-20190905-1845 - ************** ForgotPassword invalid user  ");
+
+                    // [20220321-1408] - [019] 
+                    // telemetry.TrackEvent($"DemoSite-20190905-1845 - ************** ForgotPassword invalid user  ");
+                    logger.TrackEvent($"DemoSite-20190905-1845-B - ************** ForgotPassword invalid user  ");
+
                     return RedirectToPage("./ForgotPasswordConfirmation");
                 }
 
@@ -66,13 +77,17 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
 
                 await Email.EmailSenders.SendForgotPasswordResetRequest(_userManager, _emailSender, user, this);
 
-                telemetry.TrackEvent($"DemoSite-20190905-1850 - ForgotPassword - Sending email ");
+                // [20220321-1408] - [019] 
+                // telemetry.TrackEvent($"DemoSite-20190905-1850 - ForgotPassword - Sending email ");
+                logger.TrackEvent($"DemoSite-20190905-1850-B - ForgotPassword - Sending email ");
 
                 return RedirectToPage("./ForgotPasswordConfirmation");
             }
             else
             {
-                telemetry.TrackEvent($"DemoSite-20190905-1849 - ************** ForgotPassword - Invalid request  ");
+                // [20220321-1408] - [019] 
+                // telemetry.TrackEvent($"DemoSite-20190905-1849 - ************** ForgotPassword - Invalid request  ");
+                logger.TrackEvent($"DemoSite-20190905-1849 - ************** ForgotPassword - Invalid request  ");
 
             }
 

@@ -186,7 +186,7 @@ namespace DevSitesIndex
 
             services.AddScoped<IDevSitesIndexRepository, DevSitesIndexRepository>();
 
-     
+
 
 
 
@@ -522,7 +522,7 @@ namespace DevSitesIndex
                     while (innerException != null)
                     {
                         innerExNo++;
-                      addExceptionData(innerException, dic2, innerExNo);
+                        addExceptionData(innerException, dic2, innerExNo);
 
                         innerException = innerException.InnerException;
                     }
@@ -553,6 +553,8 @@ namespace DevSitesIndex
                     }
                     else
                     {
+                        // 03/21/2022 02:04 am - SSN - [20220320-2236] - [004] - Add ReCaptcha to the registration page
+                        // Todo-ssn: Is this correct?
                         throw;
                     }
                 }

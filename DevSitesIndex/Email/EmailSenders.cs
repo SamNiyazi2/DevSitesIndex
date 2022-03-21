@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using SSN_GenUtil_StandardLib;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,17 +23,23 @@ namespace DevSitesIndex.Email
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IEmailSender _emailSender;
         private readonly IHostingEnvironment _env;
+        private readonly ILogger_SSN logger;
 
-        TelemetryClient telemetry = new TelemetryClient();
+        // 03/21/2022 02:23 pm - SSN - [20220321-1408] - [005] - Takeout TelemetryClient - Use logger
+        // Added logger
+
+        // TelemetryClient telemetry = new TelemetryClient();
 
         public EmailSenders(
             UserManager<IdentityUser> userManager,
             IEmailSender emailSender,
-            IHostingEnvironment env)
+            IHostingEnvironment env,
+            ILogger_SSN logger)
         {
             _userManager = userManager;
             _emailSender = emailSender;
             _env = env;
+            this.logger = logger;
         }
 
 
@@ -44,7 +51,10 @@ namespace DevSitesIndex.Email
 
             if (user == null || string.IsNullOrWhiteSpace(user.Email))
             {
-                telemetry.TrackEvent($"DemoSite-20190905-0950 - Calling SendEmailConfirmationRequest with null or empty values [{user?.Email}]");
+                //  [20220321-1408] - [005]
+
+                // telemetry.TrackEvent($"DemoSite-20190905-0950 - Calling SendEmailConfirmationRequest with null or empty values [{user?.Email}]");
+                logger.TrackPageView($"DemoSite-20190905-0950-B - Calling SendEmailConfirmationRequest with null or empty values [{user?.Email}]");
 
                 return;
             }

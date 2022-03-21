@@ -3,6 +3,12 @@
 
 @{
     ViewData["Title"] = "Projects - Index";
+
+
+    // 03/10/2022 08:11 pm - SSN - [20220310-1358] - [012] - Allow anonymous
+
+    bool IsAuthenticated = HttpContext.User.Identity.IsAuthenticated;
+
 }
 
 
@@ -57,11 +63,16 @@
     @*jobsIndexController*@
     <div ng-controller="ProjectsIndexController">
 
+        @{
+            // 03/10/2022 08:12 pm - SSN - [20220310-1358] - [013] - Allow anonymous
 
-        <p>
-            <a asp-page="Create">Create New Project Record</a>
-        </p>
-
+            if (IsAuthenticated)
+            {
+                <p>
+                    <a asp-page="Create">Create New Project Record</a>
+                </p>
+            }
+        }
 
         @{
 
@@ -71,7 +82,7 @@
 
                 if (Model.searchResults.Count == 0)
                 {
-                    <p class="info_bad">No records we found.</p>
+                    <p class="info_bad">No records were found.</p>
                 }
                 else
                 {
@@ -87,11 +98,8 @@
                         <tbody>
 
                             @{
-
-
                                 foreach (Services.Project_Search_Record r in Model.searchResults)
                                 {
-
                                     await Html.RenderPartialAsync("Projects_Index_Search_Row", new Shared.Project_Search_index_record { project_Search_Record = r, servingPage = Shared.ServingPage.Projects_Search });
                                 }
                             }
@@ -103,7 +111,7 @@
 
 
 
-                    await Html.RenderPartialAsync("TablePager", Model.pageUtil_SearchResults.tablePager);
+                    //await Html.RenderPartialAsync("TablePager", Model.pageUtil_SearchResults.tablePager);
                 }
 
             }
@@ -138,6 +146,15 @@
                                 <td class="indexNowrapCol">
                                     @Html.DisplayFor(modelItem => item.DateModified)
                                 </td>
+
+
+                                @*// 03/20/2022 02:21 pm - SSN - [20220320-1420] - [002] - 02 - Update code to use modified projects table - ProjectToalSeconds*@
+
+                                <td class="text-right" width="50">
+                                    @Html.DisplayFor(modelItem => item.ProjectTotalHours)
+
+                                </td>
+
                                 <td class="indexNowrapCol">
                                     <a ssn-cmd="returnToCallerLink" asp-page="./Edit" asp-route-id="@item.ProjectID">Edit</a> |
                                     <a ssn-cmd="returnToCallerLink" asp-page="./Details" asp-route-id="@item.ProjectID">Details</a> |

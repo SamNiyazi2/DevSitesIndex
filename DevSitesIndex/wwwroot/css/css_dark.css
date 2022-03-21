@@ -1,0 +1,43 @@
+﻿
+/*03/20/2022 10:56 pm - SSN - Seperate from original*/
+.siteDiv {
+    border-bottom: 10px solid white;
+    background-color: #ddd;
+}
+
+.forDemo_Yes {
+     background-color: #98fa98;
+}
+
+.forDemo_No {
+    background-color: #fadcdc;
+}
+
+.forDemo_Undecided {
+    background-color: #faf2aa;
+    background-color: #DEDE14;
+}
+
+
+
+
+/* 08/19/2021 05:38 pm - SSN - Add dark theme*/
+/* https://dev.to/akhilarjun/one-line-dark-mode-using-css-24li */
+/*filter: invert(1) hue-rotate(180deg);*/
+html[theme='Dark'] {
+    background-color: black;
+    filter: invert(100%) hue-rotate(180deg);
+}
+
+.fixed_anchor {
+    left: 10px;
+    position: fixed;
+    display: inline-block;
+    height: 30px;
+    width: 36px;
+    padding: 5px;
+}
+
+    .fixed_anchor a {
+        color: yellow !important;
+    }

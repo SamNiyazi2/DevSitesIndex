@@ -8,6 +8,7 @@ using DevSitesIndex.Services;
 using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SSN_GenUtil_StandardLib;
 
 // 09/04/2018 06:38 am - SSN
 
@@ -27,31 +28,41 @@ namespace DevSitesIndex.Controllers
         const int DEFAULT_RECORDS_PER_PAGE_TEMP = 53;
         const int DEFAULT_CURRNT_PAGE_TEMP = 1;
 
+        // 03/21/2022 02:27 pm - SSN - [20220321-1408] - [007] - Takeout TelemetryClient - Use logger
+        // Added loger
 
-        public DemoSitesController(IDevSitesIndexRepository devSitesIndexRepository)
+
+        public DemoSitesController(IDevSitesIndexRepository devSitesIndexRepository, SSN_Logger logger)
         {
             _devSitesIndexRepository = devSitesIndexRepository;
-
+            this.logger = logger;
         }
 
         private readonly IDevSitesIndexRepository _devSitesIndexRepository;
+        private readonly SSN_Logger logger;
 
-         
+        // 03/10/2022 01:58 pm - SSN - [20220310-1358] - [001] - Allow anonymous 
+
+        [AllowAnonymous]
         public IActionResult Index()
         {
 
             // 08/28/2019 09:02 am - SSN - [20190828-0819] - [005] - Adding Application Insights
-            TelemetryClient telemetry = new TelemetryClient();
-            telemetry.TrackPageView("DemoSite-20190828-0902: Demo site index page.");
-            
+            // 03/21/2022 02:26 pm - SSN - [20220321-1408] - [006] - Takeout TelemetryClient - Use logger
+
+            //TelemetryClient telemetry = new TelemetryClient();
+            //telemetry.TrackPageView("DemoSite-20190828-0902: Demo site index page.");
+
+            logger.TrackPageView("DemoSite-20190828-0902-B: Demo site index page.");
+
             DemoSitesViewModel vm = new DemoSitesViewModel();
 
 
-             
+
             vm.selectedPage = "index_p1";
 
             return View(vm.selectedPage, vm);
-             
+
         }
 
 

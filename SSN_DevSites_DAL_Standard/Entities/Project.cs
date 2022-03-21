@@ -52,13 +52,37 @@ namespace DevSitesIndex.Entities
         public DateTime? DateModified { get; set; }
 
 
+
+
+        // 03/20/2022 02:20 pm - SSN - [20220320-1420] - [001] - 02 - Update code to use modified projects table - ProjectToalSeconds
+
+        public int? ProjectTotalSeconds
+        {
+            get;
+            set;
+        }
+
+        [DisplayName("Hours")]
+        public string ProjectTotalHours
+        {
+            get
+            {
+                return ProjectTotalSeconds.SecondsToTimeDuration();
+            }
+        }
+
+
+
+
         [DisplayName("Company")]
         public Company company { get; set; }
 
 
+
         // 10/09/2019 01:49 pm - SSN - [20191009-1302] - [006] - M09 - Reusing components with content projection
 
-        public virtual ICollection<Job> jobs{ get; set; }
+        public virtual ICollection<Job> jobs { get; set; }
+
 
     }
 }

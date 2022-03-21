@@ -24,7 +24,8 @@ namespace DevSitesIndex.Pages.Projects
 
     // 08/12/2019 12:21 pm - SSN - [20190812-0945] - [014] - Add identity
     // Add Authorize    public class CreateModel : PageModel
-    [Authorize]
+    // 03/10/2022 08:35 pm - SSN - [20220310-1358] - [015] - Allow anonymous
+    // [Authorize]
     public class IndexModel : PageModel
     {
         private readonly DevSitesIndex.Entities.DevSitesIndexContext _context;
@@ -154,6 +155,7 @@ namespace DevSitesIndex.Pages.Projects
             pageUtil_Projects.AddColumns("Company");
             pageUtil_Projects.AddColumns("DateAdded");
             pageUtil_Projects.AddColumns("DateModified");
+            pageUtil_Projects.AddColumns("ProjectTotalHours");
 
             pageUtil_Projects.SetupHeaders<Project>("/projects/", columnName, desc);
 
@@ -199,6 +201,10 @@ namespace DevSitesIndex.Pages.Projects
                 pageUtil_SearchResults = new PageUtil();
                 pageUtil_SearchResults.AddColumns("SourceTable");
                 pageUtil_SearchResults.AddColumns("LastActivity");
+
+                // 03/20/2022 06:16 pm - SSN - [20220320-1726] - [008] - 03 - Update jobs related objects to show total hours
+                pageUtil_SearchResults.AddColumns("EntryTotalHours");
+
                 pageUtil_SearchResults.AddColumns("Description");
 
 

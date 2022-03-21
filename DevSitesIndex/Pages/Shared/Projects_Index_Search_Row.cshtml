@@ -6,6 +6,15 @@
 
 }
 
+<style>
+    .cssIndent_2 {
+        padding-left: 20px;
+    }
+
+    .cssIndent_3 {
+        padding-left: 40px;
+    }
+</style>
 
 @{
     // 11/22/2019 03:12 pm - SSN - [20191121-0503] - [016] - Timelog edit options on project search
@@ -21,7 +30,9 @@
     {
 
         _url = $"/timelogs/details?id={Model.project_Search_Record.TimelogId}";
-        timelog = new Entities.TimeLog { TimeLogId = Model.project_Search_Record.TimelogId, TotalSeconds = Model.project_Search_Record.totalSeconds };
+
+
+        timelog = new Entities.TimeLog { TimeLogId = Model.project_Search_Record.TimelogId, TotalSeconds = Model.project_Search_Record.EntryTotalSeconds };
     }
 
 
@@ -51,21 +62,41 @@
         </td>
 
 
-
         <td width="200">
             @Html.DisplayFor(modelItem => Model.project_Search_Record.LastActivity)
         </td>
 
 
+        @*03/20/2022 02:52 pm - SSN - [20220320-1420] - [004] - 02 - Update code to use modified projects table - ProjectToalSeconds*@
+
+        <td width="100" class="text-right">
+            @Html.DisplayFor(modelItem => Model.project_Search_Record.EntryTotalHours)
+        </td>
+
+
 
         <td width="300">
-            @Model.project_Search_Record.ProjectTitle<br /> 
+
+
+            @Model.project_Search_Record.ProjectTitle<br />
+
+
+            @if (Model.project_Search_Record.TableID >= 2)
+            {
+                // 03/10/2022 08:18 pm - SSN - [20220310-1358] - [014] - Allow anonymous
+                <p class="cssIndent_2">
+                    @Html.DisplayFor(modelItem => Model.project_Search_Record.JobTitle)
+                </p>
+            }
+
+
 
             @{
                 if (Model.project_Search_Record.TableID != 3)
                 {
-                    @Html.DisplayFor(modelItem => Model.project_Search_Record.Description)
-
+                    <p class="cssIndent_3">
+                        @Html.DisplayFor(modelItem => Model.project_Search_Record.Description)
+                    </p>
 
                 }
             }

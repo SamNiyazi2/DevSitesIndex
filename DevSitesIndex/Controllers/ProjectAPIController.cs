@@ -162,7 +162,7 @@ namespace DevSitesIndex.Controllers
                     TableID = 3,
                     TimelogId = timelog.TimeLogId,
                     LastActivity = timelog.DateModified ?? timelog.DateAdded,
-                    totalSeconds = timelog.TotalSeconds
+                    EntryTotalSeconds = timelog.TotalSeconds
 
                 };
 

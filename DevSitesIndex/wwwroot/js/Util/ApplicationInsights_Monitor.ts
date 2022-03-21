@@ -77,7 +77,7 @@ var AppInsights_Util = function () {
         console.log(newProps);
         console.log('===================');
 
-        AppInsights.trackPageView(name, url, properties);//, measurements, duration);
+        AppInsights.trackPageView(`20220321-1404 ${name}`, url, properties);//, measurements, duration);
 
     }
 
@@ -85,7 +85,7 @@ var AppInsights_Util = function () {
 
         // 10/1/2019 03:45 am - SSN 
 
-        AppInsights.trackEvent(name, properties, measurements);
+        AppInsights.trackEvent(`20220321-1405 ${name}`, properties, measurements);
 
     }
 

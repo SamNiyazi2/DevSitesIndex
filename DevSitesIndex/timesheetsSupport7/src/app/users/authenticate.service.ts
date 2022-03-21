@@ -70,10 +70,10 @@ export class AuthenticateService {
   }
 
 
-  isLoggedIn_promise(): Promise<object> {
+  isLoggedIn_promise(): Promise<boolean> {
 
     if (this.isAuthenticated()) {
-      return new Promise((resolve,reject) => { resolve()});
+      return new Promise((resolve,reject) => { resolve(true)});
     }
 
     return this.dataService.isLoggedIn().toPromise().then(this.isLoggedInSuccess.bind(this), this.isLoggedInError.bind(this));
