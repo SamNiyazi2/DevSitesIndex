@@ -15,7 +15,10 @@ variables:
   buildConfiguration: Release
   RestoreBuildProjects: '**/*.csproj'
   WebAppName: DevSitesIndex20190127
-  connectedServiceName: 'Pay-As-You-Go (d6723a94-6723-4e85-b988-03bf28d6ea51)'
+# 03/21/2022 05:15 pm - SSN - Replaced
+#  connectedServiceName: 'Pay-As-You-Go (d6723a94-6723-4e85-b988-03bf28d6ea51)'
+  connectedServiceName: 'ssn-service-connection--default-web-centralus-20220321'
+  
 
 steps:
 - task: DotNetCoreCLI@2
