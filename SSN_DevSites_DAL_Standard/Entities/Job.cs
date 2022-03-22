@@ -136,8 +136,12 @@ namespace DevSitesIndex.Entities
         // 03/20/2022 05:46 pm - SSN - [20220320-1726] - [002] - 03 - Update jobs related objects to show total hours
         //                                                     [NotMapped]
         //                                                      public int? TotalSeconds { get; set; }
+        // 03/21/2022 09:30 pm - SSN - Left out
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public int? JobTotalSeconds { get; set; }
 
+        // 03/21/2022 09:30 pm - SSN - Left out
+        [NotMapped]
         [DisplayName("Total Hours")]
         public string JobTotalHours
         {

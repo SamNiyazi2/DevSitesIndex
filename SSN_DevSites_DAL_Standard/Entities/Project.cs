@@ -55,6 +55,8 @@ namespace DevSitesIndex.Entities
 
 
         // 03/20/2022 02:20 pm - SSN - [20220320-1420] - [001] - 02 - Update code to use modified projects table - ProjectToalSeconds
+        // 03/21/2022 09:30 pm - SSN - Left out
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
 
         public int? ProjectTotalSeconds
         {
@@ -62,6 +64,8 @@ namespace DevSitesIndex.Entities
             set;
         }
 
+        // 03/21/2022 09:30 pm - SSN - Left out
+        [NotMapped]
         [DisplayName("Hours")]
         public string ProjectTotalHours
         {
