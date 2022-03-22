@@ -17,10 +17,11 @@ namespace DevSitesIndex
             // return new TimeSpan(0, 0, duration.Value).ToString("T");
             TimeSpan ts = new TimeSpan(0, 0, duration.Value);
             // 03/20/2022 06:19 pm - SSN - [20220320-1726] - [009] - 03 - Update jobs related objects to show total hours
-            // return string.Format("{0,5}:{1,2:00}:{2:00} ({3})", Math.Floor(ts.TotalHours), ts.Minutes, ts.Seconds, ts.ToString("T"));
-            // return ts.ToString("T");
-            string returnValue =  ts.ToString("T").PadLeft(13,'.');
-            return returnValue;
+            
+            // 03/21/2022 10:48 pm - SSN - Reuse
+            return string.Format("{0,5}:{1,2:00}:{2:00}", Math.Floor(ts.TotalHours), ts.Minutes, ts.Seconds);
+            
+            // return ts.ToString("T").PadLeft(13,'.');
 
         }
 
