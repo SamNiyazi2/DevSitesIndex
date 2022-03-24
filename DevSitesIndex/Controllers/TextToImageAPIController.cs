@@ -49,7 +49,8 @@ namespace DevSitesIndex.Controllers
         public FileContentResult Get(string id)
         {
 
-            MemoryStream ms = null;
+            MemoryStream ms = ms = new MemoryStream();
+
             string contentType = "text/html";
 
             id = (id ?? "").Trim();
@@ -59,7 +60,6 @@ namespace DevSitesIndex.Controllers
 
             if (dicRec == null || dicRec.Expired)
             {
-                ms = new MemoryStream();
 
                 if (int.TryParse(id, out int jobId))
                 {
@@ -86,9 +86,11 @@ namespace DevSitesIndex.Controllers
             }
             else
             {
-                //ms = dicRec.ms_array;
-                contentType = "image/bmp";
-                ms = dicRec.ms_;
+                if (dicRec.ms_ != null && dicRec.ms_.Length > 0)
+                {
+                    contentType = "image/bmp";
+                    ms = dicRec.ms_;
+                }
             }
 
 
