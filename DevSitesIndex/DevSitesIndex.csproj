@@ -102,6 +102,7 @@
     <Content Include="ApplicationInsights\SuccessfulDependencyFilter.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SSN_TextToImageLib\SSN_TextToImageLib.csproj" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="wwwroot\js\DropdownList\DropdownListDirectiveConstants.ts" />
