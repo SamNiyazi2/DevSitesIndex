@@ -2,7 +2,7 @@
 @model DevSitesIndex.Pages.DevSites.DetailsModel
 
 @{
-    ViewData["Title"] = "Demo Site Detail";
+    ViewData["Title"] = $"Demo Site Detail - {PageTitleUtil.GetTitle_DevSite(Model.DevSite)}";
 }
 
 <h2>@ViewData["Title"]</h2>

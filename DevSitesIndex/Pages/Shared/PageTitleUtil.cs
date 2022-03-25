@@ -26,7 +26,7 @@ namespace DevSitesIndex.Pages.Shared
                     {
                         if (timeLog.job_Lineitem.job != null)
                         {
-                            title.Append($" - {timeLog.job_Lineitem.job.JobTitle}"); 
+                            title.Append($" - {timeLog.job_Lineitem.job.JobTitle}");
                         }
                     }
 
@@ -64,6 +64,27 @@ namespace DevSitesIndex.Pages.Shared
                 {
                     title.Append($" - {project.company.CompanyName}");
                 }
+            }
+
+            return title.ToString();
+        }
+
+
+        public static string GetTitle_DevSite(DevSite devSite)
+        {
+            StringBuilder title = new StringBuilder();
+
+            if (devSite != null)
+            {
+                title.Append($"{devSite.Id}");
+
+
+                if (devSite.JobDevSites != null)
+                {
+                    title.Append($" - Jobs: ({devSite.JobDevSites.Count()})");
+                }
+
+                title.Append($"{devSite.Id} - {devSite.SiteTitle}");
             }
 
             return title.ToString();
