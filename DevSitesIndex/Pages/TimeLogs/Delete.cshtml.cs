@@ -44,7 +44,10 @@ namespace DevSitesIndex.Pages.TimeLogs
 
             TimeLog = await _context.TimeLog
              .Include(t => t.discipline)
-             .Include(t => t.job).ThenInclude(r => r.project)
+
+             // 03/25/2022 01:48 am - SSN - [20220325-0119] - [003] - Show page title
+             //            .Include(t => t.job).ThenInclude(r => r.project)
+             .Include(t => t.job_Lineitem).ThenInclude(r => r.job).ThenInclude(r => r.project)
              .SingleOrDefaultAsync(m => m.TimeLogId == id);
 
 

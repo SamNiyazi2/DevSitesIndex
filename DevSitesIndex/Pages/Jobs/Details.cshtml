@@ -2,7 +2,8 @@
 @model DevSitesIndex.Pages.Jobs.DetailsModel
 
 @{
-    ViewData["Title"] = "Job Detail";
+    ViewData["Title"] = $"Job Detail - {PageTitleUtil.GetTitle_Job(Model.Job)}";
+
 }
 
 <h2>@ViewData["Title"]</h2>

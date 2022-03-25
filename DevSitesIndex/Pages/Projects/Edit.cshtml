@@ -2,7 +2,7 @@
 @model DevSitesIndex.Pages.Projects.EditModel
 
 @{
-    ViewData["Title"] = "Edit Project";
+    ViewData["Title"] = $"Edit Project - {PageTitleUtil.GetTitle_Project(Model.Project)}";
 }
 
 <h2>@ViewData["Title"]</h2>

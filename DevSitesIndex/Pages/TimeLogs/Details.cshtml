@@ -2,7 +2,7 @@
 @model DevSitesIndex.Pages.TimeLogs.DetailsModel
 
 @{
-    ViewData["Title"] = "Timelog Details";
+    ViewData["Title"] = $"Timelog Details - {PageTitleUtil.GetTitle_TimeLog(Model.TimeLog)}";
 }
 
 <h2>@ViewData["Title"]</h2>

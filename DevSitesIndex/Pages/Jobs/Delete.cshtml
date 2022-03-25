@@ -2,7 +2,7 @@
 @model DevSitesIndex.Pages.Jobs.DeleteModel
 
 @{
-    ViewData["Title"] = "Delete Job";
+    ViewData["Title"] = $"Delete Job - {PageTitleUtil.GetTitle_Job(Model.Job)}";
 }
 
 <h2>@ViewData["Title"]</h2>

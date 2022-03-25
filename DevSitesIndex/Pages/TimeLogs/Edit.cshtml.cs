@@ -79,8 +79,15 @@ namespace DevSitesIndex.Pages.TimeLogs
             // 09/21/2019 11:08 am - SSN - Added include job and project to display titles on form.
             TimeLog = await _context.TimeLog
                 .Include(t => t.discipline)
-                .Include(t => t.job).ThenInclude(j => j.project)
-                .Include(t => t.job_Lineitem)
+
+
+                // 03/25/2022 01:50 am - SSN - [20220325-0119] - [005] - Show page title
+                //.Include(t => t.job).ThenInclude(j => j.project)
+                //.Include(t => t.job_Lineitem)
+
+                .Include(t => t.job_Lineitem).ThenInclude(r => r.job).ThenInclude(r => r.project)
+
+
                 .SingleOrDefaultAsync(m => m.TimeLogId == id);
 
             if (TimeLog == null)

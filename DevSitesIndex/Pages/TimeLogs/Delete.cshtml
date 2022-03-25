@@ -2,7 +2,7 @@
 @model DevSitesIndex.Pages.TimeLogs.DeleteModel
 
 @{
-    ViewData["Title"] = "Delete Timelog";
+    ViewData["Title"] = $"Delete Timelog - {PageTitleUtil.GetTitle_TimeLog(Model.TimeLog)}";
 }
 
 <h2>@ViewData["Title"]</h2>

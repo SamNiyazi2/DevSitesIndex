@@ -2,7 +2,8 @@
 @model DevSitesIndex.Pages.Jobs.EditModel
 
 @{
-    ViewData["Title"] = "Edit Job";
+    ViewData["Title"] = $"Edit Job - {PageTitleUtil.GetTitle_Job(Model.Job)}";
+
 
     // 11/28/2019 07:38 am - SSN -  Replace dropdown with dropdownListDirective
 
@@ -76,7 +77,7 @@
             <div class="form-group">
                 <label asp-for="Job.ProjectID" class="control-label"></label>
                 <input asp-for="Job.ProjectID" type="hidden" />
-                <dropdown-list-directive call-source="20210607-1753" key="Job.ProjectID" form-name="jobEditForm"   hidden-field-name="Job.ProjectID" ng-model="jobRecord.ProjectID" autofocus="true"></dropdown-list-directive> 
+                <dropdown-list-directive call-source="20210607-1753" key="Job.ProjectID" form-name="jobEditForm" hidden-field-name="Job.ProjectID" ng-model="jobRecord.ProjectID" autofocus="true"></dropdown-list-directive>
 
             </div>
 
