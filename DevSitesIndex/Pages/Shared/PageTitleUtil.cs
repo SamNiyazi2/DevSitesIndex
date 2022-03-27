@@ -84,7 +84,7 @@ namespace DevSitesIndex.Pages.Shared
                     title.Append($" - Jobs: ({devSite.JobDevSites.Count()})");
                 }
 
-                title.Append($"{devSite.Id} - {devSite.SiteTitle}");
+                title.Append($" - {devSite.SiteTitle}");
             }
 
             return title.ToString();
