@@ -37,6 +37,7 @@ using Microsoft.ApplicationInsights;
 using System.Net;
 using Microsoft.AspNetCore.Diagnostics;
 using DevSitesIndex.Pages;
+using AutoMapper;
 
 namespace DevSitesIndex
 {
@@ -47,6 +48,9 @@ namespace DevSitesIndex
             Configuration = configuration;
         }
 
+
+        // 03/27/2022 02:06 am - SSN - Mainly for 404
+        public static string errorMessage;
 
         // 11/25/2019 10:03 pm - SSN - [20191125-2153] - [003] - Job create - Replace dropdown with dropdownListDirective
         // Refactor applicablePaths_Site_Only
@@ -153,6 +157,8 @@ namespace DevSitesIndex
 
 
 
+            // 03/28/2022 03:58 am - SSN - [20220328-0334] - [004] - Add AutoMapper
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 
 
@@ -473,7 +479,16 @@ namespace DevSitesIndex
                 try
                 {
                     await next();
+                    // 03/7/2022 06:30 am - SSN - Added to handle 404s
+                    if (context.Response.StatusCode == 404)
+                    {
+                        SSN_GenUtil_StandardLib.SSN_Logger logger = new SSN_GenUtil_StandardLib.SSN_Logger();
 
+                        logger.LogInformation($"20220324-0149-A: 404 = {context.Request.Path}{context.Request.QueryString}");
+                        logger.TrackEvent($"20220324-0149-B: 404 = {context.Request.Path}{context.Request.QueryString}");
+                        errorMessage = $"They address {context.Request.Path}{context.Request.QueryString} doesn't exist.";
+                        context.Response.Redirect("/");
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -563,7 +578,6 @@ namespace DevSitesIndex
 
 
             });
-
 
 
 
@@ -683,6 +697,7 @@ namespace DevSitesIndex
 
 
             app.Map("/app1", app1 =>
+            // app.MapWhen(context => context.Request.Path.Value.StartsWith("/app1"), builder =>
             {
                 app1.UseSpa(spa =>
                 {
@@ -710,9 +725,15 @@ namespace DevSitesIndex
                     //    spa.UseAngularCliServer(npmScript: "start --app=app1 --base-href=/app1/ --serve-path=/");
                     //}
                 });
-            }).Map("/app2", app2 =>
+            });
+
+
+
+
+            app.Map("/app2", spa2 =>
+            //app.MapWhen(context => context.Request.Path.Value.StartsWith("/app2"), builder =>
             {
-                app2.UseSpa(spa =>
+                spa2.UseSpa(spa =>
                 {
                     // To learn more about options for serving an Angular SPA from ASP.NET Core,
                     // see https://go.microsoft.com/fwlink/?linkid=864501
@@ -730,7 +751,7 @@ namespace DevSitesIndex
 
 
 
-
+ 
         }
         class CustomErrorInfo
         {
@@ -774,22 +795,7 @@ namespace DevSitesIndex
     }
 
 
-    // https://blog.jonblankenship.com/2020/04/12/global-exception-handling-in-aspnet-core-api/
 
-    public class ErrorHandlingMiddleWare_1001
-    {
-        private readonly RequestDelegate next;
-
-        public ErrorHandlingMiddleWare_1001(RequestDelegate _next)
-        {
-            next = _next;
-        }
-
-
-
-
-
-    }
 
 }
 

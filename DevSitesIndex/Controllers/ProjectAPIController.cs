@@ -42,6 +42,20 @@ namespace DevSitesIndex.Controllers
 
 
 
+        // 03/28/2022 01:02 am - SSN - Allow for paging - Partial implementation
+        [Route("{recordsPerPage}/{currentPage}")]
+        [HttpGet]
+        public IEnumerable<Project> Get(int recordsPerPage, int currentPage)
+        {
+            recordsPerPage = recordsPerPage > 25 ? 25 : recordsPerPage;
+            currentPage = currentPage < 1 ? 1 : currentPage;
+            int skips = currentPage - 1 * recordsPerPage;
+            IEnumerable<Project> projects = _entityRepository.GetAll().Skip(skips).Take(recordsPerPage);
+            return projects;
+        }
+
+
+
 
 
         // 09/26/2019 02:48 pm - SSN - [20190926-1242] - [008] - Search projects

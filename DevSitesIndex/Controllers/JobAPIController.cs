@@ -153,7 +153,7 @@ namespace DevSitesIndex.Controllers
                 exec.CloseConnection();
 
 
-                databag = new DataBag<Job> { dataList = result1_data, sqlStatsRecord = sqlStatsRecord };
+                databag = new DataBag<Job> { dataList = result1_data.ToList(), sqlStatsRecord = sqlStatsRecord };
             }
             catch (Exception ex)
             {

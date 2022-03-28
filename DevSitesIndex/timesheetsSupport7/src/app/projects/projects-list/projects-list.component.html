@@ -27,35 +27,27 @@
     </dl>
 
   </div>
-
+  <h4>Project Count: [{{projectRecordCount}}]</h4>
 
   <div class="col-md-3" class="form-group">
-
     <form id="serachForm" (ngSubmit)="searchProjects()" autocomplete="off" novalidate>
       <div class="form-group">
         <input [(ngModel)]="searchTerm" name="searchTerm" type="search" class="form-control" placeholder="Search all timelog tables..." />
       </div>
       <button type="submit" class="btn btn-default" >Search</button>
-
       <button type="button" class="btn btn-default" (click)="resetSearch()">Reset</button>
-
     </form>
   </div>
-
-
 </div>
-
 <div class="container">
-
   <div class="row">
-
     <div class="projectDiv" *ngFor="let project of filteredProjects">
-
-      <h3>{{project.projectTitle}}</h3>
+      <h3>{{project.projectTitle
+      }}</h3>
       <hr />
       <app-project-jobs-list [projectId]="project.projectID" [jobs]="project?.jobs" (inAddMode)="inAddMode($event)"
                              filterBy="{{filterBy}}"></app-project-jobs-list>
 
-    </div>
+</div>
   </div>
 </div>

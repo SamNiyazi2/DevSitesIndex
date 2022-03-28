@@ -1,4 +1,6 @@
-﻿using DevSitesIndex.Entities;
+﻿using AutoMapper;
+using DevSitesIndex.Entities;
+using DevSitesIndex.Models;
 using DevSitesIndex.Pages;
 using DevSitesIndex.Pages.Shared;
 using DevSitesIndex.Services;
@@ -23,15 +25,18 @@ namespace DevSitesIndex.Controllers
     // [Authorize]
     public class TimeLogAPIController : EntityAPIController<TimeLog>
     {
+        private readonly IMapper mapper;
 
         // 09/26/2019 11:02 am - SSN - [20190926-1047] - [005] - Debugging: timelog not posting
         // Add logger
 
+        // 03/28/2022 03:34 am - SSN - [20220328-0334] - [001] - Add AutoMapper
+
         // 09/30/2019 07:47 pm - SSN - Adding logger and call to base
-        public TimeLogAPIController(DevSitesIndexContext context, ILogger_SSN logger, IValidationSharedUtil validationSharedUtil) : base(context, logger)
+        public TimeLogAPIController(DevSitesIndexContext context, ILogger_SSN logger, IValidationSharedUtil validationSharedUtil, IMapper _mapper) : base(context, logger)
         {
             _entityRepository = new TimeLogRepository(context, logger, validationSharedUtil);
-
+            mapper = _mapper;
         }
 
 
@@ -76,8 +81,19 @@ namespace DevSitesIndex.Controllers
 
             exec.CloseConnection();
 
-            IQueryable<TimeLog> finalResult = _entityRepository.GetAll().Where(r => result1_data.Any(r2 => r2.TimelogId == r.TimeLogId));
+            // 03/28/2022 03:21 am - [20220328-0334] - [003] - Add AutoMapper
 
+            // IQueryable<TimeLog> finalResult = _entityRepository.GetAll().Where(r => result1_data.Any(r2 => r2.TimelogId == r.TimeLogId));
+            
+            // IQueryable<TimeLog> finalResult = _entityRepository.GetAll().Join(result1_data, timelog => timelog.TimeLogId, selectedRecord => selectedRecord.TimelogId, (timelog, selectedRecord) => timelog);
+
+           // IList<TimeLog> result2_data = mapper.Map<IList<TimeLog>>(result1_data);
+
+            IList<int> keysSelected = result1_data.Select(r => r.TimelogId).ToArray();
+
+            IList<TimeLog> finalResult = _entityRepository.GetAll().Where(r => keysSelected.Contains(r.TimeLogId)).ToList();
+                 
+            
             DataBag<TimeLog> databag = new DataBag<TimeLog> { dataList = finalResult, sqlStatsRecord = sqlStatsRecord };
 
             return databag;
@@ -262,27 +278,9 @@ namespace DevSitesIndex.Controllers
 
             return r;
         }
-
-
-
+          
     }
 
-
-    // 10/21/2019 08:15 am - SSN - [20191021-0444] - [009] - M12 - Creating directives and advanced components in Angular.
-    public class Timelog_Search_Record
-    {
-
-        public string ProjectTitle { get; set; }
-        public string JobTitle { get; set; }
-        public string DisciplineShort { get; set; }
-        public int ProjectID { get; set; }
-        public int JobId { get; set; }
-        public int TimelogId { get; set; }
-        public DateTime StartTime { get; set; }
-        public int? TotalSeconds { get; set; }
-
-
-    }
-
+     
 
 }

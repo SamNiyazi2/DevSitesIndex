@@ -35,6 +35,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="angularjs.TypeScript.DefinitelyTyped" Version="6.5.6" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.1.1" />
     <PackageReference Include="bootstrap" Version="4.1.3" />
     <PackageReference Include="bootstrap.TypeScript.DefinitelyTyped" Version="0.9.8" />
     <PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
@@ -49,7 +50,7 @@
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="SSNSendGridStandardUtil" Version="1.0.2" />
     <PackageReference Include="ssn_20210617_QRCoder.NET" Version="1.0.0" />
-    <PackageReference Include="SSN_DevSites_DAL_Standard" Version="1.0.147" />
+    <PackageReference Include="SSN_DevSites_DAL_Standard" Version="1.0.149" />
     <PackageReference Include="System.Text.Json" Version="5.0.2" />
     <PackageReference Include="toastr" Version="2.1.1" />
     <PackageReference Include="underscore.js" Version="1.8.3" />
