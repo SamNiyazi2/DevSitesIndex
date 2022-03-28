@@ -31,7 +31,8 @@ export class DataService {
     // 06/17/2021 04:14 am - SSN - QRCode-20210617
     getQRCode(stringToEncode: string) {
 
-        return this.http.get("/api/QRCodeAPI/get/" + encodeURIComponent(stringToEncode), { responseType: 'text' }).toPromise();
+        // 03/28/2022 07:54 am - SSN - Changed to QS stringToEncode
+        return this.http.get("/api/QRCodeAPI?stringToEncode=" + encodeURIComponent(stringToEncode), { responseType: 'text' }).toPromise();
 
     }
 

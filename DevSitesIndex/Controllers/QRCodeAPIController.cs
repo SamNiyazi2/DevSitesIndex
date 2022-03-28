@@ -13,19 +13,23 @@ namespace DevSitesIndex.Controllers
     public class QRCodeAPIController : Controller
     {
 
-        [Route("get/{stringToEncode}")]
-        public IActionResult getQRCode(string stringToEncode )
+    
+        [HttpGet]
+        public IActionResult getQRCode([FromQuery] string stringToEncode)
         {
+
+            if (string.IsNullOrWhiteSpace(stringToEncode)) return default(IActionResult);
+
             string stringToEncodeDecoded = WebUtility.UrlDecode(stringToEncode);
-             //url = "http://p3013.nonbs.org:56581/app2/timesheet";
-             //url = "http://p3013.nonbs.org:56581/Contact";
+            //url = "http://p3013.nonbs.org:56581/app2/timesheet";
+            //url = "http://p3013.nonbs.org:56581/Contact";
 
             QRCoder.QRCode_EntryPoint qrCode = new QRCoder.QRCode_EntryPoint();
-            
+
 
             QRCodeHolder model = new QRCodeHolder();
-            model.QRCodeContent= qrCode.RenderQrCode(stringToEncodeDecoded);
-             
+            model.QRCodeContent = qrCode.RenderQrCode(stringToEncodeDecoded);
+
 
             return View("/views/shared/api/QRCodeView/ShowQRCode.cshtml", model);
 

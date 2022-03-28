@@ -158,6 +158,9 @@ namespace site_instance_NS {
             });
 
 
+
+            $("#imgSiteUrlQRCode").css("visibility", "visible");
+
             let imgSiteUrlQRCode = 0;
 
             $('#imgSiteUrlQRCode').click((e) => {
