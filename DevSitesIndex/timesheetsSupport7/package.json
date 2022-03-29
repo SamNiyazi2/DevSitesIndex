@@ -51,14 +51,15 @@
         "typescript": "~3.2.2"
     },
     "dependencies": {
-        "@angular/core": "11.0.0",
         "@angular/common": "11.0.0",
+        "@angular/core": "11.0.0",
         "@angular/forms": "11.0.0",
         "@angular/platform-browser": "11.0.0",
         "@angular/platform-browser-dynamic": "11.0.0",
         "@angular/router": "11.0.0",
         "chart.js": "^2.9.4",
         "ng2-charts": "^2.2.3",
+        "ssn_site": "^1.0.1",
         "toastr": "^2.1.4",
         "zone.js": "0.10.0"
     },

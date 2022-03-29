@@ -1,4 +1,7 @@
 ﻿
+// 03/28/2022 06:00 pm - SSN - Copied to C:\Sams_NPM\ssn_site\ssn_site.ts for local npm registry
+//                             https://devsitesindex20190127.azurewebsites.net/devsites/details?id=352
+
 // 05/19/2019 01:18 pm - SSN - [20190519-1132] - [007] - Address definitely typed errors - No errors
 
 /// <reference path="../../node_modules/@types/jquery/index.d.ts" />   
@@ -23,9 +26,6 @@ console.log('site - 20191115-1740 - AAAA ', d1);
 namespace site_instance_NS {
 
     export class site_Class {
-
-        static loadCounter: number = 0;
-
 
 
 
@@ -61,14 +61,14 @@ namespace site_instance_NS {
 
         // 09/21/2019 12:27 pm - SSN - [201909-1227] Revise to accommodate Babel/Webpack
         setDefaults() {
-              
+
             $("[cmd-name]").on('click', function (e) {
 
                 var cmdName = $(this).attr('cmd-name');
                 var popupName = $(this).attr('popup-name');
                 var jQueryObjectName = $(this).attr('jQueryObjectName');
                 var jQueryObjectName2 = $(this).attr('jQueryObjectName2');
-                 
+
                 if (cmdName === "open-popup") {
 
                     $(popupName).modal({ backdrop: 'static', keyboard: false });
@@ -175,7 +175,7 @@ namespace site_instance_NS {
 
                     let currentTheme = htmlTag[0].getAttribute('theme');
 
-                    $(e.target).toggleClass('cssSiteUrlQRCode_' + currentTheme );
+                    $(e.target).toggleClass('cssSiteUrlQRCode_' + currentTheme);
 
                 }
 
@@ -504,47 +504,34 @@ export { site_instance };
 
 
 
-if (typeof (window["site_routine_run"]) != "number") {
-    window["site_routine_run"] = 0;
-}
 
-window["site_routine_run"] = window["site_routine_run"] + 1;
+$(function () {
 
-
-if (window["site_routine_run"] === 1) {
-
-    $(function () {
-
-        // 12/30/2019 01:23 am - SSN - Add timeot
-        // site_instance.setDefaults();
-        setTimeout(() => { site_instance.setDefaults(); }, 2000);
+    // 12/30/2019 01:23 am - SSN - Add timeot
+    // site_instance.setDefaults();
+    setTimeout(() => { site_instance.setDefaults(); }, 2000);
 
 
-        // 04/29/2019 07:36 pm - SSN - [20190429-1748] - [006] - Angular clock out popup  - End
-        // 09/10/2019 08:53 pm - SSN - Replaced
-        // 09/11/2019 07:08 am - SSN - DevSiteIndex p1 data is coming after document is ready.
-        setTimeout(() => {
+    // 04/29/2019 07:36 pm - SSN - [20190429-1748] - [006] - Angular clock out popup  - End
+    // 09/10/2019 08:53 pm - SSN - Replaced
+    // 09/11/2019 07:08 am - SSN - DevSiteIndex p1 data is coming after document is ready.
+    setTimeout(() => {
 
-            site_instance.prefixPreWithShowHideAnchor('20200102-1534-2');
+        site_instance.prefixPreWithShowHideAnchor('20200102-1534-2');
 
-            // 08/31/2020 04:32 am - SSN - [20200831-0417] - [003] - Disable collapsable divs with no content
+        // 08/31/2020 04:32 am - SSN - [20200831-0417] - [003] - Disable collapsable divs with no content
 
-            setTimeout(() => site_instance.disableEmptyCollapsableDivs(), 1000);
+        setTimeout(() => site_instance.disableEmptyCollapsableDivs(), 1000);
 
-        }
-            , 2000);
+    }
+        , 2000);
 
 
 
 
 
-    });
+});
 
-}
-
-
-let d2 = new Date();
-site_instance_NS.site_Class.loadCounter++;
 
 
 

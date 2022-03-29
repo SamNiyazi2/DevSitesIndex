@@ -6,6 +6,12 @@ import { BroadcasterUtilService } from 'src/app/broadcaster-util.service';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 
+// 03/28/2022 06:06 pm - SSN - Add ssn_util https://devsitesindex20190127.azurewebsites.net/devsites/details?id=352
+import {site_instance } from 'ssn_site/dist';
+
+site_instance.setDefaults();
+
+
 
 @Component({
     selector: 'app-header',

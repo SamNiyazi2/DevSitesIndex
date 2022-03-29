@@ -17,7 +17,9 @@
         "lib": [
             "es2018",
             "dom"
-        ]
+        ],
+        // 03/28/2022 09:06 pm - SSN - Prevents TS6200 
+        "skipLibCheck": true
     },
     //  "include": [ "src/**/*",  ],
     "exclude": [
