@@ -10,679 +10,687 @@ body {
     overflow-y: scroll;
 }
 
-h1 {
-    padding: 24px 0 0 0;
-}
-
-h2, h3, h4, h5 {
-    padding: 18px 0 0 0;
-}
-
-
-td > h1 {
-    margin: 0;
-}
-
-td > h2, td > h3, td > h4, td > h5 {
-    margin: 0;
-    padding-bottom: 20px;
+/*03/28/2022 10:11 pm - SSN*/
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    body {
+        padding-top: 80px;
+    }
 }
 
 
+    h1 {
+        padding: 24px 0 0 0;
+    }
 
-a {
-    cursor: pointer;
-}
-
-
-fieldset {
-    border: 1px solid gray;
-    border-radius: 10px;
-    padding: 10px;
-    background-color: #efefef;
-}
+    h2, h3, h4, h5 {
+        padding: 18px 0 0 0;
+    }
 
 
+    td > h1 {
+        margin: 0;
+    }
 
-
-/* Text blocks - Begin */
-/* Needed for padding */
-/* Needed for padding */
-.table > tbody > tr.detail > td, .detail {
-    font-size: 1.3rem;
-    padding: 0px 20px 20px 20px;
-    margin: 1px;
-    /*  11/08/201907:49 am - SSN - Take out - Added workDetail -   padding: 20px;*/
-}
-
-/* 11/08/20190 07:40 am - SSN - Added*/
-.workDetail {
-    /* 08/17/2020 04:11 pm - SSN - Take out pre-line (eats tabs)*/
-    /*white-space: pre-line;*/
-    font-size: 1.3rem;
-    background-color: aliceblue;
-}
-
-/*  form when displaying workDetail on second row  */
-.workDetail_2 td {
-    border: none !important;
-}
-
-
-
-
-/* 11/08/20190 07:40 am - SSN - Take out min-height and height */
-
-
-.codeblock2 { /* Match maxWidthCol1 */
-    /*    height: 200px;  */
-    /* 06/01/2019 02:58 pm - SSN Added white-space */
-    /* 08/17/2020 04:11 pm - SSN - Take out pre-line (eats tabs)*/
-    /*white-space: pre-line;*/
-}
-
-
-    .codeblock2 i {
-        background-color: yellow;
-        /* 08/17/2020 04:13 pm - SSN - Take out padding */
-        /*padding: 3px;*/
+    td > h2, td > h3, td > h4, td > h5 {
+        margin: 0;
+        padding-bottom: 20px;
     }
 
 
 
-/* 05/30/2019 06:32 pm - SSN - Added query media */
-@media only screen and (min-width: 560px) {
-
-    .codeblock1 {
-        width: 900px;
-        min-height: 200px;
+    a {
+        cursor: pointer;
     }
+
+
+    fieldset {
+        border: 1px solid gray;
+        border-radius: 10px;
+        padding: 10px;
+        background-color: #efefef;
+    }
+
+
+
+
+    /* Text blocks - Begin */
+    /* Needed for padding */
+    /* Needed for padding */
+    .table > tbody > tr.detail > td, .detail {
+        font-size: 1.3rem;
+        padding: 0px 20px 20px 20px;
+        margin: 1px;
+        /*  11/08/201907:49 am - SSN - Take out - Added workDetail -   padding: 20px;*/
+    }
+
+    /* 11/08/20190 07:40 am - SSN - Added*/
+    .workDetail {
+        /* 08/17/2020 04:11 pm - SSN - Take out pre-line (eats tabs)*/
+        /*white-space: pre-line;*/
+        font-size: 1.3rem;
+        background-color: aliceblue;
+    }
+
+    /*  form when displaying workDetail on second row  */
+    .workDetail_2 td {
+        border: none !important;
+    }
+
+
+
+
+    /* 11/08/20190 07:40 am - SSN - Take out min-height and height */
 
 
     .codeblock2 { /* Match maxWidthCol1 */
-        width: 600px;
-        height: 200px;
-    }
-}
-
-
-
-/* Text blocks - End */
-
-
-
-
-/* Wrapping element */
-/* Set some basic padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
-}
-
-/* Carousel */
-.carousel-caption p {
-    font-size: 20px;
-    line-height: 1.4;
-}
-
-/* Make .svg files in the carousel display properly in older browsers */
-.carousel-inner .item img[src$=".svg"] {
-    width: 100%;
-}
-
-/* QR code generator */
-#qrCode {
-    margin: 15px;
-}
-
-/* Hide/rearrange for smaller screens */
-@media screen and (max-width: 767px) {
-    /* Hide captions */
-    .carousel-caption {
-        display: none;
-    }
-}
-
-/*07/29/2018 11:51 am - SSN */
-
-td, .siteDiv {
-    padding: 5px 10px;
-    vertical-align: text-top;
-}
-
-.siteDiv {
-    border-bottom: 10px solid white; 
-}
-
-.forDemo_Yes {
-    background-color: #f0faf0;
-}
-
-
-.forDemo_No {
-    background-color: #f7edf3;
-}
-
-
-.forDemo_Undecided {
-    background-color: #faf9f0;
-}
- 
-
-.info_good {
-    padding: 5px 20px;
-    color: black;
-    background-color: lightgreen;
-}
-
-.info_bad {
-    padding: 5px 20px;
-    color: black;
-    background-color: #EAA19A;
-}
-
-.solution_details {
-    margin: 0px;
-    padding: 0px 20px 10px 20px;
-}
-
-a[cmd-name="showsibling"] {
-    color: firebrick;
-    background-color: #faf9f0;
-}
-
-.menuOptions {
-    padding: 5px 20px 10px 20px;
-    /* 05/14/2019 04:17 am - SSN Copied from maxWidthCol1  */
-    max-width: 600px; /* Match codeblock2*/
-    /*white-space: pre-wrap;*/ /* CSS3 */
-    white-space: -moz-pre-wrap; /* Firefox */
-    white-space: -pre-wrap; /* Opera <7 */
-    white-space: -o-pre-wrap; /* Opera 7 */
-    word-wrap: break-word;
-}
-
-.siteTitle {
-    font-size: 14pt;
-}
-
-div {
-    border-radius: 3px;
-}
-
-/*// 03/29/2019 10:03 pm - SSN - Add div siteTitleDiv title to give space*/
-.siteTitleDiv {
-    padding: 8px 8px 20px 8px;
-}
-
-
-.menuOptions a {
-    margin: 0px 0px 0px 20px;
-    font-size: 10pt;
-}
-
-.menuOptions p {
-    font-size: 10pt;
-}
-
-.error {
-    background-color: lightyellow;
-    color: red;
-    padding: 5px 10px;
-}
-
-
-/*03/14/2019 09:04 samp - SSN*/
-.indexNowrapCol {
-    font-size: 8pt;
-    white-space: nowrap;
-}
-
-/* 12/02/2019 02:20 am - SSN - Jobs Index - Job status option - Begin*/
-.indexNowrapOption {
-    white-space: nowrap;
-    padding: 2px;
-    vertical-align: bottom;
-}
-
-    .indexNowrapOption input {
-        vertical-align: text-bottom;
+        /*    height: 200px;  */
+        /* 06/01/2019 02:58 pm - SSN Added white-space */
+        /* 08/17/2020 04:11 pm - SSN - Take out pre-line (eats tabs)*/
+        /*white-space: pre-line;*/
     }
 
-/* 12/02/2019 02:20 am - SSN - Jobs Index - Job status option - End*/
 
-
-.maxWidthCol1 {
-    /* 05/14/2019 04:17 am - SSN Copied to menuOptions */
-    max-width: 600px; /* Match codeblock2*/
-    /*white-space: pre-wrap;*/ /* CSS3 */
-    white-space: -moz-pre-wrap; /* Firefox */
-    white-space: -pre-wrap; /* Opera <7 */
-    white-space: -o-pre-wrap; /* Opera 7 */
-    word-wrap: break-word;
-}
+        .codeblock2 i {
+            background-color: yellow;
+            /* 08/17/2020 04:13 pm - SSN - Take out padding */
+            /*padding: 3px;*/
+        }
 
 
 
-.has-error {
-    color: red
-}
+    /* 05/30/2019 06:32 pm - SSN - Added query media */
+    @media only screen and (min-width: 560px) {
+
+        .codeblock1 {
+            width: 900px;
+            min-height: 200px;
+        }
 
 
-/* 05/07/2019 09:24 pm - SSN - Copied from __SharedScripts\css_101.css */
-.note {
-    background-color: lightyellow;
-    font-style: italic;
-    font-size: 80%;
-    padding: 5px 20px 5px 40px;
-}
+        .codeblock2 { /* Match maxWidthCol1 */
+            width: 600px;
+            height: 200px;
+        }
+    }
 
-n {
-    background-color: yellow;
-}
 
-h {
-    font-weight: bold;
-    color: red;
-}
 
-alarm {
-    background-color: red;
-    color: yellow;
-    font-weight: bold;
-}
+    /* Text blocks - End */
 
-.padded {
-    margin: 10px 0px;
-    padding: 20px;
-    background: rgba(255,255,255,0.5);
-    /*-khtml-opacity: .50;
+
+
+
+    /* Wrapping element */
+    /* Set some basic padding to keep content from hitting the edges */
+    .body-content {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    /* Carousel */
+    .carousel-caption p {
+        font-size: 20px;
+        line-height: 1.4;
+    }
+
+    /* Make .svg files in the carousel display properly in older browsers */
+    .carousel-inner .item img[src$=".svg"] {
+        width: 100%;
+    }
+
+    /* QR code generator */
+    #qrCode {
+        margin: 15px;
+    }
+
+    /* Hide/rearrange for smaller screens */
+    @media screen and (max-width: 767px) {
+        /* Hide captions */
+        .carousel-caption {
+            display: none;
+        }
+    }
+
+    /*07/29/2018 11:51 am - SSN */
+
+    td, .siteDiv {
+        padding: 5px 10px;
+        vertical-align: text-top;
+    }
+
+    .siteDiv {
+        border-bottom: 10px solid white;
+    }
+
+    .forDemo_Yes {
+        background-color: #f0faf0;
+    }
+
+
+    .forDemo_No {
+        background-color: #f7edf3;
+    }
+
+
+    .forDemo_Undecided {
+        background-color: #faf9f0;
+    }
+
+
+    .info_good {
+        padding: 5px 20px;
+        color: black;
+        background-color: lightgreen;
+    }
+
+    .info_bad {
+        padding: 5px 20px;
+        color: black;
+        background-color: #EAA19A;
+    }
+
+    .solution_details {
+        margin: 0px;
+        padding: 0px 20px 10px 20px;
+    }
+
+    a[cmd-name="showsibling"] {
+        color: firebrick;
+        background-color: #faf9f0;
+    }
+
+    .menuOptions {
+        padding: 5px 20px 10px 20px;
+        /* 05/14/2019 04:17 am - SSN Copied from maxWidthCol1  */
+        max-width: 600px; /* Match codeblock2*/
+        /*white-space: pre-wrap;*/ /* CSS3 */
+        white-space: -moz-pre-wrap; /* Firefox */
+        white-space: -pre-wrap; /* Opera <7 */
+        white-space: -o-pre-wrap; /* Opera 7 */
+        word-wrap: break-word;
+    }
+
+    .siteTitle {
+        font-size: 14pt;
+    }
+
+    div {
+        border-radius: 3px;
+    }
+
+    /*// 03/29/2019 10:03 pm - SSN - Add div siteTitleDiv title to give space*/
+    .siteTitleDiv {
+        padding: 8px 8px 20px 8px;
+    }
+
+
+    .menuOptions a {
+        margin: 0px 0px 0px 20px;
+        font-size: 10pt;
+    }
+
+    .menuOptions p {
+        font-size: 10pt;
+    }
+
+    .error {
+        background-color: lightyellow;
+        color: red;
+        padding: 5px 10px;
+    }
+
+
+    /*03/14/2019 09:04 samp - SSN*/
+    .indexNowrapCol {
+        font-size: 8pt;
+        white-space: nowrap;
+    }
+
+    /* 12/02/2019 02:20 am - SSN - Jobs Index - Job status option - Begin*/
+    .indexNowrapOption {
+        white-space: nowrap;
+        padding: 2px;
+        vertical-align: bottom;
+    }
+
+        .indexNowrapOption input {
+            vertical-align: text-bottom;
+        }
+
+    /* 12/02/2019 02:20 am - SSN - Jobs Index - Job status option - End*/
+
+
+    .maxWidthCol1 {
+        /* 05/14/2019 04:17 am - SSN Copied to menuOptions */
+        max-width: 600px; /* Match codeblock2*/
+        /*white-space: pre-wrap;*/ /* CSS3 */
+        white-space: -moz-pre-wrap; /* Firefox */
+        white-space: -pre-wrap; /* Opera <7 */
+        white-space: -o-pre-wrap; /* Opera 7 */
+        word-wrap: break-word;
+    }
+
+
+
+    .has-error {
+        color: red
+    }
+
+
+    /* 05/07/2019 09:24 pm - SSN - Copied from __SharedScripts\css_101.css */
+    .note {
+        background-color: lightyellow;
+        font-style: italic;
+        font-size: 80%;
+        padding: 5px 20px 5px 40px;
+    }
+
+    n {
+        background-color: yellow;
+    }
+
+    h {
+        font-weight: bold;
+        color: red;
+    }
+
+    alarm {
+        background-color: red;
+        color: yellow;
+        font-weight: bold;
+    }
+
+    .padded {
+        margin: 10px 0px;
+        padding: 20px;
+        background: rgba(255,255,255,0.5);
+        /*-khtml-opacity: .50;
     -moz-opacity: .50;
     -ms-filter: ”alpha(opacity=50)”;
     filter: alpha(opacity=50);
     filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0.5);
     opacity: .50;*/
-}
-/*09/11/2019 09:08 pm - SSN*/
-.indented {
-    padding: 0px 20px 20px 20px;
-    background: rgba(255,255,255,0.5);
-}
-/* 09/28/2019 04:28 pm - SSN - [20190928-1256] - [013] - Adding Entity Framework model attribute */
-.rounded {
-    border-radius: 6px;
-}
+    }
+    /*09/11/2019 09:08 pm - SSN*/
+    .indented {
+        padding: 0px 20px 20px 20px;
+        background: rgba(255,255,255,0.5);
+    }
+    /* 09/28/2019 04:28 pm - SSN - [20190928-1256] - [013] - Adding Entity Framework model attribute */
+    .rounded {
+        border-radius: 6px;
+    }
 
-.margined {
-    margin: 10px;
-}
+    .margined {
+        margin: 10px;
+    }
 
-.evenRow {
-    background-color: #eee;
-}
+    .evenRow {
+        background-color: #eee;
+    }
 
-.oddRow {
-    background-color: #ddd;
-}
+    .oddRow {
+        background-color: #ddd;
+    }
 
-.truncateLongText_100 {
-    white-space: nowrap;
-    width: 100px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
+    .truncateLongText_100 {
+        white-space: nowrap;
+        width: 100px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 
-.truncateLongText_200 {
-    white-space: nowrap;
-    width: 200px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
+    .truncateLongText_200 {
+        white-space: nowrap;
+        width: 200px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 
-.job_status_open_1 {
-    background-color: cornsilk;
-}
+    .job_status_open_1 {
+        background-color: cornsilk;
+    }
 
-.job_status_Pending_2 {
-    background-color: khaki;
-}
+    .job_status_Pending_2 {
+        background-color: khaki;
+    }
 
-.job_status_Completed_3 {
-    background-color: burlywood;
-}
+    .job_status_Completed_3 {
+        background-color: burlywood;
+    }
 
-.job_status_Cancelled_4 {
-    background-color: goldenrod;
-}
+    .job_status_Cancelled_4 {
+        background-color: goldenrod;
+    }
 
-.site_alert_css_name {
-    background-color: yellow;
-}
-
-
-/* 09/30/2019 07:55 am - SSN */
-
-.dropdownHint {
-    position: relative;
-    display: inline-block;
-}
-
-.dropdownHint-content {
-    display: none;
-    position: absolute;
-    background-color: #eee;
-    min-width: 200px;
-    box-shadow: 0px 10px 10px 0px rgba(0,0,0,0.2);
-    padding: 20px;
-    z-index: 1;
-}
-
-.dropdownHint:hover + .dropdownHint-content {
-    display: block;
-}
-
-
-/* 11/15/2019 05:35 pm - SSN - Adding - Begin */
-.jobStatusChangeRecord_off {
-    position: absolute;
-    padding: 10px;
-    /*box-shadow: 1px 5px 7px ;*/
-    background-color: rgb(216, 220, 241);
-}
-
-.jobStatusChangeRecord_on {
-    position: absolute;
-    z-index: 1000;
-    margin: auto;
-}
-
-    .jobStatusChangeRecord_on div {
-        /*box-shadow: 1px 5px 7px ;*/
-        background-color: rgb(151, 157, 174);
-        padding: 10px;
+    .site_alert_css_name {
+        background-color: yellow;
     }
 
 
+    /* 09/30/2019 07:55 am - SSN */
 
-/* 11/15/2019 05:35 pm - SSN - Adding - End */
+    .dropdownHint {
+        position: relative;
+        display: inline-block;
+    }
 
+    .dropdownHint-content {
+        display: none;
+        position: absolute;
+        background-color: #eee;
+        min-width: 200px;
+        box-shadow: 0px 10px 10px 0px rgba(0,0,0,0.2);
+        padding: 20px;
+        z-index: 1;
+    }
 
-@media only screen and (max-width: 560px) {
-
-    .table > thead > tr > th {
-        font-size: 10px;
+    .dropdownHint:hover + .dropdownHint-content {
         display: block;
-        border-bottom: 0px;
     }
 
-        .table > thead > tr > th:last-of-type {
-            padding: 0px;
-            border-bottom: 2px solid #ddd;
+
+    /* 11/15/2019 05:35 pm - SSN - Adding - Begin */
+    .jobStatusChangeRecord_off {
+        position: absolute;
+        padding: 10px;
+        /*box-shadow: 1px 5px 7px ;*/
+        background-color: rgb(216, 220, 241);
+    }
+
+    .jobStatusChangeRecord_on {
+        position: absolute;
+        z-index: 1000;
+        margin: auto;
+    }
+
+        .jobStatusChangeRecord_on div {
+            /*box-shadow: 1px 5px 7px ;*/
+            background-color: rgb(151, 157, 174);
+            padding: 10px;
         }
 
 
-    .table {
-        empty-cells: hide !important;
-    }
 
-        .table > tbody > tr {
-            border-bottom: 2px solid #ddd;
+    /* 11/15/2019 05:35 pm - SSN - Adding - End */
+
+
+    @media only screen and (max-width: 560px) {
+
+        .table > thead > tr > th {
+            font-size: 10px;
+            display: block;
+            border-bottom: 0px;
         }
 
-            .table > tbody > tr > td {
-                border-top: 0px;
-                display: block;
-                column-span: none;
-                padding: 10px !important;
+            .table > thead > tr > th:last-of-type {
+                padding: 0px;
+                border-bottom: 2px solid #ddd;
             }
 
-                .table > tbody > tr > td:last-of-type {
-                    padding: 0px 0px 40px 0px;
+
+        .table {
+            empty-cells: hide !important;
+        }
+
+            .table > tbody > tr {
+                border-bottom: 2px solid #ddd;
+            }
+
+                .table > tbody > tr > td {
+                    border-top: 0px;
+                    display: block;
+                    column-span: none;
+                    padding: 10px !important;
                 }
 
+                    .table > tbody > tr > td:last-of-type {
+                        padding: 0px 0px 40px 0px;
+                    }
 
-    /* 11/16/2019 12:35 pm - SSN - Added*/
-    .maxWidthCol2 {
-        max-width: 90vw;
-        white-space: -moz-pre-wrap; /* Firefox */
-        white-space: -pre-wrap; /* Opera <7 */
-        white-space: -o-pre-wrap; /* Opera 7 */
-        word-wrap: break-word;
+
+        /* 11/16/2019 12:35 pm - SSN - Added*/
+        .maxWidthCol2 {
+            max-width: 90vw;
+            white-space: -moz-pre-wrap; /* Firefox */
+            white-space: -pre-wrap; /* Opera <7 */
+            white-space: -o-pre-wrap; /* Opera 7 */
+            word-wrap: break-word;
+        }
+
+        div {
+            max-width: 100vw;
+            white-space: -moz-pre-wrap; /* Firefox */
+            white-space: -pre-wrap; /* Opera <7 */
+            white-space: -o-pre-wrap; /* Opera 7 */
+            word-wrap: break-word;
+        }
+
+        .container {
+            padding-left: 8px;
+            padding-right: 8px;
+        }
+
+        .container-fluid {
+            padding-left: 2px;
+            padding-right: 2px;
+        }
+
+        .siteDiv {
+            padding: 2px;
+        }
+
+        .solution_details {
+            padding: 0px 5px 10px 10px;
+        }
+
+        .padded {
+            margin: 5px 0px;
+            padding: 4px;
+        }
     }
 
-    div {
-        max-width: 100vw;
-        white-space: -moz-pre-wrap; /* Firefox */
-        white-space: -pre-wrap; /* Opera <7 */
-        white-space: -o-pre-wrap; /* Opera 7 */
-        word-wrap: break-word;
-    }
-
-    .container {
-        padding-left: 8px;
-        padding-right: 8px;
-    }
-
-    .container-fluid {
-        padding-left: 2px;
-        padding-right: 2px;
-    }
-
-    .siteDiv {
-        padding: 2px;
-    }
-
-    .solution_details {
-        padding: 0px 5px 10px 10px;
-    }
-
-    .padded {
-        margin: 5px 0px;
-        padding: 4px;
-    }
-}
 
 
+    /* 11/23/2019 01:20 am - SSN - Hightlight clicked object when returning to page*/
+    /* Source: https://www.w3schools.com/css/tryit.asp?filename=trycss3_animation1 */
 
-/* 11/23/2019 01:20 am - SSN - Hightlight clicked object when returning to page*/
-/* Source: https://www.w3schools.com/css/tryit.asp?filename=trycss3_animation1 */
-
-.cssHilight101 {
-    position: absolute;
-    -webkit-animation-name: example; /* Safari 4.0 - 8.0 */
-    -webkit-animation-duration: 4s; /* Safari 4.0 - 8.0 */
-    /*    animation-name: example;
+    .cssHilight101 {
+        position: absolute;
+        -webkit-animation-name: example; /* Safari 4.0 - 8.0 */
+        -webkit-animation-duration: 4s; /* Safari 4.0 - 8.0 */
+        /*    animation-name: example;
 
     animation-duration: 4s;
 */
-    /* https://www.w3schools.com/cssref/tryit.asp?filename=trycss_anim_font-size */
-    -webkit-animation: example 2s ease-in-out; /* Chrome, Safari, Opera */
-    /*animation: mymove 5s  ease-in-out;*/
-}
-
-/* Safari 4.0 - 8.0 */
-@-webkit-keyframes example {
-    0% {
-        background-color: transparent;
+        /* https://www.w3schools.com/cssref/tryit.asp?filename=trycss_anim_font-size */
+        -webkit-animation: example 2s ease-in-out; /* Chrome, Safari, Opera */
+        /*animation: mymove 5s  ease-in-out;*/
     }
 
-    50% {
-        background-color: yellow;
-        font-size: 24px;
+    /* Safari 4.0 - 8.0 */
+    @-webkit-keyframes example {
+        0% {
+            background-color: transparent;
+        }
+
+        50% {
+            background-color: yellow;
+            font-size: 24px;
+        }
+
+        100% {
+            background-color: transparent;
+        }
     }
 
-    100% {
-        background-color: transparent;
+    /* Standard syntax */
+    @keyframes example {
+        0% {
+            background-color: transparent;
+        }
+
+        50% {
+            background-color: yellow;
+            font-size: 24px;
+        }
+
+        100% {
+            background-color: transparent;
+        }
     }
-}
-
-/* Standard syntax */
-@keyframes example {
-    0% {
-        background-color: transparent;
-    }
-
-    50% {
-        background-color: yellow;
-        font-size: 24px;
-    }
-
-    100% {
-        background-color: transparent;
-    }
-}
 
 
 
 
 
 
-/* 06/18/2021 01:19 am - SSN - Hightlight timesheet table row change*/
+    /* 06/18/2021 01:19 am - SSN - Hightlight timesheet table row change*/
 
-.cssHilight102 {
-    -webkit-animation-name: example_102; /* Safari 4.0 - 8.0 */
-    -webkit-animation-duration: 5s; /* Safari 4.0 - 8.0 */
-    /*    animation-name: example;
+    .cssHilight102 {
+        -webkit-animation-name: example_102; /* Safari 4.0 - 8.0 */
+        -webkit-animation-duration: 5s; /* Safari 4.0 - 8.0 */
+        /*    animation-name: example;
 
     animation-duration: 4s;
 */
-    /* https://www.w3schools.com/cssref/tryit.asp?filename=trycss_anim_font-size */
-    -webkit-animation: example_102 5s ease-in-out; /* Chrome, Safari, Opera */
-    /*animation: mymove 5s  ease-in-out;*/
-}
-
-/* Safari 4.0 - 8.0 */
-@-webkit-keyframes example_102 {
-    0% {
-        background-color: transparent;
+        /* https://www.w3schools.com/cssref/tryit.asp?filename=trycss_anim_font-size */
+        -webkit-animation: example_102 5s ease-in-out; /* Chrome, Safari, Opera */
+        /*animation: mymove 5s  ease-in-out;*/
     }
 
-    50% {
-        background-color: #ececd2;
+    /* Safari 4.0 - 8.0 */
+    @-webkit-keyframes example_102 {
+        0% {
+            background-color: transparent;
+        }
+
+        50% {
+            background-color: #ececd2;
+        }
+
+        100% {
+            background-color: transparent;
+        }
     }
 
-    100% {
-        background-color: transparent;
-    }
-}
+    /* Standard syntax */
+    @keyframes example_102 {
+        0% {
+            background-color: transparent;
+        }
 
-/* Standard syntax */
-@keyframes example_102 {
-    0% {
-        background-color: transparent;
-    }
+        50% {
+            background-color: #ececd2;
+        }
 
-    50% {
-        background-color: #ececd2;
-    }
-
-    100% {
-        background-color: transparent;
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* 12/02/2019 09:20 am - SSN  */
-
-.csshighlight_Added {
-    -webkit-animation-name: example2; /* Safari 4.0 - 8.0 */
-    -webkit-animation-duration: 4s; /* Safari 4.0 - 8.0 */
-    -webkit-animation: example2 2s ease-in-out; /* Chrome, Safari, Opera */
-}
-
-/* Safari 4.0 - 8.0 */
-@-webkit-keyframes example2 {
-    0% {
-        background-color: transparent;
+        100% {
+            background-color: transparent;
+        }
     }
 
-    50% {
-        background-color: yellow;
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* 12/02/2019 09:20 am - SSN  */
+
+    .csshighlight_Added {
+        -webkit-animation-name: example2; /* Safari 4.0 - 8.0 */
+        -webkit-animation-duration: 4s; /* Safari 4.0 - 8.0 */
+        -webkit-animation: example2 2s ease-in-out; /* Chrome, Safari, Opera */
     }
 
-    100% {
-        background-color: transparent;
+    /* Safari 4.0 - 8.0 */
+    @-webkit-keyframes example2 {
+        0% {
+            background-color: transparent;
+        }
+
+        50% {
+            background-color: yellow;
+        }
+
+        100% {
+            background-color: transparent;
+        }
     }
-}
 
-/* Standard syntax */
-@keyframes example2 {
-    0% {
-        background-color: transparent;
+    /* Standard syntax */
+    @keyframes example2 {
+        0% {
+            background-color: transparent;
+        }
+
+        50% {
+            background-color: yellow;
+        }
+
+        100% {
+            background-color: transparent;
+        }
     }
 
-    50% {
-        background-color: yellow;
-    }
-
-    100% {
-        background-color: transparent;
-    }
-}
 
 
 
 
 
+    /* 06/25/2021 12:03 pm - SSN - Timelog index filter option */
 
-/* 06/25/2021 12:03 pm - SSN - Timelog index filter option */
-
-.cssShowFilterContainer {
-    opacity: 0;
-    height: 0px;
-}
-
-.cssShowFilterContainer_Off {
-    animation-name: closeFilterContainer;
-    animation-duration: 1s;
-    opacity: 0;
-    height: 0px;
-}
-
-.cssShowFilterContainer_On {
-    animation-name: openFilterContainer;
-    animation-duration: 1s;
-    opacity: 1;
-    height: 390px;
-}
-
-
-
-@keyframes openFilterContainer {
-    0% {
+    .cssShowFilterContainer {
         opacity: 0;
         height: 0px;
     }
 
-    100% {
-        opacity: 1;
-        height: 390px;
-    }
-}
-
-@keyframes closeFilterContainer {
-    0% {
-        opacity: 1;
-        height: 390px;
-    }
-
-    100% {
+    .cssShowFilterContainer_Off {
+        animation-name: closeFilterContainer;
+        animation-duration: 1s;
         opacity: 0;
         height: 0px;
     }
-}
+
+    .cssShowFilterContainer_On {
+        animation-name: openFilterContainer;
+        animation-duration: 1s;
+        opacity: 1;
+        height: 390px;
+    }
+
+
+
+    @keyframes openFilterContainer {
+        0% {
+            opacity: 0;
+            height: 0px;
+        }
+
+        100% {
+            opacity: 1;
+            height: 390px;
+        }
+    }
+
+    @keyframes closeFilterContainer {
+        0% {
+            opacity: 1;
+            height: 390px;
+        }
+
+        100% {
+            opacity: 0;
+            height: 0px;
+        }
+    }
 
 
 
@@ -695,191 +703,191 @@ alarm {
 
 
 
-/* 09/04/2020 09:00 am - SSN - [20200904-0540] - [011] - Ading save-and-stay option to codereference
+    /* 09/04/2020 09:00 am - SSN - [20200904-0540] - [011] - Ading save-and-stay option to codereference
     Moved from DevSites.edit.cshtml to share with codereference save-and-stay
 */
 
-div.fixed_101_sas {
-    z-index: 999;
-    position: -webkit-sticky;
-    position: sticky;
-    top: 400px;
-    margin-left: calc(-7vw + 20px );
-    background-color: white;
-    display: inline-block;
-    height: 30px;
-    padding: 5px;
-}
-
-
-    div.fixed_101_sas a {
-        width: 400px;
-        color: red !important;
+    div.fixed_101_sas {
+        z-index: 999;
+        position: -webkit-sticky;
+        position: sticky;
+        top: 400px;
+        margin-left: calc(-7vw + 20px );
+        background-color: white;
+        display: inline-block;
+        height: 30px;
+        padding: 5px;
     }
 
 
-menuPipe_101::after {
-    content: ' |';
-    padding: 0 10px !important;
-}
+        div.fixed_101_sas a {
+            width: 400px;
+            color: red !important;
+        }
 
 
-
-
-.cssLineItemDisplay {
-    font-size: 13px;
-    padding: 5px;
-    background-color: #f0f9ff;
-}
-
-    .cssLineItemDisplay:empty {
-        visibility: collapse;
-    }
-
-.cssTimeLogDetail_p {
-    margin: 0px;
-    padding: 0px;
-    background-color: #f0f0f0;
-    max-width: 100%;
-    white-space: pre-wrap;
-    padding: 5px 20px;
-    max-height: 80px;
-    overflow-y: hidden;
-}
-
-    .cssTimeLogDetail_p:hover {
-        max-height: none;
-    }
-
-    .cssTimeLogDetail_p:empty {
-        visibility: collapse;
-    }
-
-.cssDropdownListDirectiveHelper {
-    max-height: 40px;
-    overflow-y: auto;
-    margin: 4px;
-    padding: 5px;
-    font-family: 'Courier New';
-    font-size: 12px;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    white-space: pre;
-    display: none;
-}
-
-    .cssDropdownListDirectiveHelper:hover {
-        max-height: none;
-    }
-
-.cssTimelogOptions_TD {
-    min-width: 80px;
-}
-
-.cssTimelogOptions {
-    position: absolute;
-    z-index: 1;
-    font-size: 8pt;
-    max-height: 40px;
-    overflow-y: hidden;
-    padding: 10px;
-    border: 2px solid transparent;
-}
-
-    .cssTimelogOptions:hover {
-        z-index: 2;
-        max-height: none;
-        background-color: #d8eeef;
-        border: 2px solid #04376e;
+    menuPipe_101::after {
+        content: ' |';
+        padding: 0 10px !important;
     }
 
 
-@media (max-width:560px) {
+
+
+    .cssLineItemDisplay {
+        font-size: 13px;
+        padding: 5px;
+        background-color: #f0f9ff;
+    }
+
+        .cssLineItemDisplay:empty {
+            visibility: collapse;
+        }
+
+    .cssTimeLogDetail_p {
+        margin: 0px;
+        padding: 0px;
+        background-color: #f0f0f0;
+        max-width: 100%;
+        white-space: pre-wrap;
+        padding: 5px 20px;
+        max-height: 80px;
+        overflow-y: hidden;
+    }
+
+        .cssTimeLogDetail_p:hover {
+            max-height: none;
+        }
+
+        .cssTimeLogDetail_p:empty {
+            visibility: collapse;
+        }
+
+    .cssDropdownListDirectiveHelper {
+        max-height: 40px;
+        overflow-y: auto;
+        margin: 4px;
+        padding: 5px;
+        font-family: 'Courier New';
+        font-size: 12px;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        white-space: pre;
+        display: none;
+    }
+
+        .cssDropdownListDirectiveHelper:hover {
+            max-height: none;
+        }
+
+    .cssTimelogOptions_TD {
+        min-width: 80px;
+    }
+
     .cssTimelogOptions {
-        padding: 10px;
-        position: initial;
+        position: absolute;
+        z-index: 1;
         font-size: 8pt;
-        max-height: none;
+        max-height: 40px;
+        overflow-y: hidden;
         padding: 10px;
-        z-index: initial;
         border: 2px solid transparent;
     }
 
         .cssTimelogOptions:hover {
-            z-index: initial;
+            z-index: 2;
             max-height: none;
-            background-color: white;
-            border: none;
+            background-color: #d8eeef;
+            border: 2px solid #04376e;
         }
-}
 
 
-.cssTimelogOptions a {
-    display: block;
-    padding: 3px;
-}
+    @media (max-width:560px) {
+        .cssTimelogOptions {
+            padding: 10px;
+            position: initial;
+            font-size: 8pt;
+            max-height: none;
+            padding: 10px;
+            z-index: initial;
+            border: 2px solid transparent;
+        }
 
-
-.csstypeahead select {
-    position: absolute;
-    background-color: white;
-    overflow: hidden;
-    border: 1px #ddd solid;
-}
-
-    .csstypeahead select option {
-        padding: 2px 5px;
+            .cssTimelogOptions:hover {
+                z-index: initial;
+                max-height: none;
+                background-color: white;
+                border: none;
+            }
     }
 
-.cssHidden {
-    visibility: collapse;
-}
 
-.cssDebugCode {
-    white-space: pre;
-}
-
-.cssSiteUrlQRCode_base {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    filter: unset !important;
-}
-
-.cssSiteUrlQRCode {
-    width: 32px;
-}
-
-.cssSiteUrlQRCode_Dark {
-    filter: invert(100%) !important;
-    width: 200px;
-}
-
-.cssSiteUrlQRCode_Light {
-    width: 400px;
-}
+    .cssTimelogOptions a {
+        display: block;
+        padding: 3px;
+    }
 
 
-noscript {
-    height: 100%;
-    width: 100%;
-    top: 0px;
-    left: 0px;
-    margin: 0px;
-    border: 0px;
-    padding: 0px;
-    color: red;
-    position: fixed;
-    z-index: 1;
-    background-color: black;
-}
+    .csstypeahead select {
+        position: absolute;
+        background-color: white;
+        overflow: hidden;
+        border: 1px #ddd solid;
+    }
 
-    noscript h3 {
-        color: green;
-        top: 30px;
-        left: 30px;
+        .csstypeahead select option {
+            padding: 2px 5px;
+        }
+
+    .cssHidden {
+        visibility: collapse;
+    }
+
+    .cssDebugCode {
+        white-space: pre;
+    }
+
+    .cssSiteUrlQRCode_base {
         position: fixed;
+        top: 10px;
+        right: 10px;
+        filter: unset !important;
     }
+
+    .cssSiteUrlQRCode {
+        width: 32px;
+    }
+
+    .cssSiteUrlQRCode_Dark {
+        filter: invert(100%) !important;
+        width: 200px;
+    }
+
+    .cssSiteUrlQRCode_Light {
+        width: 400px;
+    }
+
+
+    noscript {
+        height: 100%;
+        width: 100%;
+        top: 0px;
+        left: 0px;
+        margin: 0px;
+        border: 0px;
+        padding: 0px;
+        color: red;
+        position: fixed;
+        z-index: 1;
+        background-color: black;
+    }
+
+        noscript h3 {
+            color: green;
+            top: 30px;
+            left: 30px;
+            position: fixed;
+        }
 
 
  
