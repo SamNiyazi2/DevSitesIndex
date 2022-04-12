@@ -368,6 +368,8 @@ var demosites_index_p1_instance = function () {
             var data = JSON.stringify(data_pre);
 
 
+            self.SearchResultsFeedback_KO('Searching...');
+            self.SearchResultsFeedback_ClassName_KO("alert-info");
 
 
             $.ajax({

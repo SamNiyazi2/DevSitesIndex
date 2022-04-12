@@ -42,7 +42,7 @@ namespace DevSitesIndex.Entities
         public DateTime StartTime { get; set; }
 
 
-        [Display(Name = "Duration (Sec.)")]
+        [Display(Name = "Duration")]
         public int? TotalSeconds { get; set; }
 
 

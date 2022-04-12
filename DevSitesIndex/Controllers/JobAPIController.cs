@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using DevSitesIndex.Entities;
+using DevSitesIndex.Filters;
 using DevSitesIndex.Services;
 using DevSitesIndex.Util;
 using Microsoft.AspNetCore.Http;
@@ -19,6 +20,7 @@ using SSN_GenUtil_StandardLib;
 
 namespace DevSitesIndex.Controllers
 {
+   
     [Route("api/[controller]")]
     //  [ApiController]
     public class JobAPIController : EntityAPIController<Job>
@@ -90,6 +92,8 @@ namespace DevSitesIndex.Controllers
         // 09/26/2019 03:30 pm - SSN - [20190926-1242] - [013] - Search projects
         // async/await
 
+        // 04/07/2022 05:45 am - SSN - CustomEnableCORS
+        [CustomEnableCORS]
         [Route("list/{pageNo}/{recordsPerPage}/{columnName}/{desc}/{job_statuses_selected}")]
         [HttpGet]
         public async Task<DataBag<Job>> Get_Jobs(int? projectId, int? pageNo, int? recordsPerPage, string columnName, string desc, string job_statuses_selected)
