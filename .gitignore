@@ -276,3 +276,4 @@ __pycache__/
 /DevSitesIndex/wwwroot/webpack_build/*
 **/*.js
 **/*.js.map
+!webpack.config.js
