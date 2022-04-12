@@ -9,6 +9,7 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove="dotnet_add_package_DAL_local.cmd" />
+    <None Remove="dotnet_add_package_DAL_local.ps1" />
     <None Remove="dotnet_add_package_DAL_Remote.cmd" />
     <None Remove="dotnet_add_package_GenUtil_local.cmd" />
     <None Remove="dotnet_add_package_SendGrid_local.cmd" />
@@ -22,6 +23,9 @@
     <None Remove="p.cmd" />
     <None Remove="p_all.cmd" />
     <None Remove="p_buildAll.cmd" />
+    <None Remove="React\App.tsx" />
+    <None Remove="React\ReactTest.tsx" />
+    <None Remove="React\src\SearchBox.tsx" />
     <None Remove="ScaffoldingReadme.txt" />
     <None Remove="ssn_azure_build.cmd" />
     <None Remove="ssn_babel_it_2.cmd" />
@@ -48,9 +52,10 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="React.AspNet" Version="3.0.0" />
     <PackageReference Include="SSNSendGridStandardUtil" Version="1.0.2" />
     <PackageReference Include="ssn_20210617_QRCoder.NET" Version="1.0.0" />
-    <PackageReference Include="SSN_DevSites_DAL_Standard" Version="1.0.149" />
+    <PackageReference Include="SSN_DevSites_DAL_Standard" Version="1.0.150" />
     <PackageReference Include="System.Text.Json" Version="5.0.2" />
     <PackageReference Include="toastr" Version="2.1.1" />
     <PackageReference Include="underscore.js" Version="1.8.3" />
@@ -67,6 +72,7 @@
     <Folder Include="Connected Services\" />
     <Folder Include="node_modules\" />
     <Folder Include="node_modules_hack\" />
+    <Folder Include="Services\NewFolder\" />
     <Folder Include="wwwroot\jstest\" />
   </ItemGroup>
   <ItemGroup>
@@ -98,6 +104,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="wwwroot\js\__________________Hold4Delete\angular.js" />
+    <None Include="wwwroot\ReactDist\main.js" />
+    <None Include="wwwroot\ReactDist\main.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="ApplicationInsights\SuccessfulDependencyFilter.cs" />
@@ -106,6 +114,8 @@
     <ProjectReference Include="..\SSN_TextToImageLib\SSN_TextToImageLib.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="React\src\Components\App.tsx" />
+    <TypeScriptCompile Include="React\src\Components\SearchBox.tsx" />
     <TypeScriptCompile Include="wwwroot\js\DropdownList\DropdownListDirectiveConstants.ts" />
     <TypeScriptCompile Include="wwwroot\js\Interfaces\IDevSiteTechnoogy.ts" />
     <TypeScriptCompile Include="wwwroot\js\Interfaces\ITechnology.ts" />

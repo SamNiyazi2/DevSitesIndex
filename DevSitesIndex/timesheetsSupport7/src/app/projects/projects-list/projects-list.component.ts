@@ -78,7 +78,7 @@ export class ProjectsListComponent implements OnInit {
     getJobStatusesSuccess(response) {
 
         this.job_statuses = response;
-
+         
     }
 
 
@@ -96,16 +96,20 @@ export class ProjectsListComponent implements OnInit {
 
         this.ProjectWithJobsOnly = projectsWithJobsOnly;
 
+        console.log('20220411-2059-B');
+        console.dir(this.ProjectWithJobsOnly );
+        console.dir(this.projects);
+
         if (projectsWithJobsOnly) {
 
-            this.filteredProjects = this.projects.filter(r => r.jobs.some(r2 => (r2.job_StatusID === (_filterBy == 0 ? r2.job_StatusID : _filterBy))));
+            this.filteredProjects = this.projects.filter(r => r.jobs.some(r2 => (r2.job_StatusID === (_filterBy == 0 ? r2.job_StatusID : _filterBy)))); 
         }
         else {
             this.filteredProjects = this.projects.slice(0);
         }
 
         // 03/28/2022 04:59 am - SSN
-        this.projectRecordCount = this.filteredProjects .length;
+        this.projectRecordCount = this.filteredProjects.length;
 
         if (_filterBy != this.filterBy) {
             this.filterBy = _filterBy;
@@ -143,13 +147,17 @@ export class ProjectsListComponent implements OnInit {
         this.projects = response.dataList;
         this.filteredProjects = response.dataList;
 
-        this.projectRecordCount = response.length;
+        // 04/11/2022 10:50 pm - SSN - Correct
+        this.projectRecordCount = response.dataList.length;
     }
 
 
     searchResultError(response) {
 
         ehu.ErrorHandlingHelpers.showHtmlErrorResponse(response);
+
+        // 04/11/2022 10:50 pm - SSN 
+        this.projectRecordCount = 0;
 
     }
 

@@ -78,6 +78,21 @@ namespace DevSitesIndex.Services
 
             IList<Project_Search_Record> result1_data = await exec.GetResultSet_v02<Project_Search_Record>();
 
+
+
+
+            // 04/11/2022 09:43 pm - SSN - Add jobs
+
+            // IList<Job> result1_jobs_data = await exec.GetResultSet_v02<Job>();
+            var result1_jobs_data = await exec.GetResultSet_v02<Job>();
+
+            foreach ( Project_Search_Record r in result1_data)
+            {
+                r.jobs = result1_jobs_data.Where(r2 => r2.ProjectID == r.ProjectID).ToList();
+            }
+
+
+
             IList<SqlStatsRecord> result2_Stats = await exec.GetResultSet_v02<SqlStatsRecord>();
 
             SqlStatsRecord sqlStatsRecord = null;
@@ -194,7 +209,8 @@ namespace DevSitesIndex.Services
             }
         }
 
-
+        // 04/11/2022 09:36 pm - SSN - Added
+        public virtual ICollection<Job> jobs { get; set; }
 
     }
 

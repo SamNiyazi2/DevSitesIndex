@@ -38,6 +38,7 @@ using System.Net;
 using Microsoft.AspNetCore.Diagnostics;
 using DevSitesIndex.Pages;
 using AutoMapper;
+using React.AspNet;
 
 namespace DevSitesIndex
 {
@@ -135,7 +136,12 @@ namespace DevSitesIndex
         public const int PASSWORD_MINIMUM_LENGTH = 8;
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+
+
+        // 04/11/2022 08:51 pm - SSN - [20220411-2043] - [003] - Add React
+
+        // public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
 
 
@@ -227,6 +233,11 @@ namespace DevSitesIndex
 
 
 
+            // 04/11/2022 08:43 pm - SSN - [20220411-2043] - [001] - Add React
+
+            // https://www.pmichaels.net/2018/08/17/adding-reactjs-to-an-existing-asp-net-core-2-application/
+            services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddReact();
 
 
 
@@ -417,6 +428,15 @@ namespace DevSitesIndex
                 });
 
 
+
+
+
+
+            // 04/11/2022 08:51 pm - SSN - [20220411-2043] - [003] - Add React
+            return services.BuildServiceProvider();
+
+
+
         }
 
 
@@ -578,6 +598,16 @@ namespace DevSitesIndex
 
 
             });
+
+
+
+
+            // 04/11/2022 08:49 pm - SSN - [20220411-2043] - [002] - Add React
+
+            app.UseReact(config=>
+            {
+            });
+
 
 
 

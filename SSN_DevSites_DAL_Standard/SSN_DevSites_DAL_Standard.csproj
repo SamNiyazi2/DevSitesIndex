@@ -2,6 +2,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>SSN_DevSites_DAL_Standard</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Entities\Testing_AspNetUsersManualContext.cs" />

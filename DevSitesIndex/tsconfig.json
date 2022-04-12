@@ -54,7 +54,9 @@
 
   "exclude": [
     "node_modules",
-    "timesheetsSupport7"
+    "timesheetsSupport7",
+    // 04/12/2022 01:19 am - SSN - Adding ReactApp
+    "ReactApp"
   ],
 
   // 09/19/2019 04:08 am - SSN - [20190919-0354] - [004] - Putting things back - Cleanup from implementing AMD - Adding tsconfig.json     "alwaysStrict": true,

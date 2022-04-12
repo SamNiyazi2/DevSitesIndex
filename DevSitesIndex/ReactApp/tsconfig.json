@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "noImplicitAny": false,
+    "noEmitOnError": true,
+    "removeComments": false,
+    "sourceMap": true,
+    //"target": "es5",
+    "outDir": "../wwwroot/ReactDist",
+    "module": "commonjs",
+    "target": "es6",
+    "jsx": "react"
+
+
+    // TS1259: Module '"C:\\Sams_P\\DevSitesIndex\\DevSitesIndex\\React\\node_modules\\@types\\react\\index"' can // only be default-imported using the 'esModuleInterop' flag
+    ,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true
+
+
+  },
+  "exclude": [
+    "node_modules",
+    "wwwroot"
+  ]
+}

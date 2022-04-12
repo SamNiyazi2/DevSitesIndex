@@ -1,38 +1,53 @@
-@echo off
-: 09/07/2019 03:19 am - SSN
-: 09/16/2019 02:20 pm - SSN - Remove
-: 11/19/2019 02:28 pm - SSN - Add project file name to donet remove and add.
-echo:
-echo:
-echo:
-echo:
-dotnet remove DevSitesIndex.csproj package ssn_devsites_dal_standard
-echo:
-echo:
-echo:
-echo:
+# 09/07/2019 03:19 am - SSN
+# 09/16/2019 02:20 pm - SSN - Remove
+# 11/19/2019 02:28 pm - SSN - Add project file name to donet remove and add.
+# 04/11/2022 11:41 pm - SSN - Convert to ps1
 
-: 09/29/2019 10:08 am - SSN - Added remove project reference ..\SSN_DevSites_DAL_Standard\SSN_DevSites_DAL_Standard.csproj
-echo:
-echo:
-echo:
-echo:
-echo Calling  SSN_Remove_DAL_DLL_FromProject.cmd...
-echo:
-echo:
-call SSN_Remove_DAL_DLL_FromProject
-echo:
-echo:
-echo:
-echo:
-echo: Calling dotnet add package....
-echo:
-echo:
-: 8:09 AM 12/10/2020 Updated c:\sams_nuget with c:\sams_nuget\packages.
-echo:
-dotnet add DevSitesIndex.csproj package SSN_DevSites_DAL_Standard -s c:\sams_nuget\packages
-echo:
-echo:
-echo Done.
-echo:
+$erroractionpreference = "stop"
+
+$error.clear()
+0..10|%{""}
+get-date 
+""
+
+
+. "C:\Sams\PS\Util\write-host-util.ps1"
+
+
+
+$projectName = "$psscriptroot\devsitesindex.csproj"
+
+$packageName = "SSN_DevSites_DAL_Standard"
+
+
+
+$project = get-childitem  $projectName -errorAction silentlycontinue | where name -match '\.*[^_\d*].csproj' 
+
+$project 
+ 
+if ( $null -eq $project ) {
+	write-host $projectName -foregroundcolor yellow
+	write-error "File not found"
+}
+
+dotnet remove $projectName package $packageName 
+
+
+write-section-header "Calling  SSN_Remove_CEC.Routing-plain_FromProject..."
+
+
+. 'C:\sams\ps\XML\XML_RemoveReferenceFromProject.ps1' -fileName $projectName  -referenceName $packageName 
+ 
+ 
+write-section-header "Calling dotnet add package...."
+
+dotnet remove $projectName package $packageName 
+
+
+dotnet add $projectName package $packageName  -s c:\sams_nuget\packages
+
+
+write-section-header "Done."
+
+   
 
