@@ -54,13 +54,16 @@ steps:
     cd DevSitesIndex\timesheetsSupport7
     npm install
     
-  displayName: 'npm install Angular 7'
+
+displayName: 'npm install Angular 7'
 
 
 - script: |
     cd DevSitesIndex\timesheetsSupport7
     ssn_build_prod
-  displayName: 'Build Angular 7'
+
+
+displayName: 'Build Angular 7'
 
 - task: DotNetCoreCLI@2
   displayName: Build
@@ -68,6 +71,20 @@ steps:
     projects: '$(RestoreBuildProjects)'
     arguments: '--configuration $(BuildConfiguration)'
   enabled: true
+
+
+
+# 04/12/2002 02:20 am - SSN
+  displayName: 'npm install React'
+
+- script: |
+    cd DevSitesIndex\ReactApp
+    npm install
+
+- script: |
+    cd DevSitesIndex\ReactApp
+    ssn_run_webpack_prod
+ 
 
 - task: DotNetCoreCLI@2
   displayName: Publish
