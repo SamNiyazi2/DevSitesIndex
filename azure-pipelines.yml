@@ -50,30 +50,34 @@ steps:
   enabled: true
 
  
-  displayName: 'npm install Angular 7'
 
 - script: |
     cd DevSitesIndex\timesheetsSupport7
     npm install
     
-
-  displayName: 'npm build Angular 7'
+  displayName: 'npm install Angular 7'
 
 - script: |
     cd DevSitesIndex\timesheetsSupport7
     ssn_build_prod
 
+  displayName: 'npm build Angular 7'
+
 
 # 04/12/2002 02:20 am - SSN
-  displayName: 'npm install React'
 
 - script: |
     cd DevSitesIndex\ReactApp
     npm install
 
+  displayName: 'npm install React'
+
+
 - script: |
     cd DevSitesIndex\ReactApp
     ssn_run_webpack_prod
+
+  displayName: 'npm build React'
 
 
 - task: DotNetCoreCLI@2
