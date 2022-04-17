@@ -805,7 +805,13 @@ namespace DevSitesIndex
 
             dic2.Add($"Exception_Message{innerExNoString}", ex.Message);
             dic2.Add($"Exception_Source{innerExNoString}", ex.Source);
-            dic2.Add($"Exception_TargetSite{innerExNoString}", ex.TargetSite.Name);
+            
+            // 04/17/2022 10:31 am - SSN - Null??
+            if (ex.TargetSite!= null)
+            {
+                dic2.Add($"Exception_TargetSite{innerExNoString}", ex.TargetSite.Name);
+            }
+
             //  dic2.Add($"Exception_StackTrace{innerExNoString}", ex.StackTrace);
         }
     }

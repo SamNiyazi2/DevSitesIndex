@@ -21,6 +21,6 @@ rem Take out --info-verbosity
 rem 06/07/2021 07:09 pm - SSN - Webpack doesn't seem to recognize erros
 @echo on
 
-# 08/15/2021 01:28 pm - SSN
-# webpack --progress --color  --watch --display-error-details 
+rem 08/15/2021 01:28 pm - SSN
+rem webpack --progress --color  --watch --display-error-details 
 npm run build
