@@ -21,9 +21,7 @@ const container = document.getElementById("ReactContent")
 const root = createRoot(container);
 root.render(
 // [20220416-2359] - [002] - End
-
-<React.StrictMode>
-	<App />
-	</React.StrictMode>
+	 
+	<App /> 
 	//document.getElementById("ReactContent")
 );

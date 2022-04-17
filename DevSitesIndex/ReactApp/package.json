@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --progress --color  --watch",
+    "build": "title 'DevSitesIndex - ReactApp' && webpack --progress --color  --watch",
     "build:prod": "webpack ",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -12,7 +12,6 @@
   "license": "ISC",
   "devDependencies": {
     "@types/react": "^18.0.1",
-    "@types/react-dom": "^18.0.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "source-map-loader": "^3.0.1",

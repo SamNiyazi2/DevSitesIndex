@@ -277,3 +277,4 @@ __pycache__/
 **/*.js
 **/*.js.map
 !webpack.config.js
+/DevSitesIndex/wwwroot/ReactDist/*
