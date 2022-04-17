@@ -9,9 +9,9 @@ namespace DevSitesIndex.Migrations
 
 
             // 04/11/2022 11:01 pm - SSN - Return projects' jobs.
+			// 04/17/2022 04:10 am - SSN - Left 'use ' statement in copy.  Migration was failing.
             migrationBuilder.Sql(@"
-USE [Testing_20220321_v01]
-GO
+
 /****** Object:  StoredProcedure [DemoSites].[Project_Index_Search]    Script Date: 4/11/2022 9:39:26 PM ******/
 SET ANSI_NULLS ON
 GO
