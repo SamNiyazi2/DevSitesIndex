@@ -8,6 +8,7 @@ using DevSitesIndex.Entities;
 using DevSitesIndex.Filters;
 using DevSitesIndex.Services;
 using DevSitesIndex.Util;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -196,6 +197,8 @@ namespace DevSitesIndex.Controllers
         }
 
 
+        // 04/13/2022 07:43 am - SSN - Add authorize
+        [Authorize]
         // 12/02/2019 08:18 am - SSN - Check for duplicates
         [HttpPost]
         [Route("checkForDuplicateProjectJobTitle")]

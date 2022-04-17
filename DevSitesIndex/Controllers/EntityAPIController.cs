@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using DevSitesIndex.Entities;
 using DevSitesIndex.Services;
 using DevSitesIndex.Util;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
@@ -129,6 +130,8 @@ namespace DevSitesIndex.Controllers
         //}
 
 
+        // 04/13/2022 07:43 am - SSN - Add authorize
+        [Authorize]
         // DELETE api/<controller>/5
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)

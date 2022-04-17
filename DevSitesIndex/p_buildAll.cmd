@@ -10,5 +10,5 @@ start  "ssn_run_webpack" ssn_run_webpack.cmd
  
 start "timesheetsSupport7 build" .\timesheetsSupport7\ssn_build.cmd
 
-
+start "ReactApp build" .\ReactApp\ssn_run_webpack.cmd
  

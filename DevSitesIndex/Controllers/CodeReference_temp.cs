@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DevSitesIndex.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 
 // 09/04/2020 05:40 am - SSN - [20200904-0540] - [001] - Ading save-and-stay option to codereference
@@ -53,6 +54,8 @@ namespace DevSitesIndex.Controllers
         }
 
         // PUT: api/CodeReference_temp/5
+        // 04/13/2022 07:43 am - SSN - Add authorize
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCodeReference([FromRoute] int id, [FromBody] CodeReference codeReference)
         {
@@ -107,6 +110,8 @@ namespace DevSitesIndex.Controllers
 
         // POST: api/CodeReference_temp
         [HttpPost]
+        // 04/13/2022 07:43 am - SSN - Add authorize
+        [Authorize]
         public async Task<IActionResult> PostCodeReference([FromBody] CodeReference codeReference)
         {
             if (!ModelState.IsValid)

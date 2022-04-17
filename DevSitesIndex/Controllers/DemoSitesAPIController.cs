@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DevSitesIndex.Entities;
 using DevSitesIndex.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
@@ -89,6 +90,8 @@ namespace DevSitesIndex.Controllers
             public string SearchText { get; set; }
         }
         [Route("/api/demositesapi/Search")]
+        // 04/13/2022 07:43 am - SSN - Add authorize
+        [Authorize]
         [HttpPost]
         // 08/15/2021 02:01 pm - SSN - Change return type to handle errors.
         //public async Task<IEnumerable<DevSite>> SearchAsync([FromBody] SearchObj obj1)
@@ -114,6 +117,8 @@ namespace DevSitesIndex.Controllers
 
 
         // POST api/<controller>
+        // 04/13/2022 07:43 am - SSN - Add authorize
+        [Authorize]
         [HttpPost]
         public async void Post([FromBody]DevSite value)
         {
@@ -122,6 +127,8 @@ namespace DevSitesIndex.Controllers
 
         }
 
+        // 04/13/2022 07:43 am - SSN - Add authorize
+        [Authorize]
         // PUT api/<controller>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody]string value)

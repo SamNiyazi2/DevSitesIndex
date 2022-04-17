@@ -84,7 +84,9 @@ namespace DevSitesIndex.Pages.CodeReferences
             {
                 await _context.SaveChangesAsync();
             }
-            catch (DbUpdateConcurrencyException)
+            // 04/16/2022 11:15 pm - SSN - [20220416-2223] - [003] - Add RowVersion to CodeReferences table
+
+            catch (DbUpdateConcurrencyException ex)
             {
                 if (!CodeReferenceExists(CodeReference.Id))
                 {
@@ -92,7 +94,10 @@ namespace DevSitesIndex.Pages.CodeReferences
                 }
                 else
                 {
-                    throw;
+                    // 04/16/2022 11:16 pm - SSN - [20220416-2223] - [004] - Add RowVersion to CodeReferences table
+                    ModelState.AddModelError("", "Failed to save record.");
+                    ModelState.AddModelError("", ex.Message);
+                    return Page();
                 }
             }
 

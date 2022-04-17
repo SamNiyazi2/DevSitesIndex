@@ -60,6 +60,13 @@ namespace DevSitesIndex.Entities
         public string Title { get; set; }
 
 
+        // 04/16/2022 10:23 pm - SSN - [20220416-2223] - [001] - Add RowVersion to CodeReferences table
+
+        [Timestamp]
+        public byte[] RowVersion { get; set; }
+
+
+
         // 05/30/2019 05:06 pm - SSN - [20190530-0510]
         public virtual ICollection<DevSiteCodeReference> DevSiteCodeReferences { get; set; }
 

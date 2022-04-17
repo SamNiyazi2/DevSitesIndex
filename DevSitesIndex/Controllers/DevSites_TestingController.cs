@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DevSitesIndex.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DevSitesIndex.Controllers
 {
@@ -46,6 +47,8 @@ namespace DevSitesIndex.Controllers
             return Ok(devSite);
         }
 
+        // 04/13/2022 07:43 am - SSN - Add authorize
+        [Authorize]
         // PUT: api/DevSites_Testing/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutDevSite([FromRoute] int id, [FromBody] DevSite devSite)
@@ -102,6 +105,8 @@ namespace DevSitesIndex.Controllers
         }
 
         // POST: api/DevSites_Testing
+        // 04/13/2022 07:43 am - SSN - Add authorize
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> PostDevSite([FromBody] DevSite devSite)
         {

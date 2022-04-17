@@ -149,12 +149,18 @@ let DemoSites_Pages = function () {
 
                             // 09/04/2020 07:32 am - SSN - Take out
                             // $("#devSiteSaveStatus").html("System error! Record not saved.<br/>" + response.responseText);
-                            $("#devSiteSaveStatus").html("System error! Record not saved. (101)");
+
+                            // 04/16/2022 11:20 pm - SSN - [20220416-2223] - [005] - Add RowVersion to CodeReferences table
+                            if (error.responseText) {
+                                $("#devSiteSaveStatus").html(`System error! Record not saved. (101)<br/>${error.responseText}`);
+                            } else {
+                                $("#devSiteSaveStatus").html("System error! Record not saved. (101)");
+                            }
                             $("#devSiteSaveStatus").addClass('text-warning');
                             $("#devSiteSaveStatus").css({ 'background-color': 'yellow' });
 
 
-                            console.error("Error-20190328-0704");
+                            console.error("Error-20190328-0704-record-modified???");
                             console.error('Todo');
                             console.error('error:');
                             console.error(error);

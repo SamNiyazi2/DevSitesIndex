@@ -2,7 +2,7 @@
 @model DevSitesIndex.Pages.CodeReferences.EditModel
 
 @{
-    ViewData["Title"] = "Edit Code Reference";
+	ViewData["Title"] = "Edit Code Reference";
 }
 
 <h2>@ViewData["Title"]</h2>
@@ -11,95 +11,100 @@
 
 
 @*
-        // 09/04/2020 05:43 am - SSN - [20200904-0540] - [002] - Ading save-and-stay option to codereference
-    // 08/20/2021 11:54 am - SSN - Moved to root.  Impact of html[theme="Dark"]
+	// 09/04/2020 05:43 am - SSN - [20200904-0540] - [002] - Ading save-and-stay option to codereference
+	// 08/20/2021 11:54 am - SSN - Moved to root.  Impact of html[theme="Dark"]
 *@
 @if (Model.CodeReference.Id > 0)
 {
-    @await Html.PartialAsync("SaveAndStayControl", Model.SaveAndStayModel)
+	@await Html.PartialAsync("SaveAndStayControl", Model.SaveAndStayModel)
 }
 
 
 
 <div class="row">
-    <div class="col-md-4">
+ <div class="col-md-4">
 
-        @*
-            09/24/2019 11:34 am - SSN - [20190924-1134] - [001] - Removing date add/updated from create/edit pages
-        *@
+		@*
+			09/24/2019 11:34 am - SSN - [20190924-1134] - [001] - Removing date add/updated from create/edit pages
+		*@
 
-        <dl class="dl-horizontal">
+  <dl class="dl-horizontal">
 
-            <dt>
-                @Html.DisplayNameFor(model => model.CodeReference.DateAdded)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.CodeReference.DateAdded)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.CodeReference.DateModified)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.CodeReference.DateModified)
-            </dd>
+   <dt>
+				@Html.DisplayNameFor(model => model.CodeReference.DateAdded)
+   </dt>
+   <dd>
+				@Html.DisplayFor(model => model.CodeReference.DateAdded)
+   </dd>
+   <dt>
+				@Html.DisplayNameFor(model => model.CodeReference.DateModified)
+   </dt>
+   <dd>
+				@Html.DisplayFor(model => model.CodeReference.DateModified)
+   </dd>
 
-        </dl>
-        @*
-                    // 09/04/2020 08:00 am - SSN - [20200904-0540] - [010] - Ading save-and-stay option to codereference
-            // Added form id for save-and-stay
-        *@
-        <form method="post" id="codeReferenceFormId" name="codeReferenceForm">
-
-
-            <input type="hidden" asp-for="SearchText" />
-
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="CodeReference.Id" />
+  </dl>
+		@*
+			// 09/04/2020 08:00 am - SSN - [20200904-0540] - [010] - Ading save-and-stay option to codereference
+			// Added form id for save-and-stay
+		*@
+  <form method="post" id="codeReferenceFormId" name="codeReferenceForm">
 
 
+   <input type="hidden" asp-for="SearchText" />
 
-            <div class="form-group">
-                <label asp-for="CodeReference.Title" class="control-label"></label>
-                <input asp-for="CodeReference.Title" class="form-control" maxlength="100" autofocus></input>
-                <span asp-validation-for="CodeReference.Title" class="text-danger"></span>
-            </div>
+   <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+   <input type="hidden" asp-for="CodeReference.Id" />
+
+			@*
+				// 04/16/2022 10:26 pm - SSN - [20220416-2223] - [002] - Add RowVersion to CodeReferences table
+			*@
+   <input type="hidden" asp-for="CodeReference.RowVersion" />
 
 
 
-            <div class="form-group">
-                <label asp-for="CodeReference.SourceAddress" class="control-label"></label>
-                <input asp-for="CodeReference.SourceAddress" class="form-control" />
-                <span asp-validation-for="CodeReference.SourceAddress" class="text-danger"></span>
-            </div>
+   <div class="form-group">
+	<label asp-for="CodeReference.Title" class="control-label"></label>
+	<input asp-for="CodeReference.Title" class="form-control" maxlength="100" autofocus></input>
+	<span asp-validation-for="CodeReference.Title" class="text-danger"></span>
+   </div>
 
 
-            @*
-                09/13/2019 04:30 am - SSN - [20190913-0421] - [001]
-                Moved down
-            *@
-            @*
-                // 08/26/2020 09:25 pm - SSN - [20200826-1927] - [004] - Format textarea for edit
-            *@
-            <div class="form-group">
-                <label asp-for="CodeReference.CodeBlock" class="control-label" ssn_FitInScreen="CodeReference_CodeBlock"></label>
-                <textarea asp-for="CodeReference.CodeBlock" class="form-control "></textarea>
-                <span asp-validation-for="CodeReference.CodeBlock" class="text-danger"></span>
-            </div>
 
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
+   <div class="form-group">
+	<label asp-for="CodeReference.SourceAddress" class="control-label"></label>
+	<input asp-for="CodeReference.SourceAddress" class="form-control" />
+	<span asp-validation-for="CodeReference.SourceAddress" class="text-danger"></span>
+   </div>
 
 
-        </form>
-    </div>
+			@*
+				09/13/2019 04:30 am - SSN - [20190913-0421] - [001]
+				Moved down
+			*@
+			@*
+				// 08/26/2020 09:25 pm - SSN - [20200826-1927] - [004] - Format textarea for edit
+			*@
+   <div class="form-group">
+	<label asp-for="CodeReference.CodeBlock" class="control-label" ssn_FitInScreen="CodeReference_CodeBlock"></label>
+	<textarea asp-for="CodeReference.CodeBlock" class="form-control "></textarea>
+	<span asp-validation-for="CodeReference.CodeBlock" class="text-danger"></span>
+   </div>
+
+   <div class="form-group">
+	<input type="submit" value="Save" class="btn btn-default" />
+   </div>
+
+
+  </form>
+ </div>
 </div>
 
 
 
 
 <div>
-    <a asp-page="index">Back to List</a>
+ <a asp-page="index">Back to List</a>
 
 </div>
 
@@ -110,12 +115,12 @@
     @{await Html.RenderPartialAsync("TimesheetAngularScripts");}
 
     @*
-        03/21/2022 12:50 pm - SSN - Commented out.  
-        <script src="~/js/CodeReference/Typeahead_Discipline.js"></script>*@
+	03/21/2022 12:50 pm - SSN - Commented out.
+	<script src="~/js/CodeReference/Typeahead_Discipline.js"></script>*@
 
     @*
-        // 09/04/2020 07:58 am - SSN - [20200904-0540] - [009] - Ading save-and-stay option to codereference
+	// 09/04/2020 07:58 am - SSN - [20200904-0540] - [009] - Ading save-and-stay option to codereference
     *@
-    <script src="/webpack_build/bundle_DemoSites_Pages.js" asp-append-version="true"></script>
-    <script src="/webpack_build/bundle_TextArea_util_0718.js" asp-append-version="true"></script>
+<script src="/webpack_build/bundle_DemoSites_Pages.js" asp-append-version="true"></script>
+<script src="/webpack_build/bundle_TextArea_util_0718.js" asp-append-version="true"></script>
 }

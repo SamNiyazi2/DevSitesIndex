@@ -11,7 +11,7 @@ get-date
 ""
 
 
-. "C:\Sams\PS\Util\write-host-util.ps1"
+. C:\Sams\PS\NuGet\add-nuget-package-util.ps1
 
 
 
@@ -19,35 +19,9 @@ $projectName = "$psscriptroot\devsitesindex.csproj"
 
 $packageName = "SSN_DevSites_DAL_Standard"
 
+ add-nugetPackage -projectName $projectName -packageName $packageName
 
-
-$project = get-childitem  $projectName -errorAction silentlycontinue | where name -match '\.*[^_\d*].csproj' 
-
-$project 
- 
-if ( $null -eq $project ) {
-	write-host $projectName -foregroundcolor yellow
-	write-error "File not found"
-}
-
-dotnet remove $projectName package $packageName 
-
-
-write-section-header "Calling  SSN_Remove_CEC.Routing-plain_FromProject..."
-
-
-. 'C:\sams\ps\XML\XML_RemoveReferenceFromProject.ps1' -fileName $projectName  -referenceName $packageName 
- 
- 
-write-section-header "Calling dotnet add package...."
-
-dotnet remove $projectName package $packageName 
-
-
-dotnet add $projectName package $packageName  -s c:\sams_nuget\packages
-
-
-write-section-header "Done."
+  
 
    
 
