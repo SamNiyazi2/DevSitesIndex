@@ -27,15 +27,18 @@
         @*12/24/2019 07:31 pm - SSN - novalidate because we need to submit the form to reset the search*@
 
         <form method="post" action="" novalidate>
-
-
+  
             <div>
                 @*02/07/2019 02:40 pm - SSN - Removed class="form-group" when adding doHighlight*@
                 <label class="control-label">Search</label>
                 <input asp-for="SearchText" class="form-control" accesskey="s" autofocus required />
                 <span asp-validation-for="SearchText" class="text-danger"></span>
+                <br "@Model.br_is_hidden_if_have_SearchTextErrorMessage" /> 
+
+                <span asp-validation-for="SearchTextErrorMessage" class="text-danger"  ></span>
                 <a target="ws" href="https://docs.microsoft.com/en-us/sql/relational-databases/search/search-for-words-close-to-another-word-with-near?view=sql-server-2017">__</a>
             </div>
+             
             <div class="form-group">
                 <input asp-for="doHeightlight_v02" doRefreshForm="1" accesskey="h" />
 
@@ -167,15 +170,15 @@
 <style>
 
     .searchOption_Container {
-        height: 220px;
-        width: 300px;
+        height: 240px;
+        width: 360px;
         position: relative;
     }
 
     .searchOption {
         background-color: white;
-        height: 230px;
-        width: 300px;
+        height: 240px;
+        width: 360px;
         padding: 20px;
         border: 5px solid black;
         position: relative;

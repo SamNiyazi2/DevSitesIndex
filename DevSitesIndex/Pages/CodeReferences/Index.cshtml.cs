@@ -25,6 +25,10 @@ namespace DevSitesIndex.Pages.CodeReferences
         [BindProperty]
         public string SearchText { get; set; }
 
+        // 04/17/2022 06:47 am - SSN
+        [BindProperty]
+        public string SearchTextErrorMessage { get; set; }
+
         // 02/07/2019 02:41 pm - SSN - Adding doHeightlight_v02
         [BindProperty]
         public bool doHeightlight_v02 { get; set; } = true;
@@ -35,7 +39,7 @@ namespace DevSitesIndex.Pages.CodeReferences
 
         public HtmlString searchOptionFeedbackMessage { get; set; }
 
-        
+
 
 
         public IndexModel(DevSitesIndex.Entities.DevSitesIndexContext context)
@@ -112,7 +116,7 @@ namespace DevSitesIndex.Pages.CodeReferences
             string tempSearchString = cleanseSearchString(SearchText);
             tempArray = tempSearchString.ToLower().Split().Where(r => includeWord(r)).Select(r => r.Trim().ToLower()).ToArray();
 
-            
+
 
             // 03/22/2019 09:32 pm - SSN - Replaced - ToListAsync<CodeReference>
             // 04/03/2019 08:55 pm - SSN - Adding validation
@@ -123,9 +127,12 @@ namespace DevSitesIndex.Pages.CodeReferences
                         .FromSql("DemoSites.CodeReferences_FullTextSearch {0}", SearchText).AsNoTracking().ToListAsync<CodeReference>();
 
             }
-            catch (Exception)
+            // 04/17/2022 06:12 am - SSN - Saerch failing after adding RowVersion
+            // AShow error message.
+            catch (Exception ex)
             {
-                ModelState.AddModelError("SearchText", "Invalid syntax");
+                ModelState.AddModelError("SearchText", $"System error!");
+                ModelState.AddModelError("SearchTextErrorMessage", ex.Message);
             }
 
             return Page();
@@ -208,5 +215,20 @@ namespace DevSitesIndex.Pages.CodeReferences
             if (!doShowPos) return null;
             return new HtmlString(string.Format("<h6>[H-{0}]</h6>", message));
         }
+
+        // 04/17/2022 06:59 am - SSN 
+   
+        public string br_is_hidden_if_have_SearchTextErrorMessage
+        {
+            get
+            {
+                if (ModelState.ErrorCount > 1)
+                {
+                    return "";
+                }
+                return " hidden='hidden' ";
+            }
+        }
+
     }
 }
