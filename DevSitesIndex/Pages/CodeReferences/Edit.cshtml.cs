@@ -22,7 +22,7 @@ namespace DevSitesIndex.Pages.CodeReferences
         private readonly IConfiguration configuration;
 
         // 09/04/2020 05:56 am - SSN - [20200904-0540] - [005] - Ading save-and-stay option to codereference
-        public Models.SaveAndStayModel SaveAndStayModel = new Models.SaveAndStayModel { ko__fieldName_prefix = "CodeReference.", ko__inputFormId = "codeReferenceFormId", ko__API_URL = "/api/codereference_temp/" };
+        public Models.SaveAndStayModel SaveAndStayModel = new Models.SaveAndStayModel { ko__fieldName_prefix = "CodeReference.", ko__inputFormId = "codeReferenceFormId", ko__API_URL = "/api/codereference_temp/", ko__RowVersion_FieldName = "RowVersion" };
 
 
         public EditModel(DevSitesIndex.Entities.DevSitesIndexContext context, IConfiguration configuration)

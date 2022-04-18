@@ -2,6 +2,9 @@
 
 cd %~dp0
 
+title DevSitesIndex AngularJS Build
+prompt DevSitesIndex AngularJS Build $g  
+
 rem Build AngulaJS project
 
 rem 09/21/2019 05:27 am - SSN - Revise

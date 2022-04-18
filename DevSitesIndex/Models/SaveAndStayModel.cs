@@ -9,6 +9,8 @@ namespace DevSitesIndex.Models
         public string ko__fieldName_prefix { get; set; }
         public string ko__API_URL { get; set; }
 
+        // 04/18/2022 07:42 am - SSN - RowVersion_FieldName
+        public string ko__RowVersion_FieldName { get; set; }
 
     }
 }

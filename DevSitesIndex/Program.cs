@@ -88,13 +88,13 @@ namespace DevSitesIndex
                 // https://weblog.west-wind.com/posts/2018/Dec/31/Dont-let-ASPNET-Core-Default-Console-Logging-Slow-your-App-down
                 logging.ClearProviders();
 
-                
-                IConfigurationSection temp =  hostingContext.Configuration.GetSection("Logging");
+
+                IConfigurationSection temp = hostingContext.Configuration.GetSection("Logging");
                 logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
                 logging.AddDebug();
                 logging.AddEventSourceLogger();
 
-                if ( Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == EnvironmentName.Development)
+                if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == EnvironmentName.Development)
                 {
                     logging.AddConsole();
                 }
@@ -105,22 +105,28 @@ namespace DevSitesIndex
                                                new SSN_GenUtil_StandardLib.SSN_LoggerProviderConfiguration
                                                {
                                                    Color = ConsoleColor.Yellow,
-                                                   LogLevel = LogLevel.Warning
+                                                   // We need to use setting from appSettings.json
+                                                   // LogLevel = LogLevel.Information,
+
                                                }
                                        ));
 
                 logging.AddSSN_Logger((r) =>
                 {
                     r.Color = ConsoleColor.Red;
-                    r.LogLevel = LogLevel.Debug;
-                    
+                    // We need to use setting from appSettings.json
+                    // r.LogLevel = LogLevel.Information;
+
                 });
 
 
                 // 06/23/2021 10:01 pm - SSN - Added to reduce noise.
                 // https://stackoverflow.com/questions/42079956/suppress-sql-queries-logging-in-entity-framework-core
                 // https://docs.microsoft.com/en-us/ef/core/logging-events-diagnostics/simple-logging
-                logging.AddFilter("Microsoft.EntityFrameworkCore.Database.Command", LogLevel.Warning);
+
+                // We need to use setting from appSettings.json
+                // logging.AddFilter("Microsoft.EntityFrameworkCore.Database.Command", LogLevel.Warning);
+                // logging.AddFilter("Microsoft.EntityFrameworkCore.Database.Command", LogLevel.Information);
 
 
 
@@ -131,13 +137,13 @@ namespace DevSitesIndex
             })
 
 
-            // 12/03/019 04:20 am - SSN 
-            //.ConfigureAppConfiguration((hostinContext, config) =>
-            //{
+                // 12/03/019 04:20 am - SSN 
+                //.ConfigureAppConfiguration((hostinContext, config) =>
+                //{
 
-            ////    config.AddEnvironmentVariables();
+                ////    config.AddEnvironmentVariables();
 
-            //})
+                //})
 
                 .Build();
     }

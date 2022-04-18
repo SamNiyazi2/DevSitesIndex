@@ -19,10 +19,10 @@ param(
     $override = $false
     
 )
- 
+
+$ErrorActionPreference = "stop"
 
 $fullProjectNameSpec = $psscriptroot + "\*.csproj"
-  
 
 . "C:\Sams\PS\NuGet\NuGet_Deploy.ps1" -fullProjectNameSpec $fullProjectNameSpec   -version $version   -option $option   -override:$override 
 

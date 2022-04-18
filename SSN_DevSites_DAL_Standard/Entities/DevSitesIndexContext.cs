@@ -519,27 +519,36 @@ namespace DevSitesIndex.Entities
             //    .Property(x => x.CodeBlock)
             //    .IsRequired();
 
-            modelBuilder.Entity<CodeReference>()
-                .Property(x => x.Title)
-                .HasMaxLength(100);
+
+            // 04/18/2022 02:04 am - SSN - Update with RowVersion
+
+            modelBuilder.Entity<CodeReference>(entity =>
+            {
+
+                entity.Property(x => x.Title)
+                     .HasMaxLength(100);
+
+
+                // 05/30/2019 11:42 am - SSN - Adding datetime2(0) DateAdded and DateModified
+                entity.Property(p => p.DateAdded)
+                    .HasColumnType("datetime2(0)");
+
+                entity.Property(p => p.DateModified)
+                    .HasColumnType("datetime2(0)");
+
+
+                 // 06/20/2021 06:49 pm - SSN - [20210620-1053] - [005] - Add UserID to TimeLog table 
+                 // For reference
+                 //entity.HasIndex(e => new { e.DateModified, e.DateAdded })
+                 //    .HasName("NonClusteredIndex-DateAdded-DateModified");
 
 
 
-            // 05/30/2019 11:42 am - SSN - Adding datetime2(0) DateAdded and DateModified
-            modelBuilder.Entity<CodeReference>()
-           .Property(p => p.DateAdded)
-           .HasColumnType("datetime2(0)");
+                 // 04/18/2022 02:04 am - SSN - Update with RowVersion
+                 // Provided no benefit.
+                 entity.Property(e => e.RowVersion).IsRowVersion().IsConcurrencyToken(); 
 
-            modelBuilder.Entity<CodeReference>()
-           .Property(p => p.DateModified)
-           .HasColumnType("datetime2(0)");
-
-
-            // 06/20/2021 06:49 pm - SSN - [20210620-1053] - [005] - Add UserID to TimeLog table 
-            // For reference
-            //entity.HasIndex(e => new { e.DateModified, e.DateAdded })
-            //    .HasName("NonClusteredIndex-DateAdded-DateModified");
-
+            });
 
 
         }

@@ -69,7 +69,6 @@ let DemoSites_Pages = function () {
 
                 try {
 
-
                     if (this.fieldname_prefix === 'undefined') {
                         throw new Error('fieldname_prefix is undefined');
                     }
@@ -81,6 +80,23 @@ let DemoSites_Pages = function () {
                     if (this.api_url === 'undefined') {
                         throw new Error('api_url is undefined');
                     }
+
+
+                    // 04/18/2022 07:47 am - SSN - Added
+                    if (this.rowVersion === 'undefined') {
+                        throw new Error('rowVersion is undefined - 20220418-0747');
+                    }
+
+
+                    let fieldName_prefix_without_period = this.fieldname_prefix.substr(0, this.fieldname_prefix.length - 1);
+
+                    console.log('%c' + 'DemoSites_pages-20220418-0734-A', 'font-size:24pt;color:red');
+                    console.log('Before: [#DevSite_RowVersion]');
+                    console.dir(this);
+                    console.log(` After: [#${this.fieldname_prefix}_${this.rowversion}]`);
+
+                    let rowVersionFieldName_JQ = `#${fieldName_prefix_without_period}_${this.rowversion}`;
+                    
 
 
                     var data101 = $('#' + this['inputformid']).serializeArray();
@@ -99,7 +115,7 @@ let DemoSites_Pages = function () {
 
                             // mvc creates a hidden field for checkboxes. If the visible one is set to true, we ignore the hidden one that is set to false.
 
-                            if (!o5[_name] || (o5[_name] && o5[_name].value === "ture" && data101[ndx].value !== "false")) {
+                            if (!o5[_name] || (o5[_name] && o5[_name].value === "true" && data101[ndx].value !== "false")) {
                                 o5[_name] = data101[ndx].value;
                             }
                         }
@@ -127,14 +143,25 @@ let DemoSites_Pages = function () {
                         contentType: "application/json",
                         dataType: "json",
 
-                        success: function (response) {
+                        success:   (response) => {
 
                             // 09/21/2019 12:13 pm - SSN - Update rowVersion
 
+                            console.log('%c' + 'DemoSites_pages-20220418-0734', 'font-size:20pt;color:yellow');
+                            console.log(response);
 
                             $("#devSiteSaveStatus").html("Record saved.");
                             $("#devSiteSaveStatus").addClass('text-success');
-                            $("#DevSite_RowVersion").val(response.rowVersion);
+
+
+                            // 04/18/2022 07:49 am - SSN - Replace hard-code RowVersion
+                            //$("#DevSite_RowVersion").val(response.rowVersion);
+                            $(rowVersionFieldName_JQ).val(response.rowVersion);
+
+                            console.log('Before: [#DevSite_RowVersion]');
+                            console.log(` After: [#${this.fieldname_prefix}_${this.rowversion}]` );
+                            console.log(` After: [#${rowVersionFieldName_JQ}]`);
+
 
                             // 11/18/2019 01:08 pm - SSN - 
                             ChangeMonitorFlag.haveChanges = false;
@@ -145,7 +172,7 @@ let DemoSites_Pages = function () {
 
 
 
-                        error: function (error, textStatus, errorThrown) {
+                        error:   (error, textStatus, errorThrown) => {
 
                             // 09/04/2020 07:32 am - SSN - Take out
                             // $("#devSiteSaveStatus").html("System error! Record not saved.<br/>" + response.responseText);
