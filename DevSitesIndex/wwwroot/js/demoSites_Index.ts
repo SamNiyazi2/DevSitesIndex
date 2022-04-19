@@ -237,14 +237,23 @@ var ssn_devsite_angular_module_instance = function () {
 
 
                 $scope.doRecompileList = function () {
-   
-                    while ($rootScope.listOfAddedDirectives.length > 0) {
+                    try {
 
-                        const _tempScope = $rootScope.listOfAddedDirectives.pop();
-                        _tempScope.$destroy();
+                        while ($rootScope.listOfAddedDirectives.length > 0) {
+
+                            const _tempScope = $rootScope.listOfAddedDirectives.pop();
+                            _tempScope.$destroy();
+                        }
+
+                        $scope.$broadcast('call-to-compile', { key: 'Calling-from-doRecompileList' });
+
                     }
- 
-                    $scope.$broadcast('call-to-compile', { key: 'Calling-from-doRecompileList' });
+                    catch (ex) {
+
+                        console.log('%c' + 'Error-20220419-1628', 'font-size:12pt;color:red');
+                        console.dir(ex);
+
+                    }
 
                 }
 
