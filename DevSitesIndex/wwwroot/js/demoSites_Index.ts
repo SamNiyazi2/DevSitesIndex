@@ -278,7 +278,15 @@ var ssn_devsite_angular_module_instance = function () {
                     console.log(event);
                     console.log(args);
                     console.log('--------------------------------------');
-                    $compile(element.contents())(scope);
+
+                    try {
+                        $compile(element.contents())(scope);
+                    } catch (ex) {
+
+                        console.log('%c' + 'Error-20220419-1648', 'color:red;font-size:12pt;');
+                        console.log(ex);
+
+                    }
 
 
                 });
