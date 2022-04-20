@@ -90,7 +90,12 @@ namespace DevSitesIndex
             }
 
         }
+        // 04/19/2022 05:38 pm - SSN - [20220419-1737] - [003] - Add list for authorized CORS host
 
+        public class SSN_CORS_Rules
+        {
+            public string[] Access_Control_Allow_Origin { get; set; }
+        }
 
 
         // 11/25/2019 10:03 pm - SSN - [20191125-2153] - [003] - Job create - Replace dropdown with dropdownListDirective
@@ -110,6 +115,10 @@ namespace DevSitesIndex
 
         // 01/02/2020 01:24 pm - SSN - [20200102-1234] - [008] - Add AngularJS login
         public static ApplicablePaths_NG_App applicablePaths_NG_App = new ApplicablePaths_NG_App();
+
+
+        // 04/19/2022 05:37 pm - SSN - [20220419-1737] - [001] - Add list for authorized CORS host
+        public static SSN_CORS_Rules sSN_CORS_Rules = new SSN_CORS_Rules();
 
         //                                                                                                                                                            "/timelogs/" trailing slash to avoid including index.
 
@@ -335,6 +344,11 @@ namespace DevSitesIndex
 
             // 01/02/2020 01:25 pm - SSN - [20200102-1234] - [009] - Add AngularJS login
             Configuration.GetSection("ApplicablePaths_NG_App").Bind(applicablePaths_NG_App);
+
+
+            // 04/19/2022 05:38 pm - SSN - [20220419-1737] - [002] - Add list for authorized CORS host
+            Configuration.GetSection("SSN_CORS_Rules").Bind(sSN_CORS_Rules);
+
 
 
 

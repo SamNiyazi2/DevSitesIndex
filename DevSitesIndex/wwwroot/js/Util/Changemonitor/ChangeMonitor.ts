@@ -64,7 +64,9 @@ var ChangeMonitor_Util = function () {
         textareas.forEach((x, y, z) => {
 
             if (!bypassObject(x)) {
-                x.addEventListener('change', ChangeMonitor_Util.setItemChanged_ssn);
+                // 04/19/2022 04:55 pm - SSN
+                //                x.addEventListener('change', ChangeMonitor_Util.setItemChanged_ssn);
+                x.addEventListener('input', ChangeMonitor_Util.setItemChanged_ssn);
             }
         });
 
