@@ -55,8 +55,12 @@ namespace DevSitesIndex.Filters
 
 
                 // actionExecutedContext.HttpContext.Response.Headers.Add("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+                // 04/20/2022 07:10 am - SSN - Added methods methods: get,options,head
+                actionExecutedContext.HttpContext.Response.Headers.Add("Access-Control-Allow-Methods", "GET,OPTIONS,HEAD");
 
-                // actionExecutedContext.HttpContext.Response.Headers.Add("Access-Control-Allow-Headers", "content-type,Authorization");
+                //actionExecutedContext.HttpContext.Response.Headers.Add("Access-Control-Allow-Headers", "content-type,Authorization");
+                // actionExecutedContext.HttpContext.Response.Headers.Add("Access-Control-Allow-Headers", "x-ms-meta-abc,x-ms-meta-data*,x-ms-meta-target*");
+
             }
             base.OnActionExecuted(actionExecutedContext);
         }
