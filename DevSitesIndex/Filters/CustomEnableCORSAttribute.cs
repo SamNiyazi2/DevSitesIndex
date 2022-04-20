@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Filters;
 using SSN_GenUtil_StandardLib;
 using System.Linq;
+using System.Threading.Tasks;
 
 // 04/07/2022 04:31 am - SSN
 // https://devsitesindex20190127.azurewebsites.net/CodeReferences/Details?id=2203192
@@ -27,6 +28,8 @@ namespace DevSitesIndex.Filters
             {
                 // 04/19/2022 06:06 pm - SSN - [20220419-1737] - [004] - Add list for authorized CORS host
                 HttpRequest req = actionExecutedContext.HttpContext.Request;
+                HttpResponse res = actionExecutedContext.HttpContext.Response;
+
                 var origin2 = ((Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.HttpRequestHeaders)req.Headers).HeaderOrigin;
                 var origin3 = origin2.Count > 0 ? origin2[0] : "";
 
@@ -44,7 +47,13 @@ namespace DevSitesIndex.Filters
 
                         if (origin3.ToLower() == url.ToLower())
                         {
-                            actionExecutedContext.HttpContext.Response.Headers.Add("Access-Control-Allow-Origin", url);
+
+                            res.OnStarting(() =>
+                            {
+                                res.Headers.Add("Access-Control-Allow-Origin", url);
+                                return Task.CompletedTask;
+                            });
+
                             foundMatch = true;
                         }
                     }
@@ -54,9 +63,15 @@ namespace DevSitesIndex.Filters
                 }
 
 
-                // actionExecutedContext.HttpContext.Response.Headers.Add("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+                // res.Headers.Add("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
                 // 04/20/2022 07:10 am - SSN - Added methods methods: get,options,head
-                actionExecutedContext.HttpContext.Response.Headers.Add("Access-Control-Allow-Methods", "GET,OPTIONS,HEAD");
+                // res.Headers.Add("Access-Control-Allow-Methods", "GET,OPTIONS,HEAD");
+
+                res.OnStarting(() =>
+                {
+                    res.Headers.Add("Access-Control-Allow-Methods", "GET,OPTIONS,HEAD");
+                    return Task.CompletedTask;
+                });
 
                 //actionExecutedContext.HttpContext.Response.Headers.Add("Access-Control-Allow-Headers", "content-type,Authorization");
                 // actionExecutedContext.HttpContext.Response.Headers.Add("Access-Control-Allow-Headers", "x-ms-meta-abc,x-ms-meta-data*,x-ms-meta-target*");
