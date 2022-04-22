@@ -1,7 +1,8 @@
 ﻿
 // 09/21/2019 07:14 am - SSN - [20190921-0357] - [009] - Creating multiple entry for Webpack
 
-import * as util from '../js/site';
+// 04/22/2022 07:27 am - SSN - Exclude since we are adding site_only_main bundle
+// import * as util from '../js/site';
 
 let ngApplicationName = 'demoSites_Index';
 

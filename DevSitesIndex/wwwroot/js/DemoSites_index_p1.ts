@@ -9,8 +9,8 @@
 /// <reference path="../../node_modules/@types/knockout/index.d.ts" /> 
 /// <reference path="../../node_modules/@types/knockout.mapping/index.d.ts" /> 
 
-
-import * as util from '../js/site';
+// 04/22/2022 07:34 am - SSN - Remove since adding site_only_main buncle
+// import * as util from '../js/site';
 
 import * as angular from 'angular';
 
@@ -208,7 +208,7 @@ var demosites_index_p1_instance = function () {
 
 
         this.gotoDevSitePage_UTIL = function (currentPage: number) {
-            
+
             self.currentPage_KO(currentPage);
 
             self.recordsPerPage_KO(self.SelectedRecordsPerPage_KO())
@@ -218,8 +218,9 @@ var demosites_index_p1_instance = function () {
             self.applyDisplayRequirements();
 
             self.updateAngularJSParts();
-            
-            util.site_instance.setDefaults();
+
+            // 04/22/2022 07:34 am - SSN - Remove since adding site_only_main buncle
+            // util.site_instance.setDefaults();
 
         }
 
@@ -312,19 +313,21 @@ var demosites_index_p1_instance = function () {
 
 
         // 06/14/2021 03:46 pm - SSN - [20210613-0452] - [028] - Adding tags to DevSite
-        this.applyDisplayRequirements = function () {
+        // 04/22/2022 07:34 am - SSN - Remove since adding site_only_main buncle
+
+        //this.applyDisplayRequirements = function () {
 
 
-            if (!self.prefixPreWithShowHideAnchor_DontCall_KO()) {
-                setTimeout(() => util.site_instance.prefixPreWithShowHideAnchor('20200102-1533'), 2000);
-            }
-            else {
-                // 08/21/2019 01:48 pm - SSN - [20190821-1348] [001] - Added
-                setTimeout(util.site_instance.showCollapsedDivs, 2000);
+        //    if (!self.prefixPreWithShowHideAnchor_DontCall_KO()) {
+        //        setTimeout(() => util.site_instance.prefixPreWithShowHideAnchor('20200102-1533'), 2000);
+        //    }
+        //    else {
+        //        // 08/21/2019 01:48 pm - SSN - [20190821-1348] [001] - Added
+        //        setTimeout(util.site_instance.showCollapsedDivs, 2000);
 
-            }
+        //    }
 
-        }
+        //}
 
 
 
@@ -392,7 +395,8 @@ var demosites_index_p1_instance = function () {
                 }
 
 
-                self.applyDisplayRequirements();
+                // 04/22/2022 07:34 am - SSN - Remove since adding site_only_main buncle
+                //  self.applyDisplayRequirements();
 
                 self.updateAngularJSParts();
 

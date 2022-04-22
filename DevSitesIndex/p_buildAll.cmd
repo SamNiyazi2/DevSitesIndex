@@ -2,7 +2,7 @@
 
 cd %~dp0
 
-title = "p_buildAll"
+title p_buildAll
 
 prompt DevSiteIndex build all $g 
  
