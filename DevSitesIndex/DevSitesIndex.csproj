@@ -8,6 +8,12 @@
     <ApplicationInsightsResourceId>/subscriptions/d6723a94-6723-4e85-b988-03bf28d6ea51/resourcegroups/DevSitesIndex20190127--0929-redeploy-rg/providers/microsoft.insights/components/DevSitesIndex20190127__0929_redeploy_v02</ApplicationInsightsResourceId>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="React\**" />
+    <Content Remove="React\**" />
+    <EmbeddedResource Remove="React\**" />
+    <None Remove="React\**" />
+  </ItemGroup>
+  <ItemGroup>
     <None Remove="dotnet_add_package_DAL_local.cmd" />
     <None Remove="dotnet_add_package_DAL_local.ps1" />
     <None Remove="dotnet_add_package_DAL_Remote.cmd" />
@@ -23,9 +29,6 @@
     <None Remove="p.cmd" />
     <None Remove="p_all.cmd" />
     <None Remove="p_buildAll.cmd" />
-    <None Remove="React\App.tsx" />
-    <None Remove="React\ReactTest.tsx" />
-    <None Remove="React\src\SearchBox.tsx" />
     <None Remove="ScaffoldingReadme.txt" />
     <None Remove="ssn_azure_build.cmd" />
     <None Remove="ssn_babel_it_2.cmd" />
@@ -114,8 +117,6 @@
     <ProjectReference Include="..\SSN_TextToImageLib\SSN_TextToImageLib.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="React\src\Components\App.tsx" />
-    <TypeScriptCompile Include="React\src\Components\SearchBox.tsx" />
     <TypeScriptCompile Include="wwwroot\js\DropdownList\DropdownListDirectiveConstants.ts" />
     <TypeScriptCompile Include="wwwroot\js\Interfaces\IDevSiteTechnoogy.ts" />
     <TypeScriptCompile Include="wwwroot\js\Interfaces\ITechnology.ts" />

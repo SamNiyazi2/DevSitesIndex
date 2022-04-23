@@ -186,7 +186,8 @@ var config = [
 
         entry: [
             // ERROR in Debug Failure. False expression: Host should not return a redirect source file from `getSourceFile`
-            './site.ts',
+            // 04/22/2022 08:50 am - SSN - [20220422-0850] - [001] - Find source of duplicate call to site.ts
+            './site_v02.ts',
             //            './site_only_main.ts',
 
             // 12/13/2019 07:35 pm - SSN - [20191213-1935] - Seperate CodeReference_Pages from bundle_site_only

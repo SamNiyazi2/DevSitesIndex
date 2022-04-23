@@ -45,7 +45,10 @@
     "alwaysStrict": true,
 
 
-    "typeRoots": [ "./node_modules/@types" ]
+    "typeRoots": [ "./node_modules/@types" ],
+    // 04/22/2022 04:57 pm - SSN - [20220422-0850] - [012] - Find source of duplicate call to site.ts
+    // Adding websocktes.
+    "esModuleInterop": true
 
   },
   "compileOnSave": true,
@@ -83,6 +86,6 @@
 
   //  "https": null, //blog.rendall.dev/posts/2019/1/14/problem-typescript-adds-objectdefinepropertyexports-esmodule-value-true/
 
-  "lib": [ "dom", "es5", "es6" , "es2017" ] // 06/25/202 06:33 am - SSN - es2017 for padStart
+  "lib": [ "dom", "es5", "es6", "es2017" ] // 06/25/202 06:33 am - SSN - es2017 for padStart
 
 }

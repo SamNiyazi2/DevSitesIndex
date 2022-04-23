@@ -4,8 +4,10 @@
 // 09/21/2019 11:52 am  - SSN - Upgrading to use Babel/WWebpack
 
 import * as ssn_globals from "../globals";
-import * as angular from 'angular'
-import * as util from '../site';
+import * as angular from 'angular';
+
+// 04/22/2022 08:52 am - SSN - [20220422-0850] - [002] - Find source of duplicate call to site.ts
+import * as util from '../site_v02';
 
 
 var timesheetClockoutController_instance = function () {

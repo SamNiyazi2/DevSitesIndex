@@ -2,8 +2,8 @@
 
 <environment include="Development,Production">
 
-    <script src="~/lib/jquery/dist/jquery.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+	<script src="~/lib/jquery/dist/jquery.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
 
 </environment>
 
@@ -32,82 +32,82 @@
 <script src="~/lib/toastr/scripts/toastr.js"></script>
 
 @{
-    // 11/09/2019 10:42 am - SSN - Added
-    try
-    {
+	// 11/09/2019 10:42 am - SSN - Added
+	try
+	{
 
-        string path = Context.Request.Path.ToString().ToLower();
-
-
-        if (Startup.applicablePaths_Site_Only.isApplicable(path))
-        {
-            <script src="/webpack_build/bundle_Site_only.js" asp-append-version="true"></script>
-        }
+		string path = Context.Request.Path.ToString().ToLower();
 
 
-
-        if (Startup.applicablePaths_temp_support.isApplicable(path))
-        {
-            <script src="/webpack_build/bundle_Temp_Support.js" asp-append-version="true"></script>
-
-            // 01/02/2020 01:22 pm - SSN - [20200102-1234] - [006] - Add AngularJS login
-            // Remove?  Duplicate with _Layout???
-            //ViewBag.InitModule_Full = "data-ng-app=\"timesheetApp\"";
-        }
+		if (Startup.applicablePaths_Site_Only.isApplicable(path))
+		{
+		 <script src="/webpack_build/bundle_Site_only.js" asp-append-version="true"></script>
+		}
 
 
-    }
-    catch (Exception)
-    {
-        // Todo: log error
-    }
+
+		if (Startup.applicablePaths_temp_support.isApplicable(path))
+		{
+		 <script src="/webpack_build/bundle_Temp_Support.js" asp-append-version="true"></script>
+
+			// 01/02/2020 01:22 pm - SSN - [20200102-1234] - [006] - Add AngularJS login
+			// Remove?  Duplicate with _Layout???
+			//ViewBag.InitModule_Full = "data-ng-app=\"timesheetApp\"";
+		}
+
+
+	}
+	catch (Exception)
+	{
+		// Todo: log error
+	}
 }
 
 
 @*
-    // 01/02/2020 01:11 pm - SSN - [20200102-1234] - [004] - Add AngularJS login
+	// 01/02/2020 01:11 pm - SSN - [20200102-1234] - [004] - Add AngularJS login
 *@
 <script src="/webpack_build/bundle_users.js" asp-append-version="true"></script>
 
 @{
 
 
-    if (Program.RunWhatJavaScriptVersion == Program.whatJavaScriptVersion.Original)
-    {
+	if (Program.RunWhatJavaScriptVersion == Program.whatJavaScriptVersion.Original)
+	{
 
-        <script src="~/js/IAngularApp.js" asp-append-version="true"></script>
-        <script src="~/js/IColumnBag.js" asp-append-version="true"></script>
-        <script type="module" src="~/js/globals.js" asp-append-version="true"></script>
+	 <script src="~/js/IAngularApp.js" asp-append-version="true"></script>
+	 <script src="~/js/IColumnBag.js" asp-append-version="true"></script>
+	 <script type="module" src="~/js/globals.js" asp-append-version="true"></script>
 
-        <environment names="Development">
-            <script type="module" src="~/js/site.js" asp-append-version="true"></script>
-        </environment>
+	 <environment names="Development">
+	  <script type="module" src="~/js/site.js" asp-append-version="true"></script>
+	 </environment>
 
-        <environment names="Production">
-            <script type="module" src="~/js/site.min.js" asp-append-version="true"></script>
-        </environment>
+	 <environment names="Production">
+	  <script type="module" src="~/js/site.min.js" asp-append-version="true"></script>
+	 </environment>
 
-    }
-
-
+	}
 
 
-    if (Program.RunWhatJavaScriptVersion == Program.whatJavaScriptVersion.Babel_Only)
-    {
 
-        <script type="module" src="~/babel_lib/IAngularApp.js" asp-append-version="true"></script>
-        <script type="module" src="~/babel_lib/IColumnBag.js" asp-append-version="true"></script>
-        <script type="module" src="~/babel_lib/globals.js" asp-append-version="true"></script>
 
-        <environment names="Development">
-            <script type="module" src="~/babel_lib/site.js" asp-append-version="true"></script>
-        </environment>
+	if (Program.RunWhatJavaScriptVersion == Program.whatJavaScriptVersion.Babel_Only)
+	{
 
-        <environment names="Production">
-            <script src="~/babel_lib/site.min.js" asp-append-version="true"></script>
-        </environment>
+	 <script type="module" src="~/babel_lib/IAngularApp.js" asp-append-version="true"></script>
+	 <script type="module" src="~/babel_lib/IColumnBag.js" asp-append-version="true"></script>
+	 <script type="module" src="~/babel_lib/globals.js" asp-append-version="true"></script>
 
-    }
+	 <environment names="Development">
+	  <script type="module" src="~/babel_lib/site.js" asp-append-version="true"></script>
+	 </environment>
+
+	 <environment names="Production">
+	  <script src="~/babel_lib/site.min.js" asp-append-version="true"></script>
+	 </environment>
+
+	}
 
 
 
@@ -115,20 +115,28 @@
 
 
 @*
-// 04/12/2022 01:24 am - SSN - [20220411-2043] - [006] - Add React
+	// 04/12/2022 01:24 am - SSN - [20220411-2043] - [006] - Add React
 *@
 @*<script crossorigin src="https://unpkg.com/react/umd/react.development.js"></script>
-<script crossorigin src="https://unpkg.com/react-dom/umd/react-dom.development.js"></script>*@
+	<script crossorigin src="https://unpkg.com/react-dom/umd/react-dom.development.js"></script>*@
 @*
-// 04/17/2022 12:24 am - SSN
-// https://unpkg.com/browse/react@18.0.0/cjs/
-// https://unpkg.com/
+	// 04/17/2022 12:24 am - SSN
+	// https://unpkg.com/browse/react@18.0.0/cjs/
+	// https://unpkg.com/
 *@
 
 @*
-<script crossorigin src="https://unpkg.com/react/umd/react.production.min.js"></script> 
-<script crossorigin src="https://unpkg.com/react-dom/umd/react-dom.production.min.js"></script>
+	<script crossorigin src="https://unpkg.com/react/umd/react.production.min.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom/umd/react-dom.production.min.js"></script>
 *@
-<script crossorigin src="https://unpkg.com/react/umd/react.development.js"></script> 
+<script crossorigin src="https://unpkg.com/react/umd/react.development.js"></script>
 <script crossorigin src="https://unpkg.com/react-dom/umd/react-dom.development.js"></script>
+
+
+@*
+	08/19/2021 06:08 pm - SSN - Added mainly to pickup swapcssthem.  Currenlty, file is only used in contact.cshtml.
+	// 04/22/2022 11:25 am - SSN - [20220422-0850] - [009] - Find source of duplicate call to site.ts
+	// Moved from _layout.cshtml
+*@
+<script src="/webpack_build/bundle_main_101.js" asp-append-version="true"></script>
 
