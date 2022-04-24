@@ -90,7 +90,7 @@ let DemoSites_Pages = function () {
 
                     let fieldName_prefix_without_period = this.fieldname_prefix.substr(0, this.fieldname_prefix.length - 1);
 
-                    console.log('%c' + 'DemoSites_pages-20220418-0734-A', 'font-size:24pt;color:red');
+                    console.log('%c ' + 'DemoSites_pages-20220418-0734-A', 'font-size:14pt;color:red');
                     console.log('Before: [#DevSite_RowVersion]');
                     console.dir(this);
                     console.log(` After: [#${this.fieldname_prefix}_${this.rowversion}]`);
@@ -147,7 +147,7 @@ let DemoSites_Pages = function () {
 
                             // 09/21/2019 12:13 pm - SSN - Update rowVersion
 
-                            console.log('%c' + 'DemoSites_pages-20220418-0734', 'font-size:20pt;color:yellow');
+                            console.log('%c ' + 'DemoSites_pages-20220418-0734', 'font-size:14pt;color:yellow');
                             console.log(response);
 
                             $("#devSiteSaveStatus").html("Record saved.");

@@ -118,9 +118,9 @@ var jobsIndexController_instance = function () {
 
 
 
-                console.log('%c jobsIndexController.ts - 20200814-0903', 'color:blue;font-size:20pt;');
+                console.log('%c jobsIndexController.ts - 20200814-0903', 'color:blue;font-size:14pt;');
                 console.log(columnBag);
-                console.log('%c DIR DIR - 20200814-0903', 'color:blue;font-size:20pt;');
+                console.log('%c DIR DIR - 20200814-0903', 'color:blue;font-size:14pt;');
                 console.dir(columnBag);
 
                 dataService.getJobs(columnBag).then(getJobsSuccess, getJobsError).catch(getTimelogCatch);

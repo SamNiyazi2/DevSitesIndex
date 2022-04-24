@@ -33,9 +33,7 @@
 
 @{
 	// 11/09/2019 10:42 am - SSN - Added
-	try
-	{
-
+	 
 		string path = Context.Request.Path.ToString().ToLower();
 
 
@@ -55,19 +53,9 @@
 			//ViewBag.InitModule_Full = "data-ng-app=\"timesheetApp\"";
 		}
 
-
-	}
-	catch (Exception)
-	{
-		// Todo: log error
-	}
+ 
 }
 
-
-@*
-	// 01/02/2020 01:11 pm - SSN - [20200102-1234] - [004] - Add AngularJS login
-*@
-<script src="/webpack_build/bundle_users.js" asp-append-version="true"></script>
 
 @{
 
@@ -133,10 +121,4 @@
 <script crossorigin src="https://unpkg.com/react-dom/umd/react-dom.development.js"></script>
 
 
-@*
-	08/19/2021 06:08 pm - SSN - Added mainly to pickup swapcssthem.  Currenlty, file is only used in contact.cshtml.
-	// 04/22/2022 11:25 am - SSN - [20220422-0850] - [009] - Find source of duplicate call to site.ts
-	// Moved from _layout.cshtml
-*@
-<script src="/webpack_build/bundle_main_101.js" asp-append-version="true"></script>
 

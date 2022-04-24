@@ -74,7 +74,7 @@ let sessionTimeoutInterceptor_instance = function () {
                             },
                             requestError: function (error) {
 
-                                console.error('%c sessionTimeoutIntercepter - requestError - 20200821-1046-001', 'color:red;font-size:20pt');
+                                console.error('%c sessionTimeoutIntercepter - requestError - 20200821-1046-001', 'color:red;font-size:14pt');
                                 console.error(error);
                                 return $q.reject(error);
 
@@ -85,7 +85,7 @@ let sessionTimeoutInterceptor_instance = function () {
                             },
                             responseError: function (error) {
 
-                                console.error('%c sessionTimeoutIntercepter - responseError - 20200821-1046-003', 'color:red;font-size:20pt');
+                                console.error('%c sessionTimeoutIntercepter - responseError - 20200821-1046-003', 'color:red;font-size:14pt');
                                 console.error(error);
                                   
                                 return $q.reject(error);

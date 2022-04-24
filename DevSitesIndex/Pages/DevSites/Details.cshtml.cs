@@ -9,6 +9,7 @@ using DevSitesIndex.Entities;
 using Microsoft.AspNetCore.Authorization;
 using DevSitesIndex.Util;
 
+
 namespace DevSitesIndex.Pages.DevSites
 {
 
@@ -44,8 +45,8 @@ namespace DevSitesIndex.Pages.DevSites
 
             returnToCaller.setup(HttpContext, "/devsites/Index");
 
-
-            DevSite = await _context.DevSites.SingleOrDefaultAsync(m => m.Id == id);
+            // 04/24/2022 08:36 am - SSN - Include devSiteTechnologies
+             DevSite = await _context.DevSites.Include(r=>r.DevSiteTechnologies).ThenInclude(r=>r.Technology).SingleOrDefaultAsync(m => m.Id == id);
 
             if (DevSite == null)
             {

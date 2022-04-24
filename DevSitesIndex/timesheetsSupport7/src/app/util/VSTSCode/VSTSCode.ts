@@ -5,7 +5,7 @@
 import { Directive, OnInit, Inject, ElementRef, Input } from '@angular/core';
 import { JQ_TOKEN } from '../../shared/j-query.service';
 
-console.log('%c ' + 'Loading vsts code', 'color:blue;font-size:20pt;');
+console.log('%c ' + 'Loading vsts code', 'color:blue;font-size:14pt;');
 
 @Directive({
     selector: 'app-vsts-code'
@@ -22,7 +22,7 @@ export class VSTSCodeUtil implements OnInit {
 
     ngOnInit(): void {
 
-        console.log('%c ' + 'Loading vsts code - INIT ', 'color:blue;font-size:20pt;');
+        console.log('%c ' + 'Loading vsts code - INIT ', 'color:blue;font-size:14pt;');
 
         this.elem.addEventListener('click', function (e) {
 

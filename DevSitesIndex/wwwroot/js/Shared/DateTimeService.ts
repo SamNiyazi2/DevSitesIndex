@@ -35,7 +35,7 @@ const DateTimeService_Instance = function () {
             const getCurrentUTCTime = function () {
 
 
-                console.log('%c DateTimeService - etCurrentTime - 20210621-2341', 'color:red;font-size:20pt;')
+                console.log('%c DateTimeService - etCurrentTime - 20210621-2341', 'color:red;font-size:14pt;')
 
                 let timeNow = new Date();
 
@@ -48,7 +48,7 @@ const DateTimeService_Instance = function () {
 
             const getDateAs_YYYY_MM_DD = function (date: Date) {
 
-                console.log('%c getDateAs_YYYY_MM_DD ', 'color:yellow;font-size:20pt')
+                console.log('%c getDateAs_YYYY_MM_DD ', 'color:yellow;font-size:14pt')
                 console.log(date);
                 console.log(typeof date);
 

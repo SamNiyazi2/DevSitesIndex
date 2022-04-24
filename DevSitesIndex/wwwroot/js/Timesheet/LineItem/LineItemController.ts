@@ -252,10 +252,10 @@ var lineItemController_instance = function () {
 
                     ngModel_ctrl.$parsers.unshift(function (value) {
 
-                        console.log('%c *x*x*x*x*x*x*x*x*x*x*x*x*x*x*x', 'color:red;font-size:20px');
+                        console.log('%c *x*x*x*x*x*x*x*x*x*x*x*x*x*x*x', 'color:red;font-size:14pt');
 
 
-                        console.log(`%c ---------------- ngModel_ctrl--------  ------------------`, 'color:red;font-size:20pt;');
+                        console.log(`%c ---------------- ngModel_ctrl--------  ------------------`, 'color:red;font-size:14pt;');
                         console.log(ngModel_ctrl);
 
 

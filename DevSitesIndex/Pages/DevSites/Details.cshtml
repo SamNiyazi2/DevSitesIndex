@@ -1,12 +1,19 @@
 ﻿@page
+@using Newtonsoft.Json.Serialization
+@using System.Linq
 @model DevSitesIndex.Pages.DevSites.DetailsModel
 
 @{
     ViewData["Title"] = $"Demo Site Detail - {PageTitleUtil.GetTitle_DevSite(Model.DevSite)}";
+    
+    // 04/23/2022 11:58 am - SSN - Adding devSiteTechnologies AngularJS control
+   // ViewBag.InitModule_Full = "data-ng-app=\"demoSites_Index\""; 
+    ViewBag.InitModule_Full = "data-ng-app=\"devSite_Detail_module\"";
+
 }
 
 <h2>@ViewData["Title"]</h2>
-
+ 
 <div>
     <hr />
     <dl class="dl-horizontal">
@@ -64,6 +71,16 @@
 
 
         @*
+             04/23/2022 11:54 am - SSN - Add devSiteTechnologies AngularJS control
+*@
+
+            <ng-content data-ng-controller="devSite_Detail_Controller">
+             <dev-site-tags   the-tags='devSite.devSiteTechnologies'  id='@Model.DevSite.Id' ></dev-site-tags>
+            </ng-content>
+
+
+
+        @*
             09/13/2019 04:30 am - SSN - [20190913-0421] - [001]
             Moved down
         *@
@@ -88,3 +105,36 @@
     @await Html.PartialAsync("ReturnToCallerLink", Model.returnToCaller)
 
 </div>
+
+
+@section Scripts {
+   
+    @if (Program.RunWhatJavaScriptVersion == Program.whatJavaScriptVersion.Webpack)
+        {
+            <script src="~/webpack_build/bundle_DevSite_Detail.js" asp-append-version="true"></script>
+        }
+
+    <script>
+
+    // 04/23/2022 12:07 pm - SSN - Adding devSiteTechnogies AngularJS control
+         
+          angular.module('devSite_Detail_module')
+            .controller('devSite_Detail_Controller', ['$scope', function ($scope) {
+
+
+                $scope.devSite  =  @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject( @Model.DevSite, 
+                            formatting: Newtonsoft.Json.Formatting.Indented, 
+                            new Newtonsoft.Json.JsonSerializerSettings
+                            {
+                               ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore,
+                               ContractResolver = new CamelCasePropertyNamesContractResolver()
+                            }));
+                              
+        }]);
+
+    </script>
+}
+
+ 
+          
+ 

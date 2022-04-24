@@ -68,8 +68,10 @@ var globals_instance = function () {
 
 
 
-
-        public static getInstance_Original(callSource: string, applicationName: string, args: string[] = null) {
+        // 04/24/2022 05:28 am - SSN - Third arguments must be an array.  It cannot be null;
+        //                             We need to allow nulls so we can get the existing instance
+        // 04/24/2022 06:56 am - SSN - This routine is used to CREATE an instance.  We don't need to pass in args.
+        public static getInstance_Original(callSource: string, applicationName: string, args: string[] ) {
 
 
             var angularApp: IAngularApp = null;
@@ -109,6 +111,11 @@ var globals_instance = function () {
                             instance: angular.module('timesheetApp', ['ngRoute', 'ui.bootstrap', 'ngSanitize'])
                         }
 
+                        if (args != null) {
+
+                            console.log('5c ' + '20220424-0722 - Passing args to globals.ts to create timesheetApp.  Not set up to accept args', 'font-size:20pt; color:red');
+                        }
+
                         SSN_Globals.ssn_devsite_angular_module.push(angularApp);
 
                         break;
@@ -127,6 +134,12 @@ var globals_instance = function () {
 
                     case 'demoSites_Index':
 
+
+                        console.log('%c ' + '20220424-0828 - TESTING demoSites_Index ', 'color:red;font-size:20pt;');
+                        console.log('%c ' + `callSource [${callSource}]`, 'color:yellow;font-size:20pt;');
+                        console.log('%c ' + 'args', 'color:yellow;font-size:20pt;');
+                        console.dir(args);
+
                         angularApp = {
                             name: applicationName,
                             instance: angular.module("demoSites_Index", args)
@@ -134,7 +147,31 @@ var globals_instance = function () {
 
                         SSN_Globals.ssn_devsite_angular_module.push(angularApp);
 
+                        console.log('%c ' + '20220424-0723 - TESTING 20220424-0713', 'color:yellow;font-size:20pt;');
+                        console.log('%c ' + 'angularApp', 'color:yellow;font-size:20pt;');
+                        console.dir(angularApp);
+
                         break;
+
+
+
+                    // 04/24/2022 05:23 am - SSN
+                    case 'devSite_Detail_module':
+
+                        console.log('%c ' + `20220424-0724 - Registering [${applicationName}]`, 'font-size:12pt; color:yellow');
+                        console.log('%c ' + `ARGS:`, 'font-size:12pt; color:yellow');
+
+                        console.log(args);
+
+                        angularApp = {
+                            name: applicationName,
+                            instance: angular.module(applicationName, args)
+                        }
+
+                        SSN_Globals.ssn_devsite_angular_module.push(angularApp);
+
+                        break;
+
 
                     default:
 

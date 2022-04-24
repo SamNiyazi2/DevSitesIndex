@@ -1,0 +1,19 @@
+﻿
+@*
+	11/04/24/2022 06:49 am - SSN
+	We need to load AngularJS modules/controllers before attempting to load their dependants.
+*@
+
+
+@*
+	// 01/02/2020 01:11 pm - SSN - [20200102-1234] - [004] - Add AngularJS login
+*@
+<script src="/webpack_build/bundle_users.js" asp-append-version="true"></script>
+ 
+@*
+	08/19/2021 06:08 pm - SSN - Added mainly to pickup swapcssthem.  Currenlty, file is only used in contact.cshtml.
+	// 04/22/2022 11:25 am - SSN - [20220422-0850] - [009] - Find source of duplicate call to site.ts
+	// Moved from _layout.cshtml
+*@ 
+<script src="/webpack_build/bundle_main_101.js" asp-append-version="true"></script>
+

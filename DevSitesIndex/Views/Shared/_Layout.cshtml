@@ -178,9 +178,11 @@
 
 
 
-	@await Html.PartialAsync("JavaScriptFiles")
+	@await Html.PartialAsync("JavaScriptFiles_before")
 
 	@RenderSection("Scripts", required: false)
+
+	@await Html.PartialAsync("JavaScriptFiles_after")
 
 	@await Html.PartialAsync("ApplicationVersion")
 

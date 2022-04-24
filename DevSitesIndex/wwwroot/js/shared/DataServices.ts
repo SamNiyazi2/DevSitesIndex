@@ -425,6 +425,10 @@ var dataService_instance = function () {
 
             var addDevSiteTechnology = function (devSiteTechnology: IDevSiteTechnology) {
 
+                console.log('%c ' + 'addDevSiteTechnology - 20220424-0925', 'font-site:12pt;color:yellow;');
+                console.log('%c ' + 'devSiteTechnology record: ');
+                console.dir(devSiteTechnology);
+
                 return getHttpPostPromise('/api/DevSitetechnologyAPI/post_custom', devSiteTechnology);
 
             };

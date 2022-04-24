@@ -17,7 +17,9 @@ const ssn_AngularJslogger = function () {
 
         AppInsights_Util.doSetup(callSource);
 
-        const angularModule = globals.globals_instance.getInstance_v002('ssn_logger', currentApplication);
+        // 04/24/2022 06:05 am - SSN - Adding devSiteTechnologies to DevSite detail page.  Calling getInstance to create without a third parameter.
+        // const angularModule = globals.globals_instance.getInstance_v002('ssn_logger', currentApplication);
+        const angularModule = globals.globals_instance.getInstance_v002('ssn_logger', currentApplication,[]);
 
         angularModule.factory("ssn_logger", ['$q', function ($q): ILoggerModule {
 

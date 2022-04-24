@@ -30,7 +30,7 @@ var loginController_instance = function () {
 
                 const currentUser = dataService.getCurrentUser();
 
-                console.log('%c 20210623-0419', 'color:yellow;font-size:32pt;');
+                console.log('%c 20210623-0419', 'color:yellow;font-size:14pt;');
                 console.log(currentUser);
 
 

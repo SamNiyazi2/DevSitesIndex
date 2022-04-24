@@ -113,7 +113,7 @@ var timesheetApp_instance = function () {
 
             function getCurrentUserError(error) {
 
-                console.log('%c getCurrentUser error - 20210623-0609 ', 'color:red;font-size:32pt');
+                console.log('%c getCurrentUser error - 20210623-0609 ', 'color:red;font-size:14pt');
                 console.log(error);
 
                 $scope.currentUser = null;
@@ -127,7 +127,7 @@ var timesheetApp_instance = function () {
 
             function getCurrentUserCatch(error) {
 
-                console.log('%c getCurrentUser error - 20210623-0610 ', 'color:red;font-size:32pt');
+                console.log('%c getCurrentUser error - 20210623-0610 ', 'color:red;font-size:14pt');
                 console.log(error);
                 $scope.currentUser = null;
                 $scope.callingService = false;

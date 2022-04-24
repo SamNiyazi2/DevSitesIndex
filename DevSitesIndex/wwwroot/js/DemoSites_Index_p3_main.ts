@@ -10,9 +10,14 @@ import { dataService_instance } from './Shared/DataServices';
 
 import { ssn_devsite_angular_module_instance } from './demoSites_Index';
 
-dataService_instance.doSetup('demoSites_Index');
+const ngApplicationName = 'demoSites_Index';
 
-ssn_devsite_angular_module_instance.ssn_devsite_angular_module;
- 
-demoSites_index_p3_instance ;
- 
+dataService_instance.doSetup(ngApplicationName);
+
+
+// 04/24/2022 07:53 am - SSN - Passing in application name
+// ssn_devsite_angular_module_instance.ssn_devsite_angular_module;
+ssn_devsite_angular_module_instance.doSetup(ngApplicationName);
+
+demoSites_index_p3_instance;
+

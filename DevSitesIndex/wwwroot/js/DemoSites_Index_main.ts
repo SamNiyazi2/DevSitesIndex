@@ -8,17 +8,24 @@ let ngApplicationName = 'demoSites_Index';
 
 import { demosites_index_p1_instance } from "./DemoSites_index_p1"
 
-import { dataService_instance } from './Shared/DataServices';
 
 import { ssn_devsite_angular_module_instance } from './demoSites_Index';
 
 
 
-dataService_instance.doSetup(ngApplicationName);
 
-ssn_devsite_angular_module_instance.ssn_devsite_angular_module;
+// 04/24/2022 07:52 am - SSN - Passing in application Name
+ssn_devsite_angular_module_instance.doSetup(ngApplicationName);
+
 
 demosites_index_p1_instance;
+
+
+
+// 04/24/2022 08:83 am - SSN - Moved afer ssn_devsite_angular_module_instance
+import { dataService_instance } from './Shared/DataServices';
+dataService_instance.doSetup(ngApplicationName);
+
 
 // 10/01/2019 10:15 am - SSN - [20191001-0944] - [006] - Adding Application Insights for JavaScript
 

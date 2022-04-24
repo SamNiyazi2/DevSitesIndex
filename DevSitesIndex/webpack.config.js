@@ -12,7 +12,7 @@ switch (x) {
 
 var d_master = {
 
-    mode: mode_local,
+   mode: mode_local,
 
     externals: {
         angular: 'angular'
@@ -322,6 +322,29 @@ var config = [
 
         entry: [
             './util/TextArea_util_0718.ts'
+        ]
+
+    }
+
+
+
+
+
+
+    // 04/24/2022 04:42 am - SSN - Adding devSiteTechnologies to DevSite detail
+    ,
+
+    {
+        ...d_master,
+
+        output: {
+            path: path.resolve(__dirname, './wwwroot/webpack_build'),
+            filename: 'bundle_DevSite_Detail.js'
+        },
+
+
+        entry: [
+            './DevSite/DevSite_Detail_main.ts'
         ]
 
     }

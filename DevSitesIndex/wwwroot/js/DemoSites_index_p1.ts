@@ -10,7 +10,8 @@
 /// <reference path="../../node_modules/@types/knockout.mapping/index.d.ts" /> 
 
 // 04/22/2022 07:34 am - SSN - Remove since adding site_only_main buncle
-// import * as util from '../js/site';
+// 04/22/2022 09:07 pm - SSN - Taking out site_only_main
+import * as util from '../js/site_v02';
 
 import * as angular from 'angular';
 
@@ -105,6 +106,21 @@ var demosites_index_p1_instance = function () {
                     'ignore': ["solution_Details_PRE_Encoded"]
                 }
                 var viewModel = ko.mapping.fromJS(data, mapping);
+
+
+
+
+
+
+
+                console.log('%c ' + 'XXXXXXXXXXXXXX-20220422-2139-A', 'color:yellow;font-size:12pt');
+
+                self.applyDisplayRequirements();
+
+                self.updateAngularJSParts();
+
+
+
 
 
 
@@ -215,9 +231,17 @@ var demosites_index_p1_instance = function () {
 
             self.loadData(self.SelectedRecordsPerPage_KO(), self.currentPage_KO());
 
-            self.applyDisplayRequirements();
 
-            self.updateAngularJSParts();
+
+            // 04/22/2022 09:53 pm - SSN
+            ////////////////////console.log('%c ' + 'XXXXXXXXXXXXXX-20220422-2139-C', 'color:yellow;font-size:12pt');
+
+
+            ////////////////////self.applyDisplayRequirements();
+
+            ////////////////////self.updateAngularJSParts();
+
+
 
             // 04/22/2022 07:34 am - SSN - Remove since adding site_only_main buncle
             // util.site_instance.setDefaults();
@@ -304,6 +328,9 @@ var demosites_index_p1_instance = function () {
 
 
 
+            console.log('%c ' + 'XXXXXXXXXXXXXX-20220422-2139-D', 'color:yellow;font-size:12pt');
+
+
             self.applyDisplayRequirements();
 
             self.updateAngularJSParts();
@@ -313,21 +340,21 @@ var demosites_index_p1_instance = function () {
 
 
         // 06/14/2021 03:46 pm - SSN - [20210613-0452] - [028] - Adding tags to DevSite
-        // 04/22/2022 07:34 am - SSN - Remove since adding site_only_main buncle
-
-        //this.applyDisplayRequirements = function () {
 
 
-        //    if (!self.prefixPreWithShowHideAnchor_DontCall_KO()) {
-        //        setTimeout(() => util.site_instance.prefixPreWithShowHideAnchor('20200102-1533'), 2000);
-        //    }
-        //    else {
-        //        // 08/21/2019 01:48 pm - SSN - [20190821-1348] [001] - Added
-        //        setTimeout(util.site_instance.showCollapsedDivs, 2000);
+        this.applyDisplayRequirements = function () {
 
-        //    }
 
-        //}
+            if (!self.prefixPreWithShowHideAnchor_DontCall_KO()) {
+                setTimeout(() => util.site_instance.prefixPreWithShowHideAnchor('20200102-1533'), 2000);
+            }
+            else {
+                // 08/21/2019 01:48 pm - SSN - [20190821-1348] [001] - Added
+                setTimeout(util.site_instance.showCollapsedDivs, 2000);
+
+            }
+
+        }
 
 
 
@@ -395,8 +422,9 @@ var demosites_index_p1_instance = function () {
                 }
 
 
-                // 04/22/2022 07:34 am - SSN - Remove since adding site_only_main buncle
-                //  self.applyDisplayRequirements();
+                console.log('%c ' + 'XXXXXXXXXXXXXX-20220422-2139-B', 'color:yellow;font-size:12pt');
+
+                self.applyDisplayRequirements();
 
                 self.updateAngularJSParts();
 

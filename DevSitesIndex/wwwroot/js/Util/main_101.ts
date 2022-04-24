@@ -9,6 +9,10 @@
 // 10/29/2018 08:28 am - SSN - Adding defaultTitle
 
 // *** displaycode-begin  highlight []  
+
+console.log('%c ' + 'main_101 - 20220422-2121', 'font-size:14pt;color:yellow;');
+
+
 $(function () {
 
 

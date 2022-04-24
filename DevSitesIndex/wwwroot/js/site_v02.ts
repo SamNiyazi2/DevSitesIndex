@@ -466,11 +466,11 @@ namespace site_instance_NS {
                 console.log(value);
 
                 if (this.isDateObject(value)) {
-                    console.log('%c fnDateToISODateString 20210622-0307-DDD', 'color:red;font-size:24');
+                    console.log('%c fnDateToISODateString 20210622-0307-DDD', 'color:red;font-size:14pt');
 
                     console.log(new Date(value));
                     console.log(new Date(value).toISOString());
-                    console.log('%c fnDateToISODateString 20210622-0307-DDD', 'color:magenta;font-size:24');
+                    console.log('%c fnDateToISODateString 20210622-0307-DDD', 'color:magenta;font-size:14pt');
 
                     input[key] = new Date(value).toISOString();
 
@@ -503,34 +503,34 @@ export { site_instance };
 // Of course we are calling utility more than once. Need to call functions where they apply.
 
 
+// 04/22/2022 09:19 pm - SSN - Take out. (Pending work)
+
+//////////$(function () {
+
+//////////    // 12/30/2019 01:23 am - SSN - Add timeot
+//////////    // site_instance.setDefaults();
+//////////    setTimeout(() => { site_instance.setDefaults(); }, 2000);
 
 
-$(function () {
+//////////    // 04/29/2019 07:36 pm - SSN - [20190429-1748] - [006] - Angular clock out popup  - End
+//////////    // 09/10/2019 08:53 pm - SSN - Replaced
+//////////    // 09/11/2019 07:08 am - SSN - DevSiteIndex p1 data is coming after document is ready.
+//////////    setTimeout(() => {
 
-    // 12/30/2019 01:23 am - SSN - Add timeot
-    // site_instance.setDefaults();
-    setTimeout(() => { site_instance.setDefaults(); }, 2000);
+//////////        site_instance.prefixPreWithShowHideAnchor('20200102-1534-2');
 
+//////////        // 08/31/2020 04:32 am - SSN - [20200831-0417] - [003] - Disable collapsable divs with no content
 
-    // 04/29/2019 07:36 pm - SSN - [20190429-1748] - [006] - Angular clock out popup  - End
-    // 09/10/2019 08:53 pm - SSN - Replaced
-    // 09/11/2019 07:08 am - SSN - DevSiteIndex p1 data is coming after document is ready.
-    setTimeout(() => {
+//////////        setTimeout(() => site_instance.disableEmptyCollapsableDivs(), 1000);
 
-        site_instance.prefixPreWithShowHideAnchor('20200102-1534-2');
-
-        // 08/31/2020 04:32 am - SSN - [20200831-0417] - [003] - Disable collapsable divs with no content
-
-        setTimeout(() => site_instance.disableEmptyCollapsableDivs(), 1000);
-
-    }
-        , 2000);
+//////////    }
+//////////        , 2000);
 
 
 
 
 
-});
+//////////});
 
 
 
