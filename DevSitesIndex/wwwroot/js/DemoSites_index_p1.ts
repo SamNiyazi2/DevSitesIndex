@@ -106,14 +106,7 @@ var demosites_index_p1_instance = function () {
                     'ignore': ["solution_Details_PRE_Encoded"]
                 }
                 var viewModel = ko.mapping.fromJS(data, mapping);
-
-
-
-
-
-
-
-                console.log('%c ' + 'XXXXXXXXXXXXXX-20220422-2139-A', 'color:yellow;font-size:12pt');
+                 
 
                 self.applyDisplayRequirements();
 

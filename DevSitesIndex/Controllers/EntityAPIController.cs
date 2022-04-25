@@ -24,6 +24,9 @@ namespace DevSitesIndex.Controllers
     // 06/16/2021 02:52 am - SSN - [20210613-0452] - [060] - Adding tags to DevSite
     // Controller to ControllerBase Wouldn't work since we are passing views in some calls (To update timelog and projects updated table raws)
     // abstract public class EntityAPIController<T> : Controller
+
+    // 04/24/2022 09:05 pm - SSN - Add ApiController attribute.  Nothing throwing an error on authorize.
+    [ApiController]
     abstract public class EntityAPIController<T> : Controller
     {
 
@@ -72,6 +75,8 @@ namespace DevSitesIndex.Controllers
 
         // POST api/<controller>
         //   [HttpPost]
+        // 04/24/2022 08:38 pm - SSN - Authorize
+        [Authorize]
         public ActionResult Post([FromBody]  T value)
         {
             // 05/21/2019 11:33 am - SSN - Return OK and BadRequest

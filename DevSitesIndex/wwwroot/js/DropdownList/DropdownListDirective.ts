@@ -757,7 +757,7 @@ var dropdownListDirective_instance = function () {
 
                         if (vm.containerViewValue) {
 
-                            ssn_logger.cl_normal({ callSource: '20210625-0306', message: `validateThis: Updating disiplineSelected_XXX with [${vm.containerViewValue}] vm.keyColumn [${vm.keyColumn}]  ngModel [${vm.ngModel}]   parentKeyColumn [${vm.parentKeyColumn}]` }, 'red', false, 32);
+                            ssn_logger.cl_normal({ callSource: '20210625-0306', message: `validateThis: Updating disiplineSelected_XXX with [${vm.containerViewValue}] vm.keyColumn [${vm.keyColumn}]  ngModel [${vm.ngModel}]   parentKeyColumn [${vm.parentKeyColumn}]` }, 'red', false, 14);
 
                             vm.disciplineSelected_XYZ = { title: vm.containerViewValue };
 

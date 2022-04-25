@@ -345,10 +345,15 @@ var dataService_instance = function () {
                 $http.post('/api/technologyAPI', technology)
                     .then(function (result) {
 
+                        console.log('%c ' + 'DataServices - TechnlogyAPI - 20220424-2058-ZZZ - Success', 'font-size:12pt;color:green;');
+                        console.dir(result);
+
+
                         deferred.resolve(result.data);
                     },
                         function (error) {
 
+                            console.log('%c ' + 'DataServices - TechnlogyAPI - 20220424-2059 - Failure', 'font-size:14pt;color:red;');
                             deferred.reject(error);
                         });
 

@@ -10,12 +10,9 @@
 
 // *** displaycode-begin  highlight []  
 
-console.log('%c ' + 'main_101 - 20220422-2121', 'font-size:14pt;color:yellow;');
-
-
+ 
 $(function () {
-
-
+     
 
     // 09/26/2018 02:11 am - SSN 
     // 06/13/2021 02:59 am - SSN - [20210613-0039] - [002] - VSTS Code - Refactoring

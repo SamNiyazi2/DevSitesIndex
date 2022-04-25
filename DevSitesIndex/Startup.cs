@@ -523,6 +523,38 @@ namespace DevSitesIndex
                         errorMessage = $"They address {context.Request.Path}{context.Request.QueryString} doesn't exist.";
                         context.Response.Redirect("/");
                     }
+
+
+
+                    // 04/24/2022 09:50 pm - SSN - For API post calls without login
+
+                    if (context.Response.StatusCode == 302 && context.Request.Headers.Values.Any(s => s.ToString().ToLower().Contains("application/json")))
+                    {
+                        foreach (var header in context.Response.Headers)
+                        {
+                            if (header.Key == "Location")
+                            {
+                                string location = header.Value;
+                                if (location.ToLower().Contains("identity/account/login?returnurl"))
+                                {
+                                    Dictionary<string, string> dic2 = new Dictionary<string, string>();
+
+                                    dic2.Add("ErrorCode", "DemoSite-20220424-2155");
+                                    dic2.Add("ErrorMessage", "Startup middleware - Login required");
+
+
+                                    string jsonErrorMessage = JsonSerializer.Serialize(dic2);
+
+                                    context.Response.StatusCode = 401;
+                                    await context.Response.WriteAsync(jsonErrorMessage);
+
+
+                                }
+                            }
+
+                        }
+
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -618,7 +650,7 @@ namespace DevSitesIndex
 
             // 04/11/2022 08:49 pm - SSN - [20220411-2043] - [002] - Add React
 
-            app.UseReact(config=>
+            app.UseReact(config =>
             {
             });
 
@@ -795,7 +827,7 @@ namespace DevSitesIndex
 
 
 
- 
+
         }
         class CustomErrorInfo
         {
@@ -819,9 +851,9 @@ namespace DevSitesIndex
 
             dic2.Add($"Exception_Message{innerExNoString}", ex.Message);
             dic2.Add($"Exception_Source{innerExNoString}", ex.Source);
-            
+
             // 04/17/2022 10:31 am - SSN - Null??
-            if (ex.TargetSite!= null)
+            if (ex.TargetSite != null)
             {
                 dic2.Add($"Exception_TargetSite{innerExNoString}", ex.TargetSite.Name);
             }

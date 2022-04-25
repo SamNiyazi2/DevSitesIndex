@@ -72,14 +72,12 @@ var globals_instance = function () {
         //                             We need to allow nulls so we can get the existing instance
         // 04/24/2022 06:56 am - SSN - This routine is used to CREATE an instance.  We don't need to pass in args.
         public static getInstance_Original(callSource: string, applicationName: string, args: string[] ) {
-
-
+             
             var angularApp: IAngularApp = null;
 
             var selected = (SSN_Globals.ssn_devsite_angular_module).filter((r: IAngularApp) => r.name === applicationName);
 
-
-
+          
             if (selected.length > 0) {
 
                 if (selected.length > 1) {
@@ -105,15 +103,36 @@ var globals_instance = function () {
 
                     case 'timesheetApp':
 
+ 
+                        let app_1 = null;
+
+                        try {
+                            app_1 = angular.module(applicationName);
+                            console.dir(app_1);
+
+                        } catch (e) {
+                          // Do nothing.  We just don't want app to breakdown.
+                        }
+
+                        if (app_1 == null) {
+                            app_1 = angular.module('timesheetApp', ['ngRoute', 'ui.bootstrap', 'ngSanitize']);
+                        }
+                        else {
+                            console.log('%c ' + `REUSING APP ***********  [${applicationName}]`, 'font-size:14pt;color:red;');
+
+                        }
+
                         angularApp = {
                             name: applicationName,
                             // 11/10/2019 08:36 am - SSN - Adding 'ngSanitize' for ng-bind-html
-                            instance: angular.module('timesheetApp', ['ngRoute', 'ui.bootstrap', 'ngSanitize'])
+                            // 04/24/2022 08:05 pm - SSN - Try to see if app already created by another module
+                            // instance: angular.module('timesheetApp', ['ngRoute', 'ui.bootstrap', 'ngSanitize'])
+                            instance: app_1
                         }
 
                         if (args != null) {
 
-                            console.log('5c ' + '20220424-0722 - Passing args to globals.ts to create timesheetApp.  Not set up to accept args', 'font-size:20pt; color:red');
+                            console.log('%c ' + '20220424-0722 - Passing args to globals.ts to create timesheetApp.  Not set up to accept args', 'font-size:20pt; color:red');
                         }
 
                         SSN_Globals.ssn_devsite_angular_module.push(angularApp);
@@ -121,6 +140,13 @@ var globals_instance = function () {
                         break;
 
                     case 'demoSites_Index_Timesheet':
+
+
+                        if (args == null) {
+
+                            console.log('%c ' + `20220424-1820 - NOT Passing args to globals.ts to create [${applicationName}].`, 'font-size:20pt; color:red');
+                        }
+
 
                         angularApp = {
                             name: applicationName,
@@ -133,12 +159,11 @@ var globals_instance = function () {
 
 
                     case 'demoSites_Index':
+                         
+                        if (args == null) {
 
-
-                        console.log('%c ' + '20220424-0828 - TESTING demoSites_Index ', 'color:red;font-size:20pt;');
-                        console.log('%c ' + `callSource [${callSource}]`, 'color:yellow;font-size:20pt;');
-                        console.log('%c ' + 'args', 'color:yellow;font-size:20pt;');
-                        console.dir(args);
+                            console.log('%c ' + `20220424-1820 - NOT Passing args to globals.ts to create [${applicationName}].`, 'font-size:20pt; color:red');
+                        }
 
                         angularApp = {
                             name: applicationName,
@@ -146,11 +171,7 @@ var globals_instance = function () {
                         }
 
                         SSN_Globals.ssn_devsite_angular_module.push(angularApp);
-
-                        console.log('%c ' + '20220424-0723 - TESTING 20220424-0713', 'color:yellow;font-size:20pt;');
-                        console.log('%c ' + 'angularApp', 'color:yellow;font-size:20pt;');
-                        console.dir(angularApp);
-
+  
                         break;
 
 
@@ -158,10 +179,20 @@ var globals_instance = function () {
                     // 04/24/2022 05:23 am - SSN
                     case 'devSite_Detail_module':
 
+                        console.log('%c ' + `20220424-1702-DDD -  GLOBAL getInstance_Original [${callSource}] [${applicationName}]`, 'font-size:12pt; color:GREEN');
+
                         console.log('%c ' + `20220424-0724 - Registering [${applicationName}]`, 'font-size:12pt; color:yellow');
                         console.log('%c ' + `ARGS:`, 'font-size:12pt; color:yellow');
 
                         console.log(args);
+
+
+                        if (args == null) {
+
+                            console.log('%c ' + `20220424-1820 - NOT Passing args to globals.ts to create [${applicationName}].`, 'font-size:20pt; color:red');
+                        }
+
+
 
                         angularApp = {
                             name: applicationName,
@@ -175,7 +206,7 @@ var globals_instance = function () {
 
                     default:
 
-                        console.error("Globals ************* No case for application name [" + applicationName + "]  [20190920-0955] globals.ts");
+                        console.log("%c " + "Globals ************* No case for application name [" + applicationName + "]  [20190920-0955] globals.ts", "color:red;font-size:20pt;");
 
                         break;
 
@@ -184,7 +215,6 @@ var globals_instance = function () {
 
 
             }
-
 
             return angularApp.instance;
 

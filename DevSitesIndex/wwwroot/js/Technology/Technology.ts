@@ -32,11 +32,11 @@ const TechnologyController_instance = function () {
 
 
 
-        angularApp.controller('TechnologyController', ['$q', '$uibModalInstance', '$rootScope', '$scope', 'dataService', 'changeMonitorService', 'ssn_logger', 'containerViewValue', TechnologyControllerFunction]);
+        angularApp.controller('TechnologyController', ["$sce", '$q', '$uibModalInstance', '$rootScope', '$scope', 'dataService', 'changeMonitorService', 'ssn_logger', 'containerViewValue', TechnologyControllerFunction]);
 
 
 
-        function TechnologyControllerFunction($q, $uibModalInstance, $rootScope, $scope, dataService, changeMonitorService, ssn_logger: ILoggerModule, containerViewValue) {
+        function TechnologyControllerFunction($sce, $q, $uibModalInstance, $rootScope, $scope, dataService, changeMonitorService, ssn_logger: ILoggerModule, containerViewValue) {
 
 
             $scope.defaultValue = containerViewValue;
@@ -115,17 +115,21 @@ const TechnologyController_instance = function () {
                             },
                             function (error) {
 
+
+                                // 04/24/2022 10:31 pm - SSN - Added reset & $sce
+                                changeMonitorService.reset();
+
+
                                 $scope.disableSaveButton = false;
 
                                 console.error("DevSite Technology  - 20210615-0406 - promise > error");
                                 console.log(error);
 
-                                toastr.error("Failed to save record.  See console log.");
+                                toastr.error("Failed to save record.  See console log. (1021)");
 
 
                                 $scope.feedbackToUserClassNameCase = 2;
-                                $scope.feedbackToUserText = error.data;
-
+                                $scope.feedbackToUserText = $sce.trustAsHtml(error.data.ErrorMessage);
 
                                 ssn_logger.cl_error({ callSource: "20210615-0409", message: "function > error", errorObject: error });
 
@@ -138,7 +142,7 @@ const TechnologyController_instance = function () {
 
                     ssn_logger.cl_error({ callSource: "20210615-0408", message: "function > error", errorObject: error });
 
-                    toastr.error("Failed to save record.  See console log.");
+                    toastr.error("Failed to save record.  See console log. (1022)");
 
                 }
 

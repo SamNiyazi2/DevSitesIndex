@@ -245,18 +245,12 @@ var ssn_devsite_angular_module_instance = function () {
 
                     $scope.doRecompileList = function () {
                         try {
-
-                            console.log('%c ' + 'Check for error-20220422-2145-A', 'font-size:16pt;color:red');
-
+                             
                             while ($rootScope.listOfAddedDirectives?.length > 0) {
-
-                                console.log('%c ' + 'Check for error-20220422-2145-M', 'font-size:14pt;color:yellow');
-
+                                  
                                 const _tempScope = $rootScope.listOfAddedDirectives.pop();
                                 _tempScope.$destroy();
-                            }
-
-                            console.log('%c ' + 'Done checking for error-20220422-2145-Z', 'font-size:14pt;color:green');
+                            } 
 
                             $scope.$broadcast('call-to-compile', { key: 'Calling-from-doRecompileList' });
 
@@ -287,23 +281,16 @@ var ssn_devsite_angular_module_instance = function () {
 
 
                     scope.$on('call-to-compile', function (event, args) {
-
-                        console.log('%c ' + 'devSiteTagsCompiler - call-to-compile', 'color:red;font-size:10pt');
-                        console.log(event);
-                        console.log(args);
-                        console.log('--------------------------------------');
-
-                        try {
-                            console.log(element.contents());
+ 
+                        try { 
                             $compile(element.contents())(scope);
                         } catch (ex) {
 
-                            console.log('%c ' + 'Error-20220419-1648', 'color:red;font-size:12pt;');
-                            console.log(ex);
+                            console.log('%c ' + 'Error-20220419-1648  call-to-compile', 'color:red;font-size:12pt;');
+                            console.dir(ex);
 
                         }
-                        console.log('======================================');
-
+                      
 
                     });
                 }
@@ -483,10 +470,7 @@ var ssn_devsite_angular_module_instance = function () {
 
 
                         function addDevSiteTechnologySuccess(data) {
-
-                            console.log('%c  demoSites_ondex - 20210616-0344 - Success', 'color:green;font-size:14pt;');
-                            console.log(data);
-
+ 
                             $scope.disableSaveButton = false;
 
                             const newOrUpdatedRecord = { id: data.id, technology: { description: data.technology.description } };
@@ -494,23 +478,14 @@ var ssn_devsite_angular_module_instance = function () {
                             let existingRecordIndex = $scope.theTags.findIndex(r => r.id == data.id);
 
                             if (existingRecordIndex > -1) {
-
-                                console.log('%c  demoSites_ondex - 20210616-0344 - CHECK ', 'color:green;font-size:14pt;');
-
-                                console.log($scope.theTags)
-
-
+                                 
                                 $scope.theTags.splice(existingRecordIndex, 1, newOrUpdatedRecord);
-
-
-                                console.log($scope.theTags)
-
+                                 
 
                             } else {
                                 $scope.theTags.push(newOrUpdatedRecord);
                             }
-
-                            //   $scope.theTags.push($scope.newDevSiteTag);
+                             
 
                             $scope.addingDevSiteTag = false;
 
@@ -528,8 +503,7 @@ var ssn_devsite_angular_module_instance = function () {
 
                             $scope.disableSaveButton = false;
 
-
-
+                             
                             ssn_logger.cl_error({ callSource: "20210624-0115", message: `Failed to save DevSite tag`, errorObject: error, other: error });
 
 

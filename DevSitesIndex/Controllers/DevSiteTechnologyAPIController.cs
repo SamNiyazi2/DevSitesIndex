@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DevSitesIndex.Entities;
 using DevSitesIndex.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
@@ -21,7 +22,6 @@ namespace DevSitesIndex.Controllers
 
         //private readonly DevSitesIndexContext context;
         //private readonly ILogger_SSN logger;
-
         public DevSiteTechnologyAPIController(DevSitesIndexContext context, ILogger_SSN logger) : base(context, logger)
         {
             //this.context = context;
@@ -31,7 +31,9 @@ namespace DevSitesIndex.Controllers
         }
 
         // 06/16/2021 07:24 pm - SSN - [20210613-0452] - [102] - Adding tags to DevSite
-        [Route("post_custom")]
+        [Route("post_custom")]        
+        // 04/24/2022 08:35 pm - SSN - Authorize
+        [Authorize]
         public new ActionResult Post([FromBody]  DevSiteTechnology value)
         {
 
