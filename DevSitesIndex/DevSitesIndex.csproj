@@ -81,6 +81,7 @@
     <Content Remove="libman.json" />
     <Content Remove="Pages\Jobs\Index_partial.cshtml" />
     <Content Remove="wwwroot\js.zip" />
+    <Content Remove="wwwroot\js\CodeReference_Pages_main.ts" />
     <Content Remove="wwwroot\js\DevSiteTags\Technology.ts" />
     <Content Remove="wwwroot\js\DevSite\DevSite_Detail.ts" />
     <Content Remove="wwwroot\js\DropdownList\DropdownListDirectiveConstants.ts" />

@@ -15,6 +15,9 @@ let d1 = new Date();
 
 console.log('site - 20191115-1740 - AAAA ', d1);
 
+// 04/25/2022 04:21 pm - SSN - Adding
+import { ChangeMonitorFlag } from './Util/ChangeMonitor/ChangeMonitorFlag';
+
 
 //08/23/2018 01:24 am - SSN
 
@@ -27,6 +30,7 @@ namespace site_instance_NS {
 
     export class site_Class {
 
+        ngApplicationName: string;
 
 
         // 08/31/2020 04:29 am - SSN - [20200831-0417] - [002] - Disable collapsable divs with no content
@@ -60,7 +64,11 @@ namespace site_instance_NS {
 
 
         // 09/21/2019 12:27 pm - SSN - [201909-1227] Revise to accommodate Babel/Webpack
-        setDefaults() {
+        setDefaults( ngApplicationName:string ) {
+
+            this.ngApplicationName = ngApplicationName??"NotSet-20220426-0833";
+
+            console.log('%c ' + `firing site_v02 - setDefaults [${ngApplicationName}]`, 'font-size:14pt;color:red;')
 
             $("[cmd-name]").on('click', function (e) {
 
@@ -92,6 +100,10 @@ namespace site_instance_NS {
                 if (cmdName === "smooth-scroll") {
                     //$('body').scrollspy({ target: jQueryObjectName });
 
+                    console.log('%c ' + 'smooth-scrolll 20220425-1736', 'font-size:12pt;color:yellow');
+                    console.log('jQueryObjectName:');
+                    console.log(jQueryObjectName);
+
                     document.querySelector(jQueryObjectName).scrollIntoView({
                         behavior: 'smooth'
                     });
@@ -106,6 +118,9 @@ namespace site_instance_NS {
                     var cd = d.getFullYear() + "-" + p(d.getMonth() + 1, 2, '0') + "-" + p(d.getDate(), 2, '0') + "T" + p(d.getHours(), 2, '0') + ":" + p(d.getMinutes(), 2, '0') + ":" + p(d.getSeconds(), 2, '0');
 
                     $(jQueryObjectName).val(cd);
+
+                    // 04/25/2022 04:22 pm - SSN 
+                    ChangeMonitorFlag.haveChanges = true;
 
                 }
 
@@ -201,30 +216,20 @@ namespace site_instance_NS {
 
             // 03/14/2019 10:28 am - SSN
 
-            let lastScrollTop = -1;
 
             $(window).on('scroll', function () {
 
-                let currentScrollTop = $(window).scrollTop();
 
-                lastScrollTop = currentScrollTop;
+                let currentScrollTop: number = Math.round($(window).scrollTop());
 
-                var y = lastScrollTop;
+                let windowInnerHeight: number = window.innerHeight;
 
-                if (y > window.innerHeight) {
+
+                if (currentScrollTop > windowInnerHeight / 2) {
 
                     $('.fixed_anchor ').fadeIn('slow');
 
-                    if (navigator.userAgent.toLowerCase().indexOf('firefox') >= 0) {
-                        $('.fixed_anchor').css('position', 'sticky');
-                        $('.fixed_anchor').css('left', '-20');
-                        $('.fixed_anchor').css('background-color', 'brown');
-                    } else {
-
-                        $('.fixed_anchor').css('background-color', 'red');
-                    }
-
-                    $('.fixed_anchor').css('top', '400px');
+                    $('.fixed_anchor').css('top', (windowInnerHeight / 2) + 'px');
 
                 } else {
                     $('.fixed_anchor').fadeOut('slow');
@@ -249,46 +254,99 @@ namespace site_instance_NS {
 
 
 
+            // 04/20/2022 06:40 am - SSN - Moved from TextArea_util_0718.ts
+
+            $('[ssn_FitInScreen]').on('click', function (e) {
 
 
-            $(document).ready(() => {
+                let textAreaID = $(this).attr('ssn_FitInScreen');
+
+                let $ta = $("#" + textAreaID);
+
+                var ta_position = $($ta).position();
 
 
-                $('.navbar li a').bind('contextmenu click', (e) => {
+                var scrollTop = $(window).scrollTop();
+                var scrollLeft = $(window).scrollLeft();
 
-                    console.log('20210414-1007 - context menu');
-                    console.log(e);
+                let screenWidth = screen.width;
+                let screenHeight = screen.height;
 
-                });
+                let windowWidth = $(window).width();
+                let windowHeight = $(window).height();
 
+                let offset = $ta.offset();
 
-                $('.navbar li a').bind('mousedown', (e) => {
-
-                    switch (e.which) {
-                        case 1:
-                            console.log('Left mouse button is pressed');
-                            break;
-                        case 2:
-                            console.log('Middle mouse button is pressed');
-                            break;
-                        case 3:
-
-                            console.log('Right mouse button is pressed   208  ');
-                            console.log($(e.target));
-
-                            break;
+                let ta_width = $ta.width();
+                let ta_height = $ta.height();
 
 
-                        default:
-                            alert('Nothing');
-                    }
+                $ta.width(windowWidth - ((ta_position.left + offset.left) * 2));
+                $ta.height(windowHeight - 100);
 
-                    //if ($(this.mobileNavbarMenuOption.nativeElement).is(':visible')) {
-                    //    $(this.mobileNavbarMenuOption.nativeElement).trigger('click');
-                    //}
+                ta_width = $ta.width();
+                ta_height = $ta.height();
 
-                });
+
+
+
+                $('html, body').animate({
+                    scrollTop: offset.top - 80,
+
+                }, 1000);
+
+
+
+
             });
+
+
+
+
+
+            // 04/25/2022 06:41 pm - SSN - Remove $(document).ready(() 
+
+            //            $(document).ready(() => {
+
+
+            $('.navbar li a').bind('contextmenu click', (e) => {
+
+                console.log('20210414-1007 - context menu');
+                console.log(e);
+
+            });
+
+
+            $('.navbar li a').bind('mousedown', (e) => {
+
+                switch (e.which) {
+                    case 1:
+                        console.log('Left mouse button is pressed');
+                        break;
+                    case 2:
+                        console.log('Middle mouse button is pressed');
+                        break;
+                    case 3:
+
+                        console.log('Right mouse button is pressed   208  ');
+                        console.log($(e.target));
+
+                        break;
+
+
+                    default:
+                        alert('Nothing');
+                }
+
+                //if ($(this.mobileNavbarMenuOption.nativeElement).is(':visible')) {
+                //    $(this.mobileNavbarMenuOption.nativeElement).trigger('click');
+                //}
+
+            });
+
+
+
+            //            });
 
 
 
@@ -343,7 +401,7 @@ namespace site_instance_NS {
                     _title = "";
                 }
 
-                $('<p><a cmd-name="showsibling" ' + titleAttrib + ' >Show code' + _title_caption + '</a></p>').insertBefore(this);
+                $('<p><a cmd-name="showsibling" ' + titleAttrib + ' >Show code' + _title_caption + '</a>&nbsp; &nbsp; <i class="glyphicon glyphicon-file "></i></p>').insertBefore(this);
 
             });
 
@@ -484,9 +542,36 @@ namespace site_instance_NS {
 
 
 
+        // 04/25/2022 03:54 pm - SSN 
+
+        public static setDefault_ForStartup_firedAlready_count: number = 0;
+
+        setDefault_ForStartup(ngApplicationName: string, checkIfAlreadyCalled: boolean = false) {
 
 
+            site_Class.setDefault_ForStartup_firedAlready_count++;
 
+            console.log('%c ' + `setDefault_ForStartup - 20220424-0803 - SOURCE [${ngApplicationName}] - [[${site_Class.setDefault_ForStartup_firedAlready_count}]] CALLING`, 'color:green;font-size:14pt;');
+
+            if (checkIfAlreadyCalled && site_Class.setDefault_ForStartup_firedAlready_count > 1) {
+                console.log('%c ' + `setDefault_ForStartup - 20220424-0803-B - SOURCE [${ngApplicationName}] - allready callsed - BYPASS count: [${site_Class.setDefault_ForStartup_firedAlready_count}]`, 'color:yellow;font-size:14pt;');
+                return;
+            }
+
+            console.log('%c ' + `setDefault_ForStartup - 20220424-0803-Z - SOURCE [${ngApplicationName}] - firing`, 'color:RED;font-size:18pt;');
+
+            setTimeout(() => {
+
+                this.setDefaults(ngApplicationName);
+
+                this.disableEmptyCollapsableDivs();
+
+                this.prefixPreWithShowHideAnchor('20200102-1534-2');
+
+            }, 2000);
+
+
+        }
 
     }
 
@@ -497,6 +582,10 @@ namespace site_instance_NS {
 let site_instance = new site_instance_NS.site_Class();
 export { site_instance };
 
+     
+
+
+
 
 
 // 01/02/2020 04:20 pm - SSN - [20200102-1611] - [003] - Seperate AngularJS utility from general DOM utilities
@@ -505,32 +594,32 @@ export { site_instance };
 
 // 04/22/2022 09:19 pm - SSN - Take out. (Pending work)
 
-//////////$(function () {
+////$(function () {
 
-//////////    // 12/30/2019 01:23 am - SSN - Add timeot
-//////////    // site_instance.setDefaults();
-//////////    setTimeout(() => { site_instance.setDefaults(); }, 2000);
-
-
-//////////    // 04/29/2019 07:36 pm - SSN - [20190429-1748] - [006] - Angular clock out popup  - End
-//////////    // 09/10/2019 08:53 pm - SSN - Replaced
-//////////    // 09/11/2019 07:08 am - SSN - DevSiteIndex p1 data is coming after document is ready.
-//////////    setTimeout(() => {
-
-//////////        site_instance.prefixPreWithShowHideAnchor('20200102-1534-2');
-
-//////////        // 08/31/2020 04:32 am - SSN - [20200831-0417] - [003] - Disable collapsable divs with no content
-
-//////////        setTimeout(() => site_instance.disableEmptyCollapsableDivs(), 1000);
-
-//////////    }
-//////////        , 2000);
+////    // 12/30/2019 01:23 am - SSN - Add timeot
+////    // site_instance.setDefaults();
+////    setTimeout(() => { site_instance.setDefaults(); }, 2000);
 
 
+////    // 04/29/2019 07:36 pm - SSN - [20190429-1748] - [006] - Angular clock out popup  - End
+////    // 09/10/2019 08:53 pm - SSN - Replaced
+////    // 09/11/2019 07:08 am - SSN - DevSiteIndex p1 data is coming after document is ready.
+////    setTimeout(() => {
+
+////        site_instance.prefixPreWithShowHideAnchor('20200102-1534-2');
+
+////        // 08/31/2020 04:32 am - SSN - [20200831-0417] - [003] - Disable collapsable divs with no content
+
+////        setTimeout(() => site_instance.disableEmptyCollapsableDivs(), 1000);
+
+////    }
+//////        , 2000);
 
 
 
-//////////});
+
+
+////////});
 
 
 

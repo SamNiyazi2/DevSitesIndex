@@ -8,7 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using DevSitesIndex.Entities;
 using Microsoft.AspNetCore.Authorization;
 using DevSitesIndex.Util;
-
+using DevSitesIndex.Models;
+using AutoMapper;
 
 namespace DevSitesIndex.Pages.DevSites
 {
@@ -23,13 +24,17 @@ namespace DevSitesIndex.Pages.DevSites
     public class DetailsModel : PageModel
     {
         private readonly DevSitesIndex.Entities.DevSitesIndexContext _context;
+        private readonly IMapper mapper;
 
-        public DetailsModel(DevSitesIndex.Entities.DevSitesIndexContext context)
+        public DetailsModel(DevSitesIndex.Entities.DevSitesIndexContext context, IMapper _mapper)
         {
             _context = context;
+            mapper = _mapper;
         }
 
         public DevSite DevSite { get; set; }
+
+        public DevSite_DTO devSite_DTO { get; set; }
 
         // 11/09/2019 06:54 am - SSN - [20191109-0654] - [001] - ReturnToIndex from demosite index
         public ReturnToCaller returnToCaller = new ReturnToCaller();
@@ -47,6 +52,9 @@ namespace DevSitesIndex.Pages.DevSites
 
             // 04/24/2022 08:36 am - SSN - Include devSiteTechnologies
              DevSite = await _context.DevSites.Include(r=>r.DevSiteTechnologies).ThenInclude(r=>r.Technology).SingleOrDefaultAsync(m => m.Id == id);
+
+            // 04/25/2022 07:43 pm - SSN - Add AutoMapper
+             devSite_DTO = mapper.Map<DevSite, DevSite_DTO>(DevSite);
 
             if (DevSite == null)
             {

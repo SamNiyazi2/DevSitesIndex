@@ -67,7 +67,7 @@ dropdownListDirective_instance.doSetup(ngApplicationName);
 
 import { ssn_AngularJslogger } from '../Util/Logger/ssn_AngularJslogger';
 
-ssn_AngularJslogger.doSetup("timesheet_main",ngApplicationName);
+ssn_AngularJslogger.doSetup("timesheet_main", ngApplicationName);
 
 
 
@@ -82,7 +82,7 @@ ssn_AngularJslogger.doSetup("timesheet_main",ngApplicationName);
 
 
 // 10/01/2019 11:09 am - SSN - [20191001-0944] - [007] - Adding Application Insights for JavaScript
- 
+
 AppInsights_Util.doSetup("timesheet_main");
 
 
@@ -96,3 +96,11 @@ AppInsights_Util.logEvent(document.location.hostname, { SourceCode: "20191105-05
 import * as x from './Timesheet_main_timesheetOnly';
 
 x.doSetup(ngApplicationName);
+
+
+
+// 04/10/2022 04:10 pm - SSN - Adding
+import { site_instance } from '../site_v02';
+
+site_instance.setDefault_ForStartup('timesheet_main-20220426-0814', true);
+

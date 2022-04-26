@@ -2,116 +2,116 @@
 @model DevSitesIndex.Pages.DevSites.CreateModel
 
 @{
-    ViewData["Title"] = "Create Demo Site";
+	ViewData["Title"] = "Create Demo Site";
 }
 
 <h2>@ViewData["Title"] </h2>
 
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="DevSite.SiteTitle" class="control-label"></label>
-                <input asp-for="DevSite.SiteTitle" class="form-control" autofocus />
-                <span asp-validation-for="DevSite.SiteTitle" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DevSite.SiteUrl" class="control-label"></label>
-                <input asp-for="DevSite.SiteUrl" class="form-control" />
-                <span asp-validation-for="DevSite.SiteUrl" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DevSite.SolutionName" class="control-label"></label>
-                <input asp-for="DevSite.SolutionName" class="form-control" />
-                <span asp-validation-for="DevSite.SolutionName" class="text-danger"></span>
-            </div>
+ <div class="col-md-4">
+  <form method="post">
+   <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+   <div class="form-group">
+	<label asp-for="DevSite.SiteTitle" class="control-label"></label>
+	<input asp-for="DevSite.SiteTitle" class="form-control" autofocus />
+	<span asp-validation-for="DevSite.SiteTitle" class="text-danger"></span>
+   </div>
+   <div class="form-group">
+	<label asp-for="DevSite.SiteUrl" class="control-label"></label>
+	<input asp-for="DevSite.SiteUrl" class="form-control" />
+	<span asp-validation-for="DevSite.SiteUrl" class="text-danger"></span>
+   </div>
+   <div class="form-group">
+	<label asp-for="DevSite.SolutionName" class="control-label"></label>
+	<input asp-for="DevSite.SolutionName" class="form-control" />
+	<span asp-validation-for="DevSite.SolutionName" class="text-danger"></span>
+   </div>
 
-            <div class="form-group">
-                <label asp-for="DevSite.SoftwareCodeID" class="control-label"></label>
-
-
-                <select asp-for="DevSite.SoftwareCodeID" class="form-control"
-                        asp-items="@Model.softwareCodesSL">
-                    <option></option>
-                </select>
+   <div class="form-group">
+	<label asp-for="DevSite.SoftwareCodeID" class="control-label"></label>
 
 
-                <span asp-validation-for="DevSite.SoftwareCodeID" class="text-danger"></span>
-            </div>
-
-            @*// 03/18/2019 11:50 pm - SSN - [20190318-2350] Added*@
-
-
-            <div class="form-group">
-                <input type="checkbox" asp-for="DevSite.CanBeLaunched" />
-                <label asp-for="DevSite.CanBeLaunched" class="control-label"></label>
-                <span asp-validation-for="DevSite.CanBeLaunched" class="text-danger"></span>
-            </div>
+	<select asp-for="DevSite.SoftwareCodeID" class="form-control"
+						asp-items="@Model.softwareCodesSL">
+	 <option></option>
+	</select>
 
 
+	<span asp-validation-for="DevSite.SoftwareCodeID" class="text-danger"></span>
+   </div>
 
-            @*// 03/19/2019 09:21 pm - SSN - [20190319-2117] Added ForDemo*@
-            @*// 03/19/2019 10:27 pm - SSN - [20190319-2117] From ForDemo to ForDemo_v02*@
+			@*// 03/18/2019 11:50 pm - SSN - [20190318-2350] Added*@
 
-            <div class="form-group">
 
-                @*// 03/19/2019 10:13 pm - SSN - [20190319-2117]  ForDemo to ForDemo_v02*@
-
-                <label asp-for="DevSite.ForDemo_v02" class="control-label"></label>
-
-                @*// 03/20/2019 03:42 am - SSN - [20190319-2117]  ForDemo_v02 revised*@
-
-                @foreach (DevSitesIndex.EnumList.ForDemoState o in Enum.GetValues(typeof(DevSitesIndex.EnumList.ForDemoState)))
-                {
-                    string description = o.GetDescription();
-                    int key = (int)o;
-                    <span class="indexNowrapOption">
-                        <input asp-for="DevSite.ForDemo_v02" type="radio" value="@key" /> @description
-                    </span>
-                }
+   <div class="form-group">
+	<input type="checkbox" asp-for="DevSite.CanBeLaunched" />
+	<label asp-for="DevSite.CanBeLaunched" class="control-label"></label>
+	<span asp-validation-for="DevSite.CanBeLaunched" class="text-danger"></span>
+   </div>
 
 
 
-                <span asp-validation-for="DevSite.ForDemo_v02" class="text-danger"></span>
-            </div>
+			@*// 03/19/2019 09:21 pm - SSN - [20190319-2117] Added ForDemo*@
+			@*// 03/19/2019 10:27 pm - SSN - [20190319-2117] From ForDemo to ForDemo_v02*@
 
-            @*
-                09/13/2019 04:30 am - SSN - [20190913-0421] - [001]
-                Moved down
-            *@
+   <div class="form-group">
+
+				@*// 03/19/2019 10:13 pm - SSN - [20190319-2117]  ForDemo to ForDemo_v02*@
+
+	<label asp-for="DevSite.ForDemo_v02" class="control-label"></label>
+
+				@*// 03/20/2019 03:42 am - SSN - [20190319-2117]  ForDemo_v02 revised*@
+
+				@foreach (DevSitesIndex.EnumList.ForDemoState o in Enum.GetValues(typeof(DevSitesIndex.EnumList.ForDemoState)))
+				{
+					string description = o.GetDescription();
+					int key = (int)o;
+		<span class="indexNowrapOption">
+		 <input asp-for="DevSite.ForDemo_v02" type="radio" value="@key" /> @description
+		</span>
+				}
 
 
-            <div class="form-group">
 
-                @*
-                    // 08/27/2020 08:19 am - SSN - [20200826-1927] - [004] - Format textarea for edit
-                *@
-                <label asp-for="DevSite.Solution_Details" class="control-label" ssn_FitInScreen="DevSite_Solution_Details"></label>
+	<span asp-validation-for="DevSite.ForDemo_v02" class="text-danger"></span>
+   </div>
 
-                <textarea cols="40" rows="5" asp-for="DevSite.Solution_Details" class="form-control">
+			@*
+				09/13/2019 04:30 am - SSN - [20190913-0421] - [001]
+				Moved down
+			*@
+
+
+   <div class="form-group">
+
+				@*
+					// 08/27/2020 08:19 am - SSN - [20200826-1927] - [004] - Format textarea for edit
+				*@
+	<label asp-for="DevSite.Solution_Details" class="control-label" ssn_FitInScreen="DevSite_Solution_Details"></label>
+
+	<textarea cols="40" rows="5" asp-for="DevSite.Solution_Details" class="form-control">
 
 </textarea>
 
 
-                <span asp-validation-for="DevSite.Solution_Details" class="text-danger"></span>
-            </div>
+	<span asp-validation-for="DevSite.Solution_Details" class="text-danger"></span>
+   </div>
 
 
 
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </form>
-    </div>
+   <div class="form-group">
+	<input type="submit" value="Create" class="btn btn-default" />
+   </div>
+  </form>
+ </div>
 </div>
 
 
 <div>
-    @*<a asp-page="Index">Back to List</a>*@
+	@*<a asp-page="Index">Back to List</a>*@
 
-    @await Html.PartialAsync("ReturnToCallerLink", Model.returnToCaller)
+	@await Html.PartialAsync("ReturnToCallerLink", Model.returnToCaller)
 </div>
 
 
@@ -119,6 +119,11 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
+    @*
+	// 04/26/2022 04:03 am - SSN - Take out bundle_TextArea_util_0718. Add bundle_DevSite_Detail.js
 
-    <script src="/webpack_build/bundle_TextArea_util_0718.js" asp-append-version="true"></script>
-}
+*@
+<script src="/webpack_build/bundle_DevSite_Detail.js" asp-append-version="true"></script>
+@*
+	<script src="/webpack_build/bundle_TextArea_util_0718.js" asp-append-version="true"></script>
+*@}

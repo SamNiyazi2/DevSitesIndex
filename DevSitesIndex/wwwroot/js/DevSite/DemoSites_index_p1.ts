@@ -5,13 +5,15 @@
 // 08/21/2018 02:46 am - SSN - Copied from C: \Sams_Projects\PluralSight\html5 - line - of - business - applications\d\demos\CodedHomes.Web\Views\Homes
 
 
-/// <reference path="../../node_modules/@types/jquery/index.d.ts" />
-/// <reference path="../../node_modules/@types/knockout/index.d.ts" /> 
-/// <reference path="../../node_modules/@types/knockout.mapping/index.d.ts" /> 
+// 04/26/2022 07:47 am - SSN - Moved under DevSite
+
+/// <reference path="../../../node_modules/@types/jquery/index.d.ts" />
+/// <reference path="../../../node_modules/@types/knockout/index.d.ts" />
+/// <reference path="../../../node_modules/@types/knockout.mapping/index.d.ts" />
 
 // 04/22/2022 07:34 am - SSN - Remove since adding site_only_main buncle
 // 04/22/2022 09:07 pm - SSN - Taking out site_only_main
-import * as util from '../js/site_v02';
+import * as util from '../../js/site_v02';
 
 import * as angular from 'angular';
 
@@ -106,7 +108,7 @@ var demosites_index_p1_instance = function () {
                     'ignore': ["solution_Details_PRE_Encoded"]
                 }
                 var viewModel = ko.mapping.fromJS(data, mapping);
-                 
+
 
                 self.applyDisplayRequirements();
 
@@ -339,7 +341,14 @@ var demosites_index_p1_instance = function () {
 
 
             if (!self.prefixPreWithShowHideAnchor_DontCall_KO()) {
-                setTimeout(() => util.site_instance.prefixPreWithShowHideAnchor('20200102-1533'), 2000);
+                setTimeout(() => {
+
+                    // 04/25/2022 04:52 pm - SSN - Replaced.
+                    // util.site_instance.prefixPreWithShowHideAnchor('20200102-1533');
+                    util.site_instance.setDefault_ForStartup('DemoSites_index_p1-20220426-0818-applyDisplayRequirements', false);
+
+                }, 2000);
+
             }
             else {
                 // 08/21/2019 01:48 pm - SSN - [20190821-1348] [001] - Added

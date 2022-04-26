@@ -2,7 +2,7 @@
 @model DevSitesIndex.Pages.DevSites.EditModel
 
 @{
-    ViewData["Title"] = $"Edit Demo Site - {PageTitleUtil.GetTitle_DevSite(Model.DevSite)}";
+	ViewData["Title"] = $"Edit Demo Site - {PageTitleUtil.GetTitle_DevSite(Model.DevSite)}";
 }
 
 <h2>@ViewData["Title"] </h2>
@@ -10,156 +10,156 @@
 
 @*03/19/2019 10:48 pm - SSN - Added*@
 @*
-    // 09/24/2019 09:26 am - SSN - [20190924-0731] - [007] - Project search option
-    // ModelOnly from All
+	// 09/24/2019 09:26 am - SSN - [20190924-0731] - [007] - Project search option
+	// ModelOnly from All
 *@
 <div asp-validation-summary="ModelOnly"></div>
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        @*
-        // 09/24/2019 01:34 pm - SSN - [20190924-1134] - [023] - Removing date add/updated from create/edit pages
-        *@
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.DevSite.DateAdded)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.DevSite.DateAdded)
-            </dd>
-            @{
-                if (Model.DevSite.DateUpdated != null)
-                {
-                    <dt>
-                        @Html.DisplayNameFor(model => model.DevSite.DateUpdated)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.DevSite.DateUpdated)
-                    </dd>
-                }
-            }
-        </dl>
+ <div class="col-md-4">
+		@*
+			// 09/24/2019 01:34 pm - SSN - [20190924-1134] - [023] - Removing date add/updated from create/edit pages
+		*@
+  <dl class="dl-horizontal">
+   <dt>
+				@Html.DisplayNameFor(model => model.DevSite.DateAdded)
+   </dt>
+   <dd>
+				@Html.DisplayFor(model => model.DevSite.DateAdded)
+   </dd>
+			@{
+				if (Model.DevSite.DateUpdated != null)
+				{
+		<dt>
+						@Html.DisplayNameFor(model => model.DevSite.DateUpdated)
+		</dt>
+		<dd>
+						@Html.DisplayFor(model => model.DevSite.DateUpdated)
+		</dd>
+				}
+			}
+  </dl>
 
 
-        @*// 08/20/2021 12:30 pm - SSN - Moved to root.  Impact of html[theme="Dark"]*@
+		@*// 08/20/2021 12:30 pm - SSN - Moved to root.  Impact of html[theme="Dark"]*@
 
-        @if (Model.DevSite.Id > 0)
-        {
-            // 09/04/2020 05:58 am - SSN - [20200904-0540] - [006] - Ading save-and-stay option to codereference
-            // Pass model
-            @await Html.PartialAsync("SaveAndStayControl", Model.SaveAndStayModel)
-        }
-
-
-
-        <form method="post" id="devSiteForm">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-            @*09/11/2019 07:01 am - SSN - Adding RowVersion*@
-            <input type="hidden" asp-for="DevSite.Id" />
-            <input type="hidden" asp-for="DevSite.RowVersion" />
-
-            <div class="form-group">
-                <label asp-for="DevSite.SiteTitle" class="control-label"></label>
-                <input asp-for="DevSite.SiteTitle" class="form-control" autofocus />
-                <span asp-validation-for="DevSite.SiteTitle" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DevSite.SiteUrl" class="control-label"></label>
-                <input asp-for="DevSite.SiteUrl" class="form-control" />
-                <span asp-validation-for="DevSite.SiteUrl" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DevSite.SolutionName" class="control-label"></label>
-                <input asp-for="DevSite.SolutionName" class="form-control" />
-                <span asp-validation-for="DevSite.SolutionName" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="DevSite.SoftwareCodeID" class="control-label"></label>
-                <select asp-for="DevSite.SoftwareCodeID" class="form-control"
-                        asp-items="@Model.softwareCodesSL">
-                    <option></option>
-                </select>
-
-                <span asp-validation-for="DevSite.SoftwareCodeID" class="text-danger"></span>
-            </div>
-
-
-            @*// 03/19/2019 12:04 am - SSN - [20190318-2350] Added*@
-
-
-            <div class="form-group">
-                <input type="checkbox" asp-for="DevSite.CanBeLaunched" />
-                <label asp-for="DevSite.CanBeLaunched" class="control-label"></label>
-                <span asp-validation-for="DevSite.CanBeLaunched" class="text-danger"></span>
-            </div>
+		@if (Model.DevSite.Id > 0)
+		{
+			// 09/04/2020 05:58 am - SSN - [20200904-0540] - [006] - Ading save-and-stay option to codereference
+			// Pass model
+			@await Html.PartialAsync("SaveAndStayControl", Model.SaveAndStayModel)
+		}
 
 
 
+  <form method="post" id="devSiteForm">
+   <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-            @*// 03/19/2019 09:17 pm - SSN - [20190319-2117] Added ForDemo*@
+			@*09/11/2019 07:01 am - SSN - Adding RowVersion*@
+   <input type="hidden" asp-for="DevSite.Id" />
+   <input type="hidden" asp-for="DevSite.RowVersion" />
 
-            <div class="form-group">
+   <div class="form-group">
+	<label asp-for="DevSite.SiteTitle" class="control-label"></label>
+	<input asp-for="DevSite.SiteTitle" class="form-control" autofocus />
+	<span asp-validation-for="DevSite.SiteTitle" class="text-danger"></span>
+   </div>
+   <div class="form-group">
+	<label asp-for="DevSite.SiteUrl" class="control-label"></label>
+	<input asp-for="DevSite.SiteUrl" class="form-control" />
+	<span asp-validation-for="DevSite.SiteUrl" class="text-danger"></span>
+   </div>
+   <div class="form-group">
+	<label asp-for="DevSite.SolutionName" class="control-label"></label>
+	<input asp-for="DevSite.SolutionName" class="form-control" />
+	<span asp-validation-for="DevSite.SolutionName" class="text-danger"></span>
+   </div>
 
-                @*// 03/19/2019 10:13 pm - SSN - [20190319-2117]  ForDemo to ForDemo_v02*@
+   <div class="form-group">
+	<label asp-for="DevSite.SoftwareCodeID" class="control-label"></label>
+	<select asp-for="DevSite.SoftwareCodeID" class="form-control"
+						asp-items="@Model.softwareCodesSL">
+	 <option></option>
+	</select>
 
-                <label asp-for="DevSite.ForDemo_v02" class="control-label"></label>
-
-                @*// 03/20/2019 03:42 am - SSN - [20190319-2117]  ForDemo_v02 revised*@
-
-                @foreach (DevSitesIndex.EnumList.ForDemoState o in Enum.GetValues(typeof(DevSitesIndex.EnumList.ForDemoState)))
-                {
-                    string description = o.GetDescription();
-                    int key = (int)o;
-                    <span class="indexNowrapOption">
-                        <input asp-for="DevSite.ForDemo_v02" type="radio" value="@key" /> @description
-                    </span>
-                }
-                <span asp-validation-for="DevSite.ForDemo_v02" class="text-danger"></span>
-            </div>
-
-
-
-            @*
-            09/13/2019 04:30 am - SSN - [20190913-0421] - [001]
-            Moved down
-            *@
-
-
-
-            <div class="form-group">
-                @*
-                // 08/26/2020 07:48 pm - SSN - [20200826-1927] - [003] - Format textarea for edit
-                Adding ssn_FitInScreen="DevSite_Solution_Details
-                *@
+	<span asp-validation-for="DevSite.SoftwareCodeID" class="text-danger"></span>
+   </div>
 
 
+			@*// 03/19/2019 12:04 am - SSN - [20190318-2350] Added*@
 
-                <label asp-for="DevSite.Solution_Details" class="control-label" ssn_FitInScreen="DevSite_Solution_Details"></label>
-                <textarea cols="40" rows="5" asp-for="DevSite.Solution_Details" class="form-control">
+
+   <div class="form-group">
+	<input type="checkbox" asp-for="DevSite.CanBeLaunched" />
+	<label asp-for="DevSite.CanBeLaunched" class="control-label"></label>
+	<span asp-validation-for="DevSite.CanBeLaunched" class="text-danger"></span>
+   </div>
+
+
+
+
+			@*// 03/19/2019 09:17 pm - SSN - [20190319-2117] Added ForDemo*@
+
+   <div class="form-group">
+
+				@*// 03/19/2019 10:13 pm - SSN - [20190319-2117]  ForDemo to ForDemo_v02*@
+
+	<label asp-for="DevSite.ForDemo_v02" class="control-label"></label>
+
+				@*// 03/20/2019 03:42 am - SSN - [20190319-2117]  ForDemo_v02 revised*@
+
+				@foreach (DevSitesIndex.EnumList.ForDemoState o in Enum.GetValues(typeof(DevSitesIndex.EnumList.ForDemoState)))
+				{
+					string description = o.GetDescription();
+					int key = (int)o;
+		<span class="indexNowrapOption">
+		 <input asp-for="DevSite.ForDemo_v02" type="radio" value="@key" /> @description
+		</span>
+				}
+	<span asp-validation-for="DevSite.ForDemo_v02" class="text-danger"></span>
+   </div>
+
+
+
+			@*
+				09/13/2019 04:30 am - SSN - [20190913-0421] - [001]
+				Moved down
+			*@
+
+
+
+   <div class="form-group">
+				@*
+					// 08/26/2020 07:48 pm - SSN - [20200826-1927] - [003] - Format textarea for edit
+					Adding ssn_FitInScreen="DevSite_Solution_Details
+				*@
+
+
+
+	<label asp-for="DevSite.Solution_Details" class="control-label" ssn_FitInScreen="DevSite_Solution_Details"></label>
+	<textarea cols="40" rows="5" asp-for="DevSite.Solution_Details" class="form-control">
 
 </textarea>
-                <span asp-validation-for="DevSite.Solution_Details" class="text-danger"></span>
-            </div>
+	<span asp-validation-for="DevSite.Solution_Details" class="text-danger"></span>
+   </div>
 
 
 
 
 
-            <div class="form-group">
-                <input cmd-name="debug-mvc-angular" type="submit" value="Save" class="btn btn-default" />
+   <div class="form-group">
+	<input cmd-name="debug-mvc-angular" type="submit" value="Save" class="btn btn-default" />
 
-            </div>
+   </div>
 
-        </form>
-    </div>
+  </form>
+ </div>
 </div>
 
 <div>
 
-    @*<a asp-page="./Index">Back to List</a>*@
-    @await Html.PartialAsync("ReturnToCallerLink", Model.returnToCaller)
+	@*<a asp-page="./Index">Back to List</a>*@
+	@await Html.PartialAsync("ReturnToCallerLink", Model.returnToCaller)
 
 </div>
 
@@ -171,14 +171,19 @@
 
     @*
 
-        // 11/18/2019 01:25 pm - SSN - [20191118-1316] Renamed from DevSite_Pages.js to DemoSites_Pages.ts (TypeScript)
+	// 11/18/2019 01:25 pm - SSN - [20191118-1316] Renamed from DevSite_Pages.js to DemoSites_Pages.ts (TypeScript)
 
-        <script type="text/javascript" src="~/js/DevSite_Pages.js" asp-append-version="true"></script>
+	<script type="text/javascript" src="~/js/DevSite_Pages.js" asp-append-version="true"></script>
     *@
 
-    <script src="/webpack_build/bundle_DemoSites_Pages.js" asp-append-version="true"></script>
-    <script src="/webpack_build/bundle_TextArea_util_0718.js" asp-append-version="true"></script>
+     @*
+	// 04/26/2022 04:03 am - SSN - Take out bundle_TextArea_util_0718 only
 
+*@
+<script src="/webpack_build/bundle_DemoSites_Pages.js" asp-append-version="true"></script>
+@*
+	<script src="/webpack_build/bundle_TextArea_util_0718.js" asp-append-version="true"></script>
+*@
 
 }
 

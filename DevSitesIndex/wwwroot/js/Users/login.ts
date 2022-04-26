@@ -36,7 +36,7 @@ var loginController_instance = function () {
 
                 $timeout(() => {
                     changeMonitorService.setupMonitor();
-                    util.site_instance.setDefaults();
+                    util.site_instance.setDefaults('login-20220426-0836');
                 }, 600);
 
 

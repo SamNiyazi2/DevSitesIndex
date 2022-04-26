@@ -1,9 +1,10 @@
 ﻿// 05/04/2019 09:19 am - SSN - [20190504-0855] - [004] - Testing if we can replace global variable
 // Convert to TypeScript
  
- 
-/// <reference path="../../node_modules/@types/jquery/index.d.ts" />
-/// <reference path="../../node_modules/@types/angular/index.d.ts" />
+// 04/26/2022 07:44 am - SSN - Moved under DevSite
+
+/// <reference path="../../../node_modules/@types/jquery/index.d.ts" />
+/// <reference path="../../../node_modules/@types/angular/index.d.ts" />
 
 
 console.log("demosites - 20191031-0637");

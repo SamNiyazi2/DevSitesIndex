@@ -3,6 +3,9 @@
 
 @{
     ViewData["Title"] = "Code Reference Detail";
+
+    // 04/25/2022 03:15 pm - SSN - Lost option to process pre.
+    ViewBag.InitModule_Full = "data-ng-app=\"timesheetApp\"";
 }
 
 <h2>@ViewData["Title"]</h2>
@@ -73,3 +76,9 @@
     <a asp-page="./Edit" asp-route-id="@Model.CodeReference.Id">Edit</a> |
     <a asp-page="./Index">Back to List</a>
 </div>
+
+@section Scripts {
+
+
+    <script src="~/webpack_build/bundle_CodeReference_Pages.js" asp-append-version="true"></script>
+}

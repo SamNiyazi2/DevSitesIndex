@@ -117,10 +117,10 @@ var globals_instance = function () {
                         if (app_1 == null) {
                             app_1 = angular.module('timesheetApp', ['ngRoute', 'ui.bootstrap', 'ngSanitize']);
                         }
-                        else {
-                            console.log('%c ' + `REUSING APP ***********  [${applicationName}]`, 'font-size:14pt;color:red;');
+                        //else {
+                        //    console.log('%c ' + `REUSING APP ***********  [${applicationName}]`, 'font-size:14pt;color:red;');
 
-                        }
+                        //}
 
                         angularApp = {
                             name: applicationName,

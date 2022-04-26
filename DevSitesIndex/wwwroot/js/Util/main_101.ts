@@ -150,8 +150,8 @@ $(function () {
 
 
     // 08/19/2021 06:01 - SSN - Swap css HTML theme.
- 
-    $('[cmd-ssn="swapcsstheme"]').on('click', function (e) {
+    // @ts-ignore
+    $('[cmd-ssn="swapcsstheme"]').on<HTMLLinkElement>( "click" , function (e) {
          
         let htmlTag = document.getElementsByTagName('html');
 
@@ -162,8 +162,8 @@ $(function () {
             currentTheme = currentTheme == 'Dark'?'Light':'Dark';
           
             htmlTag[0].setAttribute('theme', currentTheme); 
-
-            e.target.textContent = currentTheme == 'Dark'?'Light':'Dark';
+            
+                e.target.textContent = currentTheme == 'Dark'?'Light':'Dark';
         }
 
     });

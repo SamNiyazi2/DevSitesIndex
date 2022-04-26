@@ -4,6 +4,9 @@
 // 04/22/2022 07:27 am - SSN - Exclude since we are adding site_only_main bundle
 // import * as util from '../js/site';
 
+
+// 04/26/2022 07:46 am - SSN - Moved under DevSite
+
 let ngApplicationName = 'demoSites_Index';
 
 import { demosites_index_p1_instance } from "./DemoSites_index_p1"
@@ -23,14 +26,14 @@ demosites_index_p1_instance;
 
 
 // 04/24/2022 08:83 am - SSN - Moved afer ssn_devsite_angular_module_instance
-import { dataService_instance } from './Shared/DataServices';
+import { dataService_instance } from '../Shared/DataServices';
 dataService_instance.doSetup(ngApplicationName);
 
 
 // 10/01/2019 10:15 am - SSN - [20191001-0944] - [006] - Adding Application Insights for JavaScript
 
 
-import { AppInsights_Util } from './Util/ApplicationInsights_Monitor';
+import { AppInsights_Util } from '../Util/ApplicationInsights_Monitor';
 
 
 // 11/23/2019 08:53 am - SSN 
@@ -42,7 +45,7 @@ import { AppInsights_Util } from './Util/ApplicationInsights_Monitor';
 
 // Todo-SSN - 06/23/2021 04:45 am - SSN - [20210623-0158] - [010] - Limit user access to their timesheet records
 // Replaces some of existing calls
-import * as _sharedUtil from './Shared/SharedUtil';
+import * as _sharedUtil from '../Shared/SharedUtil';
 
 _sharedUtil.LoadAll(ngApplicationName);
 
@@ -56,10 +59,10 @@ AppInsights_Util.logEvent("DemoSites_Index_Main", { SourceCode: "20191001-1132-C
 
 // 06/13/2021 09:43 pm - SSN - [20210613-0452] - [020] - Adding tags to DevSite 
 
-import { dropdownListDirective_instance } from './DropdownList/DropdownListDirective';
+import { dropdownListDirective_instance } from '../DropdownList/DropdownListDirective';
 dropdownListDirective_instance.doSetup(ngApplicationName);
 
-import { ssn_AngularJslogger } from './Util/Logger/ssn_AngularJslogger';
+import { ssn_AngularJslogger } from '../Util/Logger/ssn_AngularJslogger';
 ssn_AngularJslogger.doSetup('jobIndex_main', ngApplicationName);
 
 
@@ -70,10 +73,10 @@ ssn_AngularJslogger.doSetup('jobIndex_main', ngApplicationName);
 
 // 06/15/2021 04:10 am - SSN - [20210613-0452] - [043] - Adding tags to DevSite
 
-import { TechnologyController_instance } from './Technology/Technology';
+import { TechnologyController_instance } from '../Technology/Technology';
 TechnologyController_instance.doSetup(ngApplicationName);
 
-import { ModalCallsUtil } from './Shared/ModalCallsUtil';
+import { ModalCallsUtil } from '../Shared/ModalCallsUtil';
 ModalCallsUtil.doSetup("DemoSites_Index_main", ngApplicationName);
 
 

@@ -2,6 +2,7 @@
 
 
 // 12/07/2019 03:53 am - SSN - [20191207-0353] - [001] - SessionTimeoutInterceptor
+// 04/25/2022 12:54 pm - SSN - Using to get rid of "unsafe" links - Was was already here.
 
 
 // https://code.angularjs.org/1.2.27/docs/api/ng/service/$http#interceptors
@@ -113,6 +114,7 @@ let sessionTimeoutInterceptor_instance = function () {
 }();
 
 
-
-export default sessionTimeoutInterceptor_instance;
+// 04/25/2022 12:57 pm - SSN - Like the rest
+// export default sessionTimeoutInterceptor_instance;
+export { sessionTimeoutInterceptor_instance };
 

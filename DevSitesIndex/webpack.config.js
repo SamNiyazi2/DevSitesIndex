@@ -135,7 +135,7 @@ var config = [
 
 
         entry: [
-            './DemoSites_index_main.ts'
+            './DevSite/DemoSites_index_main.ts'
         ]
 
     }
@@ -161,7 +161,7 @@ var config = [
 
 
         entry: [
-            './DemoSites_index_p3_main.ts'
+            './DevSite/DemoSites_index_p3_main.ts'
         ]
 
     }
@@ -211,7 +211,7 @@ var config = [
 
 
         entry: [
-            './CodeReference_Pages.ts'
+            './CodeReference/CodeReference_Pages_main.ts'
         ]
 
     },
@@ -233,11 +233,11 @@ var config = [
 
 
         entry: [
-            './DemoSites_Pages.ts'
+            './DevSite/DemoSites_Pages.ts'
         ]
 
     }
-
+  
     ,
 
 
@@ -307,24 +307,24 @@ var config = [
     }
 
 
+    // 04/25/2022 07:21 pm - SSN - Takeout. Embed in site_v02.ts
+    //// 08/26/2020 07:27 pm - SSN - [20200826-1927] - [002] - Format textarea for edit 
+    //,
 
-    // 08/26/2020 07:27 pm - SSN - [20200826-1927] - [002] - Format textarea for edit 
-    ,
+    //{
+    //    ...d_master,
 
-    {
-        ...d_master,
-
-        output: {
-            path: path.resolve(__dirname, './wwwroot/webpack_build'),
-            filename: 'bundle_TextArea_util_0718.js'
-        },
+    //    output: {
+    //        path: path.resolve(__dirname, './wwwroot/webpack_build'),
+    //        filename: 'bundle_TextArea_util_0718.js'
+    //    },
 
 
-        entry: [
-            './util/TextArea_util_0718.ts'
-        ]
+    //    entry: [
+    //        './util/TextArea_util_0718.ts'
+    //    ]
 
-    }
+    //}
 
 
 

@@ -122,7 +122,7 @@
             .controller('devSite_Detail_Controller', ['$scope', function ($scope) {
 
 
-                $scope.devSite  =  @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject( @Model.DevSite, 
+                $scope.devSite  =  @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject( @Model.devSite_DTO, 
                             formatting: Newtonsoft.Json.Formatting.Indented, 
                             new Newtonsoft.Json.JsonSerializerSettings
                             {

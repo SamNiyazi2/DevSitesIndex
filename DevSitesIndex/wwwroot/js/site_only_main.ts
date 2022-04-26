@@ -4,4 +4,5 @@
 
 import { site_instance } from './site_v02';
 
-site_instance;
+// 04/26/2022 04:27 am - SSN - Call startup
+site_instance.setDefault_ForStartup('site_only_maiu-20220426-0817', true);

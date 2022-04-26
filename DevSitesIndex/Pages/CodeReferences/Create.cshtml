@@ -2,7 +2,7 @@
 @model DevSitesIndex.Pages.CodeReferences.CreateModel
 
 @{
-    ViewData["Title"] = "Create Code Reference";
+	ViewData["Title"] = "Create Code Reference";
 }
 
 <h2>@ViewData["Title"] </h2>
@@ -11,51 +11,57 @@
 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form method="post">
+ <div class="col-md-4">
+  <form method="post">
 
-            <div class="form-group">
-                <label asp-for="CodeReference.Title" class="control-label"></label>
-                <input asp-for="CodeReference.Title" class="form-control" maxlength="100" autofocus></input>
-                <span asp-validation-for="CodeReference.Title" class="text-danger"></span>
-            </div>
+   <div class="form-group">
+	<label asp-for="CodeReference.Title" class="control-label"></label>
+	<input asp-for="CodeReference.Title" class="form-control" maxlength="100" autofocus></input>
+	<span asp-validation-for="CodeReference.Title" class="text-danger"></span>
+   </div>
 
-            <div class="form-group">
-                <label asp-for="CodeReference.SourceAddress" class="control-label"></label>
-                <input asp-for="CodeReference.SourceAddress" class="form-control" />
-                <span asp-validation-for="CodeReference.SourceAddress" class="text-danger"></span>
-            </div>
-
-
-            @*
-                09/13/2019 04:30 am - SSN - [20190913-0421] - [001] -
-                Moved down
-            *@
-
-            @*
-                // 08/27/2020 08:15 am - SSN - [20200826-1927] - [004] - Format textarea for edit
-            *@
-            <div class="form-group">
-                <label asp-for="CodeReference.CodeBlock" class="control-label" ssn_FitInScreen="CodeReference_CodeBlock"></label>
-                <textarea asp-for="CodeReference.CodeBlock" class="form-control "></textarea>
-                <span asp-validation-for="CodeReference.CodeBlock" class="text-danger"></span>
-            </div>
+   <div class="form-group">
+	<label asp-for="CodeReference.SourceAddress" class="control-label"></label>
+	<input asp-for="CodeReference.SourceAddress" class="form-control" />
+	<span asp-validation-for="CodeReference.SourceAddress" class="text-danger"></span>
+   </div>
 
 
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </form>
-    </div>
+			@*
+				09/13/2019 04:30 am - SSN - [20190913-0421] - [001] -
+				Moved down
+			*@
+
+			@*
+				// 08/27/2020 08:15 am - SSN - [20200826-1927] - [004] - Format textarea for edit
+			*@
+   <div class="form-group">
+	<label asp-for="CodeReference.CodeBlock" class="control-label" ssn_FitInScreen="CodeReference_CodeBlock"></label>
+	<textarea asp-for="CodeReference.CodeBlock" class="form-control "></textarea>
+	<span asp-validation-for="CodeReference.CodeBlock" class="text-danger"></span>
+   </div>
+
+
+   <div class="form-group">
+	<input type="submit" value="Create" class="btn btn-default" />
+   </div>
+  </form>
+ </div>
 </div>
 
 <div>
-    <a asp-page="Index">Back to List</a>
+ <a asp-page="Index">Back to List</a>
 </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+@*
+	// 04/26/2022 04:03 am - SSN - Take out bundle_TextArea_util_0718. Add bundle_CodeReference_Pages.js
+*@
 
+<script src="/webpack_build/bundle_CodeReference_Pages.js" asp-append-version="true"></script>
 
-    <script src="/webpack_build/bundle_TextArea_util_0718.js" asp-append-version="true"></script>
-}
+@*
+	<script src="/webpack_build/bundle_TextArea_util_0718.js" asp-append-version="true"></script>
+*@}
+

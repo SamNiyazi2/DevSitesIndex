@@ -4,9 +4,11 @@
 // 04/22/2022 07:34 am - SSN - Remove since adding site_only_main buncle
 // import * as util from '../js/site';
 
+// 04/26/2022 07:48 am - SSN - Moved under DevSite
+
 import { demoSites_index_p3_instance } from "./DemoSites_index_p3"
 
-import { dataService_instance } from './Shared/DataServices';
+import { dataService_instance } from '../Shared/DataServices';
 
 import { ssn_devsite_angular_module_instance } from './demoSites_Index';
 

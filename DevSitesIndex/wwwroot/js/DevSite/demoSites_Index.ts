@@ -3,17 +3,18 @@
 // 09/21/2019 08:00 am - SSN - [20190921-0357] - [011] - Creating multiple entry for Webpack
 
 
+// 04/26/2022 07:44 am - SSN - Moved under DevSite
 
-/// <reference path="../../node_modules/@types/jquery/jquery.d.ts" />
-/// <reference path="../../node_modules/@types//knockout/index.d.ts" />
-/// <reference path="../js/Shared/DataServices.ts"/>
-/// <reference path="../../node_modules_hack/SSN_jquery_modal.d.ts" />
+/// <reference path="../../../node_modules/@types/jquery/jquery.d.ts" />
+/// <reference path="../../../node_modules/@types//knockout/index.d.ts" />
+/// <reference path="../../js/Shared/DataServices.ts"/>
+/// <reference path="../../../node_modules_hack/SSN_jquery_modal.d.ts" />
 
 
 
 import * as angular from 'angular'
-import * as globals from './globals';
-import { IDevSiteTechnology } from './Interfaces/IDevSiteTechnology';
+import * as globals from '../globals';
+import { IDevSiteTechnology } from '../Interfaces/IDevSiteTechnology';
 
 
 // 04/24/2022 07:43 am - SSN - Add applicationName

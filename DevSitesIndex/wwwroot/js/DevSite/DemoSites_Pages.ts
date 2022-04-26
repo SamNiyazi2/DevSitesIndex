@@ -10,13 +10,18 @@
 // This is shared utility.  Need renamed from DemoSites to something generic.
 // This is shared utility.  Need renamed from DemoSites to something generic.
 
+// 04/26/2022 07:48 am - SSN - Moved under DevSite
 
-import { ChangeMonitorFlag } from './Util/ChangeMonitor/ChangeMonitorFlag';
+import { ChangeMonitorFlag } from '../Util/ChangeMonitor/ChangeMonitorFlag';
 
 
 // 09/04/2020 06:57 am - SSN - [20200904-0540] - [008] - Ading save-and-stay option to codereference
 // Added ApplicationInsights_Monitor
-import { AppInsights_Util } from './Util/ApplicationInsights_Monitor';
+import { AppInsights_Util } from '../Util/ApplicationInsights_Monitor';
+
+// 04/26/2022 09:01 am - SSN - Add site_v02
+import { site_instance } from '../site_v02';
+
 
 // 11/18/2019 01:15 pm - SSN - [20191118-1316] - Added interface
 interface DevSiteRecord {
@@ -239,5 +244,6 @@ let DemoSites_Pages = function () {
 
 export { DemoSites_Pages };
 
+site_instance.setDefault_ForStartup('DemoSite_Pages-20220426-0901');
 
 DemoSites_Pages.doSetup();

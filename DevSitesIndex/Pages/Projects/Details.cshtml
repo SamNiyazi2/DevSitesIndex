@@ -74,7 +74,11 @@
 <!-- 05/03/2019 03:43 pm - SSN - [20190503-1539] - [003] - Add link to create timelog -->
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("TimesheetAngularScripts");}
+
+@*
+    // 04/26/2022 09:28 am - SSN - Take out???
+*@@*
+    @{await Html.RenderPartialAsync("TimesheetAngularScripts");}*@
 
     <script src="~/webpack_build/bundle_jobsIndex.js" asp-append-version="true"></script>
 

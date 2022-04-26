@@ -25,7 +25,7 @@ ssn_AngularJslogger.doSetup('devSite_detail_20220424', 'devSite_Detail_module');
 
 
 
-import { ssn_devsite_angular_module_instance } from '../demoSites_Index';
+import { ssn_devsite_angular_module_instance } from './demoSites_Index';
 ssn_devsite_angular_module_instance.doSetup(ngApplicationName);
 
 

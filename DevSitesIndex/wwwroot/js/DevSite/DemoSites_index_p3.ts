@@ -5,12 +5,13 @@
 //    08/21/2018 02:46 am - SSN - Copied - Begin
 //  08/21/2018 02:46 am - SSN - Copied from C:\Sams_Projects\PluralSight\html5-line-of-business-applications\d\demos\CodedHomes.Web\Views\Homes
 
+// 04/26/2022 07:47 am - SSN - Moved under DevSite
 
-/// <reference path="../../node_modules/@types/jquery/index.d.ts" />
-/// <reference path="../../node_modules/@types/knockout/index.d.ts" /> 
-/// <reference path="../../node_modules/@types/knockout.mapping/index.d.ts" /> 
+/// <reference path="../../../node_modules/@types/jquery/index.d.ts" />
+/// <reference path="../../../node_modules/@types/knockout/index.d.ts" />
+/// <reference path="../../../node_modules/@types/knockout.mapping/index.d.ts" />
 
-/// <reference path="../../node_modules_hack/SSN_jquery_modal.d.ts" />
+/// <reference path="../../../node_modules_hack/SSN_jquery_modal.d.ts" />
 
 
 // Knockout related

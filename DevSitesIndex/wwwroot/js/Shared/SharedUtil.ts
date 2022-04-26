@@ -9,7 +9,7 @@ import { changeMonitorService_instance } from '../Util/ChangeMonitor/ChangeMonit
 
 import { dataService_instance } from './DataServices';
 
-import sessionTimeoutInterceptor from '../Interceptors/SessionTimeoutInterceptor';
+import { sessionTimeoutInterceptor_instance }from '../Interceptors/SessionTimeoutInterceptor';
 
 import {DateTimeService_Instance  }  from './DateTimeService';
 
@@ -28,7 +28,7 @@ function LoadAll(ngApplicationName) {
 
     dataService_instance.doSetup(ngApplicationName);
 
-    sessionTimeoutInterceptor.doSetup(ngApplicationName);
+    sessionTimeoutInterceptor_instance.doSetup(ngApplicationName);
 
     DateTimeService_Instance.doSetup(ngApplicationName);
 
