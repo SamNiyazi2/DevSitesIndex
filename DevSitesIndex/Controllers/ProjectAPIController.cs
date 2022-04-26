@@ -207,7 +207,7 @@ namespace DevSitesIndex.Controllers
         public IEnumerable<TypeAheadRecord> Get_TA()
         {
 
-            IEnumerable<Project> entity = _entityRepository.GetAll();
+            IEnumerable<Project> entity = _entityRepository.GetAll().OrderBy(r => r.ProjectTitle);
 
             return entity.Select(r => new TypeAheadRecord(r.ProjectID, r.ProjectTitle));
         }
