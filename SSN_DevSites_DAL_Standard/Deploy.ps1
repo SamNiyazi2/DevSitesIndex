@@ -22,7 +22,7 @@ param(
 
 $ErrorActionPreference = "stop"
 
-$fullProjectNameSpec = $psscriptroot + "\*.csproj"
+$fullProjectNameSpec = $psscriptroot + "\SSN_DevSites_DAL_Standard.csproj"
 
 . "C:\Sams\PS\NuGet\NuGet_Deploy.ps1" -fullProjectNameSpec $fullProjectNameSpec   -version $version   -option $option   -override:$override 
 

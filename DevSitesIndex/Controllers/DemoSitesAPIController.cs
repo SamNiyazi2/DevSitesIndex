@@ -91,13 +91,14 @@ namespace DevSitesIndex.Controllers
         }
         [Route("/api/demositesapi/Search")]
         // 04/13/2022 07:43 am - SSN - Add authorize
-        [Authorize]
+        // 04/27/2022 06:08 am - SSN - Why authorize public access page?
+        // [Authorize]
         [HttpPost]
         // 08/15/2021 02:01 pm - SSN - Change return type to handle errors.
         //public async Task<IEnumerable<DevSite>> SearchAsync([FromBody] SearchObj obj1)
         public async Task<ActionResult<IEnumerable<DevSite>>> SearchAsync([FromBody] SearchObj obj1)
         {
-             
+
             try
             {
 
@@ -107,9 +108,9 @@ namespace DevSitesIndex.Controllers
 
                 return Ok(devSites_1);
             }
-            catch (Exception ex )
+            catch (Exception ex)
             {
-                return BadRequest(new { ErrorMessage= $"Failed to process request: {ex.Message}" });
+                return BadRequest(new { ErrorMessage = $"Failed to process request: {ex.Message}" });
             }
 
 
@@ -120,7 +121,7 @@ namespace DevSitesIndex.Controllers
         // 04/13/2022 07:43 am - SSN - Add authorize
         [Authorize]
         [HttpPost]
-        public async void Post([FromBody]DevSite value)
+        public async void Post([FromBody] DevSite value)
         {
             await _devSitesIndexRepository.UpdateDevSiteAsync(value);
             _devSitesIndexRepository.Save();
@@ -131,11 +132,13 @@ namespace DevSitesIndex.Controllers
         [Authorize]
         // PUT api/<controller>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public void Put(int id, [FromBody] string value)
         {
         }
 
         // DELETE api/<controller>/5
+        // 04/27/2022 06:09 am - SSN - Add Authorize
+        [Authorize]
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

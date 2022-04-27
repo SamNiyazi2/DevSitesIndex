@@ -12,7 +12,7 @@ echo:
 echo:
 echo:
 echo:
-dotnet remove package ssn_devsites_dal_standard
+dotnet remove SSN_DevSites_DAL_Standard.csproj package ssn_devsites_dal_standard
 echo:
 echo:
 echo:
