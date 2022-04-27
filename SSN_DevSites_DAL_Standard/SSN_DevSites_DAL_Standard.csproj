@@ -18,7 +18,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.6" />
     <PackageReference Include="microsoft.extensions.identity.core" Version="2.2.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
-    <PackageReference Include="SSN_GenUtil_StandardLib" Version="1.0.53" />
+    <PackageReference Include="SSN_GenUtil_StandardLib" Version="1.0.55" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Extensions.Logging.Console">
