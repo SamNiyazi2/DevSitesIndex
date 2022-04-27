@@ -5,5 +5,5 @@ cd %~dp0
 
 rem 04/27/2022 12:05 pm - SSN - Production is acting differnt for AngularJS than local
 rem the only difference ig npx
-npx webpack  --display-error-details  
-rem npm run build-prod
+rem npx webpack  --display-error-details  
+npm run build-prod
