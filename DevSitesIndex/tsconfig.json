@@ -48,7 +48,8 @@
     "typeRoots": [ "./node_modules/@types" ],
     // 04/22/2022 04:57 pm - SSN - [20220422-0850] - [012] - Find source of duplicate call to site.ts
     // Adding websocktes.
-    "esModuleInterop": true
+    // 04/27/2022 10:16 am - SSN - We are having trouble wihh AngaulrJS.  Don't know if this has anything to do it but it's the only configuration change.
+    // "esModuleInterop": true
 
   },
   "compileOnSave": true,
