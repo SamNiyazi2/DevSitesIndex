@@ -68,7 +68,6 @@ namespace site_instance_NS {
 
             this.ngApplicationName = ngApplicationName??"NotSet-20220426-0833";
 
-            console.log('%c ' + `firing site_v02 - setDefaults [${ngApplicationName}]`, 'font-size:14pt;color:red;')
 
             $("[cmd-name]").on('click', function (e) {
 
@@ -99,10 +98,6 @@ namespace site_instance_NS {
 
                 if (cmdName === "smooth-scroll") {
                     //$('body').scrollspy({ target: jQueryObjectName });
-
-                    console.log('%c ' + 'smooth-scrolll 20220425-1736', 'font-size:12pt;color:yellow');
-                    console.log('jQueryObjectName:');
-                    console.log(jQueryObjectName);
 
                     document.querySelector(jQueryObjectName).scrollIntoView({
                         behavior: 'smooth'
@@ -550,16 +545,12 @@ namespace site_instance_NS {
 
 
             site_Class.setDefault_ForStartup_firedAlready_count++;
-
-            console.log('%c ' + `setDefault_ForStartup - 20220424-0803 - SOURCE [${ngApplicationName}] - [[${site_Class.setDefault_ForStartup_firedAlready_count}]] CALLING`, 'color:green;font-size:14pt;');
-
+ 
             if (checkIfAlreadyCalled && site_Class.setDefault_ForStartup_firedAlready_count > 1) {
-                console.log('%c ' + `setDefault_ForStartup - 20220424-0803-B - SOURCE [${ngApplicationName}] - allready callsed - BYPASS count: [${site_Class.setDefault_ForStartup_firedAlready_count}]`, 'color:yellow;font-size:14pt;');
-                return;
+                  return;
             }
 
-            console.log('%c ' + `setDefault_ForStartup - 20220424-0803-Z - SOURCE [${ngApplicationName}] - firing`, 'color:RED;font-size:18pt;');
-
+    
             setTimeout(() => {
 
                 this.setDefaults(ngApplicationName);
@@ -651,7 +642,6 @@ $.fn.isBound = function (type, fn) {
 function Job_Timelog_setFilter() {
 
     console.log('site.ts 20200102-1531 - job_Timelog_setFilter ');
-
 
     if ($("#filterText").isBound('keyup', Job_Timelog_setFilter)) {
         console.log("Already bound");
