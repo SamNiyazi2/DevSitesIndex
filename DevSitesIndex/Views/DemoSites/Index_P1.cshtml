@@ -239,7 +239,7 @@
 								<!-- ko if:  $data.devSite_v04.siteUrl -->
 								<!-- ko ifnot:  $parent.checkIfcallingcmd(devSite_v04.siteUrl)-->
 
-								<a class="siteTitle" data-bind="attr:{   href:devSite_v04.siteUrl ,  target:'window_' + id }"><span data-bind="text: devSite_v04.siteTitle"></span></a>
+								<a class="siteTitle" data-bind="attr:{   href:devSite_v04.siteUrl ,  target:'window_' + devSite_v04.id }"><span data-bind="text: devSite_v04.siteTitle"></span></a>
 								<!-- /ko -->
 								<!-- ko if:  $parent.checkIfcallingcmd(devSite_v04.siteUrl) -->
 
