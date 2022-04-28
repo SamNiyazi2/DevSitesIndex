@@ -338,7 +338,7 @@ var ssn_devsite_angular_module_instance = function () {
                         $rootScope.listOfAddedDirectives = []
                     }
 
-                    $rootScope.listOfAddedDirectives.push($scope);
+                     $rootScope.listOfAddedDirectives.push($scope);
 
 
                     $scope.$on("$destroy", function () {
@@ -498,12 +498,12 @@ var ssn_devsite_angular_module_instance = function () {
 
                         function addDevSiteTechnologyError(error) {
 
-                            console.log('%c  demoSites_ondex - 20210616-0345 - Error', 'color:red;font-size:14pt;');
+                            console.log('%c  demoSites_ondex - 20210616-0345-v02 - Error', 'color:red;font-size:14pt;');
                             console.log(error);
 
                             $scope.feedbackToUserClassNameCase = 2;
 
-                            $scope.feedbackToUserText = $sce.trustAsHtml(error.data);
+                            $scope.feedbackToUserText = $sce.trustAsHtml(error.data.ErrorMessage);
 
                             $scope.disableSaveButton = false;
 
@@ -516,12 +516,12 @@ var ssn_devsite_angular_module_instance = function () {
 
                         function addDevSiteTechnologyCatch(error) {
 
-                            console.log('%c  demoSites_ondex - 20210616-0346 - catch ', 'color:red;font-size:14pt;');
+                            console.log('%c  demoSites_ondex - 20210616-0346-v02 - catch ', 'color:red;font-size:14pt;');
                             console.log(error);
 
                             $scope.feedbackToUserClassNameCase = 2;
 
-                            $scope.feedbackToUserText = $sce.trustAsHtml(error.data);
+                            $scope.feedbackToUserText = $sce.trustAsHtml(error.data.ErrorMessage);
 
                             $scope.disableSaveButton = false;
 

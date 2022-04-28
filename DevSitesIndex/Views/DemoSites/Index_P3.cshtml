@@ -77,9 +77,14 @@
 
                         @{
                             int rowno = 0;
-
+@*
+// 04/27/2022 03:46 pm - SSN - [20220427-1524] - [005] - Add DTO for devSitesTechnologies
                             foreach (DevSite x in Model.devSites)
+*@
+                            foreach (DevSite_Combo x2 in Model.devSites_Combo_v03 )
                             {
+                                DevSite x = x2.devSite_v04;
+
                                 rowno++;
                                 <tr>
                                     <td>

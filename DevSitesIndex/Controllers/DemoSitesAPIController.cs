@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DevSitesIndex.Entities;
+using DevSitesIndex.Models;
 using DevSitesIndex.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -23,7 +22,7 @@ namespace DevSitesIndex.Controllers
 
         public DemoSitesAPIController(IDevSitesIndexRepository devSitesIndexRepository)
         {
-            _devSitesIndexRepository = devSitesIndexRepository;
+            _devSitesIndexRepository = devSitesIndexRepository;       
         }
 
         private readonly IDevSitesIndexRepository _devSitesIndexRepository;
@@ -36,13 +35,24 @@ namespace DevSitesIndex.Controllers
         // GET: api/<controller>
         [Route("/api/demositesapi/{recordsPerPage}/{currentPage}")]
         [HttpGet]
-        public IEnumerable<DevSite> Get(int recordsPerPage, int currentPage)
+        // 04/27/2022 03:54 pm - SSN - [20220427-1524] - [006] - Add DTO for devSitesTechnologies
+        // public IEnumerable<DevSite> Get(int recordsPerPage, int currentPage)
+        public List<DevSite_Combo> Get(int recordsPerPage, int currentPage)
         {
             recordsPerPage = recordsPerPage > 25 ? 25 : recordsPerPage;
             currentPage = currentPage < 1 ? 1 : currentPage;
 
-            IEnumerable<DevSite> devSites_1 = _devSitesIndexRepository.GetDevSites(recordsPerPage, currentPage);
-            return devSites_1;
+            // 04/27/2022 03:54 pm - SSN - [20220427-1524] - [006] - Add DTO for devSitesTechnologies
+        
+            // IEnumerable<DevSite> devSites_1 = _devSitesIndexRepository.GetDevSites(recordsPerPage, currentPage);
+
+
+            //devSites_1_combo.devSites_v02 = _devSitesIndexRepository.GetDevSites(recordsPerPage, currentPage);
+            List<DevSite_Combo> devSites_1_combos = DevSite_Combo.devSites_input(_devSitesIndexRepository.GetDevSites(recordsPerPage, currentPage).ToList());
+
+
+            //return devSites_1;
+            return devSites_1_combos;
         }
 
 
@@ -59,19 +69,24 @@ namespace DevSitesIndex.Controllers
 
         [Route("/api/demositesapi/top")]
         [HttpGet]
-        public IEnumerable<DevSite> GetTop(int? recordCount)
+        // 04/27/2022 04:01 pm - SSN - [20220427-1524] - [007] - Add DTO for devSitesTechnologies
+        // public IEnumerable<DevSite> GetTop(int? recordCount)
+        public List<DevSite_Combo> GetTop(int? recordCount)
         {
             // System.Threading.Thread.Sleep(2000);
             int _recordCount = recordCount ?? 15;
             _recordCount = _recordCount > 10 ? 10 : _recordCount;
 
-            IEnumerable<DevSite> devSites_1 = Get(_recordCount, 1);
+            // 04/27/2022 04:01 pm - SSN - [20220427-1524] - [007] - Add DTO for devSitesTechnologies
+            // IEnumerable<DevSite> devSites_1 = Get(_recordCount, 1);
+            List<DevSite_Combo> devSite_combos =  Get(_recordCount, 1) ;
 
-            if (recordCount.HasValue)
-                devSites_1 = devSites_1.Take(recordCount.Value);
+            // Redundant
+            //////////////////if (recordCount.HasValue)
+            //////////////////    devSites_1 = devSites_1.Take(recordCount.Value);
 
-            return devSites_1;
-
+            //return devSites_1;
+            return devSite_combos;
 
         }
 
@@ -96,7 +111,9 @@ namespace DevSitesIndex.Controllers
         [HttpPost]
         // 08/15/2021 02:01 pm - SSN - Change return type to handle errors.
         //public async Task<IEnumerable<DevSite>> SearchAsync([FromBody] SearchObj obj1)
-        public async Task<ActionResult<IEnumerable<DevSite>>> SearchAsync([FromBody] SearchObj obj1)
+        // 04/27/2022 07:20 pm - SSN - [20220427-1524] - [008] - Add DTO for devSitesTechnologies
+        //public async Task<ActionResult<IEnumerable<DevSite>>> SearchAsync([FromBody] SearchObj obj1)
+        public async Task<ActionResult<IEnumerable<DevSite_Combo>>> SearchAsync([FromBody] SearchObj obj1)
         {
 
             try
@@ -104,9 +121,13 @@ namespace DevSitesIndex.Controllers
 
                 var searchText = obj1?.SearchText ?? "";
 
-                IEnumerable<DevSite> devSites_1 = await _devSitesIndexRepository.GetDevSites(searchText);
+                // 04/27/2022 07:20 pm - SSN - [20220427-1524] - [008] - Add DTO for devSitesTechnologies
+                // IEnumerable<DevSite> devSites_1 = await _devSitesIndexRepository.GetDevSites(searchText);
 
-                return Ok(devSites_1);
+                List<DevSite_Combo> devSite_combos = DevSite_Combo.devSites_input( await _devSitesIndexRepository.GetDevSites(searchText));
+                
+                //return Ok(devSites_1);
+                return Ok(devSite_combos);
             }
             catch (Exception ex)
             {

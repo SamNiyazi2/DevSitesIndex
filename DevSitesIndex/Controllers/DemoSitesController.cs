@@ -71,7 +71,9 @@ namespace DevSitesIndex.Controllers
             try
             {
                 DemoSitesViewModel vm = new DemoSitesViewModel();
-                vm.devSites = _devSitesIndexRepository.GetDevSites(DEFAULT_RECORDS_PER_PAGE_TEMP, DEFAULT_CURRNT_PAGE_TEMP);
+                // 04/27/2022 03:33 pm - SSN - [20220427-1524] - [003] - Add DTO for devSitesTechnologies
+                // vm.devSites = _devSitesIndexRepository.GetDevSites(DEFAULT_RECORDS_PER_PAGE_TEMP, DEFAULT_CURRNT_PAGE_TEMP);
+                vm.devSites_Combo_v03 = DevSite_Combo.devSites_input( _devSitesIndexRepository.GetDevSites(DEFAULT_RECORDS_PER_PAGE_TEMP, DEFAULT_CURRNT_PAGE_TEMP));
 
                 // 04/16/2019 07:37 pm - SSN - [20190416-1937] - Corrrection angular version for P2 and P3
                 vm.selectedPage = "index_p2";
@@ -95,12 +97,15 @@ namespace DevSitesIndex.Controllers
                 DemoSitesViewModel vm = new DemoSitesViewModel();
 
 
-                vm.devSites = _devSitesIndexRepository.GetDevSites(DEFAULT_RECORDS_PER_PAGE_TEMP, DEFAULT_CURRNT_PAGE_TEMP);
+                // 04/27/2022 03:43 pm - SSN - [20220427-1524] - [003] - Add DTO for devSitesTechnologies
+                // vm.devSites = _devSitesIndexRepository.GetDevSites(DEFAULT_RECORDS_PER_PAGE_TEMP, DEFAULT_CURRNT_PAGE_TEMP);
+                vm.devSites_Combo_v03  = DevSite_Combo.devSites_input( _devSitesIndexRepository.GetDevSites(DEFAULT_RECORDS_PER_PAGE_TEMP, DEFAULT_CURRNT_PAGE_TEMP));
 
                 // 09/21/2019 09:43 am - SSN - [20190921-0357] - [015] - Creating multiple entry for Webpack
-                foreach (Entities.DevSite r in vm.devSites)
+                // foreach (Entities.DevSite r in vm.devSites_Combo_v03 )
+                foreach (DevSite_Combo r in vm.devSites_Combo_v03 )
                 {
-                    r.Solution_Details = "***Remove***";
+                    r.devSite_v04.Solution_Details = "***Remove***";
                 }
 
                 // 04/16/2019 07:37 pm - SSN - [20190416-1937] - Corrrection angular version for P2 and P3
