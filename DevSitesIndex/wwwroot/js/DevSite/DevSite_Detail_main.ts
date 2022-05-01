@@ -31,3 +31,7 @@ ssn_devsite_angular_module_instance.doSetup(ngApplicationName);
 
 import { dropdownListDirective_instance } from '../DropdownList/DropdownListDirective';
 dropdownListDirective_instance.doSetup(ngApplicationName);
+
+// 04/28/2022 05:17 am - SSN 
+import { TechnologyController_instance } from '../Technology/Technology';
+TechnologyController_instance.doSetup(ngApplicationName);

@@ -125,7 +125,8 @@ const TechnologyController_instance = function () {
                                 console.error("DevSite Technology  - 20210615-0406 - promise > error");
                                 console.log(error);
 
-                                toastr.error("Failed to save record.  See console log. (1021)");
+                                toastr.error("Failed to save record. See console log. (1021)");
+                                toastr.error(`${error.data.ErrorMessage}`);
 
 
                                 $scope.feedbackToUserClassNameCase = 2;
