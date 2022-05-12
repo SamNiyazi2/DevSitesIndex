@@ -21,7 +21,7 @@ using SSN_GenUtil_StandardLib;
 
 namespace DevSitesIndex.Controllers
 {
-   
+
     [Route("api/[controller]")]
     //  [ApiController]
     public class JobAPIController : EntityAPIController<Job>
@@ -51,11 +51,18 @@ namespace DevSitesIndex.Controllers
 
 
         // 06/17/2021 11:24 am - SSN - 
+        // 05/08/2022 01:13 pm - SSN - Add with JobsOnly (for new React timelogSelector)
         [Route("typeahead_projectRecords/{projectId}")]
         [HttpGet]
-        public IEnumerable<TypeAheadRecord> Get_TA_ProjectRecords(int? projectId)
+        public IEnumerable<TypeAheadRecord> Get_TA_ProjectRecords(int? projectId, bool withJobsOnly = false)
         {
-            IEnumerable<Job> entity = _entityRepository.GetAll().Where(r => r.ProjectID == projectId);
+            // 05/08/2022 12:38 pm - SSN - Add order.
+            IEnumerable<Job> entity = _entityRepository.GetAll().Where(r => r.ProjectID == projectId).OrderBy(r => r.JobTitle);
+            
+            if (withJobsOnly)
+            {
+                entity = entity.Where(r => r.job_Lineitems!=null);
+            }
 
             return entity.Select(r => new TypeAheadRecord(r.JobID, r.JobTitle));
         }

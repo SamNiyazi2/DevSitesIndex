@@ -192,7 +192,7 @@ var config = [
 
             // 12/13/2019 07:35 pm - SSN - [20191213-1935] - Seperate CodeReference_Pages from bundle_site_only
             //            './CodeReference_Pages.ts',
-            './util/ChangeMonitor/ChangeMonitor.ts'
+            './Util/ChangeMonitor/ChangeMonitor.ts'
         ]
 
     },

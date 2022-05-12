@@ -164,6 +164,9 @@ namespace DevSitesIndex.Entities
         public virtual ICollection<DevSiteTechnology> DevSiteTechnologies { get; set; }
         public virtual ICollection<Job_DevSite> JobDevSites { get; set; }
 
+        // 05/02/2022 02:55 pm - SSN - [20220502-1159] - [004] - Create table DevSite_Job_LineItem
+        public virtual ICollection<DevSite_Job_LineItem> DevSite_Job_LineItems { get; set; }
+
     }
 
 

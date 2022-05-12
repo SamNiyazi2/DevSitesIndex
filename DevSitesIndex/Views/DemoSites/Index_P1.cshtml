@@ -13,6 +13,9 @@
 <br />
 <h2>Demo Sites Index</h2>
 
+<div id="DevSiteTimelogSelector">
+</div>
+<h1>test-20220405-0130-Z</h1>
 @*
 	08/12/2019 05:15 am - SSN - [20190812-0515] - [001] - Apply fulltext search
 
@@ -209,110 +212,121 @@
 <script type="text/html" id="list-template">
 
 
-			<ng-content data-ng-controller="demoSiteIndexController_101">
+					<ng-content data-ng-controller="demoSiteIndexController_101">
 
-				<ng-content data-ng-controller="utilityController">
+						<ng-content data-ng-controller="utilityController">
 
-					<div class="container-fluid">
-
-
-						@*03/19/2019 11:01 pm - SSN -*@
-						<div data-bind="attr: { class: $parent.getClassForDemoState(devSite_v04.forDemo_v02)}">
-							@*class="siteDiv"*@
+							<div class="container-fluid">
 
 
-							@*// 03/29/2019 10:03 pm - SSN - Add div siteTitleDiv title to give space*@
-							<div class="siteTitleDiv">
+								@*03/19/2019 11:01 pm - SSN -*@
+								<div data-bind="attr: { class: $parent.getClassForDemoState(devSite_v04.forDemo_v02)}">
+									@*class="siteDiv"*@
+
+
+									@*// 03/29/2019 10:03 pm - SSN - Add div siteTitleDiv title to give space*@
+									<div class="siteTitleDiv">
 
 
 
-								@*
-		 	// 03/19/2019 07:04 pm - SSN - [20190319-1904]
-		 	// 08/14/2019 06:48 am - SSN - [20190814-0609] - [002] - Revise demo site index docAge
-								*@
+										@*
+ 	// 03/19/2019 07:04 pm - SSN - [20190319-1904]
+ 	// 08/14/2019 06:48 am - SSN - [20190814-0609] - [002] - Revise demo site index docAge
+										*@
 
-								<p class="small">
-									[<span data-bind="text: devSite_v04.docAge"></span>]
-									&nbsp; &nbsp; &nbsp; <span data-bind="text:devSite_v04.dateOfLastActivity_ToString"></span>
-								</p>
+										<p class="small">
+											[<span data-bind="text: devSite_v04.docAge"></span>]
+											&nbsp; &nbsp; &nbsp; <span data-bind="text:devSite_v04.dateOfLastActivity_ToString"></span>
+										</p>
 
-								<!-- ko if:  $data.devSite_v04.siteUrl -->
-								<!-- ko ifnot:  $parent.checkIfcallingcmd(devSite_v04.siteUrl)-->
+										<!-- ko if:  $data.devSite_v04.siteUrl -->
+										<!-- ko ifnot:  $parent.checkIfcallingcmd(devSite_v04.siteUrl)-->
 
-								<a class="siteTitle" data-bind="attr:{   href:devSite_v04.siteUrl ,  target:'window_' + devSite_v04.id }"><span data-bind="text: devSite_v04.siteTitle"></span></a>
-								<!-- /ko -->
-								<!-- ko if:  $parent.checkIfcallingcmd(devSite_v04.siteUrl) -->
+										<a class="siteTitle" data-bind="attr:{   href:devSite_v04.siteUrl ,  target:'window_' + devSite_v04.id }"><span data-bind="text: devSite_v04.siteTitle"></span></a>
+										<!-- /ko -->
+										<!-- ko if:  $parent.checkIfcallingcmd(devSite_v04.siteUrl) -->
 
-								<a class="siteTitle" data-bind="attr:{   href:'ssnalert:appcode=' + devSite_v04.softwareCodeID + ';title='+ devSite_v04.siteTitle +';targetfile='+$parent.siteUrlWithoutCMD(devSite_v04.siteUrl)  }"><span data-bind="text: devSite_v04.siteTitle"></span></a>
-								<p class="alert-danger">Runs CMD</p>
-								<!-- /ko -->
-								<!-- /ko -->
-								<!-- ko ifnot:  $data.devSite_v04.siteUrl -->
-								<span class="siteTitle" data-bind="text: devSite_v04.siteTitle"></span>
+										<a class="siteTitle" data-bind="attr:{   href:'ssnalert:appcode=' + devSite_v04.softwareCodeID + ';title='+ devSite_v04.siteTitle +';targetfile='+$parent.siteUrlWithoutCMD(devSite_v04.siteUrl)  }"><span data-bind="text: devSite_v04.siteTitle"></span></a>
+										<p class="alert-danger">Runs CMD</p>
+										<!-- /ko -->
+										<!-- /ko -->
+										<!-- ko ifnot:  $data.devSite_v04.siteUrl -->
+										<span class="siteTitle" data-bind="text: devSite_v04.siteTitle"></span>
 
-								<!-- /ko -->
+										<!-- /ko -->
 
-							</div>
+									</div>
 
 
-							@*04/15/2021 12:34 pm - SSN - Adding devsittags*@
+									@*04/15/2021 12:34 pm - SSN - Adding devsittags*@
 
-							@*<dev-site-tags data-bind="attr: {  'the-tags' : ko.toJSON($data.devSiteTechnologies.map(r=> r.technology)) }"></dev-site-tags>*@
+									@*<dev-site-tags data-bind="attr: {  'the-tags' : ko.toJSON($data.devSiteTechnologies.map(r=> r.technology)) }"></dev-site-tags>*@
 
-							@* Conflict with HTML in Solution_Detail. Seperate. *@
-	@*
+									@* Conflict with HTML in Solution_Detail. Seperate. *@
+			@*
  	// 04/27/2022 02:01 pm - SSN - $data!!!
  	Big mistake
  	<XXXXXXXXXXX dev-site-tags data-bind="attr: {  'the-tags' : ko.toJSON($data.devSiteTechnologies ), 'id': $data.id }"></dev-site-tags>
-	*@
-							<dev-site-tags data-bind="attr: {  'the-tags' : ko.toJSON(  devSiteDTO__v04.devSiteTechnologies ), 'id': devSiteDTO__v04.id }"></dev-site-tags>
-
-							<!-- ko if: $data.devSite_v04.solution_Details -->
-							@*02/05/2019 02:11 pm - SSN - Testing decoding html*@
-							@*<div class="solution_details" data-bind="text:devSite_v04.solution_Details">*@
-							@*// 09/10/2019 10:26 am - SSN - [20190910-0147] - [012] - WARNING: Tried to load angular more than once. - Replaced Solution_Details_PRE_Encoded*@
-
-							<div class="solution_details" data-bind="html:devSite_v04.solution_Details_PRE_Encoded">
-							</div>
-							<!-- /ko -->
-
-							<br />
-
-							<div class="menuOptions">
-
-								@*
-
-		  	//12/13/2019 05:18 am - SSN - Turn off
-
-		  	<a href="#" class=""
-				data-bind="click: $parent.showJob">Show Job</a>
-
-		 	<a href="#" class=""
-				data-bind="click: $parent.requestDelConfirm">Delete</a>*@
-
-								<a class=""
-								   data-bind="attr: {href: '/devsites/details?id=' + devSite_v04.id , target:'devsiteIndexWindow' + devSite_v04.id } ">Detail</a>
+			*@
+									<dev-site-tags data-bind="attr: {  'the-tags' : ko.toJSON(  devSiteDTO__v04.devSiteTechnologies ), 'id': devSiteDTO__v04.id }"></dev-site-tags>
 
 
+		@*
+ 	// 05/04/2022 09:33 am - SSN - [20220502-1159] - [019] - Create table DevSite_Job_LineItem
 
-								@*// 03/19/2019 12:06 am - SSN - [20190318-2350] Added*@
-								<div data-bind="if: devSite_v04.canBeLaunched">
-									<div data-bind="template: { name: 'launchOption'}">
+   	The outer div is used to remove the inner div which React renders to its component. Until we come up with a better solution.*@
+		<div>
+
+									<div ssn-cmd="timelogReactCompoent"  data-bind="attr: {  'devSiteId': devSiteDTO__v04.id  , 'key':devSiteDTO__v04.id  }"></div>
+	 </div>
+
+
+									<!-- ko if: $data.devSite_v04.solution_Details -->
+									@*02/05/2019 02:11 pm - SSN - Testing decoding html*@
+									@*<div class="solution_details" data-bind="text:devSite_v04.solution_Details">*@
+									@*// 09/10/2019 10:26 am - SSN - [20190910-0147] - [012] - WARNING: Tried to load angular more than once. - Replaced Solution_Details_PRE_Encoded*@
+
+									<div class="solution_details" data-bind="html:devSite_v04.solution_Details_PRE_Encoded">
+									</div>
+									<!-- /ko -->
+
+									<br />
+
+									<div class="menuOptions">
+
+										@*
+
+ 	//12/13/2019 05:18 am - SSN - Turn off
+
+ 	<a href="#" class=""
+ 	data-bind="click: $parent.showJob">Show Job</a>
+
+ 	<a href="#" class=""
+ 	data-bind="click: $parent.requestDelConfirm">Delete</a>*@
+
+										<a class=""
+										   data-bind="attr: {href: '/devsites/details?id=' + devSite_v04.id , target:'devsiteIndexWindow' + devSite_v04.id } ">Detail</a>
+
+
+
+										@*// 03/19/2019 12:06 am - SSN - [20190318-2350] Added*@
+										<div data-bind="if: devSite_v04.canBeLaunched">
+											<div data-bind="template: { name: 'launchOption'}">
+
+											</div>
+										</div>
+
+
+
 
 									</div>
+									<hr />
 								</div>
-
-
-
-
 							</div>
-							<hr />
-						</div>
-					</div>
 
-				</ng-content>
+						</ng-content>
 
-			</ng-content>
+					</ng-content>
 
 </script>
 
@@ -357,12 +371,19 @@
 
 
 
+	@*
+
+		// 05/08/2022 11:17 am - SSN - We have an issue with SignalR. We need React bundle before DemoSites_index.
+
+	*@
+	<script src="~/ReactDist/bundle_react_DevSiteTimelogSelector.js" asp-append-version="true"></script>
+
+
+
         if (Program.RunWhatJavaScriptVersion == Program.whatJavaScriptVersion.Webpack)
         {
-
 	<script src="~/webpack_build/bundle_DemoSites_index.js" asp-append-version="true"></script>
         }
-
 
 
 

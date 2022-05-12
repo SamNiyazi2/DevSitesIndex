@@ -29,8 +29,8 @@ namespace DevSitesIndex.Controllers
         [HttpGet]
         public IEnumerable<TypeAheadRecord> Get_TA_JobRecords(int? jobId)
         {
-
-            IEnumerable<Job_Lineitem> entity = _entityRepository.GetAll().Where(r => r.JobId == jobId);
+            // 05/08/2022 12:40 pm - SSN - Add order.
+            IEnumerable<Job_Lineitem> entity = _entityRepository.GetAll().Where(r => r.JobId == jobId).OrderBy(r=>r.LineItem);
 
             return entity.Select(r => new TypeAheadRecord(r.LineItemId, r.LineItem));
         }

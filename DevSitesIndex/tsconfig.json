@@ -2,7 +2,10 @@
   "compilerOptions": {
 
     "declaration": true,
-    "moduleResolution": "classic",
+
+    // 05/06/2022 07:13 am - SSN - [20220506-0327] - [010] - SignalR Hub
+    //  "moduleResolution": "classic",
+    "moduleResolution": "Node",
 
 
 
@@ -45,7 +48,7 @@
     "alwaysStrict": true,
 
 
-    "typeRoots": [ "./node_modules/@types" ],
+    "typeRoots": [ "./node_modules/@types" ]
     // 04/22/2022 04:57 pm - SSN - [20220422-0850] - [012] - Find source of duplicate call to site.ts
     // Adding websocktes.
     // 04/27/2022 10:16 am - SSN - We are having trouble wihh AngaulrJS.  Don't know if this has anything to do it but it's the only configuration change.

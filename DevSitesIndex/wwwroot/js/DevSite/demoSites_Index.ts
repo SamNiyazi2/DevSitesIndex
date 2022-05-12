@@ -282,7 +282,7 @@ var ssn_devsite_angular_module_instance = function () {
 
 
                     scope.$on('call-to-compile', function (event, args) {
-                        console.log('%c ' + 'Error-20220427-1130 CHCEK - call-to-compile', 'color:red;font-size:12pt;');
+                        console.log('%c ' + 'Check-20220427-1130 CHCEK - call-to-compile', 'color:yellow;font-size:12pt;');
                         console.dir(element.contents());
 
 

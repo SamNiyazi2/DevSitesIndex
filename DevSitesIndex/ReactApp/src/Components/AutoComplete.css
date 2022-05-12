@@ -1,0 +1,89 @@
+﻿
+/*
+    // 05/01/2022 05:34 pm - SSN - [20220501-1612] - [002] - Create AutoComplete component
+// Originally from : https://blog.logrocket.com/build-react-autocomplete-component/
+Bundled with site.css
+*/
+
+
+.cssAutoComplete-input {
+    color: #555!important;
+    margin: 0px 2px;
+    padding: 2px 5px;
+    border:1px solid #999;
+
+    min-width: 400px;
+    /*    max-width: 80%;
+*/
+    max-width: 80vw;
+}
+
+@media only screen and (max-width: 360px) {
+    .cssAutoComplete-input {
+        width: 200px;
+        min-width: 200px;
+        max-width: 90vw;
+        font-weight: bold;
+    }
+}
+
+.cssNB {
+    white-space: nowrap;
+}
+
+.cssGlyphicon{
+    width:20px!important;
+}
+.cssSpanInfo {
+    margin: 3px 5px !important;
+    padding: 0px 4px;
+    display: block;
+}
+
+.cssAutoCompleteUL {
+    background-color: #ccc;
+    cursor: pointer;
+    list-style: none;
+    max-height: 160px;
+    /*   max-width: 80%;
+ */ 
+       /*max-width: 500px;*/
+ /*   max-width: 80vw;*/
+    overflow-y: auto;
+    padding-left: 2px;
+    position: absolute;
+    z-index: 1050;
+    display: block;
+}
+    .cssAutoCompleteUL li {
+        max-width: 400px;
+        min-width: 340px;
+        padding: 2px 5px;
+        cursor: pointer;
+    }
+
+
+    @media only screen and (max-width: 360px) {
+        .cssAutoCompleteUL {
+            max-width: 90vw;
+        }
+    }
+
+.cssAutocompleteItem {
+    display: block;
+    padding: 2px;
+    margin: 5px 2px;
+    background-color: #ccc;
+ 
+
+    white-space: pre-wrap
+}
+
+
+.cssAutocompleteItem-active { 
+    background-color: white;  
+}
+
+.cssAutoCompleteUL li:hover {
+    background-color: white; 
+}

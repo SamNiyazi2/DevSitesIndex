@@ -1,0 +1,28 @@
+﻿
+/*05/12/2022 01:41 pm - SSN */
+
+.cssTransitionDiv {
+    opacity: 1;
+    animation-name: fadeInOpacity;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in;
+    animation-duration: 0.3s;
+    /*-webkit-transition: height 5.00s ease;
+    -moz-transition: height 3s ease;
+    transition: height 1.00s ease;*/
+}
+
+  /*  .cssTransitionDiv:hover {
+        max-height: unset;
+    }*/
+
+
+@keyframes fadeInOpacity {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}

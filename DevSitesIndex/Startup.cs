@@ -40,6 +40,12 @@ using DevSitesIndex.Pages;
 using AutoMapper;
 using React.AspNet;
 
+
+// 05/06/2022 03:32 am - SSN - [20220506-0327] - [002] - SignalR Hub
+using DevSitesIndex.Hubs;
+
+
+
 namespace DevSitesIndex
 {
     public class Startup
@@ -444,6 +450,10 @@ namespace DevSitesIndex
 
 
 
+            // 05/06/2022 03:36 am - SSN - [20220506-0327] - [003] - SignalR Hub
+
+            services.AddSignalR();
+
 
 
             // 04/11/2022 08:51 pm - SSN - [20220411-2043] - [003] - Add React
@@ -512,7 +522,13 @@ namespace DevSitesIndex
                 // Add try/catch
                 try
                 {
-                    await next();
+
+
+                    // 05/12/2022 12:35 pm - SSN - [20220512-1235] Move next to bottom
+                    // await next();
+
+
+
                     // 03/7/2022 06:30 am - SSN - Added to handle 404s
                     if (context.Response.StatusCode == 404)
                     {
@@ -520,14 +536,20 @@ namespace DevSitesIndex
 
                         logger.LogInformation($"20220324-0149-A: 404 = {context.Request.Path}{context.Request.QueryString}");
                         logger.TrackEvent($"20220324-0149-B: 404 = {context.Request.Path}{context.Request.QueryString}");
-                        errorMessage = $"They address {context.Request.Path}{context.Request.QueryString} doesn't exist.";
+                        errorMessage = $"The address {context.Request.Path}{context.Request.QueryString} doesn't exist.";
                         context.Response.Redirect("/");
+
+
+
+                        // 05/12/2022 12:35 pm - SSN - [20220512-1235] Move next to bottom
+                        return; 
+                    
                     }
 
 
 
                     // 04/24/2022 09:50 pm - SSN - For API post calls without login
-
+                    // 05/12/2022 01:12 pm - SSN - Using CustomAuthorizeAPI filter instead.
                     if (context.Response.StatusCode == 302 && context.Request.Headers.Values.Any(s => s.ToString().ToLower().Contains("application/json")))
                     {
                         foreach (var header in context.Response.Headers)
@@ -554,7 +576,35 @@ namespace DevSitesIndex
 
                         }
 
+
+
+                        // 05/11/2022 10:37 am - SSN - Return from found record in DevSite_Job_LineItemAPI
+                        if (context.Response.StatusCode == 400 && context.Request.Headers.Values.Any(s => s.ToString().ToLower().Contains("application/json")))
+                        {
+
+                            return;
+                        }
+
+
+
+
+                        // 05/12/2022 12:35 pm - SSN - [20220512-1235] Move next to bottom
+                        return;
+
+
+
                     }
+
+
+
+
+                    // 05/12/2022 12:35 pm - SSN - [20220512-1235] Move next to bottom
+                    await next();
+
+
+
+
+
                 }
                 catch (Exception ex)
                 {
@@ -673,6 +723,17 @@ namespace DevSitesIndex
             // 08/12/2019 11:24 am - SSN - [20190812-0945] - [007] - Add identity
 
             app.UseAuthentication();
+
+
+
+
+            // 05/06/2022 03:37 am - SSN - [20220506-0327] - [004] - SignalR Hub
+            //app.MapHub<SignalRHub>("/SignalRHub");
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<SignalRHub>("/SignalRHub");
+            });
+
 
 
 

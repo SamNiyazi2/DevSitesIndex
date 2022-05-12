@@ -10,7 +10,11 @@
 
 // *** displaycode-begin  highlight []  
 
- 
+
+// 05/11/2022 05:15 pm - SSN - Adding SignalR
+import { ssn_SignalR_util_instance } from '../Util/SignalR/ssn_SignalR_util';
+
+
 $(function () {
      
 
@@ -169,6 +173,16 @@ $(function () {
     });
 
 
+    // 05/11/2022 05:56 pm - SSN - Adding for setting focus on first available object in a form
+    $('[cmd-ssn="ssn-auto-focus"]').each ( function (e) {
+
+
+        console.log('%c ' + 'main_101 - 20220511-1709 - ssn-auto-focus', 'font-size:36pt;color:blue;');
+
+        console.dir(e);
+
+    });
+
 
 });
 
@@ -187,3 +201,5 @@ function copy101(selector) {
     document.execCommand('copy');
 
 }
+
+ssn_SignalR_util_instance.sendSignalRMessage

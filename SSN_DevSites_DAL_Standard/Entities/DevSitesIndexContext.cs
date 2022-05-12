@@ -245,6 +245,8 @@ namespace DevSitesIndex.Entities
 
             setup_DevSiteCodeReference(modelBuilder);
 
+            setup_DevSite_Job_LineItem(modelBuilder);
+
             setup_Job_Status(modelBuilder);
 
 
@@ -537,16 +539,16 @@ namespace DevSitesIndex.Entities
                     .HasColumnType("datetime2(0)");
 
 
-                 // 06/20/2021 06:49 pm - SSN - [20210620-1053] - [005] - Add UserID to TimeLog table 
-                 // For reference
-                 //entity.HasIndex(e => new { e.DateModified, e.DateAdded })
-                 //    .HasName("NonClusteredIndex-DateAdded-DateModified");
+                // 06/20/2021 06:49 pm - SSN - [20210620-1053] - [005] - Add UserID to TimeLog table 
+                // For reference
+                //entity.HasIndex(e => new { e.DateModified, e.DateAdded })
+                //    .HasName("NonClusteredIndex-DateAdded-DateModified");
 
 
 
-                 // 04/18/2022 02:04 am - SSN - Update with RowVersion
-                 // Provided no benefit.
-                 entity.Property(e => e.RowVersion).IsRowVersion().IsConcurrencyToken(); 
+                // 04/18/2022 02:04 am - SSN - Update with RowVersion
+                // Provided no benefit.
+                entity.Property(e => e.RowVersion).IsRowVersion().IsConcurrencyToken();
 
             });
 
@@ -808,6 +810,29 @@ namespace DevSitesIndex.Entities
             });
         }
 
+
+        // 05/02/2022 12:56 pm - SSN - [20220502-1159] - [002] - Create table DevSite_Job_LineItem
+
+        private static void setup_DevSite_Job_LineItem(ModelBuilder modelBuilder)
+        {
+            // https://www.learnentityframeworkcore.com/configuration/many-to-many-relationship-configuration
+            modelBuilder.Entity<DevSite_Job_LineItem>(entity =>
+          {
+           
+              entity
+                    .HasIndex(x => new { x.DevSiteId, x.Job_LineItemId })
+                    .HasName("IK_DevSite_Job_LineItem_Unique")
+                    .IsUnique();
+
+              entity
+                   .HasOne(e => e.AspNetUser)
+                   .WithMany()
+                   .HasForeignKey(e2 => e2.FK_UserID)
+                   .HasPrincipalKey("PkUserId");
+          
+          });
+        }
+
         // 09/16/2019 11:38 am - SSN - [20190916-1123] - [003] - Adding job status
 
         private static void setup_Job_Status(ModelBuilder modelBuilder)
@@ -914,6 +939,9 @@ namespace DevSitesIndex.Entities
 
         // 06/13/2021 08:39 am - SSN - [20210613-0452] - [013] - Adding tags to DevSite
         public DbSet<DevSiteTechnology> DevSiteTechnologies => Set<DevSiteTechnology>();
+
+        // 05/02/2022 10:13 pm - SSN - [20220502-1159] - [013] - Create table DevSite_Job_LineItem
+        public DbSet<DevSite_Job_LineItem> DevSite_Job_LineItems => Set<DevSite_Job_LineItem>();
 
 
 

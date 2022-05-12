@@ -26,9 +26,10 @@ import { ChangeMonitorFlag } from './Util/ChangeMonitor/ChangeMonitorFlag';
 
 
 // var site_instance = function () {
-namespace site_instance_NS {
+////////////////////////////////////////////////////////////////////// namespace site_instance_NS {
 
-    export class site_Class {
+//////////////////////////////////////////////////////////////////////     export class site_Class {
+      class site_Class {
 
         ngApplicationName: string;
 
@@ -566,14 +567,20 @@ namespace site_instance_NS {
 
     }
 
-}
+////////////////////////////////////////////////////////////////////// }
 
 
 
-let site_instance = new site_instance_NS.site_Class();
-export { site_instance };
+
+// 05/06/2022 04:36 pm - SSN
+
+
+//let site_instance = new site_instance_NS.site_Class();
+//export { site_instance };
 
      
+let site_instance = new site_Class();
+export { site_instance };
 
 
 
