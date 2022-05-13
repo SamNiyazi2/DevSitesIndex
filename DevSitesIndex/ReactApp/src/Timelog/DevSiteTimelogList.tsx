@@ -12,6 +12,7 @@ import '../css/ReactCSS.css';
 //import { DevSite_Job_LineItem } from '../Models/DevSite_Job_LineItem';
 
 import { deleteDevSiteTimelogRecord, getDevSiteTimelogRecords } from '../API/DevSite_Job_LineItemAPI';
+import { DevSiteTimeLogDeleteOption } from './devSiteTimeLogDelete';
 
 export const DevSiteTimelogList = (props) => {
 
@@ -19,6 +20,8 @@ export const DevSiteTimelogList = (props) => {
     const [errors, setErrors] = useState([]);
 
     const [timelogData, setTimelogData] = useState([]);
+
+    const [ reverseConfirmOption, setReverseConfirmOption] = useState(0);
 
     useEffect(() => {
 
@@ -81,57 +84,7 @@ export const DevSiteTimelogList = (props) => {
     }
 
 
-    const deleteRecord = (id: number) => {
-
-        console.log('%c ' + `DevSiteTimelogList - 20220511-1616 - DeleteRecord ${id}`, 'font-size:24pt;color:pink');
-
-        deleteDevSiteTimelogRecord(id).then(response => {
-            console.log("%c " + "DevSiteTimeLogList - 20220511-1617", 'Color:yellow;font-size:20px;');
-            console.dir(response);
-
-            // CustomAuthorizeAPI Error
-            if (response.statusCode && response.statusCode == 401) {
-
-                const _erros = new Array();
-                _erros.push(response.value.apiErrorMessage);
-                _erros.push(response.value.apiErrorSource);
-                setErrors(_erros);
-            }
-            else if (response.Message) {
-
-                const _erros = new Array();
-                _erros.push(response.Message);
-                setErrors(_erros);
-            }
-            else if (response.ErrorMessage) {
-
-                const _erros = new Array();
-                _erros.push(response.ErrorMessage);
-                setErrors(_erros);
-
-            } else {
-
-
-                console.log("%c " + "DevSiteTimeLogList - 20220511-1622", 'Color:blue;font-size:32px;');
-                setTimelogData([]);
-                
-
-            }
-
-        })
-            .catch(error => {
-                console.log("%c " + "DevSiteTimeLogList - 20220511-1623", 'Color:red;font-size:20px;');
-                console.dir(error);
-
-                const _erros = new Array();
-                _erros.push(error.Message);
-                setErrors(_erros);
-            });
-
-
-    }
-
-
+    
 
     return (
         <>
@@ -156,9 +109,13 @@ export const DevSiteTimelogList = (props) => {
                                         <>
                                             Timelog: <a href={jobDetailUrl} target={jobDetailWindowName} >{timelogRecord.job_Lineitem.job.jobTitle}</a>
                                             &nbsp;
-                                            <i onClick={(e) => { deleteRecord(timelogRecord.id) }} title="Remove association" className="glyphicon glyphicon-remove cssGlyphicon" ></i>
-
-                                        </>
+                                            <DevSiteTimeLogDeleteOption
+                                                devSite_Job_LineitemId={timelogRecord.id}
+                                                reverseConfirmOption={reverseConfirmOption}
+                                                setReverseConfirmOption={setReverseConfirmOption}
+                                                setTimelogData={setTimelogData}
+                                            />
+                                           </>
 
                                     </td>
                                 </tr>
