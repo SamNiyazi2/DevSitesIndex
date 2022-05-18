@@ -29,9 +29,10 @@ namespace DevSitesIndex.Filters
                     Value = new
                     {
                         APIErrorMessage = "Login is required",
-                        APIErrorSource = "DevSites-Filter-20220512-1301"
+                        APIErrorSource = "DevSites-Filter-20220512-1301",
+                        RequestLogin_101 = true
                     }
-                });
+                }); ;
 
             }
 

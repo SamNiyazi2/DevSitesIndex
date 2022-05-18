@@ -13,7 +13,7 @@
 
 let d1 = new Date();
 
-console.log('site - 20191115-1740 - AAAA ', d1);
+console.log(`site - 20191115-1740 - AAAA [${d1.toISOString()}]`);
 
 // 04/25/2022 04:21 pm - SSN - Adding
 import { ChangeMonitorFlag } from './Util/ChangeMonitor/ChangeMonitorFlag';

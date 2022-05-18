@@ -917,5 +917,8 @@ a[data-toggle][aria-expanded]:after {
     font-weight: normal;
     line-height: 1;
 }
-     
 
+
+.cssTimelogReactCompoent{
+    padding:20px;
+}

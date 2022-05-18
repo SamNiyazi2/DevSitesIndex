@@ -4,137 +4,154 @@
 @model DevSitesIndex.Pages.DevSites.DetailsModel
 
 @{
-    ViewData["Title"] = $"Demo Site Detail - {PageTitleUtil.GetTitle_DevSite(Model.DevSite)}";
-    
-    // 04/23/2022 11:58 am - SSN - Adding devSiteTechnologies AngularJS control
-   // ViewBag.InitModule_Full = "data-ng-app=\"demoSites_Index\""; 
-    ViewBag.InitModule_Full = "data-ng-app=\"devSite_Detail_module\"";
+	ViewData["Title"] = $"Demo Site Detail - {PageTitleUtil.GetTitle_DevSite(Model.DevSite)}";
+
+	// 04/23/2022 11:58 am - SSN - Adding devSiteTechnologies AngularJS control
+	// ViewBag.InitModule_Full = "data-ng-app=\"demoSites_Index\"";
+	ViewBag.InitModule_Full = "data-ng-app=\"devSite_Detail_module\"";
 
 }
 
 <h2>@ViewData["Title"]</h2>
- 
+
 <div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.DevSite.SiteTitle)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DevSite.SiteTitle)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.DevSite.SiteUrl)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DevSite.SiteUrl)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.DevSite.SolutionName)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DevSite.SolutionName)
+ <hr />
+ <dl class="dl-horizontal">
+  <dt>
+			@Html.DisplayNameFor(model => model.DevSite.SiteTitle)
+  </dt>
+  <dd>
+			@Html.DisplayFor(model => model.DevSite.SiteTitle)
+  </dd>
+  <dt>
+			@Html.DisplayNameFor(model => model.DevSite.SiteUrl)
+  </dt>
+  <dd>
+			@Html.DisplayFor(model => model.DevSite.SiteUrl)
+  </dd>
+  <dt>
+			@Html.DisplayNameFor(model => model.DevSite.SolutionName)
+  </dt>
+  <dd>
+			@Html.DisplayFor(model => model.DevSite.SolutionName)
 
-            @if (Model.DevSite.CanBeLaunched)
-            {
-                int softwareCodeID = Model.DevSite.SoftwareCodeID;
-                string solutionName = Model.DevSite.SolutionName;
-                string siteTitle = Model.DevSite.SiteTitle;
+			@if (Model.DevSite.CanBeLaunched)
+			{
+				int softwareCodeID = Model.DevSite.SoftwareCodeID;
+				string solutionName = Model.DevSite.SolutionName;
+				string siteTitle = Model.DevSite.SiteTitle;
 
-                //06/06/2019 02:12 pm - SSN - Added title
-                string url = $"<p>Project: <a href=\"ssnalert:appcode={softwareCodeID};title={siteTitle};targetfile={solutionName}\">Launch Application</a></p>";
-
-
-                @Html.Raw(url);
-            }
-
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DevSite.SoftwareCode)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DevSite.SoftwareCode)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.DevSite.DateAdded)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DevSite.DateAdded)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.DevSite.DateUpdated)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DevSite.DateUpdated)
-        </dd>
+				//06/06/2019 02:12 pm - SSN - Added title
+				string url = $"<p>Project: <a href=\"ssnalert:appcode={softwareCodeID};title={siteTitle};targetfile={solutionName}\">Launch Application</a></p>";
 
 
-        @*
-             04/23/2022 11:54 am - SSN - Add devSiteTechnologies AngularJS control
-*@
+				@Html.Raw(url)
+				;
+			}
 
-            <ng-content data-ng-controller="devSite_Detail_Controller">
-             <dev-site-tags   the-tags='devSite.devSiteTechnologies'  id='@Model.DevSite.Id' ></dev-site-tags>
-            </ng-content>
+  </dd>
+
+  <dt>
+			@Html.DisplayNameFor(model => model.DevSite.SoftwareCode)
+  </dt>
+  <dd>
+			@Html.DisplayFor(model => model.DevSite.SoftwareCode)
+  </dd>
+  <dt>
+			@Html.DisplayNameFor(model => model.DevSite.DateAdded)
+  </dt>
+  <dd>
+			@Html.DisplayFor(model => model.DevSite.DateAdded)
+  </dd>
+  <dt>
+			@Html.DisplayNameFor(model => model.DevSite.DateUpdated)
+  </dt>
+  <dd>
+			@Html.DisplayFor(model => model.DevSite.DateUpdated)
+  </dd>
+
+
+		@*
+			04/23/2022 11:54 am - SSN - Add devSiteTechnologies AngularJS control
+		*@
+
+  <ng-content data-ng-controller="devSite_Detail_Controller">
+   <dev-site-tags the-tags='devSite.devSiteTechnologies' id='@Model.DevSite.Id'></dev-site-tags>
+  </ng-content>
+
+		@*
+			05/14/2022 06:01 pm - SSN - Add timelogReactCompoent
+		*@
+
+
+  <div class="cssTimelogReactCompoent">
+   <div devSiteId="@Model.DevSite.Id"  ssn-cmd="timelogReactCompoent  timelogReactCompoentDetail"  ></div>
+  </div>
+
+
+		@*
+			09/13/2019 04:30 am - SSN - [20190913-0421] - [001]
+			Moved down
+		*@
+
+  <dt>
+			@Html.DisplayNameFor(model => model.DevSite.Solution_Details)
+  </dt>
+  <dd>
+			@*09/10/2019 05:56 pm - SSN - Solution_Details_PRE_Encoded*@
+			@Html.Raw(Model.DevSite.Solution_Details_PRE_Encoded)
+
+  </dd>
 
 
 
-        @*
-            09/13/2019 04:30 am - SSN - [20190913-0421] - [001]
-            Moved down
-        *@
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DevSite.Solution_Details)
-        </dt>
-        <dd>
-            @*09/10/2019 05:56 pm - SSN - Solution_Details_PRE_Encoded*@
-            @Html.Raw(Model.DevSite.Solution_Details_PRE_Encoded)
-
-        </dd>
-
-
-
-    </dl>
+ </dl>
 </div>
 <div>
-    <a asp-page="./Edit" asp-route-id="@Model.DevSite.Id">Edit</a> |
+ <a asp-page="./Edit" asp-route-id="@Model.DevSite.Id">Edit</a> |
 
-    @*<a asp-page="./Index">Back to List</a>*@
-    @await Html.PartialAsync("ReturnToCallerLink", Model.returnToCaller)
+	@*<a asp-page="./Index">Back to List</a>*@
+	@await Html.PartialAsync("ReturnToCallerLink", Model.returnToCaller)
 
 </div>
 
 
 @section Scripts {
-   
+
     @if (Program.RunWhatJavaScriptVersion == Program.whatJavaScriptVersion.Webpack)
         {
-            <script src="~/webpack_build/bundle_DevSite_Detail.js" asp-append-version="true"></script>
+<script src="~/webpack_build/bundle_DevSite_Detail.js" asp-append-version="true"></script>
         }
 
-    <script>
+			@*
 
-    // 04/23/2022 12:07 pm - SSN - Adding devSiteTechnogies AngularJS control
-         
-          angular.module('devSite_Detail_module')
-            .controller('devSite_Detail_Controller', ['$scope', function ($scope) {
+	// 05/18/2022 01:35 pm - SSN - We have an issue with SignalR. We need React bundle before DemoSites_index???
+	// Order is important.
+	*@
+<script src="~/ReactDist/bundle_react_DevSiteTimelogSelector.js" asp-append-version="true"></script>
 
 
-                $scope.devSite  =  @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject( @Model.devSite_DTO, 
-                            formatting: Newtonsoft.Json.Formatting.Indented, 
-                            new Newtonsoft.Json.JsonSerializerSettings
-                            {
-                               ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore,
-                               ContractResolver = new CamelCasePropertyNamesContractResolver()
-                            }));
-                              
-        }]);
 
-    </script>
+<script>
+ 
+		// 04/23/2022 12:07 pm - SSN - Adding devSiteTechnogies AngularJS control
+
+			  angular.module('devSite_Detail_module')
+				.controller('devSite_Detail_Controller', ['$scope', function ($scope) {
+
+
+					$scope.devSite  =  @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject( @Model.devSite_DTO,
+								formatting: Newtonsoft.Json.Formatting.Indented,
+								new Newtonsoft.Json.JsonSerializerSettings
+								{
+								   ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore,
+								   ContractResolver = new CamelCasePropertyNamesContractResolver()
+								}));
+
+			}]);
+
+</script>
 }
 
- 
-          
- 
+
+

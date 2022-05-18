@@ -29,6 +29,12 @@ Bundled with site.css
 
 .cssNB {
     white-space: nowrap;
+ 
+}
+
+.cssNB .form-control {
+    display:inline-block!important;
+ 
 }
 
 .cssGlyphicon{
@@ -81,9 +87,9 @@ Bundled with site.css
 
 
 .cssAutocompleteItem-active { 
-    background-color: white;  
+    background-color: white!important;  
 }
 
 .cssAutoCompleteUL li:hover {
-    background-color: white; 
+    background-color: #bb9b9b; 
 }

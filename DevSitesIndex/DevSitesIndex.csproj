@@ -4,7 +4,7 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <UserSecretsId>d333cece-1c61-46c9-bdce-fbf359723d24</UserSecretsId>
     <TypeScriptToolsVersion>4.3</TypeScriptToolsVersion>
-    <LangVersion>7.2</LangVersion>
+    <LangVersion>8.0</LangVersion>
     <ApplicationInsightsResourceId>/subscriptions/d6723a94-6723-4e85-b988-03bf28d6ea51/resourcegroups/DevSitesIndex20190127--0929-redeploy-rg/providers/microsoft.insights/components/DevSitesIndex20190127__0929_redeploy_v02</ApplicationInsightsResourceId>
   </PropertyGroup>
   <ItemGroup>
@@ -36,16 +36,25 @@
     <None Remove="ReactApp\src\API\ApiUtil.ts" />
     <None Remove="ReactApp\src\API\AuthenticationAPI.ts" />
     <None Remove="ReactApp\src\API\DevSite_Job_LineItemAPI.ts" />
+    <None Remove="ReactApp\src\AuthenticateUser.ts" />
     <None Remove="ReactApp\src\Components\AutoComplete.tsx" />
     <None Remove="ReactApp\src\DevSite\ButtonForListingTimelogs.tsx" />
-    <None Remove="ReactApp\src\DevSite\DevSiteTimelogSelector.tsx" />
+    <None Remove="ReactApp\src\Interfaces\General_Error_Message.ts" />
     <None Remove="ReactApp\src\Interfaces\IDevSite_Job_LineItem.ts" />
     <None Remove="ReactApp\src\Interfaces\IReactErrorModel.ts" />
+    <None Remove="ReactApp\src\Interfaces\IUser.ts" />
     <None Remove="ReactApp\src\ModalPopups\StaticModal.tsx" />
     <None Remove="ReactApp\src\Models\DevSite_Job_LineItem.ts" />
+    <None Remove="ReactApp\src\Models\General_Error_Message.ts" />
+    <None Remove="ReactApp\src\Models\User.ts" />
     <None Remove="ReactApp\src\Timelog\devSiteTimeLogDelete.tsx" />
     <None Remove="ReactApp\src\Timelog\DevSiteTimelogList.tsx" />
     <None Remove="ReactApp\src\Timelog\TimelogSelector.tsx" />
+    <None Remove="ReactApp\src\Users\React_Login_Popup.tsx" />
+    <None Remove="ReactApp\src\Util\MonitorTabFocus.ts" />
+    <None Remove="ReactApp\src\Util\SignalR\ISignalR_MessageRecord.ts" />
+    <None Remove="ReactApp\src\Util\SignalR\SignalR_Constants.ts" />
+    <None Remove="ReactApp\src\Util\SignalR\SignalR_MessageRecord.ts" />
     <None Remove="ScaffoldingReadme.txt" />
     <None Remove="ssn_azure_build.cmd" />
     <None Remove="ssn_babel_it_2.cmd" />
@@ -120,6 +129,9 @@
     <Content Remove="wwwroot\js\Users\users_main.ts" />
     <Content Remove="wwwroot\js\Util\autofocus\ssnAutoFocus.ts" />
     <Content Remove="wwwroot\js\Util\Logger\ILoggerErrorMessage.ts" />
+    <Content Remove="wwwroot\js\Util\SignalR\ISignalR_MessageRecord.ts" />
+    <Content Remove="wwwroot\js\Util\SignalR\SignalR_Constants.ts" />
+    <Content Remove="wwwroot\js\Util\SignalR\SignalR_MessageRecord.ts" />
     <Content Remove="wwwroot\js\Util\SignalR\ssn_SignalR_util.ts" />
     <Content Remove="wwwroot\js\Util\ssn_AngularJslogger.ts" />
     <Content Remove="timesheetsSupport7\src\app\util\VSTSCode\VSTSCode.ts" />
@@ -139,9 +151,13 @@
     <TypeScriptCompile Include="ReactApp\src\API\ApiUtil.ts" />
     <TypeScriptCompile Include="ReactApp\src\API\AuthenticationAPI.ts" />
     <TypeScriptCompile Include="ReactApp\src\API\DevSite_Job_LineItemAPI.ts" />
+    <TypeScriptCompile Include="ReactApp\src\Interfaces\General_Error_Message.ts" />
+    <TypeScriptCompile Include="ReactApp\src\Interfaces\IUser.ts" />
+    <TypeScriptCompile Include="ReactApp\src\Models\General_Error_Message.ts" />
+    <TypeScriptCompile Include="ReactApp\src\Models\User.ts" />
+    <TypeScriptCompile Include="ReactApp\src\Users\AuthenticateUser.tsx" />
     <TypeScriptCompile Include="ReactApp\src\Components\AutoComplete.tsx" />
     <TypeScriptCompile Include="ReactApp\src\DevSite\ButtonForListingTimelogs.tsx" />
-    <TypeScriptCompile Include="ReactApp\src\DevSite\DevSiteTimelogSelector.tsx" />
     <TypeScriptCompile Include="ReactApp\src\Interfaces\IReactErrorModel.ts" />
     <TypeScriptCompile Include="ReactApp\src\Interfaces\IDevSite_Job_LineItem.ts" />
     <TypeScriptCompile Include="ReactApp\src\ModalPopups\StaticModal.tsx" />
@@ -149,6 +165,11 @@
     <TypeScriptCompile Include="ReactApp\src\Timelog\devSiteTimeLogDelete.tsx" />
     <TypeScriptCompile Include="ReactApp\src\Timelog\DevSiteTimelogList.tsx" />
     <TypeScriptCompile Include="ReactApp\src\Timelog\TimelogSelector.tsx" />
+    <TypeScriptCompile Include="ReactApp\src\Users\React_Login_Popup.tsx" />
+    <TypeScriptCompile Include="ReactApp\src\Util\MonitorTabFocus.ts" />
+    <TypeScriptCompile Include="ReactApp\src\Util\SignalR\ISignalR_MessageRecord.ts" />
+    <TypeScriptCompile Include="ReactApp\src\Util\SignalR\SignalR_Constants.ts" />
+    <TypeScriptCompile Include="ReactApp\src\Util\SignalR\SignalR_MessageRecord.ts" />
     <TypeScriptCompile Include="wwwroot\js\DevSite\DevSite_Detail.ts" />
     <TypeScriptCompile Include="wwwroot\js\DropdownList\DropdownListDirectiveConstants.ts" />
     <TypeScriptCompile Include="wwwroot\js\Interfaces\IDevSiteTechnoogy.ts" />
@@ -167,6 +188,15 @@
     <TypeScriptCompile Include="wwwroot\js\Util\autofocus\ssnAutoFocus.ts" />
     <TypeScriptCompile Include="wwwroot\js\Util\Logger\ILoggerErrorMessage.ts" />
     <TypeScriptCompile Include="wwwroot\js\Util\Logger\ssn_AngularJslogger.ts" />
+    <TypeScriptCompile Include="wwwroot\js\Util\SignalR\ISignalR_MessageRecord.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="wwwroot\js\Util\SignalR\SignalR_Constants.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="wwwroot\js\Util\SignalR\SignalR_MessageRecord.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="wwwroot\js\Util\SignalR\ssn_SignalR_util.ts" />
     <TypeScriptCompile Include="wwwroot\js\Util\TextArea_util_0718.ts" />
     <TypeScriptCompile Include="wwwroot\js\Users\login.ts" />

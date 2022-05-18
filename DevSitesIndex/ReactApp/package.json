@@ -27,6 +27,7 @@
     "@microsoft/signalr": "^6.0.4",
     "html-react-parser": "^1.4.12",
     "react-device-detect": "^2.2.2",
-    "rxjs": "^7.5.5"
+    "rxjs": "^7.5.5",
+    "react-toastify": "^9.0.1"
   }
 }

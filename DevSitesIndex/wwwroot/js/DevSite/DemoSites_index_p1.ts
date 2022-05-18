@@ -18,11 +18,13 @@ import * as util from '../../js/site_v02';
 import * as angular from 'angular';
 
 // 05/06/2022 06:21 pm - SSN - [20220506-0327] - [011] - SignalR Hub 
-import { ssn_SignalR_util_instance} from '../Util/SignalR/ssn_SignalR_util';
+import { ssn_SignalR_util } from '../Util/SignalR/ssn_SignalR_util';
+import { SignalR_MessageRecord } from '../Util/SignalR/SignalR_MessageRecord';
+import { SIGNALR_CONSTANTS } from '../Util/SignalR/SignalR_Constants';
 
 
 
-
+  
 const CURRENT_PAGE_NO = 1; // for testing
 const RECORDS_PER_PAGE = 4;
 
@@ -119,7 +121,7 @@ var demosites_index_p1_instance = function () {
 
                 self.updateAngularJSParts();
 
-                self.updateReactComponents();
+                self.updateReactComponents('DemoSites_Index_p1_loadData-20220517-1907');
 
 
 
@@ -336,7 +338,7 @@ var demosites_index_p1_instance = function () {
 
             self.updateAngularJSParts();
 
-            self.updateReactComponents();
+            self.updateReactComponents('DemoSites_Index_p1_resetSearch-20220517-1908');
 
 
         }
@@ -359,18 +361,20 @@ var demosites_index_p1_instance = function () {
 
         // 05/06/2022 07:06 am - SSN - [20220506-0327] - [009] - SignalR Hub
 
-        this.updateReactComponents = () => {
+        this.updateReactComponents = (callSource:string) => {
 
-            console.log('%c ' + 'SignalR-DemoSites_index-updateReactComponents - 20220506-0803-send-message', 'color:yellow;font-size:18pt;');
+            console.log('%c ' + `SignalR-DemoSites_index-updateReactComponents - 20220506-0803-send-message [${callSource}]`, 'color:yellow;font-size:18pt;');
 
-            //ssn_SignalR_util_instance.SignalRConnection_doSetup.then((_SignalRConnection) => {
 
-            //    console.log('%c ' + 'SignalRConnection_doSetup 20220506-1724', 'color:yellow;font-size:14pt;');
+            const signalR_MessageRecord = new SignalR_MessageRecord();
+            signalR_MessageRecord.callSource = `20220514-2013-${callSource}`;
+            signalR_MessageRecord.processorName = SIGNALR_CONSTANTS.PROCESSOR_NAME.REACTJS;
+            signalR_MessageRecord.dateTime = new Date();
+            signalR_MessageRecord.message = SIGNALR_CONSTANTS.REFRESH_DEVSITES_TIMELOG_LIST;
+            signalR_MessageRecord.user = "SamN";
 
-            //    _SignalRConnection.invoke("SendMessage", 'DemoSites_p1', 'refreshControlsList', `${new Date()}`);
-            //});
+            ssn_SignalR_util.sendSignalRMessage_v2(signalR_MessageRecord);
 
-            ssn_SignalR_util_instance.sendSignalRMessage('DemoSites_p1', 'refreshControlsList', `${new Date()}`);
         }
 
 
@@ -478,7 +482,7 @@ var demosites_index_p1_instance = function () {
 
                 self.updateAngularJSParts();
 
-                self.updateReactComponents();
+                self.updateReactComponents('DemoSite_Index_p1_SubmitSearch-20220517-1910');
 
 
             }).fail(function (error) {
@@ -553,9 +557,7 @@ var demosites_index_p1_instance = function () {
     ko.applyBindings(vm);
 
     vm.loadData(vm.recordsPerPage_KO(), vm.currentPage_KO());
-
-
-
+      
 
 }();
 

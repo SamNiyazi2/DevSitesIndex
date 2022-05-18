@@ -3,8 +3,14 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
+
+import parse from 'html-react-parser';
+
 import { deleteDevSiteTimelogRecord } from '../API/DevSite_Job_LineItemAPI';
 
+import { ssn_SignalR_util_React } from '../Util/SignalR/ssn_SignalR_Util_React';
+import { SignalR_MessageRecord } from '../Util/SignalR/SignalR_MessageRecord';
+import { SIGNALR_CONSTANTS } from '../Util/SignalR/SignalR_Constants';
 
 export const DevSiteTimeLogDeleteOption = (props) => {
 
@@ -48,13 +54,36 @@ export const DevSiteTimeLogDeleteOption = (props) => {
     }, [props.reverseConfirmOption])
 
 
+    const requestLogin = (e) => {
+
+        console.log('%c ' + 'DevSiteTimelogDelete.tsc - 20220512-2150', 'color:red;font-size:48px;');
+        console.dir(e);
+
+
+        const signalR_MessageRecord = new SignalR_MessageRecord();
+        signalR_MessageRecord.callSource = 'DevSiteTimeLogDelete-20220514-1836';
+        signalR_MessageRecord.processorName = SIGNALR_CONSTANTS.PROCESSOR_NAME.REACTJS;
+        signalR_MessageRecord.dateTime = new Date();
+        signalR_MessageRecord.message = SIGNALR_CONSTANTS.REQUEST_LOGIN;
+        signalR_MessageRecord.user = "SamN";
+
+        ssn_SignalR_util_React.sendSignalRMessage_v2(signalR_MessageRecord);
+    }
+
+
     const deleteRecord = (id: number) => {
 
         setErrors([]);
 
+        if (isNaN(parseInt(IDForDeleteConfirmation))) {
+
+            setErrors([{ message: "Confirmation key is required." }]);
+            return;
+        }
+
         if (id != parseInt(IDForDeleteConfirmation)) {
 
-            setErrors(["Invalid entry"]);
+            setErrors([{ message: `Invalid entry` }]);
             return;
         }
 
@@ -68,20 +97,20 @@ export const DevSiteTimeLogDeleteOption = (props) => {
             if (response.statusCode && response.statusCode == 401) {
 
                 const _erros = new Array();
-                _erros.push(response.value.apiErrorMessage);
-                _erros.push(response.value.apiErrorSource);
+                _erros.push({ message: response.value.apiErrorMessage, requestLogin: response.value.requestLogin_101 });
+
                 setErrors(_erros);
             }
             else if (response.Message) {
 
                 const _erros = new Array();
-                _erros.push(response.Message);
+                _erros.push({ message: response.Message });
                 setErrors(_erros);
             }
             else if (response.ErrorMessage) {
 
                 const _erros = new Array();
-                _erros.push(response.ErrorMessage);
+                _erros.push({ message: response.ErrorMessage });
                 setErrors(_erros);
 
             } else {
@@ -115,6 +144,13 @@ export const DevSiteTimeLogDeleteOption = (props) => {
     }
 
 
+    const processCancelRequest = (event) => {
+
+        setConfirmDelete(0);
+        setErrors([]);
+    }
+
+
     return (
 
         <>
@@ -134,7 +170,7 @@ export const DevSiteTimeLogDeleteOption = (props) => {
             {confirmDelete > 0
                 &&
                 (
-                <div style={{ paddingLeft: 40}}>
+                    <div style={{ paddingLeft: 40 }}>
                         <span>Enter <strong>{props.devSite_Job_LineitemId}</strong> to delete:
 
                             &nbsp;
@@ -142,8 +178,7 @@ export const DevSiteTimeLogDeleteOption = (props) => {
                             <input ref={confirmInputRef}
                                 onChange={(e) => setIDForDeleteConfirmation(e.target.value)}
                                 onKeyPress={(e) => {
-                                    console.log('xxxxxxxxxxxx');
-                                    console.log(e.key);
+
                                     if (e.key == 'Enter') {
                                         deleteRecord(props.devSite_Job_LineitemId)
                                     }
@@ -152,14 +187,37 @@ export const DevSiteTimeLogDeleteOption = (props) => {
                             />
 
                             &nbsp;
+                            &nbsp;
 
                             <button className="btn btn-sm  btn-danger"
                                 onClick={(e) => deleteRecord(props.devSite_Job_LineitemId)}
                             >
                                 Delete
                             </button >
+                            <button className="btn btn-sm btn-default"
+                                onClick={(e) => processCancelRequest(e)}
+                            >
+                                Cancel
+                            </button >
+                            {errors &&
+                                (
+                                    <>
+                                        {errors.map(
+                                            (val, ndx) =>
+                                                <span style={{ marginRight: 10, marginLeft: 10, padding: 2 }}
+                                                    key={ndx}
+                                                    className="alert alert-danger alert-sm">
 
-                            {errors && errors.map(val => (<> &nbsp; <span className="alert alert-danger alert-sm">{val}</span> &nbsp;</>))}
+                                                    {val.message} {val.requestLogin && <a onClick={requestLogin} tabIndex={0}>Login</a>}
+
+                                                </span>
+
+
+                                        )}
+                                    </>
+                                )
+
+                            }
 
 
                         </span>

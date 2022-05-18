@@ -15,14 +15,14 @@ import { isMobile, browserName } from 'react-device-detect';
 import './AutoComplete.css';
 
 
-const AutoComplete = ({ data, size, setOwner, setChild, parentId, error }) => {
+const AutoComplete = ({ data, size, setOwner, setChild, parentId, error , setFocus }) => {
 
 
     let console__log = (format_and_message, styles) => { };
     let console__dir = (objVar) => { };
 
-    console__log = (format_and_message, styles) => console.log(format_and_message, styles);
-    console__dir = (objVar) => console.dir(objVar);
+    //console__log = (format_and_message, styles) => console.log(format_and_message, styles);
+    //console__dir = (objVar) => console.dir(objVar);
 
 
 
@@ -427,16 +427,19 @@ const AutoComplete = ({ data, size, setOwner, setChild, parentId, error }) => {
 
 
             <span className="cssNB">
-                <input type="text" className="cssAutoComplete-input"
+
+                <input type="text" className="form-control cssAutoComplete-input"
                     onChange={onChange}
                     onKeyDown={keyUpHandler_forInput}
                     value={input}
-
+                    autoFocus={setFocus}
                     ref={inputRef}
                 />
+
                 &nbsp;
                 {input && <i onClick={clearInputField} className="glyphicon glyphicon-remove cssGlyphicon" ></i>}
                 {!input && <i onClick={clearInputField} className="glyphicon cssGlyphicon" ></i>}
+
 
             </span>
 
@@ -456,7 +459,8 @@ AutoComplete.propTypes = {
     setOwner: PropTypes.func.isRequired,
     setChild: PropTypes.func,
     parentId: PropTypes.number,
-    error: PropTypes.string
+    error: PropTypes.string,
+    setFocus: PropTypes.bool
 };
 
 

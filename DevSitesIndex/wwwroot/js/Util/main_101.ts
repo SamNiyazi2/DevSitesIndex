@@ -10,13 +10,10 @@
 
 // *** displaycode-begin  highlight []  
 
-
-// 05/11/2022 05:15 pm - SSN - Adding SignalR
-import { ssn_SignalR_util_instance } from '../Util/SignalR/ssn_SignalR_util';
-
+ 
 
 $(function () {
-     
+
 
     // 09/26/2018 02:11 am - SSN 
     // 06/13/2021 02:59 am - SSN - [20210613-0039] - [002] - VSTS Code - Refactoring
@@ -155,26 +152,26 @@ $(function () {
 
     // 08/19/2021 06:01 - SSN - Swap css HTML theme.
     // @ts-ignore
-    $('[cmd-ssn="swapcsstheme"]').on<HTMLLinkElement>( "click" , function (e) {
-         
+    $('[cmd-ssn="swapcsstheme"]').on<HTMLLinkElement>("click", function (e) {
+
         let htmlTag = document.getElementsByTagName('html');
 
         if (htmlTag.length > 0) {
 
             let currentTheme = htmlTag[0].getAttribute('theme');
-          
-            currentTheme = currentTheme == 'Dark'?'Light':'Dark';
-          
-            htmlTag[0].setAttribute('theme', currentTheme); 
-            
-                e.target.textContent = currentTheme == 'Dark'?'Light':'Dark';
+
+            currentTheme = currentTheme == 'Dark' ? 'Light' : 'Dark';
+
+            htmlTag[0].setAttribute('theme', currentTheme);
+
+            e.target.textContent = currentTheme == 'Dark' ? 'Light' : 'Dark';
         }
 
     });
 
 
     // 05/11/2022 05:56 pm - SSN - Adding for setting focus on first available object in a form
-    $('[cmd-ssn="ssn-auto-focus"]').each ( function (e) {
+    $('[cmd-ssn="ssn-auto-focus"]').each(function (e) {
 
 
         console.log('%c ' + 'main_101 - 20220511-1709 - ssn-auto-focus', 'font-size:36pt;color:blue;');
@@ -202,4 +199,4 @@ function copy101(selector) {
 
 }
 
-ssn_SignalR_util_instance.sendSignalRMessage
+ 

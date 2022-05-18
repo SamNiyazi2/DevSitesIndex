@@ -5,10 +5,9 @@
 import React, { EventHandler, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-
-// 05/06/2022 05:34 am - SSN - [20220506-0327] - [006] - SignalR Hub
-import * as signalR from "@microsoft/signalr";
 
 import '../css/ReactCSS.css';
 
@@ -18,74 +17,95 @@ import '../css/ReactCSS.css';
 import './StaticModal.css'
 
 
+class zIndexHolder {
 
+    static zIndexModalGlobal = 2000;
+
+}
 
 export function StaticModal(props) {
 
+    const [modalFirstCall, setModalFirstCall] = useState(false);
+    const [modalZIndex, setModalZIndex] = useState(zIndexHolder.zIndexModalGlobal);
 
-    console.log('%c ' + 'StaticModal - 20220504-1608', 'color:yellow;font-size:18pt;');
-    console.dir(props);
+    const [defaultShowSetting, setDefaultShowSetting] = useState(null);
+
+    const [show, setShow] = useState(props.promptToOpen === "");
 
 
-    const [show, setShow] = useState(false);
+    console.log('%c ' + `StaticModal.tsx - 20220515-1254 -   defaultShowSetting: [${defaultShowSetting}]  show: [${show}]`, 'font-size:12pt;color:green');
+
+
+
+
+    //useEffect(() => {
+
+    //    console.log('%c ' + `StaticModal.tsx - 20220516-1641 - useEffect modalZIndex [${modalZIndex}]`, 'font-size:24pt;color:yellow');
+
+    //    if (!modalFirstCall) {
+
+    //        console.log('%c ' + `StaticModal.tsx - 20220516-1642 - useEffect modalZIndex [${modalZIndex}]`, 'font-size:16pt;color:red');
+
+    //        setModalFirstCall(true);
+            
+    //    }
+
+    //}, [modalFirstCall])
 
 
 
     useEffect(() => {
-        props.setModalIsOpen(show);
+
+        console.log('%c ' + `StaticModal.tsx - 20220513-1531 - useEffect show [${show}]   props.setModalIsOpen  `, 'font-size:12pt;color:yellow');
+
+        if (props.setModalIsOpen) {
+            console.log('%c ' + `StaticModal.tsx - 20220517-0314 - useEffect - call   props.setModalIsOpen  to value of show = [${show}] `, 'font-size:24pt;color:red');
+            props.setModalIsOpen(show);
+        }
+
+        if (show) {
+            zIndexHolder.zIndexModalGlobal += 100;
+            setModalZIndex(zIndexHolder.zIndexModalGlobal);
+        } else {
+            zIndexHolder.zIndexModalGlobal -= 100;
+        }
+
+
+        return () => {
+
+            //if (show) {
+            //    zIndexHolder.zIndexModalGlobal -= 100;
+            //    setModalZIndex(zIndexHolder.zIndexModalGlobal);
+            //}
+        }
+
     }, [show])
 
 
-    if (false) {
-
-
-
-        let connection = new signalR.HubConnectionBuilder()
-            .withUrl("/SignalRHub")
-            .build();
-
-
-
-
-        connection.on("ReceiveMessage", function (user, message) {
-
-            console.log('%c ' + 'SignalR - 20220506-0537-StaticModal', 'color:yellow;font-size:12pt;');
-            console.log(user);
-            console.log(message);
-
-
-
-        });
-
-
-        connection.start().then(function () {
-
-            console.log('%c ' + 'SignalR REACT - 20220506-0534-StaticModal', 'color:yellow;font-size:12pt;');
-
-        }).catch(function (err) {
-
-            console.log('%c ' + 'SignalR REACT - 20220506-0535-StaticModal', 'color:red;font-size:12pt;');
-            console.dir(err);
-
-            return console.error(err.toString());
-        });
-
-
-    }
-
 
 
     useEffect(() => {
 
-        handleClose();
+        console.log('%c ' + 'StaticModal.tsx - 20220513-1523 - useEffect  ', 'font-size:12pt;color:yellow');
+        console.log('props.doCloseModal:');
+        console.dir(props.doCloseModal);
 
-    }, [props.doClose]);
+        console.log('props.modalIsOpen:');
+        console.dir(props.modalIsOpen);
+
+
+        if (props.doCloseModal != undefined && props.modalIsOpen) {
+            console.log('%c ' + `StaticModal.tsx - 20220517-0311 - useEffect [${props.doCloseModal }]`, 'font-size:24pt;color:red');
+
+            handleClose();
+        }
+
+    }, [props.doCloseModal]);
 
 
 
 
     let _window = window;
-
 
 
     let functionDisableScrolling = () => {
@@ -108,37 +128,56 @@ export function StaticModal(props) {
 
     const handleShow = () => {
 
+        console.log('%c ' + `StaticModal.tsx - 20220516 2020 - handleShow [${show}]`, 'font-size:12pt;color:yellow');
+
         setShow(true);
+
         functionDisableScrolling();
+
 
     };
 
 
     const handleClose = () => {
 
+        console.log('%c ' + 'StaticModal.tsx - 20220513-1524 - handleClose ', 'font-size:12pt;color:yellow');
+
+        setDefaultShowSetting(false);
+
         setShow(false);
+
+        if (props.setModalIsOpen) {
+
+            console.log('%c ' + 'StaticModal.tsx - 20220517-1848 - handleClose setModalIsOpen(false) ', 'font-size:24pt;color:red');
+
+            props.setModalIsOpen(false);
+        }
+
         functionEnableScrolling();
 
     }
 
 
+
     return (
+
 
         show ?
 
             <>
 
-                <div className="backdropStyle"  >
+                <div className="backdropStyle" style={{ zIndex: modalZIndex }} >
                 </div>
-                 
 
-                    <div className="modalStyle cssTransitionDiv" role="dialog"  >
+
+                <div className="modalStyle cssTransitionDiv" role="dialog" style={{ zIndex: modalZIndex + 10 }} >
+
                     <div className="modal-dialog " role="document" style={{ width: props.width }}>
-                        <div className="modal-content">
+                        <div className="modal-content" id={props.thisModalID}>
 
 
                             <div className="modal-header">
-
+                                <h1>20220516-140 [{modalZIndex}]</h1>
                                 {props.title}
 
                             </div>
@@ -172,9 +211,10 @@ export function StaticModal(props) {
                         </div>
                     </div>
                 </div>
-                     
 
 
+
+                <ToastContainer />
             </>
 
 
@@ -185,6 +225,7 @@ export function StaticModal(props) {
                     {props.promptToOpen}
                 </a>
 
+                <ToastContainer />
             </>
 
 
@@ -198,13 +239,18 @@ export function StaticModal(props) {
 
 
 StaticModal.propTypes = {
-    onClose: PropTypes.func.isRequired,
+    thisModalID: PropTypes.string.isRequired,
+    onOpenRequest: PropTypes.func,
     children: PropTypes.node,
     width: PropTypes.string,
     title: PropTypes.element,
     body: PropTypes.element,
     footer: PropTypes.element,
     promptToOpen: PropTypes.string.isRequired,
-    doClose: PropTypes.bool.isRequired,
+    doCloseModal: PropTypes.bool.isRequired,
+
+    // To activate action only when modal is open like retreiving data.
     setModalIsOpen: PropTypes.func.isRequired
+
+
 };

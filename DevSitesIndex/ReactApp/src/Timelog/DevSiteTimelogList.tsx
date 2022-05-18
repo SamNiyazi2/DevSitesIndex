@@ -5,11 +5,13 @@ import React, { useState, useEffect } from 'react';
 import PropTypes, { array } from 'prop-types';
 import parse from 'html-react-parser';
 
+
+import { ssn_SignalR_util_React } from '../Util/SignalR/ssn_SignalR_Util_React';
+import { SignalR_MessageRecord } from '../Util/SignalR/SignalR_MessageRecord';
+import { SIGNALR_CONSTANTS } from '../Util/SignalR/SignalR_Constants';
+
 import '../css/ReactCSS.css';
-
-
-//import { IDevSite_Job_LineItem } from '../interfaces/IDevSite_Job_LineItem';
-//import { DevSite_Job_LineItem } from '../Models/DevSite_Job_LineItem';
+ 
 
 import { deleteDevSiteTimelogRecord, getDevSiteTimelogRecords } from '../API/DevSite_Job_LineItemAPI';
 import { DevSiteTimeLogDeleteOption } from './devSiteTimeLogDelete';
@@ -27,11 +29,12 @@ export const DevSiteTimelogList = (props) => {
 
 
         const data = getDevSiteTimelogRecords(props.devSiteId);
-        console.log("%c " + "DevSiteTimeLogList - 20220511-1203", 'Color:yellow;font-size:20px;');
+        console.log("%c " + "DevSiteTimeLogList - 20220511-1203", 'Color:yellow;font-size:12px;');
         console.dir(data);
+
         data.then(response => {
 
-            console.log("%c " + "DevSiteTimeLogList - 20220511-1206", 'Color:green;font-size:20px;');
+            console.log("%c " + "DevSiteTimeLogList - 20220511-1206", 'Color:green;font-size:12px;');
             console.dir(response);
 
             // Do we have an error?
@@ -48,9 +51,9 @@ export const DevSiteTimelogList = (props) => {
 
                     setTimelogData(response);
 
-                    console.log("%c " + "DevSiteTimeLogList - 20220511-1329", 'Color:blue;font-size:32px;');
-                    // console.dir(arrayCopy);
-                    console.dir(timelogData);
+                    //console.log("%c " + "DevSiteTimeLogList - 20220511-1329", 'Color:blue;font-size:32px;');
+                    //// console.dir(arrayCopy);
+                    //console.dir(timelogData);
                 }
             }
 
@@ -68,13 +71,35 @@ export const DevSiteTimelogList = (props) => {
     }, [props.devSiteId, props.currentDate, timelogData.length]);
 
 
+    const requestLogin = (e) => {
+
+        console.log('%c ' + 'DevSiteTimelogList.tsx - 20220516-1408', 'color:blue;font-size:12px;');
+        console.dir(e);
+
+
+        const signalR_MessageRecord = new SignalR_MessageRecord();
+        signalR_MessageRecord.callSource = 'DevSiteTimeLogList-20220516-1440';
+        signalR_MessageRecord.processorName = SIGNALR_CONSTANTS.PROCESSOR_NAME.REACTJS;
+        signalR_MessageRecord.dateTime = new Date();
+        signalR_MessageRecord.message = SIGNALR_CONSTANTS.REQUEST_LOGIN;
+        signalR_MessageRecord.user = "SamN";
+
+        ssn_SignalR_util_React.sendSignalRMessage_v2(signalR_MessageRecord);
+    }
+
+
 
     const displayErrorMessages = () => {
-        console.log("%c " + "DevSiteTimeLogList - 20220511-1229", 'Color:red;font-size:20px;');
-        console.dir(errors);
+        //console.log("%c " + "DevSiteTimeLogList - 20220511-1229", 'Color:red;font-size:20px;');
+        //console.dir(errors);
 
 
-        let results = errors.reduce((previous, currentValue, currentIndex) => previous + "<li class='alert alert-danger'>" + currentValue + "</li>", "");
+        let results = errors.reduce((previous, currentValue, currentIndex) =>
+                    previous
+                + "<li class='alert alert-danger'>xxx1234-"
+                + currentValue
+                + (currentValue.charIndex('login') > -1) ? <a onClick={requestLogin} tabIndex={0}>Login</a> : ''
+                + "</li>", "");
 
         console.dir(results);
         if (results != "") {

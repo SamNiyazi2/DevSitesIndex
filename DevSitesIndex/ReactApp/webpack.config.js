@@ -97,13 +97,34 @@ var config = [
         }
         ,
         entry: [
-            './src/DevSite/DevSiteTimelogSelector.tsx',
             './src/DevSite/ButtonForListingTimelogs.tsx'
         ]
 
     }
+    ,
+
+
+    // 05/12/2022 10:26 pm - SSN - Creating login option
+
+    {
+        ...d_master,
+
+
+        output: {
+            path: path.resolve(__dirname, "../wwwroot/ReactDist"),
+            filename: "bundle_react_Users.js"
+        }
+        ,
+        entry: [
+            './src/Users/AuthenticateUser.tsx'
+        ]
+
+    }
+
+    
 
 ]
+
 
 
 module.exports = config;

@@ -13,9 +13,7 @@
 <br />
 <h2>Demo Sites Index</h2>
 
-<div id="DevSiteTimelogSelector">
-</div>
-<h1>test-20220405-0130-Z</h1>
+
 @*
 	08/12/2019 05:15 am - SSN - [20190812-0515] - [001] - Apply fulltext search
 
@@ -371,12 +369,20 @@
 
 
 
+
+
+
+			
 	@*
 
 		// 05/08/2022 11:17 am - SSN - We have an issue with SignalR. We need React bundle before DemoSites_index.
-
+		// Order is important.  
 	*@
 	<script src="~/ReactDist/bundle_react_DevSiteTimelogSelector.js" asp-append-version="true"></script>
+
+
+
+
 
 
 
@@ -385,7 +391,7 @@
 	<script src="~/webpack_build/bundle_DemoSites_index.js" asp-append-version="true"></script>
         }
 
-
+	
 
     }
 }
