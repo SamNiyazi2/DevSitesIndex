@@ -53,10 +53,10 @@ class ssn_SignalR_util_React {
 
 
 
-        global.SignalRConnection.on("SignalRReceiveMessage_ReactJS", function (record_received: ISignalR_MessageRecord) {
+        global.SignalRConnection.on("SignalRReceiveMessage_ReactJS",  async (record_received_v2: ISignalR_MessageRecord) => {
 
-            console.log('%c ' + `ssn_SignalR_util_React - 20220515-1034-B - SignalRReceiveMessage_ReactJS`, 'color:pink;font-size:12pt;');
-            console.dir(record_received);
+            console.log('%c ' + `ssn_SignalR_util_React - 20220515-1034-B-v2 - SignalRReceiveMessage_ReactJS`, 'color:pink;font-size:12pt;');
+            console.dir(record_received_v2);
 
 
 
@@ -66,7 +66,7 @@ class ssn_SignalR_util_React {
             // 05/17/2022 11:42 am - SSN - Check if job was processed
             // console.log('%c ' + `ssn_SignalR_util_React - 20220517-1147-A - CheckJobStatus`, 'color:white;font-size:24pt;');
 
-            global.SignalRConnection.invoke("CheckJobStatus", "ssn_SignalR_Util_React-1308", record_received)
+            await global.SignalRConnection.invoke("CheckJobStatus", "ssn_SignalR_Util_React-1308-v2", record_received_v2)
                 .then((response: ISignalR_MessageRecord) => {
                     console.log('%c ' + `ssn_SignalR_util_React - 20220517-1147-then - CheckJobStatus - THEN`, 'color:white;font-size:24pt;');
                     console.dir(response);
@@ -86,14 +86,14 @@ class ssn_SignalR_util_React {
 
                         global.listOfJobs_global_React.forEach((job_list_record: ISignalR_MessageRecord, index) => {
 
-                            console.log('%c ' + `ssn_SignalR_util_React - 20220515-1035 - [${record_received.callSource}]  [${job_list_record.message}] == [${record_received.message}]`, 'color:white;font-size:12pt;');
+                            console.log('%c ' + `ssn_SignalR_util_React - 20220515-1035 - [${record_received_v2.callSource}]  [${job_list_record.message}] == [${record_received_v2.message}]`, 'color:white;font-size:12pt;');
                             console.dir(job_list_record);
 
-                            if (job_list_record.message == record_received.message) {
+                            if (job_list_record.message == record_received_v2.message) {
 
-                                console.log('%c ' + `ssn_SignalR_util_React - 20220515-1036 - have match [${record_received.message}]`, 'color:yellow;font-size:16pt;');
+                                console.log('%c ' + `ssn_SignalR_util_React - 20220515-1036 - have match [${record_received_v2.message}]`, 'color:yellow;font-size:16pt;');
                                 haveMatch = true;
-                                job_list_record.func(record_received);
+                                job_list_record.func(record_received_v2);
 
                             } else {
                                 //  console.log('%c ' + `ssn_SignalR_util_React - 20220515-1037 - HAVE NO MATCH [${record_received.message}]`, 'color:red;font-size:12pt;');
@@ -125,6 +125,7 @@ class ssn_SignalR_util_React {
                 })
                 .catch((error) => {
                     console.log('%c ' + `ssn_SignalR_util_React - 20220517-1147-Error - CheckJobStatus - ERROR`, 'color:red;font-size:24pt;');
+                    console.dir(error);
                 });
 
             //console.log('%c ' + `ssn_SignalR_util_React - 20220517-1147-Z - CheckJobStatus`, 'color:white;font-size:24pt;');
