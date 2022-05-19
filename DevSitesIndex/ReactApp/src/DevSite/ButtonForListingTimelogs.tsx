@@ -21,14 +21,14 @@ import { SIGNALR_CONSTANTS } from '../Util/SignalR/SignalR_Constants';
 
 function App(props) {
 
-    
+
 
     const [counter, setCounter] = useState(props.counter_101);
     const [currentDate, setCurrentDate] = useState(new Date());
     const [doCloseTimelogPopupTime, setDoCloseTimelogPopupTime] = useState(new Date());
-    
 
-     
+
+
 
     const resetControl = () => {
 
@@ -41,11 +41,11 @@ function App(props) {
 
     return (
         <>
-           
+
             <TimelogForm devSiteId={props.devSiteId} key={props.key3} counter_101={props.counter_101} refreshControl={resetControl} doCloseModal={doCloseTimelogPopupTime} />
             <DevSiteTimelogList devSiteId={props.devSiteId} currentDate={currentDate} />
         </>
-            );
+    );
 }
 
 
@@ -53,7 +53,7 @@ let listOfControls = [];
 
 
 
-function setupDevSiteTimelogControls(callSource:string ) {
+function setupDevSiteTimelogControls(callSource: string) {
 
 
 
@@ -111,108 +111,123 @@ function setupDevSiteTimelogControls(callSource:string ) {
 
 
 
-
-console.log('%c ' + 'ButtonForListingTimeLogs - DEFAULT - 20220508-1050', 'color:yellow;font-size:12pt;');
-
-
- 
+export const ButtonForListingTimeLogs_util = (() => {
 
 
-let lastDateTime = new Date(0);
-let refreshCount = 0;
+    console.log('%c ' + 'ButtonForListingTimeLogs - DEFAULT - 20220508-1050', 'color:yellow;font-size:12pt;');
 
 
-function handleRefreshControlList(signalR_MessageRecord: ISignalR_MessageRecord) {
-
-    console.log('');
-    console.log('');
-    console.log('%c ' + `SignalR - 20220506-0347-REACT-ReceiveMessage `, 'color:pink;font-size:12pt;');
-    console.dir(signalR_MessageRecord);
-    console.log('%c ' + `SignalR - 20220506-0347-REACT-ReceiveMessage [${signalR_MessageRecord.callSource}]`, 'color:pink;font-size:12pt;');
-
-    if (!(signalR_MessageRecord.dateTime instanceof Date)) {
-        signalR_MessageRecord.dateTime = new Date(signalR_MessageRecord.dateTime);
-    }
-
-    if (!(lastDateTime instanceof Date)) {
-        lastDateTime = new Date(lastDateTime );
-    }
 
 
-    //if (signalR_MessageRecord.message == "refreshControlsList") {
-    if (signalR_MessageRecord.message == SIGNALR_CONSTANTS.REFRESH_DEVSITES_TIMELOG_LIST) {
 
-         
+    let lastDateTime = new Date(0);
+    let refreshCount = 0;
 
 
-        
+    function handleRefreshControlList(signalR_MessageRecord: ISignalR_MessageRecord) {
+
         console.log('');
+        console.log('');
+        console.log('%c ' + `SignalR - 20220506-0347-REACT-ReceiveMessage `, 'color:pink;font-size:12pt;');
+        console.dir(signalR_MessageRecord);
+        console.log('%c ' + `SignalR - 20220506-0347-REACT-ReceiveMessage [${signalR_MessageRecord.callSource}]`, 'color:pink;font-size:12pt;');
 
-        console.log('%c ' + `SignalR - 20220514-2227-REACT-ReceiveMessage [${signalR_MessageRecord.callSource}]`, 'color:red;font-size:12pt;');
- 
-        console.log('%c ' + `[${lastDateTime.toISOString()}]`, 'color:pink;font-size:12pt;');
- 
- 
-        console.log('%c ' + `[${new Date(signalR_MessageRecord.dateTime).toISOString()}]`, 'color:pink;font-size:12pt;');
-        console.log('%c ' + `refreshCount: [${refreshCount}]`, 'color:pink;font-size:12pt;');
+        if (!(signalR_MessageRecord.dateTime instanceof Date)) {
+            signalR_MessageRecord.dateTime = new Date(signalR_MessageRecord.dateTime);
+        }
 
-        if (lastDateTime < new Date(signalR_MessageRecord.dateTime)) { 
-       
-            lastDateTime = new Date ( signalR_MessageRecord.dateTime);
-
-            refreshCount++;
- 
-            console.log('%c ' + `PROCESS refreshCount: [${refreshCount}]`, 'color:green;font-size:18pt;');
+        if (!(lastDateTime instanceof Date)) {
+            lastDateTime = new Date(lastDateTime);
+        }
 
 
-            setTimeout(() => {
-                setupDevSiteTimelogControls(signalR_MessageRecord.callSource);
-            }, 1000);
+        //if (signalR_MessageRecord.message == "refreshControlsList") {
+        if (signalR_MessageRecord.message == SIGNALR_CONSTANTS.REFRESH_DEVSITES_TIMELOG_LIST) {
 
-        } else {
-            console.log('%c ' + `BYPASS refreshControlsList 2022008-0441 - refreshCount: [${refreshCount}]`, 'color:RED;font-size:18pt;');
+
+
+
+
+            console.log('');
+
+            console.log('%c ' + `SignalR - 20220514-2227-REACT-ReceiveMessage [${signalR_MessageRecord.callSource}]`, 'color:red;font-size:12pt;');
+
+            console.log('%c ' + `[${lastDateTime.toISOString()}]`, 'color:pink;font-size:12pt;');
+
+
+            console.log('%c ' + `[${new Date(signalR_MessageRecord.dateTime).toISOString()}]`, 'color:pink;font-size:12pt;');
+            console.log('%c ' + `refreshCount: [${refreshCount}]`, 'color:pink;font-size:12pt;');
+
+            if (lastDateTime < new Date(signalR_MessageRecord.dateTime)) {
+
+                lastDateTime = new Date(signalR_MessageRecord.dateTime);
+
+                refreshCount++;
+
+                console.log('%c ' + `PROCESS refreshCount: [${refreshCount}]`, 'color:green;font-size:18pt;');
+
+
+                setTimeout(() => {
+                    setupDevSiteTimelogControls(signalR_MessageRecord.callSource);
+                }, 1000);
+
+            } else {
+                console.log('%c ' + `BYPASS refreshControlsList 2022008-0441 - refreshCount: [${refreshCount}]`, 'color:RED;font-size:18pt;');
+
+            }
 
         }
 
+        console.log('');
+        console.log('');
+
     }
 
-    console.log('');
-    console.log('');
 
-}
+    console.log('%c ' + 'ButtonForListingTimeLogs.tsx - addSignalRJob - 20220518-0017', 'font-size:24pt;color:white;');
 
 
-console.log('%c ' + 'ButtonForListingTimeLogs.tsx - addSignalRJob - 202220518-0017', 'font-size:24pt;color:white;');
+    let rec: SignalR_MessageRecord = new SignalR_MessageRecord();
+    rec.callSource = 'ButonForListingTimelogs-20220514-1941';
+    rec.processorName = SIGNALR_CONSTANTS.PROCESSOR_NAME.REACTJS;
+    rec.dateTime = new Date();
+    rec.func = handleRefreshControlList;
+    rec.message = SIGNALR_CONSTANTS.REFRESH_DEVSITES_TIMELOG_LIST;
+    rec.user = "SamN";
 
-
-let rec: SignalR_MessageRecord = new SignalR_MessageRecord();
-rec.callSource = 'ButonForListingTimelogs-20220514-1941';
-rec.processorName = SIGNALR_CONSTANTS.PROCESSOR_NAME.REACTJS;
-rec.dateTime = new Date();
-rec.func = handleRefreshControlList;
-rec.message = SIGNALR_CONSTANTS.REFRESH_DEVSITES_TIMELOG_LIST;
-rec.user = "SamN";
-
-ssn_SignalR_util_React.addSignalRJob(rec);
+    ssn_SignalR_util_React.addSignalRJob(rec);
 
 
 
 
-if (document.querySelector('[ssn-cmd*=timelogReactCompoentDetail]')) {
 
- 
-    console.log('%c ' + `SignalR-DemoSites_index-updateReactComponents - 20220518-1553-send-message`, 'color:yellow;font-size:18pt;');
+    const loadDevSiteDetailTimelogReactComponent = () => {
 
-
-    const signalR_MessageRecord = new SignalR_MessageRecord();
-    signalR_MessageRecord.callSource = `20220514-2013-ButtonForListingTimelogs-devsite-detail}`;
-    signalR_MessageRecord.processorName = SIGNALR_CONSTANTS.PROCESSOR_NAME.REACTJS;
-    signalR_MessageRecord.dateTime = new Date();
-    signalR_MessageRecord.message = SIGNALR_CONSTANTS.REFRESH_DEVSITES_TIMELOG_LIST;
-    signalR_MessageRecord.user = "SamN";
-
-    ssn_SignalR_util_React.sendSignalRMessage_v2(signalR_MessageRecord);
+        if (document.querySelector('[ssn-cmd*=timelogReactCompoentDetail]')) {
 
 
+            console.log('%c ' + `SignalR-DemoSites_index-updateReactComponents - 20220518-1553-send-message`, 'color:yellow;font-size:18pt;');
 
-}
+
+            const signalR_MessageRecord = new SignalR_MessageRecord();
+            signalR_MessageRecord.callSource = `20220514-2013-ButtonForListingTimelogs-devsite-detail}`;
+            signalR_MessageRecord.processorName = SIGNALR_CONSTANTS.PROCESSOR_NAME.REACTJS;
+            signalR_MessageRecord.dateTime = new Date();
+            signalR_MessageRecord.message = SIGNALR_CONSTANTS.REFRESH_DEVSITES_TIMELOG_LIST;
+            signalR_MessageRecord.user = "SamN";
+
+            ssn_SignalR_util_React.sendSignalRMessage_v2(signalR_MessageRecord);
+
+
+
+        }
+    }
+
+
+    setTimeout(loadDevSiteDetailTimelogReactComponent, 2000);
+
+
+})();
+
+
+

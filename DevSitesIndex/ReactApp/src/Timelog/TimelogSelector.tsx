@@ -46,7 +46,7 @@ const TimelogForm = (props) => {
     const [projectData, setProjectData] = useState([]);
     const [jobData, setJobData] = useState([]);
     const [job_LineItemData, setJob_LineItemData] = useState([]);
- 
+
 
     const [projectId, setProjectId] = useState(0);
     const [jobId, setJobId] = useState(0);
@@ -59,7 +59,7 @@ const TimelogForm = (props) => {
 
     const [thisModalID, setThisModalID] = useState('id_modal_' + (Math.random() * 100000).toFixed(0).toString());
 
-     
+
     const getProjectsData = async (selected: string = null) => {
 
 
@@ -135,7 +135,7 @@ const TimelogForm = (props) => {
 
         if (modalIsOpen) {
             getProjectsData();
-             
+
             timeoutID = setTimeout(() => MonitorTabFocus.monitorFocus(thisModalID), 600);
 
         }
@@ -307,7 +307,7 @@ const TimelogForm = (props) => {
 
 
         <>
- 
+
             <StaticModal
                 thisModalID={thisModalID}
                 /*width={'660px'}*/
@@ -318,9 +318,8 @@ const TimelogForm = (props) => {
                 title={
 
                     <>
-                    <h3>Select timelog</h3>
-                    <h3>thisModalID [{thisModalID}]</h3>
-                        </>
+                        <h3>Select timelog</h3>
+                    </>
                 }
 
 

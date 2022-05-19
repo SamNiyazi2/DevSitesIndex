@@ -119,7 +119,7 @@ namespace DevSitesIndex.Hubs
         }
 
 
-        public async Task<SignalR_MessageRecord> CheckJobStatus(string callSource, SignalR_MessageRecord messageRecord)
+        public SignalR_MessageRecord CheckJobStatus(string callSource, SignalR_MessageRecord messageRecord)
         {
 
             SignalR_MessageRecord returnMessage = messageRecord;
@@ -165,6 +165,7 @@ namespace DevSitesIndex.Hubs
             }
 
             return returnMessage;
+
         }
 
 

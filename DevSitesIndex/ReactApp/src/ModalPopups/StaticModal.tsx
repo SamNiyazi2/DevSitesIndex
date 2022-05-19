@@ -176,10 +176,8 @@ export function StaticModal(props) {
                         <div className="modal-content" id={props.thisModalID}>
 
 
-                            <div className="modal-header">
-                                <h1>20220516-140 [{modalZIndex}]</h1>
-                                {props.title}
-
+                            <div className="modal-header"> 
+                                {props.title} 
                             </div>
 
 

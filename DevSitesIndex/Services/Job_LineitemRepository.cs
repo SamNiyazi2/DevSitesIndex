@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 // 12/10/2020 04:42 pm - SSN - [20201210-1625] - [004] - Update Timelog edit MVC
 
-using Microsoft.EntityFrameworkCore;
-using SSN_GenUtil_StandardLib;
+using Microsoft.EntityFrameworkCore; 
 
 namespace DevSitesIndex.Services
 {
