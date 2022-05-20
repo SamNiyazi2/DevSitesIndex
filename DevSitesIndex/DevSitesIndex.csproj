@@ -50,6 +50,7 @@
     <None Remove="ReactApp\src\Timelog\devSiteTimeLogDelete.tsx" />
     <None Remove="ReactApp\src\Timelog\DevSiteTimelogList.tsx" />
     <None Remove="ReactApp\src\Timelog\TimelogSelector.tsx" />
+    <None Remove="ReactApp\src\Users\AuthenticateUser_util.ts" />
     <None Remove="ReactApp\src\Users\React_Login_Popup.tsx" />
     <None Remove="ReactApp\src\Util\MonitorTabFocus.ts" />
     <None Remove="ReactApp\src\Util\SignalR\ISignalR_MessageRecord.ts" />
@@ -165,6 +166,7 @@
     <TypeScriptCompile Include="ReactApp\src\Timelog\devSiteTimeLogDelete.tsx" />
     <TypeScriptCompile Include="ReactApp\src\Timelog\DevSiteTimelogList.tsx" />
     <TypeScriptCompile Include="ReactApp\src\Timelog\TimelogSelector.tsx" />
+    <TypeScriptCompile Include="ReactApp\src\Users\AuthenticateUser_util.ts" />
     <TypeScriptCompile Include="ReactApp\src\Users\React_Login_Popup.tsx" />
     <TypeScriptCompile Include="ReactApp\src\Util\MonitorTabFocus.ts" />
     <TypeScriptCompile Include="ReactApp\src\Util\SignalR\ISignalR_MessageRecord.ts" />

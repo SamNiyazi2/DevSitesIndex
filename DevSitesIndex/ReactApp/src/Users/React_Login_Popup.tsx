@@ -10,6 +10,9 @@ import { StaticModal } from '../ModalPopups/StaticModal';
 import { AuthenticationAPI } from '../API/AuthenticationAPI';
 import { User } from '../Models/User';
 import { MonitorTabFocus } from '../Util/MonitorTabFocus';
+import { SignalR_MessageRecord } from '../Util/SignalR/SignalR_MessageRecord';
+import { SIGNALR_CONSTANTS } from '../Util/SignalR/SignalR_Constants';
+import { ssn_SignalR_util_React_instance } from '../Util/SignalR/ssn_SignalR_Util_React';
 
 // 05/13/2022 04:10 pm - SSN
 
@@ -19,10 +22,11 @@ export const React_Login_Popup = (props) => {
 
 
 
-    console.log('%c ' + 'React_Login_Popup  20220513-1738', 'font-size:14pt;color:blue');
+   // console.log('%c ' + 'React_Login_Popup  20220513-1738', 'font-size:14pt;color:blue');
 
 
     const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [closeModal_React_local, setCloseModal_React_local] = useState(false);
 
     const [thisModalID, setThisModalID] = useState('id_modal_' + (Math.random() * 100000).toFixed(0).toString());
 
@@ -123,7 +127,22 @@ export const React_Login_Popup = (props) => {
                 toast.error("Failed login");
             } else {
                 toast.success("You are logged in!");
-                props.doCloseModal();
+
+
+                const rec2 = new SignalR_MessageRecord();
+                rec2.callSource = 'React_Login_Popup-20220520-1454';
+                rec2.processorName = SIGNALR_CONSTANTS.PROCESSOR_NAME.REACTJS;
+                rec2.dateTime = new Date();
+                rec2.message = SIGNALR_CONSTANTS.UPDATE_LOGIN_STATUS;
+                rec2.forCurrentConnetionOnly = true;
+                rec2.user = "SamN";
+
+                ssn_SignalR_util_React_instance.sendSignalRMessage_v2(rec2);
+
+
+                setCloseModal_React_local(true);
+
+
             }
 
 
@@ -151,8 +170,8 @@ export const React_Login_Popup = (props) => {
                 /*width={'660px'}*/
                 /* key={props.key3}*/
                 promptToOpen=""
-                setModalIsOpen={setModalIsOpen}
-                doCloseModal={props.doCloseModal}
+                setModalIsOpen={props.setModalIsOpen}
+                closeModal_React={closeModal_React_local}
                 title={
 
                     <>
@@ -240,7 +259,6 @@ export const React_Login_Popup = (props) => {
 React_Login_Popup.protoTypes = {
     devSiteId: PropTypes.number.isRequired,
     refreshControl: PropTypes.func.isRequired,
-    counter_101: PropTypes.number.isRequired,
-    doCloseModal: PropTypes.object.isRequired
+    counter_101: PropTypes.number.isRequired 
 
 }

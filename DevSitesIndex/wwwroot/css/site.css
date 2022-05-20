@@ -459,8 +459,11 @@ body {
         }
 
         div {
-            max-width: 100vw;
-            white-space: -moz-pre-wrap; /* Firefox */
+/*            
+    05/20/2022 03:15 am - SSN - Causes header on mobile to extend much greater than required
+    max-width: 100vw;
+*/
+white-space: -moz-pre-wrap; /* Firefox */
             white-space: -pre-wrap; /* Opera <7 */
             white-space: -o-pre-wrap; /* Opera 7 */
             word-wrap: break-word;
@@ -921,4 +924,11 @@ a[data-toggle][aria-expanded]:after {
 
 .cssTimelogReactCompoent{
     padding:20px;
+}
+
+.cssDevsiteTimelogDelete {
+
+    padding-left:40px;
+    background-color:#9ce5f8;
+    border:1px solid #04046c;
 }

@@ -42,12 +42,21 @@
     https://stackoverflow.com/questions/19467693/how-to-make-popup-look-at-the-centre-of-the-screen
 */
 .modalStyle {
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
+    top: 5vw;
+    left: 5vw;
+    width: 90vw;
+    height: 90vh;
+/*  
+    // 05/20/2022 03:48 am - SSN - Impoperly positions popup on mobile.
+    transform: translate(-5vh,-5vw);
+
+*/
     position: fixed;
+    /*
+    // 05/20/2022 03:21 am - SSN - Not sure if impacting centering of form in mobile.
     max-height: 90vh;
     max-width: 90vw;
+*/
     /*    width: 50%;*/
     /*  background-color: #eee;*/
     /*    border-radius: 5px;*/

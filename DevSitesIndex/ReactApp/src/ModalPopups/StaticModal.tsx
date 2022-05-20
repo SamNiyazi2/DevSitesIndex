@@ -86,21 +86,22 @@ export function StaticModal(props) {
 
     useEffect(() => {
 
-        console.log('%c ' + 'StaticModal.tsx - 20220513-1523 - useEffect  ', 'font-size:12pt;color:yellow');
-        console.log('props.doCloseModal:');
-        console.dir(props.doCloseModal);
+        console.log('%c ' + 'StaticModal.tsx - 20220513-1523 - useEffect closeModal_React ', 'font-size:12pt;color:yellow');
+        console.log('props.closeModal_React:');
+        console.dir(props.closeModal_React);
 
         console.log('props.modalIsOpen:');
         console.dir(props.modalIsOpen);
 
 
-        if (props.doCloseModal != undefined && props.modalIsOpen) {
-            console.log('%c ' + `StaticModal.tsx - 20220517-0311 - useEffect [${props.doCloseModal }]`, 'font-size:24pt;color:red');
-
-            handleClose();
+        if (props.closeModal_React != undefined && (props.modalIsOpen == undefined || props.modalIsOpen && props.modalIsOpen == true)) {
+            console.log('%c ' + `StaticModal.tsx - 20220517-0311-A - useEffect closeModal_React: [${props.closeModal_React }]`, 'font-size:24pt;color:red');
+            if (props.closeModal_React) {
+                handleClose();
+            }
         }
 
-    }, [props.doCloseModal]);
+    }, [props.closeModal_React]);
 
 
 
@@ -237,18 +238,16 @@ export function StaticModal(props) {
 
 
 StaticModal.propTypes = {
-    thisModalID: PropTypes.string.isRequired,
-    onOpenRequest: PropTypes.func,
+    thisModalID: PropTypes.string.isRequired, 
     children: PropTypes.node,
     width: PropTypes.string,
     title: PropTypes.element,
     body: PropTypes.element,
     footer: PropTypes.element,
     promptToOpen: PropTypes.string.isRequired,
-    doCloseModal: PropTypes.bool.isRequired,
+    closeModal_React: PropTypes.bool.isRequired,
 
     // To activate action only when modal is open like retreiving data.
-    setModalIsOpen: PropTypes.func.isRequired
-
+    setModalIsOpen: PropTypes.func.isRequired 
 
 };

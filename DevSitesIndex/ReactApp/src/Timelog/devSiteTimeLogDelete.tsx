@@ -6,11 +6,17 @@ import PropTypes from 'prop-types';
 
 import parse from 'html-react-parser';
 
-import { deleteDevSiteTimelogRecord } from '../API/DevSite_Job_LineItemAPI';
+import { toast } from 'react-toastify';
 
-import { ssn_SignalR_util_React_instance } from '../Util/SignalR/ssn_SignalR_Util_React';
-import { SignalR_MessageRecord } from '../Util/SignalR/SignalR_MessageRecord';
-import { SIGNALR_CONSTANTS } from '../Util/SignalR/SignalR_Constants';
+import { deleteDevSiteTimelogRecord } from '../API/DevSite_Job_LineItemAPI';
+import { AuthenticateUser_util } from '../Users/AuthenticateUser_util';
+
+const console__log = (msg, format) => console.log(msg, format);
+const console__dir = (obj1) => console.dir(obj1);
+
+//const console__log = (msg, format) => { };
+//const console__dir = (obj1) => { };
+
 
 export const DevSiteTimeLogDeleteOption = (props) => {
 
@@ -19,11 +25,15 @@ export const DevSiteTimeLogDeleteOption = (props) => {
 
     const [errors, setErrors] = useState([]);
 
+    const [showLoginPrompt, setShowLoginPrompt] = useState(false);
+
     const confirmInputRef = useRef(null);
-
-
+     
+     
 
     useEffect(() => {
+
+        console__log('%c ' + 'DevSiteTimelogDelete.tsc - 20220520-1430 - useEffect confirmDelete', 'color:red;font-size:12px;');
 
         if (confirmDelete) {
 
@@ -36,6 +46,8 @@ export const DevSiteTimeLogDeleteOption = (props) => {
 
 
     useEffect(() => {
+
+        console__log('%c ' + 'DevSiteTimelogDelete.tsc - 20220520-1431 - useEffect props.reverseConfirmOption', 'color:red;font-size:12px;');
 
         if (
 
@@ -54,24 +66,29 @@ export const DevSiteTimeLogDeleteOption = (props) => {
     }, [props.reverseConfirmOption])
 
 
+    const handlerUserLoggedIn = (response) => {
+
+        console__log('%c ' + 'DevSiteTimelogDelete.tsc - handlerUserLoggedIn  - 20220520-1446', 'color:red;font-size:48px;');
+        console__dir(response);
+        setShowLoginPrompt(false);
+        setErrors([]);
+        toast.success("You're logged in.");
+    }
+
+
     const requestLogin = (e) => {
 
-        console.log('%c ' + 'DevSiteTimelogDelete.tsc - 20220512-2150', 'color:red;font-size:48px;');
-        console.dir(e);
+        console__log('%c ' + 'DevSiteTimelogDelete.tsc - 20220512-2150', 'color:red;font-size:48px;');
+        console__dir(e);
 
-
-        const signalR_MessageRecord = new SignalR_MessageRecord();
-        signalR_MessageRecord.callSource = 'DevSiteTimeLogDelete-20220514-1836';
-        signalR_MessageRecord.processorName = SIGNALR_CONSTANTS.PROCESSOR_NAME.REACTJS;
-        signalR_MessageRecord.dateTime = new Date();
-        signalR_MessageRecord.message = SIGNALR_CONSTANTS.REQUEST_LOGIN;
-        signalR_MessageRecord.user = "SamN";
-
-        ssn_SignalR_util_React_instance.sendSignalRMessage_v2(signalR_MessageRecord);
+        AuthenticateUser_util.componentRequestForLogin(e, 'DevSiteTimelogDelete.tsc - 20220512-2150', handlerUserLoggedIn);
+          
     }
 
 
     const deleteRecord = (id: number) => {
+
+        console__log('%c ' + 'DevSiteTimelogDelete.tsc - deleteRecord - 20220520-1725', 'color:red;font-size:48px;');
 
         setErrors([]);
 
@@ -90,14 +107,15 @@ export const DevSiteTimeLogDeleteOption = (props) => {
 
 
         deleteDevSiteTimelogRecord(id).then(response => {
-            console.log("%c " + "DevSiteTimeLogList - 20220511-1617", 'Color:yellow;font-size:20px;');
-            console.dir(response);
+            console__log("%c " + "DevSiteTimeLogList - 20220511-1617", 'Color:yellow;font-size:20px;');
+            console__dir(response);
 
             // CustomAuthorizeAPI Error
             if (response.statusCode && response.statusCode == 401) {
 
                 const _erros = new Array();
                 _erros.push({ message: response.value.apiErrorMessage, requestLogin: response.value.requestLogin_101 });
+                setShowLoginPrompt(response.value.requestLogin_101);
 
                 setErrors(_erros);
             }
@@ -116,7 +134,7 @@ export const DevSiteTimeLogDeleteOption = (props) => {
             } else {
 
 
-                console.log("%c " + "DevSiteTimeLogList - 20220511-1622", 'Color:blue;font-size:32px;');
+                console__log("%c " + "DevSiteTimeLogList - 20220511-1622", 'Color:blue;font-size:32px;');
                 props.setTimelogData([]);
 
 
@@ -132,8 +150,8 @@ export const DevSiteTimeLogDeleteOption = (props) => {
 
         })
             .catch(error => {
-                console.log("%c " + "DevSiteTimeLogList - 20220511-1623", 'Color:red;font-size:20px;');
-                console.dir(error);
+                console__log("%c " + "DevSiteTimeLogList - 20220511-1623", 'Color:red;font-size:20px;');
+                console__dir(error);
 
                 const _erros = new Array();
                 _erros.push(error.Message);
@@ -157,11 +175,18 @@ export const DevSiteTimeLogDeleteOption = (props) => {
 
             {!confirmDelete
                 && (
-                    <i onClick={() => {
+                <i tabIndex={0}
+
+                    onClick={() => {
                         setConfirmDelete(props.devSite_Job_LineitemId);
                         setTimeout(() => confirmInputRef.current.focus(), 500);
                     }}
-                        title="Remove association"
+                    onKeyPress={() => {
+                        setConfirmDelete(props.devSite_Job_LineitemId);
+                        setTimeout(() => confirmInputRef.current.focus(), 500);
+                    }}
+
+                    title="Remove association"
                         className="glyphicon glyphicon-remove cssGlyphicon" >
                     </i>)
             }
@@ -170,7 +195,7 @@ export const DevSiteTimeLogDeleteOption = (props) => {
             {confirmDelete > 0
                 &&
                 (
-                    <div style={{ paddingLeft: 40 }}>
+                    <div className="cssDevsiteTimelogDelete">
                         <span>Enter <strong>{props.devSite_Job_LineitemId}</strong> to delete:
 
                             &nbsp;
@@ -190,7 +215,8 @@ export const DevSiteTimeLogDeleteOption = (props) => {
                             &nbsp;
 
                             <button className="btn btn-sm  btn-danger"
-                                onClick={(e) => deleteRecord(props.devSite_Job_LineitemId)}
+                            onClick={(e) => deleteRecord(props.devSite_Job_LineitemId)}
+                            onKeyPress={(e) => deleteRecord(props.devSite_Job_LineitemId)}
                             >
                                 Delete
                             </button >
@@ -202,17 +228,17 @@ export const DevSiteTimeLogDeleteOption = (props) => {
                             {errors &&
                                 (
                                     <>
-                                        {errors.map(
-                                            (val, ndx) =>
+                                        {errors.map(  (val, ndx) =>  
                                                 <span style={{ marginRight: 10, marginLeft: 10, padding: 2 }}
                                                     key={ndx}
                                                     className="alert alert-danger alert-sm">
 
-                                                    {val.message} {val.requestLogin && <a onClick={requestLogin} tabIndex={0}>Login</a>}
+                                                {val.message} {showLoginPrompt && <a
+                                                    onClick={requestLogin}
+                                                    onKeyPress={requestLogin}
+                                                    tabIndex={0}>Login</a>}
 
-                                                </span>
-
-
+                                                </span> 
                                         )}
                                     </>
                                 )

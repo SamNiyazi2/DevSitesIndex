@@ -1,7 +1,7 @@
 ﻿
 // 05/12/2022 10:22 pm - SSN
 
-import React from 'react';
+import React, { useState } from 'react';
 
 import { createRoot } from 'react-dom/client';
 
@@ -11,21 +11,42 @@ import { SignalR_MessageRecord } from '../Util/SignalR/SignalR_MessageRecord';
 import { SIGNALR_CONSTANTS } from '../Util/SignalR/SignalR_Constants';
 import { React_Login_Popup } from './React_Login_Popup';
 
+
+
+//const console__log = (msg, format) => console.log(msg, format);
+//const console__dir = (obj1) => console.dir(obj1);
+
+const console__log = (msg, format: string = 'color:yellow;font-size:24pt;') => { };
+const console__dir = (obj1) => { };
+
 const DIV_ID_FOR_AUTHENTICATE_USER = "DIV_ID_FOR_AUTHENTICATE_USER";
+
+console__log('%c ' + 'AuthenticateUser.tsx - 20220520-0523', 'font-size:36pt;color:pink');
 
 
 export const AuthenticateUser = (() => {
-
-
+     
     let root2;
 
+    let closeModal_React = false;
+    let modalIsOpen= false;
 
-    const doCloseModal = () => {
+    const setModalIsOpen = (_show) => {
 
-        console.log('%c ' + 'AuthenticateUser.tsx - doCloseModal - 2022051-0324', 'font-size:36pt;color:yellow');
-        console.log('%c ' + 'INCOMPLETE', 'font-size:24pt;color:yellow');
+        console__log('%c ' + 'AuthenticateUser.tsx - setModalIsOpen - 20220520-042', 'font-size:36pt;color:yellow');
+        console__log('%c ' + `INCOMPLETE _show [${_show}]`, 'font-size:24pt;color:yellow');
+        modalIsOpen = _show;
+        closeModal_React = !_show;
 
     };
+
+    //const closeModal_React = () => {
+
+    //    console__log('%c ' + 'AuthenticateUser.tsx - closeModal_React - 2022051-0324', 'font-size:36pt;color:yellow');
+    //    console__log('%c ' + 'INCOMPLETE', 'font-size:24pt;color:yellow');
+       
+
+    //};
 
 
     const handleLoginRequests = (signalR_MessageRecord: ISignalR_MessageRecord) => {
@@ -46,13 +67,18 @@ export const AuthenticateUser = (() => {
         document.body.appendChild(react_login_div);
 
 
-        console.log('%c ' + 'AuthenticateUser - 20220518-1157-CCC', 'color:yellow;font-size:36pt;');
+        console__log('%c ' + 'AuthenticateUser - 20220518-1157-CCC', 'color:yellow;font-size:36pt;');
 
         root2 = createRoot(react_login_div);
-        root2.render(<React_Login_Popup doCloseModal={doCloseModal} />);
+        root2.render(<React_Login_Popup closeModal_React={closeModal_React} setModalIsOpen={setModalIsOpen}/>);
 
 
     };
+
+
+
+
+    console__log('%c ' + 'AuthenticateUser - AddSignalRJob - 20220520-0502', 'font-size:36pt,color:yellow');
 
 
     let rec: SignalR_MessageRecord = new SignalR_MessageRecord();

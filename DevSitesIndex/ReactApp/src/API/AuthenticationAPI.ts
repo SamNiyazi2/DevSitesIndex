@@ -10,24 +10,31 @@ let api_url = ""; //process.env.API_URL;
 
 const baseUrl = api_url + "/api/authenticateUserAPI/";
 
+//const console__log = (msg, format) => console.log(msg, format);
+//const console__dir = (obj1) => console.dir(obj1);
+
+const console__log = (msg, format) => { };
+const console__dir = (obj1) => { };
+
 export class AuthenticationAPI {
+
 
     static async isLoggedIn_v02(): Promise<boolean> {
  
-        console.log('%c ' + 'AuthenticationAPI-20220502-2048-ZZZZZZZZZZz', 'color:yellow;font-size:18pt;');
+        console__log('%c ' + 'AuthenticationAPI-20220502-2048-ZZZZZZZZZZz', 'color:yellow;font-size:18pt;');
 
 
         return await fetch(baseUrl + "isLoggedIn")
 
             .then(async (res) => {
 
-                console.log('%c ' + 'AuthenticationAPI-20220502-1827-GGGGGGGGGGGGG', 'color:yellow;font-size:18pt;');
-                console.dir(res);
+                console__log('%c ' + 'AuthenticationAPI-20220502-1827-GGGGGGGGGGGGG', 'color:yellow;font-size:18pt;');
+                console__dir(res);
 
                 const isLoggedIn_local: boolean = await handleResponse(res).then(async data => {
 
-                    console.log('%c ' + 'AuthenticationAPI-20220502-1759-A', 'color:yellow;font-size:18pt;');
-                    console.log('%c ' + 'AuthenticationAPI-20220502-1759-BBBBBBB', 'color:yellow;font-size:18pt;');
+                    console__log('%c ' + 'AuthenticationAPI-20220502-1759-A', 'color:yellow;font-size:18pt;');
+                    console__log('%c ' + 'AuthenticationAPI-20220502-1759-BBBBBBB', 'color:yellow;font-size:18pt;');
                     console.dir(data);
                     return data.isAuthenticated;
 
@@ -59,8 +66,8 @@ export class AuthenticationAPI {
         })
             .catch(error => {
 
-                console.log('%c ' + 'AuthenticationAPI- getForgeryToken - 20220513-1314-C catch ', 'font-size:36pt;color:RED');
-                console.dir(error);
+                console__log('%c ' + 'AuthenticationAPI- getForgeryToken - 20220513-1314-C catch ', 'font-size:36pt;color:RED');
+                console__dir(error);
                 return null;
             });
 

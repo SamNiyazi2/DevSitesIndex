@@ -8,6 +8,7 @@ import PropTypes from "prop-types";
 import { fromEvent, throttle, interval } from 'rxjs';
 import parse from 'html-react-parser';
 
+import { toast } from 'react-toastify';
 
 import { ssn_SignalR_util_React_instance } from '../Util/SignalR/ssn_SignalR_Util_React';
 import { SignalR_MessageRecord } from '../Util/SignalR/SignalR_MessageRecord';
@@ -32,6 +33,7 @@ import { General_Error_Message } from "../Models/General_Error_Message";
 
 
 import { MonitorTabFocus } from '../Util/MonitorTabFocus'
+import { AuthenticateUser_util } from "../Users/AuthenticateUser_util";
 
 //export class TimelogSelector extends React.Component<{}, {}> {
 const TimelogForm = (props) => {
@@ -39,6 +41,7 @@ const TimelogForm = (props) => {
 
     console.log('%c ' + 'TimelogSelector - 20220504-1554', 'color:blue;font-size:12pt;');
 
+    console.log('props.devSiteId:');
     console.log(props.devSiteId);
 
 
@@ -59,6 +62,9 @@ const TimelogForm = (props) => {
 
     const [thisModalID, setThisModalID] = useState('id_modal_' + (Math.random() * 100000).toFixed(0).toString());
 
+    const [showLoginPrompt, setShowLoginPrompt] = useState(false);
+
+    const [closeModal_React_local, setCloseModal_React_local] = useState(false);
 
     const getProjectsData = async (selected: string = null) => {
 
@@ -170,11 +176,24 @@ const TimelogForm = (props) => {
 
         let errors: IReactErrorModel = new ReactErrorModel();
 
+        console.log('%c ' + 'TimelogSelector  formIsValid- 20220520-0410', 'font-size:12pt,color:yellow');
+
+        console.log('%c ' + 'projectId:', 'font-size:12pt,color:yellow');
+        console.log('%c ' + projectId, 'font-size:12pt,color:yellow');
+        console.log('%c ' + 'jobId:', 'font-size:12pt,color:yellow');
+        console.log('%c ' + jobId, 'font-size:12pt,color:yellow');
+        console.log('%c ' + 'job_LineItemId:', 'font-size:12pt,color:yellow');
+        console.log('%c ' + job_LineItemId, 'font-size:12pt,color:yellow');
+
+
         if (!projectId) errors.projectId = "Project is required";
         if (!jobId) errors.jobId = "Job is required";
         if (!job_LineItemId) errors.job_LineItemId = "Line item is required";
 
         setErrors(errors);
+        if (Object.keys(errors).length != 0) {
+            toast.error("Failed validation.");
+        }
 
         return Object.keys(errors).length === 0;
 
@@ -185,8 +204,9 @@ const TimelogForm = (props) => {
     async function check_isLoggedIn(): Promise<boolean> {
 
         const isLoggedInResult = await AuthenticationAPI.isLoggedIn_v02();
-        //console.log('%c ' + 'DevSitesIndex - 20220502-1722-YYYYYYYY', 'font-size:20pt;color:yellow');
-        //console.log(isLoggedInResult);
+
+        setShowLoginPrompt(!isLoggedInResult);
+
         return isLoggedInResult;
 
     }
@@ -200,6 +220,7 @@ const TimelogForm = (props) => {
             let general_Error_Messages: IGeneral_Error_Message[] = new Array<General_Error_Message>();
             general_Error_Messages.push(new General_Error_Message("Not logged in!", true));
             setErrors({ general_Error: general_Error_Messages });
+            toast.error("Login is required.");
             return false;
         }
 
@@ -220,15 +241,31 @@ const TimelogForm = (props) => {
             .then(savedRecord => {
                 console.log('%c ' + 'TimelogSelector - Save record - 20220502-1537', 'color:yellow;font-size:12pt');
                 console.dir(savedRecord);
+                toast.success("Record was saved.");
+
                 return savedRecord;
             })
 
             .catch(error => {
                 console.log('%c ' + 'TimelogSelector - Save record - FAILED - 20220502-1538', 'color:RED;font-size:24pt');
                 console.dir(error);
+                toast.error("Failed to save record.");
                 throw error;
             });
 
+    }
+
+
+    const handlerUserLoggedIn = (response) => {
+
+        console.log('%c ' + 'TimelogSelector.tsc - handlerUserLoggedIn  - 20220520-1611', 'color:red;font-size:48px;');
+        console.dir(response);
+        setShowLoginPrompt(false);
+
+        let general_Error_Messages: IGeneral_Error_Message[] = new Array<General_Error_Message>();
+        setErrors({ general_Error: general_Error_Messages });
+
+        toast.success("You're logged in.");
     }
 
 
@@ -237,27 +274,29 @@ const TimelogForm = (props) => {
         console.log('%c ' + 'DevSiteTimelogDelete.tsc - 20220512-2150', 'color:blue;font-size:12px;');
         console.dir(e);
 
+        AuthenticateUser_util.componentRequestForLogin(e, 'TimelogSelector-20220520-1610', handlerUserLoggedIn);
 
-        const rec = new SignalR_MessageRecord();
-        rec.callSource = 'TimelogSelector-202205161442';
-        rec.processorName = SIGNALR_CONSTANTS.PROCESSOR_NAME.REACTJS;
-        rec.dateTime = new Date();
-        rec.message = SIGNALR_CONSTANTS.REQUEST_LOGIN;
-        rec.user = "SamN";
-        rec.forCurrentConnetionOnly = true;
-        ssn_SignalR_util_React_instance.sendSignalRMessage_v2(rec);
+
+    //    const rec = new SignalR_MessageRecord();
+    //    rec.callSource = 'TimelogSelector-202205161442';
+    //    rec.processorName = SIGNALR_CONSTANTS.PROCESSOR_NAME.REACTJS;
+    //    rec.dateTime = new Date();
+    //    rec.message = SIGNALR_CONSTANTS.REQUEST_LOGIN;
+    //    rec.user = "SamN";
+    //    rec.forCurrentConnetionOnly = true;
+    //    ssn_SignalR_util_React_instance.sendSignalRMessage_v2(rec);
     }
 
 
 
     function handleSaveRequest(event) {
 
+        console.log('%c ' + 'TimelogSelector  handleSaveRequest - 20220520-0409', 'font-size:12pt,color:yellow');
+
         event.preventDefault();
 
         if (!formIsValid()) return;
-
-
-        //        setSaving(true);
+         
 
         saveRecord().then((result) => {
 
@@ -271,25 +310,13 @@ const TimelogForm = (props) => {
 
             if (result) {
                 props.refreshControl();
+
+                setCloseModal_React_local(true);
             }
 
 
         }).catch(error => {
-
-            //            setSaving(false);
-
-            /////////////////////////////////////////////////////////////////////////////////////////          toast.error("Failed to save course.");
-
-
-
-
-
-
-
-
-
-
-
+             
 
             console.log('%c ' + 'DevSiteIndex - TimelogSelected - Failed save 20220502-1610', 'font-size:24pt;color:red;');
             console.dir(error);
@@ -313,7 +340,7 @@ const TimelogForm = (props) => {
                 /*width={'660px'}*/
                 key={props.key3}
                 promptToOpen="Add timelog"
-                doCloseModal={props.doCloseModal}
+                closeModal_React={closeModal_React_local}
                 setModalIsOpen={setModalIsOpen}
                 title={
 
@@ -405,9 +432,9 @@ const TimelogForm = (props) => {
 
                             <div className="row">
                                 <div className="col-sm-10">
-                                    {errors && errors.general_Error && errors.general_Error.map((rec, ndx) => <span key={ndx} className="cssSpanInfo alert alert-danger">{rec.ErrorMessage}
-                                        {rec.RequestLogin ? <a onClick={requestLogin} tabIndex={0}>Login</a> : ""}
-
+                                    {errors && errors.general_Error && errors.general_Error.map((rec, ndx) =>
+                                        <span key={ndx} className="cssSpanInfo alert alert-danger">{rec.ErrorMessage}
+                                        {rec.RequestLogin ? <> &nbsp; <a onClick={requestLogin} tabIndex={0}>Login</a></> : ""}
                                     </span>)}
                                     {errors && errors.general_Error_Html && <span className="cssSpanInfo alert alert-danger">{errors.general_Error_Html}</span>}
                                 </div>
@@ -439,7 +466,7 @@ TimelogForm.protoTypes = {
     devSiteId: PropTypes.number.isRequired,
     refreshControl: PropTypes.func.isRequired,
     counter_101: PropTypes.number.isRequired,
-    doCloseModal: PropTypes.object.isRequired
+    closeModal_React: PropTypes.bool.isRequired
 }
 
 export default TimelogForm

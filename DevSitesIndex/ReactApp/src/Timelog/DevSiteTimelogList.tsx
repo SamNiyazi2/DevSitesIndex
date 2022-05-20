@@ -16,6 +16,13 @@ import '../css/ReactCSS.css';
 import { deleteDevSiteTimelogRecord, getDevSiteTimelogRecords } from '../API/DevSite_Job_LineItemAPI';
 import { DevSiteTimeLogDeleteOption } from './devSiteTimeLogDelete';
 
+
+//const console__log = (msg, format) => console.log(msg, format);
+//const console__dir = (obj1) => console.dir(obj1);
+
+const console__log = (msg, format) => { };
+const console__dir = (obj1) => { };
+
 export const DevSiteTimelogList = (props) => {
 
 
@@ -29,13 +36,13 @@ export const DevSiteTimelogList = (props) => {
 
 
         const data = getDevSiteTimelogRecords(props.devSiteId);
-        console.log("%c " + "DevSiteTimeLogList - 20220511-1203", 'Color:yellow;font-size:12px;');
-        console.dir(data);
+        console__log("%c " + "DevSiteTimeLogList - 20220511-1203", 'Color:yellow;font-size:12px;');
+        console__dir(data);
 
         data.then(response => {
 
-            console.log("%c " + "DevSiteTimeLogList - 20220511-1206", 'Color:green;font-size:12px;');
-            console.dir(response);
+            console__log("%c " + "DevSiteTimeLogList - 20220511-1206", 'Color:green;font-size:12px;');
+            console__dir(response);
 
             // Do we have an error?
             if (response.Message) {
@@ -51,16 +58,16 @@ export const DevSiteTimelogList = (props) => {
 
                     setTimelogData(response);
 
-                    //console.log("%c " + "DevSiteTimeLogList - 20220511-1329", 'Color:blue;font-size:32px;');
-                    //// console.dir(arrayCopy);
-                    //console.dir(timelogData);
+                    //console__log("%c " + "DevSiteTimeLogList - 20220511-1329", 'Color:blue;font-size:32px;');
+                    //// console__dir(arrayCopy);
+                    //console__dir(timelogData);
                 }
             }
 
         })
             .catch(error => {
-                console.log("%c " + "DevSiteTimeLogList - 20220511-1208", 'Color:red;font-size:20px;');
-                console.dir(error);
+                console__log("%c " + "DevSiteTimeLogList - 20220511-1208", 'Color:red;font-size:20px;');
+                console__dir(error);
 
                 const _erros = new Array();
                 _erros.push(error.Message);
@@ -73,8 +80,8 @@ export const DevSiteTimelogList = (props) => {
 
     const requestLogin = (e) => {
 
-        console.log('%c ' + 'DevSiteTimelogList.tsx - 20220516-1408', 'color:blue;font-size:12px;');
-        console.dir(e);
+        console__log('%c ' + 'DevSiteTimelogList.tsx - 20220516-1408', 'color:blue;font-size:12px;');
+        console__dir(e);
 
 
         const rec = new SignalR_MessageRecord();
@@ -90,8 +97,8 @@ export const DevSiteTimelogList = (props) => {
 
 
     const displayErrorMessages = () => {
-        //console.log("%c " + "DevSiteTimeLogList - 20220511-1229", 'Color:red;font-size:20px;');
-        //console.dir(errors);
+        //console__log("%c " + "DevSiteTimeLogList - 20220511-1229", 'Color:red;font-size:20px;');
+        //console__dir(errors);
 
 
         let results = errors.reduce((previous, currentValue, currentIndex) =>
@@ -101,7 +108,7 @@ export const DevSiteTimelogList = (props) => {
                 + (currentValue.charIndex('login') > -1) ? <a onClick={requestLogin} tabIndex={0}>Login</a> : ''
             + "</li>", "");
 
-        console.dir(results);
+        console__dir(results);
         if (results != "") {
             results = "<ul>" + results + "</ul>";
         }

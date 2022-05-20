@@ -18,7 +18,7 @@ import './AutoComplete.css';
 const AutoComplete = ({ data, size, setOwner, setChild, parentId, error , setFocus }) => {
 
 
-    let console__log = (format_and_message, styles) => { };
+    let console__log = (format_and_message, styles:string = 'color:white;font-size:12pt;') => { };
     let console__dir = (objVar) => { };
 
     //console__log = (format_and_message, styles) => console.log(format_and_message, styles);
@@ -33,17 +33,23 @@ const AutoComplete = ({ data, size, setOwner, setChild, parentId, error , setFoc
 
     const [lastKey, setLastKey] = useState('');
 
-    const [error_local, setError_local] = useState("");
+    const [error_local, setError_local] = useState(error);
 
     const refs = [];
 
     const inputRef = useRef(null);
 
 
-    useEffect(() => {
+    useEffect(() => { 
+        setError_local(error);
 
-        console__log('%c ' + 'Clear input. parentId changed.', 'color:yellow;font-size:12pt;');
+    }, [error])
+
+
+    useEffect(() => {
+         
         setInput('');
+        setOwner(0);
 
     }, [parentId])
 
@@ -86,7 +92,9 @@ const AutoComplete = ({ data, size, setOwner, setChild, parentId, error , setFoc
         $.each(currentElement, function (ndx, value) {
 
             $.each(value, function (ndx, value2) {
-                console.dir(value2);
+
+                console__log('20220520-0423');
+                console__dir(value2);
                 if (value2 == event.target) {
                     nextIndex = parseInt(ndx as any) + 1;
                 }
@@ -147,20 +155,20 @@ const AutoComplete = ({ data, size, setOwner, setChild, parentId, error , setFoc
                 setSelectedItemIndex(nextItem);
 
                 const id = "id_" + nextItem;
-                console.log('id----------------------------------');
-                console.log(id);
+                console__log('id----------------------------------');
+                console__log(id);
 
                 const elem = document.getElementById(id);
                 //elem.scrollIntoView();
 
                 //$(elem).parent().animate({ "scrollTop": 20 });
                 //$($(elem).parent()).scrollTop(-10);
-                console.log('ulObject.current.scrollHeight');
-                console.log('ulObject.current.scrollHeight');
-                console.log('ulObject.current.scrollHeight');
-                console.log('ulObject.current.scrollHeight');
+                console__log('ulObject.current.scrollHeight');
+                console__log('ulObject.current.scrollHeight');
+                console__log('ulObject.current.scrollHeight');
+                console__log('ulObject.current.scrollHeight');
 
-                //////console.log(ulObject.current.scrollHeight);
+                //////console__log(ulObject.current.scrollHeight);
 
                 //ulObject.current.scrollBy(0, 500);
 
@@ -264,6 +272,8 @@ const AutoComplete = ({ data, size, setOwner, setChild, parentId, error , setFoc
 
         setLastKey('change');
 
+// 05/20/2022 04:01 am - SSN - Clear current key if we have a change.
+        setOwner(0);
 
         console__log('%c ' + 'AutoComplete - onChange - 20220510-0008', 'color:yellow;font-size:12pt;');
 
@@ -417,15 +427,14 @@ const AutoComplete = ({ data, size, setOwner, setChild, parentId, error , setFoc
 
     const clearInputField = () => {
         setInput("");
+        setOwner(0);
         inputRef.current.focus();
     }
 
-
-  
+     
     return (
         <>
-
-
+             
             <span className="cssNB">
 
                 <input type="text" className="form-control cssAutoComplete-input"
@@ -443,8 +452,7 @@ const AutoComplete = ({ data, size, setOwner, setChild, parentId, error , setFoc
 
             </span>
 
-            {<DataListComponent />}
-            {error && <span className="cssSpanInfo alert alert-danger">{error}</span>}
+            {<DataListComponent />} 
             {error_local && <span className="cssSpanInfo alert alert-danger">{error_local}</span>}
 
         </>

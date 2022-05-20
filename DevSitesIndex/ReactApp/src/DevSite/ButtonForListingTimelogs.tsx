@@ -19,30 +19,39 @@ import { ISignalR_MessageRecord } from '../Util/SignalR/ISignalR_MessageRecord';
 import { SIGNALR_CONSTANTS } from '../Util/SignalR/SignalR_Constants';
 
 
+//const console__log = (msg, format) => console.log(msg, format);
+//const console__dir = (obj1) => console.dir(obj1);
+
+const console__log = (msg, format:string = 'color:white;font-size:24pt;') => { };
+const console__dir = (obj1) => { };
+
+
 function App(props) {
 
 
 
     const [counter, setCounter] = useState(props.counter_101);
     const [currentDate, setCurrentDate] = useState(new Date());
-    const [doCloseTimelogPopupTime, setDoCloseTimelogPopupTime] = useState(new Date());
+    const [closeModal_React, setCloseModal_React] = useState(false);
 
 
 
 
     const resetControl = () => {
 
-        console.log('%c ' + 'ButtonForListingTimeLogs - resetControl - 20220511-1652', 'color:blue;font-size:12pt;');
+        console__log('%c ' + 'ButtonForListingTimeLogs - resetControl - 20220511-1652', 'color:blue;font-size:12pt;');
 
         setCurrentDate(new Date());
-        setDoCloseTimelogPopupTime(new Date());
+
+        console__log('%c ' + 'ButtonForListingTimeLogs - resetControl - 20220520-0658 - setCloseModal_React false', 'color:red;font-size:48pt;');
+        setCloseModal_React(false);
 
     }
 
     return (
         <>
 
-            <TimelogForm devSiteId={props.devSiteId} key={props.key3} counter_101={props.counter_101} refreshControl={resetControl} doCloseModal={doCloseTimelogPopupTime} />
+            <TimelogForm devSiteId={props.devSiteId} key={props.key3} counter_101={props.counter_101} refreshControl={resetControl} closeModal_React={setCloseModal_React} />
             <DevSiteTimelogList devSiteId={props.devSiteId} currentDate={currentDate} />
         </>
     );
@@ -57,21 +66,21 @@ function setupDevSiteTimelogControls(callSource: string) {
 
 
 
-    console.log('%c ' + `ButtonForListingTimelogs - listOfControls [${listOfControls.length}] START [${callSource}]`, 'color:yellow;font-size:12pt;');
+    console__log('%c ' + `ButtonForListingTimelogs - listOfControls [${listOfControls.length}] START [${callSource}]`, 'color:yellow;font-size:12pt;');
 
     while (listOfControls.length > 0) {
 
-        console.log('%c ' + `ButtonForListingTimelogs - listOfControls [${listOfControls.length}] LOOP [${callSource}]`, 'color:yellow;font-size:12pt;');
+        console__log('%c ' + `ButtonForListingTimelogs - listOfControls [${listOfControls.length}] LOOP [${callSource}]`, 'color:yellow;font-size:12pt;');
 
         const entry2 = listOfControls.pop();
 
-        console.log('%c ' + 'ButtonForListingTimelogs - remove object from dom', 'color:red;font-size:12pt;');
+        console__log('%c ' + 'ButtonForListingTimelogs - remove object from dom', 'color:red;font-size:12pt;');
         const theParent = $(entry2).parent();
         $(theParent).empty();
 
     };
 
-    console.log('%c ' + `ButtonForListingTimelogs - listOfControls [${listOfControls.length}] END [${callSource}]`, 'color:yellow;font-size:12pt;');
+    console__log('%c ' + `ButtonForListingTimelogs - listOfControls [${listOfControls.length}] END [${callSource}]`, 'color:yellow;font-size:12pt;');
 
 
 
@@ -79,7 +88,7 @@ function setupDevSiteTimelogControls(callSource: string) {
 
     containers.forEach((elem) => {
 
-        console.log('%c ' + `ButtonForListingTimelogs - add control [${listOfControls.length}]  [${callSource}]`, 'color:yellow;font-size:12pt;');
+        console__log('%c ' + `ButtonForListingTimelogs - add control [${listOfControls.length}]  [${callSource}]`, 'color:yellow;font-size:12pt;');
 
         listOfControls.push(elem);
 
@@ -92,11 +101,11 @@ function setupDevSiteTimelogControls(callSource: string) {
             counter_101 = "12001";
         }
 
-        console.log('%c ' + `ButtonForListingTimeLogs - 20220504-1552-xxxxxxxxx [${callSource}]`, 'color:yellow;font-size:12pt;');
-        console.log(devSiteId);
-        console.log(key2);
-        console.log(counter_101);
-        console.log('====================');
+        console__log('%c ' + `ButtonForListingTimeLogs - 20220504-1552-xxxxxxxxx [${callSource}]`, 'color:yellow;font-size:12pt;');
+        console__log(devSiteId);
+        console__log(key2);
+        console__log(counter_101);
+        console__log('====================');
 
 
         let root = createRoot(elem);
@@ -114,7 +123,7 @@ function setupDevSiteTimelogControls(callSource: string) {
 export const ButtonForListingTimeLogs_util = (() => {
 
 
-    console.log('%c ' + 'ButtonForListingTimeLogs - DEFAULT - 20220508-1050', 'color:yellow;font-size:12pt;');
+    console__log('%c ' + 'ButtonForListingTimeLogs - DEFAULT - 20220508-1050', 'color:yellow;font-size:12pt;');
 
 
 
@@ -126,11 +135,11 @@ export const ButtonForListingTimeLogs_util = (() => {
 
     function handleRefreshControlList(signalR_MessageRecord: ISignalR_MessageRecord) {
 
-        console.log('');
-        console.log('');
-        console.log('%c ' + `SignalR - 20220506-0347-REACT-ReceiveMessage `, 'color:pink;font-size:12pt;');
-        console.dir(signalR_MessageRecord);
-        console.log('%c ' + `SignalR - 20220506-0347-REACT-ReceiveMessage [${signalR_MessageRecord.callSource}]`, 'color:pink;font-size:12pt;');
+        console__log('');
+        console__log('');
+        console__log('%c ' + `SignalR - 20220506-0347-REACT-ReceiveMessage `, 'color:pink;font-size:12pt;');
+        console__dir(signalR_MessageRecord);
+        console__log('%c ' + `SignalR - 20220506-0347-REACT-ReceiveMessage [${signalR_MessageRecord.callSource}]`, 'color:pink;font-size:12pt;');
 
         if (!(signalR_MessageRecord.dateTime instanceof Date)) {
             signalR_MessageRecord.dateTime = new Date(signalR_MessageRecord.dateTime);
@@ -148,15 +157,15 @@ export const ButtonForListingTimeLogs_util = (() => {
 
 
 
-            console.log('');
+            console__log('');
 
-            console.log('%c ' + `SignalR - 20220514-2227-REACT-ReceiveMessage [${signalR_MessageRecord.callSource}]`, 'color:red;font-size:12pt;');
+            console__log('%c ' + `SignalR - 20220514-2227-REACT-ReceiveMessage [${signalR_MessageRecord.callSource}]`, 'color:red;font-size:12pt;');
 
-            console.log('%c ' + `[${lastDateTime.toISOString()}]`, 'color:pink;font-size:12pt;');
+            console__log('%c ' + `[${lastDateTime.toISOString()}]`, 'color:pink;font-size:12pt;');
 
 
-            console.log('%c ' + `[${new Date(signalR_MessageRecord.dateTime).toISOString()}]`, 'color:pink;font-size:12pt;');
-            console.log('%c ' + `refreshCount: [${refreshCount}]`, 'color:pink;font-size:12pt;');
+            console__log('%c ' + `[${new Date(signalR_MessageRecord.dateTime).toISOString()}]`, 'color:pink;font-size:12pt;');
+            console__log('%c ' + `refreshCount: [${refreshCount}]`, 'color:pink;font-size:12pt;');
 
             if (lastDateTime < new Date(signalR_MessageRecord.dateTime)) {
 
@@ -164,7 +173,7 @@ export const ButtonForListingTimeLogs_util = (() => {
 
                 refreshCount++;
 
-                console.log('%c ' + `PROCESS refreshCount: [${refreshCount}]`, 'color:green;font-size:18pt;');
+                console__log('%c ' + `PROCESS refreshCount: [${refreshCount}]`, 'color:green;font-size:18pt;');
 
 
                 setTimeout(() => {
@@ -172,19 +181,19 @@ export const ButtonForListingTimeLogs_util = (() => {
                 }, 1000);
 
             } else {
-                console.log('%c ' + `BYPASS refreshControlsList 2022008-0441 - refreshCount: [${refreshCount}]`, 'color:RED;font-size:18pt;');
+                console__log('%c ' + `BYPASS refreshControlsList 2022008-0441 - refreshCount: [${refreshCount}]`, 'color:RED;font-size:18pt;');
 
             }
 
         }
 
-        console.log('');
-        console.log('');
+        console__log('');
+        console__log('');
 
     }
 
 
-    console.log('%c ' + 'ButtonForListingTimeLogs.tsx - addSignalRJob - 20220518-0017', 'font-size:24pt;color:white;');
+    console__log('%c ' + 'ButtonForListingTimeLogs.tsx - addSignalRJob - 20220518-0017', 'font-size:24pt;color:white;');
 
 
     let rec: SignalR_MessageRecord = new SignalR_MessageRecord();
@@ -203,12 +212,12 @@ export const ButtonForListingTimeLogs_util = (() => {
 
     const loadDevSiteDetailTimelogReactComponent = async () => {
 
-        console.log('%c ' + `SignalR-DemoSites_index-updateReactComponents - 20220519-1321-send-message`, 'color:yellow;font-size:12pt;');
+        console__log('%c ' + `SignalR-DemoSites_index-updateReactComponents - 20220519-1321-send-message`, 'color:yellow;font-size:12pt;');
 
         if (document.querySelector('[ssn-cmd*=timelogReactCompoentDetail]')) {
 
 
-            console.log('%c ' + `SignalR-DemoSites_index-updateReactComponents - 20220518-1553-send-message`, 'color:yellow;font-size:18pt;');
+            console__log('%c ' + `SignalR-DemoSites_index-updateReactComponents - 20220518-1553-send-message`, 'color:yellow;font-size:18pt;');
 
 
             const rec = new SignalR_MessageRecord();
