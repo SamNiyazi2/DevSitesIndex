@@ -18,5 +18,6 @@ export class SignalR_MessageRecord implements ISignalR_MessageRecord {
     errorCode: string;
     errorMessage: string;
 
-
+    connectionId: string; 
+    forCurrentConnetionOnly: boolean;
 }

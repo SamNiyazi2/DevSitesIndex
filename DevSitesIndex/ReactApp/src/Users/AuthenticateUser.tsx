@@ -5,7 +5,7 @@ import React from 'react';
 
 import { createRoot } from 'react-dom/client';
 
-import { ssn_SignalR_util_React } from '../Util/SignalR/ssn_SignalR_Util_React';
+import { ssn_SignalR_util_React_instance } from '../Util/SignalR/ssn_SignalR_Util_React';
 import { ISignalR_MessageRecord } from '../Util/SignalR/ISignalR_MessageRecord';
 import { SignalR_MessageRecord } from '../Util/SignalR/SignalR_MessageRecord';
 import { SIGNALR_CONSTANTS } from '../Util/SignalR/SignalR_Constants';
@@ -18,13 +18,13 @@ export const AuthenticateUser = (() => {
 
 
     let root2;
-     
+
 
     const doCloseModal = () => {
 
         console.log('%c ' + 'AuthenticateUser.tsx - doCloseModal - 2022051-0324', 'font-size:36pt;color:yellow');
         console.log('%c ' + 'INCOMPLETE', 'font-size:24pt;color:yellow');
-         
+
     };
 
 
@@ -54,7 +54,7 @@ export const AuthenticateUser = (() => {
 
     };
 
-     
+
     let rec: SignalR_MessageRecord = new SignalR_MessageRecord();
     rec.callSource = 'AuthenticateUser-20220514-1838';
     rec.processorName = SIGNALR_CONSTANTS.PROCESSOR_NAME.REACTJS;
@@ -62,8 +62,9 @@ export const AuthenticateUser = (() => {
     rec.func = handleLoginRequests;
     rec.message = SIGNALR_CONSTANTS.REQUEST_LOGIN;
     rec.user = "SamN";
+    rec.forCurrentConnetionOnly = true;
 
-    ssn_SignalR_util_React.addSignalRJob(rec);
+    ssn_SignalR_util_React_instance.addSignalRJob(rec);
 
 
 })();

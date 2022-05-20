@@ -13,4 +13,6 @@ export interface ISignalR_MessageRecord {
     jobStatus: string;
     statusDate: string;
 
+    connectionId: string; 
+
 }

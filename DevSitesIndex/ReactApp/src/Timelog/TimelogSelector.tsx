@@ -9,7 +9,7 @@ import { fromEvent, throttle, interval } from 'rxjs';
 import parse from 'html-react-parser';
 
 
-import { ssn_SignalR_util_React } from '../Util/SignalR/ssn_SignalR_Util_React';
+import { ssn_SignalR_util_React_instance } from '../Util/SignalR/ssn_SignalR_Util_React';
 import { SignalR_MessageRecord } from '../Util/SignalR/SignalR_MessageRecord';
 import { SIGNALR_CONSTANTS } from '../Util/SignalR/SignalR_Constants';
 
@@ -238,14 +238,14 @@ const TimelogForm = (props) => {
         console.dir(e);
 
 
-        const signalR_MessageRecord = new SignalR_MessageRecord();
-        signalR_MessageRecord.callSource = 'TimelogSelector-202205161442';
-        signalR_MessageRecord.processorName = SIGNALR_CONSTANTS.PROCESSOR_NAME.REACTJS;
-        signalR_MessageRecord.dateTime = new Date();
-        signalR_MessageRecord.message = SIGNALR_CONSTANTS.REQUEST_LOGIN;
-        signalR_MessageRecord.user = "SamN";
-
-        ssn_SignalR_util_React.sendSignalRMessage_v2(signalR_MessageRecord);
+        const rec = new SignalR_MessageRecord();
+        rec.callSource = 'TimelogSelector-202205161442';
+        rec.processorName = SIGNALR_CONSTANTS.PROCESSOR_NAME.REACTJS;
+        rec.dateTime = new Date();
+        rec.message = SIGNALR_CONSTANTS.REQUEST_LOGIN;
+        rec.user = "SamN";
+        rec.forCurrentConnetionOnly = true;
+        ssn_SignalR_util_React_instance.sendSignalRMessage_v2(rec);
     }
 
 

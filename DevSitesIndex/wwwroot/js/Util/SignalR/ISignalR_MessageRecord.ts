@@ -16,4 +16,7 @@ export interface ISignalR_MessageRecord {
     errorCode: string;
     errorMessage: string;
 
+    connectionId: string;
+    forCurrentConnetionOnly: boolean;
+
 }

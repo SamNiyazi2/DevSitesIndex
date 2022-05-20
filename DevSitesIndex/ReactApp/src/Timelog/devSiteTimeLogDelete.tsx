@@ -8,7 +8,7 @@ import parse from 'html-react-parser';
 
 import { deleteDevSiteTimelogRecord } from '../API/DevSite_Job_LineItemAPI';
 
-import { ssn_SignalR_util_React } from '../Util/SignalR/ssn_SignalR_Util_React';
+import { ssn_SignalR_util_React_instance } from '../Util/SignalR/ssn_SignalR_Util_React';
 import { SignalR_MessageRecord } from '../Util/SignalR/SignalR_MessageRecord';
 import { SIGNALR_CONSTANTS } from '../Util/SignalR/SignalR_Constants';
 
@@ -67,7 +67,7 @@ export const DevSiteTimeLogDeleteOption = (props) => {
         signalR_MessageRecord.message = SIGNALR_CONSTANTS.REQUEST_LOGIN;
         signalR_MessageRecord.user = "SamN";
 
-        ssn_SignalR_util_React.sendSignalRMessage_v2(signalR_MessageRecord);
+        ssn_SignalR_util_React_instance.sendSignalRMessage_v2(signalR_MessageRecord);
     }
 
 

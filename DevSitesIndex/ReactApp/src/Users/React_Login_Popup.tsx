@@ -27,18 +27,18 @@ export const React_Login_Popup = (props) => {
     const [thisModalID, setThisModalID] = useState('id_modal_' + (Math.random() * 100000).toFixed(0).toString());
 
     const [errors, setErrors] = useState([]);
-   
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
     const [forgeryToken, setForgeryToken] = useState("NotSet21351");
 
-    
+
     useEffect(() => {
 
 
         AuthenticationAPI.getForgeryToken('AuthenticateUser-20220513-1324')
-            .then(response => { 
+            .then(response => {
                 setForgeryToken(response);
             })
             .catch(error => {
@@ -57,7 +57,7 @@ export const React_Login_Popup = (props) => {
 
         console.log('%c ' + `React_Login_Popup.tsx - 20220516-2338 - useEffect modalIsOpen [${modalIsOpen}]`, 'font-size:14pt;color:yellow;');
 
-        if (modalIsOpen) { 
+        if (modalIsOpen) {
             timeoutID = setTimeout(() => MonitorTabFocus.monitorFocus(thisModalID), 600);
         }
 
@@ -76,8 +76,8 @@ export const React_Login_Popup = (props) => {
 
     }
 
- 
- 
+
+
 
 
     const handlerSubmitRequest = async (e) => {
@@ -138,7 +138,7 @@ export const React_Login_Popup = (props) => {
 
     }
 
- 
+
 
 
     return (
@@ -150,15 +150,15 @@ export const React_Login_Popup = (props) => {
                 thisModalID={thisModalID}
                 /*width={'660px'}*/
                 /* key={props.key3}*/
-                promptToOpen=""  
+                promptToOpen=""
                 setModalIsOpen={setModalIsOpen}
                 doCloseModal={props.doCloseModal}
                 title={
 
                     <>
-                    <h3 > Login </h3>
-                        <h1>thisModalID [{thisModalID}]</h1>
-                        </>
+                        <h3 > Login </h3>
+
+                    </>
                 }
 
 
@@ -178,7 +178,7 @@ export const React_Login_Popup = (props) => {
 
                                 <div className="col-sm-10" >
 
-                                    <input onChange={e => setValue(e, setEmail)} name="email" id="userName" type="text" className="form-control" placeholder="Email..." required autoFocus={true}/>
+                                    <input onChange={e => setValue(e, setEmail)} name="email" id="userName" type="text" className="form-control" placeholder="Email..." required autoFocus={true} />
 
                                 </div>
                             </div>
@@ -241,6 +241,6 @@ React_Login_Popup.protoTypes = {
     devSiteId: PropTypes.number.isRequired,
     refreshControl: PropTypes.func.isRequired,
     counter_101: PropTypes.number.isRequired,
-    doCloseModal: PropTypes.object.isRequired 
-    
+    doCloseModal: PropTypes.object.isRequired
+
 }

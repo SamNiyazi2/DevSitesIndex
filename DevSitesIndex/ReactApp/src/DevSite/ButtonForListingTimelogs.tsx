@@ -13,7 +13,7 @@ import { DevSiteTimelogList } from "../Timelog/DevSiteTimelogList";
 
 // 05/06/2022 08:36 pm - SSN - [20220506-0327] - [012] - SignalR Hub
 // import * as signalR from "@microsoft/signalr";
-import { ssn_SignalR_util_React } from '../Util/SignalR/ssn_SignalR_Util_React';
+import { ssn_SignalR_util_React_instance } from '../Util/SignalR/ssn_SignalR_Util_React';
 import { SignalR_MessageRecord } from '../Util/SignalR/SignalR_MessageRecord';
 import { ISignalR_MessageRecord } from '../Util/SignalR/ISignalR_MessageRecord';
 import { SIGNALR_CONSTANTS } from '../Util/SignalR/SignalR_Constants';
@@ -195,13 +195,15 @@ export const ButtonForListingTimeLogs_util = (() => {
     rec.message = SIGNALR_CONSTANTS.REFRESH_DEVSITES_TIMELOG_LIST;
     rec.user = "SamN";
 
-    ssn_SignalR_util_React.addSignalRJob(rec);
+    ssn_SignalR_util_React_instance.addSignalRJob(rec);
 
 
 
 
 
-    const loadDevSiteDetailTimelogReactComponent = () => {
+    const loadDevSiteDetailTimelogReactComponent = async () => {
+
+        console.log('%c ' + `SignalR-DemoSites_index-updateReactComponents - 20220519-1321-send-message`, 'color:yellow;font-size:12pt;');
 
         if (document.querySelector('[ssn-cmd*=timelogReactCompoentDetail]')) {
 
@@ -209,14 +211,15 @@ export const ButtonForListingTimeLogs_util = (() => {
             console.log('%c ' + `SignalR-DemoSites_index-updateReactComponents - 20220518-1553-send-message`, 'color:yellow;font-size:18pt;');
 
 
-            const signalR_MessageRecord = new SignalR_MessageRecord();
-            signalR_MessageRecord.callSource = `20220514-2013-ButtonForListingTimelogs-devsite-detail}`;
-            signalR_MessageRecord.processorName = SIGNALR_CONSTANTS.PROCESSOR_NAME.REACTJS;
-            signalR_MessageRecord.dateTime = new Date();
-            signalR_MessageRecord.message = SIGNALR_CONSTANTS.REFRESH_DEVSITES_TIMELOG_LIST;
-            signalR_MessageRecord.user = "SamN";
+            const rec = new SignalR_MessageRecord();
+            rec.callSource = `20220514-2013-ButtonForListingTimelogs-devsite-detail`;
+            rec.processorName = SIGNALR_CONSTANTS.PROCESSOR_NAME.REACTJS;
+            rec.dateTime = new Date();
+            rec.message = SIGNALR_CONSTANTS.REFRESH_DEVSITES_TIMELOG_LIST;
+            rec.user = "SamN";
+            rec.forCurrentConnetionOnly = true;
 
-            ssn_SignalR_util_React.sendSignalRMessage_v2(signalR_MessageRecord);
+            await ssn_SignalR_util_React_instance.sendSignalRMessage_v2(rec);
 
 
 
@@ -224,7 +227,7 @@ export const ButtonForListingTimeLogs_util = (() => {
     }
 
 
-    setTimeout(loadDevSiteDetailTimelogReactComponent, 2000);
+    setTimeout(loadDevSiteDetailTimelogReactComponent, 600);
 
 
 })();

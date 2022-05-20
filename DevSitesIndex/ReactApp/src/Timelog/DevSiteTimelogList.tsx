@@ -6,12 +6,12 @@ import PropTypes, { array } from 'prop-types';
 import parse from 'html-react-parser';
 
 
-import { ssn_SignalR_util_React } from '../Util/SignalR/ssn_SignalR_Util_React';
+import { ssn_SignalR_util_React_instance } from '../Util/SignalR/ssn_SignalR_Util_React';
 import { SignalR_MessageRecord } from '../Util/SignalR/SignalR_MessageRecord';
 import { SIGNALR_CONSTANTS } from '../Util/SignalR/SignalR_Constants';
 
 import '../css/ReactCSS.css';
- 
+
 
 import { deleteDevSiteTimelogRecord, getDevSiteTimelogRecords } from '../API/DevSite_Job_LineItemAPI';
 import { DevSiteTimeLogDeleteOption } from './devSiteTimeLogDelete';
@@ -23,7 +23,7 @@ export const DevSiteTimelogList = (props) => {
 
     const [timelogData, setTimelogData] = useState([]);
 
-    const [ reverseConfirmOption, setReverseConfirmOption] = useState(0);
+    const [reverseConfirmOption, setReverseConfirmOption] = useState(0);
 
     useEffect(() => {
 
@@ -77,14 +77,14 @@ export const DevSiteTimelogList = (props) => {
         console.dir(e);
 
 
-        const signalR_MessageRecord = new SignalR_MessageRecord();
-        signalR_MessageRecord.callSource = 'DevSiteTimeLogList-20220516-1440';
-        signalR_MessageRecord.processorName = SIGNALR_CONSTANTS.PROCESSOR_NAME.REACTJS;
-        signalR_MessageRecord.dateTime = new Date();
-        signalR_MessageRecord.message = SIGNALR_CONSTANTS.REQUEST_LOGIN;
-        signalR_MessageRecord.user = "SamN";
-
-        ssn_SignalR_util_React.sendSignalRMessage_v2(signalR_MessageRecord);
+        const rec = new SignalR_MessageRecord();
+        rec.callSource = 'DevSiteTimeLogList-20220516-1440';
+        rec.processorName = SIGNALR_CONSTANTS.PROCESSOR_NAME.REACTJS;
+        rec.dateTime = new Date();
+        rec.message = SIGNALR_CONSTANTS.REQUEST_LOGIN;
+        rec.user = "SamN";
+        rec.forCurrentConnetionOnly = true;
+        ssn_SignalR_util_React_instance.sendSignalRMessage_v2(rec);
     }
 
 
@@ -95,11 +95,11 @@ export const DevSiteTimelogList = (props) => {
 
 
         let results = errors.reduce((previous, currentValue, currentIndex) =>
-                    previous
+            previous
                 + "<li class='alert alert-danger'>xxx1234-"
                 + currentValue
                 + (currentValue.charIndex('login') > -1) ? <a onClick={requestLogin} tabIndex={0}>Login</a> : ''
-                + "</li>", "");
+            + "</li>", "");
 
         console.dir(results);
         if (results != "") {
@@ -109,7 +109,7 @@ export const DevSiteTimelogList = (props) => {
     }
 
 
-    
+
 
     return (
         <>
@@ -117,39 +117,39 @@ export const DevSiteTimelogList = (props) => {
             {
                 errors && displayErrorMessages()
             }
-             
+
             <div className="cssTransitionDiv">
-            <table >
-                <tbody>
-                    {
-                        timelogData && timelogData.map((timelogRecord) => {
+                <table >
+                    <tbody>
+                        {
+                            timelogData && timelogData.map((timelogRecord) => {
 
-                            const jobDetailUrl = `/jobs/details/?id=${timelogRecord.job_Lineitem?.jobId}`;
-                            const jobDetailWindowName = `jobDetailWindow${timelogRecord.job_Lineitem?.jobId}`;
+                                const jobDetailUrl = `/jobs/details/?id=${timelogRecord.job_Lineitem?.jobId}`;
+                                const jobDetailWindowName = `jobDetailWindow${timelogRecord.job_Lineitem?.jobId}`;
 
-                            return (
-                                <tr key={timelogRecord.id}>
+                                return (
+                                    <tr key={timelogRecord.id}>
 
-                                    <td >
-                                        <>
-                                            Timelog: <a href={jobDetailUrl} target={jobDetailWindowName} >{timelogRecord.job_Lineitem.job.jobTitle}</a>
-                                            &nbsp;
-                                            <DevSiteTimeLogDeleteOption
-                                                devSite_Job_LineitemId={timelogRecord.id}
-                                                reverseConfirmOption={reverseConfirmOption}
-                                                setReverseConfirmOption={setReverseConfirmOption}
-                                                setTimelogData={setTimelogData}
-                                            />
-                                           </>
+                                        <td >
+                                            <>
+                                                Timelog: <a href={jobDetailUrl} target={jobDetailWindowName} >{timelogRecord.job_Lineitem.job.jobTitle}</a>
+                                                &nbsp;
+                                                <DevSiteTimeLogDeleteOption
+                                                    devSite_Job_LineitemId={timelogRecord.id}
+                                                    reverseConfirmOption={reverseConfirmOption}
+                                                    setReverseConfirmOption={setReverseConfirmOption}
+                                                    setTimelogData={setTimelogData}
+                                                />
+                                            </>
 
-                                    </td>
-                                </tr>
+                                        </td>
+                                    </tr>
 
-                            );
-                        })
-                    }
-                </tbody>
-            </table>
+                                );
+                            })
+                        }
+                    </tbody>
+                </table>
             </div>
 
         </>

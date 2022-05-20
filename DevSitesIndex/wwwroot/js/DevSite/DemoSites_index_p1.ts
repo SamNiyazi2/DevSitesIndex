@@ -18,7 +18,7 @@ import * as util from '../../js/site_v02';
 import * as angular from 'angular';
 
 // 05/06/2022 06:21 pm - SSN - [20220506-0327] - [011] - SignalR Hub 
-import { ssn_SignalR_util } from '../Util/SignalR/ssn_SignalR_util';
+import {  ssn_SignalR_util_instance } from '../Util/SignalR/ssn_SignalR_util';
 import { SignalR_MessageRecord } from '../Util/SignalR/SignalR_MessageRecord';
 import { SIGNALR_CONSTANTS } from '../Util/SignalR/SignalR_Constants';
 
@@ -366,14 +366,14 @@ var demosites_index_p1_instance = function () {
             console.log('%c ' + `SignalR-DemoSites_index-updateReactComponents - 20220506-0803-send-message [${callSource}]`, 'color:yellow;font-size:18pt;');
 
 
-            const signalR_MessageRecord = new SignalR_MessageRecord();
-            signalR_MessageRecord.callSource = `20220514-2013-${callSource}`;
-            signalR_MessageRecord.processorName = SIGNALR_CONSTANTS.PROCESSOR_NAME.REACTJS;
-            signalR_MessageRecord.dateTime = new Date();
-            signalR_MessageRecord.message = SIGNALR_CONSTANTS.REFRESH_DEVSITES_TIMELOG_LIST;
-            signalR_MessageRecord.user = "SamN";
-
-            ssn_SignalR_util.sendSignalRMessage_v2(signalR_MessageRecord);
+            const rec = new SignalR_MessageRecord();
+            rec.callSource = `20220514-2013-${callSource}`;
+            rec.processorName = SIGNALR_CONSTANTS.PROCESSOR_NAME.REACTJS;
+            rec.dateTime = new Date();
+            rec.message = SIGNALR_CONSTANTS.REFRESH_DEVSITES_TIMELOG_LIST;
+            rec.user = "SamN";
+            rec.forCurrentConnetionOnly = true;
+            ssn_SignalR_util_instance.sendSignalRMessage_v2(rec);
 
         }
 

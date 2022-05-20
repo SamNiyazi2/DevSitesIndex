@@ -29,6 +29,9 @@ namespace DevSitesIndex.Hubs
         public string ErrorCode { get; set; }
         public string ErrorMessage { get; set; }
 
+        public string GroupName { get; set; }
+        public string ConnectionId { get; set; }
+        public bool ForCurrentConnetionOnly { get; set; }
 
         public override string ToString()
         {
@@ -63,12 +66,22 @@ namespace DevSitesIndex.Hubs
 
 
         static ConcurrentDictionary<string, SignalR_MessageRecord> messageList = new ConcurrentDictionary<string, SignalR_MessageRecord>();
+        static ConcurrentDictionary<string, SignalR_MessageRecord> ProcessorUsers = new ConcurrentDictionary<string, SignalR_MessageRecord>();
 
         static List<string> ValidProcessorNames = new List<string>
             {
                 "AngularJS",
                 "ReactJS"
             };
+
+
+        // 05/19/2022 02:09 pm - SSN - Adding groups
+        public Task JoinRoom(string roomName)
+        {
+            ProcessorUsers.TryAdd(roomName + Context.ConnectionId, new SignalR_MessageRecord { GroupName = roomName, ConnectionId = Context.ConnectionId });
+            return Groups.AddToGroupAsync(Context.ConnectionId, roomName);
+        }
+
 
 
         //public async Task SendMessage(string callSource, string user, string message, string dateTime)
@@ -78,6 +91,9 @@ namespace DevSitesIndex.Hubs
 
         public async Task<SignalR_MessageRecord> SendMessage_v2(SignalR_MessageRecord messageRecord)
         {
+            HubCallerContext context = this.Context;
+
+
             if (messageRecord == null) messageRecord = new SignalR_MessageRecord();
 
             if (!ValidProcessorNames.Any(s => s == messageRecord.processorName))
@@ -96,7 +112,38 @@ namespace DevSitesIndex.Hubs
 
             string methodName = $"SignalRReceiveMessage_{messageRecord.processorName}";
 
-            await Clients.All.SendAsync(methodName, messageRecord);
+            int recordsProcessed = 0;
+
+            if (messageRecord.ForCurrentConnetionOnly)
+            {
+
+                foreach (KeyValuePair<string, SignalR_MessageRecord> rec in ProcessorUsers.Where(r => r.Key == $"{messageRecord.processorName}{context.ConnectionId}"))
+                {
+                    recordsProcessed++;
+                    await Clients.Client(context.ConnectionId).SendAsync(methodName, messageRecord);
+
+                }
+            }
+
+            //if (!string.IsNullOrWhiteSpace(messageRecord.ConnectionId))
+            //{
+            //    await Clients.User(messageRecord.ConnectionId).SendAsync(methodName, messageRecord);
+            //}
+            //else
+            if (recordsProcessed == 0)
+            {
+
+                if (!string.IsNullOrWhiteSpace(messageRecord.processorName))
+                {
+                    await Clients.Group(messageRecord.processorName).SendAsync(methodName, messageRecord);
+                }
+                else
+                {
+                    await Clients.All.SendAsync(methodName, messageRecord);
+                }
+
+            }
+
             KeyValuePair<string, SignalR_MessageRecord> foundRecord = messageList.FirstOrDefault(r => r.Key == messageRecord.dateTime);
 
             if (foundRecord.Value != null)
@@ -118,53 +165,63 @@ namespace DevSitesIndex.Hubs
             return messageRecord;
         }
 
+        public Task<object> Test_101(string callSource)
+        {
+            return Task.FromResult<object>(new { Test = "Test-message-20220519-0252" });
+
+        }
+
 
         public SignalR_MessageRecord CheckJobStatus(string callSource, SignalR_MessageRecord messageRecord)
         {
 
-            SignalR_MessageRecord returnMessage = messageRecord;
-
-            try
+            lock (messageList)
             {
-                KeyValuePair<string, SignalR_MessageRecord> foundRecord = messageList.FirstOrDefault(r => r.Key == messageRecord.dateTime);
 
-                if (foundRecord.Value == null)
+                SignalR_MessageRecord returnMessage = messageRecord;
+
+                try
                 {
-                    messageRecord.JobStatus = JOB_STATUS.NOT_FOUND;
-                    messageRecord.StatusDate = DateTime.Now.ToLongTimeString();
-                }
-                else
-                {
-                    if (foundRecord.Value.JobStatus == null)
+                    KeyValuePair<string, SignalR_MessageRecord> foundRecord = messageList.FirstOrDefault(r => r.Key == messageRecord.dateTime);
+
+                    if (foundRecord.Value == null)
                     {
-                        foundRecord.Value.JobStatus = JOB_STATUS.STARTING;
-                        foundRecord.Value.StatusDate = DateTime.Now.ToLongTimeString();
-
+                        messageRecord.JobStatus = JOB_STATUS.NOT_FOUND;
+                        messageRecord.StatusDate = DateTime.Now.ToLongTimeString();
                     }
                     else
                     {
-                        if (foundRecord.Value.JobStatus == JOB_STATUS.STARTING)
+                        if (foundRecord.Value.JobStatus == null)
                         {
-                            foundRecord.Value.JobStatus = JOB_STATUS.ALREADY_STARTED;
+                            foundRecord.Value.JobStatus = JOB_STATUS.STARTING;
                             foundRecord.Value.StatusDate = DateTime.Now.ToLongTimeString();
+
+                        }
+                        else
+                        {
+                            if (foundRecord.Value.JobStatus == JOB_STATUS.STARTING)
+                            {
+                                foundRecord.Value.JobStatus = JOB_STATUS.ALREADY_STARTED;
+                                foundRecord.Value.StatusDate = DateTime.Now.ToLongTimeString();
+                            }
+
                         }
 
+                        returnMessage = foundRecord.Value;
                     }
 
-                    returnMessage = foundRecord.Value;
+
+                }
+                catch (Exception ex)
+                {
+
+                    returnMessage.ErrorCode = "DemoSite-20220518-1047";
+                    returnMessage.ErrorMessage = $"Calling SignalRHib CheckJobStatus [{callSource}].  EXCEPTION: [{ex.Message}]";
+
                 }
 
-
+                return returnMessage;
             }
-            catch (Exception ex)
-            {
-
-                returnMessage.ErrorCode = "DemoSite-20220518-1047";
-                returnMessage.ErrorMessage = $"Calling SignalRHib CheckJobStatus [{callSource}].  EXCEPTION: [{ex.Message}]";
-
-            }
-
-            return returnMessage;
 
         }
 
