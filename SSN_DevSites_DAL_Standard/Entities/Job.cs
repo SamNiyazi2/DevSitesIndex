@@ -32,7 +32,9 @@ namespace DevSitesIndex.Entities
         // 09/13/2019 05:21 am - SSN - [20190913-0517] - [002] - Job title duplicate check
 
         // 09/18/2019 09:29 am - SSN - Corrected earlier the proper name of the additioanl field. Must match model. It is posted as a form field.
-        [Remote(action: "Job_duplicate_Check", controller: "RemoteDataValidation", AdditionalFields = "JobID", HttpMethod = "POST")]
+        // 05/22/2022 07:15 pm - SSN - Add ProjectNo
+        //[Remote(action: "Job_duplicate_Check", controller: "RemoteDataValidation", AdditionalFields = "JobID", HttpMethod = "POST")]
+        [Remote(action: "Job_duplicate_Check", controller: "RemoteDataValidation", AdditionalFields = "ProjectID,JobID", HttpMethod = "POST")]
         public string JobTitle { get; set; }
 
 

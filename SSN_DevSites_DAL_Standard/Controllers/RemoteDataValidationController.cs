@@ -62,10 +62,10 @@ namespace DevSitesIndex.Controllers
         }
 
         // 09/13/2019 05:17 am - SSN - [20190913-0517] - [001] - Job title duplicate check
-
-        public JsonResult Job_duplicate_Check([Bind(Prefix = "Job.JobTitle")] string jobTitle, [Bind(Prefix = "Job.JobID")] int JobID)
+        // 05/22/2022 07:16 pm - SSN - Add ProjectNo
+        public JsonResult Job_duplicate_Check([Bind(Prefix = "Job.JobTitle")] string jobTitle, [Bind(Prefix = "Job.JobID")] int JobID, [Bind(Prefix = "Job.ProjectID")] int ProjectID)
         {
-            Job r = _context.Jobs.Where(e => e.JobTitle == jobTitle && e.JobID != JobID).FirstOrDefault();
+            Job r = _context.Jobs.Where(e => e.JobTitle == jobTitle && e.ProjectID == ProjectID && e.JobID != JobID).FirstOrDefault();
             if (r != null)
             {
                 return Json(data: $"Job title is already on <a href='/jobs/Details?id={r.JobID}' target='jobewin{r.JobID}' >file</a>.");
@@ -79,7 +79,7 @@ namespace DevSitesIndex.Controllers
         // 06/08/2021 11:59 am - SSN - [20210606-0227] - [028] - Testng for deployment - Line item
         public JsonResult Project_duplicate_Check([Bind(Prefix = "Project.ProjectTitle")] string projectTitle, [Bind(Prefix = "Project.ProjectID")] int projectID)
         {
-            Project r = _context.Projects.Where(e => e.ProjectTitle== projectTitle && e.ProjectID != projectID).FirstOrDefault();
+            Project r = _context.Projects.Where(e => e.ProjectTitle == projectTitle && e.ProjectID != projectID).FirstOrDefault();
 
             if (r != null)
             {

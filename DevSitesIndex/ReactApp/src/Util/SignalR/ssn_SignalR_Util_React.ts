@@ -10,6 +10,9 @@ import { SignalR_MessageRecord } from './SignalR_MessageRecord';
 //const console__log = (msg, format) => console.log(msg, format);
 //const console__dir = (obj1) => console.dir(obj1);
 
+const console___log___temp = (msg, format) => console.log(msg, format);
+const console___dir___temp = (msg) => console.dir(msg);
+
 const console__log = (msg, format:string='color:yellow;font-size:24pt;') => { };
 const console__dir = (obj1) => { };
 
@@ -278,7 +281,16 @@ class ssn_SignalR_util_React {
             global.listOfJobs_global_React = new Array<ISignalR_MessageRecord>();
         }
 
-        global.listOfJobs_global_React.push(signalR_MessageRecord);
+        let foundJob = global.listOfJobs_global_React .find(r => r.callSource == signalR_MessageRecord.callSource)
+
+        if (foundJob == null) {
+            console___log___temp('%c ' + "ssn_SignalR_Util_React - Adding job ", 'font-size:12pt;color:pink;');
+            global.listOfJobs_global_React.push(signalR_MessageRecord);
+            console___dir___temp(signalR_MessageRecord)
+        } else {
+            console___log___temp('%c ' + "ssn_SignalR_Util_React - Job was already added", 'font-size:24pt;color:red;');
+            console___dir___temp(signalR_MessageRecord)
+        }
 
         console__log('global.listOfJobs_global_React.length:');
         console__log(global.listOfJobs_global_React.length);

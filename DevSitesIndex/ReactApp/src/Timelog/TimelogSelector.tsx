@@ -220,7 +220,7 @@ const TimelogForm = (props) => {
             let general_Error_Messages: IGeneral_Error_Message[] = new Array<General_Error_Message>();
             general_Error_Messages.push(new General_Error_Message("Not logged in!", true));
             setErrors({ general_Error: general_Error_Messages });
-            toast.error("Login is required.");
+            toast.info("Login is required.");
             return false;
         }
 
@@ -434,7 +434,10 @@ const TimelogForm = (props) => {
                                 <div className="col-sm-10">
                                     {errors && errors.general_Error && errors.general_Error.map((rec, ndx) =>
                                         <span key={ndx} className="cssSpanInfo alert alert-danger">{rec.ErrorMessage}
-                                        {rec.RequestLogin ? <> &nbsp; <a onClick={requestLogin} tabIndex={0}>Login</a></> : ""}
+                                            {rec.RequestLogin ? <> &nbsp; <a
+                                                onClick={requestLogin}
+                                                onKeyPress={requestLogin}
+                                                tabIndex={0}>Login</a></> : ""}
                                     </span>)}
                                     {errors && errors.general_Error_Html && <span className="cssSpanInfo alert alert-danger">{errors.general_Error_Html}</span>}
                                 </div>
