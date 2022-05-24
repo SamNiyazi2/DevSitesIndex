@@ -525,7 +525,8 @@ namespace DevSitesIndex
 
 
                     // 05/12/2022 12:35 pm - SSN - [20220512-1235] Move next to bottom
-                    // await next();
+                    // 05/24/2022 06:50 pm - SSN - [20020524-1850] Moving back up. When calling an invalid url, it's not being captured
+                    await next();
 
 
 
@@ -599,7 +600,8 @@ namespace DevSitesIndex
 
 
                     // 05/12/2022 12:35 pm - SSN - [20220512-1235] Move next to bottom
-                    await next();
+                    // 05/24/2022 06:50 pm - SSN - [20020524-1850] Moving back up. When calling an invalid url, it's not being captured
+                    // await next();
 
 
 
