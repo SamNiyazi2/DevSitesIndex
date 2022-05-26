@@ -49,7 +49,7 @@
     "webpack-cli": "^3.3.12"
   },
   "dependencies": {
-    "@microsoft/signalr": "^6.0.4",
+    "@microsoft/signalr": "^6.0.5",
     "applicationinsights-js": "^1.0.20",
     "karma-typescript": "^5.1.0"
   }
