@@ -81,7 +81,7 @@
     <PackageReference Include="Microsoft.AspNetCore.AzureAppServices.HostingStartup" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
-    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="React.AspNet" Version="3.0.0" />
     <PackageReference Include="SSNSendGridStandardUtil" Version="1.0.2" />
     <PackageReference Include="ssn_20210617_QRCoder.NET" Version="1.0.0" />
