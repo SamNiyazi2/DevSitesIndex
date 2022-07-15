@@ -109,10 +109,13 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-
-
-    @{await Html.RenderPartialAsync("TimesheetAngularScripts");}
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");} 
+@*
+	05/26/2022 07:01 pm - SSN - Needed???
+*@
+    @{
+	@*	await Html.RenderPartialAsync("TimesheetAngularScripts");*@
+}
 
     @*
 	03/21/2022 12:50 pm - SSN - Commented out.
@@ -127,7 +130,10 @@
 *@
 <script src="/webpack_build/bundle_CodeReference_Pages.js" asp-append-version="true"></script>
 
-@*
-	<script src="/webpack_build/bundle_DemoSites_Pages.js" asp-append-version="true"></script>
+@*05/26/2022 07:04 pm - SSN - Includes saveAndStay - Add back in.*@
+<script src="/webpack_build/bundle_DemoSites_Pages.js" asp-append-version="true"></script>
+
+
+@* 
 	<script src="/webpack_build/bundle_TextArea_util_0718.js" asp-append-version="true"></script>
 *@}

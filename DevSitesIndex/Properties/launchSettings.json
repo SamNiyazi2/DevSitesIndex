@@ -25,9 +25,7 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      //"applicationUrl": "http://localhost:56581/",
       "applicationUrl": "http://p3013.nonbs.org:56581/"
-
     },
     "IIS-3": {
       "commandName": "IIS",

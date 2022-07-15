@@ -171,8 +171,28 @@ namespace DevSitesIndex
             services.AddSingleton<IEmailSender, SSNEmailSender>();
 
 
-            string SendGrid_APIKey = Configuration["SendGrid:API_Key"];
-            SSNSendGridStandardUtil.SendGridUtil.APIKey = SendGrid_APIKey;
+
+
+
+
+
+
+
+
+
+            // 07/15/2022 01:33 pm - SSN - [20220715-1333] - [001] - Replace SendGrid API Key
+
+            // string SendGrid_APIKey = Configuration["SendGrid:API_Key"];
+            // Set in 
+            // "C:\Windows\System32\inetsrv\config\applicationHost.config"
+            // Reference 07/15/2022 04:36 pm - SSN - [20220715-1333] - [005]
+
+            string SendGrid_APIKey_v02 = Environment.GetEnvironmentVariable("SendGrid_SSN_API_Key_v02");
+
+
+            // SSNSendGridStandardUtil.SendGridUtil.APIKey = SendGrid_APIKey;
+            SSNSendGridStandardUtil.SendGridUtil.APIKey = SendGrid_APIKey_v02;
+
             SSNSendGridStandardUtil.SendGridUtil.BCC_Default = Configuration["SendGrid:BBC_Default"];
 
 
@@ -543,8 +563,8 @@ namespace DevSitesIndex
 
 
                         // 05/12/2022 12:35 pm - SSN - [20220512-1235] Move next to bottom
-                        return; 
-                    
+                        return;
+
                     }
 
 
