@@ -269,7 +269,7 @@ export class DashboardComponent implements OnInit {
         Master_Canvas_ID: "testCanvas_202",
         Master_barChartType: 'horizontalBar',
         Master_barChartTitle: "Work hours by Discipline to date",
-        Master_barChartHeight: 400,
+        Master_barChartHeight: 600,
 
         Master_barChartData: {
           labels: workDateArray,

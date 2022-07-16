@@ -1,6 +1,28 @@
 
 .timeChart {
-  height: 340px;
-  max-height: 500px;
-  vertical-align:bottom;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+
+/*
+  // 12/04/2019 05:25 am - SSN - [20191204-0529] - [002] - Working on stablizing chart display
+  https://codepen.io/chartjs/pen/YVWZbz
+  Added class .chart-container
+    Renamed cssBarChart
+*/
+
+.cssBarChart {
+    /* position: relative;*/
+    /*margin: auto;
+    */ /* height: 80vh; */
+    /*max-width: 80vw;*/
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+
+.cssChartRow {
+    max-width: 90vw;
+    margin: auto;
 }

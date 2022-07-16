@@ -1,66 +1,64 @@
+
+
+
 <!-- 10/28/2019 06:01 am - SSN - [20191028-0558] - [003] - Timesheet dashboard -->
-
-
-
 <!--<div class="col-md-6 timeChart">
   <app-bar-chart [barChartData]="barChartData_201"></app-bar-chart>
 </div>-->
-
-
-
 <!--<div class="col-md-6 timeChart">
   <app-line-chart></app-line-chart>
 </div>-->
 
 
 
-<div class="col-md-6 timeChart">
-  <app-pie-chart [pieChartData_input]="pieChartData_SummaryByDiscipline"></app-pie-chart>
+
+
+
+<div class="row cssChartRow">
+
+    <div class="col-md-6 timeChart">
+        <app-pie-chart [pieChartData_input]="pieChartData_SummaryByDiscipline"></app-pie-chart>
+    </div>
+
+
+    <!--
+
+    <div class="col-md-6 timeChart">
+        <app-pie-chart [pieChartData_input]="pieChartData_SummaryByProject"></app-pie-chart>
+    </div>
+
+    -->
+
+
 </div>
 
 
-<div class="col-md-6 timeChart">
-  <app-pie-chart [pieChartData_input]="pieChartData_SummaryByProject"></app-pie-chart>
-</div>
+
 
 
 
 <!--<div class="col-md-6 timeChart">
   <app-bubble-chart></app-bubble-chart>
 </div>-->
-
-
-
-
-
-
-
-
-
-
-
-
 <!-- 10/30/2019 02:41 pm - SSN - [20191030-1054] - [003] - Timesheet dashboard - Weekly work hours summary -->
- 
+<div class="row cssChartRow">
 
-<div class="row">
+    <div class="col-md-12 cssBarChart">
+        <app-bar-chart [barChartData]="barChartData_Timelog_SummaryByWeekAndDiscipline"></app-bar-chart>
+    </div>
 
-  <div class="col-md-12 ">
-    <app-bar-chart [barChartData]="barChartData_Timelog_SummaryByWeekAndDiscipline"></app-bar-chart>
-  </div>
 </div>
 
 
- 
+<div class="row cssChartRow">
 
+    <div class="col-md-12 cssBarChart">
+        <app-bar-chart [barChartData]="barChartData_202"></app-bar-chart>
+    </div>
 
-
-
-<div class="row">
-
-  <div class="col-md-12 ">
-    <app-bar-chart [barChartData]="barChartData_202"></app-bar-chart>
-  </div>
 </div>
+
+
+
 
 
