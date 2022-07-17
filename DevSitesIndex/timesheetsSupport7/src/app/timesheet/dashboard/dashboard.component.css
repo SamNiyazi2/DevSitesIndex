@@ -24,5 +24,7 @@
 
 .cssChartRow {
     max-width: 90vw;
-    margin: auto;
+    margin-left: auto;
+    margin-right: auto;
+
 }
