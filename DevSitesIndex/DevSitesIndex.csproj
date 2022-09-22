@@ -146,6 +146,7 @@
     <None Include="wwwroot\ReactDist\main.js.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SSN_DevSites_DAL_Standard\SSN_DevSites_DAL_Standard.csproj" />
     <ProjectReference Include="..\SSN_TextToImageLib\SSN_TextToImageLib.csproj" />
   </ItemGroup>
   <ItemGroup>

@@ -818,7 +818,7 @@ namespace DevSitesIndex.Entities
             // https://www.learnentityframeworkcore.com/configuration/many-to-many-relationship-configuration
             modelBuilder.Entity<DevSite_Job_LineItem>(entity =>
           {
-           
+
               entity
                     .HasIndex(x => new { x.DevSiteId, x.Job_LineItemId })
                     .HasName("IK_DevSite_Job_LineItem_Unique")
@@ -829,7 +829,7 @@ namespace DevSitesIndex.Entities
                    .WithMany()
                    .HasForeignKey(e2 => e2.FK_UserID)
                    .HasPrincipalKey("PkUserId");
-          
+
           });
         }
 
@@ -957,6 +957,9 @@ namespace DevSitesIndex.Entities
         public virtual DbSet<AspNetUserTokens> AspNetUserTokens { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
         public virtual DbSet<DevSiteCodeReference> DevSiteCodeReference { get; set; }
+
+        // 09/22/2022 08:42 am - SSN - Added
+        public virtual DbSet<RedirectUrl> RedirectUrls { get; set; }
 
 
 

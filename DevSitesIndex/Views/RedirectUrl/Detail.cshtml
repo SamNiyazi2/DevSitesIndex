@@ -1,0 +1,26 @@
+﻿@model RedirectUrlModel
+
+<div style="padding:40px;">
+
+	@if (Model.DisplayBookmarkMessage)
+	{
+
+	 <h4 style="padding:40px 0px 40px 0px">For demonstration purposes only.&nbsp; You can bookmark this page, but please do NOT bookmark the linked page.&nbsp; The address may change in the future.</h4>
+	}
+
+
+	@if (!string.IsNullOrWhiteSpace(Model.Url))
+	{
+
+	 <h4><a href="@Model.Url">@Model.UrlText</a></h4>
+	 <p style="padding:20px 40px 40px 40px">@Model.UrlDetail</p>
+	}
+
+
+	@if (!string.IsNullOrWhiteSpace(Model.Message))
+	{
+	 <p class="@Model.MessageClassName">@Model.Message</p>
+	}
+ 
+
+</div>
