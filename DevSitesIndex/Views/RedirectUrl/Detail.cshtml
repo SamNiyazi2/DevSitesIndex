@@ -12,7 +12,13 @@
 	@if (!string.IsNullOrWhiteSpace(Model.Url))
 	{
 
-	 <h4><a href="@Model.Url">@Model.UrlText</a></h4>
+	 <h4><a href="@Model.Url" target="@Model.WindowName">@Model.UrlText</a></h4>
+	 <p style="padding:20px 40px 40px 40px">@Model.UrlDetail</p>
+	}
+	else
+	{
+		@*  We disable the link if it was disabled but we do need to display what the link was for. *@
+	 <h4>@Model.UrlText</h4>
 	 <p style="padding:20px 40px 40px 40px">@Model.UrlDetail</p>
 	}
 
@@ -21,6 +27,6 @@
 	{
 	 <p class="@Model.MessageClassName">@Model.Message</p>
 	}
- 
+
 
 </div>

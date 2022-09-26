@@ -31,7 +31,8 @@ namespace DevSitesIndex.Controllers
         public IActionResult GetCurrentAddress(string id)
         {
             Guid guid = Guid.NewGuid();
-
+            
+            
             RedirectUrlModel model = new RedirectUrlModel();
 
             if (Guid.TryParse(id, out guid))
@@ -42,28 +43,39 @@ namespace DevSitesIndex.Controllers
 
                     model.HasExpired = rec.DateDisabled.HasValue;
 
-                    if (!rec.DateDisabled.HasValue)
+                    ViewData["Title"] = "Redirect Request";
+
+                    if (!string.IsNullOrWhiteSpace( rec.UrlText))
                     {
-                        logger.TrackEvent($"DevSitesIndex-20220922-0853:  RedirectURL:   Calling RedicrectUrl [${guid}]");
-                        model.Url = rec.Url;
+                        ViewData["Title"] = rec.UrlText.Trim();
+                    }
 
-                        model.UrlText = string.IsNullOrEmpty(rec.UrlText) ? rec.Url : rec.UrlText;
-                        model.UrlDetail = rec.UrlDetail;
+                    // We want to display the text and detail whether we offer a link or not (Disabled).
+                    model.UrlText = string.IsNullOrEmpty(rec.UrlText) ? rec.Url : rec.UrlText;
+                    model.UrlDetail = rec.UrlDetail;
 
-                        model.DisplayBookmarkMessage = true;
+                    if (rec.DateDisabled.HasValue && rec.DateDisabled < DateTime.Now)
+                    {
+                        logger.TrackEvent($"DevSitesIndex-20220922-1029:  RedirectURL:   Expired record [{guid}]");
+                        model.Message = "The option selected has expired.";
+                        model.MessageClassName = "text-info";
                     }
                     else
                     {
-                        logger.TrackEvent($"DevSitesIndex-20220922-1029:  RedirectURL:   Expired record [${guid}]");
-                        model.Message = "The option selected has expired.";
-                        model.MessageClassName = "text-info";
 
+                        logger.TrackEvent($"DevSitesIndex-20220922-0853:  RedirectURL:   Calling RedicrectUrl [{guid}]");
+                        model.Url = rec.Url;
+
+                        model.WindowName = string.Format("win_{0}", rec.ID.ToString().Replace("-", ""));
+                        model.DisplayBookmarkMessage = true;
 
                     }
                 }
                 else
                 {
-                    logger.TrackEvent($"DevSitesIndex-20220922-0916:  RedirectURL:   Blank or null URL [${guid}]");
+                    ViewData["Title"] = "Invalid Address";
+
+                    logger.TrackEvent($"DevSitesIndex-20220922-0916:  RedirectURL:   Blank or null URL [{guid}]");
                     model.Message = "Failed to find address selected.";
                     model.MessageClassName = "text-danger";
                 }
@@ -76,6 +88,7 @@ namespace DevSitesIndex.Controllers
                 model.MessageClassName = "text-danger";
             }
 
+            
             return View("detail", model);
 
 

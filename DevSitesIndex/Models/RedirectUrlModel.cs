@@ -18,5 +18,7 @@ namespace DevSitesIndex.Models
         public bool HasExpired { get; set; }
 
         public bool DisplayBookmarkMessage { get; set; }
+
+        public string WindowName { get; set; }
     }
 }
