@@ -28,12 +28,12 @@ export const DevSiteTimeLogDeleteOption = (props) => {
     const [showLoginPrompt, setShowLoginPrompt] = useState(false);
 
     const confirmInputRef = useRef(null);
-     
-     
+
+
 
     useEffect(() => {
 
-        console__log('%c ' + 'DevSiteTimelogDelete.tsc - 20220520-1430 - useEffect confirmDelete', 'color:red;font-size:12px;');
+        //   console__log('%c ' + 'DevSiteTimelogDelete.tsc - 20220520-1430 - useEffect confirmDelete', 'color:red;font-size:12px;');
 
         if (confirmDelete) {
 
@@ -47,7 +47,7 @@ export const DevSiteTimeLogDeleteOption = (props) => {
 
     useEffect(() => {
 
-        console__log('%c ' + 'DevSiteTimelogDelete.tsc - 20220520-1431 - useEffect props.reverseConfirmOption', 'color:red;font-size:12px;');
+        // console__log('%c ' + 'DevSiteTimelogDelete.tsc - 20220520-1431 - useEffect props.reverseConfirmOption', 'color:red;font-size:12px;');
 
         if (
 
@@ -82,7 +82,7 @@ export const DevSiteTimeLogDeleteOption = (props) => {
         console__dir(e);
 
         AuthenticateUser_util.componentRequestForLogin(e, 'DevSiteTimelogDelete.tsc - 20220512-2150', handlerUserLoggedIn);
-          
+
     }
 
 
@@ -175,18 +175,18 @@ export const DevSiteTimeLogDeleteOption = (props) => {
 
             {!confirmDelete
                 && (
-                <i tabIndex={0}
+                    <i tabIndex={0}
 
-                    onClick={() => {
-                        setConfirmDelete(props.devSite_Job_LineitemId);
-                        setTimeout(() => confirmInputRef.current.focus(), 500);
-                    }}
-                    onKeyPress={() => {
-                        setConfirmDelete(props.devSite_Job_LineitemId);
-                        setTimeout(() => confirmInputRef.current.focus(), 500);
-                    }}
+                        onClick={() => {
+                            setConfirmDelete(props.devSite_Job_LineitemId);
+                            setTimeout(() => confirmInputRef.current.focus(), 500);
+                        }}
+                        onKeyPress={() => {
+                            setConfirmDelete(props.devSite_Job_LineitemId);
+                            setTimeout(() => confirmInputRef.current.focus(), 500);
+                        }}
 
-                    title="Remove association"
+                        title="Remove association"
                         className="glyphicon glyphicon-remove cssGlyphicon" >
                     </i>)
             }
@@ -215,8 +215,8 @@ export const DevSiteTimeLogDeleteOption = (props) => {
                             &nbsp;
 
                             <button className="btn btn-sm  btn-danger"
-                            onClick={(e) => deleteRecord(props.devSite_Job_LineitemId)}
-                            onKeyPress={(e) => deleteRecord(props.devSite_Job_LineitemId)}
+                                onClick={(e) => deleteRecord(props.devSite_Job_LineitemId)}
+                                onKeyPress={(e) => deleteRecord(props.devSite_Job_LineitemId)}
                             >
                                 Delete
                             </button >
@@ -228,17 +228,17 @@ export const DevSiteTimeLogDeleteOption = (props) => {
                             {errors &&
                                 (
                                     <>
-                                        {errors.map(  (val, ndx) =>  
-                                                <span style={{ marginRight: 10, marginLeft: 10, padding: 2 }}
-                                                    key={ndx}
-                                                    className="alert alert-danger alert-sm">
+                                        {errors.map((val, ndx) =>
+                                            <span style={{ marginRight: 10, marginLeft: 10, padding: 2 }}
+                                                key={ndx}
+                                                className="alert alert-danger alert-sm">
 
                                                 {val.message} {showLoginPrompt && <a
                                                     onClick={requestLogin}
                                                     onKeyPress={requestLogin}
                                                     tabIndex={0}>Login</a>}
 
-                                                </span> 
+                                            </span>
                                         )}
                                     </>
                                 )

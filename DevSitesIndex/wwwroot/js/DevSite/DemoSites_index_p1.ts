@@ -18,13 +18,13 @@ import * as util from '../../js/site_v02';
 import * as angular from 'angular';
 
 // 05/06/2022 06:21 pm - SSN - [20220506-0327] - [011] - SignalR Hub 
-import {  ssn_SignalR_util_instance } from '../Util/SignalR/ssn_SignalR_util';
+import { ssn_SignalR_util_instance } from '../Util/SignalR/ssn_SignalR_util';
 import { SignalR_MessageRecord } from '../Util/SignalR/SignalR_MessageRecord';
 import { SIGNALR_CONSTANTS } from '../Util/SignalR/SignalR_Constants';
 
 
 
-  
+
 const CURRENT_PAGE_NO = 1; // for testing
 const RECORDS_PER_PAGE = 4;
 
@@ -99,14 +99,8 @@ var demosites_index_p1_instance = function () {
                 //    behavior: 'smooth'
                 //});
 
-                const topTitle = document.querySelector('#topTitle');
-                // Not applied in P2 * P3.
-                if (topTitle) {
+                self.scrollIntoView_local();
 
-                    topTitle.scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                }
 
 
                 // 06/29/2021 07:38 am - SSN - Testing filtering out elements for populating devsite tags
@@ -150,6 +144,22 @@ var demosites_index_p1_instance = function () {
             });
 
         }
+
+
+        // 09/27/2022 05:07 pm - SSN - Refactor for sharing with add paging for search
+        this.scrollIntoView_local = function () {
+
+            const topTitle = document.querySelector('#topTitle');
+            // Not applied in P2 * P3.
+            if (topTitle) {
+
+                topTitle.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
+
+        }
+
 
 
         // 08/16/2019 04:25 pm - SSN - [20190816-1625] - [001] - Correct logic for getting record count to show no search results message
@@ -232,7 +242,21 @@ var demosites_index_p1_instance = function () {
 
             self.recordsPerPage_KO(self.SelectedRecordsPerPage_KO())
 
-            self.loadData(self.SelectedRecordsPerPage_KO(), self.currentPage_KO());
+
+
+            // 09/27/2022 01:30 pm - SSN - Adding paging to search option
+            let searchText = self.SearchText_KO();
+
+            console.log('%c ' + '20220927-1712', 'color:yellow;font-size:12pt;');
+            console.log('searchText:');
+            console.log(searchText);
+
+
+            if (searchText != '' && searchText != undefined) {
+                this.onSubmitDemoSiteSearch_util();
+            } else {
+                self.loadData(self.SelectedRecordsPerPage_KO(), self.currentPage_KO());
+            }
 
 
 
@@ -330,10 +354,6 @@ var demosites_index_p1_instance = function () {
             self.loadData(self.recordsPerPage_KO(), self.currentPage_KO());
 
 
-
-            console.log('%c ' + 'XXXXXXXXXXXXXX-20220422-2139-D', 'color:yellow;font-size:12pt');
-
-
             self.applyDisplayRequirements();
 
             self.updateAngularJSParts();
@@ -361,9 +381,9 @@ var demosites_index_p1_instance = function () {
 
         // 05/06/2022 07:06 am - SSN - [20220506-0327] - [009] - SignalR Hub
 
-        this.updateReactComponents = (callSource:string) => {
+        this.updateReactComponents = (callSource: string) => {
 
-            console.log('%c ' + `SignalR-DemoSites_index-updateReactComponents - 20220506-0803-send-message [${callSource}]`, 'color:yellow;font-size:18pt;');
+            console.log('%c ' + `SignalR-DemoSites_index-updateReactComponents - 20220506-0803-send-message [${callSource}]`, 'color:yellow;font-size:10pt;');
 
 
             const rec = new SignalR_MessageRecord();
@@ -423,7 +443,10 @@ var demosites_index_p1_instance = function () {
 
             self.SearchResultsFeedback_KO('');
             self.SearchResultsFeedback_ClassName_KO('');
-            self.devSitesCount_KO(-2);
+
+            // 09/27/2022 01:01 pm - SSN - Adding paging to search option.  Take out.
+            // self.devSitesCount_KO(-2);
+            self.devSitesCount_KO(0);
 
 
             if (searchText === undefined) {
@@ -444,9 +467,21 @@ var demosites_index_p1_instance = function () {
 
             }
 
+            self.currentPage_KO(1);
+            this.onSubmitDemoSiteSearch_util();
+        }
+
+
+        // 09/27/2022 04:57 pm - SSN - Break out to use with the added paging feature.
+        this.onSubmitDemoSiteSearch_util = function () {
+
+
+            // 09/27/2022 12:43 pm - SSN - Add RecordsPerpage and CurrentPage
 
             var data_pre = {
-                "SearchText": self.SearchText_KO()
+                "SearchText": self.SearchText_KO(),
+                "RecordsPerPage": self.SelectedRecordsPerPage_KO(),
+                "CurrentPage": self.currentPage_KO()
             };
 
             var data = JSON.stringify(data_pre);
@@ -464,19 +499,27 @@ var demosites_index_p1_instance = function () {
                 dataType: 'json'
             }).done(function (response) {
 
+
                 self.devSitesJSON.removeAll();
-                self.devSitesJSON(response);
+                self.devSitesJSON(response.devSite_Combo);
+
+
+                self.scrollIntoView_local();
+
+
+
+
+                self.devSitesCount_KO(response.sqlStatsRecord.totalRecordCount);
 
                 self.SearchResultsFeedback_KO('');
                 self.SearchResultsFeedback_ClassName_KO("");
+
 
                 if (response.length === 0) {
                     self.SearchResultsFeedback_KO('Search returned no records.');
                     self.SearchResultsFeedback_ClassName_KO("alert-warning");
                 }
 
-
-                console.log('%c ' + 'XXXXXXXXXXXXXX-20220422-2139-B', 'color:yellow;font-size:12pt');
 
                 self.applyDisplayRequirements();
 
@@ -557,7 +600,7 @@ var demosites_index_p1_instance = function () {
     ko.applyBindings(vm);
 
     vm.loadData(vm.recordsPerPage_KO(), vm.currentPage_KO());
-      
+
 
 }();
 

@@ -39,10 +39,10 @@ import { AuthenticateUser_util } from "../Users/AuthenticateUser_util";
 const TimelogForm = (props) => {
 
 
-    console.log('%c ' + 'TimelogSelector - 20220504-1554', 'color:blue;font-size:12pt;');
+    //console.log('%c ' + 'TimelogSelector - 20220504-1554', 'color:blue;font-size:12pt;');
 
-    console.log('props.devSiteId:');
-    console.log(props.devSiteId);
+    //console.log('props.devSiteId:');
+    //console.log(props.devSiteId);
 
 
 
@@ -137,7 +137,7 @@ const TimelogForm = (props) => {
 
         let timeoutID = null;
 
-        console.log('%c ' + `TimelogSelector - 20220516-1933 - useEffect modalIsOpen [${modalIsOpen}]`, 'font-size:12pt;color:blue;');
+        //  console.log('%c ' + `TimelogSelector - 20220516-1933 - useEffect modalIsOpen [${modalIsOpen}]`, 'font-size:12pt;color:blue;');
 
         if (modalIsOpen) {
             getProjectsData();
@@ -277,14 +277,14 @@ const TimelogForm = (props) => {
         AuthenticateUser_util.componentRequestForLogin(e, 'TimelogSelector-20220520-1610', handlerUserLoggedIn);
 
 
-    //    const rec = new SignalR_MessageRecord();
-    //    rec.callSource = 'TimelogSelector-202205161442';
-    //    rec.processorName = SIGNALR_CONSTANTS.PROCESSOR_NAME.REACTJS;
-    //    rec.dateTime = new Date();
-    //    rec.message = SIGNALR_CONSTANTS.REQUEST_LOGIN;
-    //    rec.user = "SamN";
-    //    rec.forCurrentConnetionOnly = true;
-    //    ssn_SignalR_util_React_instance.sendSignalRMessage_v2(rec);
+        //    const rec = new SignalR_MessageRecord();
+        //    rec.callSource = 'TimelogSelector-202205161442';
+        //    rec.processorName = SIGNALR_CONSTANTS.PROCESSOR_NAME.REACTJS;
+        //    rec.dateTime = new Date();
+        //    rec.message = SIGNALR_CONSTANTS.REQUEST_LOGIN;
+        //    rec.user = "SamN";
+        //    rec.forCurrentConnetionOnly = true;
+        //    ssn_SignalR_util_React_instance.sendSignalRMessage_v2(rec);
     }
 
 
@@ -296,7 +296,7 @@ const TimelogForm = (props) => {
         event.preventDefault();
 
         if (!formIsValid()) return;
-         
+
 
         saveRecord().then((result) => {
 
@@ -316,7 +316,7 @@ const TimelogForm = (props) => {
 
 
         }).catch(error => {
-             
+
 
             console.log('%c ' + 'DevSiteIndex - TimelogSelected - Failed save 20220502-1610', 'font-size:24pt;color:red;');
             console.dir(error);
@@ -438,7 +438,7 @@ const TimelogForm = (props) => {
                                                 onClick={requestLogin}
                                                 onKeyPress={requestLogin}
                                                 tabIndex={0}>Login</a></> : ""}
-                                    </span>)}
+                                        </span>)}
                                     {errors && errors.general_Error_Html && <span className="cssSpanInfo alert alert-danger">{errors.general_Error_Html}</span>}
                                 </div>
                                 <div className="col-sm-2">

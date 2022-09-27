@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DevSitesIndex.Entities;
+using DevSitesIndex.Models;
+using DevSitesIndex.Util;
 using Microsoft.EntityFrameworkCore;
+using SSN_GenUtil_StandardLib;
 
 // 07/29/2018 03:45 pm - SSN - Copied
 
@@ -12,10 +15,13 @@ namespace DevSitesIndex.Services
     public class DevSitesIndexRepository : IDevSitesIndexRepository
     {
         private readonly DevSitesIndexContext _context;
+        private readonly ILogger_SSN logger;
 
-        public DevSitesIndexRepository(DevSitesIndexContext context)
+        // 09/27/2022 01:44 pm - SSN - Add logger
+        public DevSitesIndexRepository(DevSitesIndexContext context, ILogger_SSN logger)
         {
             this._context = context;
+            this.logger = logger;
         }
 
 
@@ -42,28 +48,93 @@ namespace DevSitesIndex.Services
         }
 
 
-
         // 08/12/2019 08:25 pm - SSN - [20190812-2024] - [001] - DevSites FullText search
-        public async Task<IEnumerable<DevSite>> GetDevSites(string searchText)
+        // 09/27/2022 12:36 pm - SSN - Replcae searchText with searchObj
+        // public async Task<IEnumerable<DevSite>> GetDevSites(string searchText)
+        public async Task<IEnumerable<DevSite>> GetDevSites_v01(SearchObj searchObj)
         {
+            var searchText = searchObj?.SearchText ?? "";
 
             // 06/14/2021 04:17 pm - SSN - [20210613-0452] - [029] - Adding tags to DevSite
             // var devSites = await _context.DevSites.FromSql("DemoSites.DevSites_FullTextSearch {0}", searchText).AsNoTracking().ToListAsync<DevSite>();
 
             // List<int> listDevSites2 = _context.DevSites.FromSql("DemoSites.DevSites_FullTextSearch {0}", searchText).Select(r => r.Id).ToList();
-            var devSites_a = await _context.DevSites.FromSql("DemoSites.DevSites_FullTextSearch {0}", searchText).AsNoTracking().ToListAsync<DevSite>();
+            var devSites_a = await _context.DevSites.FromSql("DemoSites.DevSites_FullTextSearch {0}, {1}, {2}", searchText, searchObj.RecordsPerPage, searchObj.CurrentPage).AsNoTracking().ToListAsync<DevSite>();
 
             List<int> listDevSites2 = devSites_a.Select(r => r.Id).ToList();
 
-            var devSites = _context.DevSites.Join (listDevSites2, r1 => r1.Id, r2 => r2, (target, source) => target)
+            var devSites = _context.DevSites.Join(listDevSites2, r1 => r1.Id, r2 => r2, (target, source) => target)
                             .Include(r => r.DevSiteTechnologies).ThenInclude(r2 => r2.Technology)
                             .OrderByDescending(r => r.LastActivityDate).AsNoTracking().ToList();
-
-
 
             return devSites;
         }
 
+
+        // 09/27/2022 01:41 pm - SSN - Adding paging to search option
+        public async Task<DataBag<DevSite>> GetDevSites_v02(SearchObj searchObj)
+        {
+
+            DataBag<DevSite> databag = new DataBag<DevSite>();
+
+            try
+            {
+
+
+                SqlStatsRecord SqlStatsRecord_temp = new SqlStatsRecord();
+
+                SqlStatsRecord_temp.RecordsPerPage_Default = searchObj.RecordsPerPage;
+                SqlStatsRecord_temp.CurrentPageNo = searchObj.CurrentPage;
+
+
+                Util.ExecuteStoredProcedure exec = new Util.ExecuteStoredProcedure(_context, logger);
+
+                exec.LoadStoredProc("demosites.DevSites_FullTextSearch");
+
+                exec.WithSqlParam("@searchTerm", searchObj.SearchText);
+                exec.WithSqlParam("@recordsPerPage", SqlStatsRecord_temp.RecordsPerPage);
+                exec.WithSqlParam("@currentPage", SqlStatsRecord_temp.CurrentPageNo);
+
+
+                var result1_data = await exec.GetResultSet_v02<DevSite>();
+                IList<SqlStatsRecord> result2_Stats = await exec.GetResultSet_v02<SqlStatsRecord>();
+
+                List<int> listDevSites2 = result1_data.Select(r => r.Id).ToList();
+
+
+                var devSites = _context.DevSites.Join(listDevSites2, r1 => r1.Id, r2 => r2, (target, source) => target)
+                                .Include(r => r.DevSiteTechnologies).ThenInclude(r2 => r2.Technology)
+                                .OrderByDescending(r => r.LastActivityDate);
+
+
+
+                SqlStatsRecord sqlStatsRecord = null;
+
+                if (result2_Stats.Count() == 0)
+                {
+                    await logger.PostException(new Exception { Source = "DevSitesIndexRepository" }, "20220927-1348", "Procedure did not return a second result set of table/page stats.");
+                    sqlStatsRecord = new SqlStatsRecord();
+                }
+                else
+                {
+                    sqlStatsRecord = result2_Stats.FirstOrDefault();
+                }
+
+                exec.CloseConnection();
+
+                databag = new DataBag<DevSite> { dataList = devSites.ToList(), sqlStatsRecord = sqlStatsRecord };
+            }
+            catch (Exception ex)
+            {
+
+                databag.addToBagModelError("", ExceptionHandling_MessageToUser.getBasicMessage_asHtml("20191127-1641", ex));
+
+                await logger.PostException(ex, "20191127-1640", "Failed call to get jobs.");
+
+            }
+
+            return databag;
+        }
 
         // 06/13/2021 10:25 am - SSN - [20210613-0452] - [017] - Adding tags to DevSite
         public int GetDevSitesCount()

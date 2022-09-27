@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using DevSitesIndex.Entities;
 using DevSitesIndex.Models;
 using DevSitesIndex.Services;
+using DevSitesIndex.Util;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,7 +23,7 @@ namespace DevSitesIndex.Controllers
 
         public DemoSitesAPIController(IDevSitesIndexRepository devSitesIndexRepository)
         {
-            _devSitesIndexRepository = devSitesIndexRepository;       
+            _devSitesIndexRepository = devSitesIndexRepository;
         }
 
         private readonly IDevSitesIndexRepository _devSitesIndexRepository;
@@ -43,7 +44,7 @@ namespace DevSitesIndex.Controllers
             currentPage = currentPage < 1 ? 1 : currentPage;
 
             // 04/27/2022 03:54 pm - SSN - [20220427-1524] - [006] - Add DTO for devSitesTechnologies
-        
+
             // IEnumerable<DevSite> devSites_1 = _devSitesIndexRepository.GetDevSites(recordsPerPage, currentPage);
 
 
@@ -79,7 +80,7 @@ namespace DevSitesIndex.Controllers
 
             // 04/27/2022 04:01 pm - SSN - [20220427-1524] - [007] - Add DTO for devSitesTechnologies
             // IEnumerable<DevSite> devSites_1 = Get(_recordCount, 1);
-            List<DevSite_Combo> devSite_combos =  Get(_recordCount, 1) ;
+            List<DevSite_Combo> devSite_combos = Get(_recordCount, 1);
 
             // Redundant
             //////////////////if (recordCount.HasValue)
@@ -98,12 +99,6 @@ namespace DevSitesIndex.Controllers
         }
 
 
-        // 08/12/2019 06:10 am - SSN - [20190812-0515] - [008] - Apply fulltext search
-        // Add SearchText
-        public class SearchObj
-        {
-            public string SearchText { get; set; }
-        }
         [Route("/api/demositesapi/Search")]
         // 04/13/2022 07:43 am - SSN - Add authorize
         // 04/27/2022 06:08 am - SSN - Why authorize public access page?
@@ -113,21 +108,29 @@ namespace DevSitesIndex.Controllers
         //public async Task<IEnumerable<DevSite>> SearchAsync([FromBody] SearchObj obj1)
         // 04/27/2022 07:20 pm - SSN - [20220427-1524] - [008] - Add DTO for devSitesTechnologies
         //public async Task<ActionResult<IEnumerable<DevSite>>> SearchAsync([FromBody] SearchObj obj1)
-        public async Task<ActionResult<IEnumerable<DevSite_Combo>>> SearchAsync([FromBody] SearchObj obj1)
+        // 09/27/2022 02:36 pm - SSN - Adding paging to search option
+        // public async Task<ActionResult<IEnumerable<DevSite_Combo>>> SearchAsync([FromBody] SearchObj searchObj)
+        public async Task<ActionResult<DevSiteSearchResult_DTO>> SearchAsync([FromBody] SearchObj searchObj)
         {
 
             try
             {
 
-                var searchText = obj1?.SearchText ?? "";
-
                 // 04/27/2022 07:20 pm - SSN - [20220427-1524] - [008] - Add DTO for devSitesTechnologies
                 // IEnumerable<DevSite> devSites_1 = await _devSitesIndexRepository.GetDevSites(searchText);
 
-                List<DevSite_Combo> devSite_combos = DevSite_Combo.devSites_input( await _devSitesIndexRepository.GetDevSites(searchText));
-                
-                //return Ok(devSites_1);
-                return Ok(devSite_combos);
+                // 09/27/2022 02:34 pm - SSN - Adding paging to search option
+                DataBag<DevSite> searchResultData = await _devSitesIndexRepository.GetDevSites_v02(searchObj);
+
+                List<DevSite_Combo> devSite_combos = DevSite_Combo.devSites_input(searchResultData.dataList);
+
+                DevSiteSearchResult_DTO dto = new DevSiteSearchResult_DTO();
+                dto.devSite_Combo = devSite_combos;
+                dto.SqlStatsRecord = searchResultData.sqlStatsRecord;
+
+                // return Ok(devSites_1);
+                // return Ok(devSite_combos);
+                return Ok(dto);
             }
             catch (Exception ex)
             {

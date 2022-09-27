@@ -3,7 +3,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iis": {
-      "applicationUrl": "http://p3013.nonbs.org:3013",
+      "applicationUrl": "http://p3013.nonbs.com:3013",
       "sslPort": 0
     },
     "iisExpress": {

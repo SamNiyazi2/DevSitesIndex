@@ -33,7 +33,7 @@ export function StaticModal(props) {
     const [show, setShow] = useState(props.promptToOpen === "");
 
 
-    console.log('%c ' + `StaticModal.tsx - 20220515-1254 -   defaultShowSetting: [${defaultShowSetting}]  show: [${show}]`, 'font-size:12pt;color:green');
+    //console.log('%c ' + `StaticModal.tsx - 20220515-1254 -   defaultShowSetting: [${defaultShowSetting}]  show: [${show}]`, 'font-size:12pt;color:green');
 
 
 
@@ -47,7 +47,7 @@ export function StaticModal(props) {
     //        console.log('%c ' + `StaticModal.tsx - 20220516-1642 - useEffect modalZIndex [${modalZIndex}]`, 'font-size:16pt;color:red');
 
     //        setModalFirstCall(true);
-            
+
     //    }
 
     //}, [modalFirstCall])
@@ -56,10 +56,10 @@ export function StaticModal(props) {
 
     useEffect(() => {
 
-        console.log('%c ' + `StaticModal.tsx - 20220513-1531 - useEffect show [${show}]   props.setModalIsOpen  `, 'font-size:12pt;color:yellow');
+        // console.log('%c ' + `StaticModal.tsx - 20220513-1531 - useEffect show [${show}]   props.setModalIsOpen  `, 'font-size:12pt;color:yellow');
 
         if (props.setModalIsOpen) {
-            console.log('%c ' + `StaticModal.tsx - 20220517-0314 - useEffect - call   props.setModalIsOpen  to value of show = [${show}] `, 'font-size:24pt;color:red');
+            // console.log('%c ' + `StaticModal.tsx - 20220517-0314 - useEffect - call   props.setModalIsOpen  to value of show = [${show}] `, 'font-size:24pt;color:red');
             props.setModalIsOpen(show);
         }
 
@@ -86,16 +86,16 @@ export function StaticModal(props) {
 
     useEffect(() => {
 
-        console.log('%c ' + 'StaticModal.tsx - 20220513-1523 - useEffect closeModal_React ', 'font-size:12pt;color:yellow');
-        console.log('props.closeModal_React:');
-        console.dir(props.closeModal_React);
+        //console.log('%c ' + 'StaticModal.tsx - 20220513-1523 - useEffect closeModal_React ', 'font-size:12pt;color:yellow');
+        //console.log('props.closeModal_React:');
+        //console.dir(props.closeModal_React);
 
-        console.log('props.modalIsOpen:');
-        console.dir(props.modalIsOpen);
+        //console.log('props.modalIsOpen:');
+        //console.dir(props.modalIsOpen);
 
 
         if (props.closeModal_React != undefined && (props.modalIsOpen == undefined || props.modalIsOpen && props.modalIsOpen == true)) {
-            console.log('%c ' + `StaticModal.tsx - 20220517-0311-A - useEffect closeModal_React: [${props.closeModal_React }]`, 'font-size:24pt;color:red');
+            // console.log('%c ' + `StaticModal.tsx - 20220517-0311-A - useEffect closeModal_React: [${props.closeModal_React }]`, 'font-size:24pt;color:red');
             if (props.closeModal_React) {
                 handleClose();
             }
@@ -177,8 +177,8 @@ export function StaticModal(props) {
                         <div className="modal-content" id={props.thisModalID}>
 
 
-                            <div className="modal-header"> 
-                                {props.title} 
+                            <div className="modal-header">
+                                {props.title}
                             </div>
 
 
@@ -238,7 +238,7 @@ export function StaticModal(props) {
 
 
 StaticModal.propTypes = {
-    thisModalID: PropTypes.string.isRequired, 
+    thisModalID: PropTypes.string.isRequired,
     children: PropTypes.node,
     width: PropTypes.string,
     title: PropTypes.element,
@@ -248,6 +248,6 @@ StaticModal.propTypes = {
     closeModal_React: PropTypes.bool.isRequired,
 
     // To activate action only when modal is open like retreiving data.
-    setModalIsOpen: PropTypes.func.isRequired 
+    setModalIsOpen: PropTypes.func.isRequired
 
 };
