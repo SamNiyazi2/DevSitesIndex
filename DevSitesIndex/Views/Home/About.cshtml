@@ -1,26 +1,17 @@
 ﻿@{
-	ViewData["Title"] = "Development Tracking Website";
+	ViewData["Title"] = "Demo Website";
 }
 <h2>@ViewData["Title"]</h2>
-@*<h3>@ViewData["Message"]</h3>*@
-
-<p>This site is intended to demonstrate what can be accomplished by utilizing the Microsoft technology stack.</p>
-
-<p>The site is an ASP.NET Core 2.2 project hosted on Azure and uses an Azure SQL Server as a backend.</p>
-
-
 
 
 @*
 	// 04/12/2022 12:15 am - SSN - [20220411-2043] - [005] - Add React
 *@
-<div id="ReactContent">
-</div>
 
 <div class="row">
+ <h4>Technologies implemented:</h4>
  <div class="col-sm-6">
   <ul>
-   <h4>Technologies implemented:</h4>
    <li>MVC Views and pages</li>
    <li>Azure SQL</li>
    <li>Entity Framework Core</li>
@@ -34,41 +25,35 @@
   </ul>
 
  </div>
+
+
  <div class="col-sm-6">
-	 <br />
-	 <br />
-	 <br />
+  <br />
+  <br />
+  <br />
   <p><a href="https://github.com/samniyazi2" target="winGitHubRepo">GitHub Repository</a></p>
   <p><a href="https://dev.azure.com/samniyazi/Training%20Track/_build" target="winAzureDevOps">Azure DevOps</a></p>
   <p><a href="https://www.nuget.org/profiles/SamNiyazi" target="winNuGetRepo">NuGet Repository</a></p>
   <p><a href="https://hub.docker.com/u/samniyazi" target="winDockerHub">Docker Hub</a></p>
   <p><a href="https://app.pluralsight.com/profile/sam-niyazi" target="winPluralsight">Pluralsight</a></p>
-  
+
 
  </div>
-</div>
 
-<div class="container">
- <div class="thankYou"
 </div>
 
 
- <br />
- <br />
- <p>Thank you for your interest.</p>
- <p></p>
- <p></p>
 
 
-	@section footer {
+@section footer {
 	@*<div style="float:right"><small>20210620-0620</small></div>*@
 	}
 
-	@section Scripts {
+@section Scripts {
 
 	@*
- 	// 04/17/2022 01:49 am - SSN - Moved from _layout.cshtml
+	// 04/17/2022 01:49 am - SSN - Moved from _layout.cshtml
 	*@
-	<script src="~/ReactDist/bundle_react_main.js" asp-append-version="true"></script>
+<script src="~/ReactDist/bundle_react_main.js" asp-append-version="true"></script>
 
 	}
