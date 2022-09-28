@@ -592,6 +592,30 @@ var demosites_index_p1_instance = function () {
         };
 
 
+
+
+        self.SelectedRecordsPerPage_KO.subscribe(function (newValue) {
+            if (newValue > 10) {
+                self.SelectedRecordsPerPage_KO(10);
+            }
+            if (newValue <= 0) {
+                self.SelectedRecordsPerPage_KO(1);
+            }
+        });
+
+         
+        self.currentPage_KO.subscribe(function (newValue) {
+
+            if (newValue > self.totalPageCount()) {
+                self.currentPage_KO(self.totalPageCount());
+            }
+
+            if (newValue <=0  ) {
+                self.currentPage_KO(1);
+            }
+
+        });
+
     };
 
 
