@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using DevSitesIndex.Entities;
 using DevSitesIndex.Models;
@@ -121,6 +122,23 @@ namespace DevSitesIndex.Controllers
 
                 // 09/27/2022 02:34 pm - SSN - Adding paging to search option
                 DataBag<DevSite> searchResultData = await _devSitesIndexRepository.GetDevSites_v02(searchObj);
+
+                // 09/28/2022 02:56 pm - SSN - Check for errors
+                if (searchResultData.hasErrors)
+                {
+                    StringBuilder sb = new StringBuilder();
+
+                    foreach (FeedbackMessage fbmessage in searchResultData.FeedbackMessages)
+                    {
+                        foreach (string message2 in fbmessage.ErrorMessages)
+                        {
+                            sb.AppendLine($"<p>{message2}</p>");
+                        }
+                    }
+
+                    return BadRequest(new { ErrorMessage = $"{sb}" });
+
+                }
 
                 List<DevSite_Combo> devSite_combos = DevSite_Combo.devSites_input(searchResultData.dataList);
 

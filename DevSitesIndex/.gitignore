@@ -273,3 +273,5 @@ __pycache__/
  .\wwwroot\js\Jobs\JobsIndexController.js.map 
 .\wwwroot\js\Timesheet\timesheetclockoutcontroller.js 
 .\wwwroot\js\Timesheet\timesheetclockoutcontroller.js.map 
+
+devsitesindex_*.csproj
