@@ -140,7 +140,9 @@
 @*<div data-bind="visible: devSitesJSON.length == 0">*@
 
 <div class="padded" data-bind="visible: getRecordCount() > 0 ">
- <div>Record count:  <span data-bind="text: getRecordCount() "></span></div>
+ <div>Record count:  <span data-bind="text: getRecordCount() "></span><br />
+<span data-bind="text: displayCurrentPageNumberAndTotalPages()"></span>
+</div>
 </div>
 
 <div data-bind="visible: getRecordCount() ==0 ">
