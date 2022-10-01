@@ -85,7 +85,7 @@
     <PackageReference Include="React.AspNet" Version="3.0.0" />
     <PackageReference Include="SSNSendGridStandardUtil" Version="1.0.2" />
     <PackageReference Include="ssn_20210617_QRCoder.NET" Version="1.0.0" />
-    <PackageReference Include="SSN_DevSites_DAL_Standard" Version="1.0.172" />
+    <PackageReference Include="SSN_DevSites_DAL_Standard" Version="1.0.173" />
     <PackageReference Include="System.Text.Json" Version="5.0.2" />
     <PackageReference Include="toastr" Version="2.1.1" />
     <PackageReference Include="underscore.js" Version="1.8.3" />
