@@ -16,12 +16,20 @@ import { App } from "./components/App";
 
 const container = document.getElementById("ReactContent")
 
-// 04/16/2022 11:59 pm - SSN - [20220416-2359] - [002] - Replace ReactDOM.render with  createRoot root.render 
+// 04/16/2022 11:59 pm - SSN - [20220416-2359] - [002] - Replace ReactDOM.render with  createRoot root.render
 // ReactDOM.render(
-const root = createRoot(container);
-root.render(
-// [20220416-2359] - [002] - End
-	 
-	<App /> 
-	//document.getElementById("ReactContent")
-);
+
+// 11/17/2022 10:52 pm - SSN - Check container
+if (container) {
+
+    const root = createRoot(container);
+
+
+    root.render(
+        // [20220416-2359] - [002] - End
+
+        <App />
+        //document.getElementById("ReactContent")
+    );
+
+}

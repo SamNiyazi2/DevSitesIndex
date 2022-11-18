@@ -126,6 +126,9 @@ export const DevSiteTimelogList = (props) => {
             }
 
             <div className="cssTransitionDiv">
+
+              
+
                 <table >
                     <tbody>
                         {
@@ -153,8 +156,21 @@ export const DevSiteTimelogList = (props) => {
                                     </tr>
 
                                 );
-                            })
+                                                                                })
+                            
+
                         }
+
+                        <tr>
+                            <td>
+
+                                {
+                                    timelogData.length>0 ? null: <p className="alert alert-info">No timelog</p>
+                                }
+
+                            </td>
+                        </tr>
+
                     </tbody>
                 </table>
             </div>

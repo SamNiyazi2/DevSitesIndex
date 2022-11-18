@@ -1,0 +1,13 @@
+﻿@model DevSitesIndex.Entities.Job_Lineitem
+@{
+    // 11/17/2022 05:53 pm - SSN - [20221117-1626] - [005] - Add ViewComponent to replace display of JobLineItem (for hyperlink)
+
+    if (Model.DevSite_Job_LineItems != null)
+    {
+        @foreach (DevSitesIndex.Entities.DevSite_Job_LineItem s in Model.DevSite_Job_LineItems)
+        {
+            <a asp-page="/DevSites/Details" asp-route-id="@s.DevSite.Id" target="winDevSite_@(s.DevSite.Id)_">Dev site: [@s.DevSite.SiteTitle]</a>
+        }
+    }
+
+}

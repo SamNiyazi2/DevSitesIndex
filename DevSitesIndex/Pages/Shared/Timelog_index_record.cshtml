@@ -40,6 +40,10 @@
                 @if (Model.timelog.job_Lineitem != null)
                 {
                     <p class="cssLineItemDisplay">@Html.DisplayFor(modelItem => Model.timelog.job_Lineitem.LineItem)</p>
+
+                    // 11/17/2022 05:00 pm - SSN - [20221117-1626] - [002] - Add ViewComponent to replace display of JobLineItem (for hyperlink)
+
+                    @await Component.InvokeAsync("Job_Lineitem", (Model.timelog.job_Lineitem))
                 }
             </td>
         }
