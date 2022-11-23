@@ -49,9 +49,11 @@
 </p>
 
 @*08/12/2019 05:11 am - SSN - [20190812-0345] - [006] - Apply fulltext search *@
-
-@if (Model.DevSites != null)
+@*11/23/2022 03:59 pm - SSN - count > 0*@
+@if (Model.DevSites != null && Model.DevSites.Count > 0)
 {
+    <p>Page @Model.pageIndex_XXXX of @Model.totalPageCount_XXXX</p>
+
     <table class="table">
         <thead>
             <tr>
