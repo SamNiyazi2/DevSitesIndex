@@ -24,19 +24,25 @@
     @{
         if (Model.servingPage == ServingPage.Timelog)
         {
-    <td>
-        <strong>@Html.DisplayFor(modelItem => Model.timelog.job.project.ProjectTitle)</strong><br/>
-        @Html.DisplayFor(modelItem => Model.timelog.job.JobTitle)
-        @if (Model.timelog.job_Lineitem != null)
-        {
-            <p class="cssLineItemDisplay">@Html.DisplayFor(modelItem => Model.timelog.job_Lineitem.LineItem)</p>
-        }
-    </td>
+            <td>
+                <strong>@Html.DisplayFor(modelItem => Model.timelog.job.project.ProjectTitle)</strong><br />
+                @Html.DisplayFor(modelItem => Model.timelog.job.JobTitle)
+                @if (Model.timelog.job_Lineitem != null)
+                {
+
+                    <p class="cssLineItemDisplay">@Html.DisplayFor(modelItem => Model.timelog.job_Lineitem.LineItem)</p>
+                     
+                    //12/03/2022 11:49 pm - SSN - Adding component
+                    @await Component.InvokeAsync("Job_Lineitem", (Model.timelog.job_Lineitem))
+
+                }
+            </td>
         }
 
         if (Model.servingPage == ServingPage.Job_Timelog)
         {
-            <td> 
+            <td>
+               
                 @if (Model.timelog.job_Lineitem != null)
                 {
                     <p class="cssLineItemDisplay">@Html.DisplayFor(modelItem => Model.timelog.job_Lineitem.LineItem)</p>
@@ -97,7 +103,9 @@
 
 
 
-            @{await Html.RenderPartialAsync("Timelog_Row_Options", Model); }
+            @{
+                await Html.RenderPartialAsync("Timelog_Row_Options", Model);
+            }
 
 
         </span>

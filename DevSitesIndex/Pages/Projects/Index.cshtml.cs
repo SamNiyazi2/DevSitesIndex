@@ -124,6 +124,8 @@ namespace DevSitesIndex.Pages.Projects
             {
                 // 11/11/2019 08:11 am - SSN - Update user's message
                 ModelState.AddModelError("searchText", "Invalid search request. Use SQL Server Fulltext syntax.");
+                // 11/26/2022 03:08 pm - SSN - Add ex message
+                ModelState.AddModelError("searchText", ex.Message);
                 await logger.PostException(ex, "DemoSite-20191022-0644", $"Failed search call. Text [{searchText}]");
             }
 
@@ -133,14 +135,14 @@ namespace DevSitesIndex.Pages.Projects
         // 11/08/2019 10:43 am - SSN - [20191108-1043] - [001] - Persisting search on return to index
         private void setReturnToCallerRecord(string searchText, List<SearchTableRecord> searchTables, string columnName, string desc, int? pageIndex)
         {
-            
+
             returnToCallerKey = Guid.NewGuid().ToString();
             ReturnToCaller.QueryStringParts queryStringParts = ReturnToCaller.CreateQueryStringParts();
             queryStringParts.add("searchText_Param", searchText);
             queryStringParts.add("selectedTablesIDs", SearchTableRecord.toQueryStringVariable(searchTables));
             queryStringParts.add("columnName", columnName);
             queryStringParts.add("desc", desc);
-            queryStringParts.add("pageIndex", (pageIndex??0).ToString());
+            queryStringParts.add("pageIndex", (pageIndex ?? 0).ToString());
 
             ReturnToCaller.postReturnToCallerRecord(returnToCallerKey, Request, queryStringParts);
         }

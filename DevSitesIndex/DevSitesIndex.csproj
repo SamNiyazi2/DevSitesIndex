@@ -102,6 +102,7 @@
     <Folder Include="Connected Services\" />
     <Folder Include="node_modules\" />
     <Folder Include="node_modules_hack\" />
+    <Folder Include="Pages\Shared\Components\Job_Lineitem\" />
     <Folder Include="wwwroot\jstest\" />
   </ItemGroup>
   <ItemGroup>
