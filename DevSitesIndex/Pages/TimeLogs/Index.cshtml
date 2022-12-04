@@ -26,9 +26,9 @@
     if (IsAuthenticated)
     {
 
-        <p>
-            <a asp-page="Create">Create New Timelog Record</a>
-        </p>
+    <p>
+                            <a asp-page="Create">Create New Timelog Record</a>
+    </p>
 
     }
 }
@@ -51,7 +51,7 @@
         <ng-content ng-controller="timesheetController_temp">
 
 
-            <i class="glyphicon" ng-class="getFilterContainerClass()" style="font-size:16pt;" ng-click="showFilter = !showFilter"></i>
+            <i class="glyphicon" ng-class="getFilterContainerClass()" style="font-size:16pt;" ng-click="toggleShowFilter()"></i>
 
             <div class="row">
 
@@ -175,7 +175,17 @@
                 $scope.projectID = "@Model.projectID";
                 $scope.jobID = "@Model.jobID";
 
+                // 12/04/2022 12:17 am - SSN - Revise for focus
                 $scope.showFilter = undefined;
+
+                $scope.toggleShowFilter = function () {
+
+                    if ($scope.showFilter == undefined) $scope.showFilter= false;
+                    $scope.showFilter = !$scope.showFilter;
+                     
+                    startDate.focus();
+                }
+
 
                 $scope.getFilterContainerClass = function () {
 
