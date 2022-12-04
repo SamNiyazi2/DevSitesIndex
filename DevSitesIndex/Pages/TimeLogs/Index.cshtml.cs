@@ -204,7 +204,11 @@ namespace DevSitesIndex.Pages.TimeLogs
                 .Include(t => t.discipline)
 
                 // 06/06/2021 02:27 am - SSN - [20210606-0227] - [001] - Testng for deployment
-                .Include(t => t.job_Lineitem)
+                // 11/26/2022 04:16 pm - SSN - Needed to display link to devSite
+                // .Include(t => t.job_Lineitem)
+                
+                .Include( r=>r.job_Lineitem).ThenInclude(r=>r.DevSite_Job_LineItems)
+
 
                 .Include(t => t.job).ThenInclude(t => t.project);
 

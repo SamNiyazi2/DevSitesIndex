@@ -159,7 +159,8 @@ var timesheetContinueController_instance = function () {
 
                             $scope.disableSaveButton = false;
 
-                            console.log(error);
+                            console.log('20221123-2207 - TimesheetContinueController');
+                            console.dir(error);
 
                             // 09/28/2019 03:57 pm - SSN - [20190928-1256] - [009] - Adding Entity Framework model attribute
                             // $uibModalInstance.close();
@@ -168,6 +169,8 @@ var timesheetContinueController_instance = function () {
 
                             $scope.feedbackToUserClassNameCase = 2;
                             $scope.feedbackToUserText = error.data;
+
+
 
                         });
                 }
