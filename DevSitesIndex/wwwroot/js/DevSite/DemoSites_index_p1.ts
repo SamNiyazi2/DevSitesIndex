@@ -603,14 +603,19 @@ var demosites_index_p1_instance = function () {
             }
         });
 
-         
+
         self.currentPage_KO.subscribe(function (newValue) {
 
-            if (newValue > self.totalPageCount()) {
+
+            // 12/0/2022 10:35 pm - SSN - Uncaught RangeError: Maximum call stack size exceeded
+            //   Uncaught RangeError: Maximum call stack size exceeded
+            // Logic error - Check self.totalPageCount() != 0 
+
+            if (newValue > self.totalPageCount() && self.totalPageCount() != 0) {
                 self.currentPage_KO(self.totalPageCount());
             }
 
-            if (newValue <=0  ) {
+            if (newValue <= 0) {
                 self.currentPage_KO(1);
             }
 
