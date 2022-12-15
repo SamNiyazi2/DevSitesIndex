@@ -56,8 +56,9 @@ namespace DevSitesIndex.Areas.Identity.Pages.Account
             {
                 var user = await _userManager.FindByEmailAsync(Input.Email);
 
-
-                if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
+                // 12/15/2022 02:36 am - SSN - Why are we checking for confirmed email
+                //if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
+                if (user == null)
                 {
                     // Don't reveal that the user does not exist or is not confirmed
 
