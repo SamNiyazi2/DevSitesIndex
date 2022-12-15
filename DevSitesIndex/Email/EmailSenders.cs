@@ -68,7 +68,17 @@ namespace DevSitesIndex.Email
 
             if (_env.IsDevelopment())
             {
-                System.IO.File.WriteAllText("ConfirmationLink_20190825a.txt", confirmationEmail);
+                // 12/15/2022 02:59 am - SSN - Added for Azure try/catch when in dev mode
+                string fileName = "ConfirmationLink_20190825a_A.txt";
+                try
+                {
+                    System.IO.File.WriteAllText(fileName, confirmationEmail);
+                }
+                catch (Exception ex)
+                {
+
+                    logger.PostException(ex, $"DemoSite-20221215-0256", $"Failed to write to file [{fileName}]");
+                }
             }
 
             string emailSubject = "Email Confirmation Request";
@@ -96,7 +106,17 @@ namespace DevSitesIndex.Email
 
             if (_env.IsDevelopment())
             {
-                System.IO.File.WriteAllText("ConfirmationLink_20190825a.txt", confirmationEmail);
+                // 12/15/2022 02:59 am - SSN - Added for Azure try/catch when in dev mode
+                string fileName = "ConfirmationLink_20190825a_B.txt";
+
+                try
+                {
+                    System.IO.File.WriteAllText(fileName, confirmationEmail);
+                }
+                catch (Exception ex)
+                {
+                    logger.PostException(ex, $"DemoSite-20221215-0258", $"Failed to write to file [{fileName}]");
+                }
             }
 
             return confirmationEmail;
