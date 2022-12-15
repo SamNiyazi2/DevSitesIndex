@@ -37,10 +37,10 @@ const ssn_AngularJslogger = function () {
                     style += `font-size:${fontSize}px`;
                 }
 
-                console.log("%c-----------------------------", style);
-                console.log("%c" + msg.callSource, style);
-                console.log("%c" + msg.message, style);
-                console.log("%c=============================", style);
+                console.log("%c -----------------------------", style);
+                console.log("%c " + msg.callSource, style);
+                console.log("%c " + msg.message, style);
+                console.log("%c =============================", style);
             }
 
 
@@ -48,12 +48,16 @@ const ssn_AngularJslogger = function () {
 
                 const style = 'color:red;font-size:16px;font-weight:bold;';
 
-                console.log("%c-----------------------------", style);
-                console.log("%c" + callSource, style);
-                console.log("%c" + errorMsg.callSource, style);
-                console.log("%c" + errorMsg.message, style);
-                console.log(errorMsg.errorObject);
-                console.log("%c-----------------------------", style);
+                console.log("%c -----------------------------", style);
+                console.log("%c " + callSource, style);
+                console.log("%c " + errorMsg.callSource, style);
+                console.log("%c " + errorMsg.message, style);
+                console.log('typeof ( errorMsg):');
+                console.log(typeof (errorMsg));
+                console.log('typeof (errorMsg.errorObject):');
+                console.log(typeof (errorMsg.errorObject));
+                console.dir(errorMsg.errorObject);
+                console.log("%c -----------------------------", style);
 
                 // 06/15/2021 08:38 am - SSN - [20210613-0452] - [048] - Adding tags to DevSite
 

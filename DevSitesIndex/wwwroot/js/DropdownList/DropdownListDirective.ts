@@ -395,15 +395,18 @@ var dropdownListDirective_instance = function () {
 
 
                         if (vm.hiddenFieldName) {
+// 12/15/2022 12:47 am - SSN = LineItemNo (adding - not applicable)
+                            if (vm.hiddenFieldName != '-NA-') {
 
-                            $("[name='" + vm.hiddenFieldName + "']").val(args.keyValue);
+                                $("[name='" + vm.hiddenFieldName + "']").val(args.keyValue);
 
-                        } else {
+                            } else {
 
-                            ssn_logger.cl_error({
-                                callSource: '20210617-2154', message: `hiddenFieldName not defined while updating [${args.keyColumn}] vm.CallSource [${vm.callSource}]`
-                            });
+                                ssn_logger.cl_error({
+                                    callSource: '20210617-2154', message: `hiddenFieldName not defined while updating [${args.keyColumn}] vm.CallSource [${vm.callSource}]`
+                                });
 
+                            }
                         }
 
                         isHandled = true;
